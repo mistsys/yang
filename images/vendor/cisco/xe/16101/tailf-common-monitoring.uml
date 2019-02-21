@@ -1,0 +1,301 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/tailf-common-monitoring.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title tailf-common-monitoring 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+note top of tfcg_tailf_common_monitoring : <b>Namespace: </b> http://tail-f.com/yang/common-monitoring \n<b>Prefix: </b> tfcg \n<b>Organization : </b>\nTail-f Systems \n<b>Revision : </b> 2013-06-14 \n
+package "tfcg:tailf-common-monitoring" as tfcg_tailf_common_monitoring { 
+inet_ietf_inet_types +-- tfcg_tailf_common_monitoring
+class "tailf-common-monitoring" as tailf_common_monitoring << (M, #33CCFF) module>> 
+class "ha-node-id" as ha_node_id << (T, YellowGreen) typedef>>
+ha_node_id : string
+class "size-in-bytes" as size_in_bytes << (T, YellowGreen) typedef>>
+size_in_bytes : uint64
+class "callpoint-entry" as tailf_common_monitoring_I_callpoint_entry_grouping <<(G,Lime) grouping>> 
+tailf_common_monitoring_I_callpoint_entry_grouping : id : string  
+tailf_common_monitoring_I_callpoint_entry_grouping : registration-info {uses} 
+class "registration-info" as tailf_common_monitoring_I_registration_info_grouping <<(G,Lime) grouping>> 
+class "daemon-info" as tailf_common_monitoring_I_registration_info_I_daemon_info_grouping <<(G,Red) grouping>> 
+tailf_common_monitoring_I_registration_info_I_daemon_info_grouping : id : uint32  
+tailf_common_monitoring_I_registration_info_I_daemon_info_grouping : name : string  
+tailf_common_monitoring_I_registration_info_I_daemon_info_grouping : error : enumeration : {PENDING,}  
+class "registration-type" as tailf_common_monitoring_I_registration_info_I_registration_type <<choice>> 
+tailf_common_monitoring_I_registration_info_grouping .. tailf_common_monitoring_I_registration_info_I_registration_type : choice 
+class "daemon" as tailf_common_monitoring_I_registration_info_I_registration_type_I_daemon_case <<case>>
+tailf_common_monitoring_I_registration_info_I_registration_type .. tailf_common_monitoring_I_registration_info_I_registration_type_I_daemon_case  : choice registration-type
+class "daemon" as  tailf_common_monitoring_I_registration_info_I_registration_type_I_daemon_I_daemon <<container>> 
+tailf_common_monitoring_I_registration_info_I_registration_type_I_daemon_case *-- "1" tailf_common_monitoring_I_registration_info_I_registration_type_I_daemon_I_daemon 
+tailf_common_monitoring_I_registration_info_I_registration_type_I_daemon_I_daemon : daemon-info {uses} 
+class "range" as tailf_common_monitoring_I_registration_info_I_registration_type_I_range_case <<case>>
+tailf_common_monitoring_I_registration_info_I_registration_type .. tailf_common_monitoring_I_registration_info_I_registration_type_I_range_case  : choice registration-type
+tailf_common_monitoring_I_registration_info_I_registration_type_I_range_case : path : string  
+class "range" as tailf_common_monitoring_I_registration_info_I_registration_type_I_range_I_range << (L, #FF7700) list>> 
+tailf_common_monitoring_I_registration_info_I_registration_type_I_range_case *-- "0..N" tailf_common_monitoring_I_registration_info_I_registration_type_I_range_I_range 
+tailf_common_monitoring_I_registration_info_I_registration_type_I_range_I_range : lower : string  
+tailf_common_monitoring_I_registration_info_I_registration_type_I_range_I_range : upper : string  
+tailf_common_monitoring_I_registration_info_I_registration_type_I_range_I_range : default : empty  
+class "daemon" as  tailf_common_monitoring_I_registration_info_I_registration_type_I_range_I_range_I_daemon <<container>> 
+tailf_common_monitoring_I_registration_info_I_registration_type_I_range_I_range *-- "1" tailf_common_monitoring_I_registration_info_I_registration_type_I_range_I_range_I_daemon 
+tailf_common_monitoring_I_registration_info_I_registration_type_I_range_I_range_I_daemon : daemon-info {uses} 
+class "file" as tailf_common_monitoring_I_registration_info_I_registration_type_I_file_case <<case>>
+tailf_common_monitoring_I_registration_info_I_registration_type .. tailf_common_monitoring_I_registration_info_I_registration_type_I_file_case  : choice registration-type
+tailf_common_monitoring_I_registration_info_I_registration_type_I_file_case : file : string  
+tailf_common_monitoring_I_registration_info_grouping : error : enumeration : {NOT-REGISTERED,UNKNOWN,}  
+class "common-monitoring-objects" as tailf_common_monitoring_I_common_monitoring_objects_grouping <<(G,Lime) grouping>> 
+class "ip-port" as tailf_common_monitoring_I_common_monitoring_objects_I_ip_port_grouping <<(G,Red) grouping>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_ip_port_grouping : ip : inet:ip-address  
+tailf_common_monitoring_I_common_monitoring_objects_I_ip_port_grouping : port : inet:port-number  
+tailf_common_monitoring_I_common_monitoring_objects_grouping : version : string  
+class "smp" as  tailf_common_monitoring_I_common_monitoring_objects_I_smp <<container>> 
+tailf_common_monitoring_I_common_monitoring_objects_grouping *-- "0..1" tailf_common_monitoring_I_common_monitoring_objects_I_smp 
+note bottom of tailf_common_monitoring_I_common_monitoring_objects_I_smp
+<b>Presence: </b>Indicates that symmetric multiprocessing is used
+end note 
+tailf_common_monitoring_I_common_monitoring_objects_I_smp : number-of-threads : uint16  
+tailf_common_monitoring_I_common_monitoring_objects_grouping : epoll : boolean  
+tailf_common_monitoring_I_common_monitoring_objects_grouping : daemon-status : enumeration : {starting,phase0,phase1,...}  
+tailf_common_monitoring_I_common_monitoring_objects_grouping : read-only-mode : empty  
+tailf_common_monitoring_I_common_monitoring_objects_grouping : upgrade-mode : empty  
+class "ha" as  tailf_common_monitoring_I_common_monitoring_objects_I_ha <<container>> 
+tailf_common_monitoring_I_common_monitoring_objects_grouping *-- "0..1" tailf_common_monitoring_I_common_monitoring_objects_I_ha 
+note bottom of tailf_common_monitoring_I_common_monitoring_objects_I_ha
+<b>Presence: </b>The daemon is running in a High Availability (HA) cluster.
+end note 
+tailf_common_monitoring_I_common_monitoring_objects_I_ha : mode : enumeration : {none,slave,master,...}  
+tailf_common_monitoring_I_common_monitoring_objects_I_ha : node-id : ha-node-id  
+note bottom of tailf_common_monitoring_I_common_monitoring_objects_I_ha
+<b>When</b> (node-id):
+../mode != 'none'
+
+end note 
+tailf_common_monitoring_I_common_monitoring_objects_I_ha : master-node-id : string  
+note bottom of tailf_common_monitoring_I_common_monitoring_objects_I_ha
+<b>When</b> (master-node-id):
+../mode = 'slave' or ../mode = 'relay-slave'
+
+end note 
+tailf_common_monitoring_I_common_monitoring_objects_I_ha : connected-slave []: string 
+note bottom of tailf_common_monitoring_I_common_monitoring_objects_I_ha
+<b>When</b> (connected-slave):
+../mode = 'master' or ../mode = 'relay-slave'
+
+end note 
+tailf_common_monitoring_I_common_monitoring_objects_I_ha : pending-slave []: string 
+note bottom of tailf_common_monitoring_I_common_monitoring_objects_I_ha
+<b>When</b> (pending-slave):
+../mode = 'master' or ../mode = 'relay-slave'
+
+end note 
+class "loaded-data-models" as  tailf_common_monitoring_I_common_monitoring_objects_I_loaded_data_models <<container>> 
+tailf_common_monitoring_I_common_monitoring_objects_grouping *-- "1" tailf_common_monitoring_I_common_monitoring_objects_I_loaded_data_models 
+class "data-model" as tailf_common_monitoring_I_common_monitoring_objects_I_loaded_data_models_I_data_model << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_loaded_data_models *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_loaded_data_models_I_data_model 
+tailf_common_monitoring_I_common_monitoring_objects_I_loaded_data_models_I_data_model : +name : string  {key} 
+tailf_common_monitoring_I_common_monitoring_objects_I_loaded_data_models_I_data_model : revision : string  
+tailf_common_monitoring_I_common_monitoring_objects_I_loaded_data_models_I_data_model : namespace : inet:uri  
+tailf_common_monitoring_I_common_monitoring_objects_I_loaded_data_models_I_data_model : prefix : string  
+class "exported" as tailf_common_monitoring_I_common_monitoring_objects_I_loaded_data_models_I_data_model_I_exported <<choice>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_loaded_data_models_I_data_model .. tailf_common_monitoring_I_common_monitoring_objects_I_loaded_data_models_I_data_model_I_exported : choice 
+class "exported-to-all" as tailf_common_monitoring_I_common_monitoring_objects_I_loaded_data_models_I_data_model_I_exported_I_exported_to_all_case <<case>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_loaded_data_models_I_data_model_I_exported .. tailf_common_monitoring_I_common_monitoring_objects_I_loaded_data_models_I_data_model_I_exported_I_exported_to_all_case : choice exported
+tailf_common_monitoring_I_common_monitoring_objects_I_loaded_data_models_I_data_model_I_exported_I_exported_to_all_case : exported-to-all : empty  
+class "exported-to" as tailf_common_monitoring_I_common_monitoring_objects_I_loaded_data_models_I_data_model_I_exported_I_exported_to_case <<case>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_loaded_data_models_I_data_model_I_exported .. tailf_common_monitoring_I_common_monitoring_objects_I_loaded_data_models_I_data_model_I_exported_I_exported_to_case : choice exported
+tailf_common_monitoring_I_common_monitoring_objects_I_loaded_data_models_I_data_model_I_exported_I_exported_to_case : exported-to []: union{enumeration, string} 
+class "netconf" as  tailf_common_monitoring_I_common_monitoring_objects_I_netconf <<container>> 
+tailf_common_monitoring_I_common_monitoring_objects_grouping *-- "0..1" tailf_common_monitoring_I_common_monitoring_objects_I_netconf 
+note bottom of tailf_common_monitoring_I_common_monitoring_objects_I_netconf
+<b>Presence: </b>Indicates that the NETCONF server is running.
+end note 
+class "listen" as  tailf_common_monitoring_I_common_monitoring_objects_I_netconf_I_listen <<container>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_netconf *-- "1" tailf_common_monitoring_I_common_monitoring_objects_I_netconf_I_listen 
+class "tcp" as tailf_common_monitoring_I_common_monitoring_objects_I_netconf_I_listen_I_tcp << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_netconf_I_listen *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_netconf_I_listen_I_tcp 
+tailf_common_monitoring_I_common_monitoring_objects_I_netconf_I_listen_I_tcp : ip-port {uses} 
+class "ssh" as tailf_common_monitoring_I_common_monitoring_objects_I_netconf_I_listen_I_ssh << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_netconf_I_listen *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_netconf_I_listen_I_ssh 
+tailf_common_monitoring_I_common_monitoring_objects_I_netconf_I_listen_I_ssh : ip-port {uses} 
+class "cli" as  tailf_common_monitoring_I_common_monitoring_objects_I_cli <<container>> 
+tailf_common_monitoring_I_common_monitoring_objects_grouping *-- "0..1" tailf_common_monitoring_I_common_monitoring_objects_I_cli 
+note bottom of tailf_common_monitoring_I_common_monitoring_objects_I_cli
+<b>Presence: </b>Indicates that the CLI server is running.
+end note 
+class "listen" as  tailf_common_monitoring_I_common_monitoring_objects_I_cli_I_listen <<container>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_cli *-- "1" tailf_common_monitoring_I_common_monitoring_objects_I_cli_I_listen 
+class "ssh" as tailf_common_monitoring_I_common_monitoring_objects_I_cli_I_listen_I_ssh << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_cli_I_listen *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_cli_I_listen_I_ssh 
+tailf_common_monitoring_I_common_monitoring_objects_I_cli_I_listen_I_ssh : ip-port {uses} 
+class "webui" as  tailf_common_monitoring_I_common_monitoring_objects_I_webui <<container>> 
+tailf_common_monitoring_I_common_monitoring_objects_grouping *-- "0..1" tailf_common_monitoring_I_common_monitoring_objects_I_webui 
+note bottom of tailf_common_monitoring_I_common_monitoring_objects_I_webui
+<b>Presence: </b>Indicates that the WebUI server is running.
+end note 
+class "listen" as  tailf_common_monitoring_I_common_monitoring_objects_I_webui_I_listen <<container>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_webui *-- "1" tailf_common_monitoring_I_common_monitoring_objects_I_webui_I_listen 
+class "tcp" as tailf_common_monitoring_I_common_monitoring_objects_I_webui_I_listen_I_tcp << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_webui_I_listen *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_webui_I_listen_I_tcp 
+tailf_common_monitoring_I_common_monitoring_objects_I_webui_I_listen_I_tcp : ip-port {uses} 
+class "ssl" as tailf_common_monitoring_I_common_monitoring_objects_I_webui_I_listen_I_ssl << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_webui_I_listen *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_webui_I_listen_I_ssl 
+tailf_common_monitoring_I_common_monitoring_objects_I_webui_I_listen_I_ssl : ip-port {uses} 
+class "rest" as  tailf_common_monitoring_I_common_monitoring_objects_I_rest <<container>> 
+tailf_common_monitoring_I_common_monitoring_objects_grouping *-- "0..1" tailf_common_monitoring_I_common_monitoring_objects_I_rest 
+note bottom of tailf_common_monitoring_I_common_monitoring_objects_I_rest
+<b>Presence: </b>Indicates that the REST server is running.
+end note 
+class "listen" as  tailf_common_monitoring_I_common_monitoring_objects_I_rest_I_listen <<container>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_rest *-- "1" tailf_common_monitoring_I_common_monitoring_objects_I_rest_I_listen 
+class "tcp" as tailf_common_monitoring_I_common_monitoring_objects_I_rest_I_listen_I_tcp << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_rest_I_listen *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_rest_I_listen_I_tcp 
+tailf_common_monitoring_I_common_monitoring_objects_I_rest_I_listen_I_tcp : ip-port {uses} 
+class "ssl" as tailf_common_monitoring_I_common_monitoring_objects_I_rest_I_listen_I_ssl << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_rest_I_listen *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_rest_I_listen_I_ssl 
+tailf_common_monitoring_I_common_monitoring_objects_I_rest_I_listen_I_ssl : ip-port {uses} 
+class "snmp" as  tailf_common_monitoring_I_common_monitoring_objects_I_snmp <<container>> 
+tailf_common_monitoring_I_common_monitoring_objects_grouping *-- "0..1" tailf_common_monitoring_I_common_monitoring_objects_I_snmp 
+note bottom of tailf_common_monitoring_I_common_monitoring_objects_I_snmp
+<b>Presence: </b>Indicates that the SNMP agent is running.
+end note 
+class "listen" as  tailf_common_monitoring_I_common_monitoring_objects_I_snmp_I_listen <<container>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_snmp *-- "1" tailf_common_monitoring_I_common_monitoring_objects_I_snmp_I_listen 
+class "udp" as tailf_common_monitoring_I_common_monitoring_objects_I_snmp_I_listen_I_udp << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_snmp_I_listen *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_snmp_I_listen_I_udp 
+tailf_common_monitoring_I_common_monitoring_objects_I_snmp_I_listen_I_udp : ip-port {uses} 
+tailf_common_monitoring_I_common_monitoring_objects_I_snmp : mib []: string 
+class "version" as  tailf_common_monitoring_I_common_monitoring_objects_I_snmp_I_version <<container>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_snmp *-- "1" tailf_common_monitoring_I_common_monitoring_objects_I_snmp_I_version 
+tailf_common_monitoring_I_common_monitoring_objects_I_snmp_I_version : v1 : empty  
+tailf_common_monitoring_I_common_monitoring_objects_I_snmp_I_version : v2c : empty  
+tailf_common_monitoring_I_common_monitoring_objects_I_snmp_I_version : v3 : empty  
+tailf_common_monitoring_I_common_monitoring_objects_I_snmp : engine-id : string {pattern = ([0-9a-fA-F]){2}(:([...}  
+class "internal" as  tailf_common_monitoring_I_common_monitoring_objects_I_internal <<container>> 
+tailf_common_monitoring_I_common_monitoring_objects_grouping *-- "1" tailf_common_monitoring_I_common_monitoring_objects_I_internal 
+class "callpoints" as  tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints <<container>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal *-- "1" tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints 
+class "callpoint" as tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_callpoint << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_callpoint 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_callpoint : callpoint-entry {uses} 
+class "validationpoint" as tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_validationpoint << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_validationpoint 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_validationpoint : callpoint-entry {uses} 
+class "actionpoint" as tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_actionpoint << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_actionpoint 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_actionpoint : callpoint-entry {uses} 
+class "snmp-inform-callback" as tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_snmp_inform_callback << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_snmp_inform_callback 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_snmp_inform_callback : callpoint-entry {uses} 
+class "snmp-notification-subscription" as tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_snmp_notification_subscription << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_snmp_notification_subscription 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_snmp_notification_subscription : callpoint-entry {uses} 
+class "error-formatting-callback" as tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_error_formatting_callback << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_error_formatting_callback 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_error_formatting_callback : callpoint-entry {uses} 
+class "typepoint" as tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_typepoint << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_typepoint 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_typepoint : callpoint-entry {uses} 
+class "notification-stream-replay" as tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_notification_stream_replay << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_notification_stream_replay 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_notification_stream_replay : +name : string  {key} 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_notification_stream_replay : replay-support : enumeration : {none,builtin,external,}  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_notification_stream_replay : registration-info {uses} 
+class "authentication-callback" as  tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_authentication_callback <<container>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints *-- "0..1" tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_authentication_callback 
+note bottom of tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_authentication_callback
+<b>Presence: </b>Indicates that the authentication callback
+is enabled or registered
+end note 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_authentication_callback : enabled : boolean  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_authentication_callback : registration-info {uses} 
+class "authorization-callbacks" as  tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_authorization_callbacks <<container>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints *-- "0..1" tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_authorization_callbacks 
+note bottom of tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_authorization_callbacks
+<b>Presence: </b>Indicates that the authorization callbacks
+are enabled or registered
+end note 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_authorization_callbacks : enabled : boolean  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_authorization_callbacks : registration-info {uses} 
+class "cdb" as  tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb <<container>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal *-- "1" tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb 
+class "datastore" as tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore : +name : datastore-name  {key} 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore : transaction-id : string  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore : write-queue : uint32  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore : filename : string  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore : disk-size : size-in-bytes  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore : ram-size : size-in-bytes  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore : read-locks : uint32  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore : write-lock-set : boolean  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore : subscription-lock-set : boolean  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore : waiting-for-replication-sync : boolean  
+class "pending-subscription-sync" as  tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore_I_pending_subscription_sync <<container>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore *-- "0..1" tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore_I_pending_subscription_sync 
+note bottom of tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore_I_pending_subscription_sync
+<b>Presence: </b>waiting for subscription sync
+end note 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore_I_pending_subscription_sync : priority : subscription-priority  
+class "notification" as tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore_I_pending_subscription_sync_I_notification << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore_I_pending_subscription_sync *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore_I_pending_subscription_sync_I_notification 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore_I_pending_subscription_sync_I_notification : client-name : string  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore_I_pending_subscription_sync_I_notification : subscription-ids []: subscription-id 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore_I_pending_subscription_sync : time-remaining : union{uint64, enumeration}  
+class "pending-notification-queue" as tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore_I_pending_notification_queue << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore_I_pending_notification_queue 
+class "notification" as tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore_I_pending_notification_queue_I_notification << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore_I_pending_notification_queue *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore_I_pending_notification_queue_I_notification 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore_I_pending_notification_queue_I_notification : priority : subscription-priority  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore_I_pending_notification_queue_I_notification : client-name : string  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_datastore_I_pending_notification_queue_I_notification : subscription-ids []: subscription-id 
+class "client" as tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_client << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_client 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_client : +name : string  {key} 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_client : info : string  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_client : type : enumeration : {inactive,client,subscriber,...}  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_client : datastore : union{datastore-name, enumeration}  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_client : lock : enumeration : {read,subscription,pending-read,...}  
+class "subscription" as tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_client_I_subscription << (L, #FF7700) list>> 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_client *-- "0..N" tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_client_I_subscription 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_client_I_subscription : datastore : datastore-name  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_client_I_subscription : twophase : empty  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_client_I_subscription : priority : subscription-priority  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_client_I_subscription : id : subscription-id  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_client_I_subscription : path : string  
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_cdb_I_client_I_subscription : error : enumeration : {PENDING,}  
+} 
+
+tailf_common_monitoring_I_callpoint_entry_grouping --> tailf_common_monitoring_I_registration_info_grouping : uses 
+tailf_common_monitoring_I_registration_info_I_registration_type_I_daemon_I_daemon --> tailf_common_monitoring_I_registration_info_I_daemon_info_grouping : uses 
+tailf_common_monitoring_I_registration_info_I_registration_type_I_range_I_range_I_daemon --> tailf_common_monitoring_I_registration_info_I_daemon_info_grouping : uses 
+tailf_common_monitoring_I_common_monitoring_objects_I_netconf_I_listen_I_tcp --> tailf_common_monitoring_I_common_monitoring_objects_I_ip_port_grouping : uses 
+tailf_common_monitoring_I_common_monitoring_objects_I_netconf_I_listen_I_ssh --> tailf_common_monitoring_I_common_monitoring_objects_I_ip_port_grouping : uses 
+tailf_common_monitoring_I_common_monitoring_objects_I_cli_I_listen_I_ssh --> tailf_common_monitoring_I_common_monitoring_objects_I_ip_port_grouping : uses 
+tailf_common_monitoring_I_common_monitoring_objects_I_webui_I_listen_I_tcp --> tailf_common_monitoring_I_common_monitoring_objects_I_ip_port_grouping : uses 
+tailf_common_monitoring_I_common_monitoring_objects_I_webui_I_listen_I_ssl --> tailf_common_monitoring_I_common_monitoring_objects_I_ip_port_grouping : uses 
+tailf_common_monitoring_I_common_monitoring_objects_I_rest_I_listen_I_tcp --> tailf_common_monitoring_I_common_monitoring_objects_I_ip_port_grouping : uses 
+tailf_common_monitoring_I_common_monitoring_objects_I_rest_I_listen_I_ssl --> tailf_common_monitoring_I_common_monitoring_objects_I_ip_port_grouping : uses 
+tailf_common_monitoring_I_common_monitoring_objects_I_snmp_I_listen_I_udp --> tailf_common_monitoring_I_common_monitoring_objects_I_ip_port_grouping : uses 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_callpoint --> tailf_common_monitoring_I_callpoint_entry_grouping : uses 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_validationpoint --> tailf_common_monitoring_I_callpoint_entry_grouping : uses 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_actionpoint --> tailf_common_monitoring_I_callpoint_entry_grouping : uses 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_snmp_inform_callback --> tailf_common_monitoring_I_callpoint_entry_grouping : uses 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_snmp_notification_subscription --> tailf_common_monitoring_I_callpoint_entry_grouping : uses 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_error_formatting_callback --> tailf_common_monitoring_I_callpoint_entry_grouping : uses 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_typepoint --> tailf_common_monitoring_I_callpoint_entry_grouping : uses 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_notification_stream_replay --> tailf_common_monitoring_I_registration_info_grouping : uses 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_authentication_callback --> tailf_common_monitoring_I_registration_info_grouping : uses 
+tailf_common_monitoring_I_common_monitoring_objects_I_internal_I_callpoints_I_authorization_callbacks --> tailf_common_monitoring_I_registration_info_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:44 </size>
+ endfooter 
+@enduml 

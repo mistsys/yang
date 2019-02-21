@@ -1,0 +1,202 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-interfaces.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-interfaces 
+package "ietf-if:ietf-interfaces" as ietf_if_ietf_interfaces { 
+} 
+package "oc-yang:openconfig-yang-types" as oc_yang_openconfig_yang_types { 
+} 
+package "oc-types:openconfig-types" as oc_types_openconfig_types { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+note top of oc_if_openconfig_interfaces : <b>Namespace: </b> http://openconfig.net/yang/interfaces \n<b>Prefix: </b> oc-if \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nnetopenconfig@googlegroups.com \n<b>Revision : </b> 2018-01-05 \n
+package "oc-if:openconfig-interfaces" as oc_if_openconfig_interfaces { 
+ietf_if_ietf_interfaces +-- oc_if_openconfig_interfaces
+oc_yang_openconfig_yang_types +-- oc_if_openconfig_interfaces
+oc_types_openconfig_types +-- oc_if_openconfig_interfaces
+oc_ext_openconfig_extensions +-- oc_if_openconfig_interfaces
+class "openconfig-interfaces" as openconfig_interfaces << (M, #33CCFF) module>> 
+class "base-interface-ref" as base_interface_ref << (T, YellowGreen) typedef>>
+base_interface_ref : leafref : /oc-if:interfaces/oc-if:interface/oc-if:name
+class "interface-id" as interface_id << (T, YellowGreen) typedef>>
+interface_id : string
+class "interface-ref-common" as openconfig_interfaces_I_interface_ref_common_grouping <<(G,Lime) grouping>> 
+openconfig_interfaces_I_interface_ref_common_grouping : interface : leafref : /oc-if:interfaces/oc-if:interface/oc-if:name  
+openconfig_interfaces_I_interface_ref_common_grouping : subinterface : leafref : /oc-if:interfaces/oc-if:interface[oc-if:name=current{}/../interface]/oc-if:subinterfaces/oc-if:subinterface/oc-if:index  
+class "interface-ref-state-container" as openconfig_interfaces_I_interface_ref_state_container_grouping <<(G,Lime) grouping>> 
+class "state" as  openconfig_interfaces_I_interface_ref_state_container_I_state <<container>> 
+openconfig_interfaces_I_interface_ref_state_container_grouping *-- "1" openconfig_interfaces_I_interface_ref_state_container_I_state 
+note bottom of openconfig_interfaces_I_interface_ref_state_container_I_state
+<b>Config = </b>false
+end note 
+openconfig_interfaces_I_interface_ref_state_container_I_state : interface-ref-common {uses} 
+class "interface-ref" as openconfig_interfaces_I_interface_ref_grouping <<(G,Lime) grouping>> 
+class "interface-ref" as  openconfig_interfaces_I_interface_ref_I_interface_ref <<container>> 
+openconfig_interfaces_I_interface_ref_grouping *-- "1" openconfig_interfaces_I_interface_ref_I_interface_ref 
+class "config" as  openconfig_interfaces_I_interface_ref_I_interface_ref_I_config <<container>> 
+openconfig_interfaces_I_interface_ref_I_interface_ref *-- "1" openconfig_interfaces_I_interface_ref_I_interface_ref_I_config 
+openconfig_interfaces_I_interface_ref_I_interface_ref_I_config : interface-ref-common {uses} 
+openconfig_interfaces_I_interface_ref_I_interface_ref : interface-ref-state-container {uses} 
+class "interface-ref-state" as openconfig_interfaces_I_interface_ref_state_grouping <<(G,Lime) grouping>> 
+class "interface-ref" as  openconfig_interfaces_I_interface_ref_state_I_interface_ref <<container>> 
+openconfig_interfaces_I_interface_ref_state_grouping *-- "1" openconfig_interfaces_I_interface_ref_state_I_interface_ref 
+openconfig_interfaces_I_interface_ref_state_I_interface_ref : interface-ref-state-container {uses} 
+class "base-interface-ref-state" as openconfig_interfaces_I_base_interface_ref_state_grouping <<(G,Lime) grouping>> 
+class "state" as  openconfig_interfaces_I_base_interface_ref_state_I_state <<container>> 
+openconfig_interfaces_I_base_interface_ref_state_grouping *-- "1" openconfig_interfaces_I_base_interface_ref_state_I_state 
+note bottom of openconfig_interfaces_I_base_interface_ref_state_I_state
+<b>Config = </b>false
+end note 
+openconfig_interfaces_I_base_interface_ref_state_I_state : interface : base-interface-ref  
+class "interface-common-config" as openconfig_interfaces_I_interface_common_config_grouping <<(G,Lime) grouping>> 
+openconfig_interfaces_I_interface_common_config_grouping : description : string  
+openconfig_interfaces_I_interface_common_config_grouping : enabled : boolean   = true 
+class "interface-phys-config" as openconfig_interfaces_I_interface_phys_config_grouping <<(G,Lime) grouping>> 
+openconfig_interfaces_I_interface_phys_config_grouping : name : string  
+openconfig_interfaces_I_interface_phys_config_grouping : type : identityref {ietf-if:interface-type}   {mandatory}
+openconfig_interfaces_I_interface_phys_config_grouping : mtu : uint16  
+openconfig_interfaces_I_interface_phys_config_grouping : loopback-mode : boolean   = false 
+openconfig_interfaces_I_interface_phys_config_grouping : interface-common-config {uses} 
+class "interface-phys-holdtime-config" as openconfig_interfaces_I_interface_phys_holdtime_config_grouping <<(G,Lime) grouping>> 
+openconfig_interfaces_I_interface_phys_holdtime_config_grouping : up : uint32   = 0  {milliseconds}
+openconfig_interfaces_I_interface_phys_holdtime_config_grouping : down : uint32   = 0  {milliseconds}
+class "interface-phys-holdtime-state" as openconfig_interfaces_I_interface_phys_holdtime_state_grouping <<(G,Lime) grouping>> 
+class "interface-phys-holdtime-top" as openconfig_interfaces_I_interface_phys_holdtime_top_grouping <<(G,Lime) grouping>> 
+class "hold-time" as  openconfig_interfaces_I_interface_phys_holdtime_top_I_hold_time <<container>> 
+openconfig_interfaces_I_interface_phys_holdtime_top_grouping *-- "1" openconfig_interfaces_I_interface_phys_holdtime_top_I_hold_time 
+class "config" as  openconfig_interfaces_I_interface_phys_holdtime_top_I_hold_time_I_config <<container>> 
+openconfig_interfaces_I_interface_phys_holdtime_top_I_hold_time *-- "1" openconfig_interfaces_I_interface_phys_holdtime_top_I_hold_time_I_config 
+openconfig_interfaces_I_interface_phys_holdtime_top_I_hold_time_I_config : interface-phys-holdtime-config {uses} 
+class "state" as  openconfig_interfaces_I_interface_phys_holdtime_top_I_hold_time_I_state <<container>> 
+openconfig_interfaces_I_interface_phys_holdtime_top_I_hold_time *-- "1" openconfig_interfaces_I_interface_phys_holdtime_top_I_hold_time_I_state 
+note bottom of openconfig_interfaces_I_interface_phys_holdtime_top_I_hold_time_I_state
+<b>Config = </b>false
+end note 
+openconfig_interfaces_I_interface_phys_holdtime_top_I_hold_time_I_state : interface-phys-holdtime-config {uses} 
+openconfig_interfaces_I_interface_phys_holdtime_top_I_hold_time_I_state : interface-phys-holdtime-state {uses} 
+class "interface-common-state" as openconfig_interfaces_I_interface_common_state_grouping <<(G,Lime) grouping>> 
+openconfig_interfaces_I_interface_common_state_grouping : ifindex : uint32  
+openconfig_interfaces_I_interface_common_state_grouping : admin-status : enumeration : {UP,DOWN,TESTING,}   {mandatory}
+openconfig_interfaces_I_interface_common_state_grouping : oper-status : enumeration : {UP,DOWN,TESTING,...}   {mandatory}
+openconfig_interfaces_I_interface_common_state_grouping : last-change : oc-types:timeticks64   {nanoseconds}
+class "interface-counters-state" as openconfig_interfaces_I_interface_counters_state_grouping <<(G,Lime) grouping>> 
+class "counters" as  openconfig_interfaces_I_interface_counters_state_I_counters <<container>> 
+openconfig_interfaces_I_interface_counters_state_grouping *-- "1" openconfig_interfaces_I_interface_counters_state_I_counters 
+openconfig_interfaces_I_interface_counters_state_I_counters : in-octets : oc-yang:counter64  
+openconfig_interfaces_I_interface_counters_state_I_counters : in-unicast-pkts : oc-yang:counter64  
+openconfig_interfaces_I_interface_counters_state_I_counters : in-broadcast-pkts : oc-yang:counter64  
+openconfig_interfaces_I_interface_counters_state_I_counters : in-multicast-pkts : oc-yang:counter64  
+openconfig_interfaces_I_interface_counters_state_I_counters : in-discards : oc-yang:counter64  
+openconfig_interfaces_I_interface_counters_state_I_counters : in-errors : oc-yang:counter64  
+openconfig_interfaces_I_interface_counters_state_I_counters : in-unknown-protos : oc-yang:counter64  
+openconfig_interfaces_I_interface_counters_state_I_counters : in-fcs-errors : oc-yang:counter64  
+openconfig_interfaces_I_interface_counters_state_I_counters : out-octets : oc-yang:counter64  
+openconfig_interfaces_I_interface_counters_state_I_counters : out-unicast-pkts : oc-yang:counter64  
+openconfig_interfaces_I_interface_counters_state_I_counters : out-broadcast-pkts : oc-yang:counter64  
+openconfig_interfaces_I_interface_counters_state_I_counters : out-multicast-pkts : oc-yang:counter64  
+openconfig_interfaces_I_interface_counters_state_I_counters : out-discards : oc-yang:counter64  
+openconfig_interfaces_I_interface_counters_state_I_counters : out-errors : oc-yang:counter64  
+openconfig_interfaces_I_interface_counters_state_I_counters : carrier-transitions : oc-yang:counter64  
+openconfig_interfaces_I_interface_counters_state_I_counters : last-clear : oc-types:timeticks64   {nanoseconds}
+class "sub-unnumbered-config" as openconfig_interfaces_I_sub_unnumbered_config_grouping <<(G,Lime) grouping>> 
+openconfig_interfaces_I_sub_unnumbered_config_grouping : enabled : boolean   = false 
+class "sub-unnumbered-state" as openconfig_interfaces_I_sub_unnumbered_state_grouping <<(G,Lime) grouping>> 
+class "sub-unnumbered-top" as openconfig_interfaces_I_sub_unnumbered_top_grouping <<(G,Lime) grouping>> 
+class "unnumbered" as  openconfig_interfaces_I_sub_unnumbered_top_I_unnumbered <<container>> 
+openconfig_interfaces_I_sub_unnumbered_top_grouping *-- "1" openconfig_interfaces_I_sub_unnumbered_top_I_unnumbered 
+class "config" as  openconfig_interfaces_I_sub_unnumbered_top_I_unnumbered_I_config <<container>> 
+openconfig_interfaces_I_sub_unnumbered_top_I_unnumbered *-- "1" openconfig_interfaces_I_sub_unnumbered_top_I_unnumbered_I_config 
+openconfig_interfaces_I_sub_unnumbered_top_I_unnumbered_I_config : sub-unnumbered-config {uses} 
+class "state" as  openconfig_interfaces_I_sub_unnumbered_top_I_unnumbered_I_state <<container>> 
+openconfig_interfaces_I_sub_unnumbered_top_I_unnumbered *-- "1" openconfig_interfaces_I_sub_unnumbered_top_I_unnumbered_I_state 
+note bottom of openconfig_interfaces_I_sub_unnumbered_top_I_unnumbered_I_state
+<b>Config = </b>false
+end note 
+openconfig_interfaces_I_sub_unnumbered_top_I_unnumbered_I_state : sub-unnumbered-config {uses} 
+openconfig_interfaces_I_sub_unnumbered_top_I_unnumbered_I_state : sub-unnumbered-state {uses} 
+openconfig_interfaces_I_sub_unnumbered_top_I_unnumbered : oc-if:interface-ref {uses} 
+class "subinterfaces-config" as openconfig_interfaces_I_subinterfaces_config_grouping <<(G,Lime) grouping>> 
+openconfig_interfaces_I_subinterfaces_config_grouping : index : uint32   = 0 
+openconfig_interfaces_I_subinterfaces_config_grouping : interface-common-config {uses} 
+class "subinterfaces-state" as openconfig_interfaces_I_subinterfaces_state_grouping <<(G,Lime) grouping>> 
+openconfig_interfaces_I_subinterfaces_state_grouping : name : string  
+openconfig_interfaces_I_subinterfaces_state_grouping : interface-common-state {uses} 
+openconfig_interfaces_I_subinterfaces_state_grouping : interface-counters-state {uses} 
+class "subinterfaces-top" as openconfig_interfaces_I_subinterfaces_top_grouping <<(G,Lime) grouping>> 
+class "subinterfaces" as  openconfig_interfaces_I_subinterfaces_top_I_subinterfaces <<container>> 
+openconfig_interfaces_I_subinterfaces_top_grouping *-- "1" openconfig_interfaces_I_subinterfaces_top_I_subinterfaces 
+class "subinterface" as openconfig_interfaces_I_subinterfaces_top_I_subinterfaces_I_subinterface << (L, #FF7700) list>> 
+openconfig_interfaces_I_subinterfaces_top_I_subinterfaces *-- "0..N" openconfig_interfaces_I_subinterfaces_top_I_subinterfaces_I_subinterface 
+openconfig_interfaces_I_subinterfaces_top_I_subinterfaces_I_subinterface : +index : leafref : ../config/index  {key} 
+class "config" as  openconfig_interfaces_I_subinterfaces_top_I_subinterfaces_I_subinterface_I_config <<container>> 
+openconfig_interfaces_I_subinterfaces_top_I_subinterfaces_I_subinterface *-- "1" openconfig_interfaces_I_subinterfaces_top_I_subinterfaces_I_subinterface_I_config 
+openconfig_interfaces_I_subinterfaces_top_I_subinterfaces_I_subinterface_I_config : subinterfaces-config {uses} 
+class "state" as  openconfig_interfaces_I_subinterfaces_top_I_subinterfaces_I_subinterface_I_state <<container>> 
+openconfig_interfaces_I_subinterfaces_top_I_subinterfaces_I_subinterface *-- "1" openconfig_interfaces_I_subinterfaces_top_I_subinterfaces_I_subinterface_I_state 
+note bottom of openconfig_interfaces_I_subinterfaces_top_I_subinterfaces_I_subinterface_I_state
+<b>Config = </b>false
+end note 
+openconfig_interfaces_I_subinterfaces_top_I_subinterfaces_I_subinterface_I_state : subinterfaces-config {uses} 
+openconfig_interfaces_I_subinterfaces_top_I_subinterfaces_I_subinterface_I_state : subinterfaces-state {uses} 
+class "interfaces-top" as openconfig_interfaces_I_interfaces_top_grouping <<(G,Lime) grouping>> 
+class "interfaces" as  openconfig_interfaces_I_interfaces_top_I_interfaces <<container>> 
+openconfig_interfaces_I_interfaces_top_grouping *-- "1" openconfig_interfaces_I_interfaces_top_I_interfaces 
+class "interface" as openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface << (L, #FF7700) list>> 
+openconfig_interfaces_I_interfaces_top_I_interfaces *-- "0..N" openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface 
+openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface : +name : leafref : ../config/name  {key} 
+class "config" as  openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface_I_config <<container>> 
+openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface *-- "1" openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface_I_config 
+openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface_I_config : interface-phys-config {uses} 
+class "state" as  openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface_I_state <<container>> 
+openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface *-- "1" openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface_I_state 
+note bottom of openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface_I_state
+<b>Config = </b>false
+end note 
+openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface_I_state : interface-phys-config {uses} 
+openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface_I_state : interface-common-state {uses} 
+openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface_I_state : interface-counters-state {uses} 
+openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface : interface-phys-holdtime-top {uses} 
+openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface : subinterfaces-top {uses} 
+openconfig_interfaces_I_interface_phys_config_grouping-->ietf_if_interface_type: type
+} 
+
+openconfig_interfaces_I_interface_ref_state_container_I_state --> openconfig_interfaces_I_interface_ref_common_grouping : uses 
+openconfig_interfaces_I_interface_ref_I_interface_ref_I_config --> openconfig_interfaces_I_interface_ref_common_grouping : uses 
+openconfig_interfaces_I_interface_ref_I_interface_ref --> openconfig_interfaces_I_interface_ref_state_container_grouping : uses 
+openconfig_interfaces_I_interface_ref_state_I_interface_ref --> openconfig_interfaces_I_interface_ref_state_container_grouping : uses 
+openconfig_interfaces_I_interface_phys_config_grouping --> openconfig_interfaces_I_interface_common_config_grouping : uses 
+openconfig_interfaces_I_interface_phys_holdtime_top_I_hold_time_I_config --> openconfig_interfaces_I_interface_phys_holdtime_config_grouping : uses 
+openconfig_interfaces_I_interface_phys_holdtime_top_I_hold_time_I_state --> openconfig_interfaces_I_interface_phys_holdtime_config_grouping : uses 
+openconfig_interfaces_I_interface_phys_holdtime_top_I_hold_time_I_state --> openconfig_interfaces_I_interface_phys_holdtime_state_grouping : uses 
+openconfig_interfaces_I_sub_unnumbered_top_I_unnumbered_I_config --> openconfig_interfaces_I_sub_unnumbered_config_grouping : uses 
+openconfig_interfaces_I_sub_unnumbered_top_I_unnumbered_I_state --> openconfig_interfaces_I_sub_unnumbered_config_grouping : uses 
+openconfig_interfaces_I_sub_unnumbered_top_I_unnumbered_I_state --> openconfig_interfaces_I_sub_unnumbered_state_grouping : uses 
+openconfig_interfaces_I_sub_unnumbered_top_I_unnumbered --> openconfig_interfaces_I_interface_ref_grouping : uses 
+openconfig_interfaces_I_subinterfaces_config_grouping --> openconfig_interfaces_I_interface_common_config_grouping : uses 
+openconfig_interfaces_I_subinterfaces_state_grouping --> openconfig_interfaces_I_interface_common_state_grouping : uses 
+openconfig_interfaces_I_subinterfaces_state_grouping --> openconfig_interfaces_I_interface_counters_state_grouping : uses 
+openconfig_interfaces_I_subinterfaces_top_I_subinterfaces_I_subinterface_I_config --> openconfig_interfaces_I_subinterfaces_config_grouping : uses 
+openconfig_interfaces_I_subinterfaces_top_I_subinterfaces_I_subinterface_I_state --> openconfig_interfaces_I_subinterfaces_config_grouping : uses 
+openconfig_interfaces_I_subinterfaces_top_I_subinterfaces_I_subinterface_I_state --> openconfig_interfaces_I_subinterfaces_state_grouping : uses 
+openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface_I_config --> openconfig_interfaces_I_interface_phys_config_grouping : uses 
+openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface_I_state --> openconfig_interfaces_I_interface_phys_config_grouping : uses 
+openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface_I_state --> openconfig_interfaces_I_interface_common_state_grouping : uses 
+openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface_I_state --> openconfig_interfaces_I_interface_counters_state_grouping : uses 
+openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface --> openconfig_interfaces_I_interface_phys_holdtime_top_grouping : uses 
+openconfig_interfaces_I_interfaces_top_I_interfaces_I_interface --> openconfig_interfaces_I_subinterfaces_top_grouping : uses 
+base_interface_ref-->"oc-if:name"openconfig_interfaces_I_interfaces_I_interface: base-interface-ref
+center footer
+ <size:20> UML Generated : 2019-02-21 00:38 </size>
+ endfooter 
+@enduml 

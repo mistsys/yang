@@ -1,0 +1,56 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-procmon.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-procmon 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+package "oc-types:openconfig-types" as oc_types_openconfig_types { 
+} 
+note top of oc_proc_openconfig_procmon : <b>Namespace: </b> http://openconfig.net/yang/system/procmon \n<b>Prefix: </b> oc-proc \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nwww.openconfig.net \n<b>Revision : </b> 2017-09-18 \n
+package "oc-proc:openconfig-procmon" as oc_proc_openconfig_procmon { 
+oc_ext_openconfig_extensions +-- oc_proc_openconfig_procmon
+oc_types_openconfig_types +-- oc_proc_openconfig_procmon
+class "openconfig-procmon" as openconfig_procmon << (M, #33CCFF) module>> 
+class "procmon-processes-top" as openconfig_procmon_I_procmon_processes_top_grouping <<(G,Lime) grouping>> 
+class "processes" as  openconfig_procmon_I_procmon_processes_top_I_processes <<container>> 
+openconfig_procmon_I_procmon_processes_top_grouping *-- "1" openconfig_procmon_I_procmon_processes_top_I_processes 
+class "process" as openconfig_procmon_I_procmon_processes_top_I_processes_I_process << (L, #FF7700) list>> 
+openconfig_procmon_I_procmon_processes_top_I_processes *-- "0..N" openconfig_procmon_I_procmon_processes_top_I_processes_I_process 
+note bottom of openconfig_procmon_I_procmon_processes_top_I_processes_I_process
+<b>Config = </b>false
+end note 
+openconfig_procmon_I_procmon_processes_top_I_processes_I_process : +pid : leafref : ../state/pid  {key} 
+class "state" as  openconfig_procmon_I_procmon_processes_top_I_processes_I_process_I_state <<container>> 
+openconfig_procmon_I_procmon_processes_top_I_processes_I_process *-- "1" openconfig_procmon_I_procmon_processes_top_I_processes_I_process_I_state 
+note bottom of openconfig_procmon_I_procmon_processes_top_I_processes_I_process_I_state
+<b>Config = </b>false
+end note 
+openconfig_procmon_I_procmon_processes_top_I_processes_I_process_I_state : procmon-process-attributes-state {uses} 
+class "procmon-process-attributes-state" as openconfig_procmon_I_procmon_process_attributes_state_grouping <<(G,Lime) grouping>> 
+openconfig_procmon_I_procmon_process_attributes_state_grouping : +pid : uint64  {key} 
+openconfig_procmon_I_procmon_process_attributes_state_grouping : name : string  
+openconfig_procmon_I_procmon_process_attributes_state_grouping : args []: string 
+openconfig_procmon_I_procmon_process_attributes_state_grouping : start-time : uint64   {ns}
+openconfig_procmon_I_procmon_process_attributes_state_grouping : uptime : oc-types:timeticks64  
+openconfig_procmon_I_procmon_process_attributes_state_grouping : cpu-usage-user : oc-types:timeticks64  
+openconfig_procmon_I_procmon_process_attributes_state_grouping : cpu-usage-system : oc-types:timeticks64  
+openconfig_procmon_I_procmon_process_attributes_state_grouping : cpu-utilization : oc-types:percentage  
+openconfig_procmon_I_procmon_process_attributes_state_grouping : memory-usage : uint64   {bytes}
+openconfig_procmon_I_procmon_process_attributes_state_grouping : memory-utilization : oc-types:percentage  
+} 
+
+openconfig_procmon_I_procmon_processes_top_I_processes_I_process_I_state --> openconfig_procmon_I_procmon_process_attributes_state_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:06 </size>
+ endfooter 
+@enduml 

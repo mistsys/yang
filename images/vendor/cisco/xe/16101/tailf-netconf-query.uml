@@ -1,0 +1,34 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/tailf-netconf-query.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title tailf-netconf-query 
+package "tailf:tailf-common" as tailf_tailf_common { 
+} 
+package "tfcq:tailf-common-query" as tfcq_tailf_common_query { 
+} 
+note top of tfncq_tailf_netconf_query : <b>Namespace: </b> http://tail-f.com/ns/netconf/query \n<b>Prefix: </b> tfncq \n<b>Organization : </b>\nTail-f Systems \n<b>Revision : </b> 2017-01-06 \n
+package "tfncq:tailf-netconf-query" as tfncq_tailf_netconf_query { 
+tailf_tailf_common +-- tfncq_tailf_netconf_query
+tfcq_tailf_common_query +-- tfncq_tailf_netconf_query
+class "tailf-netconf-query" as tailf_netconf_query << (M, #33CCFF) module>> 
+tailf_netconf_query : start-query( in: tfcq_start_query_parameters out: tfcq_query_handle)
+tailf_netconf_query : fetch-query-result( in: tfcq_query_handle out: query_result)
+tailf_netconf_query : immediate-query( in: tfcq_start_query_parameters out: query_result)
+tailf_netconf_query : reset-query( in: tfcq_reset_query_parameters)
+tailf_netconf_query : stop-query( in: tfcq_query_handle)
+} 
+
+center footer
+ <size:20> UML Generated : 2019-02-21 00:37 </size>
+ endfooter 
+@enduml 

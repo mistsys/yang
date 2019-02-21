@@ -1,0 +1,274 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-spanning-tree.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-spanning-tree 
+package "oc-stp-types:openconfig-spanning-tree-types" as oc_stp_types_openconfig_spanning_tree_types { 
+} 
+package "oc-if:openconfig-interfaces" as oc_if_openconfig_interfaces { 
+} 
+package "oc-types:openconfig-types" as oc_types_openconfig_types { 
+} 
+package "oc-vlan-types:openconfig-vlan-types" as oc_vlan_types_openconfig_vlan_types { 
+} 
+package "oc-yang:openconfig-yang-types" as oc_yang_openconfig_yang_types { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+note top of oc_stp_openconfig_spanning_tree : <b>Namespace: </b> http://openconfig.net/yang/spanning-tree \n<b>Prefix: </b> oc-stp \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nwww.openconfig.net \n<b>Revision : </b> 2017-07-14 \n
+package "oc-stp:openconfig-spanning-tree" as oc_stp_openconfig_spanning_tree { 
+oc_stp_types_openconfig_spanning_tree_types +-- oc_stp_openconfig_spanning_tree
+oc_if_openconfig_interfaces +-- oc_stp_openconfig_spanning_tree
+oc_types_openconfig_types +-- oc_stp_openconfig_spanning_tree
+oc_vlan_types_openconfig_vlan_types +-- oc_stp_openconfig_spanning_tree
+oc_yang_openconfig_yang_types +-- oc_stp_openconfig_spanning_tree
+oc_ext_openconfig_extensions +-- oc_stp_openconfig_spanning_tree
+class "openconfig-spanning-tree" as openconfig_spanning_tree << (M, #33CCFF) module>> 
+class "stp-interfaces-state" as openconfig_spanning_tree_I_stp_interfaces_state_grouping <<(G,Lime) grouping>> 
+openconfig_spanning_tree_I_stp_interfaces_state_grouping : port-num : uint16  
+openconfig_spanning_tree_I_stp_interfaces_state_grouping : role : identityref {oc-stp-types:STP_PORT_ROLE}  
+openconfig_spanning_tree_I_stp_interfaces_state_grouping : port-state : identityref {oc-stp-types:STP_PORT_STATE}  
+openconfig_spanning_tree_I_stp_interfaces_state_grouping : designated-root-priority : oc-stp-types:stp-bridge-priority-type  
+openconfig_spanning_tree_I_stp_interfaces_state_grouping : designated-root-address : oc-yang:mac-address  
+openconfig_spanning_tree_I_stp_interfaces_state_grouping : designated-cost : uint32  
+openconfig_spanning_tree_I_stp_interfaces_state_grouping : designated-bridge-priority : oc-stp-types:stp-bridge-priority-type  
+openconfig_spanning_tree_I_stp_interfaces_state_grouping : designated-bridge-address : oc-yang:mac-address  
+openconfig_spanning_tree_I_stp_interfaces_state_grouping : designated-port-priority : oc-stp-types:stp-port-priority-type  
+openconfig_spanning_tree_I_stp_interfaces_state_grouping : designated-port-num : uint16  
+openconfig_spanning_tree_I_stp_interfaces_state_grouping : forward-transisitions : oc-yang:counter64  
+class "counters" as  openconfig_spanning_tree_I_stp_interfaces_state_I_counters <<container>> 
+openconfig_spanning_tree_I_stp_interfaces_state_grouping *-- "1" openconfig_spanning_tree_I_stp_interfaces_state_I_counters 
+openconfig_spanning_tree_I_stp_interfaces_state_I_counters : bpdu-sent : oc-yang:counter64  
+openconfig_spanning_tree_I_stp_interfaces_state_I_counters : bpdu-received : oc-yang:counter64  
+class "stp-interfaces-config" as openconfig_spanning_tree_I_stp_interfaces_config_grouping <<(G,Lime) grouping>> 
+openconfig_spanning_tree_I_stp_interfaces_config_grouping : name : oc-if:base-interface-ref  
+openconfig_spanning_tree_I_stp_interfaces_config_grouping : cost : uint32 [1..200000000]  
+openconfig_spanning_tree_I_stp_interfaces_config_grouping : port-priority : oc-stp-types:stp-port-priority-type  
+class "stp-interfaces-top" as openconfig_spanning_tree_I_stp_interfaces_top_grouping <<(G,Lime) grouping>> 
+class "interfaces" as  openconfig_spanning_tree_I_stp_interfaces_top_I_interfaces <<container>> 
+openconfig_spanning_tree_I_stp_interfaces_top_grouping *-- "1" openconfig_spanning_tree_I_stp_interfaces_top_I_interfaces 
+class "interface" as openconfig_spanning_tree_I_stp_interfaces_top_I_interfaces_I_interface << (L, #FF7700) list>> 
+openconfig_spanning_tree_I_stp_interfaces_top_I_interfaces *-- "0..N" openconfig_spanning_tree_I_stp_interfaces_top_I_interfaces_I_interface 
+openconfig_spanning_tree_I_stp_interfaces_top_I_interfaces_I_interface : +name : leafref : ../config/name  {key} 
+class "config" as  openconfig_spanning_tree_I_stp_interfaces_top_I_interfaces_I_interface_I_config <<container>> 
+openconfig_spanning_tree_I_stp_interfaces_top_I_interfaces_I_interface *-- "1" openconfig_spanning_tree_I_stp_interfaces_top_I_interfaces_I_interface_I_config 
+openconfig_spanning_tree_I_stp_interfaces_top_I_interfaces_I_interface_I_config : stp-interfaces-config {uses} 
+class "state" as  openconfig_spanning_tree_I_stp_interfaces_top_I_interfaces_I_interface_I_state <<container>> 
+openconfig_spanning_tree_I_stp_interfaces_top_I_interfaces_I_interface *-- "1" openconfig_spanning_tree_I_stp_interfaces_top_I_interfaces_I_interface_I_state 
+note bottom of openconfig_spanning_tree_I_stp_interfaces_top_I_interfaces_I_interface_I_state
+<b>Config = </b>false
+end note 
+openconfig_spanning_tree_I_stp_interfaces_top_I_interfaces_I_interface_I_state : stp-interfaces-config {uses} 
+openconfig_spanning_tree_I_stp_interfaces_top_I_interfaces_I_interface_I_state : stp-interfaces-state {uses} 
+class "bridge-priority-config" as openconfig_spanning_tree_I_bridge_priority_config_grouping <<(G,Lime) grouping>> 
+openconfig_spanning_tree_I_bridge_priority_config_grouping : bridge-priority : oc-stp-types:stp-bridge-priority-type  
+class "stp-common-state" as openconfig_spanning_tree_I_stp_common_state_grouping <<(G,Lime) grouping>> 
+openconfig_spanning_tree_I_stp_common_state_grouping : bridge-address : oc-yang:mac-address  
+openconfig_spanning_tree_I_stp_common_state_grouping : designated-root-priority : oc-stp-types:stp-bridge-priority-type  
+openconfig_spanning_tree_I_stp_common_state_grouping : designated-root-address : oc-yang:mac-address  
+openconfig_spanning_tree_I_stp_common_state_grouping : root-port : uint16  
+openconfig_spanning_tree_I_stp_common_state_grouping : root-cost : uint32  
+openconfig_spanning_tree_I_stp_common_state_grouping : hold-time : uint8  
+openconfig_spanning_tree_I_stp_common_state_grouping : topology-changes : oc-yang:counter64  
+openconfig_spanning_tree_I_stp_common_state_grouping : time-since-topology-change : oc-types:timeticks64  
+class "stp-timer-config" as openconfig_spanning_tree_I_stp_timer_config_grouping <<(G,Lime) grouping>> 
+openconfig_spanning_tree_I_stp_timer_config_grouping : hello-time : uint8 [1..10]   {seconds}
+openconfig_spanning_tree_I_stp_timer_config_grouping : max-age : uint8 [6..40]   {seconds}
+openconfig_spanning_tree_I_stp_timer_config_grouping : forwarding-delay : uint8 [4..30]   {seconds}
+openconfig_spanning_tree_I_stp_timer_config_grouping : hold-count : uint8 [1..10]   = 6 
+class "stp-rapid-pvst-config" as openconfig_spanning_tree_I_stp_rapid_pvst_config_grouping <<(G,Lime) grouping>> 
+openconfig_spanning_tree_I_stp_rapid_pvst_config_grouping : vlan-id : oc-vlan-types:vlan-id  
+class "stp-rapid-pvst-top" as openconfig_spanning_tree_I_stp_rapid_pvst_top_grouping <<(G,Lime) grouping>> 
+class "vlan" as openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan << (L, #FF7700) list>> 
+openconfig_spanning_tree_I_stp_rapid_pvst_top_grouping *-- "0..N" openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan 
+openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan : +vlan-id : leafref : ../config/vlan-id  {key} 
+class "config" as  openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan_I_config <<container>> 
+openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan *-- "1" openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan_I_config 
+openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan_I_config : stp-rapid-pvst-config {uses} 
+openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan_I_config : stp-timer-config {uses} 
+openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan_I_config : bridge-priority-config {uses} 
+class "state" as  openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan_I_state <<container>> 
+openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan *-- "1" openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan_I_state 
+note bottom of openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan_I_state
+<b>Config = </b>false
+end note 
+openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan_I_state : stp-rapid-pvst-config {uses} 
+openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan_I_state : stp-timer-config {uses} 
+openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan_I_state : bridge-priority-config {uses} 
+openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan_I_state : stp-common-state {uses} 
+openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan : stp-interfaces-top {uses} 
+class "mst-instance-config" as openconfig_spanning_tree_I_mst_instance_config_grouping <<(G,Lime) grouping>> 
+openconfig_spanning_tree_I_mst_instance_config_grouping : mst-id : uint16 [1..4094]  
+openconfig_spanning_tree_I_mst_instance_config_grouping : vlan []: union{oc-vlan-types:vlan-id, oc-vlan-types:vlan-range} 
+class "mst-instance-top" as openconfig_spanning_tree_I_mst_instance_top_grouping <<(G,Lime) grouping>> 
+class "mst-instance" as openconfig_spanning_tree_I_mst_instance_top_I_mst_instance << (L, #FF7700) list>> 
+openconfig_spanning_tree_I_mst_instance_top_grouping *-- "0..N" openconfig_spanning_tree_I_mst_instance_top_I_mst_instance 
+openconfig_spanning_tree_I_mst_instance_top_I_mst_instance : +mst-id : leafref : ../config/mst-id  {key} 
+class "config" as  openconfig_spanning_tree_I_mst_instance_top_I_mst_instance_I_config <<container>> 
+openconfig_spanning_tree_I_mst_instance_top_I_mst_instance *-- "1" openconfig_spanning_tree_I_mst_instance_top_I_mst_instance_I_config 
+openconfig_spanning_tree_I_mst_instance_top_I_mst_instance_I_config : mst-instance-config {uses} 
+openconfig_spanning_tree_I_mst_instance_top_I_mst_instance_I_config : bridge-priority-config {uses} 
+class "state" as  openconfig_spanning_tree_I_mst_instance_top_I_mst_instance_I_state <<container>> 
+openconfig_spanning_tree_I_mst_instance_top_I_mst_instance *-- "1" openconfig_spanning_tree_I_mst_instance_top_I_mst_instance_I_state 
+note bottom of openconfig_spanning_tree_I_mst_instance_top_I_mst_instance_I_state
+<b>Config = </b>false
+end note 
+openconfig_spanning_tree_I_mst_instance_top_I_mst_instance_I_state : mst-instance-config {uses} 
+openconfig_spanning_tree_I_mst_instance_top_I_mst_instance_I_state : bridge-priority-config {uses} 
+openconfig_spanning_tree_I_mst_instance_top_I_mst_instance_I_state : stp-common-state {uses} 
+openconfig_spanning_tree_I_mst_instance_top_I_mst_instance : stp-interfaces-top {uses} 
+class "mstp-config" as openconfig_spanning_tree_I_mstp_config_grouping <<(G,Lime) grouping>> 
+openconfig_spanning_tree_I_mstp_config_grouping : name : string {length = 1..32}  
+openconfig_spanning_tree_I_mstp_config_grouping : revision : uint32  
+openconfig_spanning_tree_I_mstp_config_grouping : max-hop : uint8 [1..255]  
+openconfig_spanning_tree_I_mstp_config_grouping : stp-timer-config {uses} 
+class "mstp-state" as openconfig_spanning_tree_I_mstp_state_grouping <<(G,Lime) grouping>> 
+class "stp-mstp-top" as openconfig_spanning_tree_I_stp_mstp_top_grouping <<(G,Lime) grouping>> 
+class "config" as  openconfig_spanning_tree_I_stp_mstp_top_I_config <<container>> 
+openconfig_spanning_tree_I_stp_mstp_top_grouping *-- "1" openconfig_spanning_tree_I_stp_mstp_top_I_config 
+openconfig_spanning_tree_I_stp_mstp_top_I_config : mstp-config {uses} 
+class "state" as  openconfig_spanning_tree_I_stp_mstp_top_I_state <<container>> 
+openconfig_spanning_tree_I_stp_mstp_top_grouping *-- "1" openconfig_spanning_tree_I_stp_mstp_top_I_state 
+note bottom of openconfig_spanning_tree_I_stp_mstp_top_I_state
+<b>Config = </b>false
+end note 
+openconfig_spanning_tree_I_stp_mstp_top_I_state : mstp-config {uses} 
+openconfig_spanning_tree_I_stp_mstp_top_I_state : mstp-state {uses} 
+class "mst-instances" as  openconfig_spanning_tree_I_stp_mstp_top_I_mst_instances <<container>> 
+openconfig_spanning_tree_I_stp_mstp_top_grouping *-- "1" openconfig_spanning_tree_I_stp_mstp_top_I_mst_instances 
+openconfig_spanning_tree_I_stp_mstp_top_I_mst_instances : mst-instance-top {uses} 
+class "stp-rstp-top" as openconfig_spanning_tree_I_stp_rstp_top_grouping <<(G,Lime) grouping>> 
+class "config" as  openconfig_spanning_tree_I_stp_rstp_top_I_config <<container>> 
+openconfig_spanning_tree_I_stp_rstp_top_grouping *-- "1" openconfig_spanning_tree_I_stp_rstp_top_I_config 
+openconfig_spanning_tree_I_stp_rstp_top_I_config : stp-timer-config {uses} 
+openconfig_spanning_tree_I_stp_rstp_top_I_config : bridge-priority-config {uses} 
+class "state" as  openconfig_spanning_tree_I_stp_rstp_top_I_state <<container>> 
+openconfig_spanning_tree_I_stp_rstp_top_grouping *-- "1" openconfig_spanning_tree_I_stp_rstp_top_I_state 
+note bottom of openconfig_spanning_tree_I_stp_rstp_top_I_state
+<b>Config = </b>false
+end note 
+openconfig_spanning_tree_I_stp_rstp_top_I_state : stp-timer-config {uses} 
+openconfig_spanning_tree_I_stp_rstp_top_I_state : bridge-priority-config {uses} 
+openconfig_spanning_tree_I_stp_rstp_top_I_state : stp-common-state {uses} 
+openconfig_spanning_tree_I_stp_rstp_top_grouping : stp-interfaces-top {uses} 
+class "stp-interface-common-config" as openconfig_spanning_tree_I_stp_interface_common_config_grouping <<(G,Lime) grouping>> 
+openconfig_spanning_tree_I_stp_interface_common_config_grouping : name : oc-if:base-interface-ref  
+openconfig_spanning_tree_I_stp_interface_common_config_grouping : edge-port : identityref {oc-stp-types:STP_EDGE_PORT}  
+openconfig_spanning_tree_I_stp_interface_common_config_grouping : link-type : oc-stp-types:stp-link-type  
+openconfig_spanning_tree_I_stp_interface_common_config_grouping : guard : oc-stp-types:stp-guard-type  
+openconfig_spanning_tree_I_stp_interface_common_config_grouping : stp-bpdu-config {uses} 
+class "stp-interface-common-state" as openconfig_spanning_tree_I_stp_interface_common_state_grouping <<(G,Lime) grouping>> 
+class "stp-interface-common-top" as openconfig_spanning_tree_I_stp_interface_common_top_grouping <<(G,Lime) grouping>> 
+class "interface" as openconfig_spanning_tree_I_stp_interface_common_top_I_interface << (L, #FF7700) list>> 
+openconfig_spanning_tree_I_stp_interface_common_top_grouping *-- "0..N" openconfig_spanning_tree_I_stp_interface_common_top_I_interface 
+openconfig_spanning_tree_I_stp_interface_common_top_I_interface : +name : leafref : ../config/name  {key} 
+class "config" as  openconfig_spanning_tree_I_stp_interface_common_top_I_interface_I_config <<container>> 
+openconfig_spanning_tree_I_stp_interface_common_top_I_interface *-- "1" openconfig_spanning_tree_I_stp_interface_common_top_I_interface_I_config 
+openconfig_spanning_tree_I_stp_interface_common_top_I_interface_I_config : stp-interface-common-config {uses} 
+class "state" as  openconfig_spanning_tree_I_stp_interface_common_top_I_interface_I_state <<container>> 
+openconfig_spanning_tree_I_stp_interface_common_top_I_interface *-- "1" openconfig_spanning_tree_I_stp_interface_common_top_I_interface_I_state 
+note bottom of openconfig_spanning_tree_I_stp_interface_common_top_I_interface_I_state
+<b>Config = </b>false
+end note 
+openconfig_spanning_tree_I_stp_interface_common_top_I_interface_I_state : stp-interface-common-config {uses} 
+openconfig_spanning_tree_I_stp_interface_common_top_I_interface_I_state : stp-interface-common-state {uses} 
+class "stp-bpdu-config" as openconfig_spanning_tree_I_stp_bpdu_config_grouping <<(G,Lime) grouping>> 
+openconfig_spanning_tree_I_stp_bpdu_config_grouping : bpdu-guard : boolean  
+openconfig_spanning_tree_I_stp_bpdu_config_grouping : bpdu-filter : boolean  
+class "stp-global-config" as openconfig_spanning_tree_I_stp_global_config_grouping <<(G,Lime) grouping>> 
+openconfig_spanning_tree_I_stp_global_config_grouping : enabled-protocol []: identityref {oc-stp-types:STP_PROTOCOL} 
+openconfig_spanning_tree_I_stp_global_config_grouping : bridge-assurance : boolean  
+openconfig_spanning_tree_I_stp_global_config_grouping : etherchannel-misconfig-guard : boolean  
+openconfig_spanning_tree_I_stp_global_config_grouping : bpduguard-timeout-recovery : uint8   {seconds}
+openconfig_spanning_tree_I_stp_global_config_grouping : loop-guard : boolean  
+openconfig_spanning_tree_I_stp_global_config_grouping : stp-bpdu-config {uses} 
+class "stp-global-state" as openconfig_spanning_tree_I_stp_global_state_grouping <<(G,Lime) grouping>> 
+class "stp-global-base" as openconfig_spanning_tree_I_stp_global_base_grouping <<(G,Lime) grouping>> 
+class "config" as  openconfig_spanning_tree_I_stp_global_base_I_config <<container>> 
+openconfig_spanning_tree_I_stp_global_base_grouping *-- "1" openconfig_spanning_tree_I_stp_global_base_I_config 
+openconfig_spanning_tree_I_stp_global_base_I_config : stp-global-config {uses} 
+class "state" as  openconfig_spanning_tree_I_stp_global_base_I_state <<container>> 
+openconfig_spanning_tree_I_stp_global_base_grouping *-- "1" openconfig_spanning_tree_I_stp_global_base_I_state 
+note bottom of openconfig_spanning_tree_I_stp_global_base_I_state
+<b>Config = </b>false
+end note 
+openconfig_spanning_tree_I_stp_global_base_I_state : stp-global-config {uses} 
+openconfig_spanning_tree_I_stp_global_base_I_state : stp-global-state {uses} 
+class "stp-top" as openconfig_spanning_tree_I_stp_top_grouping <<(G,Lime) grouping>> 
+class "stp" as  openconfig_spanning_tree_I_stp_top_I_stp <<container>> 
+openconfig_spanning_tree_I_stp_top_grouping *-- "1" openconfig_spanning_tree_I_stp_top_I_stp 
+class "global" as  openconfig_spanning_tree_I_stp_top_I_stp_I_global <<container>> 
+openconfig_spanning_tree_I_stp_top_I_stp *-- "1" openconfig_spanning_tree_I_stp_top_I_stp_I_global 
+openconfig_spanning_tree_I_stp_top_I_stp_I_global : stp-global-base {uses} 
+class "rstp" as  openconfig_spanning_tree_I_stp_top_I_stp_I_rstp <<container>> 
+openconfig_spanning_tree_I_stp_top_I_stp *-- "1" openconfig_spanning_tree_I_stp_top_I_stp_I_rstp 
+openconfig_spanning_tree_I_stp_top_I_stp_I_rstp : stp-rstp-top {uses} 
+class "mstp" as  openconfig_spanning_tree_I_stp_top_I_stp_I_mstp <<container>> 
+openconfig_spanning_tree_I_stp_top_I_stp *-- "1" openconfig_spanning_tree_I_stp_top_I_stp_I_mstp 
+openconfig_spanning_tree_I_stp_top_I_stp_I_mstp : stp-mstp-top {uses} 
+class "rapid-pvst" as  openconfig_spanning_tree_I_stp_top_I_stp_I_rapid_pvst <<container>> 
+openconfig_spanning_tree_I_stp_top_I_stp *-- "1" openconfig_spanning_tree_I_stp_top_I_stp_I_rapid_pvst 
+openconfig_spanning_tree_I_stp_top_I_stp_I_rapid_pvst : stp-rapid-pvst-top {uses} 
+class "interfaces" as  openconfig_spanning_tree_I_stp_top_I_stp_I_interfaces <<container>> 
+openconfig_spanning_tree_I_stp_top_I_stp *-- "1" openconfig_spanning_tree_I_stp_top_I_stp_I_interfaces 
+openconfig_spanning_tree_I_stp_top_I_stp_I_interfaces : stp-interface-common-top {uses} 
+openconfig_spanning_tree_I_stp_interfaces_state_grouping-->oc_stp_types_STP_PORT_ROLE: role
+openconfig_spanning_tree_I_stp_interfaces_state_grouping-->oc_stp_types_STP_PORT_STATE: port-state
+openconfig_spanning_tree_I_stp_interface_common_config_grouping-->oc_stp_types_STP_EDGE_PORT: edge-port
+openconfig_spanning_tree_I_stp_global_config_grouping-->oc_stp_types_STP_PROTOCOL: enabled-protocol
+} 
+
+openconfig_spanning_tree_I_stp_interfaces_top_I_interfaces_I_interface_I_config --> openconfig_spanning_tree_I_stp_interfaces_config_grouping : uses 
+openconfig_spanning_tree_I_stp_interfaces_top_I_interfaces_I_interface_I_state --> openconfig_spanning_tree_I_stp_interfaces_config_grouping : uses 
+openconfig_spanning_tree_I_stp_interfaces_top_I_interfaces_I_interface_I_state --> openconfig_spanning_tree_I_stp_interfaces_state_grouping : uses 
+openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan_I_config --> openconfig_spanning_tree_I_stp_rapid_pvst_config_grouping : uses 
+openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan_I_config --> openconfig_spanning_tree_I_stp_timer_config_grouping : uses 
+openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan_I_config --> openconfig_spanning_tree_I_bridge_priority_config_grouping : uses 
+openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan_I_state --> openconfig_spanning_tree_I_stp_rapid_pvst_config_grouping : uses 
+openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan_I_state --> openconfig_spanning_tree_I_stp_timer_config_grouping : uses 
+openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan_I_state --> openconfig_spanning_tree_I_bridge_priority_config_grouping : uses 
+openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan_I_state --> openconfig_spanning_tree_I_stp_common_state_grouping : uses 
+openconfig_spanning_tree_I_stp_rapid_pvst_top_I_vlan --> openconfig_spanning_tree_I_stp_interfaces_top_grouping : uses 
+openconfig_spanning_tree_I_mst_instance_top_I_mst_instance_I_config --> openconfig_spanning_tree_I_mst_instance_config_grouping : uses 
+openconfig_spanning_tree_I_mst_instance_top_I_mst_instance_I_config --> openconfig_spanning_tree_I_bridge_priority_config_grouping : uses 
+openconfig_spanning_tree_I_mst_instance_top_I_mst_instance_I_state --> openconfig_spanning_tree_I_mst_instance_config_grouping : uses 
+openconfig_spanning_tree_I_mst_instance_top_I_mst_instance_I_state --> openconfig_spanning_tree_I_bridge_priority_config_grouping : uses 
+openconfig_spanning_tree_I_mst_instance_top_I_mst_instance_I_state --> openconfig_spanning_tree_I_stp_common_state_grouping : uses 
+openconfig_spanning_tree_I_mst_instance_top_I_mst_instance --> openconfig_spanning_tree_I_stp_interfaces_top_grouping : uses 
+openconfig_spanning_tree_I_mstp_config_grouping --> openconfig_spanning_tree_I_stp_timer_config_grouping : uses 
+openconfig_spanning_tree_I_stp_mstp_top_I_config --> openconfig_spanning_tree_I_mstp_config_grouping : uses 
+openconfig_spanning_tree_I_stp_mstp_top_I_state --> openconfig_spanning_tree_I_mstp_config_grouping : uses 
+openconfig_spanning_tree_I_stp_mstp_top_I_state --> openconfig_spanning_tree_I_mstp_state_grouping : uses 
+openconfig_spanning_tree_I_stp_mstp_top_I_mst_instances --> openconfig_spanning_tree_I_mst_instance_top_grouping : uses 
+openconfig_spanning_tree_I_stp_rstp_top_I_config --> openconfig_spanning_tree_I_stp_timer_config_grouping : uses 
+openconfig_spanning_tree_I_stp_rstp_top_I_config --> openconfig_spanning_tree_I_bridge_priority_config_grouping : uses 
+openconfig_spanning_tree_I_stp_rstp_top_I_state --> openconfig_spanning_tree_I_stp_timer_config_grouping : uses 
+openconfig_spanning_tree_I_stp_rstp_top_I_state --> openconfig_spanning_tree_I_bridge_priority_config_grouping : uses 
+openconfig_spanning_tree_I_stp_rstp_top_I_state --> openconfig_spanning_tree_I_stp_common_state_grouping : uses 
+openconfig_spanning_tree_I_stp_rstp_top_grouping --> openconfig_spanning_tree_I_stp_interfaces_top_grouping : uses 
+openconfig_spanning_tree_I_stp_interface_common_config_grouping --> openconfig_spanning_tree_I_stp_bpdu_config_grouping : uses 
+openconfig_spanning_tree_I_stp_interface_common_top_I_interface_I_config --> openconfig_spanning_tree_I_stp_interface_common_config_grouping : uses 
+openconfig_spanning_tree_I_stp_interface_common_top_I_interface_I_state --> openconfig_spanning_tree_I_stp_interface_common_config_grouping : uses 
+openconfig_spanning_tree_I_stp_interface_common_top_I_interface_I_state --> openconfig_spanning_tree_I_stp_interface_common_state_grouping : uses 
+openconfig_spanning_tree_I_stp_global_config_grouping --> openconfig_spanning_tree_I_stp_bpdu_config_grouping : uses 
+openconfig_spanning_tree_I_stp_global_base_I_config --> openconfig_spanning_tree_I_stp_global_config_grouping : uses 
+openconfig_spanning_tree_I_stp_global_base_I_state --> openconfig_spanning_tree_I_stp_global_config_grouping : uses 
+openconfig_spanning_tree_I_stp_global_base_I_state --> openconfig_spanning_tree_I_stp_global_state_grouping : uses 
+openconfig_spanning_tree_I_stp_top_I_stp_I_global --> openconfig_spanning_tree_I_stp_global_base_grouping : uses 
+openconfig_spanning_tree_I_stp_top_I_stp_I_rstp --> openconfig_spanning_tree_I_stp_rstp_top_grouping : uses 
+openconfig_spanning_tree_I_stp_top_I_stp_I_mstp --> openconfig_spanning_tree_I_stp_mstp_top_grouping : uses 
+openconfig_spanning_tree_I_stp_top_I_stp_I_rapid_pvst --> openconfig_spanning_tree_I_stp_rapid_pvst_top_grouping : uses 
+openconfig_spanning_tree_I_stp_top_I_stp_I_interfaces --> openconfig_spanning_tree_I_stp_interface_common_top_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:31 </size>
+ endfooter 
+@enduml 

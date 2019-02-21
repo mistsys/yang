@@ -1,0 +1,178 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-vlan.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-vlan 
+package "oc-vlan-types:openconfig-vlan-types" as oc_vlan_types_openconfig_vlan_types { 
+} 
+package "oc-if:openconfig-interfaces" as oc_if_openconfig_interfaces { 
+} 
+package "oc-eth:openconfig-if-ethernet" as oc_eth_openconfig_if_ethernet { 
+} 
+package "oc-lag:openconfig-if-aggregate" as oc_lag_openconfig_if_aggregate { 
+} 
+package "ift:iana-if-type" as ift_iana_if_type { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+note top of oc_vlan_openconfig_vlan : <b>Namespace: </b> http://openconfig.net/yang/vlan \n<b>Prefix: </b> oc-vlan \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nnetopenconfig@googlegroups.com \n<b>Revision : </b> 2016-05-26 \n
+package "oc-vlan:openconfig-vlan" as oc_vlan_openconfig_vlan { 
+oc_vlan_types_openconfig_vlan_types +-- oc_vlan_openconfig_vlan
+oc_if_openconfig_interfaces +-- oc_vlan_openconfig_vlan
+oc_eth_openconfig_if_ethernet +-- oc_vlan_openconfig_vlan
+oc_lag_openconfig_if_aggregate +-- oc_vlan_openconfig_vlan
+ift_iana_if_type +-- oc_vlan_openconfig_vlan
+oc_ext_openconfig_extensions +-- oc_vlan_openconfig_vlan
+class "openconfig-vlan" as openconfig_vlan << (M, #33CCFF) module>> 
+class "vlan-config" as openconfig_vlan_I_vlan_config_grouping <<(G,Lime) grouping>> 
+openconfig_vlan_I_vlan_config_grouping : vlan-id : oc-vlan-types:vlan-id  
+openconfig_vlan_I_vlan_config_grouping : name : string  
+openconfig_vlan_I_vlan_config_grouping : status : enumeration : {ACTIVE,SUSPENDED,}   = ACTIVE 
+openconfig_vlan_I_vlan_config_grouping : tpid : identityref {oc-vlan-types:TPID_TYPES}   = oc-vlan-types:TPID_0x8100 
+class "vlan-state" as openconfig_vlan_I_vlan_state_grouping <<(G,Lime) grouping>> 
+class "vlan-members-state" as openconfig_vlan_I_vlan_members_state_grouping <<(G,Lime) grouping>> 
+class "members" as  openconfig_vlan_I_vlan_members_state_I_members <<container>> 
+openconfig_vlan_I_vlan_members_state_grouping *-- "1" openconfig_vlan_I_vlan_members_state_I_members 
+class "member" as openconfig_vlan_I_vlan_members_state_I_members_I_member << (L, #FF7700) list>> 
+openconfig_vlan_I_vlan_members_state_I_members *-- "0..N" openconfig_vlan_I_vlan_members_state_I_members_I_member 
+note bottom of openconfig_vlan_I_vlan_members_state_I_members_I_member
+<b>Config = </b>false
+end note 
+openconfig_vlan_I_vlan_members_state_I_members_I_member : oc-if:interface-ref-state {uses} 
+class "vlan-ethernet-config" as openconfig_vlan_I_vlan_ethernet_config_grouping <<(G,Lime) grouping>> 
+openconfig_vlan_I_vlan_ethernet_config_grouping : interface-mode : oc-vlan-types:vlan-mode-type  
+openconfig_vlan_I_vlan_ethernet_config_grouping : native-vlan : union{oc-vlan-types:vlan-id, oc-vlan-types:qinq-id}  
+note bottom of openconfig_vlan_I_vlan_ethernet_config_grouping
+<b>When</b> (native-vlan):
+../interface-mode = 'TRUNK'
+
+end note 
+openconfig_vlan_I_vlan_ethernet_config_grouping : access-vlan : union{oc-vlan-types:vlan-id, oc-vlan-types:qinq-id}  
+note bottom of openconfig_vlan_I_vlan_ethernet_config_grouping
+<b>When</b> (access-vlan):
+../interface-mode = 'ACCESS'
+
+end note 
+openconfig_vlan_I_vlan_ethernet_config_grouping : trunk-vlans []: union{oc-vlan-types:vlan-id, oc-vlan-types:vlan-range,..} 
+note bottom of openconfig_vlan_I_vlan_ethernet_config_grouping
+<b>When</b> (trunk-vlans):
+../interface-mode = 'TRUNK'
+
+end note 
+class "vlan-ethernet-state" as openconfig_vlan_I_vlan_ethernet_state_grouping <<(G,Lime) grouping>> 
+class "vlan-ethernet-top" as openconfig_vlan_I_vlan_ethernet_top_grouping <<(G,Lime) grouping>> 
+class "switched-vlan" as  openconfig_vlan_I_vlan_ethernet_top_I_switched_vlan <<container>> 
+openconfig_vlan_I_vlan_ethernet_top_grouping *-- "1" openconfig_vlan_I_vlan_ethernet_top_I_switched_vlan 
+class "config" as  openconfig_vlan_I_vlan_ethernet_top_I_switched_vlan_I_config <<container>> 
+openconfig_vlan_I_vlan_ethernet_top_I_switched_vlan *-- "1" openconfig_vlan_I_vlan_ethernet_top_I_switched_vlan_I_config 
+openconfig_vlan_I_vlan_ethernet_top_I_switched_vlan_I_config : vlan-ethernet-config {uses} 
+class "state" as  openconfig_vlan_I_vlan_ethernet_top_I_switched_vlan_I_state <<container>> 
+openconfig_vlan_I_vlan_ethernet_top_I_switched_vlan *-- "1" openconfig_vlan_I_vlan_ethernet_top_I_switched_vlan_I_state 
+note bottom of openconfig_vlan_I_vlan_ethernet_top_I_switched_vlan_I_state
+<b>Config = </b>false
+end note 
+openconfig_vlan_I_vlan_ethernet_top_I_switched_vlan_I_state : vlan-ethernet-config {uses} 
+openconfig_vlan_I_vlan_ethernet_top_I_switched_vlan_I_state : vlan-ethernet-state {uses} 
+class "vlan-logical-config" as openconfig_vlan_I_vlan_logical_config_grouping <<(G,Lime) grouping>> 
+openconfig_vlan_I_vlan_logical_config_grouping : vlan-id : union{oc-vlan-types:vlan-id, oc-vlan-types:qinq-id}  
+class "vlan-logical-state" as openconfig_vlan_I_vlan_logical_state_grouping <<(G,Lime) grouping>> 
+class "vlan-top" as openconfig_vlan_I_vlan_top_grouping <<(G,Lime) grouping>> 
+class "vlans" as  openconfig_vlan_I_vlan_top_I_vlans <<container>> 
+openconfig_vlan_I_vlan_top_grouping *-- "1" openconfig_vlan_I_vlan_top_I_vlans 
+class "vlan" as openconfig_vlan_I_vlan_top_I_vlans_I_vlan << (L, #FF7700) list>> 
+openconfig_vlan_I_vlan_top_I_vlans *-- "0..N" openconfig_vlan_I_vlan_top_I_vlans_I_vlan 
+openconfig_vlan_I_vlan_top_I_vlans_I_vlan : +vlan-id : leafref : ../config/vlan-id  {key} 
+class "config" as  openconfig_vlan_I_vlan_top_I_vlans_I_vlan_I_config <<container>> 
+openconfig_vlan_I_vlan_top_I_vlans_I_vlan *-- "1" openconfig_vlan_I_vlan_top_I_vlans_I_vlan_I_config 
+openconfig_vlan_I_vlan_top_I_vlans_I_vlan_I_config : vlan-config {uses} 
+class "state" as  openconfig_vlan_I_vlan_top_I_vlans_I_vlan_I_state <<container>> 
+openconfig_vlan_I_vlan_top_I_vlans_I_vlan *-- "1" openconfig_vlan_I_vlan_top_I_vlans_I_vlan_I_state 
+note bottom of openconfig_vlan_I_vlan_top_I_vlans_I_vlan_I_state
+<b>Config = </b>false
+end note 
+openconfig_vlan_I_vlan_top_I_vlans_I_vlan_I_state : vlan-config {uses} 
+openconfig_vlan_I_vlan_top_I_vlans_I_vlan_I_state : vlan-state {uses} 
+openconfig_vlan_I_vlan_top_I_vlans_I_vlan : vlan-members-state {uses} 
+class "vlan-logical-top" as openconfig_vlan_I_vlan_logical_top_grouping <<(G,Lime) grouping>> 
+class "vlan" as  openconfig_vlan_I_vlan_logical_top_I_vlan <<container>> 
+openconfig_vlan_I_vlan_logical_top_grouping *-- "1" openconfig_vlan_I_vlan_logical_top_I_vlan 
+class "config" as  openconfig_vlan_I_vlan_logical_top_I_vlan_I_config <<container>> 
+openconfig_vlan_I_vlan_logical_top_I_vlan *-- "1" openconfig_vlan_I_vlan_logical_top_I_vlan_I_config 
+openconfig_vlan_I_vlan_logical_top_I_vlan_I_config : vlan-logical-config {uses} 
+class "state" as  openconfig_vlan_I_vlan_logical_top_I_vlan_I_state <<container>> 
+openconfig_vlan_I_vlan_logical_top_I_vlan *-- "1" openconfig_vlan_I_vlan_logical_top_I_vlan_I_state 
+note bottom of openconfig_vlan_I_vlan_logical_top_I_vlan_I_state
+<b>Config = </b>false
+end note 
+openconfig_vlan_I_vlan_logical_top_I_vlan_I_state : vlan-logical-config {uses} 
+openconfig_vlan_I_vlan_logical_top_I_vlan_I_state : vlan-logical-state {uses} 
+class "vlan-routed-config" as openconfig_vlan_I_vlan_routed_config_grouping <<(G,Lime) grouping>> 
+openconfig_vlan_I_vlan_routed_config_grouping : vlan : union{uint16, string}  
+class "vlan-routed-state" as openconfig_vlan_I_vlan_routed_state_grouping <<(G,Lime) grouping>> 
+class "vlan-routed-top" as openconfig_vlan_I_vlan_routed_top_grouping <<(G,Lime) grouping>> 
+class "routed-vlan" as  openconfig_vlan_I_vlan_routed_top_I_routed_vlan <<container>> 
+openconfig_vlan_I_vlan_routed_top_grouping *-- "1" openconfig_vlan_I_vlan_routed_top_I_routed_vlan 
+class "config" as  openconfig_vlan_I_vlan_routed_top_I_routed_vlan_I_config <<container>> 
+openconfig_vlan_I_vlan_routed_top_I_routed_vlan *-- "1" openconfig_vlan_I_vlan_routed_top_I_routed_vlan_I_config 
+openconfig_vlan_I_vlan_routed_top_I_routed_vlan_I_config : vlan-routed-config {uses} 
+class "state" as  openconfig_vlan_I_vlan_routed_top_I_routed_vlan_I_state <<container>> 
+openconfig_vlan_I_vlan_routed_top_I_routed_vlan *-- "1" openconfig_vlan_I_vlan_routed_top_I_routed_vlan_I_state 
+note bottom of openconfig_vlan_I_vlan_routed_top_I_routed_vlan_I_state
+<b>Config = </b>false
+end note 
+openconfig_vlan_I_vlan_routed_top_I_routed_vlan_I_state : vlan-routed-config {uses} 
+openconfig_vlan_I_vlan_routed_top_I_routed_vlan_I_state : vlan-routed-state {uses} 
+class "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface" as oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface << (A,CadetBlue) augment>>
+openconfig_vlan *--  oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface 
+oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface : vlan-logical-top {uses} 
+class "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet" as oc_if_interfaces_oc_if_interface_oc_eth_ethernet << (A,CadetBlue) augment>>
+openconfig_vlan *--  oc_if_interfaces_oc_if_interface_oc_eth_ethernet 
+note bottom of oc_if_interfaces_oc_if_interface_oc_eth_ethernet
+<b>When: </b>../oc-if:config/oc-if:type = 'ianaift:ethernetCsmacd'
+end note 
+oc_if_interfaces_oc_if_interface_oc_eth_ethernet : vlan-ethernet-top {uses} 
+class "/oc-if:interfaces/oc-if:interface/oc-lag:aggregation" as oc_if_interfaces_oc_if_interface_oc_lag_aggregation << (A,CadetBlue) augment>>
+openconfig_vlan *--  oc_if_interfaces_oc_if_interface_oc_lag_aggregation 
+note bottom of oc_if_interfaces_oc_if_interface_oc_lag_aggregation
+<b>When: </b>../oc-if:config/oc-if:type = 'ianaift:ieee8023adLag'
+end note 
+oc_if_interfaces_oc_if_interface_oc_lag_aggregation : vlan-ethernet-top {uses} 
+class "/oc-if:interfaces/oc-if:interface" as oc_if_interfaces_oc_if_interface << (A,CadetBlue) augment>>
+openconfig_vlan *--  oc_if_interfaces_oc_if_interface 
+note bottom of oc_if_interfaces_oc_if_interface
+<b>When: </b>oc-if:config/oc-if:type = 'ianaift:l3ipvlan'
+end note 
+oc_if_interfaces_oc_if_interface : vlan-routed-top {uses} 
+openconfig_vlan_I_vlan_config_grouping-->oc_vlan_types_TPID_TYPES: tpid
+} 
+
+openconfig_vlan_I_vlan_ethernet_top_I_switched_vlan_I_config --> openconfig_vlan_I_vlan_ethernet_config_grouping : uses 
+openconfig_vlan_I_vlan_ethernet_top_I_switched_vlan_I_state --> openconfig_vlan_I_vlan_ethernet_config_grouping : uses 
+openconfig_vlan_I_vlan_ethernet_top_I_switched_vlan_I_state --> openconfig_vlan_I_vlan_ethernet_state_grouping : uses 
+openconfig_vlan_I_vlan_top_I_vlans_I_vlan_I_config --> openconfig_vlan_I_vlan_config_grouping : uses 
+openconfig_vlan_I_vlan_top_I_vlans_I_vlan_I_state --> openconfig_vlan_I_vlan_config_grouping : uses 
+openconfig_vlan_I_vlan_top_I_vlans_I_vlan_I_state --> openconfig_vlan_I_vlan_state_grouping : uses 
+openconfig_vlan_I_vlan_top_I_vlans_I_vlan --> openconfig_vlan_I_vlan_members_state_grouping : uses 
+openconfig_vlan_I_vlan_logical_top_I_vlan_I_config --> openconfig_vlan_I_vlan_logical_config_grouping : uses 
+openconfig_vlan_I_vlan_logical_top_I_vlan_I_state --> openconfig_vlan_I_vlan_logical_config_grouping : uses 
+openconfig_vlan_I_vlan_logical_top_I_vlan_I_state --> openconfig_vlan_I_vlan_logical_state_grouping : uses 
+openconfig_vlan_I_vlan_routed_top_I_routed_vlan_I_config --> openconfig_vlan_I_vlan_routed_config_grouping : uses 
+openconfig_vlan_I_vlan_routed_top_I_routed_vlan_I_state --> openconfig_vlan_I_vlan_routed_config_grouping : uses 
+openconfig_vlan_I_vlan_routed_top_I_routed_vlan_I_state --> openconfig_vlan_I_vlan_routed_state_grouping : uses 
+oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface --> openconfig_vlan_I_vlan_logical_top_grouping : uses 
+oc_if_interfaces_oc_if_interface_oc_eth_ethernet --> openconfig_vlan_I_vlan_ethernet_top_grouping : uses 
+oc_if_interfaces_oc_if_interface_oc_lag_aggregation --> openconfig_vlan_I_vlan_ethernet_top_grouping : uses 
+oc_if_interfaces_oc_if_interface --> openconfig_vlan_I_vlan_routed_top_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:21 </size>
+ endfooter 
+@enduml 

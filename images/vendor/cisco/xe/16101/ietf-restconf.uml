@@ -1,0 +1,41 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-restconf.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-restconf 
+note top of rc_ietf_restconf : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-restconf \n<b>Prefix: </b> rc \n<b>Organization : </b>\nIETF NETCONF (Network Configuration) Working Group \n<b>Contact : </b>\nWG Web:   <https://datatracker.ietf.org/wg/netconf/> \nWG List:  <mailto:netconf@ietf.org> \n \nAuthor:   Andy Bierman \n          <mailto:andy@yumaworks.com> \n \nAuthor:   Martin Bjorklund \n          <mailto:mbj@tail-f.com> \n \nAuthor:   Kent Watsen \n          <mailto:kwatsen@juniper.net> \n<b>Revision : </b> 2017-01-26 \n
+package "rc:ietf-restconf" as rc_ietf_restconf { 
+class "ietf-restconf" as ietf_restconf << (M, #33CCFF) module>> 
+class "errors" as ietf_restconf_I_errors_grouping <<(G,Lime) grouping>> 
+class "errors" as  ietf_restconf_I_errors_I_errors <<container>> 
+ietf_restconf_I_errors_grouping *-- "1" ietf_restconf_I_errors_I_errors 
+class "error" as ietf_restconf_I_errors_I_errors_I_error << (L, #FF7700) list>> 
+ietf_restconf_I_errors_I_errors *-- "0..N" ietf_restconf_I_errors_I_errors_I_error 
+ietf_restconf_I_errors_I_errors_I_error : error-type : enumeration : {transport,rpc,protocol,...}   {mandatory}
+ietf_restconf_I_errors_I_errors_I_error : error-tag : string   {mandatory}
+ietf_restconf_I_errors_I_errors_I_error : error-app-tag : string  
+ietf_restconf_I_errors_I_errors_I_error : error-path : instance-identifier  
+ietf_restconf_I_errors_I_errors_I_error : error-message : string  
+class "restconf" as ietf_restconf_I_restconf_grouping <<(G,Lime) grouping>> 
+class "restconf" as  ietf_restconf_I_restconf_I_restconf <<container>> 
+ietf_restconf_I_restconf_grouping *-- "1" ietf_restconf_I_restconf_I_restconf 
+class "data" as  ietf_restconf_I_restconf_I_restconf_I_data <<container>> 
+ietf_restconf_I_restconf_I_restconf *-- "1" ietf_restconf_I_restconf_I_restconf_I_data 
+class "operations" as  ietf_restconf_I_restconf_I_restconf_I_operations <<container>> 
+ietf_restconf_I_restconf_I_restconf *-- "1" ietf_restconf_I_restconf_I_restconf_I_operations 
+ietf_restconf_I_restconf_I_restconf : yang-library-version : string {pattern = \d{4}-\d{2}-\d{2}}   {mandatory} {Config : false}
+} 
+
+center footer
+ <size:20> UML Generated : 2019-02-20 23:40 </size>
+ endfooter 
+@enduml 

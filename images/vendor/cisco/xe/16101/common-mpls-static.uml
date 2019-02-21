@@ -1,0 +1,208 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/common-mpls-static.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title common-mpls-static 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "if:ietf-interfaces" as if_ietf_interfaces { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "mpls:common-mpls-types" as mpls_common_mpls_types { 
+} 
+note top of ms_common_mpls_static : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:common-mpls-static \n<b>Prefix: </b> ms \n<b>Organization : </b>\nCisco Systems \n170 West Tasman Drive \nSan Jose, CA 95134-1706 \nUSA \n<b>Contact : </b>\nRobert Sawaya - rsawaya@cisco.com \nVasanth Sabavat - vsabavat@cisco.com \n<b>Revision : </b> 2015-07-22 \n
+package "ms:common-mpls-static" as ms_common_mpls_static { 
+inet_ietf_inet_types +-- ms_common_mpls_static
+if_ietf_interfaces +-- ms_common_mpls_static
+yang_ietf_yang_types +-- ms_common_mpls_static
+mpls_common_mpls_types +-- ms_common_mpls_static
+class "common-mpls-static" as common_mpls_static << (M, #33CCFF) module>> 
+class "lsp-stats" as common_mpls_static_I_lsp_stats_grouping <<(G,Lime) grouping>> 
+class "stats" as  common_mpls_static_I_lsp_stats_I_stats <<container>> 
+common_mpls_static_I_lsp_stats_grouping *-- "1" common_mpls_static_I_lsp_stats_I_stats 
+common_mpls_static_I_lsp_stats_I_stats : packets : uint64  
+common_mpls_static_I_lsp_stats_I_stats : bytes : uint64  
+common_mpls_static_I_lsp_stats_I_stats : dropped-packets : uint64  
+common_mpls_static_I_lsp_stats_I_stats : dropped-bytes : uint64  
+enum "hoptype" as common_mpls_static_I_hoptype {
+PRIMARY
+BACKUP
+}
+class "label-processing" as common_mpls_static_I_label_processing_grouping <<(G,Lime) grouping>> 
+class "operations" as  common_mpls_static_I_label_processing_I_operations <<container>> 
+common_mpls_static_I_label_processing_grouping *-- "1" common_mpls_static_I_label_processing_I_operations 
+class "operation" as common_mpls_static_I_label_processing_I_operations_I_operation <<choice>> 
+common_mpls_static_I_label_processing_I_operations .. common_mpls_static_I_label_processing_I_operations_I_operation : choice 
+class "preserve-stack" as common_mpls_static_I_label_processing_I_operations_I_operation_I_preserve_stack_case <<case>>
+common_mpls_static_I_label_processing_I_operations_I_operation .. common_mpls_static_I_label_processing_I_operations_I_operation_I_preserve_stack_case  : choice operation
+common_mpls_static_I_label_processing_I_operations_I_operation_I_preserve_stack_case : preserve : empty   {mandatory}
+class "swap-with-label-stack" as common_mpls_static_I_label_processing_I_operations_I_operation_I_swap_with_label_stack_case <<case>>
+common_mpls_static_I_label_processing_I_operations_I_operation .. common_mpls_static_I_label_processing_I_operations_I_operation_I_swap_with_label_stack_case  : choice operation
+class "swap" as  common_mpls_static_I_label_processing_I_operations_I_operation_I_swap_with_label_stack_I_swap <<container>> 
+common_mpls_static_I_label_processing_I_operations_I_operation_I_swap_with_label_stack_case *-- "1" common_mpls_static_I_label_processing_I_operations_I_operation_I_swap_with_label_stack_I_swap 
+common_mpls_static_I_label_processing_I_operations_I_operation_I_swap_with_label_stack_I_swap : mpls:out-label-stack {uses} 
+class "push-label-stack" as common_mpls_static_I_label_processing_I_operations_I_operation_I_push_label_stack_case <<case>>
+common_mpls_static_I_label_processing_I_operations_I_operation .. common_mpls_static_I_label_processing_I_operations_I_operation_I_push_label_stack_case  : choice operation
+class "push" as  common_mpls_static_I_label_processing_I_operations_I_operation_I_push_label_stack_I_push <<container>> 
+common_mpls_static_I_label_processing_I_operations_I_operation_I_push_label_stack_case *-- "1" common_mpls_static_I_label_processing_I_operations_I_operation_I_push_label_stack_I_push 
+common_mpls_static_I_label_processing_I_operations_I_operation_I_push_label_stack_I_push : mpls:out-label-stack {uses} 
+class "pop-and-forward" as common_mpls_static_I_label_processing_I_operations_I_operation_I_pop_and_forward_case <<case>>
+common_mpls_static_I_label_processing_I_operations_I_operation .. common_mpls_static_I_label_processing_I_operations_I_operation_I_pop_and_forward_case  : choice operation
+common_mpls_static_I_label_processing_I_operations_I_operation_I_pop_and_forward_case : pop-and-forward : empty   {mandatory}
+class "next-hop" as common_mpls_static_I_next_hop_grouping <<(G,Lime) grouping>> 
+class "next-hop-type" as  common_mpls_static_I_next_hop_I_next_hop_type <<container>> 
+common_mpls_static_I_next_hop_grouping *-- "1" common_mpls_static_I_next_hop_I_next_hop_type 
+class "address-type" as common_mpls_static_I_next_hop_I_next_hop_type_I_address_type <<choice>> 
+common_mpls_static_I_next_hop_I_next_hop_type .. common_mpls_static_I_next_hop_I_next_hop_type_I_address_type : choice 
+class "unnumberd" as common_mpls_static_I_next_hop_I_next_hop_type_I_address_type_I_unnumberd_case <<case>>
+common_mpls_static_I_next_hop_I_next_hop_type_I_address_type .. common_mpls_static_I_next_hop_I_next_hop_type_I_address_type_I_unnumberd_case  : choice address-type
+common_mpls_static_I_next_hop_I_next_hop_type_I_address_type_I_unnumberd_case : if-index : uint32   {mandatory}
+class "layer3-ipv4" as common_mpls_static_I_next_hop_I_next_hop_type_I_address_type_I_layer3_ipv4_case <<case>>
+common_mpls_static_I_next_hop_I_next_hop_type_I_address_type .. common_mpls_static_I_next_hop_I_next_hop_type_I_address_type_I_layer3_ipv4_case  : choice address-type
+common_mpls_static_I_next_hop_I_next_hop_type_I_address_type_I_layer3_ipv4_case : ipv4-address : inet:ipv4-address-no-zone   {mandatory}
+class "layer3-ipv6" as common_mpls_static_I_next_hop_I_next_hop_type_I_address_type_I_layer3_ipv6_case <<case>>
+common_mpls_static_I_next_hop_I_next_hop_type_I_address_type .. common_mpls_static_I_next_hop_I_next_hop_type_I_address_type_I_layer3_ipv6_case  : choice address-type
+common_mpls_static_I_next_hop_I_next_hop_type_I_address_type_I_layer3_ipv6_case : ipv6-address : inet:ipv6-address-no-zone   {mandatory}
+class "layer2" as common_mpls_static_I_next_hop_I_next_hop_type_I_address_type_I_layer2_case <<case>>
+common_mpls_static_I_next_hop_I_next_hop_type_I_address_type .. common_mpls_static_I_next_hop_I_next_hop_type_I_address_type_I_layer2_case  : choice address-type
+common_mpls_static_I_next_hop_I_next_hop_type_I_address_type_I_layer2_case : mac-address : yang:mac-address   {mandatory}
+common_mpls_static_I_next_hop_I_next_hop_type : out-interface-name : if:interface-ref  
+class "forwarding-path" as common_mpls_static_I_forwarding_path_grouping <<(G,Lime) grouping>> 
+class "path" as  common_mpls_static_I_forwarding_path_I_path <<container>> 
+common_mpls_static_I_forwarding_path_grouping *-- "1" common_mpls_static_I_forwarding_path_I_path 
+class "resolution" as common_mpls_static_I_forwarding_path_I_path_I_resolution <<choice>> 
+common_mpls_static_I_forwarding_path_I_path .. common_mpls_static_I_forwarding_path_I_path_I_resolution : choice 
+class "auto-next-hops" as common_mpls_static_I_forwarding_path_I_path_I_resolution_I_auto_next_hops_case <<case>>
+common_mpls_static_I_forwarding_path_I_path_I_resolution .. common_mpls_static_I_forwarding_path_I_path_I_resolution_I_auto_next_hops_case  : choice resolution
+common_mpls_static_I_forwarding_path_I_path_I_resolution_I_auto_next_hops_case : label-processing {uses} 
+common_mpls_static_I_forwarding_path_I_path_I_resolution_I_auto_next_hops_case : auto-protect : boolean   = false 
+class "explicit-next-hops" as common_mpls_static_I_forwarding_path_I_path_I_resolution_I_explicit_next_hops_case <<case>>
+common_mpls_static_I_forwarding_path_I_path_I_resolution .. common_mpls_static_I_forwarding_path_I_path_I_resolution_I_explicit_next_hops_case  : choice resolution
+class "next-hop" as common_mpls_static_I_forwarding_path_I_path_I_resolution_I_explicit_next_hops_I_next_hop << (L, #FF7700) list>> 
+common_mpls_static_I_forwarding_path_I_path_I_resolution_I_explicit_next_hops_case *-- "0..N" common_mpls_static_I_forwarding_path_I_path_I_resolution_I_explicit_next_hops_I_next_hop 
+common_mpls_static_I_forwarding_path_I_path_I_resolution_I_explicit_next_hops_I_next_hop : +index : uint32  {key}  {mandatory}
+common_mpls_static_I_forwarding_path_I_path_I_resolution_I_explicit_next_hops_I_next_hop : type : hoptype   {mandatory}
+common_mpls_static_I_forwarding_path_I_path_I_resolution_I_explicit_next_hops_I_next_hop : protected-by : uint32  
+common_mpls_static_I_forwarding_path_I_path_I_resolution_I_explicit_next_hops_I_next_hop : next-hop {uses} 
+common_mpls_static_I_forwarding_path_I_path_I_resolution_I_explicit_next_hops_I_next_hop : label-processing {uses} 
+class "mpls-static" as  common_mpls_static_I_mpls_static <<container>> 
+common_mpls_static *-- "1" common_mpls_static_I_mpls_static 
+class "mpls-static-cfg" as  common_mpls_static_I_mpls_static_I_mpls_static_cfg <<container>> 
+common_mpls_static_I_mpls_static *-- "1" common_mpls_static_I_mpls_static_I_mpls_static_cfg 
+class "interfaces" as  common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_interfaces <<container>> 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg *-- "1" common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_interfaces 
+class "interface" as common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_interfaces_I_interface << (L, #FF7700) list>> 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_interfaces *-- "0..N" common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_interfaces_I_interface 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_interfaces_I_interface : +name : if:interface-ref  {key}  {mandatory}
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_interfaces_I_interface : enabled : uint32   {mandatory}
+class "ipv4-ingress-lsps" as  common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv4_ingress_lsps <<container>> 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg *-- "1" common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv4_ingress_lsps 
+class "ipv4-ingress-lsp" as common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv4_ingress_lsps_I_ipv4_ingress_lsp << (L, #FF7700) list>> 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv4_ingress_lsps *-- "0..N" common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv4_ingress_lsps_I_ipv4_ingress_lsp 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv4_ingress_lsps_I_ipv4_ingress_lsp : +vrf-name : string  {key} 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv4_ingress_lsps_I_ipv4_ingress_lsp : +prefix : inet:ipv4-prefix  {key} 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv4_ingress_lsps_I_ipv4_ingress_lsp : name : string  
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv4_ingress_lsps_I_ipv4_ingress_lsp : in-label : mpls:ietf-mpls-label  
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv4_ingress_lsps_I_ipv4_ingress_lsp : forwarding-path {uses} 
+class "ipv6-ingress-lsps" as  common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv6_ingress_lsps <<container>> 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg *-- "1" common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv6_ingress_lsps 
+class "ipv6-ingress-lsp" as common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv6_ingress_lsps_I_ipv6_ingress_lsp << (L, #FF7700) list>> 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv6_ingress_lsps *-- "0..N" common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv6_ingress_lsps_I_ipv6_ingress_lsp 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv6_ingress_lsps_I_ipv6_ingress_lsp : +prefix : inet:ipv6-prefix  {key} 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv6_ingress_lsps_I_ipv6_ingress_lsp : name : string  
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv6_ingress_lsps_I_ipv6_ingress_lsp : in-label : mpls:ietf-mpls-label  
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv6_ingress_lsps_I_ipv6_ingress_lsp : +vrf-name : string  {key} 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv6_ingress_lsps_I_ipv6_ingress_lsp : forwarding-path {uses} 
+class "in-label-lsps" as  common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_in_label_lsps <<container>> 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg *-- "1" common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_in_label_lsps 
+class "in-label-lsp" as common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_in_label_lsps_I_in_label_lsp << (L, #FF7700) list>> 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_in_label_lsps *-- "0..N" common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_in_label_lsps_I_in_label_lsp 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_in_label_lsps_I_in_label_lsp : +in-label : mpls:ietf-mpls-label  {key} 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_in_label_lsps_I_in_label_lsp : +vrf-name : string  {key} 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_in_label_lsps_I_in_label_lsp : forwarding-path {uses} 
+class "named-lsps" as  common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_named_lsps <<container>> 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg *-- "1" common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_named_lsps 
+class "named-lsp" as common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_named_lsps_I_named_lsp << (L, #FF7700) list>> 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_named_lsps *-- "0..N" common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_named_lsps_I_named_lsp 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_named_lsps_I_named_lsp : +name : string  {key}  {mandatory}
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_named_lsps_I_named_lsp : lsp-type : identityref {lsp-type}   {mandatory}
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_named_lsps_I_named_lsp : +vrf-name : string  {key} 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_named_lsps_I_named_lsp : in-label : mpls:ietf-mpls-label  
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_named_lsps_I_named_lsp : ipv4-prefix : inet:ipv4-prefix  
+note bottom of common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_named_lsps_I_named_lsp
+<b>When</b> (ipv4-prefix):
+../lsp-type = 'lsp-IPv4'
+
+end note 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_named_lsps_I_named_lsp : ipv6-prefix : inet:ipv6-prefix  
+note bottom of common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_named_lsps_I_named_lsp
+<b>When</b> (ipv6-prefix):
+../lsp-type = 'lsp-IPv6'
+
+end note 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_named_lsps_I_named_lsp : forwarding-path {uses} 
+class "mpls-static-state" as  common_mpls_static_I_mpls_static_I_mpls_static_state <<container>> 
+common_mpls_static_I_mpls_static *-- "1" common_mpls_static_I_mpls_static_I_mpls_static_state 
+note bottom of common_mpls_static_I_mpls_static_I_mpls_static_state
+<b>Config = </b>false
+end note 
+class "label-switched-paths" as  common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths <<container>> 
+common_mpls_static_I_mpls_static_I_mpls_static_state *-- "1" common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths 
+class "label-switched-path" as common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths_I_label_switched_path << (L, #FF7700) list>> 
+common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths *-- "0..N" common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths_I_label_switched_path 
+common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths_I_label_switched_path : name : string  
+common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths_I_label_switched_path : +vrf-name : string  {key} 
+common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths_I_label_switched_path : in-label-value : mpls:ietf-mpls-label  
+common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths_I_label_switched_path : +prefix : inet:ip-prefix  {key} 
+class "ingress-stats" as  common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths_I_label_switched_path_I_ingress_stats <<container>> 
+common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths_I_label_switched_path *-- "1" common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths_I_label_switched_path_I_ingress_stats 
+common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths_I_label_switched_path_I_ingress_stats : lsp-stats {uses} 
+class "egress-stats" as  common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths_I_label_switched_path_I_egress_stats <<container>> 
+common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths_I_label_switched_path *-- "1" common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths_I_label_switched_path_I_egress_stats 
+common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths_I_label_switched_path_I_egress_stats : lsp-stats {uses} 
+common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths_I_label_switched_path : forwarding-path {uses} 
+class "lsp-type" as lsp_type << (I,Silver) identity>> 
+class "lsp-IPv4" as lsp_IPv4 << (I,Silver) identity>> 
+lsp_type <|-- lsp_IPv4 
+class "lsp-IPv6" as lsp_IPv6 << (I,Silver) identity>> 
+lsp_type <|-- lsp_IPv6 
+class "lsp-vrf" as lsp_vrf << (I,Silver) identity>> 
+lsp_type <|-- lsp_vrf 
+class "lsp" as lsp << (I,Silver) identity>> 
+lsp_type <|-- lsp 
+class "nexthop-resolution-type" as nexthop_resolution_type << (I,Silver) identity>> 
+class "static-nexthop" as static_nexthop << (I,Silver) identity>> 
+nexthop_resolution_type <|-- static_nexthop 
+class "bgp-route-nexthop" as bgp_route_nexthop << (I,Silver) identity>> 
+nexthop_resolution_type <|-- bgp_route_nexthop 
+class "ospf-route-nexthop" as ospf_route_nexthop << (I,Silver) identity>> 
+nexthop_resolution_type <|-- ospf_route_nexthop 
+class "isis-route-nexthop" as isis_route_nexthop << (I,Silver) identity>> 
+nexthop_resolution_type <|-- isis_route_nexthop 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_named_lsps_I_named_lsp-->lsp_type: lsp-type
+} 
+
+common_mpls_static_I_forwarding_path_I_path_I_resolution_I_auto_next_hops_case --> common_mpls_static_I_label_processing_grouping : uses 
+common_mpls_static_I_forwarding_path_I_path_I_resolution_I_explicit_next_hops_I_next_hop --> common_mpls_static_I_next_hop_grouping : uses 
+common_mpls_static_I_forwarding_path_I_path_I_resolution_I_explicit_next_hops_I_next_hop --> common_mpls_static_I_label_processing_grouping : uses 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv4_ingress_lsps_I_ipv4_ingress_lsp --> common_mpls_static_I_forwarding_path_grouping : uses 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_ipv6_ingress_lsps_I_ipv6_ingress_lsp --> common_mpls_static_I_forwarding_path_grouping : uses 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_in_label_lsps_I_in_label_lsp --> common_mpls_static_I_forwarding_path_grouping : uses 
+common_mpls_static_I_mpls_static_I_mpls_static_cfg_I_named_lsps_I_named_lsp --> common_mpls_static_I_forwarding_path_grouping : uses 
+common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths_I_label_switched_path_I_ingress_stats --> common_mpls_static_I_lsp_stats_grouping : uses 
+common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths_I_label_switched_path_I_egress_stats --> common_mpls_static_I_lsp_stats_grouping : uses 
+common_mpls_static_I_mpls_static_I_mpls_static_state_I_label_switched_paths_I_label_switched_path --> common_mpls_static_I_forwarding_path_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:59 </size>
+ endfooter 
+@enduml 

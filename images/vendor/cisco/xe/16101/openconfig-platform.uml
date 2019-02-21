@@ -1,0 +1,121 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-platform.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-platform 
+package "oc-platform-types:openconfig-platform-types" as oc_platform_types_openconfig_platform_types { 
+} 
+package "oc-if:openconfig-interfaces" as oc_if_openconfig_interfaces { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+note top of oc_platform_openconfig_platform : <b>Namespace: </b> http://openconfig.net/yang/platform \n<b>Prefix: </b> oc-platform \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nwww.openconfig.net \n<b>Revision : </b> 2016-12-22 \n
+package "oc-platform:openconfig-platform" as oc_platform_openconfig_platform { 
+oc_platform_types_openconfig_platform_types +-- oc_platform_openconfig_platform
+oc_if_openconfig_interfaces +-- oc_platform_openconfig_platform
+oc_ext_openconfig_extensions +-- oc_platform_openconfig_platform
+class "openconfig-platform" as openconfig_platform << (M, #33CCFF) module>> 
+class "platform-component-properties-config" as openconfig_platform_I_platform_component_properties_config_grouping <<(G,Lime) grouping>> 
+openconfig_platform_I_platform_component_properties_config_grouping : name : string  
+openconfig_platform_I_platform_component_properties_config_grouping : value : union{string, boolean,..}  
+class "platform-component-properties-state" as openconfig_platform_I_platform_component_properties_state_grouping <<(G,Lime) grouping>> 
+openconfig_platform_I_platform_component_properties_state_grouping : configurable : boolean  
+class "platform-component-properties-top" as openconfig_platform_I_platform_component_properties_top_grouping <<(G,Lime) grouping>> 
+class "properties" as  openconfig_platform_I_platform_component_properties_top_I_properties <<container>> 
+openconfig_platform_I_platform_component_properties_top_grouping *-- "1" openconfig_platform_I_platform_component_properties_top_I_properties 
+class "property" as openconfig_platform_I_platform_component_properties_top_I_properties_I_property << (L, #FF7700) list>> 
+openconfig_platform_I_platform_component_properties_top_I_properties *-- "0..N" openconfig_platform_I_platform_component_properties_top_I_properties_I_property 
+openconfig_platform_I_platform_component_properties_top_I_properties_I_property : +name : leafref : ../config/name  {key} 
+class "config" as  openconfig_platform_I_platform_component_properties_top_I_properties_I_property_I_config <<container>> 
+openconfig_platform_I_platform_component_properties_top_I_properties_I_property *-- "1" openconfig_platform_I_platform_component_properties_top_I_properties_I_property_I_config 
+openconfig_platform_I_platform_component_properties_top_I_properties_I_property_I_config : platform-component-properties-config {uses} 
+class "state" as  openconfig_platform_I_platform_component_properties_top_I_properties_I_property_I_state <<container>> 
+openconfig_platform_I_platform_component_properties_top_I_properties_I_property *-- "1" openconfig_platform_I_platform_component_properties_top_I_properties_I_property_I_state 
+note bottom of openconfig_platform_I_platform_component_properties_top_I_properties_I_property_I_state
+<b>Config = </b>false
+end note 
+openconfig_platform_I_platform_component_properties_top_I_properties_I_property_I_state : platform-component-properties-config {uses} 
+openconfig_platform_I_platform_component_properties_top_I_properties_I_property_I_state : platform-component-properties-state {uses} 
+class "platform-subcomponent-ref-config" as openconfig_platform_I_platform_subcomponent_ref_config_grouping <<(G,Lime) grouping>> 
+openconfig_platform_I_platform_subcomponent_ref_config_grouping : +name : leafref : ../../../../../component/config/name  {key} 
+class "platform-subcomponent-ref-state" as openconfig_platform_I_platform_subcomponent_ref_state_grouping <<(G,Lime) grouping>> 
+class "platform-subcomponent-ref-top" as openconfig_platform_I_platform_subcomponent_ref_top_grouping <<(G,Lime) grouping>> 
+class "subcomponents" as  openconfig_platform_I_platform_subcomponent_ref_top_I_subcomponents <<container>> 
+openconfig_platform_I_platform_subcomponent_ref_top_grouping *-- "1" openconfig_platform_I_platform_subcomponent_ref_top_I_subcomponents 
+class "subcomponent" as openconfig_platform_I_platform_subcomponent_ref_top_I_subcomponents_I_subcomponent << (L, #FF7700) list>> 
+openconfig_platform_I_platform_subcomponent_ref_top_I_subcomponents *-- "0..N" openconfig_platform_I_platform_subcomponent_ref_top_I_subcomponents_I_subcomponent 
+openconfig_platform_I_platform_subcomponent_ref_top_I_subcomponents_I_subcomponent : +name : leafref : ../config/name  {key} 
+class "config" as  openconfig_platform_I_platform_subcomponent_ref_top_I_subcomponents_I_subcomponent_I_config <<container>> 
+openconfig_platform_I_platform_subcomponent_ref_top_I_subcomponents_I_subcomponent *-- "1" openconfig_platform_I_platform_subcomponent_ref_top_I_subcomponents_I_subcomponent_I_config 
+openconfig_platform_I_platform_subcomponent_ref_top_I_subcomponents_I_subcomponent_I_config : platform-subcomponent-ref-config {uses} 
+class "state" as  openconfig_platform_I_platform_subcomponent_ref_top_I_subcomponents_I_subcomponent_I_state <<container>> 
+openconfig_platform_I_platform_subcomponent_ref_top_I_subcomponents_I_subcomponent *-- "1" openconfig_platform_I_platform_subcomponent_ref_top_I_subcomponents_I_subcomponent_I_state 
+note bottom of openconfig_platform_I_platform_subcomponent_ref_top_I_subcomponents_I_subcomponent_I_state
+<b>Config = </b>false
+end note 
+openconfig_platform_I_platform_subcomponent_ref_top_I_subcomponents_I_subcomponent_I_state : platform-subcomponent-ref-config {uses} 
+openconfig_platform_I_platform_subcomponent_ref_top_I_subcomponents_I_subcomponent_I_state : platform-subcomponent-ref-state {uses} 
+class "platform-component-config" as openconfig_platform_I_platform_component_config_grouping <<(G,Lime) grouping>> 
+openconfig_platform_I_platform_component_config_grouping : +name : string  {key} 
+class "platform-component-state" as openconfig_platform_I_platform_component_state_grouping <<(G,Lime) grouping>> 
+openconfig_platform_I_platform_component_state_grouping : type : union{identityref, identityref}  
+openconfig_platform_I_platform_component_state_grouping : id : string  
+openconfig_platform_I_platform_component_state_grouping : description : string  
+openconfig_platform_I_platform_component_state_grouping : mfg-name : string  
+openconfig_platform_I_platform_component_state_grouping : version : string  
+openconfig_platform_I_platform_component_state_grouping : serial-no : string  
+openconfig_platform_I_platform_component_state_grouping : part-no : string  
+class "platform-component-temp-state" as openconfig_platform_I_platform_component_temp_state_grouping <<(G,Lime) grouping>> 
+class "temperature" as  openconfig_platform_I_platform_component_temp_state_I_temperature <<container>> 
+openconfig_platform_I_platform_component_temp_state_grouping *-- "1" openconfig_platform_I_platform_component_temp_state_I_temperature 
+openconfig_platform_I_platform_component_temp_state_I_temperature : oc-platform-types:avg-min-max-instant-stats-precision1-celsius {uses} 
+class "platform-component-top" as openconfig_platform_I_platform_component_top_grouping <<(G,Lime) grouping>> 
+class "components" as  openconfig_platform_I_platform_component_top_I_components <<container>> 
+openconfig_platform_I_platform_component_top_grouping *-- "1" openconfig_platform_I_platform_component_top_I_components 
+class "component" as openconfig_platform_I_platform_component_top_I_components_I_component << (L, #FF7700) list>> 
+openconfig_platform_I_platform_component_top_I_components *-- "0..N" openconfig_platform_I_platform_component_top_I_components_I_component 
+openconfig_platform_I_platform_component_top_I_components_I_component : +name : leafref : ../config/name  {key} 
+class "config" as  openconfig_platform_I_platform_component_top_I_components_I_component_I_config <<container>> 
+openconfig_platform_I_platform_component_top_I_components_I_component *-- "1" openconfig_platform_I_platform_component_top_I_components_I_component_I_config 
+openconfig_platform_I_platform_component_top_I_components_I_component_I_config : platform-component-config {uses} 
+class "state" as  openconfig_platform_I_platform_component_top_I_components_I_component_I_state <<container>> 
+openconfig_platform_I_platform_component_top_I_components_I_component *-- "1" openconfig_platform_I_platform_component_top_I_components_I_component_I_state 
+note bottom of openconfig_platform_I_platform_component_top_I_components_I_component_I_state
+<b>Config = </b>false
+end note 
+openconfig_platform_I_platform_component_top_I_components_I_component_I_state : platform-component-config {uses} 
+openconfig_platform_I_platform_component_top_I_components_I_component_I_state : platform-component-state {uses} 
+openconfig_platform_I_platform_component_top_I_components_I_component_I_state : platform-component-temp-state {uses} 
+openconfig_platform_I_platform_component_top_I_components_I_component : platform-component-properties-top {uses} 
+openconfig_platform_I_platform_component_top_I_components_I_component : platform-subcomponent-ref-top {uses} 
+class "/oc-if:interfaces/oc-if:interface/oc-if:state" as oc_if_interfaces_oc_if_interface_oc_if_state << (A,CadetBlue) augment>>
+openconfig_platform *--  oc_if_interfaces_oc_if_interface_oc_if_state 
+oc_if_interfaces_oc_if_interface_oc_if_state : hardware-port : leafref : /oc-platform:components/oc-platform:component/oc-platform:name  
+} 
+
+openconfig_platform_I_platform_component_properties_top_I_properties_I_property_I_config --> openconfig_platform_I_platform_component_properties_config_grouping : uses 
+openconfig_platform_I_platform_component_properties_top_I_properties_I_property_I_state --> openconfig_platform_I_platform_component_properties_config_grouping : uses 
+openconfig_platform_I_platform_component_properties_top_I_properties_I_property_I_state --> openconfig_platform_I_platform_component_properties_state_grouping : uses 
+openconfig_platform_I_platform_subcomponent_ref_top_I_subcomponents_I_subcomponent_I_config --> openconfig_platform_I_platform_subcomponent_ref_config_grouping : uses 
+openconfig_platform_I_platform_subcomponent_ref_top_I_subcomponents_I_subcomponent_I_state --> openconfig_platform_I_platform_subcomponent_ref_config_grouping : uses 
+openconfig_platform_I_platform_subcomponent_ref_top_I_subcomponents_I_subcomponent_I_state --> openconfig_platform_I_platform_subcomponent_ref_state_grouping : uses 
+openconfig_platform_I_platform_component_top_I_components_I_component_I_config --> openconfig_platform_I_platform_component_config_grouping : uses 
+openconfig_platform_I_platform_component_top_I_components_I_component_I_state --> openconfig_platform_I_platform_component_config_grouping : uses 
+openconfig_platform_I_platform_component_top_I_components_I_component_I_state --> openconfig_platform_I_platform_component_state_grouping : uses 
+openconfig_platform_I_platform_component_top_I_components_I_component_I_state --> openconfig_platform_I_platform_component_temp_state_grouping : uses 
+openconfig_platform_I_platform_component_top_I_components_I_component --> openconfig_platform_I_platform_component_properties_top_grouping : uses 
+openconfig_platform_I_platform_component_top_I_components_I_component --> openconfig_platform_I_platform_subcomponent_ref_top_grouping : uses 
+openconfig_interfaces_I_interfaces_I_interface_I_state-->"oc-platform:name"openconfig_platform_I_components_I_component: hardware-port
+center footer
+ <size:20> UML Generated : 2019-02-21 00:54 </size>
+ endfooter 
+@enduml 

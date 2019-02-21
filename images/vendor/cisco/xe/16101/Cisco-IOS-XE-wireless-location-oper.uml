@@ -1,0 +1,65 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/Cisco-IOS-XE-wireless-location-o.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title Cisco-IOS-XE-wireless-location-o 
+package "wireless-rrm-types:Cisco-IOS-XE-wireless-rrm-types" as wireless_rrm_types_Cisco_IOS_XE_wireless_rrm_types { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+note top of wireless_location_oper_Cisco_IOS_XE_wireless_location_oper : <b>Namespace: </b> http://cisco.com/ns/yang/Cisco-IOS-XE-wireless-location-oper \n<b>Prefix: </b> wireless-location-oper \n<b>Organization : </b>\nCisco Systems, Inc. \n<b>Contact : </b>\nCisco Systems, Inc. \nCustomer Service \n \nPostal: 170 W Tasman Drive \nSan Jose, CA 95134 \n \nTel: +1 1800 553-NETS \n \nE-mail: cs-yang@cisco.com \n<b>Revision : </b> 2018-07-25 \n
+package "wireless-location-oper:Cisco-IOS-XE-wireless-location-oper" as wireless_location_oper_Cisco_IOS_XE_wireless_location_oper { 
+wireless_rrm_types_Cisco_IOS_XE_wireless_rrm_types +-- wireless_location_oper_Cisco_IOS_XE_wireless_location_oper
+yang_ietf_yang_types +-- wireless_location_oper_Cisco_IOS_XE_wireless_location_oper
+class "Cisco-IOS-XE-wireless-location-oper" as Cisco_IOS_XE_wireless_location_oper << (M, #33CCFF) module>> 
+enum "source-type" as Cisco_IOS_XE_wireless_location_oper_I_source_type {
+location-rssi-source-none
+location-rssi-source-probe
+location-rssi-source-plm
+}
+class "rssi-sample" as Cisco_IOS_XE_wireless_location_oper_I_rssi_sample_grouping <<(G,Lime) grouping>> 
+Cisco_IOS_XE_wireless_location_oper_I_rssi_sample_grouping : rssi-value-a : int8  
+Cisco_IOS_XE_wireless_location_oper_I_rssi_sample_grouping : rssi-value-b : int8  
+Cisco_IOS_XE_wireless_location_oper_I_rssi_sample_grouping : rssi-timestamp : yang:date-and-time  
+class "client-lrad-key" as Cisco_IOS_XE_wireless_location_oper_I_client_lrad_key_grouping <<(G,Lime) grouping>> 
+Cisco_IOS_XE_wireless_location_oper_I_client_lrad_key_grouping : client-mac-addr : yang:mac-address  
+Cisco_IOS_XE_wireless_location_oper_I_client_lrad_key_grouping : lrad-addr : yang:mac-address  
+class "radio-measurement" as Cisco_IOS_XE_wireless_location_oper_I_radio_measurement_grouping <<(G,Lime) grouping>> 
+Cisco_IOS_XE_wireless_location_oper_I_radio_measurement_grouping : band : wireless-rrm-types:enm-rrm-phy-type  
+Cisco_IOS_XE_wireless_location_oper_I_radio_measurement_grouping : type : wireless-location-oper:source-type  
+class "sample" as  Cisco_IOS_XE_wireless_location_oper_I_radio_measurement_I_sample <<container>> 
+Cisco_IOS_XE_wireless_location_oper_I_radio_measurement_grouping *-- "1" Cisco_IOS_XE_wireless_location_oper_I_radio_measurement_I_sample 
+Cisco_IOS_XE_wireless_location_oper_I_radio_measurement_I_sample : wireless-location-oper:rssi-sample {uses} 
+Cisco_IOS_XE_wireless_location_oper_I_radio_measurement_grouping : snr : int8  
+class "ap-radio-measurement" as Cisco_IOS_XE_wireless_location_oper_I_ap_radio_measurement_grouping <<(G,Lime) grouping>> 
+class "radio-measurements" as Cisco_IOS_XE_wireless_location_oper_I_ap_radio_measurement_I_radio_measurements << (L, #FF7700) list>> 
+Cisco_IOS_XE_wireless_location_oper_I_ap_radio_measurement_grouping *-- "0..3" Cisco_IOS_XE_wireless_location_oper_I_ap_radio_measurement_I_radio_measurements 
+Cisco_IOS_XE_wireless_location_oper_I_ap_radio_measurement_I_radio_measurements : wireless-location-oper:radio-measurement {uses} 
+class "location-oper-data" as  Cisco_IOS_XE_wireless_location_oper_I_location_oper_data <<container>> 
+Cisco_IOS_XE_wireless_location_oper *-- "1" Cisco_IOS_XE_wireless_location_oper_I_location_oper_data 
+note bottom of Cisco_IOS_XE_wireless_location_oper_I_location_oper_data
+<b>Config = </b>false
+end note 
+class "location-rssi-measurements" as Cisco_IOS_XE_wireless_location_oper_I_location_oper_data_I_location_rssi_measurements << (L, #FF7700) list>> 
+Cisco_IOS_XE_wireless_location_oper_I_location_oper_data *-- "0..N" Cisco_IOS_XE_wireless_location_oper_I_location_oper_data_I_location_rssi_measurements 
+Cisco_IOS_XE_wireless_location_oper_I_location_oper_data_I_location_rssi_measurements : wireless-location-oper:client-lrad-key {uses} 
+Cisco_IOS_XE_wireless_location_oper_I_location_oper_data_I_location_rssi_measurements : wireless-location-oper:ap-radio-measurement {uses} 
+} 
+
+Cisco_IOS_XE_wireless_location_oper_I_radio_measurement_I_sample --> Cisco_IOS_XE_wireless_location_oper_I_rssi_sample_grouping : uses 
+Cisco_IOS_XE_wireless_location_oper_I_ap_radio_measurement_I_radio_measurements --> Cisco_IOS_XE_wireless_location_oper_I_radio_measurement_grouping : uses 
+Cisco_IOS_XE_wireless_location_oper_I_location_oper_data_I_location_rssi_measurements --> Cisco_IOS_XE_wireless_location_oper_I_client_lrad_key_grouping : uses 
+Cisco_IOS_XE_wireless_location_oper_I_location_oper_data_I_location_rssi_measurements --> Cisco_IOS_XE_wireless_location_oper_I_ap_radio_measurement_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:30 </size>
+ endfooter 
+@enduml 

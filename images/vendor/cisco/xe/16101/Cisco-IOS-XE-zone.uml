@@ -1,0 +1,126 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/Cisco-IOS-XE-zone.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title Cisco-IOS-XE-zone 
+package "ios:Cisco-IOS-XE-native" as ios_Cisco_IOS_XE_native { 
+} 
+package "ios-policy:Cisco-IOS-XE-policy" as ios_policy_Cisco_IOS_XE_policy { 
+} 
+note top of ios_zone_Cisco_IOS_XE_zone : <b>Namespace: </b> http://cisco.com/ns/yang/Cisco-IOS-XE-zone \n<b>Prefix: </b> ios-zone \n<b>Organization : </b>\nCisco Systems, Inc. \n<b>Contact : </b>\nCisco Systems, Inc. \nCustomer Service \n \nPostal: 170 W Tasman Drive \nSan Jose, CA 95134 \n \nTel: +1 1800 553-NETS \n \nE-mail: cs-yang@cisco.com \n<b>Revision : </b> 2018-06-12 \n
+package "ios-zone:Cisco-IOS-XE-zone" as ios_zone_Cisco_IOS_XE_zone { 
+ios_Cisco_IOS_XE_native +-- ios_zone_Cisco_IOS_XE_zone
+ios_policy_Cisco_IOS_XE_policy +-- ios_zone_Cisco_IOS_XE_zone
+class "Cisco-IOS-XE-zone" as Cisco_IOS_XE_zone << (M, #33CCFF) module>> 
+class "config-interface-zone-member-grouping" as Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_grouping <<(G,Lime) grouping>> 
+class "zone-member" as  Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_I_zone_member <<container>> 
+Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_grouping *-- "1" Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_I_zone_member 
+Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_I_zone_member : security : string {length = 1..64}  
+class "config-zone-grouping" as Cisco_IOS_XE_zone_I_config_zone_grouping_grouping <<(G,Lime) grouping>> 
+class "security" as Cisco_IOS_XE_zone_I_config_zone_grouping_I_security << (L, #FF7700) list>> 
+Cisco_IOS_XE_zone_I_config_zone_grouping_grouping *-- "0..N" Cisco_IOS_XE_zone_I_config_zone_grouping_I_security 
+Cisco_IOS_XE_zone_I_config_zone_grouping_I_security : +id : string {length = 1..64}  {key} 
+Cisco_IOS_XE_zone_I_config_zone_grouping_I_security : description : string {length = 1..200}  
+Cisco_IOS_XE_zone_I_config_zone_grouping_I_security : protection : string {length = 1..256}  
+class "vpn" as Cisco_IOS_XE_zone_I_config_zone_grouping_I_security_I_vpn << (L, #FF7700) list>> 
+Cisco_IOS_XE_zone_I_config_zone_grouping_I_security *-- "0..N" Cisco_IOS_XE_zone_I_config_zone_grouping_I_security_I_vpn 
+Cisco_IOS_XE_zone_I_config_zone_grouping_I_security_I_vpn : +id : uint32  {key} 
+class "config-zone-pair-grouping" as Cisco_IOS_XE_zone_I_config_zone_pair_grouping_grouping <<(G,Lime) grouping>> 
+class "security" as Cisco_IOS_XE_zone_I_config_zone_pair_grouping_I_security << (L, #FF7700) list>> 
+Cisco_IOS_XE_zone_I_config_zone_pair_grouping_grouping *-- "0..N" Cisco_IOS_XE_zone_I_config_zone_pair_grouping_I_security 
+Cisco_IOS_XE_zone_I_config_zone_pair_grouping_I_security : +id : string {length = 1..128}  {key} 
+Cisco_IOS_XE_zone_I_config_zone_pair_grouping_I_security : source : string {length = 1..64}  
+Cisco_IOS_XE_zone_I_config_zone_pair_grouping_I_security : destination : string {length = 1..64}  
+Cisco_IOS_XE_zone_I_config_zone_pair_grouping_I_security : description : string {length = 1..200}  
+class "service-policy" as  Cisco_IOS_XE_zone_I_config_zone_pair_grouping_I_security_I_service_policy <<container>> 
+Cisco_IOS_XE_zone_I_config_zone_pair_grouping_I_security *-- "1" Cisco_IOS_XE_zone_I_config_zone_pair_grouping_I_security_I_service_policy 
+class "type" as  Cisco_IOS_XE_zone_I_config_zone_pair_grouping_I_security_I_service_policy_I_type <<container>> 
+Cisco_IOS_XE_zone_I_config_zone_pair_grouping_I_security_I_service_policy *-- "1" Cisco_IOS_XE_zone_I_config_zone_pair_grouping_I_security_I_service_policy_I_type 
+Cisco_IOS_XE_zone_I_config_zone_pair_grouping_I_security_I_service_policy_I_type : inspect : string {length = 1..512}  
+class "/ios:native/ios:zone" as ios_native_ios_zone << (A,CadetBlue) augment>>
+Cisco_IOS_XE_zone *--  ios_native_ios_zone 
+ios_native_ios_zone : config-zone-grouping {uses} 
+class "/ios:native/ios:zone-pair" as ios_native_ios_zone_pair << (A,CadetBlue) augment>>
+Cisco_IOS_XE_zone *--  ios_native_ios_zone_pair 
+ios_native_ios_zone_pair : config-zone-pair-grouping {uses} 
+class "/ios:native/ios:interface/ios:Ethernet" as ios_native_ios_interface_ios_Ethernet << (A,CadetBlue) augment>>
+Cisco_IOS_XE_zone *--  ios_native_ios_interface_ios_Ethernet 
+ios_native_ios_interface_ios_Ethernet : config-interface-zone-member-grouping {uses} 
+class "/ios:native/ios:interface/ios:FastEthernet" as ios_native_ios_interface_ios_FastEthernet << (A,CadetBlue) augment>>
+Cisco_IOS_XE_zone *--  ios_native_ios_interface_ios_FastEthernet 
+ios_native_ios_interface_ios_FastEthernet : config-interface-zone-member-grouping {uses} 
+class "/ios:native/ios:interface/ios:GigabitEthernet" as ios_native_ios_interface_ios_GigabitEthernet << (A,CadetBlue) augment>>
+Cisco_IOS_XE_zone *--  ios_native_ios_interface_ios_GigabitEthernet 
+ios_native_ios_interface_ios_GigabitEthernet : config-interface-zone-member-grouping {uses} 
+class "/ios:native/ios:interface/ios:TenGigabitEthernet" as ios_native_ios_interface_ios_TenGigabitEthernet << (A,CadetBlue) augment>>
+Cisco_IOS_XE_zone *--  ios_native_ios_interface_ios_TenGigabitEthernet 
+ios_native_ios_interface_ios_TenGigabitEthernet : config-interface-zone-member-grouping {uses} 
+class "/ios:native/ios:interface/ios:FiveGigabitEthernet" as ios_native_ios_interface_ios_FiveGigabitEthernet << (A,CadetBlue) augment>>
+Cisco_IOS_XE_zone *--  ios_native_ios_interface_ios_FiveGigabitEthernet 
+ios_native_ios_interface_ios_FiveGigabitEthernet : config-interface-zone-member-grouping {uses} 
+class "/ios:native/ios:interface/ios:TwentyFiveGigE" as ios_native_ios_interface_ios_TwentyFiveGigE << (A,CadetBlue) augment>>
+Cisco_IOS_XE_zone *--  ios_native_ios_interface_ios_TwentyFiveGigE 
+ios_native_ios_interface_ios_TwentyFiveGigE : config-interface-zone-member-grouping {uses} 
+class "/ios:native/ios:interface/ios:FortyGigabitEthernet" as ios_native_ios_interface_ios_FortyGigabitEthernet << (A,CadetBlue) augment>>
+Cisco_IOS_XE_zone *--  ios_native_ios_interface_ios_FortyGigabitEthernet 
+ios_native_ios_interface_ios_FortyGigabitEthernet : config-interface-zone-member-grouping {uses} 
+class "/ios:native/ios:interface/ios:HundredGigE" as ios_native_ios_interface_ios_HundredGigE << (A,CadetBlue) augment>>
+Cisco_IOS_XE_zone *--  ios_native_ios_interface_ios_HundredGigE 
+ios_native_ios_interface_ios_HundredGigE : config-interface-zone-member-grouping {uses} 
+class "/ios:native/ios:interface/ios:LISP" as ios_native_ios_interface_ios_LISP << (A,CadetBlue) augment>>
+Cisco_IOS_XE_zone *--  ios_native_ios_interface_ios_LISP 
+ios_native_ios_interface_ios_LISP : config-interface-zone-member-grouping {uses} 
+class "/ios:native/ios:interface/ios:TwoGigabitEthernet" as ios_native_ios_interface_ios_TwoGigabitEthernet << (A,CadetBlue) augment>>
+Cisco_IOS_XE_zone *--  ios_native_ios_interface_ios_TwoGigabitEthernet 
+ios_native_ios_interface_ios_TwoGigabitEthernet : config-interface-zone-member-grouping {uses} 
+class "/ios:native/ios:interface/ios:Loopback" as ios_native_ios_interface_ios_Loopback << (A,CadetBlue) augment>>
+Cisco_IOS_XE_zone *--  ios_native_ios_interface_ios_Loopback 
+ios_native_ios_interface_ios_Loopback : config-interface-zone-member-grouping {uses} 
+class "/ios:native/ios:interface/ios:Tunnel" as ios_native_ios_interface_ios_Tunnel << (A,CadetBlue) augment>>
+Cisco_IOS_XE_zone *--  ios_native_ios_interface_ios_Tunnel 
+ios_native_ios_interface_ios_Tunnel : config-interface-zone-member-grouping {uses} 
+class "/ios:native/ios:interface/ios:Virtual-Template" as ios_native_ios_interface_ios_Virtual_Template << (A,CadetBlue) augment>>
+Cisco_IOS_XE_zone *--  ios_native_ios_interface_ios_Virtual_Template 
+ios_native_ios_interface_ios_Virtual_Template : config-interface-zone-member-grouping {uses} 
+class "/ios:native/ios:interface/ios:Vlan" as ios_native_ios_interface_ios_Vlan << (A,CadetBlue) augment>>
+Cisco_IOS_XE_zone *--  ios_native_ios_interface_ios_Vlan 
+ios_native_ios_interface_ios_Vlan : config-interface-zone-member-grouping {uses} 
+class "/ios:native/ios:interface/ios:vasileft" as ios_native_ios_interface_ios_vasileft << (A,CadetBlue) augment>>
+Cisco_IOS_XE_zone *--  ios_native_ios_interface_ios_vasileft 
+ios_native_ios_interface_ios_vasileft : config-interface-zone-member-grouping {uses} 
+class "/ios:native/ios:interface/ios:vasiright" as ios_native_ios_interface_ios_vasiright << (A,CadetBlue) augment>>
+Cisco_IOS_XE_zone *--  ios_native_ios_interface_ios_vasiright 
+ios_native_ios_interface_ios_vasiright : config-interface-zone-member-grouping {uses} 
+} 
+
+ios_native_ios_zone --> Cisco_IOS_XE_zone_I_config_zone_grouping_grouping : uses 
+ios_native_ios_zone_pair --> Cisco_IOS_XE_zone_I_config_zone_pair_grouping_grouping : uses 
+ios_native_ios_interface_ios_Ethernet --> Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_grouping : uses 
+ios_native_ios_interface_ios_FastEthernet --> Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_grouping : uses 
+ios_native_ios_interface_ios_GigabitEthernet --> Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_grouping : uses 
+ios_native_ios_interface_ios_TenGigabitEthernet --> Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_grouping : uses 
+ios_native_ios_interface_ios_FiveGigabitEthernet --> Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_grouping : uses 
+ios_native_ios_interface_ios_TwentyFiveGigE --> Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_grouping : uses 
+ios_native_ios_interface_ios_FortyGigabitEthernet --> Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_grouping : uses 
+ios_native_ios_interface_ios_HundredGigE --> Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_grouping : uses 
+ios_native_ios_interface_ios_LISP --> Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_grouping : uses 
+ios_native_ios_interface_ios_TwoGigabitEthernet --> Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_grouping : uses 
+ios_native_ios_interface_ios_Loopback --> Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_grouping : uses 
+ios_native_ios_interface_ios_Tunnel --> Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_grouping : uses 
+ios_native_ios_interface_ios_Virtual_Template --> Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_grouping : uses 
+ios_native_ios_interface_ios_Vlan --> Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_grouping : uses 
+ios_native_ios_interface_ios_vasileft --> Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_grouping : uses 
+ios_native_ios_interface_ios_vasiright --> Cisco_IOS_XE_zone_I_config_interface_zone_member_grouping_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:29 </size>
+ endfooter 
+@enduml 

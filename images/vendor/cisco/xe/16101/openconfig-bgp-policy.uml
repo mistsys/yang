@@ -1,0 +1,456 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-bgp-policy.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-bgp-policy 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "oc-rpol:openconfig-routing-policy" as oc_rpol_openconfig_routing_policy { 
+} 
+package "oc-pol-types:openconfig-policy-types" as oc_pol_types_openconfig_policy_types { 
+} 
+package "oc-bgp-types:openconfig-bgp-types" as oc_bgp_types_openconfig_bgp_types { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+note top of oc_bgp_pol_openconfig_bgp_policy : <b>Namespace: </b> http://openconfig.net/yang/bgp-policy \n<b>Prefix: </b> oc-bgp-pol \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nnetopenconfig@googlegroups.com \n<b>Revision : </b> 2016-06-21 \n
+package "oc-bgp-pol:openconfig-bgp-policy" as oc_bgp_pol_openconfig_bgp_policy { 
+inet_ietf_inet_types +-- oc_bgp_pol_openconfig_bgp_policy
+oc_rpol_openconfig_routing_policy +-- oc_bgp_pol_openconfig_bgp_policy
+oc_pol_types_openconfig_policy_types +-- oc_bgp_pol_openconfig_bgp_policy
+oc_bgp_types_openconfig_bgp_types +-- oc_bgp_pol_openconfig_bgp_policy
+oc_ext_openconfig_extensions +-- oc_bgp_pol_openconfig_bgp_policy
+class "openconfig-bgp-policy" as openconfig_bgp_policy << (M, #33CCFF) module>> 
+enum "bgp-set-community-option-type" as openconfig_bgp_policy_I_bgp_set_community_option_type {
+ADD
+REMOVE
+REPLACE
+}
+class "bgp-next-hop-type" as bgp_next_hop_type << (T, YellowGreen) typedef>>
+bgp_next_hop_type : union{inet:ip-address-no-zone, enumeration}
+class "bgp-set-med-type" as bgp_set_med_type << (T, YellowGreen) typedef>>
+bgp_set_med_type : union{uint32, string}
+class "match-community-config" as openconfig_bgp_policy_I_match_community_config_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_policy_I_match_community_config_grouping : community-set : leafref : /oc-rpol:routing-policy/oc-rpol:defined-sets/oc-bgp-pol:bgp-defined-sets/oc-bgp-pol:community-sets/oc-bgp-pol:community-set/oc-bgp-pol:community-set-name  
+openconfig_bgp_policy_I_match_community_config_grouping : oc-rpol:match-set-options-group {uses} 
+class "match-community-state" as openconfig_bgp_policy_I_match_community_state_grouping <<(G,Lime) grouping>> 
+class "match-community-top" as openconfig_bgp_policy_I_match_community_top_grouping <<(G,Lime) grouping>> 
+class "match-community-set" as  openconfig_bgp_policy_I_match_community_top_I_match_community_set <<container>> 
+openconfig_bgp_policy_I_match_community_top_grouping *-- "1" openconfig_bgp_policy_I_match_community_top_I_match_community_set 
+class "config" as  openconfig_bgp_policy_I_match_community_top_I_match_community_set_I_config <<container>> 
+openconfig_bgp_policy_I_match_community_top_I_match_community_set *-- "1" openconfig_bgp_policy_I_match_community_top_I_match_community_set_I_config 
+openconfig_bgp_policy_I_match_community_top_I_match_community_set_I_config : match-community-config {uses} 
+class "state" as  openconfig_bgp_policy_I_match_community_top_I_match_community_set_I_state <<container>> 
+openconfig_bgp_policy_I_match_community_top_I_match_community_set *-- "1" openconfig_bgp_policy_I_match_community_top_I_match_community_set_I_state 
+note bottom of openconfig_bgp_policy_I_match_community_top_I_match_community_set_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_policy_I_match_community_top_I_match_community_set_I_state : match-community-config {uses} 
+openconfig_bgp_policy_I_match_community_top_I_match_community_set_I_state : match-community-state {uses} 
+class "match-ext-community-config" as openconfig_bgp_policy_I_match_ext_community_config_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_policy_I_match_ext_community_config_grouping : ext-community-set : leafref : /oc-rpol:routing-policy/oc-rpol:defined-sets/oc-bgp-pol:bgp-defined-sets/oc-bgp-pol:ext-community-sets/oc-bgp-pol:ext-community-set/oc-bgp-pol:ext-community-set-name  
+openconfig_bgp_policy_I_match_ext_community_config_grouping : oc-rpol:match-set-options-group {uses} 
+class "match-ext-community-state" as openconfig_bgp_policy_I_match_ext_community_state_grouping <<(G,Lime) grouping>> 
+class "match-ext-community-top" as openconfig_bgp_policy_I_match_ext_community_top_grouping <<(G,Lime) grouping>> 
+class "match-ext-community-set" as  openconfig_bgp_policy_I_match_ext_community_top_I_match_ext_community_set <<container>> 
+openconfig_bgp_policy_I_match_ext_community_top_grouping *-- "1" openconfig_bgp_policy_I_match_ext_community_top_I_match_ext_community_set 
+class "config" as  openconfig_bgp_policy_I_match_ext_community_top_I_match_ext_community_set_I_config <<container>> 
+openconfig_bgp_policy_I_match_ext_community_top_I_match_ext_community_set *-- "1" openconfig_bgp_policy_I_match_ext_community_top_I_match_ext_community_set_I_config 
+openconfig_bgp_policy_I_match_ext_community_top_I_match_ext_community_set_I_config : match-ext-community-config {uses} 
+class "state" as  openconfig_bgp_policy_I_match_ext_community_top_I_match_ext_community_set_I_state <<container>> 
+openconfig_bgp_policy_I_match_ext_community_top_I_match_ext_community_set *-- "1" openconfig_bgp_policy_I_match_ext_community_top_I_match_ext_community_set_I_state 
+note bottom of openconfig_bgp_policy_I_match_ext_community_top_I_match_ext_community_set_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_policy_I_match_ext_community_top_I_match_ext_community_set_I_state : match-ext-community-config {uses} 
+openconfig_bgp_policy_I_match_ext_community_top_I_match_ext_community_set_I_state : match-ext-community-state {uses} 
+class "match-as-path-config" as openconfig_bgp_policy_I_match_as_path_config_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_policy_I_match_as_path_config_grouping : as-path-set : leafref : /oc-rpol:routing-policy/oc-rpol:defined-sets/oc-bgp-pol:bgp-defined-sets/oc-bgp-pol:as-path-sets/oc-bgp-pol:as-path-set/oc-bgp-pol:as-path-set-name  
+openconfig_bgp_policy_I_match_as_path_config_grouping : oc-rpol:match-set-options-group {uses} 
+class "match-as-path-state" as openconfig_bgp_policy_I_match_as_path_state_grouping <<(G,Lime) grouping>> 
+class "match-as-path-top" as openconfig_bgp_policy_I_match_as_path_top_grouping <<(G,Lime) grouping>> 
+class "match-as-path-set" as  openconfig_bgp_policy_I_match_as_path_top_I_match_as_path_set <<container>> 
+openconfig_bgp_policy_I_match_as_path_top_grouping *-- "1" openconfig_bgp_policy_I_match_as_path_top_I_match_as_path_set 
+class "config" as  openconfig_bgp_policy_I_match_as_path_top_I_match_as_path_set_I_config <<container>> 
+openconfig_bgp_policy_I_match_as_path_top_I_match_as_path_set *-- "1" openconfig_bgp_policy_I_match_as_path_top_I_match_as_path_set_I_config 
+openconfig_bgp_policy_I_match_as_path_top_I_match_as_path_set_I_config : match-as-path-config {uses} 
+class "state" as  openconfig_bgp_policy_I_match_as_path_top_I_match_as_path_set_I_state <<container>> 
+openconfig_bgp_policy_I_match_as_path_top_I_match_as_path_set *-- "1" openconfig_bgp_policy_I_match_as_path_top_I_match_as_path_set_I_state 
+note bottom of openconfig_bgp_policy_I_match_as_path_top_I_match_as_path_set_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_policy_I_match_as_path_top_I_match_as_path_set_I_state : match-as-path-config {uses} 
+openconfig_bgp_policy_I_match_as_path_top_I_match_as_path_set_I_state : match-as-path-state {uses} 
+class "bgp-match-set-conditions" as openconfig_bgp_policy_I_bgp_match_set_conditions_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_policy_I_bgp_match_set_conditions_grouping : match-community-top {uses} 
+openconfig_bgp_policy_I_bgp_match_set_conditions_grouping : match-ext-community-top {uses} 
+openconfig_bgp_policy_I_bgp_match_set_conditions_grouping : match-as-path-top {uses} 
+class "community-count-config" as openconfig_bgp_policy_I_community_count_config_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_policy_I_community_count_config_grouping : oc-pol-types:attribute-compare-operators {uses} 
+class "community-count-state" as openconfig_bgp_policy_I_community_count_state_grouping <<(G,Lime) grouping>> 
+class "community-count-top" as openconfig_bgp_policy_I_community_count_top_grouping <<(G,Lime) grouping>> 
+class "community-count" as  openconfig_bgp_policy_I_community_count_top_I_community_count <<container>> 
+openconfig_bgp_policy_I_community_count_top_grouping *-- "1" openconfig_bgp_policy_I_community_count_top_I_community_count 
+class "config" as  openconfig_bgp_policy_I_community_count_top_I_community_count_I_config <<container>> 
+openconfig_bgp_policy_I_community_count_top_I_community_count *-- "1" openconfig_bgp_policy_I_community_count_top_I_community_count_I_config 
+openconfig_bgp_policy_I_community_count_top_I_community_count_I_config : community-count-config {uses} 
+class "state" as  openconfig_bgp_policy_I_community_count_top_I_community_count_I_state <<container>> 
+openconfig_bgp_policy_I_community_count_top_I_community_count *-- "1" openconfig_bgp_policy_I_community_count_top_I_community_count_I_state 
+note bottom of openconfig_bgp_policy_I_community_count_top_I_community_count_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_policy_I_community_count_top_I_community_count_I_state : community-count-config {uses} 
+openconfig_bgp_policy_I_community_count_top_I_community_count_I_state : community-count-state {uses} 
+class "as-path-length-config" as openconfig_bgp_policy_I_as_path_length_config_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_policy_I_as_path_length_config_grouping : oc-pol-types:attribute-compare-operators {uses} 
+class "as-path-length-state" as openconfig_bgp_policy_I_as_path_length_state_grouping <<(G,Lime) grouping>> 
+class "as-path-length-top" as openconfig_bgp_policy_I_as_path_length_top_grouping <<(G,Lime) grouping>> 
+class "as-path-length" as  openconfig_bgp_policy_I_as_path_length_top_I_as_path_length <<container>> 
+openconfig_bgp_policy_I_as_path_length_top_grouping *-- "1" openconfig_bgp_policy_I_as_path_length_top_I_as_path_length 
+class "config" as  openconfig_bgp_policy_I_as_path_length_top_I_as_path_length_I_config <<container>> 
+openconfig_bgp_policy_I_as_path_length_top_I_as_path_length *-- "1" openconfig_bgp_policy_I_as_path_length_top_I_as_path_length_I_config 
+openconfig_bgp_policy_I_as_path_length_top_I_as_path_length_I_config : as-path-length-config {uses} 
+class "state" as  openconfig_bgp_policy_I_as_path_length_top_I_as_path_length_I_state <<container>> 
+openconfig_bgp_policy_I_as_path_length_top_I_as_path_length *-- "1" openconfig_bgp_policy_I_as_path_length_top_I_as_path_length_I_state 
+note bottom of openconfig_bgp_policy_I_as_path_length_top_I_as_path_length_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_policy_I_as_path_length_top_I_as_path_length_I_state : as-path-length-config {uses} 
+openconfig_bgp_policy_I_as_path_length_top_I_as_path_length_I_state : as-path-length-state {uses} 
+class "bgp-conditions-config" as openconfig_bgp_policy_I_bgp_conditions_config_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_policy_I_bgp_conditions_config_grouping : med-eq : uint32  
+openconfig_bgp_policy_I_bgp_conditions_config_grouping : origin-eq : oc-bgp-types:bgp-origin-attr-type  
+openconfig_bgp_policy_I_bgp_conditions_config_grouping : next-hop-in []: inet:ip-address-no-zone 
+openconfig_bgp_policy_I_bgp_conditions_config_grouping : afi-safi-in []: identityref {oc-bgp-types:AFI_SAFI_TYPE} 
+openconfig_bgp_policy_I_bgp_conditions_config_grouping : local-pref-eq : uint32  
+openconfig_bgp_policy_I_bgp_conditions_config_grouping : route-type : enumeration : {INTERNAL,EXTERNAL,}  
+class "bgp-conditions-state" as openconfig_bgp_policy_I_bgp_conditions_state_grouping <<(G,Lime) grouping>> 
+class "bgp-conditions-top" as openconfig_bgp_policy_I_bgp_conditions_top_grouping <<(G,Lime) grouping>> 
+class "bgp-conditions" as  openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions <<container>> 
+openconfig_bgp_policy_I_bgp_conditions_top_grouping *-- "1" openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions 
+class "config" as  openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions_I_config <<container>> 
+openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions *-- "1" openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions_I_config 
+openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions_I_config : bgp-conditions-config {uses} 
+class "state" as  openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions_I_state <<container>> 
+openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions *-- "1" openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions_I_state 
+note bottom of openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions_I_state : bgp-conditions-config {uses} 
+openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions_I_state : bgp-conditions-state {uses} 
+openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions : community-count-top {uses} 
+openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions : as-path-length-top {uses} 
+openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions : bgp-match-set-conditions {uses} 
+class "community-set-config" as openconfig_bgp_policy_I_community_set_config_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_policy_I_community_set_config_grouping : community-set-name : string   {mandatory}
+openconfig_bgp_policy_I_community_set_config_grouping : community-member []: union{oc-bgp-types:bgp-std-community-type, oc-bgp-types:bgp-community-regexp-type} 
+class "community-set-state" as openconfig_bgp_policy_I_community_set_state_grouping <<(G,Lime) grouping>> 
+class "community-set-top" as openconfig_bgp_policy_I_community_set_top_grouping <<(G,Lime) grouping>> 
+class "community-sets" as  openconfig_bgp_policy_I_community_set_top_I_community_sets <<container>> 
+openconfig_bgp_policy_I_community_set_top_grouping *-- "1" openconfig_bgp_policy_I_community_set_top_I_community_sets 
+class "community-set" as openconfig_bgp_policy_I_community_set_top_I_community_sets_I_community_set << (L, #FF7700) list>> 
+openconfig_bgp_policy_I_community_set_top_I_community_sets *-- "0..N" openconfig_bgp_policy_I_community_set_top_I_community_sets_I_community_set 
+openconfig_bgp_policy_I_community_set_top_I_community_sets_I_community_set : +community-set-name : leafref : ../config/community-set-name  {key} 
+class "config" as  openconfig_bgp_policy_I_community_set_top_I_community_sets_I_community_set_I_config <<container>> 
+openconfig_bgp_policy_I_community_set_top_I_community_sets_I_community_set *-- "1" openconfig_bgp_policy_I_community_set_top_I_community_sets_I_community_set_I_config 
+openconfig_bgp_policy_I_community_set_top_I_community_sets_I_community_set_I_config : community-set-config {uses} 
+class "state" as  openconfig_bgp_policy_I_community_set_top_I_community_sets_I_community_set_I_state <<container>> 
+openconfig_bgp_policy_I_community_set_top_I_community_sets_I_community_set *-- "1" openconfig_bgp_policy_I_community_set_top_I_community_sets_I_community_set_I_state 
+note bottom of openconfig_bgp_policy_I_community_set_top_I_community_sets_I_community_set_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_policy_I_community_set_top_I_community_sets_I_community_set_I_state : community-set-config {uses} 
+openconfig_bgp_policy_I_community_set_top_I_community_sets_I_community_set_I_state : community-set-state {uses} 
+class "ext-community-set-config" as openconfig_bgp_policy_I_ext_community_set_config_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_policy_I_ext_community_set_config_grouping : ext-community-set-name : string  
+openconfig_bgp_policy_I_ext_community_set_config_grouping : ext-community-member []: union{oc-bgp-types:bgp-ext-community-type, oc-bgp-types:bgp-community-regexp-type} 
+class "ext-community-set-state" as openconfig_bgp_policy_I_ext_community_set_state_grouping <<(G,Lime) grouping>> 
+class "ext-community-set-top" as openconfig_bgp_policy_I_ext_community_set_top_grouping <<(G,Lime) grouping>> 
+class "ext-community-sets" as  openconfig_bgp_policy_I_ext_community_set_top_I_ext_community_sets <<container>> 
+openconfig_bgp_policy_I_ext_community_set_top_grouping *-- "1" openconfig_bgp_policy_I_ext_community_set_top_I_ext_community_sets 
+class "ext-community-set" as openconfig_bgp_policy_I_ext_community_set_top_I_ext_community_sets_I_ext_community_set << (L, #FF7700) list>> 
+openconfig_bgp_policy_I_ext_community_set_top_I_ext_community_sets *-- "0..N" openconfig_bgp_policy_I_ext_community_set_top_I_ext_community_sets_I_ext_community_set 
+openconfig_bgp_policy_I_ext_community_set_top_I_ext_community_sets_I_ext_community_set : +ext-community-set-name : leafref : ../config/ext-community-set-name  {key} 
+class "config" as  openconfig_bgp_policy_I_ext_community_set_top_I_ext_community_sets_I_ext_community_set_I_config <<container>> 
+openconfig_bgp_policy_I_ext_community_set_top_I_ext_community_sets_I_ext_community_set *-- "1" openconfig_bgp_policy_I_ext_community_set_top_I_ext_community_sets_I_ext_community_set_I_config 
+openconfig_bgp_policy_I_ext_community_set_top_I_ext_community_sets_I_ext_community_set_I_config : ext-community-set-config {uses} 
+class "state" as  openconfig_bgp_policy_I_ext_community_set_top_I_ext_community_sets_I_ext_community_set_I_state <<container>> 
+openconfig_bgp_policy_I_ext_community_set_top_I_ext_community_sets_I_ext_community_set *-- "1" openconfig_bgp_policy_I_ext_community_set_top_I_ext_community_sets_I_ext_community_set_I_state 
+note bottom of openconfig_bgp_policy_I_ext_community_set_top_I_ext_community_sets_I_ext_community_set_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_policy_I_ext_community_set_top_I_ext_community_sets_I_ext_community_set_I_state : ext-community-set-config {uses} 
+openconfig_bgp_policy_I_ext_community_set_top_I_ext_community_sets_I_ext_community_set_I_state : ext-community-set-state {uses} 
+class "as-path-set-config" as openconfig_bgp_policy_I_as_path_set_config_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_policy_I_as_path_set_config_grouping : as-path-set-name : string  
+openconfig_bgp_policy_I_as_path_set_config_grouping : as-path-set-member []: string 
+class "as-path-set-state" as openconfig_bgp_policy_I_as_path_set_state_grouping <<(G,Lime) grouping>> 
+class "as-path-set-top" as openconfig_bgp_policy_I_as_path_set_top_grouping <<(G,Lime) grouping>> 
+class "as-path-sets" as  openconfig_bgp_policy_I_as_path_set_top_I_as_path_sets <<container>> 
+openconfig_bgp_policy_I_as_path_set_top_grouping *-- "1" openconfig_bgp_policy_I_as_path_set_top_I_as_path_sets 
+class "as-path-set" as openconfig_bgp_policy_I_as_path_set_top_I_as_path_sets_I_as_path_set << (L, #FF7700) list>> 
+openconfig_bgp_policy_I_as_path_set_top_I_as_path_sets *-- "0..N" openconfig_bgp_policy_I_as_path_set_top_I_as_path_sets_I_as_path_set 
+openconfig_bgp_policy_I_as_path_set_top_I_as_path_sets_I_as_path_set : +as-path-set-name : leafref : ../config/as-path-set-name  {key} 
+class "config" as  openconfig_bgp_policy_I_as_path_set_top_I_as_path_sets_I_as_path_set_I_config <<container>> 
+openconfig_bgp_policy_I_as_path_set_top_I_as_path_sets_I_as_path_set *-- "1" openconfig_bgp_policy_I_as_path_set_top_I_as_path_sets_I_as_path_set_I_config 
+openconfig_bgp_policy_I_as_path_set_top_I_as_path_sets_I_as_path_set_I_config : as-path-set-config {uses} 
+class "state" as  openconfig_bgp_policy_I_as_path_set_top_I_as_path_sets_I_as_path_set_I_state <<container>> 
+openconfig_bgp_policy_I_as_path_set_top_I_as_path_sets_I_as_path_set *-- "1" openconfig_bgp_policy_I_as_path_set_top_I_as_path_sets_I_as_path_set_I_state 
+note bottom of openconfig_bgp_policy_I_as_path_set_top_I_as_path_sets_I_as_path_set_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_policy_I_as_path_set_top_I_as_path_sets_I_as_path_set_I_state : as-path-set-config {uses} 
+openconfig_bgp_policy_I_as_path_set_top_I_as_path_sets_I_as_path_set_I_state : as-path-set-state {uses} 
+class "/oc-rpol:routing-policy/oc-rpol:defined-sets" as oc_rpol_routing_policy_oc_rpol_defined_sets << (A,CadetBlue) augment>>
+openconfig_bgp_policy *--  oc_rpol_routing_policy_oc_rpol_defined_sets 
+class "bgp-defined-sets" as  openconfig_routing_policy_I_routing_policy_I_defined_sets_I_bgp_defined_sets <<container>> 
+oc_rpol_routing_policy_oc_rpol_defined_sets *-- "1" openconfig_routing_policy_I_routing_policy_I_defined_sets_I_bgp_defined_sets 
+openconfig_routing_policy_I_routing_policy_I_defined_sets_I_bgp_defined_sets : community-set-top {uses} 
+openconfig_routing_policy_I_routing_policy_I_defined_sets_I_bgp_defined_sets : ext-community-set-top {uses} 
+openconfig_routing_policy_I_routing_policy_I_defined_sets_I_bgp_defined_sets : as-path-set-top {uses} 
+class "as-path-prepend-config" as openconfig_bgp_policy_I_as_path_prepend_config_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_policy_I_as_path_prepend_config_grouping : repeat-n : uint8 [1..max]  
+class "as-path-prepend-state" as openconfig_bgp_policy_I_as_path_prepend_state_grouping <<(G,Lime) grouping>> 
+class "as-path-prepend-top" as openconfig_bgp_policy_I_as_path_prepend_top_grouping <<(G,Lime) grouping>> 
+class "set-as-path-prepend" as  openconfig_bgp_policy_I_as_path_prepend_top_I_set_as_path_prepend <<container>> 
+openconfig_bgp_policy_I_as_path_prepend_top_grouping *-- "1" openconfig_bgp_policy_I_as_path_prepend_top_I_set_as_path_prepend 
+class "config" as  openconfig_bgp_policy_I_as_path_prepend_top_I_set_as_path_prepend_I_config <<container>> 
+openconfig_bgp_policy_I_as_path_prepend_top_I_set_as_path_prepend *-- "1" openconfig_bgp_policy_I_as_path_prepend_top_I_set_as_path_prepend_I_config 
+openconfig_bgp_policy_I_as_path_prepend_top_I_set_as_path_prepend_I_config : as-path-prepend-config {uses} 
+class "state" as  openconfig_bgp_policy_I_as_path_prepend_top_I_set_as_path_prepend_I_state <<container>> 
+openconfig_bgp_policy_I_as_path_prepend_top_I_set_as_path_prepend *-- "1" openconfig_bgp_policy_I_as_path_prepend_top_I_set_as_path_prepend_I_state 
+note bottom of openconfig_bgp_policy_I_as_path_prepend_top_I_set_as_path_prepend_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_policy_I_as_path_prepend_top_I_set_as_path_prepend_I_state : as-path-prepend-config {uses} 
+openconfig_bgp_policy_I_as_path_prepend_top_I_set_as_path_prepend_I_state : as-path-prepend-state {uses} 
+class "set-community-action-common" as openconfig_bgp_policy_I_set_community_action_common_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_policy_I_set_community_action_common_grouping : method : enumeration : {INLINE,REFERENCE,}  
+openconfig_bgp_policy_I_set_community_action_common_grouping : options : bgp-set-community-option-type  
+class "set-community-inline-config" as openconfig_bgp_policy_I_set_community_inline_config_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_policy_I_set_community_inline_config_grouping : communities []: union{oc-bgp-types:bgp-std-community-type, oc-bgp-types:bgp-well-known-community-type} 
+class "set-community-inline-state" as openconfig_bgp_policy_I_set_community_inline_state_grouping <<(G,Lime) grouping>> 
+class "set-community-inline-top" as openconfig_bgp_policy_I_set_community_inline_top_grouping <<(G,Lime) grouping>> 
+class "inline" as  openconfig_bgp_policy_I_set_community_inline_top_I_inline <<container>> 
+openconfig_bgp_policy_I_set_community_inline_top_grouping *-- "1" openconfig_bgp_policy_I_set_community_inline_top_I_inline 
+note bottom of openconfig_bgp_policy_I_set_community_inline_top_I_inline
+<b>When: </b>../config/method='INLINE'
+end note 
+class "config" as  openconfig_bgp_policy_I_set_community_inline_top_I_inline_I_config <<container>> 
+openconfig_bgp_policy_I_set_community_inline_top_I_inline *-- "1" openconfig_bgp_policy_I_set_community_inline_top_I_inline_I_config 
+openconfig_bgp_policy_I_set_community_inline_top_I_inline_I_config : set-community-inline-config {uses} 
+class "state" as  openconfig_bgp_policy_I_set_community_inline_top_I_inline_I_state <<container>> 
+openconfig_bgp_policy_I_set_community_inline_top_I_inline *-- "1" openconfig_bgp_policy_I_set_community_inline_top_I_inline_I_state 
+note bottom of openconfig_bgp_policy_I_set_community_inline_top_I_inline_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_policy_I_set_community_inline_top_I_inline_I_state : set-community-inline-config {uses} 
+openconfig_bgp_policy_I_set_community_inline_top_I_inline_I_state : set-community-inline-state {uses} 
+class "set-community-reference-config" as openconfig_bgp_policy_I_set_community_reference_config_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_policy_I_set_community_reference_config_grouping : community-set-ref : leafref : /oc-rpol:routing-policy/oc-rpol:defined-sets/oc-bgp-pol:bgp-defined-sets/oc-bgp-pol:community-sets/oc-bgp-pol:community-set/oc-bgp-pol:community-set-name  
+class "set-community-reference-state" as openconfig_bgp_policy_I_set_community_reference_state_grouping <<(G,Lime) grouping>> 
+class "set-community-reference-top" as openconfig_bgp_policy_I_set_community_reference_top_grouping <<(G,Lime) grouping>> 
+class "reference" as  openconfig_bgp_policy_I_set_community_reference_top_I_reference <<container>> 
+openconfig_bgp_policy_I_set_community_reference_top_grouping *-- "1" openconfig_bgp_policy_I_set_community_reference_top_I_reference 
+note bottom of openconfig_bgp_policy_I_set_community_reference_top_I_reference
+<b>When: </b>../config/method='REFERENCE'
+end note 
+class "config" as  openconfig_bgp_policy_I_set_community_reference_top_I_reference_I_config <<container>> 
+openconfig_bgp_policy_I_set_community_reference_top_I_reference *-- "1" openconfig_bgp_policy_I_set_community_reference_top_I_reference_I_config 
+openconfig_bgp_policy_I_set_community_reference_top_I_reference_I_config : set-community-reference-config {uses} 
+class "state" as  openconfig_bgp_policy_I_set_community_reference_top_I_reference_I_state <<container>> 
+openconfig_bgp_policy_I_set_community_reference_top_I_reference *-- "1" openconfig_bgp_policy_I_set_community_reference_top_I_reference_I_state 
+note bottom of openconfig_bgp_policy_I_set_community_reference_top_I_reference_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_policy_I_set_community_reference_top_I_reference_I_state : set-community-reference-config {uses} 
+openconfig_bgp_policy_I_set_community_reference_top_I_reference_I_state : set-community-reference-state {uses} 
+class "set-community-action-config" as openconfig_bgp_policy_I_set_community_action_config_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_policy_I_set_community_action_config_grouping : set-community-action-common {uses} 
+class "set-community-action-state" as openconfig_bgp_policy_I_set_community_action_state_grouping <<(G,Lime) grouping>> 
+class "set-community-action-top" as openconfig_bgp_policy_I_set_community_action_top_grouping <<(G,Lime) grouping>> 
+class "set-community" as  openconfig_bgp_policy_I_set_community_action_top_I_set_community <<container>> 
+openconfig_bgp_policy_I_set_community_action_top_grouping *-- "1" openconfig_bgp_policy_I_set_community_action_top_I_set_community 
+class "config" as  openconfig_bgp_policy_I_set_community_action_top_I_set_community_I_config <<container>> 
+openconfig_bgp_policy_I_set_community_action_top_I_set_community *-- "1" openconfig_bgp_policy_I_set_community_action_top_I_set_community_I_config 
+openconfig_bgp_policy_I_set_community_action_top_I_set_community_I_config : set-community-action-config {uses} 
+class "state" as  openconfig_bgp_policy_I_set_community_action_top_I_set_community_I_state <<container>> 
+openconfig_bgp_policy_I_set_community_action_top_I_set_community *-- "1" openconfig_bgp_policy_I_set_community_action_top_I_set_community_I_state 
+note bottom of openconfig_bgp_policy_I_set_community_action_top_I_set_community_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_policy_I_set_community_action_top_I_set_community_I_state : set-community-action-config {uses} 
+openconfig_bgp_policy_I_set_community_action_top_I_set_community_I_state : set-community-action-state {uses} 
+openconfig_bgp_policy_I_set_community_action_top_I_set_community : set-community-inline-top {uses} 
+openconfig_bgp_policy_I_set_community_action_top_I_set_community : set-community-reference-top {uses} 
+class "set-ext-community-inline-config" as openconfig_bgp_policy_I_set_ext_community_inline_config_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_policy_I_set_ext_community_inline_config_grouping : communities []: union{oc-bgp-types:bgp-ext-community-type, oc-bgp-types:bgp-well-known-community-type} 
+class "set-ext-community-inline-state" as openconfig_bgp_policy_I_set_ext_community_inline_state_grouping <<(G,Lime) grouping>> 
+class "set-ext-community-inline-top" as openconfig_bgp_policy_I_set_ext_community_inline_top_grouping <<(G,Lime) grouping>> 
+class "inline" as  openconfig_bgp_policy_I_set_ext_community_inline_top_I_inline <<container>> 
+openconfig_bgp_policy_I_set_ext_community_inline_top_grouping *-- "1" openconfig_bgp_policy_I_set_ext_community_inline_top_I_inline 
+note bottom of openconfig_bgp_policy_I_set_ext_community_inline_top_I_inline
+<b>When: </b>../config/method='INLINE'
+end note 
+class "config" as  openconfig_bgp_policy_I_set_ext_community_inline_top_I_inline_I_config <<container>> 
+openconfig_bgp_policy_I_set_ext_community_inline_top_I_inline *-- "1" openconfig_bgp_policy_I_set_ext_community_inline_top_I_inline_I_config 
+openconfig_bgp_policy_I_set_ext_community_inline_top_I_inline_I_config : set-ext-community-inline-config {uses} 
+class "state" as  openconfig_bgp_policy_I_set_ext_community_inline_top_I_inline_I_state <<container>> 
+openconfig_bgp_policy_I_set_ext_community_inline_top_I_inline *-- "1" openconfig_bgp_policy_I_set_ext_community_inline_top_I_inline_I_state 
+note bottom of openconfig_bgp_policy_I_set_ext_community_inline_top_I_inline_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_policy_I_set_ext_community_inline_top_I_inline_I_state : set-ext-community-inline-config {uses} 
+openconfig_bgp_policy_I_set_ext_community_inline_top_I_inline_I_state : set-ext-community-inline-state {uses} 
+class "set-ext-community-reference-config" as openconfig_bgp_policy_I_set_ext_community_reference_config_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_policy_I_set_ext_community_reference_config_grouping : ext-community-set-ref : leafref : /oc-rpol:routing-policy/oc-rpol:defined-sets/oc-bgp-pol:bgp-defined-sets/oc-bgp-pol:ext-community-sets/oc-bgp-pol:ext-community-set/oc-bgp-pol:ext-community-set-name  
+class "set-ext-community-reference-state" as openconfig_bgp_policy_I_set_ext_community_reference_state_grouping <<(G,Lime) grouping>> 
+class "set-ext-community-reference-top" as openconfig_bgp_policy_I_set_ext_community_reference_top_grouping <<(G,Lime) grouping>> 
+class "reference" as  openconfig_bgp_policy_I_set_ext_community_reference_top_I_reference <<container>> 
+openconfig_bgp_policy_I_set_ext_community_reference_top_grouping *-- "1" openconfig_bgp_policy_I_set_ext_community_reference_top_I_reference 
+note bottom of openconfig_bgp_policy_I_set_ext_community_reference_top_I_reference
+<b>When: </b>../config/method='REFERENCE'
+end note 
+class "config" as  openconfig_bgp_policy_I_set_ext_community_reference_top_I_reference_I_config <<container>> 
+openconfig_bgp_policy_I_set_ext_community_reference_top_I_reference *-- "1" openconfig_bgp_policy_I_set_ext_community_reference_top_I_reference_I_config 
+openconfig_bgp_policy_I_set_ext_community_reference_top_I_reference_I_config : set-ext-community-reference-config {uses} 
+class "state" as  openconfig_bgp_policy_I_set_ext_community_reference_top_I_reference_I_state <<container>> 
+openconfig_bgp_policy_I_set_ext_community_reference_top_I_reference *-- "1" openconfig_bgp_policy_I_set_ext_community_reference_top_I_reference_I_state 
+note bottom of openconfig_bgp_policy_I_set_ext_community_reference_top_I_reference_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_policy_I_set_ext_community_reference_top_I_reference_I_state : set-ext-community-reference-config {uses} 
+openconfig_bgp_policy_I_set_ext_community_reference_top_I_reference_I_state : set-ext-community-reference-state {uses} 
+class "set-ext-community-action-config" as openconfig_bgp_policy_I_set_ext_community_action_config_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_policy_I_set_ext_community_action_config_grouping : set-community-action-common {uses} 
+class "set-ext-community-action-state" as openconfig_bgp_policy_I_set_ext_community_action_state_grouping <<(G,Lime) grouping>> 
+class "set-ext-community-action-top" as openconfig_bgp_policy_I_set_ext_community_action_top_grouping <<(G,Lime) grouping>> 
+class "set-ext-community" as  openconfig_bgp_policy_I_set_ext_community_action_top_I_set_ext_community <<container>> 
+openconfig_bgp_policy_I_set_ext_community_action_top_grouping *-- "1" openconfig_bgp_policy_I_set_ext_community_action_top_I_set_ext_community 
+class "config" as  openconfig_bgp_policy_I_set_ext_community_action_top_I_set_ext_community_I_config <<container>> 
+openconfig_bgp_policy_I_set_ext_community_action_top_I_set_ext_community *-- "1" openconfig_bgp_policy_I_set_ext_community_action_top_I_set_ext_community_I_config 
+openconfig_bgp_policy_I_set_ext_community_action_top_I_set_ext_community_I_config : set-ext-community-action-config {uses} 
+class "state" as  openconfig_bgp_policy_I_set_ext_community_action_top_I_set_ext_community_I_state <<container>> 
+openconfig_bgp_policy_I_set_ext_community_action_top_I_set_ext_community *-- "1" openconfig_bgp_policy_I_set_ext_community_action_top_I_set_ext_community_I_state 
+note bottom of openconfig_bgp_policy_I_set_ext_community_action_top_I_set_ext_community_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_policy_I_set_ext_community_action_top_I_set_ext_community_I_state : set-ext-community-action-config {uses} 
+openconfig_bgp_policy_I_set_ext_community_action_top_I_set_ext_community_I_state : set-ext-community-action-state {uses} 
+openconfig_bgp_policy_I_set_ext_community_action_top_I_set_ext_community : set-ext-community-inline-top {uses} 
+openconfig_bgp_policy_I_set_ext_community_action_top_I_set_ext_community : set-ext-community-reference-top {uses} 
+class "bgp-actions-config" as openconfig_bgp_policy_I_bgp_actions_config_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_policy_I_bgp_actions_config_grouping : set-route-origin : oc-bgp-types:bgp-origin-attr-type  
+openconfig_bgp_policy_I_bgp_actions_config_grouping : set-local-pref : uint32  
+openconfig_bgp_policy_I_bgp_actions_config_grouping : set-next-hop : bgp-next-hop-type  
+openconfig_bgp_policy_I_bgp_actions_config_grouping : set-med : bgp-set-med-type  
+class "bgp-actions-state" as openconfig_bgp_policy_I_bgp_actions_state_grouping <<(G,Lime) grouping>> 
+class "bgp-actions-top" as openconfig_bgp_policy_I_bgp_actions_top_grouping <<(G,Lime) grouping>> 
+class "bgp-actions" as  openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions <<container>> 
+openconfig_bgp_policy_I_bgp_actions_top_grouping *-- "1" openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions 
+class "config" as  openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions_I_config <<container>> 
+openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions *-- "1" openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions_I_config 
+openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions_I_config : bgp-actions-config {uses} 
+class "state" as  openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions_I_state <<container>> 
+openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions *-- "1" openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions_I_state 
+note bottom of openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions_I_state : bgp-actions-config {uses} 
+openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions_I_state : bgp-actions-state {uses} 
+openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions : as-path-prepend-top {uses} 
+openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions : set-community-action-top {uses} 
+openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions : set-ext-community-action-top {uses} 
+class "/oc-rpol:routing-policy/oc-rpol:policy-definitions/oc-rpol:policy-definition/oc-rpol:statements/oc-rpol:statement/oc-rpol:conditions" as oc_rpol_routing_policy_oc_rpol_policy_definitions_oc_rpol_policy_definition_oc_rpol_statements_oc_rpol_statement_oc_rpol_conditions << (A,CadetBlue) augment>>
+openconfig_bgp_policy *--  oc_rpol_routing_policy_oc_rpol_policy_definitions_oc_rpol_policy_definition_oc_rpol_statements_oc_rpol_statement_oc_rpol_conditions 
+oc_rpol_routing_policy_oc_rpol_policy_definitions_oc_rpol_policy_definition_oc_rpol_statements_oc_rpol_statement_oc_rpol_conditions : bgp-conditions-top {uses} 
+class "/oc-rpol:routing-policy/oc-rpol:policy-definitions/oc-rpol:policy-definition/oc-rpol:statements/oc-rpol:statement/oc-rpol:actions" as oc_rpol_routing_policy_oc_rpol_policy_definitions_oc_rpol_policy_definition_oc_rpol_statements_oc_rpol_statement_oc_rpol_actions << (A,CadetBlue) augment>>
+openconfig_bgp_policy *--  oc_rpol_routing_policy_oc_rpol_policy_definitions_oc_rpol_policy_definition_oc_rpol_statements_oc_rpol_statement_oc_rpol_actions 
+oc_rpol_routing_policy_oc_rpol_policy_definitions_oc_rpol_policy_definition_oc_rpol_statements_oc_rpol_statement_oc_rpol_actions : bgp-actions-top {uses} 
+openconfig_bgp_policy_I_bgp_conditions_config_grouping-->oc_bgp_types_AFI_SAFI_TYPE: afi-safi-in
+} 
+
+openconfig_bgp_policy_I_match_community_top_I_match_community_set_I_config --> openconfig_bgp_policy_I_match_community_config_grouping : uses 
+openconfig_bgp_policy_I_match_community_top_I_match_community_set_I_state --> openconfig_bgp_policy_I_match_community_config_grouping : uses 
+openconfig_bgp_policy_I_match_community_top_I_match_community_set_I_state --> openconfig_bgp_policy_I_match_community_state_grouping : uses 
+openconfig_bgp_policy_I_match_ext_community_top_I_match_ext_community_set_I_config --> openconfig_bgp_policy_I_match_ext_community_config_grouping : uses 
+openconfig_bgp_policy_I_match_ext_community_top_I_match_ext_community_set_I_state --> openconfig_bgp_policy_I_match_ext_community_config_grouping : uses 
+openconfig_bgp_policy_I_match_ext_community_top_I_match_ext_community_set_I_state --> openconfig_bgp_policy_I_match_ext_community_state_grouping : uses 
+openconfig_bgp_policy_I_match_as_path_top_I_match_as_path_set_I_config --> openconfig_bgp_policy_I_match_as_path_config_grouping : uses 
+openconfig_bgp_policy_I_match_as_path_top_I_match_as_path_set_I_state --> openconfig_bgp_policy_I_match_as_path_config_grouping : uses 
+openconfig_bgp_policy_I_match_as_path_top_I_match_as_path_set_I_state --> openconfig_bgp_policy_I_match_as_path_state_grouping : uses 
+openconfig_bgp_policy_I_bgp_match_set_conditions_grouping --> openconfig_bgp_policy_I_match_community_top_grouping : uses 
+openconfig_bgp_policy_I_bgp_match_set_conditions_grouping --> openconfig_bgp_policy_I_match_ext_community_top_grouping : uses 
+openconfig_bgp_policy_I_bgp_match_set_conditions_grouping --> openconfig_bgp_policy_I_match_as_path_top_grouping : uses 
+openconfig_bgp_policy_I_community_count_top_I_community_count_I_config --> openconfig_bgp_policy_I_community_count_config_grouping : uses 
+openconfig_bgp_policy_I_community_count_top_I_community_count_I_state --> openconfig_bgp_policy_I_community_count_config_grouping : uses 
+openconfig_bgp_policy_I_community_count_top_I_community_count_I_state --> openconfig_bgp_policy_I_community_count_state_grouping : uses 
+openconfig_bgp_policy_I_as_path_length_top_I_as_path_length_I_config --> openconfig_bgp_policy_I_as_path_length_config_grouping : uses 
+openconfig_bgp_policy_I_as_path_length_top_I_as_path_length_I_state --> openconfig_bgp_policy_I_as_path_length_config_grouping : uses 
+openconfig_bgp_policy_I_as_path_length_top_I_as_path_length_I_state --> openconfig_bgp_policy_I_as_path_length_state_grouping : uses 
+openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions_I_config --> openconfig_bgp_policy_I_bgp_conditions_config_grouping : uses 
+openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions_I_state --> openconfig_bgp_policy_I_bgp_conditions_config_grouping : uses 
+openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions_I_state --> openconfig_bgp_policy_I_bgp_conditions_state_grouping : uses 
+openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions --> openconfig_bgp_policy_I_community_count_top_grouping : uses 
+openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions --> openconfig_bgp_policy_I_as_path_length_top_grouping : uses 
+openconfig_bgp_policy_I_bgp_conditions_top_I_bgp_conditions --> openconfig_bgp_policy_I_bgp_match_set_conditions_grouping : uses 
+openconfig_bgp_policy_I_community_set_top_I_community_sets_I_community_set_I_config --> openconfig_bgp_policy_I_community_set_config_grouping : uses 
+openconfig_bgp_policy_I_community_set_top_I_community_sets_I_community_set_I_state --> openconfig_bgp_policy_I_community_set_config_grouping : uses 
+openconfig_bgp_policy_I_community_set_top_I_community_sets_I_community_set_I_state --> openconfig_bgp_policy_I_community_set_state_grouping : uses 
+openconfig_bgp_policy_I_ext_community_set_top_I_ext_community_sets_I_ext_community_set_I_config --> openconfig_bgp_policy_I_ext_community_set_config_grouping : uses 
+openconfig_bgp_policy_I_ext_community_set_top_I_ext_community_sets_I_ext_community_set_I_state --> openconfig_bgp_policy_I_ext_community_set_config_grouping : uses 
+openconfig_bgp_policy_I_ext_community_set_top_I_ext_community_sets_I_ext_community_set_I_state --> openconfig_bgp_policy_I_ext_community_set_state_grouping : uses 
+openconfig_bgp_policy_I_as_path_set_top_I_as_path_sets_I_as_path_set_I_config --> openconfig_bgp_policy_I_as_path_set_config_grouping : uses 
+openconfig_bgp_policy_I_as_path_set_top_I_as_path_sets_I_as_path_set_I_state --> openconfig_bgp_policy_I_as_path_set_config_grouping : uses 
+openconfig_bgp_policy_I_as_path_set_top_I_as_path_sets_I_as_path_set_I_state --> openconfig_bgp_policy_I_as_path_set_state_grouping : uses 
+openconfig_routing_policy_I_routing_policy_I_defined_sets_I_bgp_defined_sets --> openconfig_bgp_policy_I_community_set_top_grouping : uses 
+openconfig_routing_policy_I_routing_policy_I_defined_sets_I_bgp_defined_sets --> openconfig_bgp_policy_I_ext_community_set_top_grouping : uses 
+openconfig_routing_policy_I_routing_policy_I_defined_sets_I_bgp_defined_sets --> openconfig_bgp_policy_I_as_path_set_top_grouping : uses 
+openconfig_bgp_policy_I_as_path_prepend_top_I_set_as_path_prepend_I_config --> openconfig_bgp_policy_I_as_path_prepend_config_grouping : uses 
+openconfig_bgp_policy_I_as_path_prepend_top_I_set_as_path_prepend_I_state --> openconfig_bgp_policy_I_as_path_prepend_config_grouping : uses 
+openconfig_bgp_policy_I_as_path_prepend_top_I_set_as_path_prepend_I_state --> openconfig_bgp_policy_I_as_path_prepend_state_grouping : uses 
+openconfig_bgp_policy_I_set_community_inline_top_I_inline_I_config --> openconfig_bgp_policy_I_set_community_inline_config_grouping : uses 
+openconfig_bgp_policy_I_set_community_inline_top_I_inline_I_state --> openconfig_bgp_policy_I_set_community_inline_config_grouping : uses 
+openconfig_bgp_policy_I_set_community_inline_top_I_inline_I_state --> openconfig_bgp_policy_I_set_community_inline_state_grouping : uses 
+openconfig_bgp_policy_I_set_community_reference_top_I_reference_I_config --> openconfig_bgp_policy_I_set_community_reference_config_grouping : uses 
+openconfig_bgp_policy_I_set_community_reference_top_I_reference_I_state --> openconfig_bgp_policy_I_set_community_reference_config_grouping : uses 
+openconfig_bgp_policy_I_set_community_reference_top_I_reference_I_state --> openconfig_bgp_policy_I_set_community_reference_state_grouping : uses 
+openconfig_bgp_policy_I_set_community_action_config_grouping --> openconfig_bgp_policy_I_set_community_action_common_grouping : uses 
+openconfig_bgp_policy_I_set_community_action_top_I_set_community_I_config --> openconfig_bgp_policy_I_set_community_action_config_grouping : uses 
+openconfig_bgp_policy_I_set_community_action_top_I_set_community_I_state --> openconfig_bgp_policy_I_set_community_action_config_grouping : uses 
+openconfig_bgp_policy_I_set_community_action_top_I_set_community_I_state --> openconfig_bgp_policy_I_set_community_action_state_grouping : uses 
+openconfig_bgp_policy_I_set_community_action_top_I_set_community --> openconfig_bgp_policy_I_set_community_inline_top_grouping : uses 
+openconfig_bgp_policy_I_set_community_action_top_I_set_community --> openconfig_bgp_policy_I_set_community_reference_top_grouping : uses 
+openconfig_bgp_policy_I_set_ext_community_inline_top_I_inline_I_config --> openconfig_bgp_policy_I_set_ext_community_inline_config_grouping : uses 
+openconfig_bgp_policy_I_set_ext_community_inline_top_I_inline_I_state --> openconfig_bgp_policy_I_set_ext_community_inline_config_grouping : uses 
+openconfig_bgp_policy_I_set_ext_community_inline_top_I_inline_I_state --> openconfig_bgp_policy_I_set_ext_community_inline_state_grouping : uses 
+openconfig_bgp_policy_I_set_ext_community_reference_top_I_reference_I_config --> openconfig_bgp_policy_I_set_ext_community_reference_config_grouping : uses 
+openconfig_bgp_policy_I_set_ext_community_reference_top_I_reference_I_state --> openconfig_bgp_policy_I_set_ext_community_reference_config_grouping : uses 
+openconfig_bgp_policy_I_set_ext_community_reference_top_I_reference_I_state --> openconfig_bgp_policy_I_set_ext_community_reference_state_grouping : uses 
+openconfig_bgp_policy_I_set_ext_community_action_config_grouping --> openconfig_bgp_policy_I_set_community_action_common_grouping : uses 
+openconfig_bgp_policy_I_set_ext_community_action_top_I_set_ext_community_I_config --> openconfig_bgp_policy_I_set_ext_community_action_config_grouping : uses 
+openconfig_bgp_policy_I_set_ext_community_action_top_I_set_ext_community_I_state --> openconfig_bgp_policy_I_set_ext_community_action_config_grouping : uses 
+openconfig_bgp_policy_I_set_ext_community_action_top_I_set_ext_community_I_state --> openconfig_bgp_policy_I_set_ext_community_action_state_grouping : uses 
+openconfig_bgp_policy_I_set_ext_community_action_top_I_set_ext_community --> openconfig_bgp_policy_I_set_ext_community_inline_top_grouping : uses 
+openconfig_bgp_policy_I_set_ext_community_action_top_I_set_ext_community --> openconfig_bgp_policy_I_set_ext_community_reference_top_grouping : uses 
+openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions_I_config --> openconfig_bgp_policy_I_bgp_actions_config_grouping : uses 
+openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions_I_state --> openconfig_bgp_policy_I_bgp_actions_config_grouping : uses 
+openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions_I_state --> openconfig_bgp_policy_I_bgp_actions_state_grouping : uses 
+openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions --> openconfig_bgp_policy_I_as_path_prepend_top_grouping : uses 
+openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions --> openconfig_bgp_policy_I_set_community_action_top_grouping : uses 
+openconfig_bgp_policy_I_bgp_actions_top_I_bgp_actions --> openconfig_bgp_policy_I_set_ext_community_action_top_grouping : uses 
+oc_rpol_routing_policy_oc_rpol_policy_definitions_oc_rpol_policy_definition_oc_rpol_statements_oc_rpol_statement_oc_rpol_conditions --> openconfig_bgp_policy_I_bgp_conditions_top_grouping : uses 
+oc_rpol_routing_policy_oc_rpol_policy_definitions_oc_rpol_policy_definition_oc_rpol_statements_oc_rpol_statement_oc_rpol_actions --> openconfig_bgp_policy_I_bgp_actions_top_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:57 </size>
+ endfooter 
+@enduml 

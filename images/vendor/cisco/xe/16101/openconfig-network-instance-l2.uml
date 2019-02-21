@@ -1,0 +1,88 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-network-instance-l2.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-network-instance-l2 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+package "oc-if:openconfig-interfaces" as oc_if_openconfig_interfaces { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package openconfig-network-instance {
+note top of _openconfig_network_instance_l2 : <b>Prefix: </b>  \n<b>Belongs-to: </b> openconfig-network-instance \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nwww.openconfig.net \n<b>Revision : </b> 2017-01-13 \n
+package ":openconfig-network-instance-l2" as _openconfig_network_instance_l2 { 
+oc_ext_openconfig_extensions +-- _openconfig_network_instance_l2
+oc_if_openconfig_interfaces +-- _openconfig_network_instance_l2
+yang_ietf_yang_types +-- _openconfig_network_instance_l2
+class "openconfig-network-instance-l2" as openconfig_network_instance_l2 << (M, #33CCFF) module>> 
+class "l2ni-instance" as openconfig_network_instance_l2_I_l2ni_instance_grouping <<(G,Lime) grouping>> 
+class "fdb" as  openconfig_network_instance_l2_I_l2ni_instance_I_fdb <<container>> 
+openconfig_network_instance_l2_I_l2ni_instance_grouping *-- "1" openconfig_network_instance_l2_I_l2ni_instance_I_fdb 
+class "config" as  openconfig_network_instance_l2_I_l2ni_instance_I_fdb_I_config <<container>> 
+openconfig_network_instance_l2_I_l2ni_instance_I_fdb *-- "1" openconfig_network_instance_l2_I_l2ni_instance_I_fdb_I_config 
+openconfig_network_instance_l2_I_l2ni_instance_I_fdb_I_config : l2ni-fdb-mac-config {uses} 
+class "state" as  openconfig_network_instance_l2_I_l2ni_instance_I_fdb_I_state <<container>> 
+openconfig_network_instance_l2_I_l2ni_instance_I_fdb *-- "1" openconfig_network_instance_l2_I_l2ni_instance_I_fdb_I_state 
+note bottom of openconfig_network_instance_l2_I_l2ni_instance_I_fdb_I_state
+<b>Config = </b>false
+end note 
+openconfig_network_instance_l2_I_l2ni_instance_I_fdb_I_state : l2ni-fdb-mac-config {uses} 
+openconfig_network_instance_l2_I_l2ni_instance_I_fdb : l2ni-mac-table-top {uses} 
+class "l2ni-instance-common-config" as openconfig_network_instance_l2_I_l2ni_instance_common_config_grouping <<(G,Lime) grouping>> 
+openconfig_network_instance_l2_I_l2ni_instance_common_config_grouping : mtu : uint16  
+class "l2ni-fdb-mac-config" as openconfig_network_instance_l2_I_l2ni_fdb_mac_config_grouping <<(G,Lime) grouping>> 
+openconfig_network_instance_l2_I_l2ni_fdb_mac_config_grouping : mac-learning : boolean  
+openconfig_network_instance_l2_I_l2ni_fdb_mac_config_grouping : mac-aging-time : uint16   {seconds}
+openconfig_network_instance_l2_I_l2ni_fdb_mac_config_grouping : maximum-entries : uint16  
+class "l2ni-encapsulation-config" as openconfig_network_instance_l2_I_l2ni_encapsulation_config_grouping <<(G,Lime) grouping>> 
+openconfig_network_instance_l2_I_l2ni_encapsulation_config_grouping : control-word : boolean  
+class "l2ni-mac-table-config" as openconfig_network_instance_l2_I_l2ni_mac_table_config_grouping <<(G,Lime) grouping>> 
+openconfig_network_instance_l2_I_l2ni_mac_table_config_grouping : mac-address : yang:mac-address  
+openconfig_network_instance_l2_I_l2ni_mac_table_config_grouping : vlan : leafref : ../../../../../../vlans/vlan/config/vlan-id  
+class "l2ni-mac-table-state" as openconfig_network_instance_l2_I_l2ni_mac_table_state_grouping <<(G,Lime) grouping>> 
+openconfig_network_instance_l2_I_l2ni_mac_table_state_grouping : age : uint64   {seconds}
+openconfig_network_instance_l2_I_l2ni_mac_table_state_grouping : entry-type : enumeration : {STATIC,DYNAMIC,}  
+class "l2ni-mac-table-top" as openconfig_network_instance_l2_I_l2ni_mac_table_top_grouping <<(G,Lime) grouping>> 
+class "mac-table" as  openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table <<container>> 
+openconfig_network_instance_l2_I_l2ni_mac_table_top_grouping *-- "1" openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table 
+class "entries" as  openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries <<container>> 
+openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table *-- "1" openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries 
+class "entry" as openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries_I_entry << (L, #FF7700) list>> 
+openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries *-- "0..N" openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries_I_entry 
+openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries_I_entry : +mac-address : leafref : ../config/mac-address  {key} 
+class "config" as  openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries_I_entry_I_config <<container>> 
+openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries_I_entry *-- "1" openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries_I_entry_I_config 
+openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries_I_entry_I_config : l2ni-mac-table-config {uses} 
+class "state" as  openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries_I_entry_I_state <<container>> 
+openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries_I_entry *-- "1" openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries_I_entry_I_state 
+note bottom of openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries_I_entry_I_state
+<b>Config = </b>false
+end note 
+openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries_I_entry_I_state : l2ni-mac-table-config {uses} 
+openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries_I_entry_I_state : l2ni-mac-table-state {uses} 
+class "interface" as  openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries_I_entry_I_interface <<container>> 
+openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries_I_entry *-- "1" openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries_I_entry_I_interface 
+openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries_I_entry_I_interface : oc-if:interface-ref {uses} 
+} 
+} 
+
+openconfig_network_instance_l2_I_l2ni_instance_I_fdb_I_config --> openconfig_network_instance_l2_I_l2ni_fdb_mac_config_grouping : uses 
+openconfig_network_instance_l2_I_l2ni_instance_I_fdb_I_state --> openconfig_network_instance_l2_I_l2ni_fdb_mac_config_grouping : uses 
+openconfig_network_instance_l2_I_l2ni_instance_I_fdb --> openconfig_network_instance_l2_I_l2ni_mac_table_top_grouping : uses 
+openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries_I_entry_I_config --> openconfig_network_instance_l2_I_l2ni_mac_table_config_grouping : uses 
+openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries_I_entry_I_state --> openconfig_network_instance_l2_I_l2ni_mac_table_config_grouping : uses 
+openconfig_network_instance_l2_I_l2ni_mac_table_top_I_mac_table_I_entries_I_entry_I_state --> openconfig_network_instance_l2_I_l2ni_mac_table_state_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:35 </size>
+ endfooter 
+@enduml 

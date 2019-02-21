@@ -1,0 +1,67 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-netconf.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-netconf 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+note top of nc_ietf_netconf : <b>Namespace: </b> urn:ietf:params:xml:ns:netconf:base:1.0 \n<b>Prefix: </b> nc \n<b>Organization : </b>\nIETF NETCONF (Network Configuration) Working Group \n<b>Contact : </b>\nWG Web:   <http://tools.ietf.org/wg/netconf/> \nWG List:  <netconf@ietf.org> \n \nWG Chair: Bert Wijnen \n          <bertietf@bwijnen.net> \n \nWG Chair: Mehmet Ersue \n          <mehmet.ersue@nsn.com> \n \nEditor:   Martin Bjorklund \n          <mbj@tail-f.com> \n \nEditor:   Juergen Schoenwaelder \n          <j.schoenwaelder@jacobs-university.de> \n \nEditor:   Andy Bierman \n          <andy.bierman@brocade.com> \n<b>Revision : </b> 2011-06-01 \n
+package "nc:ietf-netconf" as nc_ietf_netconf { 
+inet_ietf_inet_types +-- nc_ietf_netconf
+class "ietf-netconf" as ietf_netconf << (M, #33CCFF) module>> 
+ietf_netconf : feature : writable_running 
+ietf_netconf : feature : candidate 
+ietf_netconf : feature : confirmed_commit 
+ietf_netconf : feature : rollback_on_error 
+ietf_netconf : feature : validate 
+ietf_netconf : feature : startup 
+ietf_netconf : feature : url 
+ietf_netconf : feature : xpath 
+class "session-id-type" as session_id_type << (T, YellowGreen) typedef>>
+session_id_type : uint32 [1..max]
+class "session-id-or-zero-type" as session_id_or_zero_type << (T, YellowGreen) typedef>>
+session_id_or_zero_type : uint32
+enum "error-tag-type" as ietf_netconf_I_error_tag_type {
+in-use
+invalid-value
+too-big
+MORE
+}
+enum "error-severity-type" as ietf_netconf_I_error_severity_type {
+error
+warning
+}
+enum "edit-operation-type" as ietf_netconf_I_edit_operation_type {
+merge
+replace
+create
+MORE
+}
+ietf_netconf : get-config( in: source in: filter out: data)
+ietf_netconf : edit-config( in: default_operation in: test_option in: error_option in: target)
+ietf_netconf : copy-config( in: target in: source)
+ietf_netconf : delete-config( in: target)
+ietf_netconf : lock( in: target)
+ietf_netconf : unlock( in: target)
+ietf_netconf : get( in: filter out: data)
+ietf_netconf : close-session()
+ietf_netconf : kill-session( in: session_id)
+ietf_netconf : commit( in: confirmed in: confirm_timeout in: persist in: persist_id)
+ietf_netconf : discard-changes()
+ietf_netconf : cancel-commit( in: persist_id)
+ietf_netconf : validate( in: source)
+} 
+
+center footer
+ <size:20> UML Generated : 2019-02-20 23:54 </size>
+ endfooter 
+@enduml 

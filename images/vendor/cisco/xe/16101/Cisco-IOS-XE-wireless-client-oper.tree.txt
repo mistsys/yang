@@ -1,0 +1,790 @@
+module: Cisco-IOS-XE-wireless-client-oper
+   +--ro client-oper-data
+      +--ro common-oper-data* [client-mac]
+      |  +--ro client-mac                       yang:mac-address
+      |  +--ro ap-name?                         string
+      |  +--ro ms-ap-slot-id?                   uint8
+      |  +--ro ms-radio-type?                   wireless-client-types:ms-phy-radio-type
+      |  +--ro wlan-id?                         uint32
+      |  +--ro configured-lan-id?               uint32
+      |  +--ro ms-client-iif-id?                uint32
+      |  +--ro co-timer-handle?                 uint32
+      |  +--ro client-type?                     wireless-client-types:ms-client-type
+      |  +--ro co-state?                        wireless-client-types:client-co-state
+      |  +--ro co-fsm-state?                    uint32
+      |  +--ro aaa-override-passphrase?         boolean
+      |  +--ro is-tvi-enabled?                  boolean
+      |  +--ro prev-co-state?                   wireless-client-types:client-co-state
+      |  +--ro iplearn-fsm-state?               wireless-client-oper:client-iplearn-fsm-state
+      |  +--ro dpath-fsm-state?                 wireless-client-oper:client-dpath-fsm-state
+      |  +--ro co-state-transition-timestamp*   uint64
+      |  +--ro fast-path-status?                uint8
+      |  +--ro ip-learn-type?                   wireless-client-types:ip-binding-learn-type
+      |  +--ro wlan-policy
+      |  |  +--ro current-switching-mode?   wireless-client-oper:client-switching-mode
+      |  |  +--ro wlan-switching-mode?      wireless-client-oper:client-switching-mode
+      |  |  +--ro central-authentication?   wireless-client-oper:client-authentication-type
+      |  |  +--ro central-dhcp?             boolean
+      |  |  +--ro central-assoc-enable?     boolean
+      |  |  +--ro vlan-central-switching?   boolean
+      |  |  +--ro is-fabric-client?         boolean
+      |  |  +--ro is-guest-fabric-client?   boolean
+      |  +--ro device-type?                     string
+      |  +--ro username?                        string
+      |  +--ro wired-client-data
+      |  |  +--ro primary-wgb-mac?   yang:mac-address
+      |  |  +--ro secondary-wgb?     yang:mac-address
+      |  |  +--ro wgb-create-time?   uint64
+      |  +--ro wgb-data
+      |  |  +--ro wired-client-count?   uint8
+      |  +--ro atf-policy-name?                 string
+      |  +--ro mac-auth-passed?                 wireless-client-oper:webauth-on-mac-failure
+      +--ro latency-stats!
+      |  +--ro client-states-stats*
+      |  |  +--ro avg-client-state-duration?   uint64
+      |  |  +--ro total-sessions?              uint64
+      |  +--ro avg-client-run-state-latency?                   uint64
+      |  +--ro avg-client-run-state-latency-sans-user-delay?   uint64
+      |  +--ro run-state-latency-buckets
+      |  |  +--ro buffer*   uint64
+      |  +--ro rolling-run-state-hptr?                         uint32
+      |  +--ro peak-run-state-rate?                            uint32
+      +--ro global-stats!
+      |  +--ro session-stats
+      |  |  +--ro most-ms-entries?         uint32
+      |  |  +--ro cur-ms-entries?          uint32
+      |  |  +--ro total-ms-entries?        uint32
+      |  |  +--ro total-ipv4-ms-entries?   uint32
+      |  |  +--ro cur-wgb-entries?         uint32
+      |  |  +--ro cur-foreign-entries?     uint32
+      |  |  +--ro cur-anchor-entries?      uint32
+      |  |  +--ro cur-local-entries?       uint32
+      |  +--ro delete-stats
+      |  |  +--ro total-del-reason-none?                             uint32
+      |  |  +--ro total-del-reason-unspec?                           uint32
+      |  |  +--ro total-del-reason-prev-auth-not-valid?              uint32
+      |  |  +--ro total-del-reason-deauth-leaving?                   uint32
+      |  |  +--ro total-del-reason-disassoc-due-to-inactivity?       uint32
+      |  |  +--ro total-del-reason-disassoc-ap-busy?                 uint32
+      |  |  +--ro total-del-reason-disassoc-ap-down?                 uint32
+      |  |  +--ro total-del-reason-class2-frame-from-nonauth-sta?    uint32
+      |  |  +--ro total-del-reason-class2-frame-from-nonassoc-sta?   uint32
+      |  |  +--ro total-del-reason-disassoc-sta-has-left?            uint32
+      |  |  +--ro total-del-reason-sta-req-assoc-without-auth?       uint32
+      |  |  +--ro total-del-reason-invalid-ie?                       uint32
+      |  |  +--ro total-del-reason-micheal-fail?                     uint32
+      |  |  +--ro total-del-reason-4way-handshake-timeout?           uint32
+      |  |  +--ro total-del-reason-group-key-update-timeout?         uint32
+      |  |  +--ro total-del-reason-invalid-rsn-ie?                   uint32
+      |  |  +--ro total-del-reason-group-cipher-invalid?             uint32
+      |  |  +--ro total-del-reason-unicast-cipher-invalid?           uint32
+      |  |  +--ro total-del-reason-akmp-invalid?                     uint32
+      |  |  +--ro total-del-reason-unsupport-rsn-ver?                uint32
+      |  |  +--ro total-del-reason-invalid-rsn-ie-capab?             uint32
+      |  |  +--ro total-del-reason-8021x-auth-fail?                  uint32
+      |  |  +--ro total-del-reason-cipher-suite-reject?              uint32
+      |  |  +--ro total-del-reason-unspec-qos-related-reason?        uint32
+      |  |  +--ro total-del-reason-insuff-bw?                        uint32
+      |  |  +--ro total-del-reason-poor-chnl-cond?                   uint32
+      |  |  +--ro total-del-reason-sta-violating-txop?               uint32
+      |  |  +--ro total-del-reason-voice-sta-reanchor?               uint32
+      |  |  +--ro total-del-reason-prob-sta-in-loc-calib?            uint32
+      |  |  +--ro total-del-reason-guest-anchor-down?                uint32
+      |  |  +--ro total-del-reason-miss-reason-code?                 uint32
+      |  |  +--ro total-del-reason-access-to-quaran?                 uint32
+      |  |  +--ro total-del-reason-max-assoc-client-reach?           uint32
+      |  |  +--ro total-del-reason-max-clients-reach-on-ap?          uint32
+      |  |  +--ro total-del-reason-webauth-reqd-timeout?             uint32
+      |  |  +--ro total-del-reason-ios-init-state-timeout?           uint32
+      |  |  +--ro total-del-reason-fail-aaa-server?                  uint32
+      |  |  +--ro total-del-reason-webauth-fail?                     uint32
+      |  |  +--ro total-del-reason-sta-roam-without-auth?            uint32
+      |  |  +--ro total-del-reason-sta-cac-fail-policy?              uint32
+      |  |  +--ro total-del-reason-max-cli-reach-on-ap-radio?        uint32
+      |  |  +--ro total-del-reason-max-cli-reach-on-ap-wlan?         uint32
+      |  |  +--ro total-del-reason-sta-no-ip?                        uint32
+      |  |  +--ro total-del-reason-wcdb-add-fail?                    uint32
+      |  |  +--ro total-del-reason-wcdb-sc-fail?                     uint32
+      |  |  +--ro total-del-reason-ip-theft?                         uint32
+      |  |  +--ro total-del-reason-80211-auth-fail?                  uint32
+      |  |  +--ro total-del-reason-80211-assoc-fail?                 uint32
+      |  |  +--ro total-del-reason-cids-shun-fail?                   uint32
+      |  |  +--ro total-del-reason-vlan-misconfig?                   uint32
+      |  |  +--ro total-del-reason-epm-fail?                         uint32
+      |  |  +--ro total-del-reason-switch-wlan?                      uint32
+      |  |  +--ro total-del-reason-awips?                            uint32
+      |  |  +--ro total-del-reason-authz-fail?                       uint32
+      |  |  +--ro total-del-reason-logout?                           uint32
+      |  |  +--ro total-del-reason-admin-reset?                      uint32
+      |  |  +--ro total-del-reason-anchor-close?                     uint32
+      |  |  +--ro total-del-reason-reconcile?                        uint32
+      |  |  +--ro total-del-reason-iapp-timeout?                     uint32
+      |  |  +--ro total-del-reason-unknown?                          uint32
+      |  |  +--ro total-del-reason-wlan-shut?                        uint32
+      |  |  +--ro total-del-reason-radio-shut?                       uint32
+      |  |  +--ro total-del-reason-channel-change?                   uint32
+      |  |  +--ro deauth-from-station?                               uint32
+      |  |  +--ro deauth-to-station?                                 uint32
+      |  |  +--ro disassoc-from-station?                             uint32
+      |  |  +--ro disassoc-to-station?                               uint32
+      |  |  +--ro status-caps-unsupported?                           uint32
+      |  |  +--ro status-reassoc-no-assoc?                           uint32
+      |  |  +--ro status-assoc-denied-unspec?                        uint32
+      |  |  +--ro status-not-supported-auth-alg?                     uint32
+      |  |  +--ro status-unknown-auth-transaction?                   uint32
+      |  |  +--ro status-challenge-fail?                             uint32
+      |  |  +--ro status-auth-timeout?                               uint32
+      |  |  +--ro status-max-sta?                                    uint32
+      |  |  +--ro status-denied-rates?                               uint32
+      |  |  +--ro status-assoc-denied-noshort?                       uint32
+      |  |  +--ro status-assoc-denied-nopbcc?                        uint32
+      |  |  +--ro status-assoc-denied-noagility?                     uint32
+      |  |  +--ro status-assoc-req-rejected-temp?                    uint32
+      |  |  +--ro status-rmf-frame-policy-violation?                 uint32
+      |  |  +--ro status-unspec-qos-related?                         uint32
+      |  |  +--ro status-insufficient-bandwidth?                     uint32
+      |  |  +--ro status-poor-channel-conditions?                    uint32
+      |  |  +--ro status-qos-support-mandatory?                      uint32
+      |  |  +--ro status-request-declined?                           uint32
+      |  |  +--ro status-invalid-qos-parameter?                      uint32
+      |  |  +--ro status-see-attached-tspec?                         uint32
+      |  |  +--ro status-direct-link-disallowed?                     uint32
+      |  |  +--ro status-destination-sta-not-present?                uint32
+      |  |  +--ro status-destination-sta-not-qos?                    uint32
+      |  |  +--ro status-invalid-ie?                                 uint32
+      |  |  +--ro status-group-cipher-invalid?                       uint32
+      |  |  +--ro status-unicast-cipher-invalid?                     uint32
+      |  |  +--ro status-akmp-invalid?                               uint32
+      |  |  +--ro status-unsupported-rsn-version?                    uint32
+      |  |  +--ro status-invalid-rsn-ie-capabilities?                uint32
+      |  |  +--ro status-cipher-suite-rejected?                      uint32
+      |  |  +--ro status-denied-ht-capabilities?                     uint32
+      |  |  +--ro status-invalid-ft-action-frame-count?              uint32
+      |  |  +--ro status-invalid-pmkid?                              uint32
+      |  |  +--ro status-invalid-mdie?                               uint32
+      |  |  +--ro status-invalid-ftie?                               uint32
+      |  |  +--ro status-invalid-ftie-mic?                           uint32
+      |  |  +--ro status-ccx-qos-unspecified-failure?                uint32
+      |  |  +--ro status-ccx-qos-policy?                             uint32
+      |  |  +--ro status-ccx-insufficient-bandwidth?                 uint32
+      |  |  +--ro status-ccx-invalid-qos-parameter?                  uint32
+      |  +--ro others-stats
+      |     +--ro total-mobile-adds?         uint32
+      |     +--ro total-mobile-dels?         uint32
+      |     +--ro total-mobile-add-fails?    uint32
+      |     +--ro total-mobile-del-fails?    uint32
+      |     +--ro monitoring-start-client?   int64
+      |     +--ro monitoring-end-client?     int64
+      |     +--ro counters-init-time?        int64
+      |     +--ro counters-curr-time?        int64
+      +--ro dot11-stats!
+      |  +--ro total-assoc-attempt?                       uint32
+      |  +--ro total-assoc-failure?                       uint32
+      |  +--ro total-assoc-resp-accept?                   uint32
+      |  +--ro total-assoc-resp-reject?                   uint32
+      |  +--ro total-assoc-resp-error?                    uint32
+      |  +--ro dms-action-frame-req?                      uint32
+      |  +--ro dms-action-frame-resp?                     uint32
+      |  +--ro dms-reassoc-req?                           uint32
+      |  +--ro dms-reassoc-resp?                          uint32
+      |  +--ro total-roam-attempts?                       uint32
+      |  +--ro total-cckm-roam-attempts?                  uint32
+      |  +--ro total-11r-roam-attempts?                   uint32
+      |  +--ro total-11i-fast-roam-attempts?              uint32
+      |  +--ro total-11i-slow-roam-attempts?              uint32
+      |  +--ro total-roam-failures?                       uint32
+      |  +--ro total-ap-roam-attempts?                    uint32
+      |  +--ro total-ap-11i-fast-roam-attempts?           uint32
+      |  +--ro total-ap-11i-slow-roam-attempts?           uint32
+      |  +--ro lb-total-denied-count?                     uint32
+      |  +--ro lb-total-denied-sent?                      uint32
+      |  +--ro lb-exceeded-denial-max-limit-count?        uint32
+      |  +--ro lb-candiate-5g-count?                      uint32
+      |  +--ro lb-candiate-24g-count?                     uint32
+      |  +--ro protocol-type-num-clients
+      |  |  +--ro buffer*   uint32
+      |  +--ro total-11k-roam-counts*                     uint32
+      |  +--ro total-other-roam-attempts?                 uint32
+      |  +--ro total-aid-allocation-failure?              uint32
+      |  +--ro total-aid-free-failure?                    uint32
+      |  +--ro total-11r-ft-auth-req-received?            uint32
+      |  +--ro total-11r-ft-auth-rsp-success?             uint32
+      |  +--ro total-11r-ft-auth-rsp-failure?             uint32
+      |  +--ro total-11r-ft-action-req-received?          uint32
+      |  +--ro total-11r-ft-action-rsp-success?           uint32
+      |  +--ro total-11r-ft-action-rsp-failure?           uint32
+      |  +--ro num-client-radio-type-24ghz?               uint32
+      |  +--ro num-client-radio-type-5ghz?                uint32
+      |  +--ro wpa3-sae-attempts?                         uint32
+      |  +--ro wpa3-sae-protocol-incomplete?              uint32
+      |  +--ro wpa3-sae-commit-received?                  uint32
+      |  +--ro wpa3-sae-commit-rejected?                  uint32
+      |  +--ro wpa3-sae-commit-unsupported-group?         uint32
+      |  +--ro wpa3-sae-commit-sent?                      uint32
+      |  +--ro wpa3-sae-confirm-received?                 uint32
+      |  +--ro wpa3-sae-confirm-rejected?                 uint32
+      |  +--ro wpa3-sae-confirm-field-mismatch?           uint32
+      |  +--ro wpa3-sae-confirm-message-invalid-length?   uint32
+      |  +--ro wpa3-sae-confirm-sent?                     uint32
+      |  +--ro sae-open-sessions?                         uint32
+      +--ro cac-stats!
+      |  +--ro instance-id?        uint32
+      |  +--ro iplearn-throttle?   uint32
+      |  +--ro ipc-throttle?       uint32
+      |  +--ro aaa-throttle?       uint32
+      +--ro dot11-oper-data* [ms-mac-address]
+      |  +--ro ms-mac-address                        yang:mac-address
+      |  +--ro dot11-state?                          wireless-client-types:dot11-state
+      |  +--ro dot11-sm-state?                       uint32
+      |  +--ro num-wgb-clients?                      uint32
+      |  +--ro ms-bssid?                             yang:mac-address
+      |  +--ro ap-mac-address?                       yang:mac-address
+      |  +--ro old-ap-bssid-mac?                     yang:mac-address
+      |  +--ro current-channel?                      uint8
+      |  +--ro ms-entry-type?                        wireless-client-types:ms-type
+      |  +--ro ms-wlan-id?                           uint32
+      |  +--ro ms-vap-id?                            uint32
+      |  +--ro vap-ssid?                             string
+      |  +--ro policy-profile?                       string
+      |  +--ro ms-assoc-type-flags?                  uint16
+      |  +--ro ms-ap-slot-id?                        uint8
+      |  +--ro radio-type?                           wireless-client-types:ms-radio-type
+      |  +--ro ms-short-preamble?                    uint8
+      |  +--ro ms-association-id?                    uint16
+      |  +--ro ms-old-association-id?                uint16
+      |  +--ro ms-auth-seq-num?                      uint16
+      |  +--ro ms-auth-alg-num?                      wireless-client-types:auth-algo
+      |  +--ro ms-reason-code?                       wireless-client-types:reason-code
+      |  +--ro ms-preset-reason-code?                uint16
+      |  +--ro ms-capability?                        uint16
+      |  +--ro ms-listen-interval?                   uint16
+      |  +--ro ms-cf-pollable?                       uint8
+      |  +--ro ms-cf-poll-request?                   uint8
+      |  +--ro ms-pbcc?                              uint8
+      |  +--ro ms-channel-agility?                   uint8
+      |  +--ro ms-assoc-time
+      |  |  +--ro tv-sec?    uint32
+      |  |  +--ro tv-usec?   uint32
+      |  +--ro assoc-time-at-ap?                     uint32
+      |  +--ro ms-ft-reassoc-timeout?                uint32
+      |  +--ro ms-session-start-time?                uint32
+      |  +--ro ms-session-epoch?                     uint32
+      |  +--ro is-11g-client?                        boolean
+      |  +--ro port-id?                              uint16
+      |  +--ro ms-ht-capabilities-info?              uint16
+      |  +--ro ms-ht-ampdu-param?                    uint8
+      |  +--ro ms-ht-extended-capabilities-info?     uint16
+      |  +--ro ms-ht-tx-beam-forming-capabilities?   uint32
+      |  +--ro ms-ht-asel-capabilities?              uint8
+      |  +--ro ms-ht-capable?                        boolean
+      |  +--ro ms-vht-capable?                       boolean
+      |  +--ro ms-he-capable?                        boolean
+      |  +--ro ms-load-balancing-timestamp?          uint32
+      |  +--ro ms-load-balancing-retry-count?        uint32
+      |  +--ro ms-is-calibrating?                    int8
+      |  +--ro lrad-jumbo?                           boolean
+      |  +--ro ms-create-time?                       uint64
+      |  +--ro invalid-80211-assoc-attempts?         uint32
+      |  +--ro ms-wifi
+      |  |  +--ro wpa-version?     wireless-client-types:dot11-eap-wpa-version
+      |  |  +--ro ie-data
+      |  |  |  +--ro bytes*   uint8
+      |  |  +--ro rsn-ie-len?      uint8
+      |  |  +--ro wpa-ie-len?      uint8
+      |  |  +--ro cipher-suite?    wireless-client-types:dot11i-cipher-suite
+      |  |  +--ro auth-key-mgmt?   wireless-client-oper:dot11i-auth-key-mgmt-type
+      |  +--ro dot11-assoc-start-ts?                 uint32
+      |  +--ro ms-wme-enabled?                       boolean
+      |  +--ro wmm-data*
+      |  |  +--ro tid?                   uint8
+      |  |  +--ro ac?                    uint8
+      |  |  +--ro up?                    uint8
+      |  |  +--ro upsd?                  uint8
+      |  |  +--ro call-state?            uint8
+      |  |  +--ro roam-call?             uint8
+      |  |  +--ro bandwidth-allocated?   uint16
+      |  |  +--ro kbps-bw?               uint32
+      |  |  +--ro got-exp-bw-req?        boolean
+      |  |  +--ro exp-bw-req-tsid?       uint8
+      |  |  +--ro direction?             uint8
+      |  |  +--ro inactivity-time?       uint32
+      |  +--ro wifi-direct-client
+      |  |  +--ro wfd-capable?                    boolean
+      |  |  +--ro managed-wfd-capable?            boolean
+      |  |  +--ro cross-connection-capable?       boolean
+      |  |  +--ro support-concurrent-operation?   boolean
+      |  |  +--ro reserve?                        uint8
+      |  |  +--ro p2p-interface-add-count?        uint8
+      |  +--ro ms-qos-capability?                    uint8
+      |  +--ro ms-80211e-enabled?                    boolean
+      |  +--ro ms-upsd-status?                       uint8
+      |  +--ro ms-upsd-bronze-dir?                   wireless-enum-types:apf-ms-data-upsd-bronze
+      |  +--ro ms-upsd-silver-dir?                   wireless-enum-types:apf-ms-data-upsd-silver
+      |  +--ro ms-upsd-gold-dir?                     wireless-enum-types:apf-ms-data-upsd-gold
+      |  +--ro ms-upsd-platinum-dir?                 wireless-enum-types:apf-ms-data-upsd-platinum
+      |  +--ro sfa-cap?                              uint8
+      |  +--ro mfp-enabled?                          boolean
+      |  +--ro dot11w-enabled?                       boolean
+      |  +--ro sa-query-retrans-count?               uint8
+      |  +--ro exp-bw-req-enabled?                   boolean
+      |  +--ro aironet-ie?                           boolean
+      |  +--ro diag-channel?                         boolean
+      |  +--ro s69-capable?                          boolean
+      |  +--ro diag-capable?                         boolean
+      |  +--ro diag-reason?                          uint8
+      |  +--ro got-tspec-ie?                         boolean
+      |  +--ro locp-info-dirty-bit?                  uint8
+      |  +--ro num-of-neighbors?                     uint8
+      |  +--ro neighbor-list-11k*                    yang:mac-address
+      |  +--ro assisted-roam-denial?                 uint16
+      |  +--ro reassociation-count?                  uint8
+      |  +--ro ms-mac-auth-passed?                   uint16
+      |  +--ro ewlc-ms-phy-type?                     wireless-client-types:ms-phy-radio-type
+      |  +--ro ewlc-ms-flags?                        uint32
+      |  +--ro wpa2-security-oper-data
+      |  |  +--ro rsn-ie-enabled?        boolean
+      |  |  +--ro rsn-cipher-suite?      uint16
+      |  |  +--ro auth-key-mgmt-suite?   uint16
+      |  |  +--ro rsn-ie-len?            uint32
+      |  +--ro tgr-ms-data
+      |  |  +--ro pmkr0-name
+      |  |  |  +--ro bytes*   uint8
+      |  |  +--ro pmkr1-name
+      |  |  |  +--ro bytes*   uint8
+      |  |  +--ro ftie-data
+      |  |     +--ro bytes*   uint8
+      |  +--ro encryption-type?                      wireless-client-oper:encrypt-policy
+      |  +--ro status-code?                          uint32
+      |  +--ro wgb-state?                            uint8
+      |  +--ro wgb-mac?                              yang:mac-address
+      |  +--ro security-mode?                        wireless-client-oper:dot11-assoc-mode
+      |  +--ro rm-ie?                                boolean
+      |  +--ro rm-cap-ie?                            boolean
+      |  +--ro wtp-mac?                              yang:mac-address
+      |  +--ro client-wep-policy-type?               wireless-client-types:client-wep-policy-type
+      |  +--ro bss-trans-capable?                    boolean
+      |  +--ro dot11v-timer-params
+      |  |  +--ro trans-bssid-mac?   yang:mac-address
+      |  +--ro ms-apple-capable?                     boolean
+      |  +--ro is-mesh?                              boolean
+      |  +--ro is-mbssid?                            boolean
+      |  +--ro vlan-central-switching-enabled?       boolean
+      |  +--ro wlan-profile?                         string
+      |  +--ro pmk*                                  uint8
+      |  +--ro pmkid*                                uint8
+      |  +--ro dms-capable?                          boolean
+      |  +--ro dms-id-mask?                          uint64
+      |  +--ro eogre-client
+      |     +--ro is-eogre?       boolean
+      |     +--ro match-reason?   wireless-enum-types:enm-eogre-client-match
+      |     +--ro is-aaa-data?    boolean
+      |     +--ro realm?          string
+      |     +--ro vlan?           uint16
+      |     +--ro domain?         string
+      |     +--ro primary-gw?     inet:ip-address
+      |     +--ro secondary-gw?   inet:ip-address
+      +--ro client-pmk-cache* [client-mac]
+      |  +--ro client-mac                   yang:mac-address
+      |  +--ro pmk-type?                    wireless-client-oper:pmkcache-type
+      |  +--ro audit-session-id?            string
+      |  +--ro radius-override
+      |  |  +--ro vlan-if-name?        string
+      |  |  +--ro framed-ip-address?   inet:ip-address
+      |  +--ro local-swithching-override
+      |  |  +--ro vlanid?   uint32
+      |  +--ro wake-up-ticks?               uint64
+      |  +--ro client-type?                 wireless-client-oper:dot11-client-type
+      +--ro mobility-oper-data* [ms-mac-addr]
+      |  +--ro ms-mac-addr                   yang:mac-address
+      |  +--ro mm-client-role?               wireless-mobility-types:mm-client-role
+      |  +--ro mm-client-roam-type?          wireless-mobility-types:mm-client-roam-type
+      |  +--ro mm-announce-collision?        uint8
+      |  +--ro mm-access-vlan?               uint16
+      |  +--ro mm-anchor-bridge-domain-id?   uint32
+      |  +--ro mm-instance?                  uint32
+      |  +--ro mm-complete-timestamp?        yang:date-and-time
+      |  +--ro mm-remote-tunnel-ip?          inet:ip-address
+      |  +--ro mm-remote-tunnel-sec-ip?      inet:ip-address
+      |  +--ro mm-remote-platform-id?        uint8
+      |  +--ro mm-remote-tunnel-id?          uint32
+      |  +--ro authc-status?                 boolean
+      |  +--ro mm-anchor-ip?                 inet:ip-address
+      +--ro mmif-client-stats* [client-mac]
+      |  +--ro client-mac     yang:mac-address
+      |  +--ro mblty-stats
+      |  |  +--ro mmif-fsm-invalid-events?              uint32
+      |  |  +--ro mmif-fsm-unknown-events?              uint32
+      |  |  +--ro mmif-internal-errors?                 uint32
+      |  |  +--ro mmif-ipc-failure?                     uint32
+      |  |  +--ro mmif-db-failure?                      uint32
+      |  |  +--ro mmif-invalid-params-failure?          uint32
+      |  |  +--ro mmif-mm-msg-decode-failure?           uint32
+      |  |  +--ro mmif-fsm-failure?                     uint32
+      |  |  +--ro mmif-client-handoff-success?          uint32
+      |  |  +--ro mmif-client-handoff-failure?          uint32
+      |  |  +--ro mmif-anchor-deny?                     uint32
+      |  |  +--ro mmif-timeout?                         uint32
+      |  |  +--ro mmif-remote-delete?                   uint32
+      |  |  +--ro mmif-tunnel-down-delete?              uint32
+      |  |  +--ro mmif-mbssid-down-event?               uint32
+      |  |  +--ro mmif-unknown-failure?                 uint32
+      |  |  +--ro mmif-schedule-errors?                 uint32
+      |  |  +--ro event-data-frees?                     uint32
+      |  |  +--ro event-data-allocs?                    uint32
+      |  |  +--ro intra-wncd-roam-count?                uint32
+      |  |  +--ro remote-inter-controller-roam-count?   uint32
+      |  |  +--ro remote-webauth-pending-roam-count?    uint32
+      |  |  +--ro anchor-request-sent?                  uint32
+      |  |  +--ro anchor-request-grant-received?        uint32
+      |  |  +--ro anchor-request-deny-received?         uint32
+      |  |  +--ro anchor-request-received?              uint32
+      |  |  +--ro anchor-request-grant-sent?            uint32
+      |  |  +--ro anchor-request-deny-sent?             uint32
+      |  |  +--ro handoff-received-ok?                  uint32
+      |  |  +--ro handoff-received-grp-mismatch?        uint32
+      |  |  +--ro handoff-received-ms-unknown?          uint32
+      |  |  +--ro handoff-received-ms-ssid?             uint32
+      |  |  +--ro handoff-received-deny?                uint32
+      |  |  +--ro handoff-sent-ok?                      uint32
+      |  |  +--ro handoff-sent-grp-mismatch?            uint32
+      |  |  +--ro handoff-sent-ms-unknown?              uint32
+      |  |  +--ro handoff-sent-ms-ssid?                 uint32
+      |  |  +--ro handoff-sent-deny?                    uint32
+      |  +--ro ipc-stats*
+      |     +--ro type?         uint32
+      |     +--ro allocs?       uint32
+      |     +--ro frees?        uint32
+      |     +--ro tx?           uint32
+      |     +--ro rx?           uint32
+      |     +--ro forwarded?    uint32
+      |     +--ro tx-errors?    uint32
+      |     +--ro rx-errors?    uint32
+      |     +--ro tx-retries?   uint32
+      |     +--ro built?        uint32
+      |     +--ro processed?    uint32
+      |     +--ro drops?        uint32
+      +--ro mmif-client-history* [client-mac]
+      |  +--ro client-mac          yang:mac-address
+      |  +--ro mobility-history
+      |  |  +--ro entry*
+      |  |     +--ro instance-id?     uint32
+      |  |     +--ro ms-ap-slot-id?   uint32
+      |  |     +--ro ms-assoc-time?   yang:date-and-time
+      |  |     +--ro role?            wireless-mobility-types:mm-client-role
+      |  |     +--ro bssid?           yang:mac-address
+      |  |     +--ro ap-name?         string
+      |  +--ro evt-history
+      |     +--ro event-history*
+      |        +--ro event?         uint32
+      |        +--ro state?         uint32
+      |        +--ro context?       uint32
+      |        +--ro context-str?   string
+      |        +--ro current-rc?    uint32
+      |        +--ro count?         uint32
+      |        +--ro sticky?        boolean
+      |        +--ro timestamp?     yang:date-and-time
+      +--ro ccx-stats* [ms-mac-address]
+      |  +--ro ms-mac-address          yang:mac-address
+      |  +--ro ccx-version?            uint8
+      |  +--ro ccx-e2e-version?        uint8
+      |  +--ro ccx-refresh-rate?       uint8
+      |  +--ro radio-type?             uint16
+      |  +--ro no-of-radio-channels?   uint8
+      |  +--ro ssid?                   string
+      |  +--ro ccx-capability?         wireless-client-oper:ccx-capability-enum
+      +--ro traffic-stats* [ms-mac-address]
+      |  +--ro ms-mac-address             yang:mac-address
+      |  +--ro bytes-rx?                  uint64
+      |  +--ro bytes-tx?                  uint64
+      |  +--ro policy-errs?               uint64
+      |  +--ro pkts-rx?                   uint64
+      |  +--ro pkts-tx?                   uint64
+      |  +--ro data-retries?              uint64
+      |  +--ro rts-retries?               uint64
+      |  +--ro duplicate-rcv?             uint64
+      |  +--ro decrypt-failed?            uint64
+      |  +--ro mic-mismatch?              uint64
+      |  +--ro mic-missing?               uint64
+      |  +--ro most-recent-rssi?          int8
+      |  +--ro most-recent-snr?           uint8
+      |  +--ro tx-excessive-retries?      uint64
+      |  +--ro tx-retries?                uint64
+      |  +--ro rts-success-count?         uint64
+      |  +--ro rts-fail-count?            uint64
+      |  +--ro tx-filtered?               uint64
+      |  +--ro power-save-state?          uint8
+      |  +--ro current-rate?              string
+      |  +--ro most-recent-link-status?   uint8
+      |  +--ro airtime-used-inst?         uint32
+      |  +--ro airtime-used-cum?          uint64
+      |  +--ro frames-sent-inst?          uint32
+      |  +--ro frames-sent-cum?           uint64
+      |  +--ro frames-dropped-inst?       uint32
+      |  +--ro frames-dropped-cum?        uint64
+      |  +--ro client-state?              wireless-types:enm-atf-client-state
+      |  +--ro ext-stats-timestamp?       uint32
+      |  +--ro speed?                     uint32
+      |  +--ro spatial-stream?            uint32
+      +--ro sm-main-data* [mac]
+      |  +--ro mac                            yang:mac-address
+      |  +--ro ipv4?                          inet:ipv4-address
+      |  +--ro ipv6*                          inet:ipv6-address
+      |  +--ro intf-iifid?                    uint32
+      |  +--ro method-id?                     wireless-client-oper:sm-auth-method-id
+      |  +--ro domain?                        wireless-client-oper:sm-domain
+      |  +--ro scope?                         wireless-client-oper:sm-target-scope
+      |  +--ro audit-id
+      |  |  +--ro aid?   string
+      |  +--ro posture-token
+      |  |  +--ro token?   string
+      |  +--ro acct-sess-id?                  uint32
+      |  +--ro aaa-sess-id?                   uint32
+      |  +--ro sess-iifid?                    uint32
+      |  +--ro username?                      string
+      |  +--ro vlan-id?                       uint32
+      |  +--ro linksec-secured?               boolean
+      |  +--ro state?                         wireless-client-oper:sm-ctx-state
+      |  +--ro port-type?                     wireless-client-oper:sm-port-type
+      |  +--ro authorized?                    boolean
+      |  +--ro user-role?                     string
+      |  +--ro device-type?                   string
+      |  +--ro protocol-map?                  uint32
+      |  +--ro dc-data
+      |  |  +--ro dc-profile-name?   string
+      |  |  +--ro dc-device-name?    string
+      |  |  +--ro dc-device-class?   string
+      |  +--ro http-tlv
+      |  |  +--ro bytes*   uint8
+      |  +--ro host-mode?                     wireless-client-oper:sm-host-mode
+      |  +--ro control-direction?             wireless-client-oper:sm-control-direction
+      |  +--ro reauth-timeout?                uint32
+      |  +--ro reauth-timestamp?              uint64
+      |  +--ro paused-reauth?                 boolean
+      |  +--ro reauth-ip-change?              boolean
+      |  +--ro reauth-act-terminate?          boolean
+      |  +--ro reauth-using-current-method?   uint8
+      |  +--ro reauth-remain-time?            uint32
+      |  +--ro term-cause?                    uint32
+      |  +--ro aaa-timeout-seen?              boolean
+      |  +--ro authz-fail-count?              uint32
+      |  +--ro ssn-flags?                     uint32
+      |  +--ro intf-name?                     string
+      |  +--ro policy-name?                   string
+      |  +--ro acct-update-timeout?           uint32
+      |  +--ro acct-update-timestamp?         uint64
+      |  +--ro aaa-server
+      |  |  +--ro server-address?    inet:ip-address
+      |  |  +--ro server-status?     wireless-client-oper:aaa-req-status
+      |  |  +--ro server-authport?   uint16
+      |  |  +--ro server-acctport?   uint16
+      |  +--ro sensor
+      |     +--ro protocol-data*
+      |        +--ro proto-type?   wireless-client-oper:sm-protocol-type
+      |        +--ro tlv*
+      |           +--ro type?     uint16
+      |           +--ro length?   uint16
+      |           +--ro value
+      |              +--ro data*   uint8
+      +--ro policy-data* [mac]
+      |  +--ro mac                      yang:mac-address
+      |  +--ro local-db-attr
+      |  |  +--ro applied-attrs
+      |  |  |  +--ro attr-list*
+      |  |  |     +--ro aaa-attr-value
+      |  |  |     |  +--ro bytes*   uint8
+      |  |  |     +--ro attr-val-print?   string
+      |  |  |     +--ro aaa-attr-meta
+      |  |  |        +--ro tag?               uint16
+      |  |  |        +--ro prefix-required?   uint8
+      |  |  |        +--ro mandatory?         uint8
+      |  |  +--ro failed-attrs
+      |  |     +--ro attr-list*
+      |  |        +--ro aaa-attr-value
+      |  |        |  +--ro bytes*   uint8
+      |  |        +--ro attr-val-print?   string
+      |  |        +--ro aaa-attr-meta
+      |  |           +--ro tag?               uint16
+      |  |           +--ro prefix-required?   uint8
+      |  |           +--ro mandatory?         uint8
+      |  +--ro tgt-scope?               wireless-client-oper:sm-target-scope
+      |  +--ro up-source?               wireless-client-oper:epm-svc-source
+      |  +--ro up-mlist?                string
+      |  +--ro svcb-flags?              uint32
+      |  +--ro is-up-failed?            boolean
+      |  +--ro up-precedence?           uint8
+      |  +--ro up-applied-time?         uint64
+      |  +--ro sync-seq-no?             uint8
+      |  +--ro is-vlan-group-present?   boolean
+      |  +--ro res-vlan-id?             uint32
+      |  +--ro anchor-vlan-id?          uint32
+      |  +--ro anchor-vlan-override?    boolean
+      |  +--ro epm-svc-list*
+      |  |  +--ro svc-key
+      |  |  |  +--ro svc-name?   string
+      |  |  +--ro svc-status?         wireless-client-oper:epm-svc-status
+      |  |  +--ro svc-source?         wireless-client-oper:epm-svc-source
+      |  |  +--ro svc-precedence?     uint8
+      |  |  +--ro svc-applied-time?   uint64
+      |  |  +--ro svc-flags?          uint8
+      |  |  +--ro is-param-map?       boolean
+      |  |  +--ro svc-mlist?          string
+      |  |  +--ro applied-attrs
+      |  |  |  +--ro attr-list*
+      |  |  |     +--ro aaa-attr-value
+      |  |  |     |  +--ro bytes*   uint8
+      |  |  |     +--ro attr-val-print?   string
+      |  |  |     +--ro aaa-attr-meta
+      |  |  |        +--ro tag?               uint16
+      |  |  |        +--ro prefix-required?   uint8
+      |  |  |        +--ro mandatory?         uint8
+      |  |  +--ro failed-attrs
+      |  |     +--ro attr-list*
+      |  |        +--ro aaa-attr-value
+      |  |        |  +--ro bytes*   uint8
+      |  |        +--ro attr-val-print?   string
+      |  |        +--ro aaa-attr-meta
+      |  |           +--ro tag?               uint16
+      |  |           +--ro prefix-required?   uint8
+      |  |           +--ro mandatory?         uint8
+      |  +--ro up-applied-attrs
+      |  |  +--ro attr-list*
+      |  |     +--ro aaa-attr-value
+      |  |     |  +--ro bytes*   uint8
+      |  |     +--ro attr-val-print?   string
+      |  |     +--ro aaa-attr-meta
+      |  |        +--ro tag?               uint16
+      |  |        +--ro prefix-required?   uint8
+      |  |        +--ro mandatory?         uint8
+      |  +--ro up-failed-attrs
+      |  |  +--ro attr-list*
+      |  |     +--ro aaa-attr-value
+      |  |     |  +--ro bytes*   uint8
+      |  |     +--ro attr-val-print?   string
+      |  |     +--ro aaa-attr-meta
+      |  |        +--ro tag?               uint16
+      |  |        +--ro prefix-required?   uint8
+      |  |        +--ro mandatory?         uint8
+      |  +--ro up-attrs
+      |     +--ro attr-list*
+      |        +--ro aaa-attr-value
+      |        |  +--ro bytes*   uint8
+      |        +--ro attr-val-print?   string
+      |        +--ro aaa-attr-meta
+      |           +--ro tag?               uint16
+      |           +--ro prefix-required?   uint8
+      |           +--ro mandatory?         uint8
+      +--ro exclusion-data* [client-mac]
+      |  +--ro generation-id?                 uint32
+      |  +--ro client-mac                     yang:mac-address
+      |  +--ro exclusion-time?                int32
+      |  +--ro exclusion-timeout-timestamp?   int64
+      |  +--ro exclude-reason?                wireless-client-oper:exclude-reason
+      |  +--ro description?                   string
+      |  +--ro authentication-method?         wireless-client-oper:exclusion-client-auth-method-id
+      |  +--ro client-state?                  uint8
+      |  +--ro ms-radio-type?                 wireless-client-types:ms-phy-radio-type
+      |  +--ro ms-username?                   string
+      |  +--ro ap-mac-addr?                   yang:mac-address
+      |  +--ro ap-name?                       string
+      |  +--ro ap-slot-id?                    uint8
+      |  +--ro wlan-id?                       uint32
+      |  +--ro wlan-ssid?                     string
+      |  +--ro vlan-id?                       uint32
+      |  +--ro ip-addr?                       inet:ip-address
+      |  +--ro client-type?                   wireless-client-types:ms-client-type
+      +--ro dot1x-global-stats!
+      |  +--ro eapol-rx?                 uint32
+      |  +--ro eapol-rx-start?           uint32
+      |  +--ro eapol-rx-logoff?          uint32
+      |  +--ro eapol-rx-resp?            uint32
+      |  +--ro eapol-rx-resp-id?         uint32
+      |  +--ro eapol-rx-req?             uint32
+      |  +--ro eapol-rx-invalid?         uint32
+      |  +--ro eapol-rx-len-error?       uint32
+      |  +--ro eapol-tx?                 uint32
+      |  +--ro eapol-tx-start?           uint32
+      |  +--ro eapol-tx-logoff?          uint32
+      |  +--ro eapol-tx-resp?            uint32
+      |  +--ro eapol-tx-req?             uint32
+      |  +--ro eapol-retx-req?           uint32
+      |  +--ro eapol-retx-req-fail?      uint32
+      |  +--ro eapol-tx-req-id?          uint32
+      |  +--ro eapol-retx-req-id?        uint32
+      |  +--ro eapol-retx-req-id-fail?   uint32
+      +--ro sm-web-auth-stats!
+      |  +--ro http-stats
+      |  |  +--ro http-request-count?               uint32
+      |  |  +--ro read-event-count?                 uint32
+      |  |  +--ro read-complete-count?              uint32
+      |  |  +--ro write-event-count?                uint32
+      |  |  +--ro write-complete-count?             uint32
+      |  |  +--ro aaa-message-count?                uint32
+      |  |  +--ro ssl-event-read-wouldblk-count?    uint32
+      |  |  +--ro ssl-event-write-wouldblk-count?   uint32
+      |  |  +--ro ssl-event-ok-count?               uint32
+      |  |  +--ro http-new-req-no-session-error?    uint32
+      |  |  +--ro http-new-req-ctx-exists-error?    uint32
+      |  |  +--ro num-of-socket-opened?             uint32
+      |  |  +--ro num-of-socket-closed?             uint32
+      |  |  +--ro http-counters*                    uint32
+      |  +--ro iom-reading
+      |  |  +--ro total?     uint32
+      |  |  +--ro max?       uint32
+      |  |  +--ro min?       uint32
+      |  |  +--ro samples?   uint32
+      |  +--ro method-reading
+      |  |  +--ro total?     uint32
+      |  |  +--ro max?       uint32
+      |  |  +--ro min?       uint32
+      |  |  +--ro samples?   uint32
+      |  +--ro iom-writing
+      |  |  +--ro total?     uint32
+      |  |  +--ro max?       uint32
+      |  |  +--ro min?       uint32
+      |  |  +--ro samples?   uint32
+      |  +--ro method-writing
+      |  |  +--ro total?     uint32
+      |  |  +--ro max?       uint32
+      |  |  +--ro min?       uint32
+      |  |  +--ro samples?   uint32
+      |  +--ro iom-aaa
+      |  |  +--ro total?     uint32
+      |  |  +--ro max?       uint32
+      |  |  +--ro min?       uint32
+      |  |  +--ro samples?   uint32
+      |  +--ro method-aaa
+      |  |  +--ro total?     uint32
+      |  |  +--ro max?       uint32
+      |  |  +--ro min?       uint32
+      |  |  +--ro samples?   uint32
+      |  +--ro num-of-sleeping-clients?   uint32
+      |  +--ro session-count?             uint32
+      |  +--ro half-open-count?           uint32
+      +--ro identity-web-auth-data* [mac]
+      |  +--ro mac                   yang:mac-address
+      |  +--ro init-state-timeout?   uint32
+      |  +--ro retry-count?          uint16
+      |  +--ro no-data-count?        uint16
+      |  +--ro deny-of-service?      uint8
+      |  +--ro state?                wireless-client-oper:sm-webauth-state
+      |  +--ro acl-flags?            uint8
+      |  +--ro appl-id?              wireless-client-oper:sm-webauth-method
+      |  +--ro client-ipv4-addr?     inet:ipv4-address
+      |  +--ro ipv6*                 inet:ipv6-address
+      |  +--ro intf-iifid?           uint32
+      |  +--ro webauth-type?         uint8
+      |  +--ro is-cwa-session?       boolean
+      |  +--ro is-sleeping?          boolean
+      |  +--ro is-service-denied?    boolean
+      +--ro sm-web-auth-s-client* [client-mac]
+      |  +--ro client-mac      yang:mac-address
+      |  +--ro user?           string
+      |  +--ro password?       string
+      |  +--ro timeout?        uint32
+      |  +--ro create-entry?   boolean
+      +--ro device-stats* [device-type]
+      |  +--ro device-type     string
+      |  +--ro device-count?   uint32
+      +--ro wgb-wired-client-data* [wgb-mac wired-client-mac]
+         +--ro wgb-mac             yang:mac-address
+         +--ro wired-client-mac    yang:mac-address

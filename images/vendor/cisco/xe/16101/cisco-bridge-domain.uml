@@ -1,0 +1,261 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/cisco-bridge-domain.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title cisco-bridge-domain 
+package "if:ietf-interfaces" as if_ietf_interfaces { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "cbridge:cisco-bridge-common" as cbridge_cisco_bridge_common { 
+} 
+package "cstormctrl:cisco-storm-control" as cstormctrl_cisco_storm_control { 
+} 
+package "l2vpn-pw:cisco-pw" as l2vpn_pw_cisco_pw { 
+} 
+note top of bd_cisco_bridge_domain : <b>Namespace: </b> urn:cisco:params:xml:ns:yang:cisco-bridge-domain \n<b>Prefix: </b> bd \n<b>Organization : </b>\nCisco Systems, Inc. \n<b>Contact : </b>\nCisco Systems, Inc. \nCustomer Service \n \nPostal: 170 W Tasman Drive \nSan Jose, CA 95134 \n \nTel: +1 1800 553-NETS \n \nE-mail: cs-yang@cisco.com \n<b>Revision : </b> 2016-12-14 \n
+package "bd:cisco-bridge-domain" as bd_cisco_bridge_domain { 
+if_ietf_interfaces +-- bd_cisco_bridge_domain
+yang_ietf_yang_types +-- bd_cisco_bridge_domain
+cbridge_cisco_bridge_common +-- bd_cisco_bridge_domain
+cstormctrl_cisco_storm_control +-- bd_cisco_bridge_domain
+l2vpn_pw_cisco_pw +-- bd_cisco_bridge_domain
+class "cisco-bridge-domain" as cisco_bridge_domain << (M, #33CCFF) module>> 
+cisco_bridge_domain : feature : parameterized_bridge_domains 
+cisco_bridge_domain : feature : clear_bridge_domain 
+cisco_bridge_domain : feature : configurable_bd_groups 
+cisco_bridge_domain : feature : configurable_bd_mtu 
+cisco_bridge_domain : feature : configurable_bd_mac_features 
+cisco_bridge_domain : feature : configurable_bd_flooding_mode 
+cisco_bridge_domain : feature : configurable_bd_mac_event_action 
+cisco_bridge_domain : feature : configurable_bd_mac_secure 
+cisco_bridge_domain : feature : configurable_bd_flooding 
+cisco_bridge_domain : feature : configurable_bd_storm_control 
+cisco_bridge_domain : feature : configurable_bd_dai 
+cisco_bridge_domain : feature : configurable_bd_ipsg 
+cisco_bridge_domain : feature : configurable_bd_snooping_profiles 
+cisco_bridge_domain : feature : configurable_bd_static_mac 
+cisco_bridge_domain : feature : configurable_bd_sh_group_number 
+cisco_bridge_domain : feature : configurable_bd_member_features 
+class "bridge-domain-ref" as bridge_domain_ref << (T, YellowGreen) typedef>>
+bridge_domain_ref : leafref : /bd:bridge-domain-config/bd:bridge-domains/bd:bridge-domain/bd:id
+class "bridge-domain-oper-ref" as bridge_domain_oper_ref << (T, YellowGreen) typedef>>
+bridge_domain_oper_ref : leafref : /bd:bridge-domain-state/bd:bridge-domains/bd:bridge-domain/bd:id
+enum "bridge-domain-state-type" as cisco_bridge_domain_I_bridge_domain_state_type {
+up
+down
+admin-down
+}
+class "bd-member-features" as cisco_bridge_domain_I_bd_member_features_grouping <<(G,Lime) grouping>> 
+class "split-horizon-group" as  cisco_bridge_domain_I_bd_member_features_I_split_horizon_group <<container>> 
+cisco_bridge_domain_I_bd_member_features_grouping *-- "0..1" cisco_bridge_domain_I_bd_member_features_I_split_horizon_group 
+note bottom of cisco_bridge_domain_I_bd_member_features_I_split_horizon_group
+<b>Presence: </b>Existence of this container represents Split Horizon
+configuration.
+
+When Split Horizon group number is not configured, device
+assigns default group numbers to ACs or PWs
+end note 
+cisco_bridge_domain_I_bd_member_features_I_split_horizon_group : id : uint16   {mandatory} {if-feature : configurable-bd-sh-group-number}
+class "mac" as  cisco_bridge_domain_I_bd_member_features_I_mac <<container>> 
+cisco_bridge_domain_I_bd_member_features_grouping *-- "1" cisco_bridge_domain_I_bd_member_features_I_mac 
+cisco_bridge_domain_I_bd_member_features_I_mac : cbridge:mac-learning-config {uses} 
+cisco_bridge_domain_I_bd_member_features_I_mac : cbridge:mac-aging-config {uses} 
+cisco_bridge_domain_I_bd_member_features_I_mac : cbridge:mac-event-action-config {uses} 
+cisco_bridge_domain_I_bd_member_features_I_mac : cbridge:mac-secure-config {uses} 
+cisco_bridge_domain_I_bd_member_features_grouping : cbridge:snooping-profile-config {uses} 
+cisco_bridge_domain_I_bd_member_features_grouping : cbridge:mac-flooding-config {uses} 
+cisco_bridge_domain_I_bd_member_features_grouping : cstormctrl:storm-control-config {uses} 
+class "bd-pbb-features" as cisco_bridge_domain_I_bd_pbb_features_grouping <<(G,Lime) grouping>> 
+class "pbb" as  cisco_bridge_domain_I_bd_pbb_features_I_pbb <<container>> 
+cisco_bridge_domain_I_bd_pbb_features_grouping *-- "1" cisco_bridge_domain_I_bd_pbb_features_I_pbb 
+class "pbb-role-type" as cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type <<choice>> 
+cisco_bridge_domain_I_bd_pbb_features_I_pbb .. cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type : choice 
+class "pbb-edge" as cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type_I_pbb_edge_case <<case>>
+cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type .. cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type_I_pbb_edge_case  : choice pbb-role-type
+class "edge" as  cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type_I_pbb_edge_I_edge <<container>> 
+cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type_I_pbb_edge_case *-- "1" cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type_I_pbb_edge_I_edge 
+cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type_I_pbb_edge_I_edge : i-sid : uint32 [256..16777214]   {mandatory}
+cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type_I_pbb_edge_I_edge : core-bridge : string   {mandatory}
+class "static-mac-addresses" as cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type_I_pbb_edge_I_edge_I_static_mac_addresses << (L, #FF7700) list>> 
+cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type_I_pbb_edge_I_edge *-- "0..N" cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type_I_pbb_edge_I_edge_I_static_mac_addresses 
+cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type_I_pbb_edge_I_edge_I_static_mac_addresses : +c-mac : yang:mac-address  {key} 
+cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type_I_pbb_edge_I_edge_I_static_mac_addresses : b-mac : yang:mac-address   {mandatory}
+cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type_I_pbb_edge_I_edge : unknown-ucast-bmac : yang:mac-address  
+class "pbb-core" as cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type_I_pbb_core_case <<case>>
+cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type .. cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type_I_pbb_core_case  : choice pbb-role-type
+class "core" as  cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type_I_pbb_core_I_core <<container>> 
+cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type_I_pbb_core_case *-- "1" cisco_bridge_domain_I_bd_pbb_features_I_pbb_I_pbb_role_type_I_pbb_core_I_core 
+class "bd-capabilities" as cisco_bridge_domain_I_bd_capabilities_grouping <<(G,Lime) grouping>> 
+cisco_bridge_domain_I_bd_capabilities_grouping : max-bd : uint32  
+cisco_bridge_domain_I_bd_capabilities_grouping : max-ac-per-bd : uint32  
+cisco_bridge_domain_I_bd_capabilities_grouping : max-pw-per-bd : uint32  
+cisco_bridge_domain_I_bd_capabilities_grouping : max-vfi-per-bd : uint32  
+cisco_bridge_domain_I_bd_capabilities_grouping : max-sh-group-per-bd : uint32  
+class "bridge-domain-config" as  cisco_bridge_domain_I_bridge_domain_config <<container>> 
+cisco_bridge_domain *-- "1" cisco_bridge_domain_I_bridge_domain_config 
+class "global" as  cisco_bridge_domain_I_bridge_domain_config_I_global <<container>> 
+cisco_bridge_domain_I_bridge_domain_config *-- "1" cisco_bridge_domain_I_bridge_domain_config_I_global 
+cisco_bridge_domain_I_bridge_domain_config_I_global : bd-state-notification-enabled : boolean  
+cisco_bridge_domain_I_bridge_domain_config_I_global : bd-state-notification-rate : uint32  
+class "pbb" as  cisco_bridge_domain_I_bridge_domain_config_I_global_I_pbb <<container>> 
+cisco_bridge_domain_I_bridge_domain_config_I_global *-- "1" cisco_bridge_domain_I_bridge_domain_config_I_global_I_pbb 
+cisco_bridge_domain_I_bridge_domain_config_I_global_I_pbb : backbone-src-mac : yang:mac-address  
+class "bridge-groups" as  cisco_bridge_domain_I_bridge_domain_config_I_bridge_groups <<container>> 
+cisco_bridge_domain_I_bridge_domain_config *-- "1" cisco_bridge_domain_I_bridge_domain_config_I_bridge_groups 
+note bottom of cisco_bridge_domain_I_bridge_domain_config_I_bridge_groups
+<b>if-feature: </b>configurable-bd-groups
+end note 
+class "bridge-group" as cisco_bridge_domain_I_bridge_domain_config_I_bridge_groups_I_bridge_group << (L, #FF7700) list>> 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_groups *-- "0..N" cisco_bridge_domain_I_bridge_domain_config_I_bridge_groups_I_bridge_group 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_groups_I_bridge_group : +name : string {length = 1..32}  {key} 
+class "bridge-domains" as  cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains <<container>> 
+cisco_bridge_domain_I_bridge_domain_config *-- "1" cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains 
+class "bridge-domain" as cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain << (L, #FF7700) list>> 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains *-- "0..N" cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain : +id : string  {key} 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain : bridge-group : leafref : /bd:bridge-domain-config/bd:bridge-groups/bd:bridge-group/bd:name   {mandatory} {if-feature : configurable-bd-groups}
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain : enabled : boolean   = true 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain : bd-status-change-notification : boolean  
+class "members" as  cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members <<container>> 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain *-- "1" cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members 
+class "ac-member" as cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_ac_member << (L, #FF7700) list>> 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members *-- "0..N" cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_ac_member 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_ac_member : +interface : if:interface-ref  {key} 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_ac_member : bd-member-features {uses} 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_ac_member : cbridge:dynamic-arp-inspection-config {uses} 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_ac_member : cbridge:ip-source-guard-config {uses} 
+class "vfi-member" as cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_vfi_member << (L, #FF7700) list>> 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members *-- "0..N" cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_vfi_member 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_vfi_member : +interface : if:interface-ref  {key} 
+note bottom of cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_vfi_member
+<b>Must</b> (interface):
+/if:interfaces/if:interface/if:type = 'ifVfiType'
+
+end note 
+class "access-pw-member" as  cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member <<container>> 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members *-- "1" cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member 
+class "access-pw-if-member" as cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member_I_access_pw_if_member << (L, #FF7700) list>> 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member *-- "0..N" cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member_I_access_pw_if_member 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member_I_access_pw_if_member : +interface : if:interface-ref  {key} 
+note bottom of cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member_I_access_pw_if_member
+<b>Must</b> (interface):
+/if:interfaces/if:interface/if:type = 'ifPwType'
+
+end note 
+class "pw-neighbor-spec" as cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member_I_pw_neighbor_spec << (L, #FF7700) list>> 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member *-- "0..N" cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member_I_pw_neighbor_spec 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member_I_pw_neighbor_spec : l2vpn-pw:pw-neighbor-config {uses} 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member_I_pw_neighbor_spec : bd-member-features {uses} 
+class "backup" as  cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member_I_pw_neighbor_spec_I_backup <<container>> 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member_I_pw_neighbor_spec *-- "1" cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member_I_pw_neighbor_spec_I_backup 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member_I_pw_neighbor_spec_I_backup : l2vpn-pw:pw-backup-neighbor-config {uses} 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain : mtu : uint16 [46..65535]   {if-feature : configurable-bd-mtu}
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain : flooding-mode : enumeration : {convergence-optimized,resilience-optimized,}   {if-feature : configurable-bd-flooding-mode}
+class "mac" as  cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_mac <<container>> 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain *-- "1" cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_mac 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_mac : cbridge:mac-learning-config {uses} 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_mac : cbridge:mac-aging-config {uses} 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_mac : cbridge:mac-event-action-config {uses} 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_mac : cbridge:mac-flooding-config {uses} 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_mac : cbridge:mac-secure-config {uses} 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_mac : cbridge:static-mac-list-config {uses} 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain : cbridge:dynamic-arp-inspection-config {uses} 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain : cbridge:ip-source-guard-config {uses} 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain : cstormctrl:storm-control-config {uses} 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain : cbridge:snooping-profile-config {uses} 
+class "bridge-domain-state" as  cisco_bridge_domain_I_bridge_domain_state <<container>> 
+cisco_bridge_domain *-- "1" cisco_bridge_domain_I_bridge_domain_state 
+note bottom of cisco_bridge_domain_I_bridge_domain_state
+<b>Config = </b>false
+end note 
+class "system-capabilities" as  cisco_bridge_domain_I_bridge_domain_state_I_system_capabilities <<container>> 
+cisco_bridge_domain_I_bridge_domain_state *-- "1" cisco_bridge_domain_I_bridge_domain_state_I_system_capabilities 
+cisco_bridge_domain_I_bridge_domain_state_I_system_capabilities : bd-capabilities {uses} 
+cisco_bridge_domain_I_bridge_domain_state_I_system_capabilities : max-interflex-if-per-bd : uint32  
+class "module-capabilities" as  cisco_bridge_domain_I_bridge_domain_state_I_module_capabilities <<container>> 
+cisco_bridge_domain_I_bridge_domain_state *-- "1" cisco_bridge_domain_I_bridge_domain_state_I_module_capabilities 
+class "modules" as cisco_bridge_domain_I_bridge_domain_state_I_module_capabilities_I_modules << (L, #FF7700) list>> 
+cisco_bridge_domain_I_bridge_domain_state_I_module_capabilities *-- "0..N" cisco_bridge_domain_I_bridge_domain_state_I_module_capabilities_I_modules 
+cisco_bridge_domain_I_bridge_domain_state_I_module_capabilities_I_modules : +name : string  {key} 
+cisco_bridge_domain_I_bridge_domain_state_I_module_capabilities_I_modules : max-mac-per-bd : uint32  
+cisco_bridge_domain_I_bridge_domain_state_I_module_capabilities_I_modules : max-pdd-edge-bd : uint32  
+cisco_bridge_domain_I_bridge_domain_state_I_module_capabilities_I_modules : bd-capabilities {uses} 
+class "bridge-domains" as  cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains <<container>> 
+cisco_bridge_domain_I_bridge_domain_state *-- "1" cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains 
+class "bridge-domain" as cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain << (L, #FF7700) list>> 
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains *-- "0..N" cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain 
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain : +id : string  {key} 
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain : bd-state : bridge-domain-state-type   {mandatory}
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain : create-time : yang:timestamp  
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain : last-status-change : yang:timeticks  
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain : mac-limit-reached : boolean  
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain : p2mp-pw-disabled : boolean  
+class "members" as  cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members <<container>> 
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain *-- "1" cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members 
+class "ac-member" as cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_ac_member << (L, #FF7700) list>> 
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members *-- "0..N" cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_ac_member 
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_ac_member : +interface : if:interface-state-ref  {key} 
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_ac_member : static-mac-count : uint32  
+class "dai-stats" as  cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_ac_member_I_dai_stats <<container>> 
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_ac_member *-- "1" cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_ac_member_I_dai_stats 
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_ac_member_I_dai_stats : packet-drops : yang:counter64  
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_ac_member_I_dai_stats : byte-drops : yang:counter64  
+class "ipsg-stats" as  cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_ac_member_I_ipsg_stats <<container>> 
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_ac_member *-- "1" cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_ac_member_I_ipsg_stats 
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_ac_member_I_ipsg_stats : packet-drops : yang:counter64  
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_ac_member_I_ipsg_stats : byte-drops : yang:counter64  
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_ac_member : cstormctrl:storm-control-stats {uses} 
+class "vfi-member" as cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_vfi_member << (L, #FF7700) list>> 
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members *-- "0..N" cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_vfi_member 
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_vfi_member : +interface : if:interface-state-ref  {key} 
+note bottom of cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_vfi_member
+<b>Must</b> (interface):
+/if:interfaces-state/if:interface/if:type = 'ifVfiType'
+
+end note 
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_vfi_member : cbridge:mac-flooding-state {uses} 
+class "access-pw-member" as cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member << (L, #FF7700) list>> 
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members *-- "0..N" cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member 
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member : l2vpn-pw:pw-oper-ref-keys {uses} 
+cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member : cbridge:mac-flooding-state {uses} 
+class "mac-table" as cisco_bridge_domain_I_bridge_domain_state_I_mac_table << (L, #FF7700) list>> 
+cisco_bridge_domain_I_bridge_domain_state *-- "0..N" cisco_bridge_domain_I_bridge_domain_state_I_mac_table 
+cisco_bridge_domain_I_bridge_domain_state_I_mac_table : +bd-id : string  {key} 
+cisco_bridge_domain_I_bridge_domain_state_I_mac_table : +mac-address : yang:mac-address  {key} 
+cisco_bridge_domain_I_bridge_domain_state_I_mac_table : mac-type : enumeration : {static,dynamic,}  
+cisco_bridge_domain_I_bridge_domain_state_I_mac_table : interface : if:interface-ref   {mandatory}
+cisco_bridge_domain_I_bridge_domain_state_I_mac_table : secure-mac : boolean  
+cisco_bridge_domain_I_bridge_domain_state_I_mac_table : ntfy-mac : boolean  
+cisco_bridge_domain_I_bridge_domain_state_I_mac_table : age : yang:timeticks  
+cisco_bridge_domain_I_bridge_domain_state_I_mac_table : location : string  
+class "bd-state-notification" as cisco_bridge_domain_I_bd_state_notification << (N,#00D1B2) notification>> 
+cisco_bridge_domain -- cisco_bridge_domain_I_bd_state_notification : notification 
+cisco_bridge_domain_I_bd_state_notification : id : bd:bridge-domain-oper-ref  
+cisco_bridge_domain_I_bd_state_notification : bd-state : bridge-domain-state-type  
+cisco_bridge_domain_I_bd_state_notification : time : yang:timestamp  
+cisco_bridge_domain : clear-bridge-domain( out: errstr)
+cisco_bridge_domain : clear-mac-address( in: interface in: mac_address in: bridge_domain out: errstr)
+cisco_bridge_domain : create-parameterized-bridge-domains( in: parameter in: member out: errstr)
+} 
+
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_ac_member --> cisco_bridge_domain_I_bd_member_features_grouping : uses 
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain_I_members_I_access_pw_member_I_pw_neighbor_spec --> cisco_bridge_domain_I_bd_member_features_grouping : uses 
+cisco_bridge_domain_I_bridge_domain_state_I_system_capabilities --> cisco_bridge_domain_I_bd_capabilities_grouping : uses 
+cisco_bridge_domain_I_bridge_domain_state_I_module_capabilities_I_modules --> cisco_bridge_domain_I_bd_capabilities_grouping : uses 
+bridge_domain_ref-->"bd:id"cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain: bridge-domain-ref
+bridge_domain_oper_ref-->"bd:id"cisco_bridge_domain_I_bridge_domain_state_I_bridge_domains_I_bridge_domain: bridge-domain-oper-ref
+cisco_bridge_domain_I_bridge_domain_config_I_bridge_domains_I_bridge_domain-->"bd:name"cisco_bridge_domain_I_bridge_domain_config_I_bridge_groups_I_bridge_group: bridge-group
+center footer
+ <size:20> UML Generated : 2019-02-21 00:53 </size>
+ endfooter 
+@enduml 

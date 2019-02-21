@@ -1,0 +1,220 @@
+module: cisco-ospf
+augment /rt:routing/rt:routing-instance/rt:routing-protocols/rt:routing-protocol/ospf:ospf/ospf:instance:
+   +--rw default-information
+   |  +--rw originate!
+   |     +--rw always-advertise?   boolean
+   |     +--rw metric?             ospf:uint24
+   |     +--rw metric-type?        ospf-external-type
+   |     +--rw route-map?          string
+   +--rw default-metric
+   |  +--rw default-metric?   ospf:uint24
+   +--rw log-adjacency-changes
+   |  +--rw adjacency-changes?   ospf-log-adj
+   +--rw summary-prefixes
+   |  +--rw summary-prefix* [prefix]
+   |     +--rw prefix           inet:ip-prefix
+   |     +--rw (not-advertise-or-tag)?
+   |        +--:(tag-nssa-only)
+   |        |  +--rw nssa-only?       empty
+   |        |  +--rw tag?             uint32_max
+   |        +--:(not-advertise)
+   |           +--rw not-advertise?   boolean
+   +--rw graceful-shutdown {graceful-shutdown}?
+   |  +--rw initial-delay?   uint32
+   |  +--rw retain-routes?   uint32
+   +--rw redistribution
+   |  +--rw maximum-prefix!
+   |  |  +--rw IP-prefixes?       uint32_max
+   |  |  +--rw Threshold-value?   uint32
+   |  |  +--rw warning-only?      empty
+   |  +--rw bgp
+   |  |  +--rw bgp-protocol* [as-number]
+   |  |     +--rw as-number        uint32_max
+   |  |     +--rw redist-option
+   |  |        +--rw metric?        ospf:uint24
+   |  |        +--rw metric-type?   uint32
+   |  |        +--rw tag?           uint32_max
+   |  |        +--rw nssa-only?     empty
+   |  |        +--rw route-map?     string
+   |  +--rw eigrp
+   |  |  +--rw eigrp-protocol* [as-number]
+   |  |     +--rw as-number        uint16_max
+   |  |     +--rw redist-option
+   |  |        +--rw metric?        ospf:uint24
+   |  |        +--rw metric-type?   uint32
+   |  |        +--rw tag?           uint32_max
+   |  |        +--rw nssa-only?     empty
+   |  |        +--rw route-map?     string
+   |  +--rw isis
+   |  |  +--rw isis-protocol* [process-name]
+   |  |     +--rw process-name     string
+   |  |     +--rw (isis-levels)?
+   |  |     |  +--:(level-1)
+   |  |     |  |  +--rw level-1?         empty
+   |  |     |  +--:(level-2)
+   |  |     |  |  +--rw level-2?         empty
+   |  |     |  +--:(level-1-2)
+   |  |     |     +--rw level-1-2?       empty
+   |  |     +--rw redist-option
+   |  |        +--rw metric?        ospf:uint24
+   |  |        +--rw metric-type?   uint32
+   |  |        +--rw tag?           uint32_max
+   |  |        +--rw nssa-only?     empty
+   |  |        +--rw route-map?     string
+   |  +--rw applications
+   |  |  +--rw application* [application-name]
+   |  |     +--rw application-name    string
+   |  |     +--rw redist-option
+   |  |        +--rw metric?        ospf:uint24
+   |  |        +--rw metric-type?   uint32
+   |  |        +--rw tag?           uint32_max
+   |  |        +--rw nssa-only?     empty
+   |  |        +--rw route-map?     string
+   |  +--rw ospf
+   |  |  +--rw ospf* [id-or-name]
+   |  |     +--rw id-or-name       process-id-or-name
+   |  |     +--rw match
+   |  |     |  +--rw internal?        empty
+   |  |     |  +--rw external!
+   |  |     |  |  +--rw external-routes?   ospf-external-type
+   |  |     |  +--rw nssa-external!
+   |  |     |     +--rw nssa-external-routes?   ospf-external-type
+   |  |     +--rw redist-option
+   |  |        +--rw metric?        ospf:uint24
+   |  |        +--rw metric-type?   uint32
+   |  |        +--rw tag?           uint32_max
+   |  |        +--rw nssa-only?     empty
+   |  |        +--rw route-map?     string
+   |  +--rw rip!
+   |  |  +--rw redist-option
+   |  |     +--rw metric?        ospf:uint24
+   |  |     +--rw metric-type?   uint32
+   |  |     +--rw tag?           uint32_max
+   |  |     +--rw nssa-only?     empty
+   |  |     +--rw route-map?     string
+   |  +--rw static!
+   |  |  +--rw redist-option
+   |  |     +--rw metric?        ospf:uint24
+   |  |     +--rw metric-type?   uint32
+   |  |     +--rw tag?           uint32_max
+   |  |     +--rw nssa-only?     empty
+   |  |     +--rw route-map?     string
+   |  +--rw subscriber!
+   |  |  +--rw redist-option
+   |  |     +--rw metric?        ospf:uint24
+   |  |     +--rw metric-type?   uint32
+   |  |     +--rw tag?           uint32_max
+   |  |     +--rw nssa-only?     empty
+   |  |     +--rw route-map?     string
+   |  +--rw connected!
+   |     +--rw redist-option
+   |        +--rw metric?        ospf:uint24
+   |        +--rw metric-type?   uint32
+   |        +--rw tag?           uint32_max
+   |        +--rw nssa-only?     empty
+   |        +--rw route-map?     string
+   +--rw discard-route!
+   |  +--rw external?                  empty
+   |  +--rw external-admin-distance?   uint8_max
+   |  +--rw internal?                  empty
+   |  +--rw internal-admin-distance?   uint8_max
+   +--rw microloop-avoidance
+      +--rw enable?             prefix-applicability
+      +--rw disable?            empty
+      +--rw rib-update-delay?   ospf:uint24
+augment /rt:routing/rt:routing-instance/rt:routing-protocols/rt:routing-protocol/ospf:ospf/ospf:instance/ospf:area/ospf:interface:
+   +--rw database-filter {database-filter}?
+   |  +--rw all-out?   boolean
+   +--rw flood-reduction
+      +--rw flood-reduction?   boolean {flood-reduction}?
+augment /rt:routing/rt:routing-instance/rt:routing-protocols/rt:routing-protocol/ospf:ospf/ospf:instance/ospf:admin-distance:
+   +--rw ospf-distance
+      +--rw distance?   uint32
+      +--rw ip?         inet:ipv4-address
+      +--rw wildcard?   inet:ipv4-address
+      +--rw acl-name?   access-list-standard-id-type
+augment /rt:routing/rt:routing-instance/rt:routing-protocols/rt:routing-protocol/ospf:ospf/ospf:instance/ospf:spf-control:
+   +--rw throttle-timers
+      +--rw init-delay?   delay_range
+      +--rw min-delay?    delay_range
+      +--rw max-delay?    delay_range
+augment /rt:routing/rt:routing-instance/rt:routing-protocols/rt:routing-protocol/ospf:ospf/ospf:instance/ospf:reload-control:
+   +--rw max-metric
+      +--rw on-proc-restart
+      |  +--rw (lsa-grouping)?
+      |  |  +--:(wait-for-bgp)
+      |  |  |  +--rw wait-for-bgp?         boolean
+      |  |  +--:(time)
+      |  |     +--rw time?                 uint32
+      |  +--rw max-metric-options
+      |     +--rw include-stub?          boolean
+      |     +--rw summary-lsa?           boolean
+      |     +--rw summary-lsa-metric?    ospf:uint24
+      |     +--rw external-lsa?          boolean
+      |     +--rw external-lsa-metric?   ospf:uint24
+      +--rw on-startup
+      |  +--rw (lsa-grouping)?
+      |  |  +--:(wait-for-bgp)
+      |  |  |  +--rw wait-for-bgp?         boolean
+      |  |  +--:(time)
+      |  |     +--rw time?                 uint32
+      |  +--rw max-metric-options
+      |     +--rw include-stub?          boolean
+      |     +--rw summary-lsa?           boolean
+      |     +--rw summary-lsa-metric?    ospf:uint24
+      |     +--rw external-lsa?          boolean
+      |     +--rw external-lsa-metric?   ospf:uint24
+      +--rw on-proc-migration
+      |  +--rw (lsa-grouping)?
+      |  |  +--:(wait-for-bgp)
+      |  |  |  +--rw wait-for-bgp?         boolean
+      |  |  +--:(time)
+      |  |     +--rw time?                 uint32
+      |  +--rw max-metric-options
+      |     +--rw include-stub?          boolean
+      |     +--rw summary-lsa?           boolean
+      |     +--rw summary-lsa-metric?    ospf:uint24
+      |     +--rw external-lsa?          boolean
+      |     +--rw external-lsa-metric?   ospf:uint24
+      +--rw always
+      |  +--rw max-metric-options
+      |     +--rw include-stub?          boolean
+      |     +--rw summary-lsa?           boolean
+      |     +--rw summary-lsa-metric?    ospf:uint24
+      |     +--rw external-lsa?          boolean
+      |     +--rw external-lsa-metric?   ospf:uint24
+      +--rw on-switchover
+         +--rw (lsa-grouping)?
+         |  +--:(wait-for-bgp)
+         |  |  +--rw wait-for-bgp?         boolean
+         |  +--:(time)
+         |     +--rw time?                 uint32
+         +--rw max-metric-options
+            +--rw include-stub?          boolean
+            +--rw summary-lsa?           boolean
+            +--rw summary-lsa-metric?    ospf:uint24
+            +--rw external-lsa?          boolean
+            +--rw external-lsa-metric?   ospf:uint24
+augment /rt:routing/rt:routing-instance/rt:routing-protocols/rt:routing-protocol/ospf:ospf/ospf:instance/ospf:database-control:
+   +--rw max-lsa-options
+   |  +--rw threshold-value?   uint32
+   |  +--rw ignore-count?      uint32
+   |  +--rw ignore-time?       uint32
+   |  +--rw reset-time?        uint32
+   |  +--rw warning-only?      empty
+   +--rw database-filter {database-filter}?
+   |  +--rw all-out?   boolean
+   +--rw flood-reduction
+   |  +--rw flood-reduction?   boolean {flood-reduction}?
+   +--rw ignore-lsa
+   |  +--rw mospf?   empty
+   +--rw lsa
+      +--rw throttle-timers
+      |  +--rw init-delay?   delay_range
+      |  +--rw min-delay?    delay_range
+      |  +--rw max-delay?    delay_range
+      +--rw arrival?           delay_range
+      +--rw group-pacing?      uint32
+      +--rw refresh?           uint32
+      +--rw flood?             uint32
+      +--rw retransmission?    uint32

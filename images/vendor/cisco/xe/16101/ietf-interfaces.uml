@@ -1,0 +1,80 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-interfaces.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-interfaces 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+note top of if_ietf_interfaces : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-interfaces \n<b>Prefix: </b> if \n<b>Organization : </b>\nIETF NETMOD (NETCONF Data Modeling Language) Working Group \n<b>Contact : </b>\nWG Web:   <http://tools.ietf.org/wg/netmod/> \nWG List:  <mailto:netmod@ietf.org> \n \nWG Chair: Thomas Nadeau \n          <mailto:tnadeau@lucidvision.com> \n \nWG Chair: Juergen Schoenwaelder \n          <mailto:j.schoenwaelder@jacobs-university.de> \n \nEditor:   Martin Bjorklund \n          <mailto:mbj@tail-f.com> \n<b>Revision : </b> 2014-05-08 \n
+package "if:ietf-interfaces" as if_ietf_interfaces { 
+yang_ietf_yang_types +-- if_ietf_interfaces
+class "ietf-interfaces" as ietf_interfaces << (M, #33CCFF) module>> 
+class "interface-ref" as interface_ref << (T, YellowGreen) typedef>>
+interface_ref : leafref : /if:interfaces/if:interface/if:name
+class "interface-state-ref" as interface_state_ref << (T, YellowGreen) typedef>>
+interface_state_ref : leafref : /if:interfaces-state/if:interface/if:name
+ietf_interfaces : feature : arbitrary_names 
+ietf_interfaces : feature : pre_provisioning 
+ietf_interfaces : feature : if_mib 
+class "interfaces" as  ietf_interfaces_I_interfaces <<container>> 
+ietf_interfaces *-- "1" ietf_interfaces_I_interfaces 
+class "interface" as ietf_interfaces_I_interfaces_I_interface << (L, #FF7700) list>> 
+ietf_interfaces_I_interfaces *-- "0..N" ietf_interfaces_I_interfaces_I_interface 
+ietf_interfaces_I_interfaces_I_interface : +name : string  {key} 
+ietf_interfaces_I_interfaces_I_interface : description : string  
+ietf_interfaces_I_interfaces_I_interface : type : identityref {interface-type}   {mandatory}
+ietf_interfaces_I_interfaces_I_interface : enabled : boolean   = true 
+ietf_interfaces_I_interfaces_I_interface : link-up-down-trap-enable : enumeration : {enabled,disabled,}   {if-feature : if-mib}
+class "interfaces-state" as  ietf_interfaces_I_interfaces_state <<container>> 
+ietf_interfaces *-- "1" ietf_interfaces_I_interfaces_state 
+note bottom of ietf_interfaces_I_interfaces_state
+<b>Config = </b>false
+end note 
+class "interface" as ietf_interfaces_I_interfaces_state_I_interface << (L, #FF7700) list>> 
+ietf_interfaces_I_interfaces_state *-- "0..N" ietf_interfaces_I_interfaces_state_I_interface 
+ietf_interfaces_I_interfaces_state_I_interface : +name : string  {key} 
+ietf_interfaces_I_interfaces_state_I_interface : type : identityref {interface-type}   {mandatory}
+ietf_interfaces_I_interfaces_state_I_interface : admin-status : enumeration : {up,down,testing,}   {mandatory} {if-feature : if-mib}
+ietf_interfaces_I_interfaces_state_I_interface : oper-status : enumeration : {up,down,testing,...}   {mandatory}
+ietf_interfaces_I_interfaces_state_I_interface : last-change : yang:date-and-time  
+ietf_interfaces_I_interfaces_state_I_interface : if-index : int32 [1..2147483647]   {mandatory} {if-feature : if-mib}
+ietf_interfaces_I_interfaces_state_I_interface : phys-address : yang:phys-address  
+ietf_interfaces_I_interfaces_state_I_interface : higher-layer-if []: interface-state-ref 
+ietf_interfaces_I_interfaces_state_I_interface : lower-layer-if []: interface-state-ref 
+ietf_interfaces_I_interfaces_state_I_interface : speed : yang:gauge64   {bits/second}
+class "statistics" as  ietf_interfaces_I_interfaces_state_I_interface_I_statistics <<container>> 
+ietf_interfaces_I_interfaces_state_I_interface *-- "1" ietf_interfaces_I_interfaces_state_I_interface_I_statistics 
+ietf_interfaces_I_interfaces_state_I_interface_I_statistics : discontinuity-time : yang:date-and-time   {mandatory}
+ietf_interfaces_I_interfaces_state_I_interface_I_statistics : in-octets : yang:counter64  
+ietf_interfaces_I_interfaces_state_I_interface_I_statistics : in-unicast-pkts : yang:counter64  
+ietf_interfaces_I_interfaces_state_I_interface_I_statistics : in-broadcast-pkts : yang:counter64  
+ietf_interfaces_I_interfaces_state_I_interface_I_statistics : in-multicast-pkts : yang:counter64  
+ietf_interfaces_I_interfaces_state_I_interface_I_statistics : in-discards : yang:counter32  
+ietf_interfaces_I_interfaces_state_I_interface_I_statistics : in-errors : yang:counter32  
+ietf_interfaces_I_interfaces_state_I_interface_I_statistics : in-unknown-protos : yang:counter32  
+ietf_interfaces_I_interfaces_state_I_interface_I_statistics : out-octets : yang:counter64  
+ietf_interfaces_I_interfaces_state_I_interface_I_statistics : out-unicast-pkts : yang:counter64  
+ietf_interfaces_I_interfaces_state_I_interface_I_statistics : out-broadcast-pkts : yang:counter64  
+ietf_interfaces_I_interfaces_state_I_interface_I_statistics : out-multicast-pkts : yang:counter64  
+ietf_interfaces_I_interfaces_state_I_interface_I_statistics : out-discards : yang:counter32  
+ietf_interfaces_I_interfaces_state_I_interface_I_statistics : out-errors : yang:counter32  
+class "interface-type" as interface_type << (I,Silver) identity>> 
+ietf_interfaces_I_interfaces_I_interface-->interface_type: type
+ietf_interfaces_I_interfaces_state_I_interface-->interface_type: type
+} 
+
+interface_ref-->"if:name"ietf_interfaces_I_interfaces_I_interface: interface-ref
+interface_state_ref-->"if:name"ietf_interfaces_I_interfaces_state_I_interface: interface-state-ref
+center footer
+ <size:20> UML Generated : 2019-02-20 23:22 </size>
+ endfooter 
+@enduml 

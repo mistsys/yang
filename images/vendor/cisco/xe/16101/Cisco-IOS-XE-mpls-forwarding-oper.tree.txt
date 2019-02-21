@@ -1,0 +1,42 @@
+module: Cisco-IOS-XE-mpls-forwarding-oper
+   +--ro mpls-forwarding-oper-data
+      +--ro mpls-local-label* [local-label]
+      |  +--ro local-label               uint32
+      |  +--ro connection-information
+      |  |  +--ro (discrim-choice)?
+      |  |     +--:(information-string)
+      |  |     |  +--ro info-str?    string
+      |  |     +--:(ip-prefix)
+      |  |        +--ro ip-prefix?   inet:ip-prefix
+      |  +--ro forwarding-paths*
+      |     +--ro outgoing-interface
+      |     |  +--ro (discrim-choice)?
+      |     |     +--:(interface-type)
+      |     |     |  +--ro interface-type?    mpls-forwarding-ios-xe-oper:outgoing-interface-type
+      |     |     +--:(interface-value)
+      |     |        +--ro interface-value?   string
+      |     +--ro outgoing-label
+      |     |  +--ro (discrim-choice)?
+      |     |     +--:(no-label)
+      |     |     |  +--ro no-label?             boolean
+      |     |     +--:(pop-label)
+      |     |     |  +--ro pop-label?            uint32
+      |     |     +--:(ipv4-explicit-null)
+      |     |     |  +--ro ipv4-explicit-null?   uint32
+      |     |     +--:(ipv6-explicit-null)
+      |     |     |  +--ro ipv6-explicit-null?   uint32
+      |     |     +--:(regular-label)
+      |     |     |  +--ro regular-label?        uint32
+      |     |     +--:(invalid-label)
+      |     |        +--ro invalid-label?        boolean
+      |     +--ro next-hop
+      |        +--ro (discrim-choice)?
+      |           +--:(point2point)
+      |           |  +--ro p2p?          boolean
+      |           +--:(next-hop-ip-address)
+      |              +--ro ip-address?   inet:ip-address
+      +--ro mpls-local-label-statistics* [local-label forwarding-path-index]
+         +--ro local-label               uint32
+         +--ro forwarding-path-index     uint8
+         +--ro label-switched-bytes?     uint64
+         +--ro label-switched-packets?   uint64

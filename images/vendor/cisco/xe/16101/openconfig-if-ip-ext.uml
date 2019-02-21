@@ -1,0 +1,58 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-if-ip-ext.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-if-ip-ext 
+package "oc-if:openconfig-interfaces" as oc_if_openconfig_interfaces { 
+} 
+package "oc-ip:openconfig-if-ip" as oc_ip_openconfig_if_ip { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+note top of oc_ip_ext_openconfig_if_ip_ext : <b>Namespace: </b> http://openconfig.net/yang/interfaces/ip-ext \n<b>Prefix: </b> oc-ip-ext \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nwww.openconfig.net \n<b>Revision : </b> 2018-01-05 \n
+package "oc-ip-ext:openconfig-if-ip-ext" as oc_ip_ext_openconfig_if_ip_ext { 
+oc_if_openconfig_interfaces +-- oc_ip_ext_openconfig_if_ip_ext
+oc_ip_openconfig_if_ip +-- oc_ip_ext_openconfig_if_ip_ext
+oc_ext_openconfig_extensions +-- oc_ip_ext_openconfig_if_ip_ext
+class "openconfig-if-ip-ext" as openconfig_if_ip_ext << (M, #33CCFF) module>> 
+class "ipv6-autoconf-config" as openconfig_if_ip_ext_I_ipv6_autoconf_config_grouping <<(G,Lime) grouping>> 
+openconfig_if_ip_ext_I_ipv6_autoconf_config_grouping : create-global-addresses : boolean   = true 
+openconfig_if_ip_ext_I_ipv6_autoconf_config_grouping : create-temporary-addresses : boolean   = false 
+openconfig_if_ip_ext_I_ipv6_autoconf_config_grouping : temporary-valid-lifetime : uint32   = 604800  {seconds}
+openconfig_if_ip_ext_I_ipv6_autoconf_config_grouping : temporary-preferred-lifetime : uint32   = 86400  {seconds}
+class "ipv6-autoconf-state" as openconfig_if_ip_ext_I_ipv6_autoconf_state_grouping <<(G,Lime) grouping>> 
+class "ipv6-autoconf-top" as openconfig_if_ip_ext_I_ipv6_autoconf_top_grouping <<(G,Lime) grouping>> 
+class "autoconf" as  openconfig_if_ip_ext_I_ipv6_autoconf_top_I_autoconf <<container>> 
+openconfig_if_ip_ext_I_ipv6_autoconf_top_grouping *-- "1" openconfig_if_ip_ext_I_ipv6_autoconf_top_I_autoconf 
+class "config" as  openconfig_if_ip_ext_I_ipv6_autoconf_top_I_autoconf_I_config <<container>> 
+openconfig_if_ip_ext_I_ipv6_autoconf_top_I_autoconf *-- "1" openconfig_if_ip_ext_I_ipv6_autoconf_top_I_autoconf_I_config 
+openconfig_if_ip_ext_I_ipv6_autoconf_top_I_autoconf_I_config : ipv6-autoconf-config {uses} 
+class "state" as  openconfig_if_ip_ext_I_ipv6_autoconf_top_I_autoconf_I_state <<container>> 
+openconfig_if_ip_ext_I_ipv6_autoconf_top_I_autoconf *-- "1" openconfig_if_ip_ext_I_ipv6_autoconf_top_I_autoconf_I_state 
+note bottom of openconfig_if_ip_ext_I_ipv6_autoconf_top_I_autoconf_I_state
+<b>Config = </b>false
+end note 
+openconfig_if_ip_ext_I_ipv6_autoconf_top_I_autoconf_I_state : ipv6-autoconf-config {uses} 
+openconfig_if_ip_ext_I_ipv6_autoconf_top_I_autoconf_I_state : ipv6-autoconf-state {uses} 
+class "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-ip:ipv6" as oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface_oc_ip_ipv6 << (A,CadetBlue) augment>>
+openconfig_if_ip_ext *--  oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface_oc_ip_ipv6 
+oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface_oc_ip_ipv6 : ipv6-autoconf-top {uses} 
+} 
+
+openconfig_if_ip_ext_I_ipv6_autoconf_top_I_autoconf_I_config --> openconfig_if_ip_ext_I_ipv6_autoconf_config_grouping : uses 
+openconfig_if_ip_ext_I_ipv6_autoconf_top_I_autoconf_I_state --> openconfig_if_ip_ext_I_ipv6_autoconf_config_grouping : uses 
+openconfig_if_ip_ext_I_ipv6_autoconf_top_I_autoconf_I_state --> openconfig_if_ip_ext_I_ipv6_autoconf_state_grouping : uses 
+oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface_oc_ip_ipv6 --> openconfig_if_ip_ext_I_ipv6_autoconf_top_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:37 </size>
+ endfooter 
+@enduml 

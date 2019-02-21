@@ -1,0 +1,865 @@
+module: Cisco-IOS-XE-ip-sla-oper
+   +--ro ip-sla-stats
+      +--ro sla-oper-entry* [oper-id]
+      |  +--ro oper-id                   uint32
+      |  +--ro oper-type?                ip-sla-ios-xe-oper:sla-oper-type
+      |  +--ro latest-return-code?       ip-sla-ios-xe-oper:sla-return-code
+      |  +--ro success-count?            uint32
+      |  +--ro failure-count?            uint32
+      |  +--ro latest-oper-start-time?   yang:date-and-time
+      |  +--ro rtt-info
+      |  |  +--ro latest-rtt
+      |  |  |  +--ro (latestrtt-choice)?
+      |  |  |     +--:(rtt-known)
+      |  |  |     |  +--ro rtt?              uint64
+      |  |  |     +--:(rtt-unknown)
+      |  |  |     |  +--ro unknown?          empty
+      |  |  |     +--:(rtt-could-not-find)
+      |  |  |        +--ro could-not-find?   empty
+      |  |  +--ro time-to-live
+      |  |     +--ro (timetolive-choice)?
+      |  |        +--:(ttl-finite)
+      |  |        |  +--ro ttl?       uint64
+      |  |        +--:(ttl-forever)
+      |  |           +--ro forever?   empty
+      |  +--ro measure-stats
+      |  |  +--ro intv-start-time?   yang:date-and-time
+      |  |  +--ro init-count?        uint32
+      |  |  +--ro complete-count?    uint32
+      |  |  +--ro valid?             boolean
+      |  |  +--ro intv-end-time?     yang:date-and-time
+      |  +--ro stats
+      |  |  +--ro rtt
+      |  |  |  +--ro rtt-count?         uint32
+      |  |  |  +--ro sla-time-values
+      |  |  |     +--ro min?        uint32
+      |  |  |     +--ro avg?        uint32
+      |  |  |     +--ro max?        uint32
+      |  |  |     +--ro accuracy?   ip-sla-ios-xe-oper:accuracy-type
+      |  |  +--ro oneway-latency
+      |  |  |  +--ro sample-count?   uint32
+      |  |  |  +--ro sd
+      |  |  |  |  +--ro min?        uint32
+      |  |  |  |  +--ro avg?        uint32
+      |  |  |  |  +--ro max?        uint32
+      |  |  |  |  +--ro accuracy?   ip-sla-ios-xe-oper:accuracy-type
+      |  |  |  +--ro ds
+      |  |  |  |  +--ro min?        uint32
+      |  |  |  |  +--ro avg?        uint32
+      |  |  |  |  +--ro max?        uint32
+      |  |  |  |  +--ro accuracy?   ip-sla-ios-xe-oper:accuracy-type
+      |  |  |  +--ro sum-ow-sd
+      |  |  |  |  +--ro num?          uint32
+      |  |  |  |  +--ro sum?          uint32
+      |  |  |  |  +--ro sum-square?   uint64
+      |  |  |  |  +--ro accuracy?     ip-sla-ios-xe-oper:accuracy-type
+      |  |  |  +--ro sum-ow-ds
+      |  |  |     +--ro num?          uint32
+      |  |  |     +--ro sum?          uint32
+      |  |  |     +--ro sum-square?   uint64
+      |  |  |     +--ro accuracy?     ip-sla-ios-xe-oper:accuracy-type
+      |  |  +--ro jitter
+      |  |  |  +--ro sd-sample-count?            uint32
+      |  |  |  +--ro ds-sample-count?            uint32
+      |  |  |  +--ro sd
+      |  |  |  |  +--ro min?        uint32
+      |  |  |  |  +--ro avg?        uint32
+      |  |  |  |  +--ro max?        uint32
+      |  |  |  |  +--ro accuracy?   ip-sla-ios-xe-oper:accuracy-type
+      |  |  |  +--ro ds
+      |  |  |  |  +--ro min?        uint32
+      |  |  |  |  +--ro avg?        uint32
+      |  |  |  |  +--ro max?        uint32
+      |  |  |  |  +--ro accuracy?   ip-sla-ios-xe-oper:accuracy-type
+      |  |  |  +--ro pos-jitter-sd
+      |  |  |  |  +--ro min?        uint32
+      |  |  |  |  +--ro avg?        uint32
+      |  |  |  |  +--ro max?        uint32
+      |  |  |  |  +--ro accuracy?   ip-sla-ios-xe-oper:accuracy-type
+      |  |  |  +--ro sum-pos-jitter-sd
+      |  |  |  |  +--ro num?          uint32
+      |  |  |  |  +--ro sum?          uint32
+      |  |  |  |  +--ro sum-square?   uint64
+      |  |  |  |  +--ro accuracy?     ip-sla-ios-xe-oper:accuracy-type
+      |  |  |  +--ro neg-jitter-sd
+      |  |  |  |  +--ro min?        uint32
+      |  |  |  |  +--ro avg?        uint32
+      |  |  |  |  +--ro max?        uint32
+      |  |  |  |  +--ro accuracy?   ip-sla-ios-xe-oper:accuracy-type
+      |  |  |  +--ro sum-neg-jitter-sd
+      |  |  |  |  +--ro num?          uint32
+      |  |  |  |  +--ro sum?          uint32
+      |  |  |  |  +--ro sum-square?   uint64
+      |  |  |  |  +--ro accuracy?     ip-sla-ios-xe-oper:accuracy-type
+      |  |  |  +--ro pos-jitter-ds
+      |  |  |  |  +--ro min?        uint32
+      |  |  |  |  +--ro avg?        uint32
+      |  |  |  |  +--ro max?        uint32
+      |  |  |  |  +--ro accuracy?   ip-sla-ios-xe-oper:accuracy-type
+      |  |  |  +--ro sum-pos-jitter-ds
+      |  |  |  |  +--ro num?          uint32
+      |  |  |  |  +--ro sum?          uint32
+      |  |  |  |  +--ro sum-square?   uint64
+      |  |  |  |  +--ro accuracy?     ip-sla-ios-xe-oper:accuracy-type
+      |  |  |  +--ro neg-jitter-ds
+      |  |  |  |  +--ro min?        uint32
+      |  |  |  |  +--ro avg?        uint32
+      |  |  |  |  +--ro max?        uint32
+      |  |  |  |  +--ro accuracy?   ip-sla-ios-xe-oper:accuracy-type
+      |  |  |  +--ro sum-neg-jitter-ds
+      |  |  |  |  +--ro num?          uint32
+      |  |  |  |  +--ro sum?          uint32
+      |  |  |  |  +--ro sum-square?   uint64
+      |  |  |  |  +--ro accuracy?     ip-sla-ios-xe-oper:accuracy-type
+      |  |  |  +--ro inter-arrival-jitter-out?   uint32
+      |  |  |  +--ro inter-arrival-jitter-in?    uint32
+      |  |  |  +--ro avg-jitter?                 uint32
+      |  |  +--ro over-threshold
+      |  |  |  +--ro rtt-count?   uint32
+      |  |  |  +--ro percent?     uint8
+      |  |  +--ro packet-loss
+      |  |  |  +--ro unprocessed-packets?   uint32
+      |  |  |  +--ro sd-count?              uint32
+      |  |  |  +--ro sd-loss
+      |  |  |  |  +--ro loss-period-count?           uint32
+      |  |  |  |  +--ro loss-period-len-min?         uint32
+      |  |  |  |  +--ro loss-period-len-max?         uint32
+      |  |  |  |  +--ro inter-loss-period-len-min?   uint32
+      |  |  |  |  +--ro inter-loss-period-len-max?   uint32
+      |  |  |  +--ro ds-count?              uint32
+      |  |  |  +--ro ds-loss
+      |  |  |  |  +--ro loss-period-count?           uint32
+      |  |  |  |  +--ro loss-period-len-min?         uint32
+      |  |  |  |  +--ro loss-period-len-max?         uint32
+      |  |  |  |  +--ro inter-loss-period-len-min?   uint32
+      |  |  |  |  +--ro inter-loss-period-len-max?   uint32
+      |  |  |  +--ro out-of-sequence?       uint32
+      |  |  |  +--ro drops?                 uint32
+      |  |  |  +--ro late-arrivals?         uint32
+      |  |  |  +--ro skipped-packets?       uint32
+      |  |  +--ro icmp-packet-loss
+      |  |  |  +--ro late-arrivals?               uint32
+      |  |  |  +--ro out-of-sequence?             uint32
+      |  |  |  +--ro out-of-sequence-sd?          uint32
+      |  |  |  +--ro out-of-sequence-ds?          uint32
+      |  |  |  +--ro out-of-sequence-both?        uint32
+      |  |  |  +--ro skipped-packets?             uint32
+      |  |  |  +--ro unprocessed-packets?         uint32
+      |  |  |  +--ro packet-loss?                 uint32
+      |  |  |  +--ro loss-period-count?           uint32
+      |  |  |  +--ro loss-period-len-min?         uint32
+      |  |  |  +--ro loss-period-len-max?         uint32
+      |  |  |  +--ro inter-loss-period-len-min?   uint32
+      |  |  |  +--ro inter-loss-period-len-max?   uint32
+      |  |  +--ro voice-score
+      |  |  |  +--ro icpif?   uint32
+      |  |  |  +--ro mos?     uint32
+      |  |  +--ro http-specific-stats
+      |  |  |  +--ro http-stats
+      |  |  |  |  +--ro status-code?          uint32
+      |  |  |  |  +--ro dns-rtt?              uint32
+      |  |  |  |  +--ro tcp-rtt?              uint32
+      |  |  |  |  +--ro time-to-first-byte?   uint32
+      |  |  |  |  +--ro transaction-rtt?      uint32
+      |  |  |  |  +--ro message-size?         uint32
+      |  |  |  |  +--ro entity-body-size?     uint32
+      |  |  |  +--ro http-errors
+      |  |  |     +--ro transaction-error?     uint32
+      |  |  |     +--ro tcp-error?             uint32
+      |  |  |     +--ro dns-error?             uint32
+      |  |  |     +--ro transaction-timeout?   uint32
+      |  |  |     +--ro tcp-timeout?           uint32
+      |  |  |     +--ro dns-timeout?           uint32
+      |  |  +--ro y1731-specific-stats
+      |  |  |  +--ro y1731-delay-stats
+      |  |  |  |  +--ro y1731-delay-stats-delay-info
+      |  |  |  |  |  +--ro forward-delay
+      |  |  |  |  |  |  +--ro valid-delay-values?                boolean
+      |  |  |  |  |  |  +--ro num-of-observations?               uint32
+      |  |  |  |  |  |  +--ro min-value?                         uint64
+      |  |  |  |  |  |  +--ro avg-value?                         uint64
+      |  |  |  |  |  |  +--ro max-value?                         uint64
+      |  |  |  |  |  |  +--ro time-of-occurrence-of-min-value?   yang:date-and-time
+      |  |  |  |  |  |  +--ro time-of-occurrence-of-max-value?   yang:date-and-time
+      |  |  |  |  |  +--ro backward-delay
+      |  |  |  |  |  |  +--ro valid-delay-values?                boolean
+      |  |  |  |  |  |  +--ro num-of-observations?               uint32
+      |  |  |  |  |  |  +--ro min-value?                         uint64
+      |  |  |  |  |  |  +--ro avg-value?                         uint64
+      |  |  |  |  |  |  +--ro max-value?                         uint64
+      |  |  |  |  |  |  +--ro time-of-occurrence-of-min-value?   yang:date-and-time
+      |  |  |  |  |  |  +--ro time-of-occurrence-of-max-value?   yang:date-and-time
+      |  |  |  |  |  +--ro two-way-delay
+      |  |  |  |  |     +--ro valid-delay-values?                boolean
+      |  |  |  |  |     +--ro num-of-observations?               uint32
+      |  |  |  |  |     +--ro min-value?                         uint64
+      |  |  |  |  |     +--ro avg-value?                         uint64
+      |  |  |  |  |     +--ro max-value?                         uint64
+      |  |  |  |  |     +--ro time-of-occurrence-of-min-value?   yang:date-and-time
+      |  |  |  |  |     +--ro time-of-occurrence-of-max-value?   yang:date-and-time
+      |  |  |  |  +--ro y1731-delay-stats-jitter-info
+      |  |  |  |  |  +--ro forward-positive-jitter
+      |  |  |  |  |  |  +--ro valid-delay-values?                boolean
+      |  |  |  |  |  |  +--ro num-of-observations?               uint32
+      |  |  |  |  |  |  +--ro min-value?                         uint64
+      |  |  |  |  |  |  +--ro avg-value?                         uint64
+      |  |  |  |  |  |  +--ro max-value?                         uint64
+      |  |  |  |  |  |  +--ro time-of-occurrence-of-min-value?   yang:date-and-time
+      |  |  |  |  |  |  +--ro time-of-occurrence-of-max-value?   yang:date-and-time
+      |  |  |  |  |  +--ro forward-negative-jitter
+      |  |  |  |  |  |  +--ro valid-delay-values?                boolean
+      |  |  |  |  |  |  +--ro num-of-observations?               uint32
+      |  |  |  |  |  |  +--ro min-value?                         uint64
+      |  |  |  |  |  |  +--ro avg-value?                         uint64
+      |  |  |  |  |  |  +--ro max-value?                         uint64
+      |  |  |  |  |  |  +--ro time-of-occurrence-of-min-value?   yang:date-and-time
+      |  |  |  |  |  |  +--ro time-of-occurrence-of-max-value?   yang:date-and-time
+      |  |  |  |  |  +--ro backward-positive-jitter
+      |  |  |  |  |  |  +--ro valid-delay-values?                boolean
+      |  |  |  |  |  |  +--ro num-of-observations?               uint32
+      |  |  |  |  |  |  +--ro min-value?                         uint64
+      |  |  |  |  |  |  +--ro avg-value?                         uint64
+      |  |  |  |  |  |  +--ro max-value?                         uint64
+      |  |  |  |  |  |  +--ro time-of-occurrence-of-min-value?   yang:date-and-time
+      |  |  |  |  |  |  +--ro time-of-occurrence-of-max-value?   yang:date-and-time
+      |  |  |  |  |  +--ro backward-negative-jitter
+      |  |  |  |  |  |  +--ro valid-delay-values?                boolean
+      |  |  |  |  |  |  +--ro num-of-observations?               uint32
+      |  |  |  |  |  |  +--ro min-value?                         uint64
+      |  |  |  |  |  |  +--ro avg-value?                         uint64
+      |  |  |  |  |  |  +--ro max-value?                         uint64
+      |  |  |  |  |  |  +--ro time-of-occurrence-of-min-value?   yang:date-and-time
+      |  |  |  |  |  |  +--ro time-of-occurrence-of-max-value?   yang:date-and-time
+      |  |  |  |  |  +--ro two-way-positive-jitter
+      |  |  |  |  |  |  +--ro valid-delay-values?                boolean
+      |  |  |  |  |  |  +--ro num-of-observations?               uint32
+      |  |  |  |  |  |  +--ro min-value?                         uint64
+      |  |  |  |  |  |  +--ro avg-value?                         uint64
+      |  |  |  |  |  |  +--ro max-value?                         uint64
+      |  |  |  |  |  |  +--ro time-of-occurrence-of-min-value?   yang:date-and-time
+      |  |  |  |  |  |  +--ro time-of-occurrence-of-max-value?   yang:date-and-time
+      |  |  |  |  |  +--ro two-way-negative-jitter
+      |  |  |  |  |     +--ro valid-delay-values?                boolean
+      |  |  |  |  |     +--ro num-of-observations?               uint32
+      |  |  |  |  |     +--ro min-value?                         uint64
+      |  |  |  |  |     +--ro avg-value?                         uint64
+      |  |  |  |  |     +--ro max-value?                         uint64
+      |  |  |  |  |     +--ro time-of-occurrence-of-min-value?   yang:date-and-time
+      |  |  |  |  |     +--ro time-of-occurrence-of-max-value?   yang:date-and-time
+      |  |  |  |  +--ro y1731-delay-stats-delay-bin-info
+      |  |  |  |  |  +--ro forward-delay-bin
+      |  |  |  |  |  |  +--ro valid-bin-values?            boolean
+      |  |  |  |  |  |  +--ro distribution-bin-range-1
+      |  |  |  |  |  |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |  |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |  |  +--ro distribution-bin-range-2
+      |  |  |  |  |  |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |  |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |  |  +--ro distribution-bin-range-3
+      |  |  |  |  |  |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |  |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |  |  +--ro distribution-bin-range-4
+      |  |  |  |  |  |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |  |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |  |  +--ro distribution-bin-range-5
+      |  |  |  |  |  |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |  |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |  |  +--ro distribution-bin-range-6
+      |  |  |  |  |  |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |  |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |  |  +--ro distribution-bin-range-7
+      |  |  |  |  |  |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |  |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |  |  +--ro distribution-bin-range-8
+      |  |  |  |  |  |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |  |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |  |  +--ro distribution-bin-range-9
+      |  |  |  |  |  |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |  |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |  |  +--ro distribution-bin-range-10
+      |  |  |  |  |  |     +--ro valid-bin-data?            boolean
+      |  |  |  |  |  |     +--ro lower-bin-range?           uint32
+      |  |  |  |  |  |     +--ro upper-bin-range?           uint32
+      |  |  |  |  |  |     +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |  +--ro backward-delay-bin
+      |  |  |  |  |  |  +--ro valid-bin-values?            boolean
+      |  |  |  |  |  |  +--ro distribution-bin-range-1
+      |  |  |  |  |  |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |  |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |  |  +--ro distribution-bin-range-2
+      |  |  |  |  |  |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |  |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |  |  +--ro distribution-bin-range-3
+      |  |  |  |  |  |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |  |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |  |  +--ro distribution-bin-range-4
+      |  |  |  |  |  |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |  |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |  |  +--ro distribution-bin-range-5
+      |  |  |  |  |  |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |  |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |  |  +--ro distribution-bin-range-6
+      |  |  |  |  |  |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |  |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |  |  +--ro distribution-bin-range-7
+      |  |  |  |  |  |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |  |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |  |  +--ro distribution-bin-range-8
+      |  |  |  |  |  |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |  |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |  |  +--ro distribution-bin-range-9
+      |  |  |  |  |  |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |  |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |  |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |  |  +--ro distribution-bin-range-10
+      |  |  |  |  |  |     +--ro valid-bin-data?            boolean
+      |  |  |  |  |  |     +--ro lower-bin-range?           uint32
+      |  |  |  |  |  |     +--ro upper-bin-range?           uint32
+      |  |  |  |  |  |     +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |  +--ro two-way-delay-bin
+      |  |  |  |  |     +--ro valid-bin-values?            boolean
+      |  |  |  |  |     +--ro distribution-bin-range-1
+      |  |  |  |  |     |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |     |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |     |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |     |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |     +--ro distribution-bin-range-2
+      |  |  |  |  |     |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |     |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |     |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |     |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |     +--ro distribution-bin-range-3
+      |  |  |  |  |     |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |     |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |     |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |     |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |     +--ro distribution-bin-range-4
+      |  |  |  |  |     |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |     |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |     |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |     |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |     +--ro distribution-bin-range-5
+      |  |  |  |  |     |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |     |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |     |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |     |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |     +--ro distribution-bin-range-6
+      |  |  |  |  |     |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |     |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |     |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |     |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |     +--ro distribution-bin-range-7
+      |  |  |  |  |     |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |     |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |     |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |     |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |     +--ro distribution-bin-range-8
+      |  |  |  |  |     |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |     |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |     |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |     |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |     +--ro distribution-bin-range-9
+      |  |  |  |  |     |  +--ro valid-bin-data?            boolean
+      |  |  |  |  |     |  +--ro lower-bin-range?           uint32
+      |  |  |  |  |     |  +--ro upper-bin-range?           uint32
+      |  |  |  |  |     |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |  |     +--ro distribution-bin-range-10
+      |  |  |  |  |        +--ro valid-bin-data?            boolean
+      |  |  |  |  |        +--ro lower-bin-range?           uint32
+      |  |  |  |  |        +--ro upper-bin-range?           uint32
+      |  |  |  |  |        +--ro num-of-bin-observations?   uint32
+      |  |  |  |  +--ro y1731-delay-stats-jitter-bin-info
+      |  |  |  |     +--ro forward-positive-jitter-bin
+      |  |  |  |     |  +--ro valid-bin-values?            boolean
+      |  |  |  |     |  +--ro distribution-bin-range-1
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-2
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-3
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-4
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-5
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-6
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-7
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-8
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-9
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-10
+      |  |  |  |     |     +--ro valid-bin-data?            boolean
+      |  |  |  |     |     +--ro lower-bin-range?           uint32
+      |  |  |  |     |     +--ro upper-bin-range?           uint32
+      |  |  |  |     |     +--ro num-of-bin-observations?   uint32
+      |  |  |  |     +--ro forward-negative-jitter-bin
+      |  |  |  |     |  +--ro valid-bin-values?            boolean
+      |  |  |  |     |  +--ro distribution-bin-range-1
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-2
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-3
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-4
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-5
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-6
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-7
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-8
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-9
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-10
+      |  |  |  |     |     +--ro valid-bin-data?            boolean
+      |  |  |  |     |     +--ro lower-bin-range?           uint32
+      |  |  |  |     |     +--ro upper-bin-range?           uint32
+      |  |  |  |     |     +--ro num-of-bin-observations?   uint32
+      |  |  |  |     +--ro backward-positive-jitter-bin
+      |  |  |  |     |  +--ro valid-bin-values?            boolean
+      |  |  |  |     |  +--ro distribution-bin-range-1
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-2
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-3
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-4
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-5
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-6
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-7
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-8
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-9
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-10
+      |  |  |  |     |     +--ro valid-bin-data?            boolean
+      |  |  |  |     |     +--ro lower-bin-range?           uint32
+      |  |  |  |     |     +--ro upper-bin-range?           uint32
+      |  |  |  |     |     +--ro num-of-bin-observations?   uint32
+      |  |  |  |     +--ro backward-negative-jitter-bin
+      |  |  |  |     |  +--ro valid-bin-values?            boolean
+      |  |  |  |     |  +--ro distribution-bin-range-1
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-2
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-3
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-4
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-5
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-6
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-7
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-8
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-9
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-10
+      |  |  |  |     |     +--ro valid-bin-data?            boolean
+      |  |  |  |     |     +--ro lower-bin-range?           uint32
+      |  |  |  |     |     +--ro upper-bin-range?           uint32
+      |  |  |  |     |     +--ro num-of-bin-observations?   uint32
+      |  |  |  |     +--ro two-way-positive-jitter-bin
+      |  |  |  |     |  +--ro valid-bin-values?            boolean
+      |  |  |  |     |  +--ro distribution-bin-range-1
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-2
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-3
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-4
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-5
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-6
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-7
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-8
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-9
+      |  |  |  |     |  |  +--ro valid-bin-data?            boolean
+      |  |  |  |     |  |  +--ro lower-bin-range?           uint32
+      |  |  |  |     |  |  +--ro upper-bin-range?           uint32
+      |  |  |  |     |  |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |     |  +--ro distribution-bin-range-10
+      |  |  |  |     |     +--ro valid-bin-data?            boolean
+      |  |  |  |     |     +--ro lower-bin-range?           uint32
+      |  |  |  |     |     +--ro upper-bin-range?           uint32
+      |  |  |  |     |     +--ro num-of-bin-observations?   uint32
+      |  |  |  |     +--ro two-way-negative-jitter-bin
+      |  |  |  |        +--ro valid-bin-values?            boolean
+      |  |  |  |        +--ro distribution-bin-range-1
+      |  |  |  |        |  +--ro valid-bin-data?            boolean
+      |  |  |  |        |  +--ro lower-bin-range?           uint32
+      |  |  |  |        |  +--ro upper-bin-range?           uint32
+      |  |  |  |        |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |        +--ro distribution-bin-range-2
+      |  |  |  |        |  +--ro valid-bin-data?            boolean
+      |  |  |  |        |  +--ro lower-bin-range?           uint32
+      |  |  |  |        |  +--ro upper-bin-range?           uint32
+      |  |  |  |        |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |        +--ro distribution-bin-range-3
+      |  |  |  |        |  +--ro valid-bin-data?            boolean
+      |  |  |  |        |  +--ro lower-bin-range?           uint32
+      |  |  |  |        |  +--ro upper-bin-range?           uint32
+      |  |  |  |        |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |        +--ro distribution-bin-range-4
+      |  |  |  |        |  +--ro valid-bin-data?            boolean
+      |  |  |  |        |  +--ro lower-bin-range?           uint32
+      |  |  |  |        |  +--ro upper-bin-range?           uint32
+      |  |  |  |        |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |        +--ro distribution-bin-range-5
+      |  |  |  |        |  +--ro valid-bin-data?            boolean
+      |  |  |  |        |  +--ro lower-bin-range?           uint32
+      |  |  |  |        |  +--ro upper-bin-range?           uint32
+      |  |  |  |        |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |        +--ro distribution-bin-range-6
+      |  |  |  |        |  +--ro valid-bin-data?            boolean
+      |  |  |  |        |  +--ro lower-bin-range?           uint32
+      |  |  |  |        |  +--ro upper-bin-range?           uint32
+      |  |  |  |        |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |        +--ro distribution-bin-range-7
+      |  |  |  |        |  +--ro valid-bin-data?            boolean
+      |  |  |  |        |  +--ro lower-bin-range?           uint32
+      |  |  |  |        |  +--ro upper-bin-range?           uint32
+      |  |  |  |        |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |        +--ro distribution-bin-range-8
+      |  |  |  |        |  +--ro valid-bin-data?            boolean
+      |  |  |  |        |  +--ro lower-bin-range?           uint32
+      |  |  |  |        |  +--ro upper-bin-range?           uint32
+      |  |  |  |        |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |        +--ro distribution-bin-range-9
+      |  |  |  |        |  +--ro valid-bin-data?            boolean
+      |  |  |  |        |  +--ro lower-bin-range?           uint32
+      |  |  |  |        |  +--ro upper-bin-range?           uint32
+      |  |  |  |        |  +--ro num-of-bin-observations?   uint32
+      |  |  |  |        +--ro distribution-bin-range-10
+      |  |  |  |           +--ro valid-bin-data?            boolean
+      |  |  |  |           +--ro lower-bin-range?           uint32
+      |  |  |  |           +--ro upper-bin-range?           uint32
+      |  |  |  |           +--ro num-of-bin-observations?   uint32
+      |  |  |  +--ro y1731-loss-stats
+      |  |  |     +--ro forward-loss-stats
+      |  |  |     |  +--ro num-of-obs?                      uint64
+      |  |  |     |  +--ro num-of-available-indicators?     uint64
+      |  |  |     |  +--ro num-of-unavailable-indicators?   uint64
+      |  |  |     |  +--ro tx-frames?                       uint64
+      |  |  |     |  +--ro rx-frames?                       uint64
+      |  |  |     |  +--ro frame-loss-ratio
+      |  |  |     |  |  +--ro min-frame-loss-numbers?   string
+      |  |  |     |  |  +--ro avg-frame-loss-ratio?     string
+      |  |  |     |  |  +--ro max-frame-loss-numbers?   string
+      |  |  |     |  +--ro cum-frame-loss-ratio?            string
+      |  |  |     |  +--ro min-loss-observed-time?          yang:date-and-time
+      |  |  |     |  +--ro max-loss-observed-time?          yang:date-and-time
+      |  |  |     +--ro backward-loss-stats
+      |  |  |        +--ro num-of-obs?                      uint64
+      |  |  |        +--ro num-of-available-indicators?     uint64
+      |  |  |        +--ro num-of-unavailable-indicators?   uint64
+      |  |  |        +--ro tx-frames?                       uint64
+      |  |  |        +--ro rx-frames?                       uint64
+      |  |  |        +--ro frame-loss-ratio
+      |  |  |        |  +--ro min-frame-loss-numbers?   string
+      |  |  |        |  +--ro avg-frame-loss-ratio?     string
+      |  |  |        |  +--ro max-frame-loss-numbers?   string
+      |  |  |        +--ro cum-frame-loss-ratio?            string
+      |  |  |        +--ro min-loss-observed-time?          yang:date-and-time
+      |  |  |        +--ro max-loss-observed-time?          yang:date-and-time
+      |  |  +--ro multicast-stats
+      |  |  |  +--ro mcast-id?             uint32
+      |  |  |  +--ro mcast-addr?           inet:ip-address
+      |  |  |  +--ro dest-addr?            inet:ip-address
+      |  |  |  +--ro dest-port?            uint32
+      |  |  |  +--ro mcast-ow-latency
+      |  |  |  |  +--ro ow-samples?             uint32
+      |  |  |  |  +--ro min-ow-value?           uint32
+      |  |  |  |  +--ro avg-ow-value?           uint32
+      |  |  |  |  +--ro max-ow-value?           uint32
+      |  |  |  |  +--ro sum-ow-value?           uint32
+      |  |  |  |  +--ro sum-squares-ow-value?   uint64
+      |  |  |  |  +--ro accuracy-type?          ip-sla-ios-xe-oper:accuracy-type
+      |  |  |  |  +--ro ntp-sync-state?         ip-sla-ios-xe-oper:ntp-sync-state
+      |  |  |  +--ro mcast-ipdv
+      |  |  |  |  +--ro ipdv-samples?      uint32
+      |  |  |  |  +--ro ipdv-sd
+      |  |  |  |  |  +--ro min?        uint32
+      |  |  |  |  |  +--ro avg?        uint32
+      |  |  |  |  |  +--ro max?        uint32
+      |  |  |  |  |  +--ro accuracy?   ip-sla-ios-xe-oper:accuracy-type
+      |  |  |  |  +--ro ipdv-pos-sd
+      |  |  |  |  |  +--ro min?        uint32
+      |  |  |  |  |  +--ro avg?        uint32
+      |  |  |  |  |  +--ro max?        uint32
+      |  |  |  |  |  +--ro accuracy?   ip-sla-ios-xe-oper:accuracy-type
+      |  |  |  |  +--ro ipdv-pos-sum-sd
+      |  |  |  |  |  +--ro num?          uint32
+      |  |  |  |  |  +--ro sum?          uint32
+      |  |  |  |  |  +--ro sum-square?   uint64
+      |  |  |  |  |  +--ro accuracy?     ip-sla-ios-xe-oper:accuracy-type
+      |  |  |  |  +--ro ipdv-neg-sd
+      |  |  |  |  |  +--ro min?        uint32
+      |  |  |  |  |  +--ro avg?        uint32
+      |  |  |  |  |  +--ro max?        uint32
+      |  |  |  |  |  +--ro accuracy?   ip-sla-ios-xe-oper:accuracy-type
+      |  |  |  |  +--ro ipdv-neg-sum-sd
+      |  |  |  |     +--ro num?          uint32
+      |  |  |  |     +--ro sum?          uint32
+      |  |  |  |     +--ro sum-square?   uint64
+      |  |  |  |     +--ro accuracy?     ip-sla-ios-xe-oper:accuracy-type
+      |  |  |  +--ro mcast-inter-jitter?   uint32
+      |  |  |  +--ro mcast-pkt-loss
+      |  |  |  |  +--ro packet-mia?               uint32
+      |  |  |  |  +--ro packet-loss-sd?           uint32
+      |  |  |  |  +--ro out-of-seq?               uint32
+      |  |  |  |  +--ro tail-drop?                uint32
+      |  |  |  |  +--ro duplicate-seq-no-count?   uint32
+      |  |  |  +--ro mcast-voice-score
+      |  |  |     +--ro icpif?   uint32
+      |  |  |     +--ro mos?     uint32
+      |  |  +--ro percentile-stats
+      |  |     +--ro percentile-rtt-stats
+      |  |     |  +--ro percentile-samples?   uint32
+      |  |     |  +--ro percentile-values
+      |  |     |     +--ro min?        uint32
+      |  |     |     +--ro avg?        uint32
+      |  |     |     +--ro max?        uint32
+      |  |     |     +--ro accuracy?   ip-sla-ios-xe-oper:accuracy-type
+      |  |     +--ro percentile-ow-stats
+      |  |     |  +--ro percentile-ow-sd
+      |  |     |  |  +--ro percentile-samples?   uint32
+      |  |     |  |  +--ro percentile-values
+      |  |     |  |     +--ro min?        uint32
+      |  |     |  |     +--ro avg?        uint32
+      |  |     |  |     +--ro max?        uint32
+      |  |     |  |     +--ro accuracy?   ip-sla-ios-xe-oper:accuracy-type
+      |  |     |  +--ro percentile-ow-ds
+      |  |     |     +--ro percentile-samples?   uint32
+      |  |     |     +--ro percentile-values
+      |  |     |        +--ro min?        uint32
+      |  |     |        +--ro avg?        uint32
+      |  |     |        +--ro max?        uint32
+      |  |     |        +--ro accuracy?   ip-sla-ios-xe-oper:accuracy-type
+      |  |     +--ro percentile-jitter-stats
+      |  |        +--ro percentile-jitter-sd
+      |  |        |  +--ro percentile-samples?   uint32
+      |  |        |  +--ro percentile-values
+      |  |        |     +--ro min?        uint32
+      |  |        |     +--ro avg?        uint32
+      |  |        |     +--ro max?        uint32
+      |  |        |     +--ro accuracy?   ip-sla-ios-xe-oper:accuracy-type
+      |  |        +--ro percentile-jitter-ds
+      |  |           +--ro percentile-samples?   uint32
+      |  |           +--ro percentile-values
+      |  |              +--ro min?        uint32
+      |  |              +--ro avg?        uint32
+      |  |              +--ro max?        uint32
+      |  |              +--ro accuracy?   ip-sla-ios-xe-oper:accuracy-type
+      |  +--ro threshold-occured?        boolean
+      |  +--ro common-stats
+      |     +--ro no-of-disconnects?             uint32
+      |     +--ro no-of-timeouts?                uint32
+      |     +--ro no-of-busies?                  uint32
+      |     +--ro no-of-no-connections?          uint32
+      |     +--ro no-of-internal-errors?         uint32
+      |     +--ro no-of-sequence-errors?         uint32
+      |     +--ro no-of-verify-errors?           uint32
+      |     +--ro no-of-ctrl-enable-errors?      uint32
+      |     +--ro no-of-stats-retrieve-errors?   uint32
+      +--ro sla-oper-error-statistics* [oper-id start-time-id path-index hop-index]
+      |  +--ro num-of-disconnects?             uint32
+      |  +--ro num-of-timeouts?                uint32
+      |  +--ro num-of-busies?                  uint32
+      |  +--ro num-of-no-connections?          uint32
+      |  +--ro num-of-drops?                   uint32
+      |  +--ro num-of-sequence-errors?         uint32
+      |  +--ro num-of-verify-errors?           uint32
+      |  +--ro target-address?                 inet:ip-address
+      |  +--ro num-of-ctrl-enable-errors?      uint32
+      |  +--ro num-of-stats-retrieve-errors?   uint32
+      |  +--ro oper-id                         uint32
+      |  +--ro start-time-id                   uint64
+      |  +--ro path-index                      uint32
+      |  +--ro hop-index                       uint32
+      +--ro sla-oper-total-statistics* [oper-id start-time-id]
+         +--ro total-elapsed-time?   uint64
+         +--ro total-initiations?    uint32
+         +--ro oper-id               uint32
+         +--ro start-time-id         uint64

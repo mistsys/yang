@@ -1,0 +1,173 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/Cisco-IOS-XE-track.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title Cisco-IOS-XE-track 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "ios:Cisco-IOS-XE-native" as ios_Cisco_IOS_XE_native { 
+} 
+package "ios-types:Cisco-IOS-XE-types" as ios_types_Cisco_IOS_XE_types { 
+} 
+note top of ios_track_Cisco_IOS_XE_track : <b>Namespace: </b> http://cisco.com/ns/yang/Cisco-IOS-XE-track \n<b>Prefix: </b> ios-track \n<b>Organization : </b>\nCisco Systems, Inc. \n<b>Contact : </b>\nCisco Systems, Inc. \nCustomer Service \n \nPostal: 170 W Tasman Drive \nSan Jose, CA 95134 \n \nTel: +1 1800 553-NETS \n \nE-mail: cs-yang@cisco.com \n<b>Revision : </b> 2018-08-10 \n
+package "ios-track:Cisco-IOS-XE-track" as ios_track_Cisco_IOS_XE_track { 
+inet_ietf_inet_types +-- ios_track_Cisco_IOS_XE_track
+ios_Cisco_IOS_XE_native +-- ios_track_Cisco_IOS_XE_track
+ios_types_Cisco_IOS_XE_types +-- ios_track_Cisco_IOS_XE_track
+class "Cisco-IOS-XE-track" as Cisco_IOS_XE_track << (M, #33CCFF) module>> 
+class "track-timer-grouping" as Cisco_IOS_XE_track_I_track_timer_grouping_grouping <<(G,Lime) grouping>> 
+Cisco_IOS_XE_track_I_track_timer_grouping_grouping : seconds : uint32 [1..3000]  
+Cisco_IOS_XE_track_I_track_timer_grouping_grouping : ms : uint32 [500..5000]  
+class "track-grouping" as Cisco_IOS_XE_track_I_track_grouping_grouping <<(G,Lime) grouping>> 
+class "delay" as  Cisco_IOS_XE_track_I_track_grouping_I_delay <<container>> 
+Cisco_IOS_XE_track_I_track_grouping_grouping *-- "1" Cisco_IOS_XE_track_I_track_grouping_I_delay 
+Cisco_IOS_XE_track_I_track_grouping_I_delay : down : uint32 [0..180]  
+Cisco_IOS_XE_track_I_track_grouping_I_delay : up : uint32 [0..180]  
+Cisco_IOS_XE_track_I_track_grouping_grouping : carrier-delay : empty  
+class "threshold" as  Cisco_IOS_XE_track_I_track_grouping_I_threshold <<container>> 
+Cisco_IOS_XE_track_I_track_grouping_grouping *-- "1" Cisco_IOS_XE_track_I_track_grouping_I_threshold 
+class "metric" as  Cisco_IOS_XE_track_I_track_grouping_I_threshold_I_metric <<container>> 
+Cisco_IOS_XE_track_I_track_grouping_I_threshold *-- "1" Cisco_IOS_XE_track_I_track_grouping_I_threshold_I_metric 
+note bottom of Cisco_IOS_XE_track_I_track_grouping_I_threshold_I_metric
+<b>When: </b>../../ip/route/metric or ../../ipv6/route/metric
+end note 
+Cisco_IOS_XE_track_I_track_grouping_I_threshold_I_metric : up : uint32 [0..254]  
+Cisco_IOS_XE_track_I_track_grouping_I_threshold_I_metric : down : uint32 [2..255]  
+class "weight" as  Cisco_IOS_XE_track_I_track_grouping_I_threshold_I_weight <<container>> 
+Cisco_IOS_XE_track_I_track_grouping_I_threshold *-- "1" Cisco_IOS_XE_track_I_track_grouping_I_threshold_I_weight 
+note bottom of Cisco_IOS_XE_track_I_track_grouping_I_threshold_I_weight
+<b>When: </b>../../list/threshold = 'weight'
+end note 
+Cisco_IOS_XE_track_I_track_grouping_I_threshold_I_weight : up : uint32 [0..255]  
+Cisco_IOS_XE_track_I_track_grouping_I_threshold_I_weight : down : uint32 [0..255]  
+class "percentage" as  Cisco_IOS_XE_track_I_track_grouping_I_threshold_I_percentage <<container>> 
+Cisco_IOS_XE_track_I_track_grouping_I_threshold *-- "1" Cisco_IOS_XE_track_I_track_grouping_I_threshold_I_percentage 
+note bottom of Cisco_IOS_XE_track_I_track_grouping_I_threshold_I_percentage
+<b>When: </b>../../list/threshold = 'percentage'
+end note 
+Cisco_IOS_XE_track_I_track_grouping_I_threshold_I_percentage : up : uint32 [0..100]  
+Cisco_IOS_XE_track_I_track_grouping_I_threshold_I_percentage : down : uint32 [0..100]  
+Cisco_IOS_XE_track_I_track_grouping_grouping : default-state : enumeration : {down,up,}  
+class "object" as Cisco_IOS_XE_track_I_track_grouping_I_object << (L, #FF7700) list>> 
+Cisco_IOS_XE_track_I_track_grouping_grouping *-- "0..N" Cisco_IOS_XE_track_I_track_grouping_I_object 
+Cisco_IOS_XE_track_I_track_grouping_I_object : +number : uint32 [1..1000]  {key} 
+Cisco_IOS_XE_track_I_track_grouping_I_object : not : empty  
+Cisco_IOS_XE_track_I_track_grouping_I_object : weight : uint32 [1..255]  
+note bottom of Cisco_IOS_XE_track_I_track_grouping_I_object
+<b>When</b> (weight):
+../../list/threshold = 'weight'
+
+end note 
+class "ipv6-object" as  Cisco_IOS_XE_track_I_track_grouping_I_ipv6_object <<container>> 
+Cisco_IOS_XE_track_I_track_grouping_grouping *-- "1" Cisco_IOS_XE_track_I_track_grouping_I_ipv6_object 
+note bottom of Cisco_IOS_XE_track_I_track_grouping_I_ipv6_object
+<b>When: </b>../ipv6
+end note 
+Cisco_IOS_XE_track_I_track_grouping_I_ipv6_object : vrf : string  
+class "ip-object" as  Cisco_IOS_XE_track_I_track_grouping_I_ip_object <<container>> 
+Cisco_IOS_XE_track_I_track_grouping_grouping *-- "1" Cisco_IOS_XE_track_I_track_grouping_I_ip_object 
+note bottom of Cisco_IOS_XE_track_I_track_grouping_I_ip_object
+<b>When: </b>../ip
+end note 
+Cisco_IOS_XE_track_I_track_grouping_I_ip_object : vrf : string  
+class "config-track-grouping" as Cisco_IOS_XE_track_I_config_track_grouping_grouping <<(G,Lime) grouping>> 
+class "tracked-object" as Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object << (L, #FF7700) list>> 
+Cisco_IOS_XE_track_I_config_track_grouping_grouping *-- "0..N" Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object 
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object : +object-number : uint32 [1..1000]  {key} 
+class "interface" as  Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_interface <<container>> 
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object *-- "1" Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_interface 
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_interface : name : string  
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_interface : protocol : enumeration : {ip,ipv6,line-protocol,}  
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_interface : routing : empty  
+note bottom of Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_interface
+<b>When</b> (routing):
+../protocol = 'ip' or ../protocol = 'ipv6'
+
+end note 
+class "ip" as  Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ip <<container>> 
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object *-- "1" Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ip 
+class "route" as  Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ip_I_route <<container>> 
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ip *-- "1" Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ip_I_route 
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ip_I_route : address : inet:ipv4-address  
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ip_I_route : mask : inet:ipv4-address  
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ip_I_route : reachability : empty  
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ip_I_route : metric : enumeration : {threshold,}  
+class "sla" as  Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ip_I_sla <<container>> 
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ip *-- "1" Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ip_I_sla 
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ip_I_sla : number : uint32  
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ip_I_sla : reachability : empty  
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ip_I_sla : state : empty  
+class "ipv6" as  Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ipv6 <<container>> 
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object *-- "1" Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ipv6 
+class "route" as  Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ipv6_I_route <<container>> 
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ipv6 *-- "1" Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ipv6_I_route 
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ipv6_I_route : address : ios-types:ipv6-prefix  
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ipv6_I_route : reachability : empty  
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_ipv6_I_route : metric : enumeration : {threshold,}  
+class "list" as  Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_list <<container>> 
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object *-- "1" Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_list 
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_list : boolean : enumeration : {and,or,}  
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object_I_list : threshold : enumeration : {percentage,weight,}  
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object : stub-object : empty  
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object : track-grouping {uses} 
+class "resolution" as  Cisco_IOS_XE_track_I_config_track_grouping_I_resolution <<container>> 
+Cisco_IOS_XE_track_I_config_track_grouping_grouping *-- "1" Cisco_IOS_XE_track_I_config_track_grouping_I_resolution 
+class "ip" as  Cisco_IOS_XE_track_I_config_track_grouping_I_resolution_I_ip <<container>> 
+Cisco_IOS_XE_track_I_config_track_grouping_I_resolution *-- "1" Cisco_IOS_XE_track_I_config_track_grouping_I_resolution_I_ip 
+class "route" as  Cisco_IOS_XE_track_I_config_track_grouping_I_resolution_I_ip_I_route <<container>> 
+Cisco_IOS_XE_track_I_config_track_grouping_I_resolution_I_ip *-- "1" Cisco_IOS_XE_track_I_config_track_grouping_I_resolution_I_ip_I_route 
+Cisco_IOS_XE_track_I_config_track_grouping_I_resolution_I_ip_I_route : bgp : uint32 [256..40000000]  
+Cisco_IOS_XE_track_I_config_track_grouping_I_resolution_I_ip_I_route : eigrp : uint32 [256..40000000]  
+Cisco_IOS_XE_track_I_config_track_grouping_I_resolution_I_ip_I_route : isis : uint32 [1..1000]  
+Cisco_IOS_XE_track_I_config_track_grouping_I_resolution_I_ip_I_route : ospf : uint32 [1..1562]  
+Cisco_IOS_XE_track_I_config_track_grouping_I_resolution_I_ip_I_route : static : uint32 [1..100000]  
+class "timer" as  Cisco_IOS_XE_track_I_config_track_grouping_I_timer <<container>> 
+Cisco_IOS_XE_track_I_config_track_grouping_grouping *-- "1" Cisco_IOS_XE_track_I_config_track_grouping_I_timer 
+class "interface" as  Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_interface <<container>> 
+Cisco_IOS_XE_track_I_config_track_grouping_I_timer *-- "1" Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_interface 
+Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_interface : track-timer-grouping {uses} 
+class "ip" as  Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_ip <<container>> 
+Cisco_IOS_XE_track_I_config_track_grouping_I_timer *-- "1" Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_ip 
+class "route" as  Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_ip_I_route <<container>> 
+Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_ip *-- "1" Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_ip_I_route 
+Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_ip_I_route : track-timer-grouping {uses} 
+class "sla" as  Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_ip_I_sla <<container>> 
+Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_ip *-- "1" Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_ip_I_sla 
+Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_ip_I_sla : track-timer-grouping {uses} 
+class "ipv6" as  Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_ipv6 <<container>> 
+Cisco_IOS_XE_track_I_config_track_grouping_I_timer *-- "1" Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_ipv6 
+class "route" as  Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_ipv6_I_route <<container>> 
+Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_ipv6 *-- "1" Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_ipv6_I_route 
+Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_ipv6_I_route : track-timer-grouping {uses} 
+class "list" as  Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_list <<container>> 
+Cisco_IOS_XE_track_I_config_track_grouping_I_timer *-- "1" Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_list 
+Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_list : track-timer-grouping {uses} 
+class "stub-object" as  Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_stub_object <<container>> 
+Cisco_IOS_XE_track_I_config_track_grouping_I_timer *-- "1" Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_stub_object 
+Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_stub_object : track-timer-grouping {uses} 
+class "/ios:native/ios:track" as ios_native_ios_track << (A,CadetBlue) augment>>
+Cisco_IOS_XE_track *--  ios_native_ios_track 
+ios_native_ios_track : config-track-grouping {uses} 
+} 
+
+Cisco_IOS_XE_track_I_config_track_grouping_I_tracked_object --> Cisco_IOS_XE_track_I_track_grouping_grouping : uses 
+Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_interface --> Cisco_IOS_XE_track_I_track_timer_grouping_grouping : uses 
+Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_ip_I_route --> Cisco_IOS_XE_track_I_track_timer_grouping_grouping : uses 
+Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_ip_I_sla --> Cisco_IOS_XE_track_I_track_timer_grouping_grouping : uses 
+Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_ipv6_I_route --> Cisco_IOS_XE_track_I_track_timer_grouping_grouping : uses 
+Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_list --> Cisco_IOS_XE_track_I_track_timer_grouping_grouping : uses 
+Cisco_IOS_XE_track_I_config_track_grouping_I_timer_I_stub_object --> Cisco_IOS_XE_track_I_track_timer_grouping_grouping : uses 
+ios_native_ios_track --> Cisco_IOS_XE_track_I_config_track_grouping_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:42 </size>
+ endfooter 
+@enduml 

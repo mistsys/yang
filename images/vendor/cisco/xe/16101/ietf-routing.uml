@@ -1,0 +1,175 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-routing.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-routing 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "if:ietf-interfaces" as if_ietf_interfaces { 
+} 
+note top of rt_ietf_routing : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-routing \n<b>Prefix: </b> rt \n<b>Organization : </b>\nIETF NETMOD (NETCONF Data Modeling Language) Working Group \n<b>Contact : </b>\nWG Web:   <http://tools.ietf.org/wg/netmod/> \nWG List:  <mailto:netmod@ietf.org> \n \nWG Chair: Thomas Nadeau \n          <mailto:tnadeau@lucidvision.com> \n \nWG Chair: Juergen Schoenwaelder \n          <mailto:j.schoenwaelder@jacobs-university.de> \n \nEditor:   Ladislav Lhotka \n          <mailto:lhotka@nic.cz> \n<b>Revision : </b> 2015-05-25 \n
+package "rt:ietf-routing" as rt_ietf_routing { 
+yang_ietf_yang_types +-- rt_ietf_routing
+if_ietf_interfaces +-- rt_ietf_routing
+class "ietf-routing" as ietf_routing << (M, #33CCFF) module>> 
+ietf_routing : feature : multiple_ribs 
+ietf_routing : feature : router_id 
+class "routing-instance-ref" as routing_instance_ref << (T, YellowGreen) typedef>>
+routing_instance_ref : leafref : /rt:routing/rt:routing-instance/rt:name
+class "routing-instance-state-ref" as routing_instance_state_ref << (T, YellowGreen) typedef>>
+routing_instance_state_ref : leafref : /rt:routing-state/rt:routing-instance/rt:name
+class "route-preference" as route_preference << (T, YellowGreen) typedef>>
+route_preference : uint32
+class "address-family" as ietf_routing_I_address_family_grouping <<(G,Lime) grouping>> 
+ietf_routing_I_address_family_grouping : address-family : identityref {address-family}   {mandatory}
+class "router-id" as ietf_routing_I_router_id_grouping <<(G,Lime) grouping>> 
+ietf_routing_I_router_id_grouping : router-id : yang:dotted-quad  
+class "special-next-hop" as ietf_routing_I_special_next_hop_grouping <<(G,Lime) grouping>> 
+ietf_routing_I_special_next_hop_grouping : special-next-hop : enumeration : {blackhole,unreachable,prohibit,...}  
+class "next-hop-content" as ietf_routing_I_next_hop_content_grouping <<(G,Lime) grouping>> 
+class "next-hop-options" as ietf_routing_I_next_hop_content_I_next_hop_options <<choice>> 
+ietf_routing_I_next_hop_content_grouping .. ietf_routing_I_next_hop_content_I_next_hop_options : choice 
+class "simple-next-hop" as ietf_routing_I_next_hop_content_I_next_hop_options_I_simple_next_hop_case <<case>>
+ietf_routing_I_next_hop_content_I_next_hop_options .. ietf_routing_I_next_hop_content_I_next_hop_options_I_simple_next_hop_case  : choice next-hop-options
+ietf_routing_I_next_hop_content_I_next_hop_options_I_simple_next_hop_case : outgoing-interface : string  
+class "special-next-hop" as ietf_routing_I_next_hop_content_I_next_hop_options_I_special_next_hop_case <<case>>
+ietf_routing_I_next_hop_content_I_next_hop_options .. ietf_routing_I_next_hop_content_I_next_hop_options_I_special_next_hop_case  : choice next-hop-options
+ietf_routing_I_next_hop_content_I_next_hop_options_I_special_next_hop_case : special-next-hop {uses} 
+class "next-hop-state-content" as ietf_routing_I_next_hop_state_content_grouping <<(G,Lime) grouping>> 
+class "next-hop-options" as ietf_routing_I_next_hop_state_content_I_next_hop_options <<choice>> 
+ietf_routing_I_next_hop_state_content_grouping .. ietf_routing_I_next_hop_state_content_I_next_hop_options : choice 
+class "simple-next-hop" as ietf_routing_I_next_hop_state_content_I_next_hop_options_I_simple_next_hop_case <<case>>
+ietf_routing_I_next_hop_state_content_I_next_hop_options .. ietf_routing_I_next_hop_state_content_I_next_hop_options_I_simple_next_hop_case  : choice next-hop-options
+ietf_routing_I_next_hop_state_content_I_next_hop_options_I_simple_next_hop_case : outgoing-interface : string  
+ietf_routing_I_next_hop_state_content_I_next_hop_options_I_simple_next_hop_case : next-hop-address : string  
+class "special-next-hop" as ietf_routing_I_next_hop_state_content_I_next_hop_options_I_special_next_hop_case <<case>>
+ietf_routing_I_next_hop_state_content_I_next_hop_options .. ietf_routing_I_next_hop_state_content_I_next_hop_options_I_special_next_hop_case  : choice next-hop-options
+ietf_routing_I_next_hop_state_content_I_next_hop_options_I_special_next_hop_case : special-next-hop {uses} 
+class "route-metadata" as ietf_routing_I_route_metadata_grouping <<(G,Lime) grouping>> 
+ietf_routing_I_route_metadata_grouping : source-protocol : identityref {routing-protocol}   {mandatory}
+ietf_routing_I_route_metadata_grouping : active : empty  
+ietf_routing_I_route_metadata_grouping : last-updated : yang:date-and-time  
+class "/if:interfaces-state/if:interface" as if_interfaces_state_if_interface << (A,CadetBlue) augment>>
+ietf_routing *--  if_interfaces_state_if_interface 
+if_interfaces_state_if_interface : routing-instance : string  
+note bottom of if_interfaces_state_if_interface
+<b>Must</b> (routing-instance):
+../if:name=/rt:routing-state/rt:routing-instance[rt:name=current()]/rt:interfaces/rt:interface
+
+end note 
+class "routing-state" as  ietf_routing_I_routing_state <<container>> 
+ietf_routing *-- "1" ietf_routing_I_routing_state 
+note bottom of ietf_routing_I_routing_state
+<b>Config = </b>false
+end note 
+class "routing-instance" as ietf_routing_I_routing_state_I_routing_instance << (L, #FF7700) list>> 
+ietf_routing_I_routing_state *-- "1..N" ietf_routing_I_routing_state_I_routing_instance 
+ietf_routing_I_routing_state_I_routing_instance : +name : string  {key} 
+ietf_routing_I_routing_state_I_routing_instance : type : identityref {routing-instance}  
+ietf_routing_I_routing_state_I_routing_instance : router-id {uses} 
+class "interfaces" as  ietf_routing_I_routing_state_I_routing_instance_I_interfaces <<container>> 
+ietf_routing_I_routing_state_I_routing_instance *-- "1" ietf_routing_I_routing_state_I_routing_instance_I_interfaces 
+ietf_routing_I_routing_state_I_routing_instance_I_interfaces : interface []: if:interface-state-ref 
+class "routing-protocols" as  ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols <<container>> 
+ietf_routing_I_routing_state_I_routing_instance *-- "1" ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols 
+class "routing-protocol" as ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol << (L, #FF7700) list>> 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols *-- "0..N" ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol : +type : identityref {routing-protocol}  {key} 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol : +name : string  {key} 
+class "ribs" as  ietf_routing_I_routing_state_I_routing_instance_I_ribs <<container>> 
+ietf_routing_I_routing_state_I_routing_instance *-- "1" ietf_routing_I_routing_state_I_routing_instance_I_ribs 
+class "rib" as ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib << (L, #FF7700) list>> 
+ietf_routing_I_routing_state_I_routing_instance_I_ribs *-- "1..N" ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib 
+ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib : +name : string  {key} 
+ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib : address-family {uses} 
+ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib : default-rib : boolean   = true  {if-feature : multiple-ribs}
+class "routes" as  ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib_I_routes <<container>> 
+ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib *-- "1" ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib_I_routes 
+class "route" as ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib_I_routes_I_route << (L, #FF7700) list>> 
+ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib_I_routes *-- "0..N" ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib_I_routes_I_route 
+ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib_I_routes_I_route : route-preference : route-preference  
+ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib_I_routes_I_route : +destination-prefix : string  {key} 
+ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib_I_routes_I_route : metric : uint32  
+class "next-hop" as  ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib_I_routes_I_route_I_next_hop <<container>> 
+ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib_I_routes_I_route *-- "1" ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib_I_routes_I_route_I_next_hop 
+ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib_I_routes_I_route_I_next_hop : next-hop-state-content {uses} 
+ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib_I_routes_I_route : route-metadata {uses} 
+ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib_I_routes_I_route : update-source : string  
+class "routing" as  ietf_routing_I_routing <<container>> 
+ietf_routing *-- "1" ietf_routing_I_routing 
+class "routing-instance" as ietf_routing_I_routing_I_routing_instance << (L, #FF7700) list>> 
+ietf_routing_I_routing *-- "0..N" ietf_routing_I_routing_I_routing_instance 
+ietf_routing_I_routing_I_routing_instance : +name : string  {key} 
+ietf_routing_I_routing_I_routing_instance : type : identityref {routing-instance}   = rt:default-routing-instance 
+ietf_routing_I_routing_I_routing_instance : enabled : boolean   = true 
+ietf_routing_I_routing_I_routing_instance : router-id {uses} 
+ietf_routing_I_routing_I_routing_instance : description : string  
+class "interfaces" as  ietf_routing_I_routing_I_routing_instance_I_interfaces <<container>> 
+ietf_routing_I_routing_I_routing_instance *-- "1" ietf_routing_I_routing_I_routing_instance_I_interfaces 
+ietf_routing_I_routing_I_routing_instance_I_interfaces : interface []: if:interface-ref 
+class "routing-protocols" as  ietf_routing_I_routing_I_routing_instance_I_routing_protocols <<container>> 
+ietf_routing_I_routing_I_routing_instance *-- "1" ietf_routing_I_routing_I_routing_instance_I_routing_protocols 
+class "routing-protocol" as ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol << (L, #FF7700) list>> 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols *-- "0..N" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol : +type : identityref {routing-protocol}  {key} 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol : +name : string  {key} 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol : description : string  
+class "static-routes" as  ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes <<container>> 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol *-- "1" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes 
+note bottom of ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes
+<b>When: </b>../type='rt:static'
+end note 
+class "ribs" as  ietf_routing_I_routing_I_routing_instance_I_ribs <<container>> 
+ietf_routing_I_routing_I_routing_instance *-- "1" ietf_routing_I_routing_I_routing_instance_I_ribs 
+class "rib" as ietf_routing_I_routing_I_routing_instance_I_ribs_I_rib << (L, #FF7700) list>> 
+ietf_routing_I_routing_I_routing_instance_I_ribs *-- "0..N" ietf_routing_I_routing_I_routing_instance_I_ribs_I_rib 
+ietf_routing_I_routing_I_routing_instance_I_ribs_I_rib : +name : string  {key} 
+ietf_routing_I_routing_I_routing_instance_I_ribs_I_rib : address-family {uses} 
+ietf_routing_I_routing_I_routing_instance_I_ribs_I_rib : description : string  
+ietf_routing : fib-route( in: routing_instance_name in: destination_address out: route)
+class "address-family" as address_family << (I,Silver) identity>> 
+class "ipv4" as ipv4 << (I,Silver) identity>> 
+address_family <|-- ipv4 
+class "ipv6" as ipv6 << (I,Silver) identity>> 
+address_family <|-- ipv6 
+class "routing-instance" as routing_instance << (I,Silver) identity>> 
+class "default-routing-instance" as default_routing_instance << (I,Silver) identity>> 
+routing_instance <|-- default_routing_instance 
+class "vrf-routing-instance" as vrf_routing_instance << (I,Silver) identity>> 
+routing_instance <|-- vrf_routing_instance 
+class "routing-protocol" as routing_protocol << (I,Silver) identity>> 
+class "direct" as direct << (I,Silver) identity>> 
+routing_protocol <|-- direct 
+class "static" as static << (I,Silver) identity>> 
+routing_protocol <|-- static 
+ietf_routing_I_address_family_grouping-->address_family: address-family
+ietf_routing_I_route_metadata_grouping-->routing_protocol: source-protocol
+ietf_routing_I_routing_state_I_routing_instance-->routing_instance: type
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol-->routing_protocol: type
+ietf_routing_I_routing_I_routing_instance-->routing_instance: type
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol-->routing_protocol: type
+} 
+
+ietf_routing_I_next_hop_content_I_next_hop_options_I_special_next_hop_case --> ietf_routing_I_special_next_hop_grouping : uses 
+ietf_routing_I_next_hop_state_content_I_next_hop_options_I_special_next_hop_case --> ietf_routing_I_special_next_hop_grouping : uses 
+ietf_routing_I_routing_state_I_routing_instance --> ietf_routing_I_router_id_grouping : uses 
+ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib --> ietf_routing_I_address_family_grouping : uses 
+ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib_I_routes_I_route_I_next_hop --> ietf_routing_I_next_hop_state_content_grouping : uses 
+ietf_routing_I_routing_state_I_routing_instance_I_ribs_I_rib_I_routes_I_route --> ietf_routing_I_route_metadata_grouping : uses 
+ietf_routing_I_routing_I_routing_instance --> ietf_routing_I_router_id_grouping : uses 
+ietf_routing_I_routing_I_routing_instance_I_ribs_I_rib --> ietf_routing_I_address_family_grouping : uses 
+routing_instance_ref-->"rt:name"ietf_routing_I_routing_I_routing_instance: routing-instance-ref
+routing_instance_state_ref-->"rt:name"ietf_routing_I_routing_state_I_routing_instance: routing-instance-state-ref
+center footer
+ <size:20> UML Generated : 2019-02-20 23:45 </size>
+ endfooter 
+@enduml 

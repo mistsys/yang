@@ -1,0 +1,92 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/Cisco-IOS-XE-dialer.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title Cisco-IOS-XE-dialer 
+package "ios:Cisco-IOS-XE-native" as ios_Cisco_IOS_XE_native { 
+} 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+note top of ios_dial_Cisco_IOS_XE_dialer : <b>Namespace: </b> http://cisco.com/ns/yang/Cisco-IOS-XE-dialer \n<b>Prefix: </b> ios-dial \n<b>Organization : </b>\nCisco Systems, Inc. \n<b>Contact : </b>\nCisco Systems, Inc. \nCustomer Service \n \nPostal: 170 W Tasman Drive \nSan Jose, CA 95134 \n \nTel: +1 1800 553-NETS \n \nE-mail: cs-yang@cisco.com \n<b>Revision : </b> 2018-08-30 \n
+package "ios-dial:Cisco-IOS-XE-dialer" as ios_dial_Cisco_IOS_XE_dialer { 
+ios_Cisco_IOS_XE_native +-- ios_dial_Cisco_IOS_XE_dialer
+inet_ietf_inet_types +-- ios_dial_Cisco_IOS_XE_dialer
+class "Cisco-IOS-XE-dialer" as Cisco_IOS_XE_dialer << (M, #33CCFF) module>> 
+class "config-dialer-grouping" as Cisco_IOS_XE_dialer_I_config_dialer_grouping_grouping <<(G,Lime) grouping>> 
+class "dialer" as  Cisco_IOS_XE_dialer_I_config_dialer_grouping_I_dialer <<container>> 
+Cisco_IOS_XE_dialer_I_config_dialer_grouping_grouping *-- "1" Cisco_IOS_XE_dialer_I_config_dialer_grouping_I_dialer 
+class "watch-list" as Cisco_IOS_XE_dialer_I_config_dialer_grouping_I_dialer_I_watch_list << (L, #FF7700) list>> 
+Cisco_IOS_XE_dialer_I_config_dialer_grouping_I_dialer *-- "0..N" Cisco_IOS_XE_dialer_I_config_dialer_grouping_I_dialer_I_watch_list 
+Cisco_IOS_XE_dialer_I_config_dialer_grouping_I_dialer_I_watch_list : +number : uint8 [1..255]  {key} 
+class "delay" as Cisco_IOS_XE_dialer_I_config_dialer_grouping_I_dialer_I_watch_list_I_delay << (L, #FF7700) list>> 
+Cisco_IOS_XE_dialer_I_config_dialer_grouping_I_dialer_I_watch_list *-- "0..N" Cisco_IOS_XE_dialer_I_config_dialer_grouping_I_dialer_I_watch_list_I_delay 
+Cisco_IOS_XE_dialer_I_config_dialer_grouping_I_dialer_I_watch_list_I_delay : +interval : enumeration : {connect,disconnect,route-check,}  {key} 
+Cisco_IOS_XE_dialer_I_config_dialer_grouping_I_dialer_I_watch_list_I_delay : initial : empty  
+note bottom of Cisco_IOS_XE_dialer_I_config_dialer_grouping_I_dialer_I_watch_list_I_delay
+<b>When</b> (initial):
+../interval = 'route-check'
+
+end note 
+Cisco_IOS_XE_dialer_I_config_dialer_grouping_I_dialer_I_watch_list_I_delay : delay-time : uint32 [1..2147483]  
+class "ip" as Cisco_IOS_XE_dialer_I_config_dialer_grouping_I_dialer_I_watch_list_I_ip << (L, #FF7700) list>> 
+Cisco_IOS_XE_dialer_I_config_dialer_grouping_I_dialer_I_watch_list *-- "0..N" Cisco_IOS_XE_dialer_I_config_dialer_grouping_I_dialer_I_watch_list_I_ip 
+Cisco_IOS_XE_dialer_I_config_dialer_grouping_I_dialer_I_watch_list_I_ip : +address : inet:ipv4-address  {key} 
+Cisco_IOS_XE_dialer_I_config_dialer_grouping_I_dialer_I_watch_list_I_ip : mask : inet:ipv4-address  
+class "config-dialer-list-grouping" as Cisco_IOS_XE_dialer_I_config_dialer_list_grouping_grouping <<(G,Lime) grouping>> 
+class "dialer-list" as Cisco_IOS_XE_dialer_I_config_dialer_list_grouping_I_dialer_list << (L, #FF7700) list>> 
+Cisco_IOS_XE_dialer_I_config_dialer_list_grouping_grouping *-- "0..N" Cisco_IOS_XE_dialer_I_config_dialer_list_grouping_I_dialer_list 
+Cisco_IOS_XE_dialer_I_config_dialer_list_grouping_I_dialer_list : +group-number : uint8 [1..128]  {key} 
+class "protocol" as Cisco_IOS_XE_dialer_I_config_dialer_list_grouping_I_dialer_list_I_protocol << (L, #FF7700) list>> 
+Cisco_IOS_XE_dialer_I_config_dialer_list_grouping_I_dialer_list *-- "0..N" Cisco_IOS_XE_dialer_I_config_dialer_list_grouping_I_dialer_list_I_protocol 
+Cisco_IOS_XE_dialer_I_config_dialer_list_grouping_I_dialer_list_I_protocol : +protocol-type : enumeration : {appletalk,bridge,clns,...}  {key} 
+Cisco_IOS_XE_dialer_I_config_dialer_list_grouping_I_dialer_list_I_protocol : access : enumeration : {deny,list,permit,}  
+Cisco_IOS_XE_dialer_I_config_dialer_list_grouping_I_dialer_list_I_protocol : list-name : string  
+note bottom of Cisco_IOS_XE_dialer_I_config_dialer_list_grouping_I_dialer_list_I_protocol
+<b>When</b> (list-name):
+../access = 'list'
+
+end note 
+class "config-interface-dialer-grouping" as Cisco_IOS_XE_dialer_I_config_interface_dialer_grouping_grouping <<(G,Lime) grouping>> 
+class "dialer" as  Cisco_IOS_XE_dialer_I_config_interface_dialer_grouping_I_dialer <<container>> 
+Cisco_IOS_XE_dialer_I_config_interface_dialer_grouping_grouping *-- "1" Cisco_IOS_XE_dialer_I_config_interface_dialer_grouping_I_dialer 
+Cisco_IOS_XE_dialer_I_config_interface_dialer_grouping_I_dialer : in-band : empty  
+Cisco_IOS_XE_dialer_I_config_interface_dialer_grouping_I_dialer : pool : uint16 [1..255]  
+Cisco_IOS_XE_dialer_I_config_interface_dialer_grouping_I_dialer : idle-timeout : uint32  
+note bottom of Cisco_IOS_XE_dialer_I_config_interface_dialer_grouping_I_dialer
+<b>Must</b> (idle-timeout):
+../in-band or ../pool
+
+end note 
+Cisco_IOS_XE_dialer_I_config_interface_dialer_grouping_I_dialer : string : string  
+Cisco_IOS_XE_dialer_I_config_interface_dialer_grouping_I_dialer : watch-group : uint32  
+Cisco_IOS_XE_dialer_I_config_interface_dialer_grouping_grouping : dialer-group : uint8 [1..128]  
+class "/ios:native" as ios_native << (A,CadetBlue) augment>>
+Cisco_IOS_XE_dialer *--  ios_native 
+ios_native : config-dialer-grouping {uses} 
+class "/ios:native" as ios_native << (A,CadetBlue) augment>>
+ios_native : config-dialer-list-grouping {uses} 
+class "/ios:native/ios:interface/ios:Dialer" as ios_native_ios_interface_ios_Dialer << (A,CadetBlue) augment>>
+Cisco_IOS_XE_dialer *--  ios_native_ios_interface_ios_Dialer 
+ios_native_ios_interface_ios_Dialer : config-interface-dialer-grouping {uses} 
+class "/ios:native/ios:interface/ios:Cellular" as ios_native_ios_interface_ios_Cellular << (A,CadetBlue) augment>>
+Cisco_IOS_XE_dialer *--  ios_native_ios_interface_ios_Cellular 
+ios_native_ios_interface_ios_Cellular : config-interface-dialer-grouping {uses} 
+} 
+
+ios_native --> Cisco_IOS_XE_dialer_I_config_dialer_grouping_grouping : uses 
+ios_native --> Cisco_IOS_XE_dialer_I_config_dialer_list_grouping_grouping : uses 
+ios_native_ios_interface_ios_Dialer --> Cisco_IOS_XE_dialer_I_config_interface_dialer_grouping_grouping : uses 
+ios_native_ios_interface_ios_Cellular --> Cisco_IOS_XE_dialer_I_config_interface_dialer_grouping_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:47 </size>
+ endfooter 
+@enduml 

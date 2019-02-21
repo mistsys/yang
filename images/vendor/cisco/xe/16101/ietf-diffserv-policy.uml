@@ -1,0 +1,54 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-diffserv-policy.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-diffserv-policy 
+package "classifier:ietf-diffserv-classifier" as classifier_ietf_diffserv_classifier { 
+} 
+note top of policy_ietf_diffserv_policy : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-diffserv-policy \n<b>Prefix: </b> policy \n<b>Organization : </b>\nIETF NETMOD (Netmod Working Group) Working Group \n<b>Contact : </b>\nWG Web:   <http://tools.ietf.org/wg/netmod/> \nWG List:  <mailto:netmod@ietf.org> \n \nWG Chair: Juergen Schoenwaelder   \n          <mailto:j.schoenwaelder@jacobs-university.de> \n \nWG Chair: Tom Nadeau \n          <mailto:tnadeau@lucidvision.com> \n \nEditor:   Aseem Choudhary \n          <mailto:asechoud@cisco.com> \n \nEditor:   Shitanshu Shah \n          <mailto:svshah@cisco.com> \n<b>Revision : </b> 2015-04-07 \n
+package "policy:ietf-diffserv-policy" as policy_ietf_diffserv_policy { 
+classifier_ietf_diffserv_classifier +-- policy_ietf_diffserv_policy
+class "ietf-diffserv-policy" as ietf_diffserv_policy << (M, #33CCFF) module>> 
+ietf_diffserv_policy : feature : policy_template_support 
+ietf_diffserv_policy : feature : hierarchial_policy_support 
+class "policy-generic-attr" as ietf_diffserv_policy_I_policy_generic_attr_grouping <<(G,Lime) grouping>> 
+ietf_diffserv_policy_I_policy_generic_attr_grouping : policy-name : string  
+ietf_diffserv_policy_I_policy_generic_attr_grouping : policy-descr : string  
+class "classifier-action-entry-cfg" as ietf_diffserv_policy_I_classifier_action_entry_cfg_grouping <<(G,Lime) grouping>> 
+class "classifier-action-entry-cfg" as ietf_diffserv_policy_I_classifier_action_entry_cfg_I_classifier_action_entry_cfg << (L, #FF7700) list>> 
+ietf_diffserv_policy_I_classifier_action_entry_cfg_grouping *-- "0..N" ietf_diffserv_policy_I_classifier_action_entry_cfg_I_classifier_action_entry_cfg : ordered-by : user
+ietf_diffserv_policy_I_classifier_action_entry_cfg_I_classifier_action_entry_cfg : +action-type : identityref {action-type}  {key} 
+class "action-cfg-params" as ietf_diffserv_policy_I_classifier_action_entry_cfg_I_classifier_action_entry_cfg_I_action_cfg_params <<choice>> 
+ietf_diffserv_policy_I_classifier_action_entry_cfg_I_classifier_action_entry_cfg .. ietf_diffserv_policy_I_classifier_action_entry_cfg_I_classifier_action_entry_cfg_I_action_cfg_params : choice 
+class "policies" as  ietf_diffserv_policy_I_policies <<container>> 
+ietf_diffserv_policy *-- "1" ietf_diffserv_policy_I_policies 
+note bottom of ietf_diffserv_policy_I_policies
+<b>if-feature: </b>policy-template-support
+end note 
+class "policy-entry" as ietf_diffserv_policy_I_policies_I_policy_entry << (L, #FF7700) list>> 
+ietf_diffserv_policy_I_policies *-- "0..N" ietf_diffserv_policy_I_policies_I_policy_entry 
+ietf_diffserv_policy_I_policies_I_policy_entry : policy-generic-attr {uses} 
+class "classifier-entry" as ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry << (L, #FF7700) list>> 
+ietf_diffserv_policy_I_policies_I_policy_entry *-- "0..N" ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry : ordered-by : user
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry : +classifier-entry-name : string  {key} 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry : classifier:classifier-entry-inline-attr {uses} 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry : classifier-action-entry-cfg {uses} 
+class "action-type" as action_type << (I,Silver) identity>> 
+ietf_diffserv_policy_I_classifier_action_entry_cfg_I_classifier_action_entry_cfg-->action_type: action-type
+} 
+
+ietf_diffserv_policy_I_policies_I_policy_entry --> ietf_diffserv_policy_I_policy_generic_attr_grouping : uses 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry --> ietf_diffserv_policy_I_classifier_action_entry_cfg_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:30 </size>
+ endfooter 
+@enduml 

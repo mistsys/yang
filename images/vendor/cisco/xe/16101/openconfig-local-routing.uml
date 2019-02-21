@@ -1,0 +1,141 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-local-routing.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-local-routing 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "oc-pt:openconfig-policy-types" as oc_pt_openconfig_policy_types { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+package "oc-if:openconfig-interfaces" as oc_if_openconfig_interfaces { 
+} 
+note top of oc_loc_rt_openconfig_local_routing : <b>Namespace: </b> http://openconfig.net/yang/local-routing \n<b>Prefix: </b> oc-loc-rt \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nwww.openconfig.net \n<b>Revision : </b> 2016-05-11 \n
+package "oc-loc-rt:openconfig-local-routing" as oc_loc_rt_openconfig_local_routing { 
+inet_ietf_inet_types +-- oc_loc_rt_openconfig_local_routing
+oc_pt_openconfig_policy_types +-- oc_loc_rt_openconfig_local_routing
+oc_ext_openconfig_extensions +-- oc_loc_rt_openconfig_local_routing
+oc_if_openconfig_interfaces +-- oc_loc_rt_openconfig_local_routing
+class "openconfig-local-routing" as openconfig_local_routing << (M, #33CCFF) module>> 
+class "local-defined-next-hop" as local_defined_next_hop << (T, YellowGreen) typedef>>
+local_defined_next_hop : identityref {LOCAL_DEFINED_NEXT_HOP}
+class "local-generic-settings" as openconfig_local_routing_I_local_generic_settings_grouping <<(G,Lime) grouping>> 
+openconfig_local_routing_I_local_generic_settings_grouping : set-tag : oc-pt:tag-type  
+class "local-static-config" as openconfig_local_routing_I_local_static_config_grouping <<(G,Lime) grouping>> 
+openconfig_local_routing_I_local_static_config_grouping : prefix : inet:ip-prefix  
+openconfig_local_routing_I_local_static_config_grouping : local-generic-settings {uses} 
+class "local-static-state" as openconfig_local_routing_I_local_static_state_grouping <<(G,Lime) grouping>> 
+class "local-static-nexthop-config" as openconfig_local_routing_I_local_static_nexthop_config_grouping <<(G,Lime) grouping>> 
+openconfig_local_routing_I_local_static_nexthop_config_grouping : index : string  
+openconfig_local_routing_I_local_static_nexthop_config_grouping : next-hop : union{inet:ip-address-no-zone, local-defined-next-hop}  
+openconfig_local_routing_I_local_static_nexthop_config_grouping : metric : uint32  
+openconfig_local_routing_I_local_static_nexthop_config_grouping : recurse : boolean   = false 
+class "local-static-nexthop-state" as openconfig_local_routing_I_local_static_nexthop_state_grouping <<(G,Lime) grouping>> 
+class "local-static-top" as openconfig_local_routing_I_local_static_top_grouping <<(G,Lime) grouping>> 
+class "static-routes" as  openconfig_local_routing_I_local_static_top_I_static_routes <<container>> 
+openconfig_local_routing_I_local_static_top_grouping *-- "1" openconfig_local_routing_I_local_static_top_I_static_routes 
+class "static" as openconfig_local_routing_I_local_static_top_I_static_routes_I_static << (L, #FF7700) list>> 
+openconfig_local_routing_I_local_static_top_I_static_routes *-- "0..N" openconfig_local_routing_I_local_static_top_I_static_routes_I_static 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static : +prefix : leafref : ../config/prefix  {key} 
+class "config" as  openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_config <<container>> 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static *-- "1" openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_config 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_config : local-static-config {uses} 
+class "state" as  openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_state <<container>> 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static *-- "1" openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_state 
+note bottom of openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_state
+<b>Config = </b>false
+end note 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_state : local-static-config {uses} 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_state : local-static-state {uses} 
+class "next-hops" as  openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_next_hops <<container>> 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static *-- "1" openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_next_hops 
+class "next-hop" as openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_next_hops_I_next_hop << (L, #FF7700) list>> 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_next_hops *-- "0..N" openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_next_hops_I_next_hop 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_next_hops_I_next_hop : +index : leafref : ../config/index  {key} 
+class "config" as  openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_next_hops_I_next_hop_I_config <<container>> 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_next_hops_I_next_hop *-- "1" openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_next_hops_I_next_hop_I_config 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_next_hops_I_next_hop_I_config : local-static-nexthop-config {uses} 
+class "state" as  openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_next_hops_I_next_hop_I_state <<container>> 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_next_hops_I_next_hop *-- "1" openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_next_hops_I_next_hop_I_state 
+note bottom of openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_next_hops_I_next_hop_I_state
+<b>Config = </b>false
+end note 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_next_hops_I_next_hop_I_state : local-static-nexthop-config {uses} 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_next_hops_I_next_hop_I_state : local-static-nexthop-state {uses} 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_next_hops_I_next_hop : oc-if:interface-ref {uses} 
+class "local-aggregate-config" as openconfig_local_routing_I_local_aggregate_config_grouping <<(G,Lime) grouping>> 
+openconfig_local_routing_I_local_aggregate_config_grouping : prefix : inet:ip-prefix  
+openconfig_local_routing_I_local_aggregate_config_grouping : discard : boolean   = false 
+openconfig_local_routing_I_local_aggregate_config_grouping : local-generic-settings {uses} 
+class "local-aggregate-state" as openconfig_local_routing_I_local_aggregate_state_grouping <<(G,Lime) grouping>> 
+class "local-aggregate-top" as openconfig_local_routing_I_local_aggregate_top_grouping <<(G,Lime) grouping>> 
+class "local-aggregates" as  openconfig_local_routing_I_local_aggregate_top_I_local_aggregates <<container>> 
+openconfig_local_routing_I_local_aggregate_top_grouping *-- "1" openconfig_local_routing_I_local_aggregate_top_I_local_aggregates 
+class "aggregate" as openconfig_local_routing_I_local_aggregate_top_I_local_aggregates_I_aggregate << (L, #FF7700) list>> 
+openconfig_local_routing_I_local_aggregate_top_I_local_aggregates *-- "0..N" openconfig_local_routing_I_local_aggregate_top_I_local_aggregates_I_aggregate 
+openconfig_local_routing_I_local_aggregate_top_I_local_aggregates_I_aggregate : +prefix : leafref : ../config/prefix  {key} 
+class "config" as  openconfig_local_routing_I_local_aggregate_top_I_local_aggregates_I_aggregate_I_config <<container>> 
+openconfig_local_routing_I_local_aggregate_top_I_local_aggregates_I_aggregate *-- "1" openconfig_local_routing_I_local_aggregate_top_I_local_aggregates_I_aggregate_I_config 
+openconfig_local_routing_I_local_aggregate_top_I_local_aggregates_I_aggregate_I_config : local-aggregate-config {uses} 
+class "state" as  openconfig_local_routing_I_local_aggregate_top_I_local_aggregates_I_aggregate_I_state <<container>> 
+openconfig_local_routing_I_local_aggregate_top_I_local_aggregates_I_aggregate *-- "1" openconfig_local_routing_I_local_aggregate_top_I_local_aggregates_I_aggregate_I_state 
+note bottom of openconfig_local_routing_I_local_aggregate_top_I_local_aggregates_I_aggregate_I_state
+<b>Config = </b>false
+end note 
+openconfig_local_routing_I_local_aggregate_top_I_local_aggregates_I_aggregate_I_state : local-aggregate-config {uses} 
+openconfig_local_routing_I_local_aggregate_top_I_local_aggregates_I_aggregate_I_state : local-aggregate-state {uses} 
+class "local-routes-config" as openconfig_local_routing_I_local_routes_config_grouping <<(G,Lime) grouping>> 
+class "local-routes-state" as openconfig_local_routing_I_local_routes_state_grouping <<(G,Lime) grouping>> 
+class "local-routes-top" as openconfig_local_routing_I_local_routes_top_grouping <<(G,Lime) grouping>> 
+class "local-routes" as  openconfig_local_routing_I_local_routes_top_I_local_routes <<container>> 
+openconfig_local_routing_I_local_routes_top_grouping *-- "1" openconfig_local_routing_I_local_routes_top_I_local_routes 
+class "config" as  openconfig_local_routing_I_local_routes_top_I_local_routes_I_config <<container>> 
+openconfig_local_routing_I_local_routes_top_I_local_routes *-- "1" openconfig_local_routing_I_local_routes_top_I_local_routes_I_config 
+openconfig_local_routing_I_local_routes_top_I_local_routes_I_config : local-routes-config {uses} 
+class "state" as  openconfig_local_routing_I_local_routes_top_I_local_routes_I_state <<container>> 
+openconfig_local_routing_I_local_routes_top_I_local_routes *-- "1" openconfig_local_routing_I_local_routes_top_I_local_routes_I_state 
+note bottom of openconfig_local_routing_I_local_routes_top_I_local_routes_I_state
+<b>Config = </b>false
+end note 
+openconfig_local_routing_I_local_routes_top_I_local_routes_I_state : local-routes-config {uses} 
+openconfig_local_routing_I_local_routes_top_I_local_routes_I_state : local-routes-state {uses} 
+openconfig_local_routing_I_local_routes_top_I_local_routes : local-static-top {uses} 
+openconfig_local_routing_I_local_routes_top_I_local_routes : local-aggregate-top {uses} 
+class "LOCAL_DEFINED_NEXT_HOP" as LOCAL_DEFINED_NEXT_HOP << (I,Silver) identity>> 
+class "DROP" as DROP << (I,Silver) identity>> 
+LOCAL_DEFINED_NEXT_HOP <|-- DROP 
+class "LOCAL_LINK" as LOCAL_LINK << (I,Silver) identity>> 
+LOCAL_DEFINED_NEXT_HOP <|-- LOCAL_LINK 
+openconfig_local_routing-->LOCAL_DEFINED_NEXT_HOP: local-defined-next-hop
+} 
+
+openconfig_local_routing_I_local_static_config_grouping --> openconfig_local_routing_I_local_generic_settings_grouping : uses 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_config --> openconfig_local_routing_I_local_static_config_grouping : uses 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_state --> openconfig_local_routing_I_local_static_config_grouping : uses 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_state --> openconfig_local_routing_I_local_static_state_grouping : uses 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_next_hops_I_next_hop_I_config --> openconfig_local_routing_I_local_static_nexthop_config_grouping : uses 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_next_hops_I_next_hop_I_state --> openconfig_local_routing_I_local_static_nexthop_config_grouping : uses 
+openconfig_local_routing_I_local_static_top_I_static_routes_I_static_I_next_hops_I_next_hop_I_state --> openconfig_local_routing_I_local_static_nexthop_state_grouping : uses 
+openconfig_local_routing_I_local_aggregate_config_grouping --> openconfig_local_routing_I_local_generic_settings_grouping : uses 
+openconfig_local_routing_I_local_aggregate_top_I_local_aggregates_I_aggregate_I_config --> openconfig_local_routing_I_local_aggregate_config_grouping : uses 
+openconfig_local_routing_I_local_aggregate_top_I_local_aggregates_I_aggregate_I_state --> openconfig_local_routing_I_local_aggregate_config_grouping : uses 
+openconfig_local_routing_I_local_aggregate_top_I_local_aggregates_I_aggregate_I_state --> openconfig_local_routing_I_local_aggregate_state_grouping : uses 
+openconfig_local_routing_I_local_routes_top_I_local_routes_I_config --> openconfig_local_routing_I_local_routes_config_grouping : uses 
+openconfig_local_routing_I_local_routes_top_I_local_routes_I_state --> openconfig_local_routing_I_local_routes_config_grouping : uses 
+openconfig_local_routing_I_local_routes_top_I_local_routes_I_state --> openconfig_local_routing_I_local_routes_state_grouping : uses 
+openconfig_local_routing_I_local_routes_top_I_local_routes --> openconfig_local_routing_I_local_static_top_grouping : uses 
+openconfig_local_routing_I_local_routes_top_I_local_routes --> openconfig_local_routing_I_local_aggregate_top_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:58 </size>
+ endfooter 
+@enduml 

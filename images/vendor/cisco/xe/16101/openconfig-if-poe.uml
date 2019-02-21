@@ -1,0 +1,57 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-if-poe.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-if-poe 
+package "oc-eth:openconfig-if-ethernet" as oc_eth_openconfig_if_ethernet { 
+} 
+package "oc-if:openconfig-interfaces" as oc_if_openconfig_interfaces { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+note top of oc_poe_openconfig_if_poe : <b>Namespace: </b> http://openconfig.net/yang/poe \n<b>Prefix: </b> oc-poe \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenconfig working group \nwww.openconfig.net \n<b>Revision : </b> 2017-09-14 \n
+package "oc-poe:openconfig-if-poe" as oc_poe_openconfig_if_poe { 
+oc_eth_openconfig_if_ethernet +-- oc_poe_openconfig_if_poe
+oc_if_openconfig_interfaces +-- oc_poe_openconfig_if_poe
+oc_ext_openconfig_extensions +-- oc_poe_openconfig_if_poe
+class "openconfig-if-poe" as openconfig_if_poe << (M, #33CCFF) module>> 
+class "poe-ethernet-config" as openconfig_if_poe_I_poe_ethernet_config_grouping <<(G,Lime) grouping>> 
+openconfig_if_poe_I_poe_ethernet_config_grouping : enabled : boolean   = true 
+class "poe-ethernet-state" as openconfig_if_poe_I_poe_ethernet_state_grouping <<(G,Lime) grouping>> 
+openconfig_if_poe_I_poe_ethernet_state_grouping : power-used : decimal64   {Watts}
+openconfig_if_poe_I_poe_ethernet_state_grouping : power-class : uint8  
+class "poe-ethernet-top" as openconfig_if_poe_I_poe_ethernet_top_grouping <<(G,Lime) grouping>> 
+class "poe" as  openconfig_if_poe_I_poe_ethernet_top_I_poe <<container>> 
+openconfig_if_poe_I_poe_ethernet_top_grouping *-- "1" openconfig_if_poe_I_poe_ethernet_top_I_poe 
+class "config" as  openconfig_if_poe_I_poe_ethernet_top_I_poe_I_config <<container>> 
+openconfig_if_poe_I_poe_ethernet_top_I_poe *-- "1" openconfig_if_poe_I_poe_ethernet_top_I_poe_I_config 
+openconfig_if_poe_I_poe_ethernet_top_I_poe_I_config : poe-ethernet-config {uses} 
+class "state" as  openconfig_if_poe_I_poe_ethernet_top_I_poe_I_state <<container>> 
+openconfig_if_poe_I_poe_ethernet_top_I_poe *-- "1" openconfig_if_poe_I_poe_ethernet_top_I_poe_I_state 
+note bottom of openconfig_if_poe_I_poe_ethernet_top_I_poe_I_state
+<b>Config = </b>false
+end note 
+openconfig_if_poe_I_poe_ethernet_top_I_poe_I_state : poe-ethernet-config {uses} 
+openconfig_if_poe_I_poe_ethernet_top_I_poe_I_state : poe-ethernet-state {uses} 
+class "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet" as oc_if_interfaces_oc_if_interface_oc_eth_ethernet << (A,CadetBlue) augment>>
+openconfig_if_poe *--  oc_if_interfaces_oc_if_interface_oc_eth_ethernet 
+oc_if_interfaces_oc_if_interface_oc_eth_ethernet : poe-ethernet-top {uses} 
+} 
+
+openconfig_if_poe_I_poe_ethernet_top_I_poe_I_config --> openconfig_if_poe_I_poe_ethernet_config_grouping : uses 
+openconfig_if_poe_I_poe_ethernet_top_I_poe_I_state --> openconfig_if_poe_I_poe_ethernet_config_grouping : uses 
+openconfig_if_poe_I_poe_ethernet_top_I_poe_I_state --> openconfig_if_poe_I_poe_ethernet_state_grouping : uses 
+oc_if_interfaces_oc_if_interface_oc_eth_ethernet --> openconfig_if_poe_I_poe_ethernet_top_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:30 </size>
+ endfooter 
+@enduml 

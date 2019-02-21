@@ -1,0 +1,73 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/nvo.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title nvo 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "if:ietf-interfaces" as if_ietf_interfaces { 
+} 
+package "rt:ietf-routing" as rt_ietf_routing { 
+} 
+package "pim:pim" as pim_pim { 
+} 
+note top of nvo_nvo : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:nvo \n<b>Prefix: </b> nvo \n<b>Organization : </b>\nCisco Systems, Inc. \n<b>Contact : </b>\nCisco Systems, Inc. \nCustomer Service \n \nPostal: 170 West Tasman Drive \nSan Jose, CA 95134 \n \nTel: +1 800 553-NETS \n \nE-mail: cs-yang@cisco.com \n<b>Revision : </b> 2015-06-02 \n
+package "nvo:nvo" as nvo_nvo { 
+inet_ietf_inet_types +-- nvo_nvo
+if_ietf_interfaces +-- nvo_nvo
+rt_ietf_routing +-- nvo_nvo
+pim_pim +-- nvo_nvo
+class "nvo" as nvo << (M, #33CCFF) module>> 
+class "virtual-network-id-type" as virtual_network_id_type << (T, YellowGreen) typedef>>
+virtual_network_id_type : uint32 [1..16777214]
+class "nvo-instances" as  nvo_I_nvo_instances <<container>> 
+nvo *-- "1" nvo_I_nvo_instances 
+class "nvo-instance" as nvo_I_nvo_instances_I_nvo_instance << (L, #FF7700) list>> 
+nvo_I_nvo_instances *-- "0..N" nvo_I_nvo_instances_I_nvo_instance 
+nvo_I_nvo_instances_I_nvo_instance : +nvo-id : uint16  {key} 
+nvo_I_nvo_instances_I_nvo_instance : overlay-encapsulation : identityref {overlay-encap-type}  
+nvo_I_nvo_instances_I_nvo_instance : source-interface : if:interface-ref   {mandatory}
+class "virtual-network" as nvo_I_nvo_instances_I_nvo_instance_I_virtual_network << (L, #FF7700) list>> 
+nvo_I_nvo_instances_I_nvo_instance *-- "0..N" nvo_I_nvo_instances_I_nvo_instance_I_virtual_network 
+nvo_I_nvo_instances_I_nvo_instance_I_virtual_network : +vni-start : virtual-network-id-type  {key}  {mandatory}
+nvo_I_nvo_instances_I_nvo_instance_I_virtual_network : +vni-end : virtual-network-id-type  {key}  {mandatory}
+class "replication-mode" as nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode <<choice>> 
+nvo_I_nvo_instances_I_nvo_instance_I_virtual_network .. nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode : choice 
+class "ip-multicast" as nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode_I_ip_multicast_case <<case>>
+nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode .. nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode_I_ip_multicast_case  : choice replication-mode
+class "multicast" as  nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode_I_ip_multicast_I_multicast <<container>> 
+nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode_I_ip_multicast_case *-- "1" nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode_I_ip_multicast_I_multicast 
+nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode_I_ip_multicast_I_multicast : multicast-group-min : pim:IPv4-Multicast-Group-Address  
+nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode_I_ip_multicast_I_multicast : multicast-group-max : pim:IPv4-Multicast-Group-Address  
+class "static-peer-list" as nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode_I_static_peer_list_case <<case>>
+nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode .. nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode_I_static_peer_list_case  : choice replication-mode
+class "peers" as nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode_I_static_peer_list_I_peers << (L, #FF7700) list>> 
+nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode_I_static_peer_list_case *-- "0..N" nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode_I_static_peer_list_I_peers 
+nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode_I_static_peer_list_I_peers : +peer-ip : inet:ip-address  {key} 
+class "bgp" as nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode_I_bgp_case <<case>>
+nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode .. nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode_I_bgp_case  : choice replication-mode
+nvo_I_nvo_instances_I_nvo_instance_I_virtual_network_I_replication_mode_I_bgp_case : bgp : empty  
+nvo_I_nvo_instances_I_nvo_instance_I_virtual_network : routing-instance : rt:routing-instance-ref  
+nvo_I_nvo_instances_I_nvo_instance_I_virtual_network : end-host-discovery : enumeration : {flood-and-learn,bgp,}   = flood-and-learn 
+nvo_I_nvo_instances_I_nvo_instance_I_virtual_network : suppress-arp : empty  
+class "overlay-encap-type" as overlay_encap_type << (I,Silver) identity>> 
+class "vxlan-type" as vxlan_type << (I,Silver) identity>> 
+overlay_encap_type <|-- vxlan_type 
+class "nvgre-type" as nvgre_type << (I,Silver) identity>> 
+overlay_encap_type <|-- nvgre_type 
+nvo_I_nvo_instances_I_nvo_instance-->overlay_encap_type: overlay-encapsulation
+} 
+
+center footer
+ <size:20> UML Generated : 2019-02-20 23:45 </size>
+ endfooter 
+@enduml 

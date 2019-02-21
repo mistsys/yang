@@ -1,0 +1,87 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-types.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-types 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+note top of oc_types_openconfig_types : <b>Namespace: </b> http://openconfig.net/yang/openconfig-types \n<b>Prefix: </b> oc-types \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nnetopenconfig@googlegroups.com \n<b>Revision : </b> 2018-01-16 \n
+package "oc-types:openconfig-types" as oc_types_openconfig_types { 
+oc_ext_openconfig_extensions +-- oc_types_openconfig_types
+class "openconfig-types" as openconfig_types << (M, #33CCFF) module>> 
+class "percentage" as percentage << (T, YellowGreen) typedef>>
+percentage : uint8 [0..100]
+class "std-regexp" as std_regexp << (T, YellowGreen) typedef>>
+std_regexp : string
+class "timeticks64" as timeticks64 << (T, YellowGreen) typedef>>
+timeticks64 : uint64
+class "ieeefloat32" as ieeefloat32 << (T, YellowGreen) typedef>>
+ieeefloat32 : binary {length = 4}
+class "routing-password" as routing_password << (T, YellowGreen) typedef>>
+routing_password : string
+class "stat-interval" as stat_interval << (T, YellowGreen) typedef>>
+stat_interval : uint64
+class "stat-interval-state" as openconfig_types_I_stat_interval_state_grouping <<(G,Lime) grouping>> 
+openconfig_types_I_stat_interval_state_grouping : interval : oc-types:stat-interval  
+class "avg-min-max-stats-precision1" as openconfig_types_I_avg_min_max_stats_precision1_grouping <<(G,Lime) grouping>> 
+openconfig_types_I_avg_min_max_stats_precision1_grouping : avg : decimal64  
+openconfig_types_I_avg_min_max_stats_precision1_grouping : min : decimal64  
+openconfig_types_I_avg_min_max_stats_precision1_grouping : max : decimal64  
+openconfig_types_I_avg_min_max_stats_precision1_grouping : stat-interval-state {uses} 
+class "avg-min-max-instant-stats-precision1" as openconfig_types_I_avg_min_max_instant_stats_precision1_grouping <<(G,Lime) grouping>> 
+openconfig_types_I_avg_min_max_instant_stats_precision1_grouping : instant : decimal64  
+openconfig_types_I_avg_min_max_instant_stats_precision1_grouping : avg-min-max-stats-precision1 {uses} 
+class "avg-min-max-instant-stats-precision2-dB" as openconfig_types_I_avg_min_max_instant_stats_precision2_dB_grouping <<(G,Lime) grouping>> 
+openconfig_types_I_avg_min_max_instant_stats_precision2_dB_grouping : instant : decimal64   {dB}
+openconfig_types_I_avg_min_max_instant_stats_precision2_dB_grouping : avg : decimal64   {dB}
+openconfig_types_I_avg_min_max_instant_stats_precision2_dB_grouping : min : decimal64   {dB}
+openconfig_types_I_avg_min_max_instant_stats_precision2_dB_grouping : max : decimal64   {dB}
+openconfig_types_I_avg_min_max_instant_stats_precision2_dB_grouping : stat-interval-state {uses} 
+class "avg-min-max-instant-stats-precision2-dBm" as openconfig_types_I_avg_min_max_instant_stats_precision2_dBm_grouping <<(G,Lime) grouping>> 
+openconfig_types_I_avg_min_max_instant_stats_precision2_dBm_grouping : instant : decimal64   {dBm}
+openconfig_types_I_avg_min_max_instant_stats_precision2_dBm_grouping : avg : decimal64   {dBm}
+openconfig_types_I_avg_min_max_instant_stats_precision2_dBm_grouping : min : decimal64   {dBm}
+openconfig_types_I_avg_min_max_instant_stats_precision2_dBm_grouping : max : decimal64   {dBm}
+openconfig_types_I_avg_min_max_instant_stats_precision2_dBm_grouping : stat-interval-state {uses} 
+class "avg-min-max-instant-stats-precision2-mA" as openconfig_types_I_avg_min_max_instant_stats_precision2_mA_grouping <<(G,Lime) grouping>> 
+openconfig_types_I_avg_min_max_instant_stats_precision2_mA_grouping : instant : decimal64   {mA}
+openconfig_types_I_avg_min_max_instant_stats_precision2_mA_grouping : avg : decimal64   {mA}
+openconfig_types_I_avg_min_max_instant_stats_precision2_mA_grouping : min : decimal64   {mA}
+openconfig_types_I_avg_min_max_instant_stats_precision2_mA_grouping : max : decimal64   {mA}
+openconfig_types_I_avg_min_max_instant_stats_precision2_mA_grouping : stat-interval-state {uses} 
+class "avg-min-max-instant-stats-pct" as openconfig_types_I_avg_min_max_instant_stats_pct_grouping <<(G,Lime) grouping>> 
+openconfig_types_I_avg_min_max_instant_stats_pct_grouping : instant : oc-types:percentage  
+openconfig_types_I_avg_min_max_instant_stats_pct_grouping : avg : oc-types:percentage  
+openconfig_types_I_avg_min_max_instant_stats_pct_grouping : min : oc-types:percentage  
+openconfig_types_I_avg_min_max_instant_stats_pct_grouping : max : oc-types:percentage  
+openconfig_types_I_avg_min_max_instant_stats_pct_grouping : stat-interval-state {uses} 
+class "ADDRESS_FAMILY" as ADDRESS_FAMILY << (I,Silver) identity>> 
+class "IPV4" as IPV4 << (I,Silver) identity>> 
+ADDRESS_FAMILY <|-- IPV4 
+class "IPV6" as IPV6 << (I,Silver) identity>> 
+ADDRESS_FAMILY <|-- IPV6 
+class "MPLS" as MPLS << (I,Silver) identity>> 
+ADDRESS_FAMILY <|-- MPLS 
+class "L2_ETHERNET" as L2_ETHERNET << (I,Silver) identity>> 
+ADDRESS_FAMILY <|-- L2_ETHERNET 
+} 
+
+openconfig_types_I_avg_min_max_stats_precision1_grouping --> openconfig_types_I_stat_interval_state_grouping : uses 
+openconfig_types_I_avg_min_max_instant_stats_precision1_grouping --> openconfig_types_I_avg_min_max_stats_precision1_grouping : uses 
+openconfig_types_I_avg_min_max_instant_stats_precision2_dB_grouping --> openconfig_types_I_stat_interval_state_grouping : uses 
+openconfig_types_I_avg_min_max_instant_stats_precision2_dBm_grouping --> openconfig_types_I_stat_interval_state_grouping : uses 
+openconfig_types_I_avg_min_max_instant_stats_precision2_mA_grouping --> openconfig_types_I_stat_interval_state_grouping : uses 
+openconfig_types_I_avg_min_max_instant_stats_pct_grouping --> openconfig_types_I_stat_interval_state_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:49 </size>
+ endfooter 
+@enduml 

@@ -1,0 +1,327 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-system.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-system 
+package "oc-inet:openconfig-inet-types" as oc_inet_openconfig_inet_types { 
+} 
+package "oc-yang:openconfig-yang-types" as oc_yang_openconfig_yang_types { 
+} 
+package "oc-types:openconfig-types" as oc_types_openconfig_types { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+package "oc-aaa:openconfig-aaa" as oc_aaa_openconfig_aaa { 
+} 
+package "oc-log:openconfig-system-logging" as oc_log_openconfig_system_logging { 
+} 
+package "oc-sys-term:openconfig-system-terminal" as oc_sys_term_openconfig_system_terminal { 
+} 
+package "oc-proc:openconfig-procmon" as oc_proc_openconfig_procmon { 
+} 
+package "oc-alarms:openconfig-alarms" as oc_alarms_openconfig_alarms { 
+} 
+note top of oc_sys_openconfig_system : <b>Namespace: </b> http://openconfig.net/yang/system \n<b>Prefix: </b> oc-sys \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nnetopenconfig@googlegroups.com \n<b>Revision : </b> 2018-01-21 \n
+package "oc-sys:openconfig-system" as oc_sys_openconfig_system { 
+oc_inet_openconfig_inet_types +-- oc_sys_openconfig_system
+oc_yang_openconfig_yang_types +-- oc_sys_openconfig_system
+oc_types_openconfig_types +-- oc_sys_openconfig_system
+oc_ext_openconfig_extensions +-- oc_sys_openconfig_system
+oc_aaa_openconfig_aaa +-- oc_sys_openconfig_system
+oc_log_openconfig_system_logging +-- oc_sys_openconfig_system
+oc_sys_term_openconfig_system_terminal +-- oc_sys_openconfig_system
+oc_proc_openconfig_procmon +-- oc_sys_openconfig_system
+oc_alarms_openconfig_alarms +-- oc_sys_openconfig_system
+class "openconfig-system" as openconfig_system << (M, #33CCFF) module>> 
+class "timezone-name-type" as timezone_name_type << (T, YellowGreen) typedef>>
+timezone_name_type : string
+class "system-clock-config" as openconfig_system_I_system_clock_config_grouping <<(G,Lime) grouping>> 
+openconfig_system_I_system_clock_config_grouping : timezone-name : timezone-name-type  
+class "system-clock-state" as openconfig_system_I_system_clock_state_grouping <<(G,Lime) grouping>> 
+class "system-clock-top" as openconfig_system_I_system_clock_top_grouping <<(G,Lime) grouping>> 
+class "clock" as  openconfig_system_I_system_clock_top_I_clock <<container>> 
+openconfig_system_I_system_clock_top_grouping *-- "1" openconfig_system_I_system_clock_top_I_clock 
+class "config" as  openconfig_system_I_system_clock_top_I_clock_I_config <<container>> 
+openconfig_system_I_system_clock_top_I_clock *-- "1" openconfig_system_I_system_clock_top_I_clock_I_config 
+openconfig_system_I_system_clock_top_I_clock_I_config : system-clock-config {uses} 
+class "state" as  openconfig_system_I_system_clock_top_I_clock_I_state <<container>> 
+openconfig_system_I_system_clock_top_I_clock *-- "1" openconfig_system_I_system_clock_top_I_clock_I_state 
+note bottom of openconfig_system_I_system_clock_top_I_clock_I_state
+<b>Config = </b>false
+end note 
+openconfig_system_I_system_clock_top_I_clock_I_state : system-clock-config {uses} 
+openconfig_system_I_system_clock_top_I_clock_I_state : system-clock-state {uses} 
+class "system-global-config" as openconfig_system_I_system_global_config_grouping <<(G,Lime) grouping>> 
+openconfig_system_I_system_global_config_grouping : hostname : oc-inet:domain-name  
+openconfig_system_I_system_global_config_grouping : domain-name : oc-inet:domain-name  
+openconfig_system_I_system_global_config_grouping : login-banner : string  
+openconfig_system_I_system_global_config_grouping : motd-banner : string  
+class "system-global-state" as openconfig_system_I_system_global_state_grouping <<(G,Lime) grouping>> 
+openconfig_system_I_system_global_state_grouping : current-datetime : oc-yang:date-and-time  
+openconfig_system_I_system_global_state_grouping : boot-time : oc-types:timeticks64  
+class "system-dns-config" as openconfig_system_I_system_dns_config_grouping <<(G,Lime) grouping>> 
+openconfig_system_I_system_dns_config_grouping : search []: oc-inet:domain-name 
+class "system-dns-state" as openconfig_system_I_system_dns_state_grouping <<(G,Lime) grouping>> 
+class "system-dns-servers-config" as openconfig_system_I_system_dns_servers_config_grouping <<(G,Lime) grouping>> 
+openconfig_system_I_system_dns_servers_config_grouping : address : oc-inet:ip-address  
+openconfig_system_I_system_dns_servers_config_grouping : port : oc-inet:port-number   = 53 
+class "system-dns-static-config" as openconfig_system_I_system_dns_static_config_grouping <<(G,Lime) grouping>> 
+openconfig_system_I_system_dns_static_config_grouping : hostname : string  
+openconfig_system_I_system_dns_static_config_grouping : alias []: string 
+openconfig_system_I_system_dns_static_config_grouping : ipv4-address []: oc-inet:ipv4-address 
+openconfig_system_I_system_dns_static_config_grouping : ipv6-address []: oc-inet:ipv6-address 
+class "system-dns-static-state" as openconfig_system_I_system_dns_static_state_grouping <<(G,Lime) grouping>> 
+class "system-dns-static-top" as openconfig_system_I_system_dns_static_top_grouping <<(G,Lime) grouping>> 
+class "host-entries" as  openconfig_system_I_system_dns_static_top_I_host_entries <<container>> 
+openconfig_system_I_system_dns_static_top_grouping *-- "1" openconfig_system_I_system_dns_static_top_I_host_entries 
+class "host-entry" as openconfig_system_I_system_dns_static_top_I_host_entries_I_host_entry << (L, #FF7700) list>> 
+openconfig_system_I_system_dns_static_top_I_host_entries *-- "0..N" openconfig_system_I_system_dns_static_top_I_host_entries_I_host_entry 
+openconfig_system_I_system_dns_static_top_I_host_entries_I_host_entry : +hostname : leafref : ../config/hostname  {key} 
+class "config" as  openconfig_system_I_system_dns_static_top_I_host_entries_I_host_entry_I_config <<container>> 
+openconfig_system_I_system_dns_static_top_I_host_entries_I_host_entry *-- "1" openconfig_system_I_system_dns_static_top_I_host_entries_I_host_entry_I_config 
+openconfig_system_I_system_dns_static_top_I_host_entries_I_host_entry_I_config : system-dns-static-config {uses} 
+class "state" as  openconfig_system_I_system_dns_static_top_I_host_entries_I_host_entry_I_state <<container>> 
+openconfig_system_I_system_dns_static_top_I_host_entries_I_host_entry *-- "1" openconfig_system_I_system_dns_static_top_I_host_entries_I_host_entry_I_state 
+note bottom of openconfig_system_I_system_dns_static_top_I_host_entries_I_host_entry_I_state
+<b>Config = </b>false
+end note 
+openconfig_system_I_system_dns_static_top_I_host_entries_I_host_entry_I_state : system-dns-static-config {uses} 
+openconfig_system_I_system_dns_static_top_I_host_entries_I_host_entry_I_state : system-dns-static-state {uses} 
+class "system-dns-servers-state" as openconfig_system_I_system_dns_servers_state_grouping <<(G,Lime) grouping>> 
+class "system-dns-servers-top" as openconfig_system_I_system_dns_servers_top_grouping <<(G,Lime) grouping>> 
+class "servers" as  openconfig_system_I_system_dns_servers_top_I_servers <<container>> 
+openconfig_system_I_system_dns_servers_top_grouping *-- "1" openconfig_system_I_system_dns_servers_top_I_servers 
+class "server" as openconfig_system_I_system_dns_servers_top_I_servers_I_server << (L, #FF7700) list>> 
+openconfig_system_I_system_dns_servers_top_I_servers *-- "0..N" openconfig_system_I_system_dns_servers_top_I_servers_I_server : ordered-by : user
+openconfig_system_I_system_dns_servers_top_I_servers_I_server : +address : leafref : ../config/address  {key} 
+class "config" as  openconfig_system_I_system_dns_servers_top_I_servers_I_server_I_config <<container>> 
+openconfig_system_I_system_dns_servers_top_I_servers_I_server *-- "1" openconfig_system_I_system_dns_servers_top_I_servers_I_server_I_config 
+openconfig_system_I_system_dns_servers_top_I_servers_I_server_I_config : system-dns-servers-config {uses} 
+class "state" as  openconfig_system_I_system_dns_servers_top_I_servers_I_server_I_state <<container>> 
+openconfig_system_I_system_dns_servers_top_I_servers_I_server *-- "1" openconfig_system_I_system_dns_servers_top_I_servers_I_server_I_state 
+note bottom of openconfig_system_I_system_dns_servers_top_I_servers_I_server_I_state
+<b>Config = </b>false
+end note 
+openconfig_system_I_system_dns_servers_top_I_servers_I_server_I_state : system-dns-servers-config {uses} 
+openconfig_system_I_system_dns_servers_top_I_servers_I_server_I_state : system-dns-servers-state {uses} 
+class "system-dns-top" as openconfig_system_I_system_dns_top_grouping <<(G,Lime) grouping>> 
+class "dns" as  openconfig_system_I_system_dns_top_I_dns <<container>> 
+openconfig_system_I_system_dns_top_grouping *-- "1" openconfig_system_I_system_dns_top_I_dns 
+class "config" as  openconfig_system_I_system_dns_top_I_dns_I_config <<container>> 
+openconfig_system_I_system_dns_top_I_dns *-- "1" openconfig_system_I_system_dns_top_I_dns_I_config 
+openconfig_system_I_system_dns_top_I_dns_I_config : system-dns-config {uses} 
+class "state" as  openconfig_system_I_system_dns_top_I_dns_I_state <<container>> 
+openconfig_system_I_system_dns_top_I_dns *-- "1" openconfig_system_I_system_dns_top_I_dns_I_state 
+note bottom of openconfig_system_I_system_dns_top_I_dns_I_state
+<b>Config = </b>false
+end note 
+openconfig_system_I_system_dns_top_I_dns_I_state : system-dns-config {uses} 
+openconfig_system_I_system_dns_top_I_dns_I_state : system-dns-state {uses} 
+openconfig_system_I_system_dns_top_I_dns : system-dns-servers-top {uses} 
+openconfig_system_I_system_dns_top_I_dns : system-dns-static-top {uses} 
+class "system-ntp-server-config" as openconfig_system_I_system_ntp_server_config_grouping <<(G,Lime) grouping>> 
+openconfig_system_I_system_ntp_server_config_grouping : +address : oc-inet:host  {key} 
+openconfig_system_I_system_ntp_server_config_grouping : port : oc-inet:port-number   = 123 
+openconfig_system_I_system_ntp_server_config_grouping : version : uint8 [1..4]   = 4 
+openconfig_system_I_system_ntp_server_config_grouping : association-type : enumeration : {SERVER,PEER,POOL,}   = SERVER 
+openconfig_system_I_system_ntp_server_config_grouping : iburst : boolean   = false 
+openconfig_system_I_system_ntp_server_config_grouping : prefer : boolean   = false 
+class "system-ntp-server-state" as openconfig_system_I_system_ntp_server_state_grouping <<(G,Lime) grouping>> 
+openconfig_system_I_system_ntp_server_state_grouping : stratum : uint8  
+openconfig_system_I_system_ntp_server_state_grouping : root-delay : uint32   {milliseconds}
+openconfig_system_I_system_ntp_server_state_grouping : root-dispersion : uint64   {milliseconds}
+openconfig_system_I_system_ntp_server_state_grouping : offset : uint64   {milliseconds}
+openconfig_system_I_system_ntp_server_state_grouping : poll-interval : uint32   {seconds}
+class "system-ntp-server-top" as openconfig_system_I_system_ntp_server_top_grouping <<(G,Lime) grouping>> 
+class "servers" as  openconfig_system_I_system_ntp_server_top_I_servers <<container>> 
+openconfig_system_I_system_ntp_server_top_grouping *-- "1" openconfig_system_I_system_ntp_server_top_I_servers 
+class "server" as openconfig_system_I_system_ntp_server_top_I_servers_I_server << (L, #FF7700) list>> 
+openconfig_system_I_system_ntp_server_top_I_servers *-- "0..N" openconfig_system_I_system_ntp_server_top_I_servers_I_server 
+openconfig_system_I_system_ntp_server_top_I_servers_I_server : +address : leafref : ../config/address  {key} 
+class "config" as  openconfig_system_I_system_ntp_server_top_I_servers_I_server_I_config <<container>> 
+openconfig_system_I_system_ntp_server_top_I_servers_I_server *-- "1" openconfig_system_I_system_ntp_server_top_I_servers_I_server_I_config 
+openconfig_system_I_system_ntp_server_top_I_servers_I_server_I_config : system-ntp-server-config {uses} 
+class "state" as  openconfig_system_I_system_ntp_server_top_I_servers_I_server_I_state <<container>> 
+openconfig_system_I_system_ntp_server_top_I_servers_I_server *-- "1" openconfig_system_I_system_ntp_server_top_I_servers_I_server_I_state 
+note bottom of openconfig_system_I_system_ntp_server_top_I_servers_I_server_I_state
+<b>Config = </b>false
+end note 
+openconfig_system_I_system_ntp_server_top_I_servers_I_server_I_state : system-ntp-server-config {uses} 
+openconfig_system_I_system_ntp_server_top_I_servers_I_server_I_state : system-ntp-server-state {uses} 
+class "system-ntp-auth-keys-config" as openconfig_system_I_system_ntp_auth_keys_config_grouping <<(G,Lime) grouping>> 
+openconfig_system_I_system_ntp_auth_keys_config_grouping : key-id : uint16  
+openconfig_system_I_system_ntp_auth_keys_config_grouping : key-type : identityref {NTP_AUTH_TYPE}  
+openconfig_system_I_system_ntp_auth_keys_config_grouping : key-value : string  
+class "system-ntp-auth-keys-state" as openconfig_system_I_system_ntp_auth_keys_state_grouping <<(G,Lime) grouping>> 
+class "system-ntp-auth-keys-top" as openconfig_system_I_system_ntp_auth_keys_top_grouping <<(G,Lime) grouping>> 
+class "ntp-keys" as  openconfig_system_I_system_ntp_auth_keys_top_I_ntp_keys <<container>> 
+openconfig_system_I_system_ntp_auth_keys_top_grouping *-- "1" openconfig_system_I_system_ntp_auth_keys_top_I_ntp_keys 
+class "ntp-key" as openconfig_system_I_system_ntp_auth_keys_top_I_ntp_keys_I_ntp_key << (L, #FF7700) list>> 
+openconfig_system_I_system_ntp_auth_keys_top_I_ntp_keys *-- "0..N" openconfig_system_I_system_ntp_auth_keys_top_I_ntp_keys_I_ntp_key 
+openconfig_system_I_system_ntp_auth_keys_top_I_ntp_keys_I_ntp_key : +key-id : leafref : ../config/key-id  {key} 
+class "config" as  openconfig_system_I_system_ntp_auth_keys_top_I_ntp_keys_I_ntp_key_I_config <<container>> 
+openconfig_system_I_system_ntp_auth_keys_top_I_ntp_keys_I_ntp_key *-- "1" openconfig_system_I_system_ntp_auth_keys_top_I_ntp_keys_I_ntp_key_I_config 
+openconfig_system_I_system_ntp_auth_keys_top_I_ntp_keys_I_ntp_key_I_config : system-ntp-auth-keys-config {uses} 
+class "state" as  openconfig_system_I_system_ntp_auth_keys_top_I_ntp_keys_I_ntp_key_I_state <<container>> 
+openconfig_system_I_system_ntp_auth_keys_top_I_ntp_keys_I_ntp_key *-- "1" openconfig_system_I_system_ntp_auth_keys_top_I_ntp_keys_I_ntp_key_I_state 
+note bottom of openconfig_system_I_system_ntp_auth_keys_top_I_ntp_keys_I_ntp_key_I_state
+<b>Config = </b>false
+end note 
+openconfig_system_I_system_ntp_auth_keys_top_I_ntp_keys_I_ntp_key_I_state : system-ntp-auth-keys-config {uses} 
+openconfig_system_I_system_ntp_auth_keys_top_I_ntp_keys_I_ntp_key_I_state : system-ntp-auth-keys-state {uses} 
+class "system-ntp-config" as openconfig_system_I_system_ntp_config_grouping <<(G,Lime) grouping>> 
+openconfig_system_I_system_ntp_config_grouping : enabled : boolean   = false 
+openconfig_system_I_system_ntp_config_grouping : ntp-source-address : oc-inet:ip-address  
+openconfig_system_I_system_ntp_config_grouping : enable-ntp-auth : boolean   = false 
+class "system-ntp-state" as openconfig_system_I_system_ntp_state_grouping <<(G,Lime) grouping>> 
+openconfig_system_I_system_ntp_state_grouping : auth-mismatch : oc-yang:counter64  
+class "system-ntp-top" as openconfig_system_I_system_ntp_top_grouping <<(G,Lime) grouping>> 
+class "ntp" as  openconfig_system_I_system_ntp_top_I_ntp <<container>> 
+openconfig_system_I_system_ntp_top_grouping *-- "1" openconfig_system_I_system_ntp_top_I_ntp 
+class "config" as  openconfig_system_I_system_ntp_top_I_ntp_I_config <<container>> 
+openconfig_system_I_system_ntp_top_I_ntp *-- "1" openconfig_system_I_system_ntp_top_I_ntp_I_config 
+openconfig_system_I_system_ntp_top_I_ntp_I_config : system-ntp-config {uses} 
+class "state" as  openconfig_system_I_system_ntp_top_I_ntp_I_state <<container>> 
+openconfig_system_I_system_ntp_top_I_ntp *-- "1" openconfig_system_I_system_ntp_top_I_ntp_I_state 
+note bottom of openconfig_system_I_system_ntp_top_I_ntp_I_state
+<b>Config = </b>false
+end note 
+openconfig_system_I_system_ntp_top_I_ntp_I_state : system-ntp-config {uses} 
+openconfig_system_I_system_ntp_top_I_ntp_I_state : system-ntp-state {uses} 
+openconfig_system_I_system_ntp_top_I_ntp : system-ntp-auth-keys-top {uses} 
+openconfig_system_I_system_ntp_top_I_ntp : system-ntp-server-top {uses} 
+class "system-memory-config" as openconfig_system_I_system_memory_config_grouping <<(G,Lime) grouping>> 
+class "system-memory-state" as openconfig_system_I_system_memory_state_grouping <<(G,Lime) grouping>> 
+openconfig_system_I_system_memory_state_grouping : physical : uint64   {bytes}
+openconfig_system_I_system_memory_state_grouping : reserved : uint64   {bytes}
+class "system-memory-top" as openconfig_system_I_system_memory_top_grouping <<(G,Lime) grouping>> 
+class "memory" as  openconfig_system_I_system_memory_top_I_memory <<container>> 
+openconfig_system_I_system_memory_top_grouping *-- "1" openconfig_system_I_system_memory_top_I_memory 
+class "config" as  openconfig_system_I_system_memory_top_I_memory_I_config <<container>> 
+openconfig_system_I_system_memory_top_I_memory *-- "1" openconfig_system_I_system_memory_top_I_memory_I_config 
+openconfig_system_I_system_memory_top_I_memory_I_config : system-memory-config {uses} 
+class "state" as  openconfig_system_I_system_memory_top_I_memory_I_state <<container>> 
+openconfig_system_I_system_memory_top_I_memory *-- "1" openconfig_system_I_system_memory_top_I_memory_I_state 
+note bottom of openconfig_system_I_system_memory_top_I_memory_I_state
+<b>Config = </b>false
+end note 
+openconfig_system_I_system_memory_top_I_memory_I_state : system-memory-config {uses} 
+openconfig_system_I_system_memory_top_I_memory_I_state : system-memory-state {uses} 
+class "system-cpu-state" as openconfig_system_I_system_cpu_state_grouping <<(G,Lime) grouping>> 
+openconfig_system_I_system_cpu_state_grouping : index : union{enumeration, uint32}  
+class "total" as  openconfig_system_I_system_cpu_state_I_total <<container>> 
+openconfig_system_I_system_cpu_state_grouping *-- "1" openconfig_system_I_system_cpu_state_I_total 
+openconfig_system_I_system_cpu_state_I_total : oc-types:avg-min-max-instant-stats-pct {uses} 
+class "user" as  openconfig_system_I_system_cpu_state_I_user <<container>> 
+openconfig_system_I_system_cpu_state_grouping *-- "1" openconfig_system_I_system_cpu_state_I_user 
+openconfig_system_I_system_cpu_state_I_user : oc-types:avg-min-max-instant-stats-pct {uses} 
+class "kernel" as  openconfig_system_I_system_cpu_state_I_kernel <<container>> 
+openconfig_system_I_system_cpu_state_grouping *-- "1" openconfig_system_I_system_cpu_state_I_kernel 
+openconfig_system_I_system_cpu_state_I_kernel : oc-types:avg-min-max-instant-stats-pct {uses} 
+class "nice" as  openconfig_system_I_system_cpu_state_I_nice <<container>> 
+openconfig_system_I_system_cpu_state_grouping *-- "1" openconfig_system_I_system_cpu_state_I_nice 
+openconfig_system_I_system_cpu_state_I_nice : oc-types:avg-min-max-instant-stats-pct {uses} 
+class "idle" as  openconfig_system_I_system_cpu_state_I_idle <<container>> 
+openconfig_system_I_system_cpu_state_grouping *-- "1" openconfig_system_I_system_cpu_state_I_idle 
+openconfig_system_I_system_cpu_state_I_idle : oc-types:avg-min-max-instant-stats-pct {uses} 
+class "wait" as  openconfig_system_I_system_cpu_state_I_wait <<container>> 
+openconfig_system_I_system_cpu_state_grouping *-- "1" openconfig_system_I_system_cpu_state_I_wait 
+openconfig_system_I_system_cpu_state_I_wait : oc-types:avg-min-max-instant-stats-pct {uses} 
+class "hardware-interrupt" as  openconfig_system_I_system_cpu_state_I_hardware_interrupt <<container>> 
+openconfig_system_I_system_cpu_state_grouping *-- "1" openconfig_system_I_system_cpu_state_I_hardware_interrupt 
+openconfig_system_I_system_cpu_state_I_hardware_interrupt : oc-types:avg-min-max-instant-stats-pct {uses} 
+class "software-interrupt" as  openconfig_system_I_system_cpu_state_I_software_interrupt <<container>> 
+openconfig_system_I_system_cpu_state_grouping *-- "1" openconfig_system_I_system_cpu_state_I_software_interrupt 
+openconfig_system_I_system_cpu_state_I_software_interrupt : oc-types:avg-min-max-instant-stats-pct {uses} 
+class "system-cpu-top" as openconfig_system_I_system_cpu_top_grouping <<(G,Lime) grouping>> 
+class "cpus" as  openconfig_system_I_system_cpu_top_I_cpus <<container>> 
+openconfig_system_I_system_cpu_top_grouping *-- "1" openconfig_system_I_system_cpu_top_I_cpus 
+note bottom of openconfig_system_I_system_cpu_top_I_cpus
+<b>Config = </b>false
+end note 
+class "cpu" as openconfig_system_I_system_cpu_top_I_cpus_I_cpu << (L, #FF7700) list>> 
+openconfig_system_I_system_cpu_top_I_cpus *-- "0..N" openconfig_system_I_system_cpu_top_I_cpus_I_cpu 
+openconfig_system_I_system_cpu_top_I_cpus_I_cpu : +index : leafref : ../state/index  {key} 
+class "state" as  openconfig_system_I_system_cpu_top_I_cpus_I_cpu_I_state <<container>> 
+openconfig_system_I_system_cpu_top_I_cpus_I_cpu *-- "1" openconfig_system_I_system_cpu_top_I_cpus_I_cpu_I_state 
+openconfig_system_I_system_cpu_top_I_cpus_I_cpu_I_state : system-cpu-state {uses} 
+class "system-top" as openconfig_system_I_system_top_grouping <<(G,Lime) grouping>> 
+class "system" as  openconfig_system_I_system_top_I_system <<container>> 
+openconfig_system_I_system_top_grouping *-- "1" openconfig_system_I_system_top_I_system 
+class "config" as  openconfig_system_I_system_top_I_system_I_config <<container>> 
+openconfig_system_I_system_top_I_system *-- "1" openconfig_system_I_system_top_I_system_I_config 
+openconfig_system_I_system_top_I_system_I_config : system-global-config {uses} 
+class "state" as  openconfig_system_I_system_top_I_system_I_state <<container>> 
+openconfig_system_I_system_top_I_system *-- "1" openconfig_system_I_system_top_I_system_I_state 
+note bottom of openconfig_system_I_system_top_I_system_I_state
+<b>Config = </b>false
+end note 
+openconfig_system_I_system_top_I_system_I_state : system-global-config {uses} 
+openconfig_system_I_system_top_I_system_I_state : system-global-state {uses} 
+openconfig_system_I_system_top_I_system : system-clock-top {uses} 
+openconfig_system_I_system_top_I_system : system-dns-top {uses} 
+openconfig_system_I_system_top_I_system : system-ntp-top {uses} 
+openconfig_system_I_system_top_I_system : oc-sys-term:system-ssh-server-top {uses} 
+openconfig_system_I_system_top_I_system : oc-sys-term:system-telnet-server-top {uses} 
+openconfig_system_I_system_top_I_system : oc-log:logging-top {uses} 
+openconfig_system_I_system_top_I_system : oc-aaa:aaa-top {uses} 
+openconfig_system_I_system_top_I_system : system-memory-top {uses} 
+openconfig_system_I_system_top_I_system : system-cpu-top {uses} 
+openconfig_system_I_system_top_I_system : oc-proc:procmon-processes-top {uses} 
+openconfig_system_I_system_top_I_system : oc-alarms:alarms-top {uses} 
+class "NTP_AUTH_TYPE" as NTP_AUTH_TYPE << (I,Silver) identity>> 
+class "NTP_AUTH_MD5" as NTP_AUTH_MD5 << (I,Silver) identity>> 
+NTP_AUTH_TYPE <|-- NTP_AUTH_MD5 
+openconfig_system_I_system_ntp_auth_keys_config_grouping-->NTP_AUTH_TYPE: key-type
+} 
+
+openconfig_system_I_system_clock_top_I_clock_I_config --> openconfig_system_I_system_clock_config_grouping : uses 
+openconfig_system_I_system_clock_top_I_clock_I_state --> openconfig_system_I_system_clock_config_grouping : uses 
+openconfig_system_I_system_clock_top_I_clock_I_state --> openconfig_system_I_system_clock_state_grouping : uses 
+openconfig_system_I_system_dns_static_top_I_host_entries_I_host_entry_I_config --> openconfig_system_I_system_dns_static_config_grouping : uses 
+openconfig_system_I_system_dns_static_top_I_host_entries_I_host_entry_I_state --> openconfig_system_I_system_dns_static_config_grouping : uses 
+openconfig_system_I_system_dns_static_top_I_host_entries_I_host_entry_I_state --> openconfig_system_I_system_dns_static_state_grouping : uses 
+openconfig_system_I_system_dns_servers_top_I_servers_I_server_I_config --> openconfig_system_I_system_dns_servers_config_grouping : uses 
+openconfig_system_I_system_dns_servers_top_I_servers_I_server_I_state --> openconfig_system_I_system_dns_servers_config_grouping : uses 
+openconfig_system_I_system_dns_servers_top_I_servers_I_server_I_state --> openconfig_system_I_system_dns_servers_state_grouping : uses 
+openconfig_system_I_system_dns_top_I_dns_I_config --> openconfig_system_I_system_dns_config_grouping : uses 
+openconfig_system_I_system_dns_top_I_dns_I_state --> openconfig_system_I_system_dns_config_grouping : uses 
+openconfig_system_I_system_dns_top_I_dns_I_state --> openconfig_system_I_system_dns_state_grouping : uses 
+openconfig_system_I_system_dns_top_I_dns --> openconfig_system_I_system_dns_servers_top_grouping : uses 
+openconfig_system_I_system_dns_top_I_dns --> openconfig_system_I_system_dns_static_top_grouping : uses 
+openconfig_system_I_system_ntp_server_top_I_servers_I_server_I_config --> openconfig_system_I_system_ntp_server_config_grouping : uses 
+openconfig_system_I_system_ntp_server_top_I_servers_I_server_I_state --> openconfig_system_I_system_ntp_server_config_grouping : uses 
+openconfig_system_I_system_ntp_server_top_I_servers_I_server_I_state --> openconfig_system_I_system_ntp_server_state_grouping : uses 
+openconfig_system_I_system_ntp_auth_keys_top_I_ntp_keys_I_ntp_key_I_config --> openconfig_system_I_system_ntp_auth_keys_config_grouping : uses 
+openconfig_system_I_system_ntp_auth_keys_top_I_ntp_keys_I_ntp_key_I_state --> openconfig_system_I_system_ntp_auth_keys_config_grouping : uses 
+openconfig_system_I_system_ntp_auth_keys_top_I_ntp_keys_I_ntp_key_I_state --> openconfig_system_I_system_ntp_auth_keys_state_grouping : uses 
+openconfig_system_I_system_ntp_top_I_ntp_I_config --> openconfig_system_I_system_ntp_config_grouping : uses 
+openconfig_system_I_system_ntp_top_I_ntp_I_state --> openconfig_system_I_system_ntp_config_grouping : uses 
+openconfig_system_I_system_ntp_top_I_ntp_I_state --> openconfig_system_I_system_ntp_state_grouping : uses 
+openconfig_system_I_system_ntp_top_I_ntp --> openconfig_system_I_system_ntp_auth_keys_top_grouping : uses 
+openconfig_system_I_system_ntp_top_I_ntp --> openconfig_system_I_system_ntp_server_top_grouping : uses 
+openconfig_system_I_system_memory_top_I_memory_I_config --> openconfig_system_I_system_memory_config_grouping : uses 
+openconfig_system_I_system_memory_top_I_memory_I_state --> openconfig_system_I_system_memory_config_grouping : uses 
+openconfig_system_I_system_memory_top_I_memory_I_state --> openconfig_system_I_system_memory_state_grouping : uses 
+openconfig_system_I_system_cpu_top_I_cpus_I_cpu_I_state --> openconfig_system_I_system_cpu_state_grouping : uses 
+openconfig_system_I_system_top_I_system_I_config --> openconfig_system_I_system_global_config_grouping : uses 
+openconfig_system_I_system_top_I_system_I_state --> openconfig_system_I_system_global_config_grouping : uses 
+openconfig_system_I_system_top_I_system_I_state --> openconfig_system_I_system_global_state_grouping : uses 
+openconfig_system_I_system_top_I_system --> openconfig_system_I_system_clock_top_grouping : uses 
+openconfig_system_I_system_top_I_system --> openconfig_system_I_system_dns_top_grouping : uses 
+openconfig_system_I_system_top_I_system --> openconfig_system_I_system_ntp_top_grouping : uses 
+openconfig_system_I_system_top_I_system --> openconfig_system_I_system_memory_top_grouping : uses 
+openconfig_system_I_system_top_I_system --> openconfig_system_I_system_cpu_top_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:11 </size>
+ endfooter 
+@enduml 

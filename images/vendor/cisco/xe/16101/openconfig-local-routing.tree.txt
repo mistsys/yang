@@ -1,0 +1,44 @@
+module: openconfig-local-routing
+   +--rw local-routes
+      +--rw config
+      +--ro state
+      +--rw static-routes
+      |  +--rw static* [prefix]
+      |     +--rw prefix       -> ../config/prefix
+      |     +--rw config
+      |     |  +--rw prefix?    inet:ip-prefix
+      |     |  +--rw set-tag?   oc-pt:tag-type
+      |     +--ro state
+      |     |  +--ro prefix?    inet:ip-prefix
+      |     |  +--ro set-tag?   oc-pt:tag-type
+      |     +--rw next-hops
+      |        +--rw next-hop* [index]
+      |           +--rw index            -> ../config/index
+      |           +--rw config
+      |           |  +--rw index?      string
+      |           |  +--rw next-hop?   union
+      |           |  +--rw metric?     uint32
+      |           |  +--rw recurse?    boolean
+      |           +--ro state
+      |           |  +--ro index?      string
+      |           |  +--ro next-hop?   union
+      |           |  +--ro metric?     uint32
+      |           |  +--ro recurse?    boolean
+      |           +--rw interface-ref
+      |              +--rw config
+      |              |  +--rw interface?      -> /oc-if:interfaces/interface/name
+      |              |  +--rw subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+      |              +--ro state
+      |                 +--ro interface?      -> /oc-if:interfaces/interface/name
+      |                 +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+      +--rw local-aggregates
+         +--rw aggregate* [prefix]
+            +--rw prefix    -> ../config/prefix
+            +--rw config
+            |  +--rw prefix?    inet:ip-prefix
+            |  +--rw discard?   boolean
+            |  +--rw set-tag?   oc-pt:tag-type
+            +--ro state
+               +--ro prefix?    inet:ip-prefix
+               +--ro discard?   boolean
+               +--ro set-tag?   oc-pt:tag-type

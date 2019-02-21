@@ -1,0 +1,290 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-aaa.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-aaa 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+package "oc-inet:openconfig-inet-types" as oc_inet_openconfig_inet_types { 
+} 
+package "oc-yang:openconfig-yang-types" as oc_yang_openconfig_yang_types { 
+} 
+package "oc-aaa-types:openconfig-aaa-types" as oc_aaa_types_openconfig_aaa_types { 
+} 
+note top of oc_aaa_openconfig_aaa : <b>Namespace: </b> http://openconfig.net/yang/aaa \n<b>Prefix: </b> oc-aaa \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nwww.openconfig.net \n<b>Revision : </b> 2017-09-18 \n
+package "oc-aaa:openconfig-aaa" as oc_aaa_openconfig_aaa { 
+oc_ext_openconfig_extensions +-- oc_aaa_openconfig_aaa
+oc_inet_openconfig_inet_types +-- oc_aaa_openconfig_aaa
+oc_yang_openconfig_yang_types +-- oc_aaa_openconfig_aaa
+oc_aaa_types_openconfig_aaa_types +-- oc_aaa_openconfig_aaa
+package "openconfig-aaa-tacacs" as openconfig_aaa_tacacs { 
+}
+package "openconfig-aaa-radius" as openconfig_aaa_radius { 
+}
+class "openconfig-aaa" as openconfig_aaa << (M, #33CCFF) module>> 
+class "aaa-servergroup-common-config" as openconfig_aaa_I_aaa_servergroup_common_config_grouping <<(G,Lime) grouping>> 
+openconfig_aaa_I_aaa_servergroup_common_config_grouping : name : string  
+openconfig_aaa_I_aaa_servergroup_common_config_grouping : type : identityref {oc-aaa-types:AAA_SERVER_TYPE}  
+class "aaa-servergroup-common-state" as openconfig_aaa_I_aaa_servergroup_common_state_grouping <<(G,Lime) grouping>> 
+class "aaa-servergroup-common-top" as openconfig_aaa_I_aaa_servergroup_common_top_grouping <<(G,Lime) grouping>> 
+class "server-groups" as  openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups <<container>> 
+openconfig_aaa_I_aaa_servergroup_common_top_grouping *-- "1" openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups 
+class "server-group" as openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups_I_server_group << (L, #FF7700) list>> 
+openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups *-- "0..N" openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups_I_server_group 
+openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups_I_server_group : +name : leafref : ../config/name  {key} 
+class "config" as  openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups_I_server_group_I_config <<container>> 
+openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups_I_server_group *-- "1" openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups_I_server_group_I_config 
+openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups_I_server_group_I_config : aaa-servergroup-common-config {uses} 
+class "state" as  openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups_I_server_group_I_state <<container>> 
+openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups_I_server_group *-- "1" openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups_I_server_group_I_state 
+note bottom of openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups_I_server_group_I_state
+<b>Config = </b>false
+end note 
+openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups_I_server_group_I_state : aaa-servergroup-common-config {uses} 
+openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups_I_server_group_I_state : aaa-servergroup-common-state {uses} 
+openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups_I_server_group : aaa-server-top {uses} 
+class "aaa-server-config" as openconfig_aaa_I_aaa_server_config_grouping <<(G,Lime) grouping>> 
+openconfig_aaa_I_aaa_server_config_grouping : +name : string  {key} 
+openconfig_aaa_I_aaa_server_config_grouping : address : oc-inet:ip-address  
+openconfig_aaa_I_aaa_server_config_grouping : timeout : uint16   {seconds}
+class "aaa-server-state" as openconfig_aaa_I_aaa_server_state_grouping <<(G,Lime) grouping>> 
+openconfig_aaa_I_aaa_server_state_grouping : connection-opens : oc-yang:counter64  
+openconfig_aaa_I_aaa_server_state_grouping : connection-closes : oc-yang:counter64  
+openconfig_aaa_I_aaa_server_state_grouping : connection-aborts : oc-yang:counter64  
+openconfig_aaa_I_aaa_server_state_grouping : connection-failures : oc-yang:counter64  
+openconfig_aaa_I_aaa_server_state_grouping : connection-timeouts : oc-yang:counter64  
+openconfig_aaa_I_aaa_server_state_grouping : messages-sent : oc-yang:counter64  
+openconfig_aaa_I_aaa_server_state_grouping : messages-received : oc-yang:counter64  
+openconfig_aaa_I_aaa_server_state_grouping : errors-received : oc-yang:counter64  
+class "aaa-server-top" as openconfig_aaa_I_aaa_server_top_grouping <<(G,Lime) grouping>> 
+class "servers" as  openconfig_aaa_I_aaa_server_top_I_servers <<container>> 
+openconfig_aaa_I_aaa_server_top_grouping *-- "1" openconfig_aaa_I_aaa_server_top_I_servers 
+class "server" as openconfig_aaa_I_aaa_server_top_I_servers_I_server << (L, #FF7700) list>> 
+openconfig_aaa_I_aaa_server_top_I_servers *-- "0..N" openconfig_aaa_I_aaa_server_top_I_servers_I_server 
+openconfig_aaa_I_aaa_server_top_I_servers_I_server : +address : leafref : ../config/address  {key} 
+class "config" as  openconfig_aaa_I_aaa_server_top_I_servers_I_server_I_config <<container>> 
+openconfig_aaa_I_aaa_server_top_I_servers_I_server *-- "1" openconfig_aaa_I_aaa_server_top_I_servers_I_server_I_config 
+openconfig_aaa_I_aaa_server_top_I_servers_I_server_I_config : aaa-server-config {uses} 
+class "state" as  openconfig_aaa_I_aaa_server_top_I_servers_I_server_I_state <<container>> 
+openconfig_aaa_I_aaa_server_top_I_servers_I_server *-- "1" openconfig_aaa_I_aaa_server_top_I_servers_I_server_I_state 
+note bottom of openconfig_aaa_I_aaa_server_top_I_servers_I_server_I_state
+<b>Config = </b>false
+end note 
+openconfig_aaa_I_aaa_server_top_I_servers_I_server_I_state : aaa-server-config {uses} 
+openconfig_aaa_I_aaa_server_top_I_servers_I_server_I_state : aaa-server-state {uses} 
+openconfig_aaa_I_aaa_server_top_I_servers_I_server : aaa-tacacs-server-top {uses} 
+openconfig_aaa_I_aaa_server_top_I_servers_I_server : aaa-radius-server-top {uses} 
+class "aaa-admin-config" as openconfig_aaa_I_aaa_admin_config_grouping <<(G,Lime) grouping>> 
+openconfig_aaa_I_aaa_admin_config_grouping : admin-password : string  
+openconfig_aaa_I_aaa_admin_config_grouping : admin-password-hashed : oc-aaa-types:crypt-password-type  
+class "aaa-admin-state" as openconfig_aaa_I_aaa_admin_state_grouping <<(G,Lime) grouping>> 
+openconfig_aaa_I_aaa_admin_state_grouping : admin-username : string  
+class "aaa-authentication-admin-top" as openconfig_aaa_I_aaa_authentication_admin_top_grouping <<(G,Lime) grouping>> 
+class "admin-user" as  openconfig_aaa_I_aaa_authentication_admin_top_I_admin_user <<container>> 
+openconfig_aaa_I_aaa_authentication_admin_top_grouping *-- "1" openconfig_aaa_I_aaa_authentication_admin_top_I_admin_user 
+class "config" as  openconfig_aaa_I_aaa_authentication_admin_top_I_admin_user_I_config <<container>> 
+openconfig_aaa_I_aaa_authentication_admin_top_I_admin_user *-- "1" openconfig_aaa_I_aaa_authentication_admin_top_I_admin_user_I_config 
+openconfig_aaa_I_aaa_authentication_admin_top_I_admin_user_I_config : aaa-admin-config {uses} 
+class "state" as  openconfig_aaa_I_aaa_authentication_admin_top_I_admin_user_I_state <<container>> 
+openconfig_aaa_I_aaa_authentication_admin_top_I_admin_user *-- "1" openconfig_aaa_I_aaa_authentication_admin_top_I_admin_user_I_state 
+note bottom of openconfig_aaa_I_aaa_authentication_admin_top_I_admin_user_I_state
+<b>Config = </b>false
+end note 
+openconfig_aaa_I_aaa_authentication_admin_top_I_admin_user_I_state : aaa-admin-config {uses} 
+openconfig_aaa_I_aaa_authentication_admin_top_I_admin_user_I_state : aaa-admin-state {uses} 
+class "aaa-authentication-user-config" as openconfig_aaa_I_aaa_authentication_user_config_grouping <<(G,Lime) grouping>> 
+openconfig_aaa_I_aaa_authentication_user_config_grouping : username : string  
+openconfig_aaa_I_aaa_authentication_user_config_grouping : password : string  
+openconfig_aaa_I_aaa_authentication_user_config_grouping : password-hashed : oc-aaa-types:crypt-password-type  
+openconfig_aaa_I_aaa_authentication_user_config_grouping : ssh-key : string  
+openconfig_aaa_I_aaa_authentication_user_config_grouping : role : union{string, identityref}  
+class "aaa-authentication-user-state" as openconfig_aaa_I_aaa_authentication_user_state_grouping <<(G,Lime) grouping>> 
+class "aaa-authentication-user-top" as openconfig_aaa_I_aaa_authentication_user_top_grouping <<(G,Lime) grouping>> 
+class "users" as  openconfig_aaa_I_aaa_authentication_user_top_I_users <<container>> 
+openconfig_aaa_I_aaa_authentication_user_top_grouping *-- "1" openconfig_aaa_I_aaa_authentication_user_top_I_users 
+class "user" as openconfig_aaa_I_aaa_authentication_user_top_I_users_I_user << (L, #FF7700) list>> 
+openconfig_aaa_I_aaa_authentication_user_top_I_users *-- "0..N" openconfig_aaa_I_aaa_authentication_user_top_I_users_I_user 
+openconfig_aaa_I_aaa_authentication_user_top_I_users_I_user : +username : leafref : ../config/username  {key} 
+class "config" as  openconfig_aaa_I_aaa_authentication_user_top_I_users_I_user_I_config <<container>> 
+openconfig_aaa_I_aaa_authentication_user_top_I_users_I_user *-- "1" openconfig_aaa_I_aaa_authentication_user_top_I_users_I_user_I_config 
+openconfig_aaa_I_aaa_authentication_user_top_I_users_I_user_I_config : aaa-authentication-user-config {uses} 
+class "state" as  openconfig_aaa_I_aaa_authentication_user_top_I_users_I_user_I_state <<container>> 
+openconfig_aaa_I_aaa_authentication_user_top_I_users_I_user *-- "1" openconfig_aaa_I_aaa_authentication_user_top_I_users_I_user_I_state 
+note bottom of openconfig_aaa_I_aaa_authentication_user_top_I_users_I_user_I_state
+<b>Config = </b>false
+end note 
+openconfig_aaa_I_aaa_authentication_user_top_I_users_I_user_I_state : aaa-authentication-user-config {uses} 
+openconfig_aaa_I_aaa_authentication_user_top_I_users_I_user_I_state : aaa-authentication-user-state {uses} 
+class "aaa-accounting-methods-common" as openconfig_aaa_I_aaa_accounting_methods_common_grouping <<(G,Lime) grouping>> 
+openconfig_aaa_I_aaa_accounting_methods_common_grouping : accounting-method []: union{identityref, string} 
+class "aaa-accounting-events-config" as openconfig_aaa_I_aaa_accounting_events_config_grouping <<(G,Lime) grouping>> 
+openconfig_aaa_I_aaa_accounting_events_config_grouping : event-type : identityref {oc-aaa-types:AAA_ACCOUNTING_EVENT_TYPE}  
+openconfig_aaa_I_aaa_accounting_events_config_grouping : record : enumeration : {START_STOP,STOP,}  
+class "aaa-accounting-events-state" as openconfig_aaa_I_aaa_accounting_events_state_grouping <<(G,Lime) grouping>> 
+class "aaa-accounting-events-top" as openconfig_aaa_I_aaa_accounting_events_top_grouping <<(G,Lime) grouping>> 
+class "events" as  openconfig_aaa_I_aaa_accounting_events_top_I_events <<container>> 
+openconfig_aaa_I_aaa_accounting_events_top_grouping *-- "1" openconfig_aaa_I_aaa_accounting_events_top_I_events 
+class "event" as openconfig_aaa_I_aaa_accounting_events_top_I_events_I_event << (L, #FF7700) list>> 
+openconfig_aaa_I_aaa_accounting_events_top_I_events *-- "0..N" openconfig_aaa_I_aaa_accounting_events_top_I_events_I_event 
+openconfig_aaa_I_aaa_accounting_events_top_I_events_I_event : +event-type : leafref : ../config/event-type  {key} 
+class "config" as  openconfig_aaa_I_aaa_accounting_events_top_I_events_I_event_I_config <<container>> 
+openconfig_aaa_I_aaa_accounting_events_top_I_events_I_event *-- "1" openconfig_aaa_I_aaa_accounting_events_top_I_events_I_event_I_config 
+openconfig_aaa_I_aaa_accounting_events_top_I_events_I_event_I_config : aaa-accounting-events-config {uses} 
+class "state" as  openconfig_aaa_I_aaa_accounting_events_top_I_events_I_event_I_state <<container>> 
+openconfig_aaa_I_aaa_accounting_events_top_I_events_I_event *-- "1" openconfig_aaa_I_aaa_accounting_events_top_I_events_I_event_I_state 
+note bottom of openconfig_aaa_I_aaa_accounting_events_top_I_events_I_event_I_state
+<b>Config = </b>false
+end note 
+openconfig_aaa_I_aaa_accounting_events_top_I_events_I_event_I_state : aaa-accounting-events-config {uses} 
+openconfig_aaa_I_aaa_accounting_events_top_I_events_I_event_I_state : aaa-accounting-events-state {uses} 
+class "aaa-accounting-config" as openconfig_aaa_I_aaa_accounting_config_grouping <<(G,Lime) grouping>> 
+openconfig_aaa_I_aaa_accounting_config_grouping : aaa-accounting-methods-common {uses} 
+class "aaa-accounting-state" as openconfig_aaa_I_aaa_accounting_state_grouping <<(G,Lime) grouping>> 
+class "aaa-accounting-top" as openconfig_aaa_I_aaa_accounting_top_grouping <<(G,Lime) grouping>> 
+class "accounting" as  openconfig_aaa_I_aaa_accounting_top_I_accounting <<container>> 
+openconfig_aaa_I_aaa_accounting_top_grouping *-- "1" openconfig_aaa_I_aaa_accounting_top_I_accounting 
+class "config" as  openconfig_aaa_I_aaa_accounting_top_I_accounting_I_config <<container>> 
+openconfig_aaa_I_aaa_accounting_top_I_accounting *-- "1" openconfig_aaa_I_aaa_accounting_top_I_accounting_I_config 
+openconfig_aaa_I_aaa_accounting_top_I_accounting_I_config : aaa-accounting-config {uses} 
+class "state" as  openconfig_aaa_I_aaa_accounting_top_I_accounting_I_state <<container>> 
+openconfig_aaa_I_aaa_accounting_top_I_accounting *-- "1" openconfig_aaa_I_aaa_accounting_top_I_accounting_I_state 
+note bottom of openconfig_aaa_I_aaa_accounting_top_I_accounting_I_state
+<b>Config = </b>false
+end note 
+openconfig_aaa_I_aaa_accounting_top_I_accounting_I_state : aaa-accounting-config {uses} 
+openconfig_aaa_I_aaa_accounting_top_I_accounting_I_state : aaa-accounting-state {uses} 
+openconfig_aaa_I_aaa_accounting_top_I_accounting : aaa-accounting-events-top {uses} 
+class "aaa-authorization-methods-config" as openconfig_aaa_I_aaa_authorization_methods_config_grouping <<(G,Lime) grouping>> 
+openconfig_aaa_I_aaa_authorization_methods_config_grouping : authorization-method []: union{identityref, string} 
+class "aaa-authorization-events-config" as openconfig_aaa_I_aaa_authorization_events_config_grouping <<(G,Lime) grouping>> 
+openconfig_aaa_I_aaa_authorization_events_config_grouping : +event-type : identityref {oc-aaa-types:AAA_AUTHORIZATION_EVENT_TYPE}  {key} 
+class "aaa-authorization-events-state" as openconfig_aaa_I_aaa_authorization_events_state_grouping <<(G,Lime) grouping>> 
+class "aaa-authorization-events-top" as openconfig_aaa_I_aaa_authorization_events_top_grouping <<(G,Lime) grouping>> 
+class "events" as  openconfig_aaa_I_aaa_authorization_events_top_I_events <<container>> 
+openconfig_aaa_I_aaa_authorization_events_top_grouping *-- "1" openconfig_aaa_I_aaa_authorization_events_top_I_events 
+class "event" as openconfig_aaa_I_aaa_authorization_events_top_I_events_I_event << (L, #FF7700) list>> 
+openconfig_aaa_I_aaa_authorization_events_top_I_events *-- "0..N" openconfig_aaa_I_aaa_authorization_events_top_I_events_I_event 
+openconfig_aaa_I_aaa_authorization_events_top_I_events_I_event : +event-type : leafref : ../config/event-type  {key} 
+class "config" as  openconfig_aaa_I_aaa_authorization_events_top_I_events_I_event_I_config <<container>> 
+openconfig_aaa_I_aaa_authorization_events_top_I_events_I_event *-- "1" openconfig_aaa_I_aaa_authorization_events_top_I_events_I_event_I_config 
+openconfig_aaa_I_aaa_authorization_events_top_I_events_I_event_I_config : aaa-authorization-events-config {uses} 
+class "state" as  openconfig_aaa_I_aaa_authorization_events_top_I_events_I_event_I_state <<container>> 
+openconfig_aaa_I_aaa_authorization_events_top_I_events_I_event *-- "1" openconfig_aaa_I_aaa_authorization_events_top_I_events_I_event_I_state 
+note bottom of openconfig_aaa_I_aaa_authorization_events_top_I_events_I_event_I_state
+<b>Config = </b>false
+end note 
+openconfig_aaa_I_aaa_authorization_events_top_I_events_I_event_I_state : aaa-authorization-events-config {uses} 
+openconfig_aaa_I_aaa_authorization_events_top_I_events_I_event_I_state : aaa-authorization-events-state {uses} 
+class "aaa-authorization-config" as openconfig_aaa_I_aaa_authorization_config_grouping <<(G,Lime) grouping>> 
+openconfig_aaa_I_aaa_authorization_config_grouping : aaa-authorization-methods-config {uses} 
+class "aaa-authorization-state" as openconfig_aaa_I_aaa_authorization_state_grouping <<(G,Lime) grouping>> 
+class "aaa-authorization-top" as openconfig_aaa_I_aaa_authorization_top_grouping <<(G,Lime) grouping>> 
+class "authorization" as  openconfig_aaa_I_aaa_authorization_top_I_authorization <<container>> 
+openconfig_aaa_I_aaa_authorization_top_grouping *-- "1" openconfig_aaa_I_aaa_authorization_top_I_authorization 
+class "config" as  openconfig_aaa_I_aaa_authorization_top_I_authorization_I_config <<container>> 
+openconfig_aaa_I_aaa_authorization_top_I_authorization *-- "1" openconfig_aaa_I_aaa_authorization_top_I_authorization_I_config 
+openconfig_aaa_I_aaa_authorization_top_I_authorization_I_config : aaa-authorization-config {uses} 
+class "state" as  openconfig_aaa_I_aaa_authorization_top_I_authorization_I_state <<container>> 
+openconfig_aaa_I_aaa_authorization_top_I_authorization *-- "1" openconfig_aaa_I_aaa_authorization_top_I_authorization_I_state 
+note bottom of openconfig_aaa_I_aaa_authorization_top_I_authorization_I_state
+<b>Config = </b>false
+end note 
+openconfig_aaa_I_aaa_authorization_top_I_authorization_I_state : aaa-authorization-config {uses} 
+openconfig_aaa_I_aaa_authorization_top_I_authorization_I_state : aaa-authorization-state {uses} 
+openconfig_aaa_I_aaa_authorization_top_I_authorization : aaa-authorization-events-top {uses} 
+class "aaa-authentication-config" as openconfig_aaa_I_aaa_authentication_config_grouping <<(G,Lime) grouping>> 
+openconfig_aaa_I_aaa_authentication_config_grouping : authentication-method []: union{identityref, string} 
+class "aaa-authentication-state" as openconfig_aaa_I_aaa_authentication_state_grouping <<(G,Lime) grouping>> 
+class "aaa-authentication-top" as openconfig_aaa_I_aaa_authentication_top_grouping <<(G,Lime) grouping>> 
+class "authentication" as  openconfig_aaa_I_aaa_authentication_top_I_authentication <<container>> 
+openconfig_aaa_I_aaa_authentication_top_grouping *-- "1" openconfig_aaa_I_aaa_authentication_top_I_authentication 
+class "config" as  openconfig_aaa_I_aaa_authentication_top_I_authentication_I_config <<container>> 
+openconfig_aaa_I_aaa_authentication_top_I_authentication *-- "1" openconfig_aaa_I_aaa_authentication_top_I_authentication_I_config 
+openconfig_aaa_I_aaa_authentication_top_I_authentication_I_config : aaa-authentication-config {uses} 
+class "state" as  openconfig_aaa_I_aaa_authentication_top_I_authentication_I_state <<container>> 
+openconfig_aaa_I_aaa_authentication_top_I_authentication *-- "1" openconfig_aaa_I_aaa_authentication_top_I_authentication_I_state 
+note bottom of openconfig_aaa_I_aaa_authentication_top_I_authentication_I_state
+<b>Config = </b>false
+end note 
+openconfig_aaa_I_aaa_authentication_top_I_authentication_I_state : aaa-authentication-config {uses} 
+openconfig_aaa_I_aaa_authentication_top_I_authentication_I_state : aaa-authentication-state {uses} 
+openconfig_aaa_I_aaa_authentication_top_I_authentication : aaa-authentication-admin-top {uses} 
+openconfig_aaa_I_aaa_authentication_top_I_authentication : aaa-authentication-user-top {uses} 
+class "aaa-config" as openconfig_aaa_I_aaa_config_grouping <<(G,Lime) grouping>> 
+class "aaa-state" as openconfig_aaa_I_aaa_state_grouping <<(G,Lime) grouping>> 
+class "aaa-top" as openconfig_aaa_I_aaa_top_grouping <<(G,Lime) grouping>> 
+class "aaa" as  openconfig_aaa_I_aaa_top_I_aaa <<container>> 
+openconfig_aaa_I_aaa_top_grouping *-- "1" openconfig_aaa_I_aaa_top_I_aaa 
+class "config" as  openconfig_aaa_I_aaa_top_I_aaa_I_config <<container>> 
+openconfig_aaa_I_aaa_top_I_aaa *-- "1" openconfig_aaa_I_aaa_top_I_aaa_I_config 
+openconfig_aaa_I_aaa_top_I_aaa_I_config : aaa-config {uses} 
+class "state" as  openconfig_aaa_I_aaa_top_I_aaa_I_state <<container>> 
+openconfig_aaa_I_aaa_top_I_aaa *-- "1" openconfig_aaa_I_aaa_top_I_aaa_I_state 
+note bottom of openconfig_aaa_I_aaa_top_I_aaa_I_state
+<b>Config = </b>false
+end note 
+openconfig_aaa_I_aaa_top_I_aaa_I_state : aaa-config {uses} 
+openconfig_aaa_I_aaa_top_I_aaa_I_state : aaa-state {uses} 
+openconfig_aaa_I_aaa_top_I_aaa : aaa-authentication-top {uses} 
+openconfig_aaa_I_aaa_top_I_aaa : aaa-authorization-top {uses} 
+openconfig_aaa_I_aaa_top_I_aaa : aaa-accounting-top {uses} 
+openconfig_aaa_I_aaa_top_I_aaa : aaa-servergroup-common-top {uses} 
+openconfig_aaa_I_aaa_servergroup_common_config_grouping-->oc_aaa_types_AAA_SERVER_TYPE: type
+openconfig_aaa_I_aaa_accounting_events_config_grouping-->oc_aaa_types_AAA_ACCOUNTING_EVENT_TYPE: event-type
+openconfig_aaa_I_aaa_authorization_events_config_grouping-->oc_aaa_types_AAA_AUTHORIZATION_EVENT_TYPE: event-type
+} 
+
+openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups_I_server_group_I_config --> openconfig_aaa_I_aaa_servergroup_common_config_grouping : uses 
+openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups_I_server_group_I_state --> openconfig_aaa_I_aaa_servergroup_common_config_grouping : uses 
+openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups_I_server_group_I_state --> openconfig_aaa_I_aaa_servergroup_common_state_grouping : uses 
+openconfig_aaa_I_aaa_servergroup_common_top_I_server_groups_I_server_group --> openconfig_aaa_I_aaa_server_top_grouping : uses 
+openconfig_aaa_I_aaa_server_top_I_servers_I_server_I_config --> openconfig_aaa_I_aaa_server_config_grouping : uses 
+openconfig_aaa_I_aaa_server_top_I_servers_I_server_I_state --> openconfig_aaa_I_aaa_server_config_grouping : uses 
+openconfig_aaa_I_aaa_server_top_I_servers_I_server_I_state --> openconfig_aaa_I_aaa_server_state_grouping : uses 
+openconfig_aaa_I_aaa_authentication_admin_top_I_admin_user_I_config --> openconfig_aaa_I_aaa_admin_config_grouping : uses 
+openconfig_aaa_I_aaa_authentication_admin_top_I_admin_user_I_state --> openconfig_aaa_I_aaa_admin_config_grouping : uses 
+openconfig_aaa_I_aaa_authentication_admin_top_I_admin_user_I_state --> openconfig_aaa_I_aaa_admin_state_grouping : uses 
+openconfig_aaa_I_aaa_authentication_user_top_I_users_I_user_I_config --> openconfig_aaa_I_aaa_authentication_user_config_grouping : uses 
+openconfig_aaa_I_aaa_authentication_user_top_I_users_I_user_I_state --> openconfig_aaa_I_aaa_authentication_user_config_grouping : uses 
+openconfig_aaa_I_aaa_authentication_user_top_I_users_I_user_I_state --> openconfig_aaa_I_aaa_authentication_user_state_grouping : uses 
+openconfig_aaa_I_aaa_accounting_events_top_I_events_I_event_I_config --> openconfig_aaa_I_aaa_accounting_events_config_grouping : uses 
+openconfig_aaa_I_aaa_accounting_events_top_I_events_I_event_I_state --> openconfig_aaa_I_aaa_accounting_events_config_grouping : uses 
+openconfig_aaa_I_aaa_accounting_events_top_I_events_I_event_I_state --> openconfig_aaa_I_aaa_accounting_events_state_grouping : uses 
+openconfig_aaa_I_aaa_accounting_config_grouping --> openconfig_aaa_I_aaa_accounting_methods_common_grouping : uses 
+openconfig_aaa_I_aaa_accounting_top_I_accounting_I_config --> openconfig_aaa_I_aaa_accounting_config_grouping : uses 
+openconfig_aaa_I_aaa_accounting_top_I_accounting_I_state --> openconfig_aaa_I_aaa_accounting_config_grouping : uses 
+openconfig_aaa_I_aaa_accounting_top_I_accounting_I_state --> openconfig_aaa_I_aaa_accounting_state_grouping : uses 
+openconfig_aaa_I_aaa_accounting_top_I_accounting --> openconfig_aaa_I_aaa_accounting_events_top_grouping : uses 
+openconfig_aaa_I_aaa_authorization_events_top_I_events_I_event_I_config --> openconfig_aaa_I_aaa_authorization_events_config_grouping : uses 
+openconfig_aaa_I_aaa_authorization_events_top_I_events_I_event_I_state --> openconfig_aaa_I_aaa_authorization_events_config_grouping : uses 
+openconfig_aaa_I_aaa_authorization_events_top_I_events_I_event_I_state --> openconfig_aaa_I_aaa_authorization_events_state_grouping : uses 
+openconfig_aaa_I_aaa_authorization_config_grouping --> openconfig_aaa_I_aaa_authorization_methods_config_grouping : uses 
+openconfig_aaa_I_aaa_authorization_top_I_authorization_I_config --> openconfig_aaa_I_aaa_authorization_config_grouping : uses 
+openconfig_aaa_I_aaa_authorization_top_I_authorization_I_state --> openconfig_aaa_I_aaa_authorization_config_grouping : uses 
+openconfig_aaa_I_aaa_authorization_top_I_authorization_I_state --> openconfig_aaa_I_aaa_authorization_state_grouping : uses 
+openconfig_aaa_I_aaa_authorization_top_I_authorization --> openconfig_aaa_I_aaa_authorization_events_top_grouping : uses 
+openconfig_aaa_I_aaa_authentication_top_I_authentication_I_config --> openconfig_aaa_I_aaa_authentication_config_grouping : uses 
+openconfig_aaa_I_aaa_authentication_top_I_authentication_I_state --> openconfig_aaa_I_aaa_authentication_config_grouping : uses 
+openconfig_aaa_I_aaa_authentication_top_I_authentication_I_state --> openconfig_aaa_I_aaa_authentication_state_grouping : uses 
+openconfig_aaa_I_aaa_authentication_top_I_authentication --> openconfig_aaa_I_aaa_authentication_admin_top_grouping : uses 
+openconfig_aaa_I_aaa_authentication_top_I_authentication --> openconfig_aaa_I_aaa_authentication_user_top_grouping : uses 
+openconfig_aaa_I_aaa_top_I_aaa_I_config --> openconfig_aaa_I_aaa_config_grouping : uses 
+openconfig_aaa_I_aaa_top_I_aaa_I_state --> openconfig_aaa_I_aaa_config_grouping : uses 
+openconfig_aaa_I_aaa_top_I_aaa_I_state --> openconfig_aaa_I_aaa_state_grouping : uses 
+openconfig_aaa_I_aaa_top_I_aaa --> openconfig_aaa_I_aaa_authentication_top_grouping : uses 
+openconfig_aaa_I_aaa_top_I_aaa --> openconfig_aaa_I_aaa_authorization_top_grouping : uses 
+openconfig_aaa_I_aaa_top_I_aaa --> openconfig_aaa_I_aaa_accounting_top_grouping : uses 
+openconfig_aaa_I_aaa_top_I_aaa --> openconfig_aaa_I_aaa_servergroup_common_top_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:43 </size>
+ endfooter 
+@enduml 

@@ -1,0 +1,61 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-ipv4-unicast-routing.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-ipv4-unicast-routing 
+package "rt:ietf-routing" as rt_ietf_routing { 
+} 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+note top of v4ur_ietf_ipv4_unicast_routing : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-ipv4-unicast-routing \n<b>Prefix: </b> v4ur \n<b>Organization : </b>\nIETF NETMOD (NETCONF Data Modeling Language) Working Group \n<b>Contact : </b>\nWG Web:   <http://tools.ietf.org/wg/netmod/> \nWG List:  <mailto:netmod@ietf.org> \n \nWG Chair: Thomas Nadeau \n          <mailto:tnadeau@lucidvision.com> \n \nWG Chair: Juergen Schoenwaelder \n          <mailto:j.schoenwaelder@jacobs-university.de> \n \nEditor:   Ladislav Lhotka \n          <mailto:lhotka@nic.cz> \n<b>Revision : </b> 2015-05-25 \n
+package "v4ur:ietf-ipv4-unicast-routing" as v4ur_ietf_ipv4_unicast_routing { 
+rt_ietf_routing +-- v4ur_ietf_ipv4_unicast_routing
+inet_ietf_inet_types +-- v4ur_ietf_ipv4_unicast_routing
+class "ietf-ipv4-unicast-routing" as ietf_ipv4_unicast_routing << (M, #33CCFF) module>> 
+class "/rt:routing/rt:routing-instance/rt:routing-protocols/rt:routing-protocol/rt:static-routes" as rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_rt_static_routes << (A,CadetBlue) augment>>
+ietf_ipv4_unicast_routing *--  rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_rt_static_routes 
+class "ipv4" as  ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv4 <<container>> 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_rt_static_routes *-- "1" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv4 
+class "route" as ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv4_I_route << (L, #FF7700) list>> 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv4 *-- "0..N" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv4_I_route : ordered-by : user
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv4_I_route : +destination-prefix : inet:ipv4-prefix  {key}  {mandatory}
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv4_I_route : description : string  
+class "next-hop" as  ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv4_I_route_I_next_hop <<container>> 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv4_I_route *-- "1" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv4_I_route_I_next_hop 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv4_I_route_I_next_hop : rt:next-hop-content {uses} 
+class "/rt:fib-route/rt:input/rt:destination-address" as rt_fib_route_rt_input_rt_destination_address << (A,CadetBlue) augment>>
+ietf_ipv4_unicast_routing *--  rt_fib_route_rt_input_rt_destination_address 
+note bottom of rt_fib_route_rt_input_rt_destination_address
+<b>When: </b>rt:address-family='v4ur:ipv4-unicast'
+end note 
+rt_fib_route_rt_input_rt_destination_address : address : inet:ipv4-address  
+class "/rt:fib-route/rt:output/rt:route" as rt_fib_route_rt_output_rt_route << (A,CadetBlue) augment>>
+ietf_ipv4_unicast_routing *--  rt_fib_route_rt_output_rt_route 
+note bottom of rt_fib_route_rt_output_rt_route
+<b>When: </b>rt:address-family='v4ur:ipv4-unicast'
+end note 
+rt_fib_route_rt_output_rt_route : +destination-prefix : inet:ipv4-prefix  {key} 
+class "/rt:fib-route/rt:output/rt:route/rt:next-hop/rt:next-hop-options/rt:simple-next-hop" as rt_fib_route_rt_output_rt_route_rt_next_hop_rt_next_hop_options_rt_simple_next_hop << (A,CadetBlue) augment>>
+ietf_ipv4_unicast_routing *--  rt_fib_route_rt_output_rt_route_rt_next_hop_rt_next_hop_options_rt_simple_next_hop 
+note bottom of rt_fib_route_rt_output_rt_route_rt_next_hop_rt_next_hop_options_rt_simple_next_hop
+<b>When: </b>../rt:address-family='v4ur:ipv4-unicast'
+end note 
+rt_fib_route_rt_output_rt_route_rt_next_hop_rt_next_hop_options_rt_simple_next_hop : next-hop-address : inet:ipv4-address  
+class "rt:ipv4" as rt_ipv4 << (I,Silver) identity>> 
+class "ipv4-unicast" as ipv4_unicast << (I,Silver) identity>> 
+rt_ipv4 <|-- ipv4_unicast 
+} 
+
+center footer
+ <size:20> UML Generated : 2019-02-20 23:24 </size>
+ endfooter 
+@enduml 

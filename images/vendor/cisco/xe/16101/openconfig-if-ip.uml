@@ -1,0 +1,340 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-if-ip.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-if-ip 
+package "oc-inet:openconfig-inet-types" as oc_inet_openconfig_inet_types { 
+} 
+package "oc-if:openconfig-interfaces" as oc_if_openconfig_interfaces { 
+} 
+package "oc-vlan:openconfig-vlan" as oc_vlan_openconfig_vlan { 
+} 
+package "oc-yang:openconfig-yang-types" as oc_yang_openconfig_yang_types { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+note top of oc_ip_openconfig_if_ip : <b>Namespace: </b> http://openconfig.net/yang/interfaces/ip \n<b>Prefix: </b> oc-ip \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nnetopenconfig@googlegroups.com \n<b>Revision : </b> 2018-01-05 \n
+package "oc-ip:openconfig-if-ip" as oc_ip_openconfig_if_ip { 
+oc_inet_openconfig_inet_types +-- oc_ip_openconfig_if_ip
+oc_if_openconfig_interfaces +-- oc_ip_openconfig_if_ip
+oc_vlan_openconfig_vlan +-- oc_ip_openconfig_if_ip
+oc_yang_openconfig_yang_types +-- oc_ip_openconfig_if_ip
+oc_ext_openconfig_extensions +-- oc_ip_openconfig_if_ip
+class "openconfig-if-ip" as openconfig_if_ip << (M, #33CCFF) module>> 
+enum "ip-address-origin" as openconfig_if_ip_I_ip_address_origin {
+OTHER
+STATIC
+DHCP
+MORE
+}
+enum "neighbor-origin" as openconfig_if_ip_I_neighbor_origin {
+OTHER
+STATIC
+DYNAMIC
+}
+class "ip-common-global-config" as openconfig_if_ip_I_ip_common_global_config_grouping <<(G,Lime) grouping>> 
+openconfig_if_ip_I_ip_common_global_config_grouping : dhcp-client : boolean   = false 
+class "ip-common-counters-state" as openconfig_if_ip_I_ip_common_counters_state_grouping <<(G,Lime) grouping>> 
+class "counters" as  openconfig_if_ip_I_ip_common_counters_state_I_counters <<container>> 
+openconfig_if_ip_I_ip_common_counters_state_grouping *-- "1" openconfig_if_ip_I_ip_common_counters_state_I_counters 
+openconfig_if_ip_I_ip_common_counters_state_I_counters : in-pkts : oc-yang:counter64  
+openconfig_if_ip_I_ip_common_counters_state_I_counters : in-octets : oc-yang:counter64  
+openconfig_if_ip_I_ip_common_counters_state_I_counters : in-error-pkts : oc-yang:counter64  
+openconfig_if_ip_I_ip_common_counters_state_I_counters : in-forwarded-pkts : oc-yang:counter64  
+openconfig_if_ip_I_ip_common_counters_state_I_counters : in-forwarded-octets : oc-yang:counter64  
+openconfig_if_ip_I_ip_common_counters_state_I_counters : in-discarded-pkts : oc-yang:counter64  
+openconfig_if_ip_I_ip_common_counters_state_I_counters : out-pkts : oc-yang:counter64  
+openconfig_if_ip_I_ip_common_counters_state_I_counters : out-octets : oc-yang:counter64  
+openconfig_if_ip_I_ip_common_counters_state_I_counters : out-error-pkts : oc-yang:counter64  
+openconfig_if_ip_I_ip_common_counters_state_I_counters : out-forwarded-pkts : oc-yang:counter64  
+openconfig_if_ip_I_ip_common_counters_state_I_counters : out-forwarded-octets : oc-yang:counter64  
+openconfig_if_ip_I_ip_common_counters_state_I_counters : out-discarded-pkts : oc-yang:counter64  
+class "ipv4-global-config" as openconfig_if_ip_I_ipv4_global_config_grouping <<(G,Lime) grouping>> 
+openconfig_if_ip_I_ipv4_global_config_grouping : enabled : boolean   = true 
+openconfig_if_ip_I_ipv4_global_config_grouping : mtu : uint16 [68..max]   {octets}
+openconfig_if_ip_I_ipv4_global_config_grouping : ip-common-global-config {uses} 
+class "ipv4-address-config" as openconfig_if_ip_I_ipv4_address_config_grouping <<(G,Lime) grouping>> 
+openconfig_if_ip_I_ipv4_address_config_grouping : ip : oc-inet:ipv4-address  
+openconfig_if_ip_I_ipv4_address_config_grouping : prefix-length : uint8 [0..32]  
+class "ipv4-neighbor-config" as openconfig_if_ip_I_ipv4_neighbor_config_grouping <<(G,Lime) grouping>> 
+openconfig_if_ip_I_ipv4_neighbor_config_grouping : ip : oc-inet:ipv4-address  
+openconfig_if_ip_I_ipv4_neighbor_config_grouping : link-layer-address : oc-yang:phys-address   {mandatory}
+class "ipv4-address-state" as openconfig_if_ip_I_ipv4_address_state_grouping <<(G,Lime) grouping>> 
+openconfig_if_ip_I_ipv4_address_state_grouping : origin : ip-address-origin  
+class "ipv4-neighbor-state" as openconfig_if_ip_I_ipv4_neighbor_state_grouping <<(G,Lime) grouping>> 
+openconfig_if_ip_I_ipv4_neighbor_state_grouping : origin : neighbor-origin  
+class "ipv6-global-config" as openconfig_if_ip_I_ipv6_global_config_grouping <<(G,Lime) grouping>> 
+openconfig_if_ip_I_ipv6_global_config_grouping : enabled : boolean   = true 
+openconfig_if_ip_I_ipv6_global_config_grouping : mtu : uint32 [1280..max]   {octets}
+openconfig_if_ip_I_ipv6_global_config_grouping : dup-addr-detect-transmits : uint32   = 1 
+openconfig_if_ip_I_ipv6_global_config_grouping : ip-common-global-config {uses} 
+class "ipv6-address-config" as openconfig_if_ip_I_ipv6_address_config_grouping <<(G,Lime) grouping>> 
+openconfig_if_ip_I_ipv6_address_config_grouping : ip : oc-inet:ipv6-address  
+openconfig_if_ip_I_ipv6_address_config_grouping : prefix-length : uint8 [0..128]   {mandatory}
+class "ipv6-address-state" as openconfig_if_ip_I_ipv6_address_state_grouping <<(G,Lime) grouping>> 
+openconfig_if_ip_I_ipv6_address_state_grouping : origin : ip-address-origin  
+openconfig_if_ip_I_ipv6_address_state_grouping : status : enumeration : {PREFERRED,DEPRECATED,INVALID,...}  
+class "ipv6-neighbor-config" as openconfig_if_ip_I_ipv6_neighbor_config_grouping <<(G,Lime) grouping>> 
+openconfig_if_ip_I_ipv6_neighbor_config_grouping : ip : oc-inet:ipv6-address  
+openconfig_if_ip_I_ipv6_neighbor_config_grouping : link-layer-address : oc-yang:phys-address   {mandatory}
+class "ipv6-neighbor-state" as openconfig_if_ip_I_ipv6_neighbor_state_grouping <<(G,Lime) grouping>> 
+openconfig_if_ip_I_ipv6_neighbor_state_grouping : origin : neighbor-origin  
+openconfig_if_ip_I_ipv6_neighbor_state_grouping : is-router : empty  
+openconfig_if_ip_I_ipv6_neighbor_state_grouping : neighbor-state : enumeration : {INCOMPLETE,REACHABLE,STALE,...}  
+class "ip-vrrp-ipv6-config" as openconfig_if_ip_I_ip_vrrp_ipv6_config_grouping <<(G,Lime) grouping>> 
+openconfig_if_ip_I_ip_vrrp_ipv6_config_grouping : virtual-link-local : oc-inet:ip-address  
+class "ip-vrrp-ipv6-state" as openconfig_if_ip_I_ip_vrrp_ipv6_state_grouping <<(G,Lime) grouping>> 
+openconfig_if_ip_I_ip_vrrp_ipv6_state_grouping : ip-vrrp-ipv6-config {uses} 
+class "ip-vrrp-tracking-config" as openconfig_if_ip_I_ip_vrrp_tracking_config_grouping <<(G,Lime) grouping>> 
+openconfig_if_ip_I_ip_vrrp_tracking_config_grouping : track-interface []: leafref : /oc-if:interfaces/oc-if:interface/oc-if:name 
+openconfig_if_ip_I_ip_vrrp_tracking_config_grouping : priority-decrement : uint8 [0..254]   = 0 
+class "ip-vrrp-tracking-state" as openconfig_if_ip_I_ip_vrrp_tracking_state_grouping <<(G,Lime) grouping>> 
+class "ip-vrrp-tracking-top" as openconfig_if_ip_I_ip_vrrp_tracking_top_grouping <<(G,Lime) grouping>> 
+class "interface-tracking" as  openconfig_if_ip_I_ip_vrrp_tracking_top_I_interface_tracking <<container>> 
+openconfig_if_ip_I_ip_vrrp_tracking_top_grouping *-- "1" openconfig_if_ip_I_ip_vrrp_tracking_top_I_interface_tracking 
+class "config" as  openconfig_if_ip_I_ip_vrrp_tracking_top_I_interface_tracking_I_config <<container>> 
+openconfig_if_ip_I_ip_vrrp_tracking_top_I_interface_tracking *-- "1" openconfig_if_ip_I_ip_vrrp_tracking_top_I_interface_tracking_I_config 
+openconfig_if_ip_I_ip_vrrp_tracking_top_I_interface_tracking_I_config : ip-vrrp-tracking-config {uses} 
+class "state" as  openconfig_if_ip_I_ip_vrrp_tracking_top_I_interface_tracking_I_state <<container>> 
+openconfig_if_ip_I_ip_vrrp_tracking_top_I_interface_tracking *-- "1" openconfig_if_ip_I_ip_vrrp_tracking_top_I_interface_tracking_I_state 
+note bottom of openconfig_if_ip_I_ip_vrrp_tracking_top_I_interface_tracking_I_state
+<b>Config = </b>false
+end note 
+openconfig_if_ip_I_ip_vrrp_tracking_top_I_interface_tracking_I_state : ip-vrrp-tracking-config {uses} 
+openconfig_if_ip_I_ip_vrrp_tracking_top_I_interface_tracking_I_state : ip-vrrp-tracking-state {uses} 
+class "ip-vrrp-config" as openconfig_if_ip_I_ip_vrrp_config_grouping <<(G,Lime) grouping>> 
+openconfig_if_ip_I_ip_vrrp_config_grouping : virtual-router-id : uint8 [1..255]  
+openconfig_if_ip_I_ip_vrrp_config_grouping : virtual-address []: oc-inet:ip-address 
+openconfig_if_ip_I_ip_vrrp_config_grouping : priority : uint8 [1..254]   = 100 
+openconfig_if_ip_I_ip_vrrp_config_grouping : preempt : boolean   = true 
+openconfig_if_ip_I_ip_vrrp_config_grouping : preempt-delay : uint16 [0..3600]   = 0 
+openconfig_if_ip_I_ip_vrrp_config_grouping : accept-mode : boolean   = false 
+openconfig_if_ip_I_ip_vrrp_config_grouping : advertisement-interval : uint16 [1..4095]   = 100  {centiseconds}
+class "ip-vrrp-state" as openconfig_if_ip_I_ip_vrrp_state_grouping <<(G,Lime) grouping>> 
+openconfig_if_ip_I_ip_vrrp_state_grouping : current-priority : uint8  
+class "ip-vrrp-top" as openconfig_if_ip_I_ip_vrrp_top_grouping <<(G,Lime) grouping>> 
+class "vrrp" as  openconfig_if_ip_I_ip_vrrp_top_I_vrrp <<container>> 
+openconfig_if_ip_I_ip_vrrp_top_grouping *-- "1" openconfig_if_ip_I_ip_vrrp_top_I_vrrp 
+class "vrrp-group" as openconfig_if_ip_I_ip_vrrp_top_I_vrrp_I_vrrp_group << (L, #FF7700) list>> 
+openconfig_if_ip_I_ip_vrrp_top_I_vrrp *-- "0..N" openconfig_if_ip_I_ip_vrrp_top_I_vrrp_I_vrrp_group 
+openconfig_if_ip_I_ip_vrrp_top_I_vrrp_I_vrrp_group : +virtual-router-id : leafref : ../config/virtual-router-id  {key} 
+class "config" as  openconfig_if_ip_I_ip_vrrp_top_I_vrrp_I_vrrp_group_I_config <<container>> 
+openconfig_if_ip_I_ip_vrrp_top_I_vrrp_I_vrrp_group *-- "1" openconfig_if_ip_I_ip_vrrp_top_I_vrrp_I_vrrp_group_I_config 
+openconfig_if_ip_I_ip_vrrp_top_I_vrrp_I_vrrp_group_I_config : ip-vrrp-config {uses} 
+class "state" as  openconfig_if_ip_I_ip_vrrp_top_I_vrrp_I_vrrp_group_I_state <<container>> 
+openconfig_if_ip_I_ip_vrrp_top_I_vrrp_I_vrrp_group *-- "1" openconfig_if_ip_I_ip_vrrp_top_I_vrrp_I_vrrp_group_I_state 
+note bottom of openconfig_if_ip_I_ip_vrrp_top_I_vrrp_I_vrrp_group_I_state
+<b>Config = </b>false
+end note 
+openconfig_if_ip_I_ip_vrrp_top_I_vrrp_I_vrrp_group_I_state : ip-vrrp-config {uses} 
+openconfig_if_ip_I_ip_vrrp_top_I_vrrp_I_vrrp_group_I_state : ip-vrrp-state {uses} 
+openconfig_if_ip_I_ip_vrrp_top_I_vrrp_I_vrrp_group : ip-vrrp-tracking-top {uses} 
+class "ipv6-ra-config" as openconfig_if_ip_I_ipv6_ra_config_grouping <<(G,Lime) grouping>> 
+openconfig_if_ip_I_ipv6_ra_config_grouping : interval : uint32   {seconds}
+openconfig_if_ip_I_ipv6_ra_config_grouping : lifetime : uint32   {seconds}
+openconfig_if_ip_I_ipv6_ra_config_grouping : suppress : boolean   = false 
+class "ipv4-proxy-arp-config" as openconfig_if_ip_I_ipv4_proxy_arp_config_grouping <<(G,Lime) grouping>> 
+openconfig_if_ip_I_ipv4_proxy_arp_config_grouping : mode : enumeration : {DISABLE,REMOTE_ONLY,ALL,}   = DISABLE 
+class "ipv4-top" as openconfig_if_ip_I_ipv4_top_grouping <<(G,Lime) grouping>> 
+class "ipv4" as  openconfig_if_ip_I_ipv4_top_I_ipv4 <<container>> 
+openconfig_if_ip_I_ipv4_top_grouping *-- "1" openconfig_if_ip_I_ipv4_top_I_ipv4 
+class "addresses" as  openconfig_if_ip_I_ipv4_top_I_ipv4_I_addresses <<container>> 
+openconfig_if_ip_I_ipv4_top_I_ipv4 *-- "1" openconfig_if_ip_I_ipv4_top_I_ipv4_I_addresses 
+class "address" as openconfig_if_ip_I_ipv4_top_I_ipv4_I_addresses_I_address << (L, #FF7700) list>> 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_addresses *-- "0..N" openconfig_if_ip_I_ipv4_top_I_ipv4_I_addresses_I_address 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_addresses_I_address : +ip : leafref : ../config/ip  {key} 
+class "config" as  openconfig_if_ip_I_ipv4_top_I_ipv4_I_addresses_I_address_I_config <<container>> 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_addresses_I_address *-- "1" openconfig_if_ip_I_ipv4_top_I_ipv4_I_addresses_I_address_I_config 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_addresses_I_address_I_config : ipv4-address-config {uses} 
+class "state" as  openconfig_if_ip_I_ipv4_top_I_ipv4_I_addresses_I_address_I_state <<container>> 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_addresses_I_address *-- "1" openconfig_if_ip_I_ipv4_top_I_ipv4_I_addresses_I_address_I_state 
+note bottom of openconfig_if_ip_I_ipv4_top_I_ipv4_I_addresses_I_address_I_state
+<b>Config = </b>false
+end note 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_addresses_I_address_I_state : ipv4-address-config {uses} 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_addresses_I_address_I_state : ipv4-address-state {uses} 
+class "proxy-arp" as  openconfig_if_ip_I_ipv4_top_I_ipv4_I_proxy_arp <<container>> 
+openconfig_if_ip_I_ipv4_top_I_ipv4 *-- "1" openconfig_if_ip_I_ipv4_top_I_ipv4_I_proxy_arp 
+class "config" as  openconfig_if_ip_I_ipv4_top_I_ipv4_I_proxy_arp_I_config <<container>> 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_proxy_arp *-- "1" openconfig_if_ip_I_ipv4_top_I_ipv4_I_proxy_arp_I_config 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_proxy_arp_I_config : ipv4-proxy-arp-config {uses} 
+class "state" as  openconfig_if_ip_I_ipv4_top_I_ipv4_I_proxy_arp_I_state <<container>> 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_proxy_arp *-- "1" openconfig_if_ip_I_ipv4_top_I_ipv4_I_proxy_arp_I_state 
+note bottom of openconfig_if_ip_I_ipv4_top_I_ipv4_I_proxy_arp_I_state
+<b>Config = </b>false
+end note 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_proxy_arp_I_state : ipv4-proxy-arp-config {uses} 
+class "neighbors" as  openconfig_if_ip_I_ipv4_top_I_ipv4_I_neighbors <<container>> 
+openconfig_if_ip_I_ipv4_top_I_ipv4 *-- "1" openconfig_if_ip_I_ipv4_top_I_ipv4_I_neighbors 
+class "neighbor" as openconfig_if_ip_I_ipv4_top_I_ipv4_I_neighbors_I_neighbor << (L, #FF7700) list>> 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_neighbors *-- "0..N" openconfig_if_ip_I_ipv4_top_I_ipv4_I_neighbors_I_neighbor 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_neighbors_I_neighbor : +ip : leafref : ../config/ip  {key} 
+class "config" as  openconfig_if_ip_I_ipv4_top_I_ipv4_I_neighbors_I_neighbor_I_config <<container>> 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_neighbors_I_neighbor *-- "1" openconfig_if_ip_I_ipv4_top_I_ipv4_I_neighbors_I_neighbor_I_config 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_neighbors_I_neighbor_I_config : ipv4-neighbor-config {uses} 
+class "state" as  openconfig_if_ip_I_ipv4_top_I_ipv4_I_neighbors_I_neighbor_I_state <<container>> 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_neighbors_I_neighbor *-- "1" openconfig_if_ip_I_ipv4_top_I_ipv4_I_neighbors_I_neighbor_I_state 
+note bottom of openconfig_if_ip_I_ipv4_top_I_ipv4_I_neighbors_I_neighbor_I_state
+<b>Config = </b>false
+end note 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_neighbors_I_neighbor_I_state : ipv4-neighbor-config {uses} 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_neighbors_I_neighbor_I_state : ipv4-neighbor-state {uses} 
+openconfig_if_ip_I_ipv4_top_I_ipv4 : oc-if:sub-unnumbered-top {uses} 
+class "config" as  openconfig_if_ip_I_ipv4_top_I_ipv4_I_config <<container>> 
+openconfig_if_ip_I_ipv4_top_I_ipv4 *-- "1" openconfig_if_ip_I_ipv4_top_I_ipv4_I_config 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_config : ipv4-global-config {uses} 
+class "state" as  openconfig_if_ip_I_ipv4_top_I_ipv4_I_state <<container>> 
+openconfig_if_ip_I_ipv4_top_I_ipv4 *-- "1" openconfig_if_ip_I_ipv4_top_I_ipv4_I_state 
+note bottom of openconfig_if_ip_I_ipv4_top_I_ipv4_I_state
+<b>Config = </b>false
+end note 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_state : ipv4-global-config {uses} 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_state : ip-common-counters-state {uses} 
+class "ipv6-top" as openconfig_if_ip_I_ipv6_top_grouping <<(G,Lime) grouping>> 
+class "ipv6" as  openconfig_if_ip_I_ipv6_top_I_ipv6 <<container>> 
+openconfig_if_ip_I_ipv6_top_grouping *-- "1" openconfig_if_ip_I_ipv6_top_I_ipv6 
+class "addresses" as  openconfig_if_ip_I_ipv6_top_I_ipv6_I_addresses <<container>> 
+openconfig_if_ip_I_ipv6_top_I_ipv6 *-- "1" openconfig_if_ip_I_ipv6_top_I_ipv6_I_addresses 
+class "address" as openconfig_if_ip_I_ipv6_top_I_ipv6_I_addresses_I_address << (L, #FF7700) list>> 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_addresses *-- "0..N" openconfig_if_ip_I_ipv6_top_I_ipv6_I_addresses_I_address 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_addresses_I_address : +ip : leafref : ../config/ip  {key} 
+class "config" as  openconfig_if_ip_I_ipv6_top_I_ipv6_I_addresses_I_address_I_config <<container>> 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_addresses_I_address *-- "1" openconfig_if_ip_I_ipv6_top_I_ipv6_I_addresses_I_address_I_config 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_addresses_I_address_I_config : ipv6-address-config {uses} 
+class "state" as  openconfig_if_ip_I_ipv6_top_I_ipv6_I_addresses_I_address_I_state <<container>> 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_addresses_I_address *-- "1" openconfig_if_ip_I_ipv6_top_I_ipv6_I_addresses_I_address_I_state 
+note bottom of openconfig_if_ip_I_ipv6_top_I_ipv6_I_addresses_I_address_I_state
+<b>Config = </b>false
+end note 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_addresses_I_address_I_state : ipv6-address-config {uses} 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_addresses_I_address_I_state : ipv6-address-state {uses} 
+class "router-advertisement" as  openconfig_if_ip_I_ipv6_top_I_ipv6_I_router_advertisement <<container>> 
+openconfig_if_ip_I_ipv6_top_I_ipv6 *-- "1" openconfig_if_ip_I_ipv6_top_I_ipv6_I_router_advertisement 
+class "config" as  openconfig_if_ip_I_ipv6_top_I_ipv6_I_router_advertisement_I_config <<container>> 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_router_advertisement *-- "1" openconfig_if_ip_I_ipv6_top_I_ipv6_I_router_advertisement_I_config 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_router_advertisement_I_config : ipv6-ra-config {uses} 
+class "state" as  openconfig_if_ip_I_ipv6_top_I_ipv6_I_router_advertisement_I_state <<container>> 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_router_advertisement *-- "1" openconfig_if_ip_I_ipv6_top_I_ipv6_I_router_advertisement_I_state 
+note bottom of openconfig_if_ip_I_ipv6_top_I_ipv6_I_router_advertisement_I_state
+<b>Config = </b>false
+end note 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_router_advertisement_I_state : ipv6-ra-config {uses} 
+class "neighbors" as  openconfig_if_ip_I_ipv6_top_I_ipv6_I_neighbors <<container>> 
+openconfig_if_ip_I_ipv6_top_I_ipv6 *-- "1" openconfig_if_ip_I_ipv6_top_I_ipv6_I_neighbors 
+class "neighbor" as openconfig_if_ip_I_ipv6_top_I_ipv6_I_neighbors_I_neighbor << (L, #FF7700) list>> 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_neighbors *-- "0..N" openconfig_if_ip_I_ipv6_top_I_ipv6_I_neighbors_I_neighbor 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_neighbors_I_neighbor : +ip : leafref : ../config/ip  {key} 
+class "config" as  openconfig_if_ip_I_ipv6_top_I_ipv6_I_neighbors_I_neighbor_I_config <<container>> 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_neighbors_I_neighbor *-- "1" openconfig_if_ip_I_ipv6_top_I_ipv6_I_neighbors_I_neighbor_I_config 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_neighbors_I_neighbor_I_config : ipv6-neighbor-config {uses} 
+class "state" as  openconfig_if_ip_I_ipv6_top_I_ipv6_I_neighbors_I_neighbor_I_state <<container>> 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_neighbors_I_neighbor *-- "1" openconfig_if_ip_I_ipv6_top_I_ipv6_I_neighbors_I_neighbor_I_state 
+note bottom of openconfig_if_ip_I_ipv6_top_I_ipv6_I_neighbors_I_neighbor_I_state
+<b>Config = </b>false
+end note 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_neighbors_I_neighbor_I_state : ipv6-neighbor-config {uses} 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_neighbors_I_neighbor_I_state : ipv6-neighbor-state {uses} 
+openconfig_if_ip_I_ipv6_top_I_ipv6 : oc-if:sub-unnumbered-top {uses} 
+class "config" as  openconfig_if_ip_I_ipv6_top_I_ipv6_I_config <<container>> 
+openconfig_if_ip_I_ipv6_top_I_ipv6 *-- "1" openconfig_if_ip_I_ipv6_top_I_ipv6_I_config 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_config : ipv6-global-config {uses} 
+class "state" as  openconfig_if_ip_I_ipv6_top_I_ipv6_I_state <<container>> 
+openconfig_if_ip_I_ipv6_top_I_ipv6 *-- "1" openconfig_if_ip_I_ipv6_top_I_ipv6_I_state 
+note bottom of openconfig_if_ip_I_ipv6_top_I_ipv6_I_state
+<b>Config = </b>false
+end note 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_state : ipv6-global-config {uses} 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_state : ip-common-counters-state {uses} 
+class "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface" as oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface << (A,CadetBlue) augment>>
+openconfig_if_ip *--  oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface 
+oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface : ipv4-top {uses} 
+class "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface" as oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface << (A,CadetBlue) augment>>
+oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface : ipv6-top {uses} 
+class "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-ip:ipv4/oc-ip:addresses/oc-ip:address" as oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface_oc_ip_ipv4_oc_ip_addresses_oc_ip_address << (A,CadetBlue) augment>>
+openconfig_if_ip *--  oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface_oc_ip_ipv4_oc_ip_addresses_oc_ip_address 
+oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface_oc_ip_ipv4_oc_ip_addresses_oc_ip_address : ip-vrrp-top {uses} 
+class "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-ip:ipv6/oc-ip:addresses/oc-ip:address" as oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface_oc_ip_ipv6_oc_ip_addresses_oc_ip_address << (A,CadetBlue) augment>>
+openconfig_if_ip *--  oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface_oc_ip_ipv6_oc_ip_addresses_oc_ip_address 
+oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface_oc_ip_ipv6_oc_ip_addresses_oc_ip_address : ip-vrrp-top {uses} 
+class "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-ip:ipv6/oc-ip:addresses/oc-ip:address/vrrp/vrrp-group/config" as oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface_oc_ip_ipv6_oc_ip_addresses_oc_ip_address_vrrp_vrrp_group_config << (A,CadetBlue) augment>>
+openconfig_if_ip *--  oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface_oc_ip_ipv6_oc_ip_addresses_oc_ip_address_vrrp_vrrp_group_config 
+oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface_oc_ip_ipv6_oc_ip_addresses_oc_ip_address_vrrp_vrrp_group_config : ip-vrrp-ipv6-config {uses} 
+class "/oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface/oc-ip:ipv6/oc-ip:addresses/oc-ip:address/vrrp/vrrp-group/state" as oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface_oc_ip_ipv6_oc_ip_addresses_oc_ip_address_vrrp_vrrp_group_state << (A,CadetBlue) augment>>
+openconfig_if_ip *--  oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface_oc_ip_ipv6_oc_ip_addresses_oc_ip_address_vrrp_vrrp_group_state 
+oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface_oc_ip_ipv6_oc_ip_addresses_oc_ip_address_vrrp_vrrp_group_state : ip-vrrp-ipv6-state {uses} 
+class "/oc-if:interfaces/oc-if:interface/oc-vlan:routed-vlan" as oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan << (A,CadetBlue) augment>>
+openconfig_if_ip *--  oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan 
+oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan : ipv4-top {uses} 
+class "/oc-if:interfaces/oc-if:interface/oc-vlan:routed-vlan" as oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan << (A,CadetBlue) augment>>
+oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan : ipv6-top {uses} 
+class "/oc-if:interfaces/oc-if:interface/oc-vlan:routed-vlan/oc-ip:ipv4/oc-ip:addresses/oc-ip:address" as oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan_oc_ip_ipv4_oc_ip_addresses_oc_ip_address << (A,CadetBlue) augment>>
+openconfig_if_ip *--  oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan_oc_ip_ipv4_oc_ip_addresses_oc_ip_address 
+oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan_oc_ip_ipv4_oc_ip_addresses_oc_ip_address : ip-vrrp-top {uses} 
+class "/oc-if:interfaces/oc-if:interface/oc-vlan:routed-vlan/oc-ip:ipv6/oc-ip:addresses/oc-ip:address" as oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan_oc_ip_ipv6_oc_ip_addresses_oc_ip_address << (A,CadetBlue) augment>>
+openconfig_if_ip *--  oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan_oc_ip_ipv6_oc_ip_addresses_oc_ip_address 
+oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan_oc_ip_ipv6_oc_ip_addresses_oc_ip_address : ip-vrrp-top {uses} 
+class "/oc-if:interfaces/oc-if:interface/oc-vlan:routed-vlan/oc-ip:ipv6/oc-ip:addresses/oc-ip:address/vrrp/vrrp-group/config" as oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan_oc_ip_ipv6_oc_ip_addresses_oc_ip_address_vrrp_vrrp_group_config << (A,CadetBlue) augment>>
+openconfig_if_ip *--  oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan_oc_ip_ipv6_oc_ip_addresses_oc_ip_address_vrrp_vrrp_group_config 
+oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan_oc_ip_ipv6_oc_ip_addresses_oc_ip_address_vrrp_vrrp_group_config : ip-vrrp-ipv6-config {uses} 
+class "/oc-if:interfaces/oc-if:interface/oc-vlan:routed-vlan/oc-ip:ipv6/oc-ip:addresses/oc-ip:address/vrrp/vrrp-group/state" as oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan_oc_ip_ipv6_oc_ip_addresses_oc_ip_address_vrrp_vrrp_group_state << (A,CadetBlue) augment>>
+openconfig_if_ip *--  oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan_oc_ip_ipv6_oc_ip_addresses_oc_ip_address_vrrp_vrrp_group_state 
+oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan_oc_ip_ipv6_oc_ip_addresses_oc_ip_address_vrrp_vrrp_group_state : ip-vrrp-ipv6-state {uses} 
+} 
+
+openconfig_if_ip_I_ipv4_global_config_grouping --> openconfig_if_ip_I_ip_common_global_config_grouping : uses 
+openconfig_if_ip_I_ipv6_global_config_grouping --> openconfig_if_ip_I_ip_common_global_config_grouping : uses 
+openconfig_if_ip_I_ip_vrrp_ipv6_state_grouping --> openconfig_if_ip_I_ip_vrrp_ipv6_config_grouping : uses 
+openconfig_if_ip_I_ip_vrrp_tracking_top_I_interface_tracking_I_config --> openconfig_if_ip_I_ip_vrrp_tracking_config_grouping : uses 
+openconfig_if_ip_I_ip_vrrp_tracking_top_I_interface_tracking_I_state --> openconfig_if_ip_I_ip_vrrp_tracking_config_grouping : uses 
+openconfig_if_ip_I_ip_vrrp_tracking_top_I_interface_tracking_I_state --> openconfig_if_ip_I_ip_vrrp_tracking_state_grouping : uses 
+openconfig_if_ip_I_ip_vrrp_top_I_vrrp_I_vrrp_group_I_config --> openconfig_if_ip_I_ip_vrrp_config_grouping : uses 
+openconfig_if_ip_I_ip_vrrp_top_I_vrrp_I_vrrp_group_I_state --> openconfig_if_ip_I_ip_vrrp_config_grouping : uses 
+openconfig_if_ip_I_ip_vrrp_top_I_vrrp_I_vrrp_group_I_state --> openconfig_if_ip_I_ip_vrrp_state_grouping : uses 
+openconfig_if_ip_I_ip_vrrp_top_I_vrrp_I_vrrp_group --> openconfig_if_ip_I_ip_vrrp_tracking_top_grouping : uses 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_addresses_I_address_I_config --> openconfig_if_ip_I_ipv4_address_config_grouping : uses 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_addresses_I_address_I_state --> openconfig_if_ip_I_ipv4_address_config_grouping : uses 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_addresses_I_address_I_state --> openconfig_if_ip_I_ipv4_address_state_grouping : uses 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_proxy_arp_I_config --> openconfig_if_ip_I_ipv4_proxy_arp_config_grouping : uses 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_proxy_arp_I_state --> openconfig_if_ip_I_ipv4_proxy_arp_config_grouping : uses 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_neighbors_I_neighbor_I_config --> openconfig_if_ip_I_ipv4_neighbor_config_grouping : uses 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_neighbors_I_neighbor_I_state --> openconfig_if_ip_I_ipv4_neighbor_config_grouping : uses 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_neighbors_I_neighbor_I_state --> openconfig_if_ip_I_ipv4_neighbor_state_grouping : uses 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_config --> openconfig_if_ip_I_ipv4_global_config_grouping : uses 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_state --> openconfig_if_ip_I_ipv4_global_config_grouping : uses 
+openconfig_if_ip_I_ipv4_top_I_ipv4_I_state --> openconfig_if_ip_I_ip_common_counters_state_grouping : uses 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_addresses_I_address_I_config --> openconfig_if_ip_I_ipv6_address_config_grouping : uses 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_addresses_I_address_I_state --> openconfig_if_ip_I_ipv6_address_config_grouping : uses 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_addresses_I_address_I_state --> openconfig_if_ip_I_ipv6_address_state_grouping : uses 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_router_advertisement_I_config --> openconfig_if_ip_I_ipv6_ra_config_grouping : uses 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_router_advertisement_I_state --> openconfig_if_ip_I_ipv6_ra_config_grouping : uses 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_neighbors_I_neighbor_I_config --> openconfig_if_ip_I_ipv6_neighbor_config_grouping : uses 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_neighbors_I_neighbor_I_state --> openconfig_if_ip_I_ipv6_neighbor_config_grouping : uses 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_neighbors_I_neighbor_I_state --> openconfig_if_ip_I_ipv6_neighbor_state_grouping : uses 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_config --> openconfig_if_ip_I_ipv6_global_config_grouping : uses 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_state --> openconfig_if_ip_I_ipv6_global_config_grouping : uses 
+openconfig_if_ip_I_ipv6_top_I_ipv6_I_state --> openconfig_if_ip_I_ip_common_counters_state_grouping : uses 
+oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface --> openconfig_if_ip_I_ipv4_top_grouping : uses 
+oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface --> openconfig_if_ip_I_ipv6_top_grouping : uses 
+oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface_oc_ip_ipv4_oc_ip_addresses_oc_ip_address --> openconfig_if_ip_I_ip_vrrp_top_grouping : uses 
+oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface_oc_ip_ipv6_oc_ip_addresses_oc_ip_address --> openconfig_if_ip_I_ip_vrrp_top_grouping : uses 
+oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface_oc_ip_ipv6_oc_ip_addresses_oc_ip_address_vrrp_vrrp_group_config --> openconfig_if_ip_I_ip_vrrp_ipv6_config_grouping : uses 
+oc_if_interfaces_oc_if_interface_oc_if_subinterfaces_oc_if_subinterface_oc_ip_ipv6_oc_ip_addresses_oc_ip_address_vrrp_vrrp_group_state --> openconfig_if_ip_I_ip_vrrp_ipv6_state_grouping : uses 
+oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan --> openconfig_if_ip_I_ipv4_top_grouping : uses 
+oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan --> openconfig_if_ip_I_ipv6_top_grouping : uses 
+oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan_oc_ip_ipv4_oc_ip_addresses_oc_ip_address --> openconfig_if_ip_I_ip_vrrp_top_grouping : uses 
+oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan_oc_ip_ipv6_oc_ip_addresses_oc_ip_address --> openconfig_if_ip_I_ip_vrrp_top_grouping : uses 
+oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan_oc_ip_ipv6_oc_ip_addresses_oc_ip_address_vrrp_vrrp_group_config --> openconfig_if_ip_I_ip_vrrp_ipv6_config_grouping : uses 
+oc_if_interfaces_oc_if_interface_oc_vlan_routed_vlan_oc_ip_ipv6_oc_ip_addresses_oc_ip_address_vrrp_vrrp_group_state --> openconfig_if_ip_I_ip_vrrp_ipv6_state_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:59 </size>
+ endfooter 
+@enduml 

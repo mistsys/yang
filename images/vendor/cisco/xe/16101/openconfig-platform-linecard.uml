@@ -1,0 +1,56 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-platform-linecard.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-platform-linecard 
+package "oc-platform:openconfig-platform" as oc_platform_openconfig_platform { 
+} 
+package "oc-platform-types:openconfig-platform-types" as oc_platform_types_openconfig_platform_types { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+note top of oc_linecard_openconfig_platform_linecard : <b>Namespace: </b> http://openconfig.net/yang/platform/linecard \n<b>Prefix: </b> oc-linecard \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nwww.openconfig.net \n<b>Revision : </b> 2017-08-03 \n
+package "oc-linecard:openconfig-platform-linecard" as oc_linecard_openconfig_platform_linecard { 
+oc_platform_openconfig_platform +-- oc_linecard_openconfig_platform_linecard
+oc_platform_types_openconfig_platform_types +-- oc_linecard_openconfig_platform_linecard
+oc_ext_openconfig_extensions +-- oc_linecard_openconfig_platform_linecard
+class "openconfig-platform-linecard" as openconfig_platform_linecard << (M, #33CCFF) module>> 
+class "linecard-config" as openconfig_platform_linecard_I_linecard_config_grouping <<(G,Lime) grouping>> 
+openconfig_platform_linecard_I_linecard_config_grouping : power-admin-state : oc-platform-types:component-power-type   = POWER_ENABLED 
+class "linecard-state" as openconfig_platform_linecard_I_linecard_state_grouping <<(G,Lime) grouping>> 
+openconfig_platform_linecard_I_linecard_state_grouping : slot-id : string  
+class "linecard-top" as openconfig_platform_linecard_I_linecard_top_grouping <<(G,Lime) grouping>> 
+class "linecard" as  openconfig_platform_linecard_I_linecard_top_I_linecard <<container>> 
+openconfig_platform_linecard_I_linecard_top_grouping *-- "1" openconfig_platform_linecard_I_linecard_top_I_linecard 
+class "config" as  openconfig_platform_linecard_I_linecard_top_I_linecard_I_config <<container>> 
+openconfig_platform_linecard_I_linecard_top_I_linecard *-- "1" openconfig_platform_linecard_I_linecard_top_I_linecard_I_config 
+openconfig_platform_linecard_I_linecard_top_I_linecard_I_config : linecard-config {uses} 
+class "state" as  openconfig_platform_linecard_I_linecard_top_I_linecard_I_state <<container>> 
+openconfig_platform_linecard_I_linecard_top_I_linecard *-- "1" openconfig_platform_linecard_I_linecard_top_I_linecard_I_state 
+note bottom of openconfig_platform_linecard_I_linecard_top_I_linecard_I_state
+<b>Config = </b>false
+end note 
+openconfig_platform_linecard_I_linecard_top_I_linecard_I_state : linecard-config {uses} 
+openconfig_platform_linecard_I_linecard_top_I_linecard_I_state : linecard-state {uses} 
+class "/oc-platform:components/oc-platform:component" as oc_platform_components_oc_platform_component << (A,CadetBlue) augment>>
+openconfig_platform_linecard *--  oc_platform_components_oc_platform_component 
+oc_platform_components_oc_platform_component : linecard-top {uses} 
+} 
+
+openconfig_platform_linecard_I_linecard_top_I_linecard_I_config --> openconfig_platform_linecard_I_linecard_config_grouping : uses 
+openconfig_platform_linecard_I_linecard_top_I_linecard_I_state --> openconfig_platform_linecard_I_linecard_config_grouping : uses 
+openconfig_platform_linecard_I_linecard_top_I_linecard_I_state --> openconfig_platform_linecard_I_linecard_state_grouping : uses 
+oc_platform_components_oc_platform_component --> openconfig_platform_linecard_I_linecard_top_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:08 </size>
+ endfooter 
+@enduml 

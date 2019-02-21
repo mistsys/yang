@@ -1,0 +1,138 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-lacp.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-lacp 
+package "oc-if:openconfig-interfaces" as oc_if_openconfig_interfaces { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+note top of oc_lacp_openconfig_lacp : <b>Namespace: </b> http://openconfig.net/yang/lacp \n<b>Prefix: </b> oc-lacp \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nwww.openconfig.net \n<b>Revision : </b> 2016-05-26 \n
+package "oc-lacp:openconfig-lacp" as oc_lacp_openconfig_lacp { 
+oc_if_openconfig_interfaces +-- oc_lacp_openconfig_lacp
+yang_ietf_yang_types +-- oc_lacp_openconfig_lacp
+oc_ext_openconfig_extensions +-- oc_lacp_openconfig_lacp
+class "openconfig-lacp" as openconfig_lacp << (M, #33CCFF) module>> 
+enum "lacp-activity-type" as openconfig_lacp_I_lacp_activity_type {
+ACTIVE
+PASSIVE
+}
+enum "lacp-timeout-type" as openconfig_lacp_I_lacp_timeout_type {
+LONG
+SHORT
+}
+enum "lacp-synchronization-type" as openconfig_lacp_I_lacp_synchronization_type {
+IN_SYNC
+OUT_SYNC
+}
+enum "lacp-period-type" as openconfig_lacp_I_lacp_period_type {
+FAST
+SLOW
+}
+class "aggregation-lacp-members-config" as openconfig_lacp_I_aggregation_lacp_members_config_grouping <<(G,Lime) grouping>> 
+class "aggregation-lacp-members-state" as openconfig_lacp_I_aggregation_lacp_members_state_grouping <<(G,Lime) grouping>> 
+openconfig_lacp_I_aggregation_lacp_members_state_grouping : interface : oc-if:base-interface-ref  
+openconfig_lacp_I_aggregation_lacp_members_state_grouping : activity : lacp-activity-type  
+openconfig_lacp_I_aggregation_lacp_members_state_grouping : timeout : lacp-timeout-type  
+openconfig_lacp_I_aggregation_lacp_members_state_grouping : synchronization : lacp-synchronization-type  
+openconfig_lacp_I_aggregation_lacp_members_state_grouping : aggregatable : boolean  
+openconfig_lacp_I_aggregation_lacp_members_state_grouping : collecting : boolean  
+openconfig_lacp_I_aggregation_lacp_members_state_grouping : distributing : boolean  
+openconfig_lacp_I_aggregation_lacp_members_state_grouping : system-id : yang:mac-address  
+openconfig_lacp_I_aggregation_lacp_members_state_grouping : oper-key : uint16  
+openconfig_lacp_I_aggregation_lacp_members_state_grouping : partner-id : yang:mac-address  
+openconfig_lacp_I_aggregation_lacp_members_state_grouping : partner-key : uint16  
+class "aggregation-lacp-members-statistics" as openconfig_lacp_I_aggregation_lacp_members_statistics_grouping <<(G,Lime) grouping>> 
+class "counters" as  openconfig_lacp_I_aggregation_lacp_members_statistics_I_counters <<container>> 
+openconfig_lacp_I_aggregation_lacp_members_statistics_grouping *-- "1" openconfig_lacp_I_aggregation_lacp_members_statistics_I_counters 
+openconfig_lacp_I_aggregation_lacp_members_statistics_I_counters : lacp-in-pkts : yang:counter64  
+openconfig_lacp_I_aggregation_lacp_members_statistics_I_counters : lacp-out-pkts : yang:counter64  
+openconfig_lacp_I_aggregation_lacp_members_statistics_I_counters : lacp-rx-errors : yang:counter64  
+openconfig_lacp_I_aggregation_lacp_members_statistics_I_counters : lacp-tx-errors : yang:counter64  
+openconfig_lacp_I_aggregation_lacp_members_statistics_I_counters : lacp-unknown-errors : yang:counter64  
+openconfig_lacp_I_aggregation_lacp_members_statistics_I_counters : lacp-errors : yang:counter64  
+class "aggregation-lacp-members-top" as openconfig_lacp_I_aggregation_lacp_members_top_grouping <<(G,Lime) grouping>> 
+class "members" as  openconfig_lacp_I_aggregation_lacp_members_top_I_members <<container>> 
+openconfig_lacp_I_aggregation_lacp_members_top_grouping *-- "1" openconfig_lacp_I_aggregation_lacp_members_top_I_members 
+note bottom of openconfig_lacp_I_aggregation_lacp_members_top_I_members
+<b>Config = </b>false
+end note 
+class "member" as openconfig_lacp_I_aggregation_lacp_members_top_I_members_I_member << (L, #FF7700) list>> 
+openconfig_lacp_I_aggregation_lacp_members_top_I_members *-- "0..N" openconfig_lacp_I_aggregation_lacp_members_top_I_members_I_member 
+openconfig_lacp_I_aggregation_lacp_members_top_I_members_I_member : +interface : leafref : ../state/interface  {key} 
+class "state" as  openconfig_lacp_I_aggregation_lacp_members_top_I_members_I_member_I_state <<container>> 
+openconfig_lacp_I_aggregation_lacp_members_top_I_members_I_member *-- "1" openconfig_lacp_I_aggregation_lacp_members_top_I_members_I_member_I_state 
+note bottom of openconfig_lacp_I_aggregation_lacp_members_top_I_members_I_member_I_state
+<b>Config = </b>false
+end note 
+openconfig_lacp_I_aggregation_lacp_members_top_I_members_I_member_I_state : aggregation-lacp-members-state {uses} 
+openconfig_lacp_I_aggregation_lacp_members_top_I_members_I_member_I_state : aggregation-lacp-members-statistics {uses} 
+class "lacp-interfaces-config" as openconfig_lacp_I_lacp_interfaces_config_grouping <<(G,Lime) grouping>> 
+openconfig_lacp_I_lacp_interfaces_config_grouping : name : oc-if:base-interface-ref  
+openconfig_lacp_I_lacp_interfaces_config_grouping : interval : lacp-period-type   = SLOW 
+openconfig_lacp_I_lacp_interfaces_config_grouping : lacp-mode : lacp-activity-type   = ACTIVE 
+openconfig_lacp_I_lacp_interfaces_config_grouping : system-id-mac : yang:mac-address  
+openconfig_lacp_I_lacp_interfaces_config_grouping : aggregation-lacp-global-config {uses} 
+class "lacp-interfaces-state" as openconfig_lacp_I_lacp_interfaces_state_grouping <<(G,Lime) grouping>> 
+class "lacp-interfaces-top" as openconfig_lacp_I_lacp_interfaces_top_grouping <<(G,Lime) grouping>> 
+class "interfaces" as  openconfig_lacp_I_lacp_interfaces_top_I_interfaces <<container>> 
+openconfig_lacp_I_lacp_interfaces_top_grouping *-- "1" openconfig_lacp_I_lacp_interfaces_top_I_interfaces 
+class "interface" as openconfig_lacp_I_lacp_interfaces_top_I_interfaces_I_interface << (L, #FF7700) list>> 
+openconfig_lacp_I_lacp_interfaces_top_I_interfaces *-- "0..N" openconfig_lacp_I_lacp_interfaces_top_I_interfaces_I_interface 
+openconfig_lacp_I_lacp_interfaces_top_I_interfaces_I_interface : +name : leafref : ../config/name  {key} 
+class "config" as  openconfig_lacp_I_lacp_interfaces_top_I_interfaces_I_interface_I_config <<container>> 
+openconfig_lacp_I_lacp_interfaces_top_I_interfaces_I_interface *-- "1" openconfig_lacp_I_lacp_interfaces_top_I_interfaces_I_interface_I_config 
+openconfig_lacp_I_lacp_interfaces_top_I_interfaces_I_interface_I_config : lacp-interfaces-config {uses} 
+class "state" as  openconfig_lacp_I_lacp_interfaces_top_I_interfaces_I_interface_I_state <<container>> 
+openconfig_lacp_I_lacp_interfaces_top_I_interfaces_I_interface *-- "1" openconfig_lacp_I_lacp_interfaces_top_I_interfaces_I_interface_I_state 
+note bottom of openconfig_lacp_I_lacp_interfaces_top_I_interfaces_I_interface_I_state
+<b>Config = </b>false
+end note 
+openconfig_lacp_I_lacp_interfaces_top_I_interfaces_I_interface_I_state : lacp-interfaces-config {uses} 
+openconfig_lacp_I_lacp_interfaces_top_I_interfaces_I_interface_I_state : lacp-interfaces-state {uses} 
+openconfig_lacp_I_lacp_interfaces_top_I_interfaces_I_interface : aggregation-lacp-members-top {uses} 
+class "aggregation-lacp-global-config" as openconfig_lacp_I_aggregation_lacp_global_config_grouping <<(G,Lime) grouping>> 
+openconfig_lacp_I_aggregation_lacp_global_config_grouping : system-priority : uint16  
+class "aggregation-lacp-global-state" as openconfig_lacp_I_aggregation_lacp_global_state_grouping <<(G,Lime) grouping>> 
+class "aggregation-lacp-top" as openconfig_lacp_I_aggregation_lacp_top_grouping <<(G,Lime) grouping>> 
+class "lacp" as  openconfig_lacp_I_aggregation_lacp_top_I_lacp <<container>> 
+openconfig_lacp_I_aggregation_lacp_top_grouping *-- "1" openconfig_lacp_I_aggregation_lacp_top_I_lacp 
+class "config" as  openconfig_lacp_I_aggregation_lacp_top_I_lacp_I_config <<container>> 
+openconfig_lacp_I_aggregation_lacp_top_I_lacp *-- "1" openconfig_lacp_I_aggregation_lacp_top_I_lacp_I_config 
+openconfig_lacp_I_aggregation_lacp_top_I_lacp_I_config : aggregation-lacp-global-config {uses} 
+class "state" as  openconfig_lacp_I_aggregation_lacp_top_I_lacp_I_state <<container>> 
+openconfig_lacp_I_aggregation_lacp_top_I_lacp *-- "1" openconfig_lacp_I_aggregation_lacp_top_I_lacp_I_state 
+note bottom of openconfig_lacp_I_aggregation_lacp_top_I_lacp_I_state
+<b>Config = </b>false
+end note 
+openconfig_lacp_I_aggregation_lacp_top_I_lacp_I_state : aggregation-lacp-global-config {uses} 
+openconfig_lacp_I_aggregation_lacp_top_I_lacp_I_state : aggregation-lacp-global-state {uses} 
+openconfig_lacp_I_aggregation_lacp_top_I_lacp : lacp-interfaces-top {uses} 
+} 
+
+openconfig_lacp_I_aggregation_lacp_members_top_I_members_I_member_I_state --> openconfig_lacp_I_aggregation_lacp_members_state_grouping : uses 
+openconfig_lacp_I_aggregation_lacp_members_top_I_members_I_member_I_state --> openconfig_lacp_I_aggregation_lacp_members_statistics_grouping : uses 
+openconfig_lacp_I_lacp_interfaces_config_grouping --> openconfig_lacp_I_aggregation_lacp_global_config_grouping : uses 
+openconfig_lacp_I_lacp_interfaces_top_I_interfaces_I_interface_I_config --> openconfig_lacp_I_lacp_interfaces_config_grouping : uses 
+openconfig_lacp_I_lacp_interfaces_top_I_interfaces_I_interface_I_state --> openconfig_lacp_I_lacp_interfaces_config_grouping : uses 
+openconfig_lacp_I_lacp_interfaces_top_I_interfaces_I_interface_I_state --> openconfig_lacp_I_lacp_interfaces_state_grouping : uses 
+openconfig_lacp_I_lacp_interfaces_top_I_interfaces_I_interface --> openconfig_lacp_I_aggregation_lacp_members_top_grouping : uses 
+openconfig_lacp_I_aggregation_lacp_top_I_lacp_I_config --> openconfig_lacp_I_aggregation_lacp_global_config_grouping : uses 
+openconfig_lacp_I_aggregation_lacp_top_I_lacp_I_state --> openconfig_lacp_I_aggregation_lacp_global_config_grouping : uses 
+openconfig_lacp_I_aggregation_lacp_top_I_lacp_I_state --> openconfig_lacp_I_aggregation_lacp_global_state_grouping : uses 
+openconfig_lacp_I_aggregation_lacp_top_I_lacp --> openconfig_lacp_I_lacp_interfaces_top_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:43 </size>
+ endfooter 
+@enduml 

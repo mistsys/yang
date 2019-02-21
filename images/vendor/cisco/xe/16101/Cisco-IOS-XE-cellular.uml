@@ -1,0 +1,38 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/Cisco-IOS-XE-cellular.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title Cisco-IOS-XE-cellular 
+package "ios:Cisco-IOS-XE-native" as ios_Cisco_IOS_XE_native { 
+} 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+note top of ios_cell_Cisco_IOS_XE_cellular : <b>Namespace: </b> http://cisco.com/ns/yang/Cisco-IOS-XE-cellular \n<b>Prefix: </b> ios-cell \n<b>Organization : </b>\nCisco Systems, Inc. \n<b>Contact : </b>\nCisco Systems, Inc. \nCustomer Service \n \nPostal: 170 W Tasman Drive \nSan Jose, CA 95134 \n \nTel: +1 1800 553-NETS \n \nE-mail: cs-yang@cisco.com \n<b>Revision : </b> 2018-05-01 \n
+package "ios-cell:Cisco-IOS-XE-cellular" as ios_cell_Cisco_IOS_XE_cellular { 
+ios_Cisco_IOS_XE_native +-- ios_cell_Cisco_IOS_XE_cellular
+inet_ietf_inet_types +-- ios_cell_Cisco_IOS_XE_cellular
+class "Cisco-IOS-XE-cellular" as Cisco_IOS_XE_cellular << (M, #33CCFF) module>> 
+class "config-interface-cellular-grouping" as Cisco_IOS_XE_cellular_I_config_interface_cellular_grouping_grouping <<(G,Lime) grouping>> 
+Cisco_IOS_XE_cellular_I_config_interface_cellular_grouping_grouping : pulse-time : uint8 [0..60]  
+class "async" as  Cisco_IOS_XE_cellular_I_config_interface_cellular_grouping_I_async <<container>> 
+Cisco_IOS_XE_cellular_I_config_interface_cellular_grouping_grouping *-- "1" Cisco_IOS_XE_cellular_I_config_interface_cellular_grouping_I_async 
+Cisco_IOS_XE_cellular_I_config_interface_cellular_grouping_I_async : mode : enumeration : {interactive,}  
+class "/ios:native/ios:interface/ios:Cellular" as ios_native_ios_interface_ios_Cellular << (A,CadetBlue) augment>>
+Cisco_IOS_XE_cellular *--  ios_native_ios_interface_ios_Cellular 
+ios_native_ios_interface_ios_Cellular : config-interface-cellular-grouping {uses} 
+} 
+
+ios_native_ios_interface_ios_Cellular --> Cisco_IOS_XE_cellular_I_config_interface_cellular_grouping_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:24 </size>
+ endfooter 
+@enduml 

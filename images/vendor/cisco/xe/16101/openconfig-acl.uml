@@ -1,0 +1,294 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-acl.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-acl 
+package "oc-match:openconfig-packet-match" as oc_match_openconfig_packet_match { 
+} 
+package "oc-if:openconfig-interfaces" as oc_if_openconfig_interfaces { 
+} 
+package "oc-yang:openconfig-yang-types" as oc_yang_openconfig_yang_types { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+note top of oc_acl_openconfig_acl : <b>Namespace: </b> http://openconfig.net/yang/acl \n<b>Prefix: </b> oc-acl \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nwww.openconfig.net \n<b>Revision : </b> 2017-05-26 \n
+package "oc-acl:openconfig-acl" as oc_acl_openconfig_acl { 
+oc_match_openconfig_packet_match +-- oc_acl_openconfig_acl
+oc_if_openconfig_interfaces +-- oc_acl_openconfig_acl
+oc_yang_openconfig_yang_types +-- oc_acl_openconfig_acl
+oc_ext_openconfig_extensions +-- oc_acl_openconfig_acl
+class "openconfig-acl" as openconfig_acl << (M, #33CCFF) module>> 
+class "input-interface-config" as openconfig_acl_I_input_interface_config_grouping <<(G,Lime) grouping>> 
+class "input-interface-state" as openconfig_acl_I_input_interface_state_grouping <<(G,Lime) grouping>> 
+class "input-interface-top" as openconfig_acl_I_input_interface_top_grouping <<(G,Lime) grouping>> 
+class "input-interface" as  openconfig_acl_I_input_interface_top_I_input_interface <<container>> 
+openconfig_acl_I_input_interface_top_grouping *-- "1" openconfig_acl_I_input_interface_top_I_input_interface 
+class "config" as  openconfig_acl_I_input_interface_top_I_input_interface_I_config <<container>> 
+openconfig_acl_I_input_interface_top_I_input_interface *-- "1" openconfig_acl_I_input_interface_top_I_input_interface_I_config 
+openconfig_acl_I_input_interface_top_I_input_interface_I_config : input-interface-config {uses} 
+class "state" as  openconfig_acl_I_input_interface_top_I_input_interface_I_state <<container>> 
+openconfig_acl_I_input_interface_top_I_input_interface *-- "1" openconfig_acl_I_input_interface_top_I_input_interface_I_state 
+note bottom of openconfig_acl_I_input_interface_top_I_input_interface_I_state
+<b>Config = </b>false
+end note 
+openconfig_acl_I_input_interface_top_I_input_interface_I_state : input-interface-config {uses} 
+openconfig_acl_I_input_interface_top_I_input_interface_I_state : input-interface-state {uses} 
+openconfig_acl_I_input_interface_top_I_input_interface : oc-if:interface-ref {uses} 
+class "action-config" as openconfig_acl_I_action_config_grouping <<(G,Lime) grouping>> 
+openconfig_acl_I_action_config_grouping : forwarding-action : identityref {FORWARDING_ACTION}   {mandatory}
+openconfig_acl_I_action_config_grouping : log-action : identityref {LOG_ACTION}   = LOG_NONE 
+class "action-state" as openconfig_acl_I_action_state_grouping <<(G,Lime) grouping>> 
+class "action-top" as openconfig_acl_I_action_top_grouping <<(G,Lime) grouping>> 
+class "actions" as  openconfig_acl_I_action_top_I_actions <<container>> 
+openconfig_acl_I_action_top_grouping *-- "1" openconfig_acl_I_action_top_I_actions 
+class "config" as  openconfig_acl_I_action_top_I_actions_I_config <<container>> 
+openconfig_acl_I_action_top_I_actions *-- "1" openconfig_acl_I_action_top_I_actions_I_config 
+openconfig_acl_I_action_top_I_actions_I_config : action-config {uses} 
+class "state" as  openconfig_acl_I_action_top_I_actions_I_state <<container>> 
+openconfig_acl_I_action_top_I_actions *-- "1" openconfig_acl_I_action_top_I_actions_I_state 
+note bottom of openconfig_acl_I_action_top_I_actions_I_state
+<b>Config = </b>false
+end note 
+openconfig_acl_I_action_top_I_actions_I_state : action-config {uses} 
+openconfig_acl_I_action_top_I_actions_I_state : action-state {uses} 
+class "acl-counters-state" as openconfig_acl_I_acl_counters_state_grouping <<(G,Lime) grouping>> 
+openconfig_acl_I_acl_counters_state_grouping : matched-packets : oc-yang:counter64  
+openconfig_acl_I_acl_counters_state_grouping : matched-octets : oc-yang:counter64  
+class "access-list-entries-config" as openconfig_acl_I_access_list_entries_config_grouping <<(G,Lime) grouping>> 
+openconfig_acl_I_access_list_entries_config_grouping : sequence-id : uint32  
+openconfig_acl_I_access_list_entries_config_grouping : description : string  
+class "access-list-entries-state" as openconfig_acl_I_access_list_entries_state_grouping <<(G,Lime) grouping>> 
+openconfig_acl_I_access_list_entries_state_grouping : acl-counters-state {uses} 
+class "access-list-entries-top" as openconfig_acl_I_access_list_entries_top_grouping <<(G,Lime) grouping>> 
+class "acl-entries" as  openconfig_acl_I_access_list_entries_top_I_acl_entries <<container>> 
+openconfig_acl_I_access_list_entries_top_grouping *-- "1" openconfig_acl_I_access_list_entries_top_I_acl_entries 
+class "acl-entry" as openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry << (L, #FF7700) list>> 
+openconfig_acl_I_access_list_entries_top_I_acl_entries *-- "0..N" openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry 
+openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry : +sequence-id : leafref : ../config/sequence-id  {key} 
+class "config" as  openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry_I_config <<container>> 
+openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry *-- "1" openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry_I_config 
+openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry_I_config : access-list-entries-config {uses} 
+class "state" as  openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry_I_state <<container>> 
+openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry *-- "1" openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry_I_state 
+note bottom of openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry_I_state
+<b>Config = </b>false
+end note 
+openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry_I_state : access-list-entries-config {uses} 
+openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry_I_state : access-list-entries-state {uses} 
+openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry : oc-match:ethernet-header-top {uses} 
+openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry : oc-match:ipv4-protocol-fields-top {uses} 
+openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry : oc-match:ipv6-protocol-fields-top {uses} 
+openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry : oc-match:transport-fields-top {uses} 
+openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry : input-interface-top {uses} 
+openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry : action-top {uses} 
+class "acl-set-config" as openconfig_acl_I_acl_set_config_grouping <<(G,Lime) grouping>> 
+openconfig_acl_I_acl_set_config_grouping : name : string  
+openconfig_acl_I_acl_set_config_grouping : type : identityref {ACL_TYPE}  
+openconfig_acl_I_acl_set_config_grouping : description : string  
+class "acl-set-state" as openconfig_acl_I_acl_set_state_grouping <<(G,Lime) grouping>> 
+class "acl-set-top" as openconfig_acl_I_acl_set_top_grouping <<(G,Lime) grouping>> 
+class "acl-sets" as  openconfig_acl_I_acl_set_top_I_acl_sets <<container>> 
+openconfig_acl_I_acl_set_top_grouping *-- "1" openconfig_acl_I_acl_set_top_I_acl_sets 
+class "acl-set" as openconfig_acl_I_acl_set_top_I_acl_sets_I_acl_set << (L, #FF7700) list>> 
+openconfig_acl_I_acl_set_top_I_acl_sets *-- "0..N" openconfig_acl_I_acl_set_top_I_acl_sets_I_acl_set 
+openconfig_acl_I_acl_set_top_I_acl_sets_I_acl_set : +name : leafref : ../config/name  {key} 
+openconfig_acl_I_acl_set_top_I_acl_sets_I_acl_set : +type : leafref : ../config/type  {key} 
+class "config" as  openconfig_acl_I_acl_set_top_I_acl_sets_I_acl_set_I_config <<container>> 
+openconfig_acl_I_acl_set_top_I_acl_sets_I_acl_set *-- "1" openconfig_acl_I_acl_set_top_I_acl_sets_I_acl_set_I_config 
+openconfig_acl_I_acl_set_top_I_acl_sets_I_acl_set_I_config : acl-set-config {uses} 
+class "state" as  openconfig_acl_I_acl_set_top_I_acl_sets_I_acl_set_I_state <<container>> 
+openconfig_acl_I_acl_set_top_I_acl_sets_I_acl_set *-- "1" openconfig_acl_I_acl_set_top_I_acl_sets_I_acl_set_I_state 
+note bottom of openconfig_acl_I_acl_set_top_I_acl_sets_I_acl_set_I_state
+<b>Config = </b>false
+end note 
+openconfig_acl_I_acl_set_top_I_acl_sets_I_acl_set_I_state : acl-set-config {uses} 
+openconfig_acl_I_acl_set_top_I_acl_sets_I_acl_set_I_state : acl-set-state {uses} 
+openconfig_acl_I_acl_set_top_I_acl_sets_I_acl_set : access-list-entries-top {uses} 
+class "interface-acl-entries-config" as openconfig_acl_I_interface_acl_entries_config_grouping <<(G,Lime) grouping>> 
+class "interface-acl-entries-state" as openconfig_acl_I_interface_acl_entries_state_grouping <<(G,Lime) grouping>> 
+openconfig_acl_I_interface_acl_entries_state_grouping : sequence-id : leafref : /acl/acl-sets/acl-set[name=current{}/../../../../set-name][type=current{}/../../../../type]/acl-entries/acl-entry/sequence-id  
+openconfig_acl_I_interface_acl_entries_state_grouping : acl-counters-state {uses} 
+class "interface-acl-entries-top" as openconfig_acl_I_interface_acl_entries_top_grouping <<(G,Lime) grouping>> 
+class "acl-entries" as  openconfig_acl_I_interface_acl_entries_top_I_acl_entries <<container>> 
+openconfig_acl_I_interface_acl_entries_top_grouping *-- "1" openconfig_acl_I_interface_acl_entries_top_I_acl_entries 
+note bottom of openconfig_acl_I_interface_acl_entries_top_I_acl_entries
+<b>Config = </b>false
+end note 
+class "acl-entry" as openconfig_acl_I_interface_acl_entries_top_I_acl_entries_I_acl_entry << (L, #FF7700) list>> 
+openconfig_acl_I_interface_acl_entries_top_I_acl_entries *-- "0..N" openconfig_acl_I_interface_acl_entries_top_I_acl_entries_I_acl_entry 
+openconfig_acl_I_interface_acl_entries_top_I_acl_entries_I_acl_entry : +sequence-id : leafref : ../state/sequence-id  {key} 
+class "state" as  openconfig_acl_I_interface_acl_entries_top_I_acl_entries_I_acl_entry_I_state <<container>> 
+openconfig_acl_I_interface_acl_entries_top_I_acl_entries_I_acl_entry *-- "1" openconfig_acl_I_interface_acl_entries_top_I_acl_entries_I_acl_entry_I_state 
+note bottom of openconfig_acl_I_interface_acl_entries_top_I_acl_entries_I_acl_entry_I_state
+<b>Config = </b>false
+end note 
+openconfig_acl_I_interface_acl_entries_top_I_acl_entries_I_acl_entry_I_state : interface-acl-entries-config {uses} 
+openconfig_acl_I_interface_acl_entries_top_I_acl_entries_I_acl_entry_I_state : interface-acl-entries-state {uses} 
+class "interface-ingress-acl-config" as openconfig_acl_I_interface_ingress_acl_config_grouping <<(G,Lime) grouping>> 
+openconfig_acl_I_interface_ingress_acl_config_grouping : set-name : leafref : ../../../../../../acl-sets/acl-set/config/name  
+openconfig_acl_I_interface_ingress_acl_config_grouping : type : leafref : ../../../../../../acl-sets/acl-set[name=current{}/../set-name]/config/type  
+class "interface-ingress-acl-state" as openconfig_acl_I_interface_ingress_acl_state_grouping <<(G,Lime) grouping>> 
+class "interface-ingress-acl-top" as openconfig_acl_I_interface_ingress_acl_top_grouping <<(G,Lime) grouping>> 
+class "ingress-acl-sets" as  openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets <<container>> 
+openconfig_acl_I_interface_ingress_acl_top_grouping *-- "1" openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets 
+class "ingress-acl-set" as openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets_I_ingress_acl_set << (L, #FF7700) list>> 
+openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets *-- "0..N" openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets_I_ingress_acl_set 
+openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets_I_ingress_acl_set : +set-name : leafref : ../config/set-name  {key} 
+openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets_I_ingress_acl_set : +type : leafref : ../config/type  {key} 
+class "config" as  openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets_I_ingress_acl_set_I_config <<container>> 
+openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets_I_ingress_acl_set *-- "1" openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets_I_ingress_acl_set_I_config 
+openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets_I_ingress_acl_set_I_config : interface-ingress-acl-config {uses} 
+class "state" as  openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets_I_ingress_acl_set_I_state <<container>> 
+openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets_I_ingress_acl_set *-- "1" openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets_I_ingress_acl_set_I_state 
+note bottom of openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets_I_ingress_acl_set_I_state
+<b>Config = </b>false
+end note 
+openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets_I_ingress_acl_set_I_state : interface-ingress-acl-config {uses} 
+openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets_I_ingress_acl_set_I_state : interface-ingress-acl-state {uses} 
+openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets_I_ingress_acl_set : interface-acl-entries-top {uses} 
+class "interface-egress-acl-config" as openconfig_acl_I_interface_egress_acl_config_grouping <<(G,Lime) grouping>> 
+openconfig_acl_I_interface_egress_acl_config_grouping : +set-name : leafref : ../../../../../../acl-sets/acl-set/config/name  {key} 
+openconfig_acl_I_interface_egress_acl_config_grouping : +type : leafref : ../../../../../../acl-sets/acl-set[name=current{}/../set-name]/config/type  {key} 
+class "interface-egress-acl-state" as openconfig_acl_I_interface_egress_acl_state_grouping <<(G,Lime) grouping>> 
+class "interface-egress-acl-top" as openconfig_acl_I_interface_egress_acl_top_grouping <<(G,Lime) grouping>> 
+class "egress-acl-sets" as  openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets <<container>> 
+openconfig_acl_I_interface_egress_acl_top_grouping *-- "1" openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets 
+class "egress-acl-set" as openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets_I_egress_acl_set << (L, #FF7700) list>> 
+openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets *-- "0..N" openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets_I_egress_acl_set 
+openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets_I_egress_acl_set : +set-name : leafref : ../config/set-name  {key} 
+openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets_I_egress_acl_set : +type : leafref : ../config/type  {key} 
+class "config" as  openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets_I_egress_acl_set_I_config <<container>> 
+openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets_I_egress_acl_set *-- "1" openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets_I_egress_acl_set_I_config 
+openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets_I_egress_acl_set_I_config : interface-egress-acl-config {uses} 
+class "state" as  openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets_I_egress_acl_set_I_state <<container>> 
+openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets_I_egress_acl_set *-- "1" openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets_I_egress_acl_set_I_state 
+note bottom of openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets_I_egress_acl_set_I_state
+<b>Config = </b>false
+end note 
+openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets_I_egress_acl_set_I_state : interface-egress-acl-config {uses} 
+openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets_I_egress_acl_set_I_state : interface-egress-acl-state {uses} 
+openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets_I_egress_acl_set : interface-acl-entries-top {uses} 
+class "acl-interfaces-config" as openconfig_acl_I_acl_interfaces_config_grouping <<(G,Lime) grouping>> 
+openconfig_acl_I_acl_interfaces_config_grouping : id : oc-if:interface-id  
+class "acl-interfaces-state" as openconfig_acl_I_acl_interfaces_state_grouping <<(G,Lime) grouping>> 
+class "acl-interfaces-top" as openconfig_acl_I_acl_interfaces_top_grouping <<(G,Lime) grouping>> 
+class "interfaces" as  openconfig_acl_I_acl_interfaces_top_I_interfaces <<container>> 
+openconfig_acl_I_acl_interfaces_top_grouping *-- "1" openconfig_acl_I_acl_interfaces_top_I_interfaces 
+class "interface" as openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface << (L, #FF7700) list>> 
+openconfig_acl_I_acl_interfaces_top_I_interfaces *-- "0..N" openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface 
+openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface : +id : leafref : ../config/id  {key} 
+class "config" as  openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface_I_config <<container>> 
+openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface *-- "1" openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface_I_config 
+openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface_I_config : acl-interfaces-config {uses} 
+class "state" as  openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface_I_state <<container>> 
+openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface *-- "1" openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface_I_state 
+note bottom of openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface_I_state
+<b>Config = </b>false
+end note 
+openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface_I_state : acl-interfaces-config {uses} 
+openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface_I_state : acl-interfaces-state {uses} 
+openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface : oc-if:interface-ref {uses} 
+openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface : interface-ingress-acl-top {uses} 
+openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface : interface-egress-acl-top {uses} 
+class "acl-config" as openconfig_acl_I_acl_config_grouping <<(G,Lime) grouping>> 
+class "acl-state" as openconfig_acl_I_acl_state_grouping <<(G,Lime) grouping>> 
+openconfig_acl_I_acl_state_grouping : counter-capability : identityref {ACL_COUNTER_CAPABILITY}  
+class "acl-top" as openconfig_acl_I_acl_top_grouping <<(G,Lime) grouping>> 
+class "acl" as  openconfig_acl_I_acl_top_I_acl <<container>> 
+openconfig_acl_I_acl_top_grouping *-- "1" openconfig_acl_I_acl_top_I_acl 
+class "config" as  openconfig_acl_I_acl_top_I_acl_I_config <<container>> 
+openconfig_acl_I_acl_top_I_acl *-- "1" openconfig_acl_I_acl_top_I_acl_I_config 
+openconfig_acl_I_acl_top_I_acl_I_config : acl-config {uses} 
+class "state" as  openconfig_acl_I_acl_top_I_acl_I_state <<container>> 
+openconfig_acl_I_acl_top_I_acl *-- "1" openconfig_acl_I_acl_top_I_acl_I_state 
+note bottom of openconfig_acl_I_acl_top_I_acl_I_state
+<b>Config = </b>false
+end note 
+openconfig_acl_I_acl_top_I_acl_I_state : acl-config {uses} 
+openconfig_acl_I_acl_top_I_acl_I_state : acl-state {uses} 
+openconfig_acl_I_acl_top_I_acl : acl-set-top {uses} 
+openconfig_acl_I_acl_top_I_acl : acl-interfaces-top {uses} 
+class "ACL_TYPE" as ACL_TYPE << (I,Silver) identity>> 
+class "ACL_IPV4" as ACL_IPV4 << (I,Silver) identity>> 
+ACL_TYPE <|-- ACL_IPV4 
+class "ACL_IPV6" as ACL_IPV6 << (I,Silver) identity>> 
+ACL_TYPE <|-- ACL_IPV6 
+class "ACL_L2" as ACL_L2 << (I,Silver) identity>> 
+ACL_TYPE <|-- ACL_L2 
+class "ACL_MIXED" as ACL_MIXED << (I,Silver) identity>> 
+ACL_TYPE <|-- ACL_MIXED 
+class "FORWARDING_ACTION" as FORWARDING_ACTION << (I,Silver) identity>> 
+class "ACCEPT" as ACCEPT << (I,Silver) identity>> 
+FORWARDING_ACTION <|-- ACCEPT 
+class "DROP" as DROP << (I,Silver) identity>> 
+FORWARDING_ACTION <|-- DROP 
+class "REJECT" as REJECT << (I,Silver) identity>> 
+FORWARDING_ACTION <|-- REJECT 
+class "LOG_ACTION" as LOG_ACTION << (I,Silver) identity>> 
+class "LOG_SYSLOG" as LOG_SYSLOG << (I,Silver) identity>> 
+LOG_ACTION <|-- LOG_SYSLOG 
+class "LOG_NONE" as LOG_NONE << (I,Silver) identity>> 
+LOG_ACTION <|-- LOG_NONE 
+class "ACL_COUNTER_CAPABILITY" as ACL_COUNTER_CAPABILITY << (I,Silver) identity>> 
+class "INTERFACE_ONLY" as INTERFACE_ONLY << (I,Silver) identity>> 
+ACL_COUNTER_CAPABILITY <|-- INTERFACE_ONLY 
+class "AGGREGATE_ONLY" as AGGREGATE_ONLY << (I,Silver) identity>> 
+ACL_COUNTER_CAPABILITY <|-- AGGREGATE_ONLY 
+class "INTERFACE_AGGREGATE" as INTERFACE_AGGREGATE << (I,Silver) identity>> 
+ACL_COUNTER_CAPABILITY <|-- INTERFACE_AGGREGATE 
+openconfig_acl_I_action_config_grouping-->FORWARDING_ACTION: forwarding-action
+openconfig_acl_I_action_config_grouping-->LOG_ACTION: log-action
+openconfig_acl_I_acl_set_config_grouping-->ACL_TYPE: type
+openconfig_acl_I_acl_state_grouping-->ACL_COUNTER_CAPABILITY: counter-capability
+} 
+
+openconfig_acl_I_input_interface_top_I_input_interface_I_config --> openconfig_acl_I_input_interface_config_grouping : uses 
+openconfig_acl_I_input_interface_top_I_input_interface_I_state --> openconfig_acl_I_input_interface_config_grouping : uses 
+openconfig_acl_I_input_interface_top_I_input_interface_I_state --> openconfig_acl_I_input_interface_state_grouping : uses 
+openconfig_acl_I_action_top_I_actions_I_config --> openconfig_acl_I_action_config_grouping : uses 
+openconfig_acl_I_action_top_I_actions_I_state --> openconfig_acl_I_action_config_grouping : uses 
+openconfig_acl_I_action_top_I_actions_I_state --> openconfig_acl_I_action_state_grouping : uses 
+openconfig_acl_I_access_list_entries_state_grouping --> openconfig_acl_I_acl_counters_state_grouping : uses 
+openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry_I_config --> openconfig_acl_I_access_list_entries_config_grouping : uses 
+openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry_I_state --> openconfig_acl_I_access_list_entries_config_grouping : uses 
+openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry_I_state --> openconfig_acl_I_access_list_entries_state_grouping : uses 
+openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry --> openconfig_acl_I_input_interface_top_grouping : uses 
+openconfig_acl_I_access_list_entries_top_I_acl_entries_I_acl_entry --> openconfig_acl_I_action_top_grouping : uses 
+openconfig_acl_I_acl_set_top_I_acl_sets_I_acl_set_I_config --> openconfig_acl_I_acl_set_config_grouping : uses 
+openconfig_acl_I_acl_set_top_I_acl_sets_I_acl_set_I_state --> openconfig_acl_I_acl_set_config_grouping : uses 
+openconfig_acl_I_acl_set_top_I_acl_sets_I_acl_set_I_state --> openconfig_acl_I_acl_set_state_grouping : uses 
+openconfig_acl_I_acl_set_top_I_acl_sets_I_acl_set --> openconfig_acl_I_access_list_entries_top_grouping : uses 
+openconfig_acl_I_interface_acl_entries_state_grouping --> openconfig_acl_I_acl_counters_state_grouping : uses 
+openconfig_acl_I_interface_acl_entries_top_I_acl_entries_I_acl_entry_I_state --> openconfig_acl_I_interface_acl_entries_config_grouping : uses 
+openconfig_acl_I_interface_acl_entries_top_I_acl_entries_I_acl_entry_I_state --> openconfig_acl_I_interface_acl_entries_state_grouping : uses 
+openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets_I_ingress_acl_set_I_config --> openconfig_acl_I_interface_ingress_acl_config_grouping : uses 
+openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets_I_ingress_acl_set_I_state --> openconfig_acl_I_interface_ingress_acl_config_grouping : uses 
+openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets_I_ingress_acl_set_I_state --> openconfig_acl_I_interface_ingress_acl_state_grouping : uses 
+openconfig_acl_I_interface_ingress_acl_top_I_ingress_acl_sets_I_ingress_acl_set --> openconfig_acl_I_interface_acl_entries_top_grouping : uses 
+openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets_I_egress_acl_set_I_config --> openconfig_acl_I_interface_egress_acl_config_grouping : uses 
+openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets_I_egress_acl_set_I_state --> openconfig_acl_I_interface_egress_acl_config_grouping : uses 
+openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets_I_egress_acl_set_I_state --> openconfig_acl_I_interface_egress_acl_state_grouping : uses 
+openconfig_acl_I_interface_egress_acl_top_I_egress_acl_sets_I_egress_acl_set --> openconfig_acl_I_interface_acl_entries_top_grouping : uses 
+openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface_I_config --> openconfig_acl_I_acl_interfaces_config_grouping : uses 
+openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface_I_state --> openconfig_acl_I_acl_interfaces_config_grouping : uses 
+openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface_I_state --> openconfig_acl_I_acl_interfaces_state_grouping : uses 
+openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface --> openconfig_acl_I_interface_ingress_acl_top_grouping : uses 
+openconfig_acl_I_acl_interfaces_top_I_interfaces_I_interface --> openconfig_acl_I_interface_egress_acl_top_grouping : uses 
+openconfig_acl_I_acl_top_I_acl_I_config --> openconfig_acl_I_acl_config_grouping : uses 
+openconfig_acl_I_acl_top_I_acl_I_state --> openconfig_acl_I_acl_config_grouping : uses 
+openconfig_acl_I_acl_top_I_acl_I_state --> openconfig_acl_I_acl_state_grouping : uses 
+openconfig_acl_I_acl_top_I_acl --> openconfig_acl_I_acl_set_top_grouping : uses 
+openconfig_acl_I_acl_top_I_acl --> openconfig_acl_I_acl_interfaces_top_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:56 </size>
+ endfooter 
+@enduml 

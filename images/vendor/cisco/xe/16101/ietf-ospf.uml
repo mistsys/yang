@@ -1,0 +1,887 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-ospf.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-ospf 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "if:ietf-interfaces" as if_ietf_interfaces { 
+} 
+package "rt:ietf-routing" as rt_ietf_routing { 
+} 
+package "key-chain:ietf-key-chain" as key_chain_ietf_key_chain { 
+} 
+note top of ospf_ietf_ospf : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-ospf \n<b>Prefix: </b> ospf \n<b>Organization : </b>\nCisco Systems \n170 West Tasman Drive \nSan Jose, CA 95134-1706 \nUSA \n<b>Contact : </b>\nWG Web:   <http://tools.ietf.org/wg/ospf/> \nWG List:  <mailto:ospf@ietf.org> \n \nWG Chair: Acee Lindem \n          <mailto:acee@cisco.com> \n \nWG Chair: Abhay Roy \n          <mailto:akr@cisco.com> \n \nEditor:   Derek Yeung \n          <myeung@cisco.com> \nAuthor:   Derek Yeung \n          <myeung@cisco.com> \nAuthor:   Yingzhen Qu \n          <yiqu@cisco.com> \nAuthor:   Dean Bogdanovic \n          <deanb@juniper.net> \nAuthor:   Jeffrey Zhang \n          <zzhang@juniper.net> \nAuthor:   Kiran Agrahara Sreenivasa \n          <kkoushik@Brocade.com> \n<b>Revision : </b> 2015-03-09 \n
+package "ospf:ietf-ospf" as ospf_ietf_ospf { 
+inet_ietf_inet_types +-- ospf_ietf_ospf
+yang_ietf_yang_types +-- ospf_ietf_ospf
+if_ietf_interfaces +-- ospf_ietf_ospf
+rt_ietf_routing +-- ospf_ietf_ospf
+key_chain_ietf_key_chain +-- ospf_ietf_ospf
+class "ietf-ospf" as ietf_ospf << (M, #33CCFF) module>> 
+class "rib-ref" as rib_ref << (T, YellowGreen) typedef>>
+rib_ref : leafref : /rt:routing/rt:routing-instance/rt:ribs/rt:rib/rt:name
+class "uint24" as uint24 << (T, YellowGreen) typedef>>
+uint24 : uint32 [0 .. 16777215]
+class "area-id-type" as area_id_type << (T, YellowGreen) typedef>>
+area_id_type : union{uint32, yang:dotted-quad}
+enum "if-state-type" as ietf_ospf_I_if_state_type {
+Down
+Loopback
+Waiting
+MORE
+}
+enum "nbr-state-type" as ietf_ospf_I_nbr_state_type {
+Down
+Attempt
+Init
+MORE
+}
+enum "restart-helper-status-type" as ietf_ospf_I_restart_helper_status_type {
+Not-Helping
+Helping
+}
+enum "restart-exit-reason-type" as ietf_ospf_I_restart_exit_reason_type {
+None
+InProgress
+Completed
+MORE
+}
+enum "packet-type" as ietf_ospf_I_packet_type {
+Hello
+Database-Descripton
+Link-State-Request
+MORE
+}
+enum "nssa-translator-state-type" as ietf_ospf_I_nssa_translator_state_type {
+Enabled
+Elected
+Disabled
+}
+enum "restart-status-type" as ietf_ospf_I_restart_status_type {
+Not-Restarting
+Planned-Restart
+Unplanned-Restart
+}
+ietf_ospf : feature : multi_topology 
+ietf_ospf : feature : multi_area_adj 
+ietf_ospf : feature : router_id 
+ietf_ospf : feature : demand_circuit 
+ietf_ospf : feature : mtu_ignore 
+ietf_ospf : feature : lls 
+ietf_ospf : feature : prefix_suppression 
+ietf_ospf : feature : bfd 
+ietf_ospf : feature : ttl_security 
+ietf_ospf : feature : nsr 
+ietf_ospf : feature : graceful_restart 
+ietf_ospf : feature : admin_control 
+ietf_ospf : feature : auto_cost 
+ietf_ospf : feature : max_ecmp 
+ietf_ospf : feature : max_lsa 
+ietf_ospf : feature : te_rid 
+ietf_ospf : feature : ldp_igp_sync 
+ietf_ospf : feature : ldp_igp_autoconfig 
+ietf_ospf : feature : ospfv3_authentication_ipsec 
+ietf_ospf : feature : fast_reroute 
+ietf_ospf : feature : node_flag 
+ietf_ospf : feature : lfa 
+ietf_ospf : feature : remote_lfa 
+ietf_ospf : feature : instance_inheritance 
+ietf_ospf : feature : area_inheritance 
+ietf_ospf : feature : interface_inheritance 
+class "instance-fast-reroute-config" as ietf_ospf_I_instance_fast_reroute_config_grouping <<(G,Lime) grouping>> 
+class "fast-reroute" as  ietf_ospf_I_instance_fast_reroute_config_I_fast_reroute <<container>> 
+ietf_ospf_I_instance_fast_reroute_config_grouping *-- "1" ietf_ospf_I_instance_fast_reroute_config_I_fast_reroute 
+note bottom of ietf_ospf_I_instance_fast_reroute_config_I_fast_reroute
+<b>if-feature: </b>fast-reroute
+end note 
+class "lfa" as  ietf_ospf_I_instance_fast_reroute_config_I_fast_reroute_I_lfa <<container>> 
+ietf_ospf_I_instance_fast_reroute_config_I_fast_reroute *-- "1" ietf_ospf_I_instance_fast_reroute_config_I_fast_reroute_I_lfa 
+note bottom of ietf_ospf_I_instance_fast_reroute_config_I_fast_reroute_I_lfa
+<b>if-feature: </b>lfa
+end note 
+class "interface-fast-reroute-config" as ietf_ospf_I_interface_fast_reroute_config_grouping <<(G,Lime) grouping>> 
+class "fast-reroute" as  ietf_ospf_I_interface_fast_reroute_config_I_fast_reroute <<container>> 
+ietf_ospf_I_interface_fast_reroute_config_grouping *-- "1" ietf_ospf_I_interface_fast_reroute_config_I_fast_reroute 
+note bottom of ietf_ospf_I_interface_fast_reroute_config_I_fast_reroute
+<b>if-feature: </b>fast-reroute
+end note 
+class "lfa" as  ietf_ospf_I_interface_fast_reroute_config_I_fast_reroute_I_lfa <<container>> 
+ietf_ospf_I_interface_fast_reroute_config_I_fast_reroute *-- "1" ietf_ospf_I_interface_fast_reroute_config_I_fast_reroute_I_lfa 
+note bottom of ietf_ospf_I_interface_fast_reroute_config_I_fast_reroute_I_lfa
+<b>if-feature: </b>lfa
+end note 
+ietf_ospf_I_interface_fast_reroute_config_I_fast_reroute_I_lfa : candidate-disabled : boolean  
+ietf_ospf_I_interface_fast_reroute_config_I_fast_reroute_I_lfa : enabled : boolean  
+class "remote-lfa" as  ietf_ospf_I_interface_fast_reroute_config_I_fast_reroute_I_lfa_I_remote_lfa <<container>> 
+ietf_ospf_I_interface_fast_reroute_config_I_fast_reroute_I_lfa *-- "1" ietf_ospf_I_interface_fast_reroute_config_I_fast_reroute_I_lfa_I_remote_lfa 
+note bottom of ietf_ospf_I_interface_fast_reroute_config_I_fast_reroute_I_lfa_I_remote_lfa
+<b>if-feature: </b>remote-lfa
+end note 
+ietf_ospf_I_interface_fast_reroute_config_I_fast_reroute_I_lfa_I_remote_lfa : enabled : boolean  
+class "interface-common-config" as ietf_ospf_I_interface_common_config_grouping <<(G,Lime) grouping>> 
+ietf_ospf_I_interface_common_config_grouping : cost : uint16 [1..65535]  
+ietf_ospf_I_interface_common_config_grouping : hello-interval : uint16 [1..65535]   {seconds}
+ietf_ospf_I_interface_common_config_grouping : dead-interval : uint16 [1..65535]   {seconds}
+note bottom of ietf_ospf_I_interface_common_config_grouping
+<b>Must</b> (dead-interval):
+../dead-interval > ../hello-interval
+
+end note 
+ietf_ospf_I_interface_common_config_grouping : retransmit-interval : uint16 [1..65535]   {seconds}
+ietf_ospf_I_interface_common_config_grouping : transmit-delay : uint16 [1..65535]   {seconds}
+ietf_ospf_I_interface_common_config_grouping : mtu-ignore : boolean   {if-feature : mtu-ignore}
+ietf_ospf_I_interface_common_config_grouping : lls : boolean   {if-feature : lls}
+ietf_ospf_I_interface_common_config_grouping : prefix-suppression : boolean   {if-feature : prefix-suppression}
+ietf_ospf_I_interface_common_config_grouping : bfd : boolean   {if-feature : bfd}
+class "ttl-security" as  ietf_ospf_I_interface_common_config_I_ttl_security <<container>> 
+ietf_ospf_I_interface_common_config_grouping *-- "1" ietf_ospf_I_interface_common_config_I_ttl_security 
+note bottom of ietf_ospf_I_interface_common_config_I_ttl_security
+<b>if-feature: </b>ttl-security
+end note 
+ietf_ospf_I_interface_common_config_I_ttl_security : enable : boolean  
+ietf_ospf_I_interface_common_config_I_ttl_security : hops : uint8 [1..254]  
+ietf_ospf_I_interface_common_config_grouping : enable : boolean   = true  {if-feature : admin-control}
+class "authentication" as  ietf_ospf_I_interface_common_config_I_authentication <<container>> 
+ietf_ospf_I_interface_common_config_grouping *-- "1" ietf_ospf_I_interface_common_config_I_authentication 
+class "auth-type-selection" as ietf_ospf_I_interface_common_config_I_authentication_I_auth_type_selection <<choice>> 
+ietf_ospf_I_interface_common_config_I_authentication .. ietf_ospf_I_interface_common_config_I_authentication_I_auth_type_selection : choice 
+class "auth-ipsec" as ietf_ospf_I_interface_common_config_I_authentication_I_auth_type_selection_I_auth_ipsec_case <<case>>
+ietf_ospf_I_interface_common_config_I_authentication_I_auth_type_selection .. ietf_ospf_I_interface_common_config_I_authentication_I_auth_type_selection_I_auth_ipsec_case  : choice auth-type-selection
+note bottom of ietf_ospf_I_interface_common_config_I_authentication_I_auth_type_selection_I_auth_ipsec_case
+<b>When: </b>../../../../../rt:type = 'ospfv3'
+end note 
+note bottom of ietf_ospf_I_interface_common_config_I_authentication_I_auth_type_selection_I_auth_ipsec_case
+<b>if-feature: </b>ospfv3-authentication-ipsec
+end note 
+ietf_ospf_I_interface_common_config_I_authentication_I_auth_type_selection_I_auth_ipsec_case : sa : string  
+class "auth-trailer-key-chain" as ietf_ospf_I_interface_common_config_I_authentication_I_auth_type_selection_I_auth_trailer_key_chain_case <<case>>
+ietf_ospf_I_interface_common_config_I_authentication_I_auth_type_selection .. ietf_ospf_I_interface_common_config_I_authentication_I_auth_type_selection_I_auth_trailer_key_chain_case  : choice auth-type-selection
+ietf_ospf_I_interface_common_config_I_authentication_I_auth_type_selection_I_auth_trailer_key_chain_case : key-chain : key-chain:key-chain-ref  
+class "auth-trailer-key" as ietf_ospf_I_interface_common_config_I_authentication_I_auth_type_selection_I_auth_trailer_key_case <<case>>
+ietf_ospf_I_interface_common_config_I_authentication_I_auth_type_selection .. ietf_ospf_I_interface_common_config_I_authentication_I_auth_type_selection_I_auth_trailer_key_case  : choice auth-type-selection
+ietf_ospf_I_interface_common_config_I_authentication_I_auth_type_selection_I_auth_trailer_key_case : key : string  
+class "crypto-algorithm" as  ietf_ospf_I_interface_common_config_I_authentication_I_auth_type_selection_I_auth_trailer_key_I_crypto_algorithm <<container>> 
+ietf_ospf_I_interface_common_config_I_authentication_I_auth_type_selection_I_auth_trailer_key_case *-- "1" ietf_ospf_I_interface_common_config_I_authentication_I_auth_type_selection_I_auth_trailer_key_I_crypto_algorithm 
+ietf_ospf_I_interface_common_config_I_authentication_I_auth_type_selection_I_auth_trailer_key_I_crypto_algorithm : key-chain:crypto-algorithm-types {uses} 
+class "interface-config" as ietf_ospf_I_interface_config_grouping <<(G,Lime) grouping>> 
+ietf_ospf_I_interface_config_grouping : network-type : enumeration : {broadcast,non-broadcast,point-to-multipoint,...}  
+ietf_ospf_I_interface_config_grouping : passive : boolean  
+ietf_ospf_I_interface_config_grouping : demand-circuit : boolean   {if-feature : demand-circuit}
+class "multi-area" as  ietf_ospf_I_interface_config_I_multi_area <<container>> 
+ietf_ospf_I_interface_config_grouping *-- "1" ietf_ospf_I_interface_config_I_multi_area 
+note bottom of ietf_ospf_I_interface_config_I_multi_area
+<b>if-feature: </b>multi-area-adj
+end note 
+ietf_ospf_I_interface_config_I_multi_area : multi-area-id : area-id-type  
+ietf_ospf_I_interface_config_I_multi_area : cost : uint16  
+class "static-neighbors" as  ietf_ospf_I_interface_config_I_static_neighbors <<container>> 
+ietf_ospf_I_interface_config_grouping *-- "1" ietf_ospf_I_interface_config_I_static_neighbors 
+class "neighbor" as ietf_ospf_I_interface_config_I_static_neighbors_I_neighbor << (L, #FF7700) list>> 
+ietf_ospf_I_interface_config_I_static_neighbors *-- "0..N" ietf_ospf_I_interface_config_I_static_neighbors_I_neighbor 
+ietf_ospf_I_interface_config_I_static_neighbors_I_neighbor : +address : inet:ip-address  {key} 
+ietf_ospf_I_interface_config_I_static_neighbors_I_neighbor : cost : uint16 [1..65535]  
+ietf_ospf_I_interface_config_I_static_neighbors_I_neighbor : poll-interval : uint16 [1..65535]   {seconds}
+ietf_ospf_I_interface_config_I_static_neighbors_I_neighbor : priority : uint8 [1..255]  
+ietf_ospf_I_interface_config_grouping : node-flag : boolean   = false  {if-feature : node-flag}
+ietf_ospf_I_interface_config_grouping : interface-fast-reroute-config {uses} 
+ietf_ospf_I_interface_config_grouping : interface-common-config {uses} 
+class "tlv" as ietf_ospf_I_tlv_grouping <<(G,Lime) grouping>> 
+ietf_ospf_I_tlv_grouping : type : uint16  
+ietf_ospf_I_tlv_grouping : length : uint16  
+ietf_ospf_I_tlv_grouping : value : yang:hex-string  
+class "ospfv2-lsa-body" as ietf_ospf_I_ospfv2_lsa_body_grouping <<(G,Lime) grouping>> 
+class "router" as  ietf_ospf_I_ospfv2_lsa_body_I_router <<container>> 
+ietf_ospf_I_ospfv2_lsa_body_grouping *-- "1" ietf_ospf_I_ospfv2_lsa_body_I_router 
+note bottom of ietf_ospf_I_ospfv2_lsa_body_I_router
+<b>When: </b>../../header/type = 1
+end note 
+ietf_ospf_I_ospfv2_lsa_body_I_router : flags : bits  
+ietf_ospf_I_ospfv2_lsa_body_I_router : num-of-links : uint16  
+class "link" as ietf_ospf_I_ospfv2_lsa_body_I_router_I_link << (L, #FF7700) list>> 
+ietf_ospf_I_ospfv2_lsa_body_I_router *-- "0..N" ietf_ospf_I_ospfv2_lsa_body_I_router_I_link 
+ietf_ospf_I_ospfv2_lsa_body_I_router_I_link : +link-id : union{inet:ipv4-address, yang:dotted-quad}  {key} 
+ietf_ospf_I_ospfv2_lsa_body_I_router_I_link : +link-data : union{inet:ipv4-address, uint32}  {key} 
+ietf_ospf_I_ospfv2_lsa_body_I_router_I_link : type : uint8  
+class "topology" as ietf_ospf_I_ospfv2_lsa_body_I_router_I_link_I_topology << (L, #FF7700) list>> 
+ietf_ospf_I_ospfv2_lsa_body_I_router_I_link *-- "0..N" ietf_ospf_I_ospfv2_lsa_body_I_router_I_link_I_topology 
+ietf_ospf_I_ospfv2_lsa_body_I_router_I_link_I_topology : +mt-id : uint8  {key} 
+ietf_ospf_I_ospfv2_lsa_body_I_router_I_link_I_topology : metric : uint16  
+class "network" as  ietf_ospf_I_ospfv2_lsa_body_I_network <<container>> 
+ietf_ospf_I_ospfv2_lsa_body_grouping *-- "1" ietf_ospf_I_ospfv2_lsa_body_I_network 
+note bottom of ietf_ospf_I_ospfv2_lsa_body_I_network
+<b>When: </b>../../header/type = 2
+end note 
+ietf_ospf_I_ospfv2_lsa_body_I_network : network-mask : inet:ipv4-address  
+ietf_ospf_I_ospfv2_lsa_body_I_network : attached-router []: yang:dotted-quad 
+class "summary" as  ietf_ospf_I_ospfv2_lsa_body_I_summary <<container>> 
+ietf_ospf_I_ospfv2_lsa_body_grouping *-- "1" ietf_ospf_I_ospfv2_lsa_body_I_summary 
+note bottom of ietf_ospf_I_ospfv2_lsa_body_I_summary
+<b>When: </b>../../header/type = 3 or ../../header/type = 4
+end note 
+ietf_ospf_I_ospfv2_lsa_body_I_summary : network-mask : inet:ipv4-address  
+class "topology" as ietf_ospf_I_ospfv2_lsa_body_I_summary_I_topology << (L, #FF7700) list>> 
+ietf_ospf_I_ospfv2_lsa_body_I_summary *-- "0..N" ietf_ospf_I_ospfv2_lsa_body_I_summary_I_topology 
+ietf_ospf_I_ospfv2_lsa_body_I_summary_I_topology : +mt-id : uint8  {key} 
+ietf_ospf_I_ospfv2_lsa_body_I_summary_I_topology : metric : uint24  
+class "external" as  ietf_ospf_I_ospfv2_lsa_body_I_external <<container>> 
+ietf_ospf_I_ospfv2_lsa_body_grouping *-- "1" ietf_ospf_I_ospfv2_lsa_body_I_external 
+note bottom of ietf_ospf_I_ospfv2_lsa_body_I_external
+<b>When: </b>../../header/type = 5 or ../../header/type = 7
+end note 
+ietf_ospf_I_ospfv2_lsa_body_I_external : network-mask : inet:ipv4-address  
+class "topology" as ietf_ospf_I_ospfv2_lsa_body_I_external_I_topology << (L, #FF7700) list>> 
+ietf_ospf_I_ospfv2_lsa_body_I_external *-- "0..N" ietf_ospf_I_ospfv2_lsa_body_I_external_I_topology 
+ietf_ospf_I_ospfv2_lsa_body_I_external_I_topology : +mt-id : uint8  {key} 
+ietf_ospf_I_ospfv2_lsa_body_I_external_I_topology : flags : bits  
+ietf_ospf_I_ospfv2_lsa_body_I_external_I_topology : metric : uint24  
+ietf_ospf_I_ospfv2_lsa_body_I_external_I_topology : forwarding-address : inet:ipv4-address  
+ietf_ospf_I_ospfv2_lsa_body_I_external_I_topology : external-route-tag : uint32  
+class "opaque" as  ietf_ospf_I_ospfv2_lsa_body_I_opaque <<container>> 
+ietf_ospf_I_ospfv2_lsa_body_grouping *-- "1" ietf_ospf_I_ospfv2_lsa_body_I_opaque 
+note bottom of ietf_ospf_I_ospfv2_lsa_body_I_opaque
+<b>When: </b>../../header/type = 9 or ../../header/type = 10 or ../../header/type = 11
+end note 
+class "unknown-tlv" as ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_unknown_tlv << (L, #FF7700) list>> 
+ietf_ospf_I_ospfv2_lsa_body_I_opaque *-- "0..N" ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_unknown_tlv 
+ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_unknown_tlv : tlv {uses} 
+class "router-address-tlv" as  ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_router_address_tlv <<container>> 
+ietf_ospf_I_ospfv2_lsa_body_I_opaque *-- "1" ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_router_address_tlv 
+ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_router_address_tlv : router-address : inet:ipv4-address  
+class "link-tlv" as  ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_link_tlv <<container>> 
+ietf_ospf_I_ospfv2_lsa_body_I_opaque *-- "1" ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_link_tlv 
+ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_link_tlv : link-type : uint8   {mandatory}
+ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_link_tlv : link-id : union{inet:ipv4-address, yang:dotted-quad}   {mandatory}
+ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_link_tlv : local-if-ipv4-addr []: inet:ipv4-address 
+ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_link_tlv : local-remote-ipv4-addr []: inet:ipv4-address 
+ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_link_tlv : te-metric : uint32  
+ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_link_tlv : max-bandwidth : decimal64  
+ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_link_tlv : max-reservable-bandwidth : decimal64  
+ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_link_tlv : unreserved-bandwidth : decimal64  
+ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_link_tlv : admin-group : uint32  
+class "unknown-subtlv" as ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_link_tlv_I_unknown_subtlv << (L, #FF7700) list>> 
+ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_link_tlv *-- "0..N" ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_link_tlv_I_unknown_subtlv 
+ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_link_tlv_I_unknown_subtlv : tlv {uses} 
+class "ospfv3-lsa-options" as ietf_ospf_I_ospfv3_lsa_options_grouping <<(G,Lime) grouping>> 
+ietf_ospf_I_ospfv3_lsa_options_grouping : options : bits   {mandatory}
+class "ospfv3-lsa-prefix" as ietf_ospf_I_ospfv3_lsa_prefix_grouping <<(G,Lime) grouping>> 
+ietf_ospf_I_ospfv3_lsa_prefix_grouping : prefix : string  
+ietf_ospf_I_ospfv3_lsa_prefix_grouping : prefix-options : string   {mandatory}
+class "ospfv3-lsa-external" as ietf_ospf_I_ospfv3_lsa_external_grouping <<(G,Lime) grouping>> 
+ietf_ospf_I_ospfv3_lsa_external_grouping : metric : uint24  
+ietf_ospf_I_ospfv3_lsa_external_grouping : flags : bits  
+ietf_ospf_I_ospfv3_lsa_external_grouping : referenced-ls-type : uint16  
+ietf_ospf_I_ospfv3_lsa_external_grouping : ospfv3-lsa-prefix {uses} 
+ietf_ospf_I_ospfv3_lsa_external_grouping : forwarding-address : inet:ipv6-address  
+ietf_ospf_I_ospfv3_lsa_external_grouping : external-route-tag : uint32  
+ietf_ospf_I_ospfv3_lsa_external_grouping : referenced-link-state-id : uint32  
+class "ospfv3-lsa-body" as ietf_ospf_I_ospfv3_lsa_body_grouping <<(G,Lime) grouping>> 
+class "router" as  ietf_ospf_I_ospfv3_lsa_body_I_router <<container>> 
+ietf_ospf_I_ospfv3_lsa_body_grouping *-- "1" ietf_ospf_I_ospfv3_lsa_body_I_router 
+note bottom of ietf_ospf_I_ospfv3_lsa_body_I_router
+<b>When: </b>../../header/type = 8193
+end note 
+ietf_ospf_I_ospfv3_lsa_body_I_router : flags : bits   {mandatory}
+ietf_ospf_I_ospfv3_lsa_body_I_router : ospfv3-lsa-options {uses} 
+class "link" as ietf_ospf_I_ospfv3_lsa_body_I_router_I_link << (L, #FF7700) list>> 
+ietf_ospf_I_ospfv3_lsa_body_I_router *-- "0..N" ietf_ospf_I_ospfv3_lsa_body_I_router_I_link 
+ietf_ospf_I_ospfv3_lsa_body_I_router_I_link : +interface-id : uint32  {key} 
+ietf_ospf_I_ospfv3_lsa_body_I_router_I_link : +neighbor-interface-id : uint32  {key} 
+ietf_ospf_I_ospfv3_lsa_body_I_router_I_link : +neighbor-router-id : yang:dotted-quad  {key} 
+ietf_ospf_I_ospfv3_lsa_body_I_router_I_link : type : uint8  
+ietf_ospf_I_ospfv3_lsa_body_I_router_I_link : metric : uint16  
+class "network" as  ietf_ospf_I_ospfv3_lsa_body_I_network <<container>> 
+ietf_ospf_I_ospfv3_lsa_body_grouping *-- "1" ietf_ospf_I_ospfv3_lsa_body_I_network 
+note bottom of ietf_ospf_I_ospfv3_lsa_body_I_network
+<b>When: </b>../../header/type = 8194
+end note 
+ietf_ospf_I_ospfv3_lsa_body_I_network : ospfv3-lsa-options {uses} 
+ietf_ospf_I_ospfv3_lsa_body_I_network : attached-router []: yang:dotted-quad 
+class "inter-area-prefix" as  ietf_ospf_I_ospfv3_lsa_body_I_inter_area_prefix <<container>> 
+ietf_ospf_I_ospfv3_lsa_body_grouping *-- "1" ietf_ospf_I_ospfv3_lsa_body_I_inter_area_prefix 
+note bottom of ietf_ospf_I_ospfv3_lsa_body_I_inter_area_prefix
+<b>When: </b>../../header/type = 8195
+end note 
+ietf_ospf_I_ospfv3_lsa_body_I_inter_area_prefix : metric : uint24  
+ietf_ospf_I_ospfv3_lsa_body_I_inter_area_prefix : ospfv3-lsa-prefix {uses} 
+class "inter-area-router" as  ietf_ospf_I_ospfv3_lsa_body_I_inter_area_router <<container>> 
+ietf_ospf_I_ospfv3_lsa_body_grouping *-- "1" ietf_ospf_I_ospfv3_lsa_body_I_inter_area_router 
+note bottom of ietf_ospf_I_ospfv3_lsa_body_I_inter_area_router
+<b>When: </b>../../header/type = 8196
+end note 
+ietf_ospf_I_ospfv3_lsa_body_I_inter_area_router : ospfv3-lsa-options {uses} 
+ietf_ospf_I_ospfv3_lsa_body_I_inter_area_router : metric : uint24  
+ietf_ospf_I_ospfv3_lsa_body_I_inter_area_router : destination-router-id : yang:dotted-quad  
+class "as-external" as  ietf_ospf_I_ospfv3_lsa_body_I_as_external <<container>> 
+ietf_ospf_I_ospfv3_lsa_body_grouping *-- "1" ietf_ospf_I_ospfv3_lsa_body_I_as_external 
+note bottom of ietf_ospf_I_ospfv3_lsa_body_I_as_external
+<b>When: </b>../../header/type = 16389
+end note 
+ietf_ospf_I_ospfv3_lsa_body_I_as_external : ospfv3-lsa-external {uses} 
+class "nssa" as  ietf_ospf_I_ospfv3_lsa_body_I_nssa <<container>> 
+ietf_ospf_I_ospfv3_lsa_body_grouping *-- "1" ietf_ospf_I_ospfv3_lsa_body_I_nssa 
+note bottom of ietf_ospf_I_ospfv3_lsa_body_I_nssa
+<b>When: </b>../../header/type = 8199
+end note 
+ietf_ospf_I_ospfv3_lsa_body_I_nssa : ospfv3-lsa-external {uses} 
+class "link" as  ietf_ospf_I_ospfv3_lsa_body_I_link <<container>> 
+ietf_ospf_I_ospfv3_lsa_body_grouping *-- "1" ietf_ospf_I_ospfv3_lsa_body_I_link 
+note bottom of ietf_ospf_I_ospfv3_lsa_body_I_link
+<b>When: </b>../../header/type = 8
+end note 
+ietf_ospf_I_ospfv3_lsa_body_I_link : rtr-priority : uint8  
+ietf_ospf_I_ospfv3_lsa_body_I_link : ospfv3-lsa-options {uses} 
+ietf_ospf_I_ospfv3_lsa_body_I_link : link-local-interface-address : inet:ip-address  
+ietf_ospf_I_ospfv3_lsa_body_I_link : num-of-prefixes : uint32  
+class "prefix-list" as ietf_ospf_I_ospfv3_lsa_body_I_link_I_prefix_list << (L, #FF7700) list>> 
+ietf_ospf_I_ospfv3_lsa_body_I_link *-- "0..N" ietf_ospf_I_ospfv3_lsa_body_I_link_I_prefix_list 
+ietf_ospf_I_ospfv3_lsa_body_I_link_I_prefix_list : ospfv3-lsa-prefix {uses} 
+class "intra-area-prefix" as  ietf_ospf_I_ospfv3_lsa_body_I_intra_area_prefix <<container>> 
+ietf_ospf_I_ospfv3_lsa_body_grouping *-- "1" ietf_ospf_I_ospfv3_lsa_body_I_intra_area_prefix 
+note bottom of ietf_ospf_I_ospfv3_lsa_body_I_intra_area_prefix
+<b>When: </b>../../header/type = 8201
+end note 
+ietf_ospf_I_ospfv3_lsa_body_I_intra_area_prefix : referenced-ls-type : uint16  
+ietf_ospf_I_ospfv3_lsa_body_I_intra_area_prefix : referenced-link-state-id : uint32  
+ietf_ospf_I_ospfv3_lsa_body_I_intra_area_prefix : referenced-adv-router : inet:ipv4-address  
+ietf_ospf_I_ospfv3_lsa_body_I_intra_area_prefix : num-of-prefixes : uint16  
+class "prefix-list" as ietf_ospf_I_ospfv3_lsa_body_I_intra_area_prefix_I_prefix_list << (L, #FF7700) list>> 
+ietf_ospf_I_ospfv3_lsa_body_I_intra_area_prefix *-- "0..N" ietf_ospf_I_ospfv3_lsa_body_I_intra_area_prefix_I_prefix_list 
+ietf_ospf_I_ospfv3_lsa_body_I_intra_area_prefix_I_prefix_list : ospfv3-lsa-prefix {uses} 
+ietf_ospf_I_ospfv3_lsa_body_I_intra_area_prefix_I_prefix_list : metric : uint24  
+class "lsa-header" as ietf_ospf_I_lsa_header_grouping <<(G,Lime) grouping>> 
+ietf_ospf_I_lsa_header_grouping : age : uint16   {mandatory}
+ietf_ospf_I_lsa_header_grouping : type : uint16   {mandatory}
+ietf_ospf_I_lsa_header_grouping : adv-router : yang:dotted-quad   {mandatory}
+ietf_ospf_I_lsa_header_grouping : seq-num : string   {mandatory}
+ietf_ospf_I_lsa_header_grouping : checksum : string   {mandatory}
+ietf_ospf_I_lsa_header_grouping : length : uint16   {mandatory}
+class "ospfv2-lsa" as ietf_ospf_I_ospfv2_lsa_grouping <<(G,Lime) grouping>> 
+class "header" as  ietf_ospf_I_ospfv2_lsa_I_header <<container>> 
+ietf_ospf_I_ospfv2_lsa_grouping *-- "1" ietf_ospf_I_ospfv2_lsa_I_header 
+ietf_ospf_I_ospfv2_lsa_I_header : options : bits   {mandatory}
+ietf_ospf_I_ospfv2_lsa_I_header : lsa-id : inet:ipv4-address   {mandatory}
+ietf_ospf_I_ospfv2_lsa_I_header : opaque-type : uint8   {mandatory}
+note bottom of ietf_ospf_I_ospfv2_lsa_I_header
+<b>When</b> (opaque-type):
+../../header/type = 9 or ../../header/type = 10 or ../../header/type = 11
+
+end note 
+ietf_ospf_I_ospfv2_lsa_I_header : opaque-id : uint24   {mandatory}
+note bottom of ietf_ospf_I_ospfv2_lsa_I_header
+<b>When</b> (opaque-id):
+../../header/type = 9 or ../../header/type = 10 or ../../header/type = 11
+
+end note 
+ietf_ospf_I_ospfv2_lsa_I_header : lsa-header {uses} 
+class "body" as  ietf_ospf_I_ospfv2_lsa_I_body <<container>> 
+ietf_ospf_I_ospfv2_lsa_grouping *-- "1" ietf_ospf_I_ospfv2_lsa_I_body 
+ietf_ospf_I_ospfv2_lsa_I_body : ospfv2-lsa-body {uses} 
+class "ospfv3-lsa" as ietf_ospf_I_ospfv3_lsa_grouping <<(G,Lime) grouping>> 
+class "header" as  ietf_ospf_I_ospfv3_lsa_I_header <<container>> 
+ietf_ospf_I_ospfv3_lsa_grouping *-- "1" ietf_ospf_I_ospfv3_lsa_I_header 
+ietf_ospf_I_ospfv3_lsa_I_header : lsa-id : uint32   {mandatory}
+ietf_ospf_I_ospfv3_lsa_I_header : lsa-header {uses} 
+ietf_ospf_I_ospfv3_lsa_I_header : ospfv3-lsa-options {uses} 
+class "body" as  ietf_ospf_I_ospfv3_lsa_I_body <<container>> 
+ietf_ospf_I_ospfv3_lsa_grouping *-- "1" ietf_ospf_I_ospfv3_lsa_I_body 
+ietf_ospf_I_ospfv3_lsa_I_body : ospfv3-lsa-body {uses} 
+class "lsa-common" as ietf_ospf_I_lsa_common_grouping <<(G,Lime) grouping>> 
+ietf_ospf_I_lsa_common_grouping : decoded-completed : boolean  
+ietf_ospf_I_lsa_common_grouping : raw-data : yang:hex-string  
+class "lsa" as ietf_ospf_I_lsa_grouping <<(G,Lime) grouping>> 
+ietf_ospf_I_lsa_grouping : lsa-common {uses} 
+class "version" as ietf_ospf_I_lsa_I_version <<choice>> 
+ietf_ospf_I_lsa_grouping .. ietf_ospf_I_lsa_I_version : choice 
+class "v2" as ietf_ospf_I_lsa_I_version_I_v2_case <<case>>
+ietf_ospf_I_lsa_I_version .. ietf_ospf_I_lsa_I_version_I_v2_case  : choice version
+class "ospfv2" as  ietf_ospf_I_lsa_I_version_I_v2_I_ospfv2 <<container>> 
+ietf_ospf_I_lsa_I_version_I_v2_case *-- "1" ietf_ospf_I_lsa_I_version_I_v2_I_ospfv2 
+ietf_ospf_I_lsa_I_version_I_v2_I_ospfv2 : ospfv2-lsa {uses} 
+class "v3" as ietf_ospf_I_lsa_I_version_I_v3_case <<case>>
+ietf_ospf_I_lsa_I_version .. ietf_ospf_I_lsa_I_version_I_v3_case  : choice version
+class "ospfv3" as  ietf_ospf_I_lsa_I_version_I_v3_I_ospfv3 <<container>> 
+ietf_ospf_I_lsa_I_version_I_v3_case *-- "1" ietf_ospf_I_lsa_I_version_I_v3_I_ospfv3 
+ietf_ospf_I_lsa_I_version_I_v3_I_ospfv3 : ospfv3-lsa {uses} 
+class "lsa-key" as ietf_ospf_I_lsa_key_grouping <<(G,Lime) grouping>> 
+ietf_ospf_I_lsa_key_grouping : lsa-id : union{inet:ipv4-address, uint32}  
+ietf_ospf_I_lsa_key_grouping : adv-router : inet:ipv4-address  
+class "af-area-config" as ietf_ospf_I_af_area_config_grouping <<(G,Lime) grouping>> 
+class "range" as ietf_ospf_I_af_area_config_I_range << (L, #FF7700) list>> 
+ietf_ospf_I_af_area_config_grouping *-- "0..N" ietf_ospf_I_af_area_config_I_range 
+ietf_ospf_I_af_area_config_I_range : +prefix : string  {key} 
+ietf_ospf_I_af_area_config_I_range : advertise : boolean  
+ietf_ospf_I_af_area_config_I_range : cost : uint24 [0..16777214]  
+class "area-config" as ietf_ospf_I_area_config_grouping <<(G,Lime) grouping>> 
+ietf_ospf_I_area_config_grouping : area-type : identityref {area-type}   = normal 
+ietf_ospf_I_area_config_grouping : summary : boolean  
+ietf_ospf_I_area_config_grouping : default-cost : uint32 [1..16777215]  
+ietf_ospf_I_area_config_grouping : af-area-config {uses} 
+class "instance-config" as ietf_ospf_I_instance_config_grouping <<(G,Lime) grouping>> 
+ietf_ospf_I_instance_config_grouping : router-id : yang:dotted-quad   {if-feature : router-id}
+class "admin-distance" as  ietf_ospf_I_instance_config_I_admin_distance <<container>> 
+ietf_ospf_I_instance_config_grouping *-- "1" ietf_ospf_I_instance_config_I_admin_distance 
+class "granularity" as ietf_ospf_I_instance_config_I_admin_distance_I_granularity <<choice>> 
+ietf_ospf_I_instance_config_I_admin_distance .. ietf_ospf_I_instance_config_I_admin_distance_I_granularity : choice 
+class "detail" as ietf_ospf_I_instance_config_I_admin_distance_I_granularity_I_detail_case <<case>>
+ietf_ospf_I_instance_config_I_admin_distance_I_granularity .. ietf_ospf_I_instance_config_I_admin_distance_I_granularity_I_detail_case  : choice granularity
+ietf_ospf_I_instance_config_I_admin_distance_I_granularity_I_detail_case : intra-area : uint8  
+ietf_ospf_I_instance_config_I_admin_distance_I_granularity_I_detail_case : inter-area : uint8  
+class "coarse" as ietf_ospf_I_instance_config_I_admin_distance_I_granularity_I_coarse_case <<case>>
+ietf_ospf_I_instance_config_I_admin_distance_I_granularity .. ietf_ospf_I_instance_config_I_admin_distance_I_granularity_I_coarse_case  : choice granularity
+ietf_ospf_I_instance_config_I_admin_distance_I_granularity_I_coarse_case : internal : uint8  
+ietf_ospf_I_instance_config_I_admin_distance : external : uint8  
+class "nsr" as  ietf_ospf_I_instance_config_I_nsr <<container>> 
+ietf_ospf_I_instance_config_grouping *-- "1" ietf_ospf_I_instance_config_I_nsr 
+note bottom of ietf_ospf_I_instance_config_I_nsr
+<b>if-feature: </b>nsr
+end note 
+ietf_ospf_I_instance_config_I_nsr : enable : boolean  
+class "graceful-restart" as  ietf_ospf_I_instance_config_I_graceful_restart <<container>> 
+ietf_ospf_I_instance_config_grouping *-- "1" ietf_ospf_I_instance_config_I_graceful_restart 
+note bottom of ietf_ospf_I_instance_config_I_graceful_restart
+<b>if-feature: </b>graceful-restart
+end note 
+ietf_ospf_I_instance_config_I_graceful_restart : enable : boolean  
+ietf_ospf_I_instance_config_I_graceful_restart : helper-enable : boolean  
+ietf_ospf_I_instance_config_I_graceful_restart : restart-interval : uint16 [1..1800]   = 120  {seconds}
+ietf_ospf_I_instance_config_I_graceful_restart : helper-strict-lsa-checking : boolean  
+ietf_ospf_I_instance_config_grouping : enable : boolean   = true  {if-feature : admin-control}
+class "auto-cost" as  ietf_ospf_I_instance_config_I_auto_cost <<container>> 
+ietf_ospf_I_instance_config_grouping *-- "1" ietf_ospf_I_instance_config_I_auto_cost 
+note bottom of ietf_ospf_I_instance_config_I_auto_cost
+<b>if-feature: </b>auto-cost
+end note 
+ietf_ospf_I_instance_config_I_auto_cost : enable : boolean  
+ietf_ospf_I_instance_config_I_auto_cost : reference-bandwidth : uint32 [1..4294967]   {Mbits}
+class "spf-control" as  ietf_ospf_I_instance_config_I_spf_control <<container>> 
+ietf_ospf_I_instance_config_grouping *-- "1" ietf_ospf_I_instance_config_I_spf_control 
+ietf_ospf_I_instance_config_I_spf_control : paths : uint16 [1..32]   {if-feature : max-ecmp}
+class "database-control" as  ietf_ospf_I_instance_config_I_database_control <<container>> 
+ietf_ospf_I_instance_config_grouping *-- "1" ietf_ospf_I_instance_config_I_database_control 
+ietf_ospf_I_instance_config_I_database_control : max-lsa : uint32 [1..4294967294]   {if-feature : max-lsa}
+class "reload-control" as  ietf_ospf_I_instance_config_I_reload_control <<container>> 
+ietf_ospf_I_instance_config_grouping *-- "1" ietf_ospf_I_instance_config_I_reload_control 
+class "mpls" as  ietf_ospf_I_instance_config_I_mpls <<container>> 
+ietf_ospf_I_instance_config_grouping *-- "1" ietf_ospf_I_instance_config_I_mpls 
+class "te-rid" as  ietf_ospf_I_instance_config_I_mpls_I_te_rid <<container>> 
+ietf_ospf_I_instance_config_I_mpls *-- "1" ietf_ospf_I_instance_config_I_mpls_I_te_rid 
+note bottom of ietf_ospf_I_instance_config_I_mpls_I_te_rid
+<b>if-feature: </b>te-rid
+end note 
+class "source" as ietf_ospf_I_instance_config_I_mpls_I_te_rid_I_source <<choice>> 
+ietf_ospf_I_instance_config_I_mpls_I_te_rid .. ietf_ospf_I_instance_config_I_mpls_I_te_rid_I_source : choice 
+class "interface" as ietf_ospf_I_instance_config_I_mpls_I_te_rid_I_source_I_interface_case <<case>>
+ietf_ospf_I_instance_config_I_mpls_I_te_rid_I_source .. ietf_ospf_I_instance_config_I_mpls_I_te_rid_I_source_I_interface_case  : choice source
+ietf_ospf_I_instance_config_I_mpls_I_te_rid_I_source_I_interface_case : interface : if:interface-ref  
+class "explicit" as ietf_ospf_I_instance_config_I_mpls_I_te_rid_I_source_I_explicit_case <<case>>
+ietf_ospf_I_instance_config_I_mpls_I_te_rid_I_source .. ietf_ospf_I_instance_config_I_mpls_I_te_rid_I_source_I_explicit_case  : choice source
+ietf_ospf_I_instance_config_I_mpls_I_te_rid_I_source_I_explicit_case : router-id : inet:ipv4-address  
+class "ldp" as  ietf_ospf_I_instance_config_I_mpls_I_ldp <<container>> 
+ietf_ospf_I_instance_config_I_mpls *-- "1" ietf_ospf_I_instance_config_I_mpls_I_ldp 
+ietf_ospf_I_instance_config_I_mpls_I_ldp : igp-sync : boolean   {if-feature : ldp-igp-sync}
+ietf_ospf_I_instance_config_I_mpls_I_ldp : autoconfig : boolean   {if-feature : ldp-igp-autoconfig}
+ietf_ospf_I_instance_config_grouping : instance-fast-reroute-config {uses} 
+class "interface-operation" as ietf_ospf_I_interface_operation_grouping <<(G,Lime) grouping>> 
+ietf_ospf_I_interface_operation_grouping : interface-config {uses} 
+ietf_ospf_I_interface_operation_grouping : state : string  
+ietf_ospf_I_interface_operation_grouping : hello-timer : uint32   {milliseconds}
+ietf_ospf_I_interface_operation_grouping : wait-timer : uint32   {milliseconds}
+ietf_ospf_I_interface_operation_grouping : dr : inet:ipv4-address  
+ietf_ospf_I_interface_operation_grouping : bdr : inet:ipv4-address  
+class "neighbor-operation" as ietf_ospf_I_neighbor_operation_grouping <<(G,Lime) grouping>> 
+ietf_ospf_I_neighbor_operation_grouping : address : inet:ip-address  
+ietf_ospf_I_neighbor_operation_grouping : dr : inet:ipv4-address  
+ietf_ospf_I_neighbor_operation_grouping : bdr : inet:ipv4-address  
+ietf_ospf_I_neighbor_operation_grouping : state : nbr-state-type  
+class "instance-operation" as ietf_ospf_I_instance_operation_grouping <<(G,Lime) grouping>> 
+ietf_ospf_I_instance_operation_grouping : router-id : yang:dotted-quad  
+class "/rt:routing/rt:routing-instance/rt:routing-protocols/rt:routing-protocol" as rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol << (A,CadetBlue) augment>>
+ietf_ospf *--  rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol 
+note bottom of rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol
+<b>When: </b>rt:type = 'ospf:ospfv2' or rt:type = 'ospf:ospfv3'
+end note 
+class "ospf" as  ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf <<container>> 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol *-- "1" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf 
+class "all-instances-inherit" as  ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_all_instances_inherit <<container>> 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf *-- "1" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_all_instances_inherit 
+note bottom of ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_all_instances_inherit
+<b>if-feature: </b>instance-inheritance
+end note 
+class "area" as  ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_all_instances_inherit_I_area <<container>> 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_all_instances_inherit *-- "1" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_all_instances_inherit_I_area 
+class "interface" as  ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_all_instances_inherit_I_interface <<container>> 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_all_instances_inherit *-- "1" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_all_instances_inherit_I_interface 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf : operation-mode : identityref {operation-mode}   = ospf:ships-in-the-night 
+class "instance" as ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance << (L, #FF7700) list>> 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf *-- "0..N" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance : +af : identityref {rt:address-family}  {key} 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance : instance-config {uses} 
+class "all-areas-inherit" as  ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_all_areas_inherit <<container>> 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance *-- "1" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_all_areas_inherit 
+note bottom of ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_all_areas_inherit
+<b>if-feature: </b>area-inheritance
+end note 
+class "area" as  ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_all_areas_inherit_I_area <<container>> 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_all_areas_inherit *-- "1" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_all_areas_inherit_I_area 
+class "interface" as  ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_all_areas_inherit_I_interface <<container>> 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_all_areas_inherit *-- "1" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_all_areas_inherit_I_interface 
+class "area" as ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area << (L, #FF7700) list>> 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance *-- "0..N" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area : +area-id : area-id-type  {key} 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area : area-config {uses} 
+class "all-interfaces-inherit" as  ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_all_interfaces_inherit <<container>> 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area *-- "1" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_all_interfaces_inherit 
+note bottom of ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_all_interfaces_inherit
+<b>if-feature: </b>interface-inheritance
+end note 
+class "interface" as  ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_all_interfaces_inherit_I_interface <<container>> 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_all_interfaces_inherit *-- "1" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_all_interfaces_inherit_I_interface 
+class "virtual-link" as ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_virtual_link << (L, #FF7700) list>> 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area *-- "0..N" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_virtual_link 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_virtual_link : +router-id : yang:dotted-quad  {key} 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_virtual_link : interface-common-config {uses} 
+class "sham-link" as ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_sham_link << (L, #FF7700) list>> 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area *-- "0..N" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_sham_link 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_sham_link : +local-id : inet:ip-address  {key} 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_sham_link : +remote-id : inet:ip-address  {key} 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_sham_link : interface-common-config {uses} 
+class "interface" as ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interface << (L, #FF7700) list>> 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area *-- "0..N" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interface 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interface : +interface : if:interface-ref  {key} 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interface : interface-config {uses} 
+class "/rt:routing/rt:routing-instance/rt:routing-protocols/rt:routing-protocol/ospf:ospf/ospf:instance" as rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance << (A,CadetBlue) augment>>
+ietf_ospf *--  rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance 
+note bottom of rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance
+<b>if-feature: </b>multi-topology
+end note 
+class "topology" as ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_topology << (L, #FF7700) list>> 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance *-- "0..N" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_topology 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_topology : +name : rib-ref  {key} 
+class "area" as ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_topology_I_area << (L, #FF7700) list>> 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_topology *-- "0..N" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_topology_I_area 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_topology_I_area : +area-id : area-id-type  {key} 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_topology_I_area : area-config {uses} 
+note bottom of ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_topology
+<b>if-feature: </b>multi-topology
+end note 
+class "/rt:routing/rt:routing-instance/rt:routing-protocols/rt:routing-protocol/ospf:ospf/ospf:instance/ospf:area/ospf:interface" as rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_area_ospf_interface << (A,CadetBlue) augment>>
+ietf_ospf *--  rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_area_ospf_interface 
+note bottom of rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_area_ospf_interface
+<b>if-feature: </b>ospf:multi-topology
+end note 
+class "topology" as ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interface_I_topology << (L, #FF7700) list>> 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_area_ospf_interface *-- "0..N" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interface_I_topology 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interface_I_topology : +name : rib-ref  {key} 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interface_I_topology : cost : uint32  
+note bottom of ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interface_I_topology
+<b>if-feature: </b>ospf:multi-topology
+end note 
+class "/rt:routing-state/rt:routing-instance/rt:routing-protocols/rt:routing-protocol" as rt_routing_state_rt_routing_instance_rt_routing_protocols_rt_routing_protocol << (A,CadetBlue) augment>>
+ietf_ospf *--  rt_routing_state_rt_routing_instance_rt_routing_protocols_rt_routing_protocol 
+note bottom of rt_routing_state_rt_routing_instance_rt_routing_protocols_rt_routing_protocol
+<b>When: </b>rt:type = 'ospf:ospfv2' or rt:type = 'ospf:ospfv3'
+end note 
+class "ospf" as  ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf <<container>> 
+rt_routing_state_rt_routing_instance_rt_routing_protocols_rt_routing_protocol *-- "1" ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf : operation-mode : identityref {operation-mode}  
+class "instance" as ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance << (L, #FF7700) list>> 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf *-- "0..N" ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance : +af : identityref {rt:address-family}  {key} 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance : instance-operation {uses} 
+class "area" as ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area << (L, #FF7700) list>> 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance *-- "0..N" ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area : +area-id : area-id-type  {key} 
+class "interfaces" as ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces << (L, #FF7700) list>> 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area *-- "0..N" ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces : +interface : string  {key} 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces : interface-operation {uses} 
+class "neighbor" as ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces_I_neighbor << (L, #FF7700) list>> 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces *-- "0..N" ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces_I_neighbor 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces_I_neighbor : +neighbor-id : inet:ipv4-address  {key} 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces_I_neighbor : neighbor-operation {uses} 
+class "link-scope-lsas" as ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces_I_link_scope_lsas << (L, #FF7700) list>> 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces *-- "0..N" ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces_I_link_scope_lsas 
+note bottom of ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces_I_link_scope_lsas
+<b>When: </b>../../../../../rt:type = 'ospfv3'
+end note 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces_I_link_scope_lsas : +lsa-type : uint8  {key} 
+class "link-scope-lsa" as ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces_I_link_scope_lsas_I_link_scope_lsa << (L, #FF7700) list>> 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces_I_link_scope_lsas *-- "0..N" ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces_I_link_scope_lsas_I_link_scope_lsa 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces_I_link_scope_lsas_I_link_scope_lsa : lsa-key {uses} 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces_I_link_scope_lsas_I_link_scope_lsa : lsa {uses} 
+class "area-scope-lsas" as ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_area_scope_lsas << (L, #FF7700) list>> 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area *-- "0..N" ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_area_scope_lsas 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_area_scope_lsas : +lsa-type : uint8  {key} 
+class "area-scope-lsa" as ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_area_scope_lsas_I_area_scope_lsa << (L, #FF7700) list>> 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_area_scope_lsas *-- "0..N" ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_area_scope_lsas_I_area_scope_lsa 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_area_scope_lsas_I_area_scope_lsa : lsa-key {uses} 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_area_scope_lsas_I_area_scope_lsa : lsa {uses} 
+class "as-scope-lsas" as ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_as_scope_lsas << (L, #FF7700) list>> 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance *-- "0..N" ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_as_scope_lsas 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_as_scope_lsas : +lsa-type : uint8  {key} 
+class "as-scope-lsa" as ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_as_scope_lsas_I_as_scope_lsa << (L, #FF7700) list>> 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_as_scope_lsas *-- "0..N" ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_as_scope_lsas_I_as_scope_lsa 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_as_scope_lsas_I_as_scope_lsa : lsa-key {uses} 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_as_scope_lsas_I_as_scope_lsa : lsa {uses} 
+class "/rt:routing-state/rt:routing-instance/rt:routing-protocols/rt:routing-protocol/ospf:ospf/ospf:instance" as rt_routing_state_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance << (A,CadetBlue) augment>>
+ietf_ospf *--  rt_routing_state_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance 
+note bottom of rt_routing_state_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance
+<b>When: </b>../../rt:type = 'ospf:ospfv2'
+end note 
+note bottom of rt_routing_state_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance
+<b>if-feature: </b>multi-topology
+end note 
+class "topology" as ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_topology << (L, #FF7700) list>> 
+rt_routing_state_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance *-- "0..N" ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_topology 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_topology : +name : rib-ref  {key} 
+class "area" as ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_topology_I_area << (L, #FF7700) list>> 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_topology *-- "0..N" ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_topology_I_area 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_topology_I_area : +area-id : area-id-type  {key} 
+note bottom of ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_topology
+<b>if-feature: </b>multi-topology
+end note 
+class "/rt:routing-state/rt:routing-instance/rt:routing-protocols/rt:routing-protocol/ospf:ospf/ospf:instance/ospf:area/ospf:interfaces" as rt_routing_state_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_area_ospf_interfaces << (A,CadetBlue) augment>>
+ietf_ospf *--  rt_routing_state_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_area_ospf_interfaces 
+note bottom of rt_routing_state_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_area_ospf_interfaces
+<b>When: </b>../../../../rt:type = 'ospf:ospfv2'
+end note 
+note bottom of rt_routing_state_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_area_ospf_interfaces
+<b>if-feature: </b>ospf:multi-topology
+end note 
+class "topology" as ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces_I_topology << (L, #FF7700) list>> 
+rt_routing_state_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_area_ospf_interfaces *-- "0..N" ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces_I_topology 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces_I_topology : +name : rib-ref  {key} 
+note bottom of ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces_I_topology
+<b>if-feature: </b>ospf:multi-topology
+end note 
+class "route-content" as ietf_ospf_I_route_content_grouping <<(G,Lime) grouping>> 
+ietf_ospf_I_route_content_grouping : tag : uint32   = 0 
+ietf_ospf_I_route_content_grouping : route-type : enumeration : {intra-area,inter-area,external-1,...}  
+class "/rt:routing-state/rt:routing-instance/rt:ribs/rt:rib/rt:routes/rt:route" as rt_routing_state_rt_routing_instance_rt_ribs_rt_rib_rt_routes_rt_route << (A,CadetBlue) augment>>
+ietf_ospf *--  rt_routing_state_rt_routing_instance_rt_ribs_rt_rib_rt_routes_rt_route 
+note bottom of rt_routing_state_rt_routing_instance_rt_ribs_rt_rib_rt_routes_rt_route
+<b>When: </b>rt:source-protocol = 'ospf:ospfv2' or rt:source-protocol = 'ospf:ospfv3'
+end note 
+rt_routing_state_rt_routing_instance_rt_ribs_rt_rib_rt_routes_rt_route : route-content {uses} 
+class "notification-instance-hdr" as ietf_ospf_I_notification_instance_hdr_grouping <<(G,Lime) grouping>> 
+ietf_ospf_I_notification_instance_hdr_grouping : routing-instance : rt:routing-instance-ref  
+ietf_ospf_I_notification_instance_hdr_grouping : routing-protocol-name : string  
+class "instance-af" as  ietf_ospf_I_notification_instance_hdr_I_instance_af <<container>> 
+ietf_ospf_I_notification_instance_hdr_grouping *-- "1" ietf_ospf_I_notification_instance_hdr_I_instance_af 
+ietf_ospf_I_notification_instance_hdr_I_instance_af : af : identityref {rt:address-family}  
+class "if-state-change" as ietf_ospf_I_if_state_change << (N,#00D1B2) notification>> 
+ietf_ospf -- ietf_ospf_I_if_state_change : notification 
+ietf_ospf_I_if_state_change : notification-instance-hdr {uses} 
+ietf_ospf_I_if_state_change : link-type : identityref {if-link-type}  
+class "interface" as  ietf_ospf_I_if_state_change_I_interface <<container>> 
+ietf_ospf_I_if_state_change *-- "1" ietf_ospf_I_if_state_change_I_interface 
+ietf_ospf_I_if_state_change_I_interface : interface : if:interface-ref  
+class "virtual-link" as  ietf_ospf_I_if_state_change_I_virtual_link <<container>> 
+ietf_ospf_I_if_state_change *-- "1" ietf_ospf_I_if_state_change_I_virtual_link 
+ietf_ospf_I_if_state_change_I_virtual_link : area-id : uint32  
+ietf_ospf_I_if_state_change_I_virtual_link : neighbor-router-id : yang:dotted-quad  
+class "sham-link" as  ietf_ospf_I_if_state_change_I_sham_link <<container>> 
+ietf_ospf_I_if_state_change *-- "1" ietf_ospf_I_if_state_change_I_sham_link 
+ietf_ospf_I_if_state_change_I_sham_link : area-id : uint32  
+ietf_ospf_I_if_state_change_I_sham_link : local-ip-addr : inet:ip-address  
+ietf_ospf_I_if_state_change_I_sham_link : remote-ip-addr : inet:ip-address  
+ietf_ospf_I_if_state_change : state : string  
+class "if-config-error" as ietf_ospf_I_if_config_error << (N,#00D1B2) notification>> 
+ietf_ospf -- ietf_ospf_I_if_config_error : notification 
+ietf_ospf_I_if_config_error : notification-instance-hdr {uses} 
+ietf_ospf_I_if_config_error : link-type : identityref {if-link-type}  
+class "interface" as  ietf_ospf_I_if_config_error_I_interface <<container>> 
+ietf_ospf_I_if_config_error *-- "1" ietf_ospf_I_if_config_error_I_interface 
+ietf_ospf_I_if_config_error_I_interface : interface : if:interface-ref  
+ietf_ospf_I_if_config_error_I_interface : packet-source : yang:dotted-quad  
+class "virtual-link" as  ietf_ospf_I_if_config_error_I_virtual_link <<container>> 
+ietf_ospf_I_if_config_error *-- "1" ietf_ospf_I_if_config_error_I_virtual_link 
+ietf_ospf_I_if_config_error_I_virtual_link : area-id : uint32  
+ietf_ospf_I_if_config_error_I_virtual_link : neighbor-router-id : yang:dotted-quad  
+class "sham-link" as  ietf_ospf_I_if_config_error_I_sham_link <<container>> 
+ietf_ospf_I_if_config_error *-- "1" ietf_ospf_I_if_config_error_I_sham_link 
+ietf_ospf_I_if_config_error_I_sham_link : area-id : uint32  
+ietf_ospf_I_if_config_error_I_sham_link : local-ip-addr : inet:ip-address  
+ietf_ospf_I_if_config_error_I_sham_link : remote-ip-addr : inet:ip-address  
+ietf_ospf_I_if_config_error : packet-type : packet-type  
+ietf_ospf_I_if_config_error : error : enumeration : {badVersion,areaMismatch,unknownNbmaNbr,...}  
+class "nbr-state-change" as ietf_ospf_I_nbr_state_change << (N,#00D1B2) notification>> 
+ietf_ospf -- ietf_ospf_I_nbr_state_change : notification 
+ietf_ospf_I_nbr_state_change : notification-instance-hdr {uses} 
+ietf_ospf_I_nbr_state_change : link-type : identityref {if-link-type}  
+class "interface" as  ietf_ospf_I_nbr_state_change_I_interface <<container>> 
+ietf_ospf_I_nbr_state_change *-- "1" ietf_ospf_I_nbr_state_change_I_interface 
+ietf_ospf_I_nbr_state_change_I_interface : interface : if:interface-ref  
+ietf_ospf_I_nbr_state_change_I_interface : neighbor-router-id : yang:dotted-quad  
+ietf_ospf_I_nbr_state_change_I_interface : neighbor-ip-addr : yang:dotted-quad  
+class "virtual-link" as  ietf_ospf_I_nbr_state_change_I_virtual_link <<container>> 
+ietf_ospf_I_nbr_state_change *-- "1" ietf_ospf_I_nbr_state_change_I_virtual_link 
+ietf_ospf_I_nbr_state_change_I_virtual_link : area-id : uint32  
+ietf_ospf_I_nbr_state_change_I_virtual_link : neighbor-router-id : yang:dotted-quad  
+class "sham-link" as  ietf_ospf_I_nbr_state_change_I_sham_link <<container>> 
+ietf_ospf_I_nbr_state_change *-- "1" ietf_ospf_I_nbr_state_change_I_sham_link 
+ietf_ospf_I_nbr_state_change_I_sham_link : area-id : uint32  
+ietf_ospf_I_nbr_state_change_I_sham_link : local-ip-addr : inet:ip-address  
+ietf_ospf_I_nbr_state_change_I_sham_link : neighbor-router-id : yang:dotted-quad  
+ietf_ospf_I_nbr_state_change_I_sham_link : neighbor-ip-addr : yang:dotted-quad  
+ietf_ospf_I_nbr_state_change : state : nbr-state-type  
+class "nbr-restart-helper-status-change" as ietf_ospf_I_nbr_restart_helper_status_change << (N,#00D1B2) notification>> 
+ietf_ospf -- ietf_ospf_I_nbr_restart_helper_status_change : notification 
+ietf_ospf_I_nbr_restart_helper_status_change : notification-instance-hdr {uses} 
+ietf_ospf_I_nbr_restart_helper_status_change : link-type : identityref {if-link-type}  
+class "interface" as  ietf_ospf_I_nbr_restart_helper_status_change_I_interface <<container>> 
+ietf_ospf_I_nbr_restart_helper_status_change *-- "1" ietf_ospf_I_nbr_restart_helper_status_change_I_interface 
+ietf_ospf_I_nbr_restart_helper_status_change_I_interface : interface : if:interface-ref  
+ietf_ospf_I_nbr_restart_helper_status_change_I_interface : neighbor-router-id : yang:dotted-quad  
+ietf_ospf_I_nbr_restart_helper_status_change_I_interface : neighbor-ip-addr : yang:dotted-quad  
+class "virtual-link" as  ietf_ospf_I_nbr_restart_helper_status_change_I_virtual_link <<container>> 
+ietf_ospf_I_nbr_restart_helper_status_change *-- "1" ietf_ospf_I_nbr_restart_helper_status_change_I_virtual_link 
+ietf_ospf_I_nbr_restart_helper_status_change_I_virtual_link : area-id : uint32  
+ietf_ospf_I_nbr_restart_helper_status_change_I_virtual_link : neighbor-router-id : yang:dotted-quad  
+ietf_ospf_I_nbr_restart_helper_status_change : status : restart-helper-status-type  
+ietf_ospf_I_nbr_restart_helper_status_change : age : uint32   {seconds}
+ietf_ospf_I_nbr_restart_helper_status_change : exit-reason : restart-exit-reason-type  
+class "rx-bad-packet" as ietf_ospf_I_rx_bad_packet << (N,#00D1B2) notification>> 
+ietf_ospf -- ietf_ospf_I_rx_bad_packet : notification 
+ietf_ospf_I_rx_bad_packet : notification-instance-hdr {uses} 
+ietf_ospf_I_rx_bad_packet : link-type : identityref {if-link-type}  
+class "interface" as  ietf_ospf_I_rx_bad_packet_I_interface <<container>> 
+ietf_ospf_I_rx_bad_packet *-- "1" ietf_ospf_I_rx_bad_packet_I_interface 
+ietf_ospf_I_rx_bad_packet_I_interface : interface : if:interface-ref  
+ietf_ospf_I_rx_bad_packet_I_interface : packet-source : yang:dotted-quad  
+class "virtual-link" as  ietf_ospf_I_rx_bad_packet_I_virtual_link <<container>> 
+ietf_ospf_I_rx_bad_packet *-- "1" ietf_ospf_I_rx_bad_packet_I_virtual_link 
+ietf_ospf_I_rx_bad_packet_I_virtual_link : area-id : uint32  
+ietf_ospf_I_rx_bad_packet_I_virtual_link : neighbor-router-id : yang:dotted-quad  
+class "sham-link" as  ietf_ospf_I_rx_bad_packet_I_sham_link <<container>> 
+ietf_ospf_I_rx_bad_packet *-- "1" ietf_ospf_I_rx_bad_packet_I_sham_link 
+ietf_ospf_I_rx_bad_packet_I_sham_link : area-id : uint32  
+ietf_ospf_I_rx_bad_packet_I_sham_link : local-ip-addr : inet:ip-address  
+ietf_ospf_I_rx_bad_packet_I_sham_link : remote-ip-addr : inet:ip-address  
+ietf_ospf_I_rx_bad_packet : packet-type : packet-type  
+class "lsdb-approaching-overflow" as ietf_ospf_I_lsdb_approaching_overflow << (N,#00D1B2) notification>> 
+ietf_ospf -- ietf_ospf_I_lsdb_approaching_overflow : notification 
+ietf_ospf_I_lsdb_approaching_overflow : notification-instance-hdr {uses} 
+ietf_ospf_I_lsdb_approaching_overflow : ext-lsdb-limit : uint32  
+class "lsdb-overflow" as ietf_ospf_I_lsdb_overflow << (N,#00D1B2) notification>> 
+ietf_ospf -- ietf_ospf_I_lsdb_overflow : notification 
+ietf_ospf_I_lsdb_overflow : notification-instance-hdr {uses} 
+ietf_ospf_I_lsdb_overflow : ext-lsdb-limit : uint32  
+class "nssa-translator-status-change" as ietf_ospf_I_nssa_translator_status_change << (N,#00D1B2) notification>> 
+ietf_ospf -- ietf_ospf_I_nssa_translator_status_change : notification 
+ietf_ospf_I_nssa_translator_status_change : notification-instance-hdr {uses} 
+ietf_ospf_I_nssa_translator_status_change : area-id : uint32  
+ietf_ospf_I_nssa_translator_status_change : status : nssa-translator-state-type  
+class "restart-status-change" as ietf_ospf_I_restart_status_change << (N,#00D1B2) notification>> 
+ietf_ospf -- ietf_ospf_I_restart_status_change : notification 
+ietf_ospf_I_restart_status_change : notification-instance-hdr {uses} 
+ietf_ospf_I_restart_status_change : status : restart-status-type  
+ietf_ospf_I_restart_status_change : restart-interval : uint16 [1..1800]   = 120  {seconds}
+ietf_ospf_I_restart_status_change : exit-reason : restart-exit-reason-type  
+class "rt:routing-protocol" as rt_routing_protocol << (I,Silver) identity>> 
+class "rt:routing-protocol" as rt_routing_protocol << (I,Silver) identity>> 
+class "rt:routing-protocol" as rt_routing_protocol << (I,Silver) identity>> 
+class "ospf" as ospf << (I,Silver) identity>> 
+rt_routing_protocol <|-- ospf 
+class "ospfv2" as ospfv2 << (I,Silver) identity>> 
+rt_routing_protocol <|-- ospfv2 
+class "ospfv3" as ospfv3 << (I,Silver) identity>> 
+rt_routing_protocol <|-- ospfv3 
+class "operation-mode" as operation_mode << (I,Silver) identity>> 
+class "ships-in-the-night" as ships_in_the_night << (I,Silver) identity>> 
+operation_mode <|-- ships_in_the_night 
+class "area-type" as area_type << (I,Silver) identity>> 
+class "normal" as normal << (I,Silver) identity>> 
+area_type <|-- normal 
+class "stub" as stub << (I,Silver) identity>> 
+area_type <|-- stub 
+class "nssa" as nssa << (I,Silver) identity>> 
+area_type <|-- nssa 
+class "/rt:routing/rt:routing-instance/rt:ribs/rt:rib" as ietf_routing_I_routing_I_routing_instance_I_ribs_I_rib <<leafref>> 
+ietf_ospf_I_area_config_grouping-->area_type: area-type
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf-->operation_mode: operation-mode
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance-->rt_address_family: af
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf-->operation_mode: operation-mode
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance-->rt_address_family: af
+class "if-link-type" as if_link_type << (I,Silver) identity>> 
+class "if-link-type-normal" as if_link_type_normal << (I,Silver) identity>> 
+if_link_type <|-- if_link_type_normal 
+class "if-link-type-virtual-link" as if_link_type_virtual_link << (I,Silver) identity>> 
+if_link_type <|-- if_link_type_virtual_link 
+class "if-link-type-sham-link" as if_link_type_sham_link << (I,Silver) identity>> 
+if_link_type <|-- if_link_type_sham_link 
+ietf_ospf_I_notification_instance_hdr_I_instance_af-->rt_address_family: af
+ietf_ospf_I_if_state_change-->if_link_type: link-type
+ietf_ospf_I_if_config_error-->if_link_type: link-type
+ietf_ospf_I_nbr_state_change-->if_link_type: link-type
+ietf_ospf_I_nbr_restart_helper_status_change-->if_link_type: link-type
+ietf_ospf_I_rx_bad_packet-->if_link_type: link-type
+} 
+
+ietf_ospf_I_interface_config_grouping --> ietf_ospf_I_interface_fast_reroute_config_grouping : uses 
+ietf_ospf_I_interface_config_grouping --> ietf_ospf_I_interface_common_config_grouping : uses 
+ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_unknown_tlv --> ietf_ospf_I_tlv_grouping : uses 
+ietf_ospf_I_ospfv2_lsa_body_I_opaque_I_link_tlv_I_unknown_subtlv --> ietf_ospf_I_tlv_grouping : uses 
+ietf_ospf_I_ospfv3_lsa_external_grouping --> ietf_ospf_I_ospfv3_lsa_prefix_grouping : uses 
+ietf_ospf_I_ospfv3_lsa_body_I_router --> ietf_ospf_I_ospfv3_lsa_options_grouping : uses 
+ietf_ospf_I_ospfv3_lsa_body_I_network --> ietf_ospf_I_ospfv3_lsa_options_grouping : uses 
+ietf_ospf_I_ospfv3_lsa_body_I_inter_area_prefix --> ietf_ospf_I_ospfv3_lsa_prefix_grouping : uses 
+ietf_ospf_I_ospfv3_lsa_body_I_inter_area_router --> ietf_ospf_I_ospfv3_lsa_options_grouping : uses 
+ietf_ospf_I_ospfv3_lsa_body_I_as_external --> ietf_ospf_I_ospfv3_lsa_external_grouping : uses 
+ietf_ospf_I_ospfv3_lsa_body_I_nssa --> ietf_ospf_I_ospfv3_lsa_external_grouping : uses 
+ietf_ospf_I_ospfv3_lsa_body_I_link --> ietf_ospf_I_ospfv3_lsa_options_grouping : uses 
+ietf_ospf_I_ospfv3_lsa_body_I_link_I_prefix_list --> ietf_ospf_I_ospfv3_lsa_prefix_grouping : uses 
+ietf_ospf_I_ospfv3_lsa_body_I_intra_area_prefix_I_prefix_list --> ietf_ospf_I_ospfv3_lsa_prefix_grouping : uses 
+ietf_ospf_I_ospfv2_lsa_I_header --> ietf_ospf_I_lsa_header_grouping : uses 
+ietf_ospf_I_ospfv2_lsa_I_body --> ietf_ospf_I_ospfv2_lsa_body_grouping : uses 
+ietf_ospf_I_ospfv3_lsa_I_header --> ietf_ospf_I_lsa_header_grouping : uses 
+ietf_ospf_I_ospfv3_lsa_I_header --> ietf_ospf_I_ospfv3_lsa_options_grouping : uses 
+ietf_ospf_I_ospfv3_lsa_I_body --> ietf_ospf_I_ospfv3_lsa_body_grouping : uses 
+ietf_ospf_I_lsa_grouping --> ietf_ospf_I_lsa_common_grouping : uses 
+ietf_ospf_I_lsa_I_version_I_v2_I_ospfv2 --> ietf_ospf_I_ospfv2_lsa_grouping : uses 
+ietf_ospf_I_lsa_I_version_I_v3_I_ospfv3 --> ietf_ospf_I_ospfv3_lsa_grouping : uses 
+ietf_ospf_I_area_config_grouping --> ietf_ospf_I_af_area_config_grouping : uses 
+ietf_ospf_I_instance_config_grouping --> ietf_ospf_I_instance_fast_reroute_config_grouping : uses 
+ietf_ospf_I_interface_operation_grouping --> ietf_ospf_I_interface_config_grouping : uses 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance --> ietf_ospf_I_instance_config_grouping : uses 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area --> ietf_ospf_I_area_config_grouping : uses 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_virtual_link --> ietf_ospf_I_interface_common_config_grouping : uses 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_sham_link --> ietf_ospf_I_interface_common_config_grouping : uses 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interface --> ietf_ospf_I_interface_config_grouping : uses 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_topology_I_area --> ietf_ospf_I_area_config_grouping : uses 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance --> ietf_ospf_I_instance_operation_grouping : uses 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces --> ietf_ospf_I_interface_operation_grouping : uses 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces_I_neighbor --> ietf_ospf_I_neighbor_operation_grouping : uses 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces_I_link_scope_lsas_I_link_scope_lsa --> ietf_ospf_I_lsa_key_grouping : uses 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_interfaces_I_link_scope_lsas_I_link_scope_lsa --> ietf_ospf_I_lsa_grouping : uses 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_area_scope_lsas_I_area_scope_lsa --> ietf_ospf_I_lsa_key_grouping : uses 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_area_I_area_scope_lsas_I_area_scope_lsa --> ietf_ospf_I_lsa_grouping : uses 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_as_scope_lsas_I_as_scope_lsa --> ietf_ospf_I_lsa_key_grouping : uses 
+ietf_routing_I_routing_state_I_routing_instance_I_routing_protocols_I_routing_protocol_I_ospf_I_instance_I_as_scope_lsas_I_as_scope_lsa --> ietf_ospf_I_lsa_grouping : uses 
+rt_routing_state_rt_routing_instance_rt_ribs_rt_rib_rt_routes_rt_route --> ietf_ospf_I_route_content_grouping : uses 
+ietf_ospf_I_if_state_change --> ietf_ospf_I_notification_instance_hdr_grouping : uses 
+ietf_ospf_I_if_config_error --> ietf_ospf_I_notification_instance_hdr_grouping : uses 
+ietf_ospf_I_nbr_state_change --> ietf_ospf_I_notification_instance_hdr_grouping : uses 
+ietf_ospf_I_nbr_restart_helper_status_change --> ietf_ospf_I_notification_instance_hdr_grouping : uses 
+ietf_ospf_I_rx_bad_packet --> ietf_ospf_I_notification_instance_hdr_grouping : uses 
+ietf_ospf_I_lsdb_approaching_overflow --> ietf_ospf_I_notification_instance_hdr_grouping : uses 
+ietf_ospf_I_lsdb_overflow --> ietf_ospf_I_notification_instance_hdr_grouping : uses 
+ietf_ospf_I_nssa_translator_status_change --> ietf_ospf_I_notification_instance_hdr_grouping : uses 
+ietf_ospf_I_restart_status_change --> ietf_ospf_I_notification_instance_hdr_grouping : uses 
+rib_ref-->"rt:name"ietf_routing_I_routing_I_routing_instance_I_ribs_I_rib: rib-ref
+center footer
+ <size:20> UML Generated : 2019-02-20 23:27 </size>
+ endfooter 
+@enduml 

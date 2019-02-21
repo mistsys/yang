@@ -1,0 +1,96 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/Cisco-IOS-XE-voice.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title Cisco-IOS-XE-voice 
+package "ios:Cisco-IOS-XE-native" as ios_Cisco_IOS_XE_native { 
+} 
+note top of ios_voice_Cisco_IOS_XE_voice : <b>Namespace: </b> http://cisco.com/ns/yang/Cisco-IOS-XE-voice \n<b>Prefix: </b> ios-voice \n<b>Organization : </b>\nCisco Systems, Inc. \n<b>Contact : </b>\nCisco Systems, Inc. \nCustomer Service \n \nPostal: 170 W Tasman Drive \nSan Jose, CA 95134 \n \nTel: +1 1800 553-NETS \n \nE-mail: cs-yang@cisco.com \n<b>Revision : </b> 2017-02-07 \n
+package "ios-voice:Cisco-IOS-XE-voice" as ios_voice_Cisco_IOS_XE_voice { 
+ios_Cisco_IOS_XE_native +-- ios_voice_Cisco_IOS_XE_voice
+class "Cisco-IOS-XE-voice" as Cisco_IOS_XE_voice << (M, #33CCFF) module>> 
+class "config-voice-grouping" as Cisco_IOS_XE_voice_I_config_voice_grouping_grouping <<(G,Lime) grouping>> 
+class "voice" as  Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice <<container>> 
+Cisco_IOS_XE_voice_I_config_voice_grouping_grouping *-- "1" Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice 
+class "service" as Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service << (L, #FF7700) list>> 
+Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice *-- "0..N" Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service 
+Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service : +type : enumeration : {pots,saf,voatm,...}  {key} 
+class "media-recording" as  Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service_I_media_recording <<container>> 
+Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service *-- "1" Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service_I_media_recording 
+note bottom of Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service_I_media_recording
+<b>When: </b>../type = 'pots'
+end note 
+Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service_I_media_recording : licenses : uint16 [1..500]  
+class "fax" as  Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service_I_fax <<container>> 
+Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service *-- "1" Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service_I_fax 
+Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service_I_fax : protocol : enumeration : {cisco,none,pass-through,...}  
+Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service_I_fax : fallback : enumeration : {cisco,none,pass-through,}  
+note bottom of Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service_I_fax
+<b>When</b> (fallback):
+../protocol = 't38'
+
+end note 
+Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service_I_fax : codec : enumeration : {g711alaw,g711ulaw,}  
+note bottom of Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service_I_fax
+<b>When</b> (codec):
+../protocol = 'pass-through' or ../fallback = 'pass-through'
+
+end note 
+Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service_I_fax : ls-redundancy : uint8 [0..5]  
+note bottom of Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service_I_fax
+<b>When</b> (ls-redundancy):
+../protocol = 't38'
+
+end note 
+Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service_I_fax : hs-redundancy : uint8 [0..2]  
+note bottom of Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service_I_fax
+<b>When</b> (hs-redundancy):
+../protocol = 't38'
+
+end note 
+Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service_I_fax : version : enumeration : {0,3,}  
+note bottom of Cisco_IOS_XE_voice_I_config_voice_grouping_I_voice_I_service_I_fax
+<b>When</b> (version):
+../protocol = 't38'
+
+end note 
+class "config-voice-card-grouping" as Cisco_IOS_XE_voice_I_config_voice_card_grouping_grouping <<(G,Lime) grouping>> 
+class "voice-card" as Cisco_IOS_XE_voice_I_config_voice_card_grouping_I_voice_card << (L, #FF7700) list>> 
+Cisco_IOS_XE_voice_I_config_voice_card_grouping_grouping *-- "0..N" Cisco_IOS_XE_voice_I_config_voice_card_grouping_I_voice_card 
+Cisco_IOS_XE_voice_I_config_voice_card_grouping_I_voice_card : +slot : uint8 [0..2]  {key} 
+class "config-dial-peer-grouping" as Cisco_IOS_XE_voice_I_config_dial_peer_grouping_grouping <<(G,Lime) grouping>> 
+class "dial-peer" as  Cisco_IOS_XE_voice_I_config_dial_peer_grouping_I_dial_peer <<container>> 
+Cisco_IOS_XE_voice_I_config_dial_peer_grouping_grouping *-- "1" Cisco_IOS_XE_voice_I_config_dial_peer_grouping_I_dial_peer 
+class "voice" as Cisco_IOS_XE_voice_I_config_dial_peer_grouping_I_dial_peer_I_voice << (L, #FF7700) list>> 
+Cisco_IOS_XE_voice_I_config_dial_peer_grouping_I_dial_peer *-- "0..N" Cisco_IOS_XE_voice_I_config_dial_peer_grouping_I_dial_peer_I_voice 
+Cisco_IOS_XE_voice_I_config_dial_peer_grouping_I_dial_peer_I_voice : +dialpeertag : uint32 [1..1073741823]  {key} 
+Cisco_IOS_XE_voice_I_config_dial_peer_grouping_I_dial_peer_I_voice : type : enumeration : {pots,voip,}  
+class "media-recording" as  Cisco_IOS_XE_voice_I_config_dial_peer_grouping_I_dial_peer_I_voice_I_media_recording <<container>> 
+Cisco_IOS_XE_voice_I_config_dial_peer_grouping_I_dial_peer_I_voice *-- "1" Cisco_IOS_XE_voice_I_config_dial_peer_grouping_I_dial_peer_I_voice_I_media_recording 
+note bottom of Cisco_IOS_XE_voice_I_config_dial_peer_grouping_I_dial_peer_I_voice_I_media_recording
+<b>When: </b>../type = 'pots'
+end note 
+Cisco_IOS_XE_voice_I_config_dial_peer_grouping_I_dial_peer_I_voice_I_media_recording : +dialpeertag : uint32 [1..1073741823]  {key} 
+class "/ios:native" as ios_native << (A,CadetBlue) augment>>
+Cisco_IOS_XE_voice *--  ios_native 
+ios_native : config-voice-grouping {uses} 
+ios_native : config-voice-card-grouping {uses} 
+ios_native : config-dial-peer-grouping {uses} 
+} 
+
+ios_native --> Cisco_IOS_XE_voice_I_config_voice_grouping_grouping : uses 
+ios_native --> Cisco_IOS_XE_voice_I_config_voice_card_grouping_grouping : uses 
+ios_native --> Cisco_IOS_XE_voice_I_config_dial_peer_grouping_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:52 </size>
+ endfooter 
+@enduml 

@@ -1,0 +1,114 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/Cisco-IOS-XE-dhcp-oper.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title Cisco-IOS-XE-dhcp-oper 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+note top of dhcp_ios_xe_oper_Cisco_IOS_XE_dhcp_oper : <b>Namespace: </b> http://cisco.com/ns/yang/Cisco-IOS-XE-dhcp-oper \n<b>Prefix: </b> dhcp-ios-xe-oper \n<b>Organization : </b>\nCisco Systems, Inc. \n<b>Contact : </b>\nCisco Systems, Inc. \nCustomer Service \n \nPostal: 170 W Tasman Drive \nSan Jose, CA 95134 \n \nTel: +1 1800 553-NETS \n \nE-mail: cs-yang@cisco.com \n<b>Revision : </b> 2018-07-11 \n
+package "dhcp-ios-xe-oper:Cisco-IOS-XE-dhcp-oper" as dhcp_ios_xe_oper_Cisco_IOS_XE_dhcp_oper { 
+inet_ietf_inet_types +-- dhcp_ios_xe_oper_Cisco_IOS_XE_dhcp_oper
+yang_ietf_yang_types +-- dhcp_ios_xe_oper_Cisco_IOS_XE_dhcp_oper
+class "Cisco-IOS-XE-dhcp-oper" as Cisco_IOS_XE_dhcp_oper << (M, #33CCFF) module>> 
+enum "dhcp-server-binding-state" as Cisco_IOS_XE_dhcp_oper_I_dhcp_server_binding_state {
+dhcp-server-binding-state-selecting
+dhcp-server-binding-state-active
+dhcp-server-binding-state-terminated
+MORE
+}
+enum "dhcp-server-binding-type" as Cisco_IOS_XE_dhcp_oper_I_dhcp_server_binding_type {
+dhcp-server-binding-type-manual
+dhcp-server-binding-type-static
+dhcp-server-binding-type-relay
+MORE
+}
+enum "dhcp-client-state" as Cisco_IOS_XE_dhcp_oper_I_dhcp_client_state {
+dhcp-client-state-temp-from-client
+dhcp-client-state-temp-from-sync
+dhcp-client-state-initial
+MORE
+}
+enum "dhcp-expiry-option" as Cisco_IOS_XE_dhcp_oper_I_dhcp_expiry_option {
+dhcp-expiration-time
+dhcp-expiration-infinite
+}
+enum "dhcp-client-id-type" as Cisco_IOS_XE_dhcp_oper_I_dhcp_client_id_type {
+dhcp-htype-ethernet
+dhcp-htype-ieee802
+dhcp-htype-rfclimit
+MORE
+}
+class "dhcp-expiry" as Cisco_IOS_XE_dhcp_oper_I_dhcp_expiry_grouping <<(G,Lime) grouping>> 
+class "expiration-time-choice" as Cisco_IOS_XE_dhcp_oper_I_dhcp_expiry_I_expiration_time_choice <<choice>> 
+Cisco_IOS_XE_dhcp_oper_I_dhcp_expiry_grouping .. Cisco_IOS_XE_dhcp_oper_I_dhcp_expiry_I_expiration_time_choice : choice 
+class "dhcp-expiration-time" as Cisco_IOS_XE_dhcp_oper_I_dhcp_expiry_I_expiration_time_choice_I_dhcp_expiration_time_case <<case>>
+Cisco_IOS_XE_dhcp_oper_I_dhcp_expiry_I_expiration_time_choice .. Cisco_IOS_XE_dhcp_oper_I_dhcp_expiry_I_expiration_time_choice_I_dhcp_expiration_time_case  : choice expiration-time-choice
+Cisco_IOS_XE_dhcp_oper_I_dhcp_expiry_I_expiration_time_choice_I_dhcp_expiration_time_case : time : yang:date-and-time  
+class "dhcp-expiration-infinite" as Cisco_IOS_XE_dhcp_oper_I_dhcp_expiry_I_expiration_time_choice_I_dhcp_expiration_infinite_case <<case>>
+Cisco_IOS_XE_dhcp_oper_I_dhcp_expiry_I_expiration_time_choice .. Cisco_IOS_XE_dhcp_oper_I_dhcp_expiry_I_expiration_time_choice_I_dhcp_expiration_infinite_case  : choice expiration-time-choice
+Cisco_IOS_XE_dhcp_oper_I_dhcp_expiry_I_expiration_time_choice_I_dhcp_expiration_infinite_case : infinite : empty  
+class "dhcpv4-server-key" as Cisco_IOS_XE_dhcp_oper_I_dhcpv4_server_key_grouping <<(G,Lime) grouping>> 
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_server_key_grouping : pool-name : string  
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_server_key_grouping : client-ip : inet:ip-address  
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_server_key_grouping : vrf-name : string  
+class "dhcpv4-server-oper" as Cisco_IOS_XE_dhcp_oper_I_dhcpv4_server_oper_grouping <<(G,Lime) grouping>> 
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_server_oper_grouping : client-id-type : dhcp-ios-xe-oper:dhcp-client-id-type  
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_server_oper_grouping : client-id : string  
+class "expiration" as  Cisco_IOS_XE_dhcp_oper_I_dhcpv4_server_oper_I_expiration <<container>> 
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_server_oper_grouping *-- "1" Cisco_IOS_XE_dhcp_oper_I_dhcpv4_server_oper_I_expiration 
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_server_oper_I_expiration : dhcp-ios-xe-oper:dhcp-expiry {uses} 
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_server_oper_grouping : type : dhcp-ios-xe-oper:dhcp-server-binding-type  
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_server_oper_grouping : state : dhcp-ios-xe-oper:dhcp-server-binding-state  
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_server_oper_grouping : interface : string  
+class "dhcpv4-client-key" as Cisco_IOS_XE_dhcp_oper_I_dhcpv4_client_key_grouping <<(G,Lime) grouping>> 
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_client_key_grouping : if-name : string  
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_client_key_grouping : client-addr : inet:ip-address  
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_client_key_grouping : vrf-name : string  
+class "dhcpv4-client-oper" as Cisco_IOS_XE_dhcp_oper_I_dhcpv4_client_oper_grouping <<(G,Lime) grouping>> 
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_client_oper_grouping : state : dhcp-ios-xe-oper:dhcp-client-state  
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_client_oper_grouping : lease-server-addr : inet:ip-address  
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_client_oper_grouping : gateway-addr : inet:ip-address  
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_client_oper_grouping : lease-time : uint32   {seconds}
+class "lease-expiry" as  Cisco_IOS_XE_dhcp_oper_I_dhcpv4_client_oper_I_lease_expiry <<container>> 
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_client_oper_grouping *-- "1" Cisco_IOS_XE_dhcp_oper_I_dhcpv4_client_oper_I_lease_expiry 
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_client_oper_I_lease_expiry : dhcp-ios-xe-oper:dhcp-expiry {uses} 
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_client_oper_grouping : lease-remaining : uint32  
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_client_oper_grouping : dns-address : inet:ip-address  
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_client_oper_grouping : dns-address-secondary : inet:ip-address  
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_client_oper_grouping : subnet-mask : inet:ip-address  
+class "dhcp-oper-data" as  Cisco_IOS_XE_dhcp_oper_I_dhcp_oper_data <<container>> 
+Cisco_IOS_XE_dhcp_oper *-- "1" Cisco_IOS_XE_dhcp_oper_I_dhcp_oper_data 
+note bottom of Cisco_IOS_XE_dhcp_oper_I_dhcp_oper_data
+<b>Config = </b>false
+end note 
+class "dhcpv4-server-oper" as Cisco_IOS_XE_dhcp_oper_I_dhcp_oper_data_I_dhcpv4_server_oper << (L, #FF7700) list>> 
+Cisco_IOS_XE_dhcp_oper_I_dhcp_oper_data *-- "0..N" Cisco_IOS_XE_dhcp_oper_I_dhcp_oper_data_I_dhcpv4_server_oper 
+Cisco_IOS_XE_dhcp_oper_I_dhcp_oper_data_I_dhcpv4_server_oper : dhcp-ios-xe-oper:dhcpv4-server-key {uses} 
+Cisco_IOS_XE_dhcp_oper_I_dhcp_oper_data_I_dhcpv4_server_oper : dhcp-ios-xe-oper:dhcpv4-server-oper {uses} 
+class "dhcpv4-client-oper" as Cisco_IOS_XE_dhcp_oper_I_dhcp_oper_data_I_dhcpv4_client_oper << (L, #FF7700) list>> 
+Cisco_IOS_XE_dhcp_oper_I_dhcp_oper_data *-- "0..N" Cisco_IOS_XE_dhcp_oper_I_dhcp_oper_data_I_dhcpv4_client_oper 
+Cisco_IOS_XE_dhcp_oper_I_dhcp_oper_data_I_dhcpv4_client_oper : dhcp-ios-xe-oper:dhcpv4-client-key {uses} 
+Cisco_IOS_XE_dhcp_oper_I_dhcp_oper_data_I_dhcpv4_client_oper : dhcp-ios-xe-oper:dhcpv4-client-oper {uses} 
+} 
+
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_server_oper_I_expiration --> Cisco_IOS_XE_dhcp_oper_I_dhcp_expiry_grouping : uses 
+Cisco_IOS_XE_dhcp_oper_I_dhcpv4_client_oper_I_lease_expiry --> Cisco_IOS_XE_dhcp_oper_I_dhcp_expiry_grouping : uses 
+Cisco_IOS_XE_dhcp_oper_I_dhcp_oper_data_I_dhcpv4_server_oper --> Cisco_IOS_XE_dhcp_oper_I_dhcpv4_server_key_grouping : uses 
+Cisco_IOS_XE_dhcp_oper_I_dhcp_oper_data_I_dhcpv4_server_oper --> Cisco_IOS_XE_dhcp_oper_I_dhcpv4_server_oper_grouping : uses 
+Cisco_IOS_XE_dhcp_oper_I_dhcp_oper_data_I_dhcpv4_client_oper --> Cisco_IOS_XE_dhcp_oper_I_dhcpv4_client_key_grouping : uses 
+Cisco_IOS_XE_dhcp_oper_I_dhcp_oper_data_I_dhcpv4_client_oper --> Cisco_IOS_XE_dhcp_oper_I_dhcpv4_client_oper_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:08 </size>
+ endfooter 
+@enduml 

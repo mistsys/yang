@@ -1,0 +1,75 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-yang-patch.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-yang-patch 
+package "rc:ietf-restconf" as rc_ietf_restconf { 
+} 
+note top of ypatch_ietf_yang_patch : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-yang-patch \n<b>Prefix: </b> ypatch \n<b>Organization : </b>\nIETF NETCONF (Network Configuration) Working Group \n<b>Contact : </b>\nWG Web:   <http://tools.ietf.org/wg/netconf/> \nWG List:  <mailto:netconf@ietf.org> \n \nAuthor:   Andy Bierman \n          <mailto:andy@yumaworks.com> \n \nAuthor:   Martin Bjorklund \n          <mailto:mbj@tail-f.com> \n \nAuthor:   Kent Watsen \n          <mailto:kwatsen@juniper.net> \n<b>Revision : </b> 2017-02-22 \n
+package "ypatch:ietf-yang-patch" as ypatch_ietf_yang_patch { 
+rc_ietf_restconf +-- ypatch_ietf_yang_patch
+class "ietf-yang-patch" as ietf_yang_patch << (M, #33CCFF) module>> 
+class "target-resource-offset" as target_resource_offset << (T, YellowGreen) typedef>>
+target_resource_offset : string
+class "yang-patch" as ietf_yang_patch_I_yang_patch_grouping <<(G,Lime) grouping>> 
+class "yang-patch" as  ietf_yang_patch_I_yang_patch_I_yang_patch <<container>> 
+ietf_yang_patch_I_yang_patch_grouping *-- "1" ietf_yang_patch_I_yang_patch_I_yang_patch 
+ietf_yang_patch_I_yang_patch_I_yang_patch : patch-id : string   {mandatory}
+ietf_yang_patch_I_yang_patch_I_yang_patch : comment : string  
+class "edit" as ietf_yang_patch_I_yang_patch_I_yang_patch_I_edit << (L, #FF7700) list>> 
+ietf_yang_patch_I_yang_patch_I_yang_patch *-- "0..N" ietf_yang_patch_I_yang_patch_I_yang_patch_I_edit : ordered-by : user
+ietf_yang_patch_I_yang_patch_I_yang_patch_I_edit : +edit-id : string  {key} 
+ietf_yang_patch_I_yang_patch_I_yang_patch_I_edit : operation : enumeration : {create,delete,insert,...}   {mandatory}
+ietf_yang_patch_I_yang_patch_I_yang_patch_I_edit : target : target-resource-offset   {mandatory}
+ietf_yang_patch_I_yang_patch_I_yang_patch_I_edit : point : target-resource-offset  
+note bottom of ietf_yang_patch_I_yang_patch_I_yang_patch_I_edit
+<b>When</b> (point):
+(../operation = 'insert' or ../operation = 'move') and (../where = 'before' or ../where = 'after')
+
+end note 
+ietf_yang_patch_I_yang_patch_I_yang_patch_I_edit : where : enumeration : {before,after,first,...}   = last 
+note bottom of ietf_yang_patch_I_yang_patch_I_yang_patch_I_edit
+<b>When</b> (where):
+../operation = 'insert' or ../operation = 'move'
+
+end note 
+class "yang-patch-status" as ietf_yang_patch_I_yang_patch_status_grouping <<(G,Lime) grouping>> 
+class "yang-patch-status" as  ietf_yang_patch_I_yang_patch_status_I_yang_patch_status <<container>> 
+ietf_yang_patch_I_yang_patch_status_grouping *-- "1" ietf_yang_patch_I_yang_patch_status_I_yang_patch_status 
+ietf_yang_patch_I_yang_patch_status_I_yang_patch_status : patch-id : string   {mandatory}
+class "global-status" as ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_global_status <<choice>> 
+ietf_yang_patch_I_yang_patch_status_I_yang_patch_status .. ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_global_status : choice 
+class "global-errors" as ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_global_status_I_global_errors_case <<case>>
+ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_global_status .. ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_global_status_I_global_errors_case  : choice global-status
+ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_global_status_I_global_errors_case : rc:errors {uses} 
+class "ok" as ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_global_status_I_ok_case <<case>> 
+ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_global_status .. ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_global_status_I_ok_case : choice global-status
+ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_global_status_I_ok_case : ok : empty  
+class "edit-status" as  ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_edit_status <<container>> 
+ietf_yang_patch_I_yang_patch_status_I_yang_patch_status *-- "1" ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_edit_status 
+class "edit" as ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_edit_status_I_edit << (L, #FF7700) list>> 
+ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_edit_status *-- "0..N" ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_edit_status_I_edit 
+ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_edit_status_I_edit : +edit-id : string  {key} 
+class "edit-status-choice" as ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_edit_status_I_edit_I_edit_status_choice <<choice>> 
+ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_edit_status_I_edit .. ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_edit_status_I_edit_I_edit_status_choice : choice 
+class "ok" as ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_edit_status_I_edit_I_edit_status_choice_I_ok_case <<case>> 
+ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_edit_status_I_edit_I_edit_status_choice .. ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_edit_status_I_edit_I_edit_status_choice_I_ok_case : choice edit-status-choice
+ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_edit_status_I_edit_I_edit_status_choice_I_ok_case : ok : empty  
+class "errors" as ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_edit_status_I_edit_I_edit_status_choice_I_errors_case <<case>>
+ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_edit_status_I_edit_I_edit_status_choice .. ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_edit_status_I_edit_I_edit_status_choice_I_errors_case  : choice edit-status-choice
+ietf_yang_patch_I_yang_patch_status_I_yang_patch_status_I_edit_status_I_edit_I_edit_status_choice_I_errors_case : rc:errors {uses} 
+} 
+
+center footer
+ <size:20> UML Generated : 2019-02-20 23:23 </size>
+ endfooter 
+@enduml 

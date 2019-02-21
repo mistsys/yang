@@ -1,0 +1,113 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-bgp-types.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-bgp-types 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "oc-types:openconfig-types" as oc_types_openconfig_types { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+note top of oc_bgp_types_openconfig_bgp_types : <b>Namespace: </b> http://openconfig.net/yang/bgp-types \n<b>Prefix: </b> oc-bgp-types \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nnetopenconfig@googlegroups.com \n<b>Revision : </b> 2016-06-21 \n
+package "oc-bgp-types:openconfig-bgp-types" as oc_bgp_types_openconfig_bgp_types { 
+inet_ietf_inet_types +-- oc_bgp_types_openconfig_bgp_types
+oc_types_openconfig_types +-- oc_bgp_types_openconfig_bgp_types
+oc_ext_openconfig_extensions +-- oc_bgp_types_openconfig_bgp_types
+class "openconfig-bgp-types" as openconfig_bgp_types << (M, #33CCFF) module>> 
+enum "bgp-session-direction" as openconfig_bgp_types_I_bgp_session_direction {
+INBOUND
+OUTBOUND
+}
+class "bgp-well-known-community-type" as bgp_well_known_community_type << (T, YellowGreen) typedef>>
+bgp_well_known_community_type : identityref {BGP_WELL_KNOWN_STD_COMMUNITY}
+class "bgp-std-community-type" as bgp_std_community_type << (T, YellowGreen) typedef>>
+bgp_std_community_type : union{uint32, string}
+class "bgp-ext-community-type" as bgp_ext_community_type << (T, YellowGreen) typedef>>
+bgp_ext_community_type : union{string, string,..}
+class "bgp-community-regexp-type" as bgp_community_regexp_type << (T, YellowGreen) typedef>>
+bgp_community_regexp_type : oc-types:std-regexp
+enum "bgp-origin-attr-type" as openconfig_bgp_types_I_bgp_origin_attr_type {
+IGP
+EGP
+INCOMPLETE
+}
+enum "peer-type" as openconfig_bgp_types_I_peer_type {
+INTERNAL
+EXTERNAL
+}
+class "remove-private-as-option" as remove_private_as_option << (T, YellowGreen) typedef>>
+remove_private_as_option : identityref {REMOVE_PRIVATE_AS_OPTION}
+class "percentage" as percentage << (T, YellowGreen) typedef>>
+percentage : uint8 [0..100]
+class "rr-cluster-id-type" as rr_cluster_id_type << (T, YellowGreen) typedef>>
+rr_cluster_id_type : union{uint32, inet:ipv4-address}
+enum "community-type" as openconfig_bgp_types_I_community_type {
+STANDARD
+EXTENDED
+BOTH
+MORE
+}
+class "BGP_CAPABILITY" as BGP_CAPABILITY << (I,Silver) identity>> 
+class "MPBGP" as MPBGP << (I,Silver) identity>> 
+BGP_CAPABILITY <|-- MPBGP 
+class "ROUTE_REFRESH" as ROUTE_REFRESH << (I,Silver) identity>> 
+BGP_CAPABILITY <|-- ROUTE_REFRESH 
+class "ASN32" as ASN32 << (I,Silver) identity>> 
+BGP_CAPABILITY <|-- ASN32 
+class "GRACEFUL_RESTART" as GRACEFUL_RESTART << (I,Silver) identity>> 
+BGP_CAPABILITY <|-- GRACEFUL_RESTART 
+class "ADD_PATHS" as ADD_PATHS << (I,Silver) identity>> 
+BGP_CAPABILITY <|-- ADD_PATHS 
+class "AFI_SAFI_TYPE" as AFI_SAFI_TYPE << (I,Silver) identity>> 
+class "IPV4_UNICAST" as IPV4_UNICAST << (I,Silver) identity>> 
+AFI_SAFI_TYPE <|-- IPV4_UNICAST 
+class "IPV6_UNICAST" as IPV6_UNICAST << (I,Silver) identity>> 
+AFI_SAFI_TYPE <|-- IPV6_UNICAST 
+class "IPV4_LABELED_UNICAST" as IPV4_LABELED_UNICAST << (I,Silver) identity>> 
+AFI_SAFI_TYPE <|-- IPV4_LABELED_UNICAST 
+class "IPV6_LABELED_UNICAST" as IPV6_LABELED_UNICAST << (I,Silver) identity>> 
+AFI_SAFI_TYPE <|-- IPV6_LABELED_UNICAST 
+class "L3VPN_IPV4_UNICAST" as L3VPN_IPV4_UNICAST << (I,Silver) identity>> 
+AFI_SAFI_TYPE <|-- L3VPN_IPV4_UNICAST 
+class "L3VPN_IPV6_UNICAST" as L3VPN_IPV6_UNICAST << (I,Silver) identity>> 
+AFI_SAFI_TYPE <|-- L3VPN_IPV6_UNICAST 
+class "L3VPN_IPV4_MULTICAST" as L3VPN_IPV4_MULTICAST << (I,Silver) identity>> 
+AFI_SAFI_TYPE <|-- L3VPN_IPV4_MULTICAST 
+class "L3VPN_IPV6_MULTICAST" as L3VPN_IPV6_MULTICAST << (I,Silver) identity>> 
+AFI_SAFI_TYPE <|-- L3VPN_IPV6_MULTICAST 
+class "L2VPN_VPLS" as L2VPN_VPLS << (I,Silver) identity>> 
+AFI_SAFI_TYPE <|-- L2VPN_VPLS 
+class "L2VPN_EVPN" as L2VPN_EVPN << (I,Silver) identity>> 
+AFI_SAFI_TYPE <|-- L2VPN_EVPN 
+class "BGP_WELL_KNOWN_STD_COMMUNITY" as BGP_WELL_KNOWN_STD_COMMUNITY << (I,Silver) identity>> 
+class "NO_EXPORT" as NO_EXPORT << (I,Silver) identity>> 
+BGP_WELL_KNOWN_STD_COMMUNITY <|-- NO_EXPORT 
+class "NO_ADVERTISE" as NO_ADVERTISE << (I,Silver) identity>> 
+BGP_WELL_KNOWN_STD_COMMUNITY <|-- NO_ADVERTISE 
+class "NO_EXPORT_SUBCONFED" as NO_EXPORT_SUBCONFED << (I,Silver) identity>> 
+BGP_WELL_KNOWN_STD_COMMUNITY <|-- NO_EXPORT_SUBCONFED 
+class "NOPEER" as NOPEER << (I,Silver) identity>> 
+BGP_WELL_KNOWN_STD_COMMUNITY <|-- NOPEER 
+openconfig_bgp_types-->BGP_WELL_KNOWN_STD_COMMUNITY: bgp-well-known-community-type
+class "REMOVE_PRIVATE_AS_OPTION" as REMOVE_PRIVATE_AS_OPTION << (I,Silver) identity>> 
+class "PRIVATE_AS_REMOVE_ALL" as PRIVATE_AS_REMOVE_ALL << (I,Silver) identity>> 
+REMOVE_PRIVATE_AS_OPTION <|-- PRIVATE_AS_REMOVE_ALL 
+class "PRIVATE_AS_REPLACE_ALL" as PRIVATE_AS_REPLACE_ALL << (I,Silver) identity>> 
+REMOVE_PRIVATE_AS_OPTION <|-- PRIVATE_AS_REPLACE_ALL 
+openconfig_bgp_types-->REMOVE_PRIVATE_AS_OPTION: remove-private-as-option
+} 
+
+center footer
+ <size:20> UML Generated : 2019-02-21 00:43 </size>
+ endfooter 
+@enduml 

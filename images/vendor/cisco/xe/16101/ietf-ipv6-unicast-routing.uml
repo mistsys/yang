@@ -1,0 +1,107 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-ipv6-unicast-routing.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-ipv6-unicast-routing 
+package "rt:ietf-routing" as rt_ietf_routing { 
+} 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "if:ietf-interfaces" as if_ietf_interfaces { 
+} 
+package "ip:ietf-ip" as ip_ietf_ip { 
+} 
+note top of v6ur_ietf_ipv6_unicast_routing : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-ipv6-unicast-routing \n<b>Prefix: </b> v6ur \n<b>Organization : </b>\nIETF NETMOD (NETCONF Data Modeling Language) Working Group \n<b>Contact : </b>\nWG Web:   <http://tools.ietf.org/wg/netmod/> \nWG List:  <mailto:netmod@ietf.org> \n \nWG Chair: Thomas Nadeau \n          <mailto:tnadeau@lucidvision.com> \n \nWG Chair: Juergen Schoenwaelder \n          <mailto:j.schoenwaelder@jacobs-university.de> \n \nEditor:   Ladislav Lhotka \n          <mailto:lhotka@nic.cz> \n<b>Revision : </b> 2015-05-25 \n
+package "v6ur:ietf-ipv6-unicast-routing" as v6ur_ietf_ipv6_unicast_routing { 
+rt_ietf_routing +-- v6ur_ietf_ipv6_unicast_routing
+inet_ietf_inet_types +-- v6ur_ietf_ipv6_unicast_routing
+if_ietf_interfaces +-- v6ur_ietf_ipv6_unicast_routing
+ip_ietf_ip +-- v6ur_ietf_ipv6_unicast_routing
+class "ietf-ipv6-unicast-routing" as ietf_ipv6_unicast_routing << (M, #33CCFF) module>> 
+class "/if:interfaces/if:interface/ip:ipv6" as if_interfaces_if_interface_ip_ipv6 << (A,CadetBlue) augment>>
+ietf_ipv6_unicast_routing *--  if_interfaces_if_interface_ip_ipv6 
+class "ipv6-router-advertisements" as  ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements <<container>> 
+if_interfaces_if_interface_ip_ipv6 *-- "1" ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements 
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements : send-advertisements : boolean   = false 
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements : max-rtr-adv-interval : uint16 [4..1800]   = 600  {seconds}
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements : min-rtr-adv-interval : uint16 [3..1350]   {seconds}
+note bottom of ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements
+<b>Must</b> (min-rtr-adv-interval):
+. <= 0.75 * ../max-rtr-adv-interval
+
+end note 
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements : managed-flag : boolean   = false 
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements : other-config-flag : boolean   = false 
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements : link-mtu : uint32   = 0 
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements : reachable-time : uint32 [0..3600000]   = 0  {milliseconds}
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements : retrans-timer : uint32   = 0  {milliseconds}
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements : cur-hop-limit : uint8  
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements : default-lifetime : uint16 [0..9000]   {seconds}
+class "prefix-list" as  ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list <<container>> 
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements *-- "1" ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list 
+class "prefix" as ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list_I_prefix << (L, #FF7700) list>> 
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list *-- "0..N" ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list_I_prefix 
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list_I_prefix : +prefix-spec : inet:ipv6-prefix  {key} 
+class "control-adv-prefixes" as ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list_I_prefix_I_control_adv_prefixes <<choice>> 
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list_I_prefix .. ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list_I_prefix_I_control_adv_prefixes : choice 
+class "no-advertise" as ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list_I_prefix_I_control_adv_prefixes_I_no_advertise_case <<case>> 
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list_I_prefix_I_control_adv_prefixes .. ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list_I_prefix_I_control_adv_prefixes_I_no_advertise_case : choice control-adv-prefixes
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list_I_prefix_I_control_adv_prefixes_I_no_advertise_case : no-advertise : empty  
+class "advertise" as ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list_I_prefix_I_control_adv_prefixes_I_advertise_case <<case>>
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list_I_prefix_I_control_adv_prefixes .. ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list_I_prefix_I_control_adv_prefixes_I_advertise_case  : choice control-adv-prefixes
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list_I_prefix_I_control_adv_prefixes_I_advertise_case : valid-lifetime : uint32   = 2592000  {seconds}
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list_I_prefix_I_control_adv_prefixes_I_advertise_case : on-link-flag : boolean   = true 
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list_I_prefix_I_control_adv_prefixes_I_advertise_case : preferred-lifetime : uint32   = 604800  {seconds}
+note bottom of ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list_I_prefix_I_control_adv_prefixes_I_advertise_case
+<b>Must</b> (preferred-lifetime):
+. <= ../valid-lifetime
+
+end note 
+ietf_interfaces_I_interfaces_I_interface_I_ipv6_I_ipv6_router_advertisements_I_prefix_list_I_prefix_I_control_adv_prefixes_I_advertise_case : autonomous-flag : boolean   = true 
+class "/rt:routing/rt:routing-instance/rt:routing-protocols/rt:routing-protocol/rt:static-routes" as rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_rt_static_routes << (A,CadetBlue) augment>>
+ietf_ipv6_unicast_routing *--  rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_rt_static_routes 
+class "ipv6" as  ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv6 <<container>> 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_rt_static_routes *-- "1" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv6 
+class "route" as ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv6_I_route << (L, #FF7700) list>> 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv6 *-- "0..N" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv6_I_route : ordered-by : user
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv6_I_route : +destination-prefix : inet:ipv6-prefix  {key}  {mandatory}
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv6_I_route : description : string  
+class "next-hop" as  ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv6_I_route_I_next_hop <<container>> 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv6_I_route *-- "1" ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv6_I_route_I_next_hop 
+ietf_routing_I_routing_I_routing_instance_I_routing_protocols_I_routing_protocol_I_static_routes_I_ipv6_I_route_I_next_hop : rt:next-hop-content {uses} 
+class "/rt:fib-route/rt:input/rt:destination-address" as rt_fib_route_rt_input_rt_destination_address << (A,CadetBlue) augment>>
+ietf_ipv6_unicast_routing *--  rt_fib_route_rt_input_rt_destination_address 
+note bottom of rt_fib_route_rt_input_rt_destination_address
+<b>When: </b>rt:address-family='v6ur:ipv6-unicast'
+end note 
+rt_fib_route_rt_input_rt_destination_address : address : inet:ipv6-address  
+class "/rt:fib-route/rt:output/rt:route" as rt_fib_route_rt_output_rt_route << (A,CadetBlue) augment>>
+ietf_ipv6_unicast_routing *--  rt_fib_route_rt_output_rt_route 
+note bottom of rt_fib_route_rt_output_rt_route
+<b>When: </b>rt:address-family='v6ur:ipv6-unicast'
+end note 
+rt_fib_route_rt_output_rt_route : +destination-prefix : inet:ipv6-prefix  {key} 
+class "/rt:fib-route/rt:output/rt:route/rt:next-hop/rt:next-hop-options/rt:simple-next-hop" as rt_fib_route_rt_output_rt_route_rt_next_hop_rt_next_hop_options_rt_simple_next_hop << (A,CadetBlue) augment>>
+ietf_ipv6_unicast_routing *--  rt_fib_route_rt_output_rt_route_rt_next_hop_rt_next_hop_options_rt_simple_next_hop 
+note bottom of rt_fib_route_rt_output_rt_route_rt_next_hop_rt_next_hop_options_rt_simple_next_hop
+<b>When: </b>../rt:address-family='v6ur:ipv6-unicast'
+end note 
+rt_fib_route_rt_output_rt_route_rt_next_hop_rt_next_hop_options_rt_simple_next_hop : next-hop-address : inet:ipv6-address  
+class "rt:ipv6" as rt_ipv6 << (I,Silver) identity>> 
+class "ipv6-unicast" as ipv6_unicast << (I,Silver) identity>> 
+rt_ipv6 <|-- ipv6_unicast 
+} 
+
+center footer
+ <size:20> UML Generated : 2019-02-21 00:32 </size>
+ endfooter 
+@enduml 

@@ -1,0 +1,72 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-aaa-radius.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-aaa-radius 
+package "oc-inet:openconfig-inet-types" as oc_inet_openconfig_inet_types { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+package "oc-aaa-types:openconfig-aaa-types" as oc_aaa_types_openconfig_aaa_types { 
+} 
+package "oc-types:openconfig-types" as oc_types_openconfig_types { 
+} 
+package "oc-yang:openconfig-yang-types" as oc_yang_openconfig_yang_types { 
+} 
+package openconfig-aaa {
+note top of _openconfig_aaa_radius : <b>Prefix: </b>  \n<b>Belongs-to: </b> openconfig-aaa \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nwww.openconfig.net \n<b>Revision : </b> 2017-09-18 \n
+package ":openconfig-aaa-radius" as _openconfig_aaa_radius { 
+oc_inet_openconfig_inet_types +-- _openconfig_aaa_radius
+oc_ext_openconfig_extensions +-- _openconfig_aaa_radius
+oc_aaa_types_openconfig_aaa_types +-- _openconfig_aaa_radius
+oc_types_openconfig_types +-- _openconfig_aaa_radius
+oc_yang_openconfig_yang_types +-- _openconfig_aaa_radius
+class "openconfig-aaa-radius" as openconfig_aaa_radius << (M, #33CCFF) module>> 
+class "aaa-radius-server-config" as openconfig_aaa_radius_I_aaa_radius_server_config_grouping <<(G,Lime) grouping>> 
+openconfig_aaa_radius_I_aaa_radius_server_config_grouping : auth-port : oc-inet:port-number   = 1812 
+openconfig_aaa_radius_I_aaa_radius_server_config_grouping : acct-port : oc-inet:port-number   = 1813 
+openconfig_aaa_radius_I_aaa_radius_server_config_grouping : secret-key : oc-types:routing-password  
+openconfig_aaa_radius_I_aaa_radius_server_config_grouping : source-address : oc-inet:ip-address  
+openconfig_aaa_radius_I_aaa_radius_server_config_grouping : retransmit-attempts : uint8  
+class "aaa-radius-server-state" as openconfig_aaa_radius_I_aaa_radius_server_state_grouping <<(G,Lime) grouping>> 
+class "counters" as  openconfig_aaa_radius_I_aaa_radius_server_state_I_counters <<container>> 
+openconfig_aaa_radius_I_aaa_radius_server_state_grouping *-- "1" openconfig_aaa_radius_I_aaa_radius_server_state_I_counters 
+openconfig_aaa_radius_I_aaa_radius_server_state_I_counters : retried-access-requests : oc-yang:counter64  
+openconfig_aaa_radius_I_aaa_radius_server_state_I_counters : access-accepts : oc-yang:counter64  
+openconfig_aaa_radius_I_aaa_radius_server_state_I_counters : access-rejects : oc-yang:counter64  
+openconfig_aaa_radius_I_aaa_radius_server_state_I_counters : timeout-access-requests : oc-yang:counter64  
+class "aaa-radius-server-top" as openconfig_aaa_radius_I_aaa_radius_server_top_grouping <<(G,Lime) grouping>> 
+class "radius" as  openconfig_aaa_radius_I_aaa_radius_server_top_I_radius <<container>> 
+openconfig_aaa_radius_I_aaa_radius_server_top_grouping *-- "1" openconfig_aaa_radius_I_aaa_radius_server_top_I_radius 
+class "config" as  openconfig_aaa_radius_I_aaa_radius_server_top_I_radius_I_config <<container>> 
+openconfig_aaa_radius_I_aaa_radius_server_top_I_radius *-- "1" openconfig_aaa_radius_I_aaa_radius_server_top_I_radius_I_config 
+openconfig_aaa_radius_I_aaa_radius_server_top_I_radius_I_config : aaa-radius-server-config {uses} 
+class "state" as  openconfig_aaa_radius_I_aaa_radius_server_top_I_radius_I_state <<container>> 
+openconfig_aaa_radius_I_aaa_radius_server_top_I_radius *-- "1" openconfig_aaa_radius_I_aaa_radius_server_top_I_radius_I_state 
+note bottom of openconfig_aaa_radius_I_aaa_radius_server_top_I_radius_I_state
+<b>Config = </b>false
+end note 
+openconfig_aaa_radius_I_aaa_radius_server_top_I_radius_I_state : aaa-radius-server-config {uses} 
+openconfig_aaa_radius_I_aaa_radius_server_top_I_radius_I_state : aaa-radius-server-state {uses} 
+class "oc-aaa-types:AAA_SERVER_TYPE" as oc_aaa_types_AAA_SERVER_TYPE << (I,Silver) identity>> 
+} 
+class "RADIUS" as RADIUS << (I,Silver) identity>> 
+oc_aaa_types_AAA_SERVER_TYPE <|-- RADIUS 
+} 
+
+openconfig_aaa_radius_I_aaa_radius_server_top_I_radius_I_config --> openconfig_aaa_radius_I_aaa_radius_server_config_grouping : uses 
+openconfig_aaa_radius_I_aaa_radius_server_top_I_radius_I_state --> openconfig_aaa_radius_I_aaa_radius_server_config_grouping : uses 
+openconfig_aaa_radius_I_aaa_radius_server_top_I_radius_I_state --> openconfig_aaa_radius_I_aaa_radius_server_state_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:49 </size>
+ endfooter 
+@enduml 

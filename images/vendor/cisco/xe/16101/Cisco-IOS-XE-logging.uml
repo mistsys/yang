@@ -1,0 +1,297 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/Cisco-IOS-XE-logging.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title Cisco-IOS-XE-logging 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "ios-types:Cisco-IOS-XE-types" as ios_types_Cisco_IOS_XE_types { 
+} 
+package Cisco-IOS-XE-native {
+note top of _Cisco_IOS_XE_logging : <b>Prefix: </b>  \n<b>Belongs-to: </b> Cisco-IOS-XE-native \n<b>Organization : </b>\nCisco Systems, Inc. \n<b>Contact : </b>\nCisco Systems, Inc. \nCustomer Service \n \nPostal: 170 W Tasman Drive \nSan Jose, CA 95134 \n \nTel: +1 1800 553-NETS \n \nE-mail: cs-yang@cisco.com \n<b>Revision : </b> 2018-07-11 \n
+package ":Cisco-IOS-XE-logging" as _Cisco_IOS_XE_logging { 
+inet_ietf_inet_types +-- _Cisco_IOS_XE_logging
+ios_types_Cisco_IOS_XE_types +-- _Cisco_IOS_XE_logging
+class "Cisco-IOS-XE-logging" as Cisco_IOS_XE_logging << (M, #33CCFF) module>> 
+class "logging-level-type" as logging_level_type << (T, YellowGreen) typedef>>
+logging_level_type : union{uint16, enumeration}
+class "severity-group-type" as severity_group_type << (T, YellowGreen) typedef>>
+severity_group_type : string {pattern = ([0|1|3|6|7],){0,4}[...}
+class "logging-host-option-group" as Cisco_IOS_XE_logging_I_logging_host_option_group_grouping <<(G,Lime) grouping>> 
+Cisco_IOS_XE_logging_I_logging_host_option_group_grouping : discriminator : string  
+class "logging-host-transport-group" as Cisco_IOS_XE_logging_I_logging_host_transport_group_grouping <<(G,Lime) grouping>> 
+class "transport" as  Cisco_IOS_XE_logging_I_logging_host_transport_group_I_transport <<container>> 
+Cisco_IOS_XE_logging_I_logging_host_transport_group_grouping *-- "1" Cisco_IOS_XE_logging_I_logging_host_transport_group_I_transport 
+class "udp" as  Cisco_IOS_XE_logging_I_logging_host_transport_group_I_transport_I_udp <<container>> 
+Cisco_IOS_XE_logging_I_logging_host_transport_group_I_transport *-- "1" Cisco_IOS_XE_logging_I_logging_host_transport_group_I_transport_I_udp 
+Cisco_IOS_XE_logging_I_logging_host_transport_group_I_transport_I_udp : port []: uint16 
+class "tcp" as  Cisco_IOS_XE_logging_I_logging_host_transport_group_I_transport_I_tcp <<container>> 
+Cisco_IOS_XE_logging_I_logging_host_transport_group_I_transport *-- "1" Cisco_IOS_XE_logging_I_logging_host_transport_group_I_transport_I_tcp 
+Cisco_IOS_XE_logging_I_logging_host_transport_group_I_transport_I_tcp : port []: uint16 
+class "logging-rate-limit-common-group" as Cisco_IOS_XE_logging_I_logging_rate_limit_common_group_grouping <<(G,Lime) grouping>> 
+class "ranges" as Cisco_IOS_XE_logging_I_logging_rate_limit_common_group_I_ranges << (L, #FF7700) list>> 
+Cisco_IOS_XE_logging_I_logging_rate_limit_common_group_grouping *-- "0..N" Cisco_IOS_XE_logging_I_logging_rate_limit_common_group_I_ranges 
+Cisco_IOS_XE_logging_I_logging_rate_limit_common_group_I_ranges : +range : uint16 [1..10000]  {key} 
+class "except" as  Cisco_IOS_XE_logging_I_logging_rate_limit_common_group_I_ranges_I_except <<container>> 
+Cisco_IOS_XE_logging_I_logging_rate_limit_common_group_I_ranges *-- "0..1" Cisco_IOS_XE_logging_I_logging_rate_limit_common_group_I_ranges_I_except 
+note bottom of Cisco_IOS_XE_logging_I_logging_rate_limit_common_group_I_ranges_I_except
+<b>Presence: </b>true
+end note 
+Cisco_IOS_XE_logging_I_logging_rate_limit_common_group_I_ranges_I_except : +range : logging-level-type  {key} 
+class "config-logging-discriminator-severity-actions" as Cisco_IOS_XE_logging_I_config_logging_discriminator_severity_actions_grouping <<(G,Lime) grouping>> 
+class "actions" as Cisco_IOS_XE_logging_I_config_logging_discriminator_severity_actions_I_actions <<choice>> 
+Cisco_IOS_XE_logging_I_config_logging_discriminator_severity_actions_grouping .. Cisco_IOS_XE_logging_I_config_logging_discriminator_severity_actions_I_actions : choice 
+class "drops" as Cisco_IOS_XE_logging_I_config_logging_discriminator_severity_actions_I_actions_I_drops_case <<case>> 
+Cisco_IOS_XE_logging_I_config_logging_discriminator_severity_actions_I_actions .. Cisco_IOS_XE_logging_I_config_logging_discriminator_severity_actions_I_actions_I_drops_case : choice actions
+Cisco_IOS_XE_logging_I_config_logging_discriminator_severity_actions_I_actions_I_drops_case : drops : severity-group-type  
+class "includes" as Cisco_IOS_XE_logging_I_config_logging_discriminator_severity_actions_I_actions_I_includes_case <<case>> 
+Cisco_IOS_XE_logging_I_config_logging_discriminator_severity_actions_I_actions .. Cisco_IOS_XE_logging_I_config_logging_discriminator_severity_actions_I_actions_I_includes_case : choice actions
+Cisco_IOS_XE_logging_I_config_logging_discriminator_severity_actions_I_actions_I_includes_case : includes : severity-group-type  
+class "config-logging-discriminator-common-actions" as Cisco_IOS_XE_logging_I_config_logging_discriminator_common_actions_grouping <<(G,Lime) grouping>> 
+class "actions" as Cisco_IOS_XE_logging_I_config_logging_discriminator_common_actions_I_actions <<choice>> 
+Cisco_IOS_XE_logging_I_config_logging_discriminator_common_actions_grouping .. Cisco_IOS_XE_logging_I_config_logging_discriminator_common_actions_I_actions : choice 
+class "drops" as Cisco_IOS_XE_logging_I_config_logging_discriminator_common_actions_I_actions_I_drops_case <<case>> 
+Cisco_IOS_XE_logging_I_config_logging_discriminator_common_actions_I_actions .. Cisco_IOS_XE_logging_I_config_logging_discriminator_common_actions_I_actions_I_drops_case : choice actions
+Cisco_IOS_XE_logging_I_config_logging_discriminator_common_actions_I_actions_I_drops_case : drops : string  
+class "includes" as Cisco_IOS_XE_logging_I_config_logging_discriminator_common_actions_I_actions_I_includes_case <<case>> 
+Cisco_IOS_XE_logging_I_config_logging_discriminator_common_actions_I_actions .. Cisco_IOS_XE_logging_I_config_logging_discriminator_common_actions_I_actions_I_includes_case : choice actions
+Cisco_IOS_XE_logging_I_config_logging_discriminator_common_actions_I_actions_I_includes_case : includes : string  
+class "config-logging-grouping" as Cisco_IOS_XE_logging_I_config_logging_grouping_grouping <<(G,Lime) grouping>> 
+class "logging" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_grouping *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging 
+class "discriminator" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator << (L, #FF7700) list>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging *-- "0..N" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator : +name : string  {key} 
+class "severity" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator_I_severity <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator_I_severity 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator_I_severity : config-logging-discriminator-severity-actions {uses} 
+class "facility" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator_I_facility <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator_I_facility 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator_I_facility : config-logging-discriminator-common-actions {uses} 
+class "mnemonics" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator_I_mnemonics <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator_I_mnemonics 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator_I_mnemonics : config-logging-discriminator-common-actions {uses} 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator : rate-limit : uint16 [1..10000]  
+class "msg-body" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator_I_msg_body <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator_I_msg_body 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator_I_msg_body : config-logging-discriminator-common-actions {uses} 
+class "persistent" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_persistent <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging *-- "0..1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_persistent 
+note bottom of Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_persistent
+<b>Presence: </b>true
+end note 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_persistent : url : string  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_persistent : size : uint32 [16384..2147483647]  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_persistent : filesize : uint32 [8192..2147483647]  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_persistent : batch : uint32 [4096..2147483647]  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_persistent : threshold : uint8 [1..99]  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_persistent : immediate : empty  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_persistent : notify : empty  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_persistent : protected : empty  
+class "monitor-conf" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_monitor_conf <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_monitor_conf 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_monitor_conf : monitor : boolean  
+class "monitor" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_monitor <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging *-- "0..1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_monitor 
+note bottom of Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_monitor
+<b>Presence: </b>true
+end note 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_monitor : severity : logging-level-type  
+class "discriminator" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_monitor_I_discriminator << (L, #FF7700) list>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_monitor *-- "0..N" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_monitor_I_discriminator 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_monitor_I_discriminator : +name : string  {key} 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_monitor_I_discriminator : severity : logging-level-type  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging : alarm : union{uint8, enumeration}  
+class "buffered" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered 
+class "size" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_size <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_size 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_size : size-value : uint32 [4096..2147483647]   = 4096 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_size : severity : logging-level-type   = debugging 
+class "buffered-param" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_buffered_param <<choice>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered .. Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_buffered_param : choice 
+class "discriminator-param" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_buffered_param_I_discriminator_param_case <<case>>
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_buffered_param .. Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_buffered_param_I_discriminator_param_case  : choice buffered-param
+class "discriminator" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_buffered_param_I_discriminator_param_I_discriminator << (L, #FF7700) list>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_buffered_param_I_discriminator_param_case *-- "0..N" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_buffered_param_I_discriminator_param_I_discriminator 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_buffered_param_I_discriminator_param_I_discriminator : +name : string  {key} 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_buffered_param_I_discriminator_param_I_discriminator : size-value : uint32 [4096..2147483647]  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_buffered_param_I_discriminator_param_I_discriminator : severity : logging-level-type  
+class "severity-level" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_buffered_param_I_severity_level_case <<case>>
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_buffered_param .. Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_buffered_param_I_severity_level_case  : choice buffered-param
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_buffered_param_I_severity_level_case : severity : logging-level-type  
+class "xxml-buffer" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_buffered_param_I_xxml_buffer_case <<case>>
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_buffered_param .. Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_buffered_param_I_xxml_buffer_case  : choice buffered-param
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_buffered_I_buffered_param_I_xxml_buffer_case : xxml : uint32 [4096..2147483647]  
+class "console-conf" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_console_conf <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_console_conf 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_console_conf : console : boolean  
+class "console" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_console <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging *-- "0..1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_console 
+note bottom of Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_console
+<b>Presence: </b>true
+end note 
+class "discriminator" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_console_I_discriminator << (L, #FF7700) list>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_console *-- "0..N" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_console_I_discriminator 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_console_I_discriminator : +name : string  {key} 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_console_I_discriminator : severity : logging-level-type  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_console : filtered : empty  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_console : guaranteed : empty  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_console : xxml : logging-level-type  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_console : severity : logging-level-type  
+class "event" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_event <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_event 
+class "link-status" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_event_I_link_status <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_event *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_event_I_link_status 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_event_I_link_status : boot : empty  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_event_I_link_status : global : empty  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_event_I_link_status : default : empty  
+class "esm" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_esm <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_esm 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_esm : config : empty  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging : facility : enumeration : {auth,cron,daemon,...}  
+class "history" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_history <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_history 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_history : size : uint16  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_history : severity-level : union{uint8, enumeration}  
+class "host" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host 
+class "ipv4-host-list" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_list << (L, #FF7700) list>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host *-- "0..N" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_list 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_list : +ipv4-host : inet:host  {key} 
+class "ipv4-host-transport-list" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_transport_list << (L, #FF7700) list>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host *-- "0..N" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_transport_list 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_transport_list : +ipv4-host : inet:host  {key} 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_transport_list : logging-host-transport-group {uses} 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_transport_list : logging-host-option-group {uses} 
+class "ipv4-host-vrf-list" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_vrf_list << (L, #FF7700) list>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host *-- "0..N" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_vrf_list 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_vrf_list : +ipv4-host : inet:host  {key} 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_vrf_list : +vrf : string  {key} 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_vrf_list : logging-host-option-group {uses} 
+class "ipv4-host-vrf-transport-list" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_vrf_transport_list << (L, #FF7700) list>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host *-- "0..N" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_vrf_transport_list 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_vrf_transport_list : +ipv4-host : inet:host  {key} 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_vrf_transport_list : +vrf : string  {key} 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_vrf_transport_list : logging-host-transport-group {uses} 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_vrf_transport_list : logging-host-option-group {uses} 
+class "ipv6" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6 <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6 
+class "ipv6-host-list" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_list << (L, #FF7700) list>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6 *-- "0..N" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_list 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_list : +ipv6-host : ios-types:ipv6-host  {key} 
+class "ipv6-host-transport-list" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_transport_list << (L, #FF7700) list>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6 *-- "0..N" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_transport_list 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_transport_list : +ipv6-host : ios-types:ipv6-host  {key} 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_transport_list : logging-host-transport-group {uses} 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_transport_list : logging-host-option-group {uses} 
+class "ipv6-host-vrf-list" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_vrf_list << (L, #FF7700) list>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6 *-- "0..N" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_vrf_list 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_vrf_list : +ipv6-host : ios-types:ipv6-host  {key} 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_vrf_list : +vrf : string  {key} 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_vrf_list : logging-host-option-group {uses} 
+class "ipv6-host-vrf-transport-list" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_vrf_transport_list << (L, #FF7700) list>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6 *-- "0..N" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_vrf_transport_list 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_vrf_transport_list : +ipv6-host : ios-types:ipv6-host  {key} 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_vrf_transport_list : +vrf : string  {key} 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_vrf_transport_list : logging-host-transport-group {uses} 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_vrf_transport_list : logging-host-option-group {uses} 
+class "origin-id" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_origin_id <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_origin_id 
+class "origin-choice" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_origin_id_I_origin_choice <<choice>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_origin_id .. Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_origin_id_I_origin_choice : choice 
+class "origin-type" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_origin_id_I_origin_choice_I_origin_type_case <<case>>
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_origin_id_I_origin_choice .. Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_origin_id_I_origin_choice_I_origin_type_case  : choice origin-choice
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_origin_id_I_origin_choice_I_origin_type_case : type-value : enumeration : {hostname,ip,ipv6,}  
+class "origin-name" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_origin_id_I_origin_choice_I_origin_name_case <<case>>
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_origin_id_I_origin_choice .. Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_origin_id_I_origin_choice_I_origin_name_case  : choice origin-choice
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_origin_id_I_origin_choice_I_origin_name_case : string : string  
+class "rate-limit-conf" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit_conf <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit_conf 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit_conf : rate-limit : boolean  
+class "rate-limit" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging *-- "0..1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit 
+note bottom of Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit
+<b>Presence: </b>true
+end note 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit : logging-rate-limit-common-group {uses} 
+class "console" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit_I_console <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit_I_console 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit_I_console : logging-rate-limit-common-group {uses} 
+class "all" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit_I_console_I_all <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit_I_console *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit_I_console_I_all 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit_I_console_I_all : logging-rate-limit-common-group {uses} 
+class "all" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit_I_all <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit_I_all 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit_I_all : logging-rate-limit-common-group {uses} 
+class "source-interface" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_source_interface << (L, #FF7700) list>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging *-- "0..N" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_source_interface 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_source_interface : +interface-name : string  {key} 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_source_interface : vrf : string  
+class "snmp-trap" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_snmp_trap <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_snmp_trap 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_snmp_trap : alerts : empty  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_snmp_trap : critical : empty  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_snmp_trap : debugging : empty  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_snmp_trap : emergencies : empty  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_snmp_trap : errors : empty  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_snmp_trap : informational : empty  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_snmp_trap : notifications : empty  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_snmp_trap : warnings : empty  
+class "trap" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_trap <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging *-- "0..1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_trap 
+note bottom of Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_trap
+<b>Presence: </b>true
+end note 
+class "level" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_trap_I_level <<choice>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_trap .. Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_trap_I_level : choice 
+class "set-default" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_trap_I_level_I_set_default_case <<case>>
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_trap_I_level .. Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_trap_I_level_I_set_default_case  : choice level
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_trap_I_level_I_set_default_case : trap-default : empty  
+class "set-level" as Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_trap_I_level_I_set_level_case <<case>>
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_trap_I_level .. Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_trap_I_level_I_set_level_case  : choice level
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_trap_I_level_I_set_level_case : severity : union{uint8, enumeration}   = informational 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging : hostip : inet:host  
+class "file" as  Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_file <<container>> 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging *-- "1" Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_file 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_file : name : string  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_file : max-size : uint32  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_file : min-size : uint32  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_file : severity : logging-level-type  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging : snmp-authfail : empty  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging : buginf : empty  
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging : userinfo : empty  
+} 
+} 
+
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator_I_severity --> Cisco_IOS_XE_logging_I_config_logging_discriminator_severity_actions_grouping : uses 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator_I_facility --> Cisco_IOS_XE_logging_I_config_logging_discriminator_common_actions_grouping : uses 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator_I_mnemonics --> Cisco_IOS_XE_logging_I_config_logging_discriminator_common_actions_grouping : uses 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_discriminator_I_msg_body --> Cisco_IOS_XE_logging_I_config_logging_discriminator_common_actions_grouping : uses 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_transport_list --> Cisco_IOS_XE_logging_I_logging_host_transport_group_grouping : uses 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_transport_list --> Cisco_IOS_XE_logging_I_logging_host_option_group_grouping : uses 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_vrf_list --> Cisco_IOS_XE_logging_I_logging_host_option_group_grouping : uses 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_vrf_transport_list --> Cisco_IOS_XE_logging_I_logging_host_transport_group_grouping : uses 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv4_host_vrf_transport_list --> Cisco_IOS_XE_logging_I_logging_host_option_group_grouping : uses 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_transport_list --> Cisco_IOS_XE_logging_I_logging_host_transport_group_grouping : uses 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_transport_list --> Cisco_IOS_XE_logging_I_logging_host_option_group_grouping : uses 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_vrf_list --> Cisco_IOS_XE_logging_I_logging_host_option_group_grouping : uses 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_vrf_transport_list --> Cisco_IOS_XE_logging_I_logging_host_transport_group_grouping : uses 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_host_I_ipv6_I_ipv6_host_vrf_transport_list --> Cisco_IOS_XE_logging_I_logging_host_option_group_grouping : uses 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit --> Cisco_IOS_XE_logging_I_logging_rate_limit_common_group_grouping : uses 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit_I_console --> Cisco_IOS_XE_logging_I_logging_rate_limit_common_group_grouping : uses 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit_I_console_I_all --> Cisco_IOS_XE_logging_I_logging_rate_limit_common_group_grouping : uses 
+Cisco_IOS_XE_logging_I_config_logging_grouping_I_logging_I_rate_limit_I_all --> Cisco_IOS_XE_logging_I_logging_rate_limit_common_group_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:40 </size>
+ endfooter 
+@enduml 

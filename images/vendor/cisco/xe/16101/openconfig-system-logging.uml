@@ -1,0 +1,161 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-system-logging.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-system-logging 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+package "oc-inet:openconfig-inet-types" as oc_inet_openconfig_inet_types { 
+} 
+note top of oc_log_openconfig_system_logging : <b>Namespace: </b> http://openconfig.net/yang/system/logging \n<b>Prefix: </b> oc-log \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nwww.openconfig.net \n<b>Revision : </b> 2017-09-18 \n
+package "oc-log:openconfig-system-logging" as oc_log_openconfig_system_logging { 
+oc_ext_openconfig_extensions +-- oc_log_openconfig_system_logging
+oc_inet_openconfig_inet_types +-- oc_log_openconfig_system_logging
+class "openconfig-system-logging" as openconfig_system_logging << (M, #33CCFF) module>> 
+enum "syslog-severity" as openconfig_system_logging_I_syslog_severity {
+EMERGENCY
+ALERT
+CRITICAL
+MORE
+}
+class "logging-selectors-config" as openconfig_system_logging_I_logging_selectors_config_grouping <<(G,Lime) grouping>> 
+openconfig_system_logging_I_logging_selectors_config_grouping : facility : identityref {SYSLOG_FACILITY}  
+openconfig_system_logging_I_logging_selectors_config_grouping : severity : syslog-severity  
+class "logging-selectors-state" as openconfig_system_logging_I_logging_selectors_state_grouping <<(G,Lime) grouping>> 
+class "logging-selectors-top" as openconfig_system_logging_I_logging_selectors_top_grouping <<(G,Lime) grouping>> 
+class "selectors" as  openconfig_system_logging_I_logging_selectors_top_I_selectors <<container>> 
+openconfig_system_logging_I_logging_selectors_top_grouping *-- "1" openconfig_system_logging_I_logging_selectors_top_I_selectors 
+class "selector" as openconfig_system_logging_I_logging_selectors_top_I_selectors_I_selector << (L, #FF7700) list>> 
+openconfig_system_logging_I_logging_selectors_top_I_selectors *-- "0..N" openconfig_system_logging_I_logging_selectors_top_I_selectors_I_selector 
+openconfig_system_logging_I_logging_selectors_top_I_selectors_I_selector : +facility : leafref : ../config/facility  {key} 
+openconfig_system_logging_I_logging_selectors_top_I_selectors_I_selector : +severity : leafref : ../config/severity  {key} 
+class "config" as  openconfig_system_logging_I_logging_selectors_top_I_selectors_I_selector_I_config <<container>> 
+openconfig_system_logging_I_logging_selectors_top_I_selectors_I_selector *-- "1" openconfig_system_logging_I_logging_selectors_top_I_selectors_I_selector_I_config 
+openconfig_system_logging_I_logging_selectors_top_I_selectors_I_selector_I_config : logging-selectors-config {uses} 
+class "state" as  openconfig_system_logging_I_logging_selectors_top_I_selectors_I_selector_I_state <<container>> 
+openconfig_system_logging_I_logging_selectors_top_I_selectors_I_selector *-- "1" openconfig_system_logging_I_logging_selectors_top_I_selectors_I_selector_I_state 
+note bottom of openconfig_system_logging_I_logging_selectors_top_I_selectors_I_selector_I_state
+<b>Config = </b>false
+end note 
+openconfig_system_logging_I_logging_selectors_top_I_selectors_I_selector_I_state : logging-selectors-config {uses} 
+openconfig_system_logging_I_logging_selectors_top_I_selectors_I_selector_I_state : logging-selectors-state {uses} 
+class "logging-console-config" as openconfig_system_logging_I_logging_console_config_grouping <<(G,Lime) grouping>> 
+class "logging-console-state" as openconfig_system_logging_I_logging_console_state_grouping <<(G,Lime) grouping>> 
+class "logging-console-top" as openconfig_system_logging_I_logging_console_top_grouping <<(G,Lime) grouping>> 
+class "console" as  openconfig_system_logging_I_logging_console_top_I_console <<container>> 
+openconfig_system_logging_I_logging_console_top_grouping *-- "1" openconfig_system_logging_I_logging_console_top_I_console 
+class "config" as  openconfig_system_logging_I_logging_console_top_I_console_I_config <<container>> 
+openconfig_system_logging_I_logging_console_top_I_console *-- "1" openconfig_system_logging_I_logging_console_top_I_console_I_config 
+openconfig_system_logging_I_logging_console_top_I_console_I_config : logging-console-config {uses} 
+class "state" as  openconfig_system_logging_I_logging_console_top_I_console_I_state <<container>> 
+openconfig_system_logging_I_logging_console_top_I_console *-- "1" openconfig_system_logging_I_logging_console_top_I_console_I_state 
+note bottom of openconfig_system_logging_I_logging_console_top_I_console_I_state
+<b>Config = </b>false
+end note 
+openconfig_system_logging_I_logging_console_top_I_console_I_state : logging-console-config {uses} 
+openconfig_system_logging_I_logging_console_top_I_console_I_state : logging-console-state {uses} 
+openconfig_system_logging_I_logging_console_top_I_console : logging-selectors-top {uses} 
+class "logging-remote-config" as openconfig_system_logging_I_logging_remote_config_grouping <<(G,Lime) grouping>> 
+openconfig_system_logging_I_logging_remote_config_grouping : host : oc-inet:host  
+openconfig_system_logging_I_logging_remote_config_grouping : source-address : oc-inet:ip-address  
+openconfig_system_logging_I_logging_remote_config_grouping : remote-port : oc-inet:port-number   = 514 
+class "logging-remote-state" as openconfig_system_logging_I_logging_remote_state_grouping <<(G,Lime) grouping>> 
+class "logging-remote-top" as openconfig_system_logging_I_logging_remote_top_grouping <<(G,Lime) grouping>> 
+class "remote-servers" as  openconfig_system_logging_I_logging_remote_top_I_remote_servers <<container>> 
+openconfig_system_logging_I_logging_remote_top_grouping *-- "1" openconfig_system_logging_I_logging_remote_top_I_remote_servers 
+class "remote-server" as openconfig_system_logging_I_logging_remote_top_I_remote_servers_I_remote_server << (L, #FF7700) list>> 
+openconfig_system_logging_I_logging_remote_top_I_remote_servers *-- "0..N" openconfig_system_logging_I_logging_remote_top_I_remote_servers_I_remote_server 
+openconfig_system_logging_I_logging_remote_top_I_remote_servers_I_remote_server : +host : leafref : ../config/host  {key} 
+class "config" as  openconfig_system_logging_I_logging_remote_top_I_remote_servers_I_remote_server_I_config <<container>> 
+openconfig_system_logging_I_logging_remote_top_I_remote_servers_I_remote_server *-- "1" openconfig_system_logging_I_logging_remote_top_I_remote_servers_I_remote_server_I_config 
+openconfig_system_logging_I_logging_remote_top_I_remote_servers_I_remote_server_I_config : logging-remote-config {uses} 
+class "state" as  openconfig_system_logging_I_logging_remote_top_I_remote_servers_I_remote_server_I_state <<container>> 
+openconfig_system_logging_I_logging_remote_top_I_remote_servers_I_remote_server *-- "1" openconfig_system_logging_I_logging_remote_top_I_remote_servers_I_remote_server_I_state 
+note bottom of openconfig_system_logging_I_logging_remote_top_I_remote_servers_I_remote_server_I_state
+<b>Config = </b>false
+end note 
+openconfig_system_logging_I_logging_remote_top_I_remote_servers_I_remote_server_I_state : logging-remote-config {uses} 
+openconfig_system_logging_I_logging_remote_top_I_remote_servers_I_remote_server_I_state : logging-remote-state {uses} 
+openconfig_system_logging_I_logging_remote_top_I_remote_servers_I_remote_server : logging-selectors-top {uses} 
+class "logging-top" as openconfig_system_logging_I_logging_top_grouping <<(G,Lime) grouping>> 
+class "logging" as  openconfig_system_logging_I_logging_top_I_logging <<container>> 
+openconfig_system_logging_I_logging_top_grouping *-- "1" openconfig_system_logging_I_logging_top_I_logging 
+openconfig_system_logging_I_logging_top_I_logging : logging-console-top {uses} 
+openconfig_system_logging_I_logging_top_I_logging : logging-remote-top {uses} 
+class "SYSLOG_FACILITY" as SYSLOG_FACILITY << (I,Silver) identity>> 
+class "ALL" as ALL << (I,Silver) identity>> 
+SYSLOG_FACILITY <|-- ALL 
+class "KERNEL" as KERNEL << (I,Silver) identity>> 
+SYSLOG_FACILITY <|-- KERNEL 
+class "USER" as USER << (I,Silver) identity>> 
+SYSLOG_FACILITY <|-- USER 
+class "MAIL" as MAIL << (I,Silver) identity>> 
+SYSLOG_FACILITY <|-- MAIL 
+class "SYSTEM_DAEMON" as SYSTEM_DAEMON << (I,Silver) identity>> 
+SYSLOG_FACILITY <|-- SYSTEM_DAEMON 
+class "AUTH" as AUTH << (I,Silver) identity>> 
+SYSLOG_FACILITY <|-- AUTH 
+class "SYSLOG" as SYSLOG << (I,Silver) identity>> 
+SYSLOG_FACILITY <|-- SYSLOG 
+class "AUTHPRIV" as AUTHPRIV << (I,Silver) identity>> 
+SYSLOG_FACILITY <|-- AUTHPRIV 
+class "NTP" as NTP << (I,Silver) identity>> 
+SYSLOG_FACILITY <|-- NTP 
+class "AUDIT" as AUDIT << (I,Silver) identity>> 
+SYSLOG_FACILITY <|-- AUDIT 
+class "CONSOLE" as CONSOLE << (I,Silver) identity>> 
+SYSLOG_FACILITY <|-- CONSOLE 
+class "LOCAL0" as LOCAL0 << (I,Silver) identity>> 
+SYSLOG_FACILITY <|-- LOCAL0 
+class "LOCAL1" as LOCAL1 << (I,Silver) identity>> 
+SYSLOG_FACILITY <|-- LOCAL1 
+class "LOCAL2" as LOCAL2 << (I,Silver) identity>> 
+SYSLOG_FACILITY <|-- LOCAL2 
+class "LOCAL3" as LOCAL3 << (I,Silver) identity>> 
+SYSLOG_FACILITY <|-- LOCAL3 
+class "LOCAL4" as LOCAL4 << (I,Silver) identity>> 
+SYSLOG_FACILITY <|-- LOCAL4 
+class "LOCAL5" as LOCAL5 << (I,Silver) identity>> 
+SYSLOG_FACILITY <|-- LOCAL5 
+class "LOCAL6" as LOCAL6 << (I,Silver) identity>> 
+SYSLOG_FACILITY <|-- LOCAL6 
+class "LOCAL7" as LOCAL7 << (I,Silver) identity>> 
+SYSLOG_FACILITY <|-- LOCAL7 
+class "LOG_DESTINATION_TYPE" as LOG_DESTINATION_TYPE << (I,Silver) identity>> 
+class "DEST_CONSOLE" as DEST_CONSOLE << (I,Silver) identity>> 
+LOG_DESTINATION_TYPE <|-- DEST_CONSOLE 
+class "DEST_BUFFER" as DEST_BUFFER << (I,Silver) identity>> 
+LOG_DESTINATION_TYPE <|-- DEST_BUFFER 
+class "DEST_FILE" as DEST_FILE << (I,Silver) identity>> 
+LOG_DESTINATION_TYPE <|-- DEST_FILE 
+class "DEST_REMOTE" as DEST_REMOTE << (I,Silver) identity>> 
+LOG_DESTINATION_TYPE <|-- DEST_REMOTE 
+openconfig_system_logging_I_logging_selectors_config_grouping-->SYSLOG_FACILITY: facility
+} 
+
+openconfig_system_logging_I_logging_selectors_top_I_selectors_I_selector_I_config --> openconfig_system_logging_I_logging_selectors_config_grouping : uses 
+openconfig_system_logging_I_logging_selectors_top_I_selectors_I_selector_I_state --> openconfig_system_logging_I_logging_selectors_config_grouping : uses 
+openconfig_system_logging_I_logging_selectors_top_I_selectors_I_selector_I_state --> openconfig_system_logging_I_logging_selectors_state_grouping : uses 
+openconfig_system_logging_I_logging_console_top_I_console_I_config --> openconfig_system_logging_I_logging_console_config_grouping : uses 
+openconfig_system_logging_I_logging_console_top_I_console_I_state --> openconfig_system_logging_I_logging_console_config_grouping : uses 
+openconfig_system_logging_I_logging_console_top_I_console_I_state --> openconfig_system_logging_I_logging_console_state_grouping : uses 
+openconfig_system_logging_I_logging_console_top_I_console --> openconfig_system_logging_I_logging_selectors_top_grouping : uses 
+openconfig_system_logging_I_logging_remote_top_I_remote_servers_I_remote_server_I_config --> openconfig_system_logging_I_logging_remote_config_grouping : uses 
+openconfig_system_logging_I_logging_remote_top_I_remote_servers_I_remote_server_I_state --> openconfig_system_logging_I_logging_remote_config_grouping : uses 
+openconfig_system_logging_I_logging_remote_top_I_remote_servers_I_remote_server_I_state --> openconfig_system_logging_I_logging_remote_state_grouping : uses 
+openconfig_system_logging_I_logging_remote_top_I_remote_servers_I_remote_server --> openconfig_system_logging_I_logging_selectors_top_grouping : uses 
+openconfig_system_logging_I_logging_top_I_logging --> openconfig_system_logging_I_logging_console_top_grouping : uses 
+openconfig_system_logging_I_logging_top_I_logging --> openconfig_system_logging_I_logging_remote_top_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:42 </size>
+ endfooter 
+@enduml 

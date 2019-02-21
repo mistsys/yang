@@ -1,0 +1,134 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-key-chain.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-key-chain 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+note top of key_chain_ietf_key_chain : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-key-chain \n<b>Prefix: </b> key-chain \n<b>Organization : </b>\nCisco Systems \n170 West Tasman Drive \nSan Jose, CA 95134-1706 \nUSA \n<b>Contact : </b>\nAcee Lindem - acee@cisco.com \n<b>Revision : </b> 2015-02-24 \n
+package "key-chain:ietf-key-chain" as key_chain_ietf_key_chain { 
+yang_ietf_yang_types +-- key_chain_ietf_key_chain
+class "ietf-key-chain" as ietf_key_chain << (M, #33CCFF) module>> 
+class "key-chain-ref" as key_chain_ref << (T, YellowGreen) typedef>>
+key_chain_ref : leafref : /key-chain:key-chains/key-chain:name
+ietf_key_chain : feature : hex_key_string 
+ietf_key_chain : feature : accept_tolerance 
+ietf_key_chain : feature : independent_send_accept_lifetime 
+class "lifetime" as ietf_key_chain_I_lifetime_grouping <<(G,Lime) grouping>> 
+class "lifetime" as ietf_key_chain_I_lifetime_I_lifetime <<choice>> 
+ietf_key_chain_I_lifetime_grouping .. ietf_key_chain_I_lifetime_I_lifetime : choice 
+class "always" as ietf_key_chain_I_lifetime_I_lifetime_I_always_case <<case>>
+ietf_key_chain_I_lifetime_I_lifetime .. ietf_key_chain_I_lifetime_I_lifetime_I_always_case  : choice lifetime
+ietf_key_chain_I_lifetime_I_lifetime_I_always_case : always : empty  
+class "start-end-time" as ietf_key_chain_I_lifetime_I_lifetime_I_start_end_time_case <<case>>
+ietf_key_chain_I_lifetime_I_lifetime .. ietf_key_chain_I_lifetime_I_lifetime_I_start_end_time_case  : choice lifetime
+ietf_key_chain_I_lifetime_I_lifetime_I_start_end_time_case : start-date-time : yang:date-and-time  
+class "end-time" as ietf_key_chain_I_lifetime_I_lifetime_I_start_end_time_I_end_time <<choice>> 
+ietf_key_chain_I_lifetime_I_lifetime_I_start_end_time_case .. ietf_key_chain_I_lifetime_I_lifetime_I_start_end_time_I_end_time : choice 
+class "infinite" as ietf_key_chain_I_lifetime_I_lifetime_I_start_end_time_I_end_time_I_infinite_case <<case>>
+ietf_key_chain_I_lifetime_I_lifetime_I_start_end_time_I_end_time .. ietf_key_chain_I_lifetime_I_lifetime_I_start_end_time_I_end_time_I_infinite_case  : choice end-time
+ietf_key_chain_I_lifetime_I_lifetime_I_start_end_time_I_end_time_I_infinite_case : no-end-time : empty  
+class "duration" as ietf_key_chain_I_lifetime_I_lifetime_I_start_end_time_I_end_time_I_duration_case <<case>>
+ietf_key_chain_I_lifetime_I_lifetime_I_start_end_time_I_end_time .. ietf_key_chain_I_lifetime_I_lifetime_I_start_end_time_I_end_time_I_duration_case  : choice end-time
+ietf_key_chain_I_lifetime_I_lifetime_I_start_end_time_I_end_time_I_duration_case : duration : uint32 [1..2147483646]   {seconds}
+class "end-date-time" as ietf_key_chain_I_lifetime_I_lifetime_I_start_end_time_I_end_time_I_end_date_time_case <<case>>
+ietf_key_chain_I_lifetime_I_lifetime_I_start_end_time_I_end_time .. ietf_key_chain_I_lifetime_I_lifetime_I_start_end_time_I_end_time_I_end_date_time_case  : choice end-time
+ietf_key_chain_I_lifetime_I_lifetime_I_start_end_time_I_end_time_I_end_date_time_case : end-date-time : yang:date-and-time  
+class "crypto-algorithm-types" as ietf_key_chain_I_crypto_algorithm_types_grouping <<(G,Lime) grouping>> 
+class "algorithm" as ietf_key_chain_I_crypto_algorithm_types_I_algorithm <<choice>> 
+ietf_key_chain_I_crypto_algorithm_types_grouping .. ietf_key_chain_I_crypto_algorithm_types_I_algorithm : choice 
+class "hmac-sha1-12" as ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_hmac_sha1_12_case <<case>>
+ietf_key_chain_I_crypto_algorithm_types_I_algorithm .. ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_hmac_sha1_12_case  : choice algorithm
+ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_hmac_sha1_12_case : hmac-sha1-12 : empty  
+class "hmac-sha1-20" as ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_hmac_sha1_20_case <<case>>
+ietf_key_chain_I_crypto_algorithm_types_I_algorithm .. ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_hmac_sha1_20_case  : choice algorithm
+ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_hmac_sha1_20_case : hmac-sha1-20 : empty  
+class "md5" as ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_md5_case <<case>>
+ietf_key_chain_I_crypto_algorithm_types_I_algorithm .. ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_md5_case  : choice algorithm
+ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_md5_case : md5 : empty  
+class "sha-1" as ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_sha_1_case <<case>>
+ietf_key_chain_I_crypto_algorithm_types_I_algorithm .. ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_sha_1_case  : choice algorithm
+ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_sha_1_case : sha-1 : empty  
+class "hmac-sha-1" as ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_hmac_sha_1_case <<case>>
+ietf_key_chain_I_crypto_algorithm_types_I_algorithm .. ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_hmac_sha_1_case  : choice algorithm
+ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_hmac_sha_1_case : hmac-sha-1 : empty  
+class "hmac-sha-256" as ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_hmac_sha_256_case <<case>>
+ietf_key_chain_I_crypto_algorithm_types_I_algorithm .. ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_hmac_sha_256_case  : choice algorithm
+ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_hmac_sha_256_case : hmac-sha-256 : empty  
+class "hmac-sha-384" as ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_hmac_sha_384_case <<case>>
+ietf_key_chain_I_crypto_algorithm_types_I_algorithm .. ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_hmac_sha_384_case  : choice algorithm
+ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_hmac_sha_384_case : hmac-sha-384 : empty  
+class "hmac-sha-512" as ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_hmac_sha_512_case <<case>>
+ietf_key_chain_I_crypto_algorithm_types_I_algorithm .. ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_hmac_sha_512_case  : choice algorithm
+ietf_key_chain_I_crypto_algorithm_types_I_algorithm_I_hmac_sha_512_case : hmac-sha-512 : empty  
+class "key-chain" as ietf_key_chain_I_key_chain_grouping <<(G,Lime) grouping>> 
+ietf_key_chain_I_key_chain_grouping : name : string  
+class "accept-tolerance" as  ietf_key_chain_I_key_chain_I_accept_tolerance <<container>> 
+ietf_key_chain_I_key_chain_grouping *-- "1" ietf_key_chain_I_key_chain_I_accept_tolerance 
+note bottom of ietf_key_chain_I_key_chain_I_accept_tolerance
+<b>if-feature: </b>accept-tolerance
+end note 
+ietf_key_chain_I_key_chain_I_accept_tolerance : duration : uint32   = 0  {seconds}
+class "key" as ietf_key_chain_I_key_chain_I_key << (L, #FF7700) list>> 
+ietf_key_chain_I_key_chain_grouping *-- "0..N" ietf_key_chain_I_key_chain_I_key 
+ietf_key_chain_I_key_chain_I_key : +key-id : uint64  {key} 
+class "key-string" as  ietf_key_chain_I_key_chain_I_key_I_key_string <<container>> 
+ietf_key_chain_I_key_chain_I_key *-- "1" ietf_key_chain_I_key_chain_I_key_I_key_string 
+class "key-string-style" as ietf_key_chain_I_key_chain_I_key_I_key_string_I_key_string_style <<choice>> 
+ietf_key_chain_I_key_chain_I_key_I_key_string .. ietf_key_chain_I_key_chain_I_key_I_key_string_I_key_string_style : choice 
+class "keystring" as ietf_key_chain_I_key_chain_I_key_I_key_string_I_key_string_style_I_keystring_case <<case>>
+ietf_key_chain_I_key_chain_I_key_I_key_string_I_key_string_style .. ietf_key_chain_I_key_chain_I_key_I_key_string_I_key_string_style_I_keystring_case  : choice key-string-style
+ietf_key_chain_I_key_chain_I_key_I_key_string_I_key_string_style_I_keystring_case : keystring : string  
+class "hexadecimal" as ietf_key_chain_I_key_chain_I_key_I_key_string_I_key_string_style_I_hexadecimal_case <<case>>
+ietf_key_chain_I_key_chain_I_key_I_key_string_I_key_string_style .. ietf_key_chain_I_key_chain_I_key_I_key_string_I_key_string_style_I_hexadecimal_case  : choice key-string-style
+note bottom of ietf_key_chain_I_key_chain_I_key_I_key_string_I_key_string_style_I_hexadecimal_case
+<b>if-feature: </b>hex-key-string
+end note 
+ietf_key_chain_I_key_chain_I_key_I_key_string_I_key_string_style_I_hexadecimal_case : hexadecimal-string : yang:hex-string  
+class "lifetime" as  ietf_key_chain_I_key_chain_I_key_I_lifetime <<container>> 
+ietf_key_chain_I_key_chain_I_key *-- "1" ietf_key_chain_I_key_chain_I_key_I_lifetime 
+class "lifetime" as ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime <<choice>> 
+ietf_key_chain_I_key_chain_I_key_I_lifetime .. ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime : choice 
+class "send-and-accept-lifetime" as ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime_I_send_and_accept_lifetime_case <<case>>
+ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime .. ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime_I_send_and_accept_lifetime_case  : choice lifetime
+class "send-accept-lifetime" as  ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime_I_send_and_accept_lifetime_I_send_accept_lifetime <<container>> 
+ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime_I_send_and_accept_lifetime_case *-- "1" ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime_I_send_and_accept_lifetime_I_send_accept_lifetime 
+ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime_I_send_and_accept_lifetime_I_send_accept_lifetime : lifetime {uses} 
+class "independent-send-accept-lifetime" as ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime_I_independent_send_accept_lifetime_case <<case>>
+ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime .. ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime_I_independent_send_accept_lifetime_case  : choice lifetime
+note bottom of ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime_I_independent_send_accept_lifetime_case
+<b>if-feature: </b>independent-send-accept-lifetime
+end note 
+class "send-lifetime" as  ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime_I_independent_send_accept_lifetime_I_send_lifetime <<container>> 
+ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime_I_independent_send_accept_lifetime_case *-- "1" ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime_I_independent_send_accept_lifetime_I_send_lifetime 
+ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime_I_independent_send_accept_lifetime_I_send_lifetime : lifetime {uses} 
+class "accept-lifetime" as  ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime_I_independent_send_accept_lifetime_I_accept_lifetime <<container>> 
+ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime_I_independent_send_accept_lifetime_case *-- "1" ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime_I_independent_send_accept_lifetime_I_accept_lifetime 
+ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime_I_independent_send_accept_lifetime_I_accept_lifetime : lifetime {uses} 
+class "crypto-algorithm" as  ietf_key_chain_I_key_chain_I_key_I_crypto_algorithm <<container>> 
+ietf_key_chain_I_key_chain_I_key *-- "1" ietf_key_chain_I_key_chain_I_key_I_crypto_algorithm 
+ietf_key_chain_I_key_chain_I_key_I_crypto_algorithm : crypto-algorithm-types {uses} 
+class "key-chains" as ietf_key_chain_I_key_chains << (L, #FF7700) list>> 
+ietf_key_chain *-- "0..N" ietf_key_chain_I_key_chains 
+ietf_key_chain_I_key_chains : key-chain {uses} 
+} 
+
+ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime_I_send_and_accept_lifetime_I_send_accept_lifetime --> ietf_key_chain_I_lifetime_grouping : uses 
+ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime_I_independent_send_accept_lifetime_I_send_lifetime --> ietf_key_chain_I_lifetime_grouping : uses 
+ietf_key_chain_I_key_chain_I_key_I_lifetime_I_lifetime_I_independent_send_accept_lifetime_I_accept_lifetime --> ietf_key_chain_I_lifetime_grouping : uses 
+ietf_key_chain_I_key_chain_I_key_I_crypto_algorithm --> ietf_key_chain_I_crypto_algorithm_types_grouping : uses 
+ietf_key_chain_I_key_chains --> ietf_key_chain_I_key_chain_grouping : uses 
+key_chain_ref-->"key-chain:name"ietf_key_chain_I_key_chains: key-chain-ref
+center footer
+ <size:20> UML Generated : 2019-02-21 00:01 </size>
+ endfooter 
+@enduml 

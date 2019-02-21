@@ -1,0 +1,51 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/tailf-netconf-inactive.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title tailf-netconf-inactive 
+package "nc:ietf-netconf" as nc_ietf_netconf { 
+} 
+package "tr:tailf-netconf-transactions" as tr_tailf_netconf_transactions { 
+} 
+note top of in_tailf_netconf_inactive : <b>Namespace: </b> http://tail-f.com/ns/netconf/inactive/1.0 \n<b>Prefix: </b> in \n
+package "in:tailf-netconf-inactive" as in_tailf_netconf_inactive { 
+nc_ietf_netconf +-- in_tailf_netconf_inactive
+tr_tailf_netconf_transactions +-- in_tailf_netconf_inactive
+class "tailf-netconf-inactive" as tailf_netconf_inactive << (M, #33CCFF) module>> 
+class "inactive-params" as tailf_netconf_inactive_I_inactive_params_grouping <<(G,Lime) grouping>> 
+tailf_netconf_inactive_I_inactive_params_grouping : with-inactive : empty  
+class "/nc:get/nc:input" as nc_get_nc_input << (A,CadetBlue) augment>>
+tailf_netconf_inactive *--  nc_get_nc_input 
+nc_get_nc_input : inactive-params {uses} 
+class "/nc:get-config/nc:input" as nc_get_config_nc_input << (A,CadetBlue) augment>>
+tailf_netconf_inactive *--  nc_get_config_nc_input 
+nc_get_config_nc_input : inactive-params {uses} 
+class "/nc:edit-config/nc:input" as nc_edit_config_nc_input << (A,CadetBlue) augment>>
+tailf_netconf_inactive *--  nc_edit_config_nc_input 
+nc_edit_config_nc_input : inactive-params {uses} 
+class "/nc:copy-config/nc:input" as nc_copy_config_nc_input << (A,CadetBlue) augment>>
+tailf_netconf_inactive *--  nc_copy_config_nc_input 
+nc_copy_config_nc_input : inactive-params {uses} 
+class "/tr:start-transaction/tr:input" as tr_start_transaction_tr_input << (A,CadetBlue) augment>>
+tailf_netconf_inactive *--  tr_start_transaction_tr_input 
+tr_start_transaction_tr_input : inactive-params {uses} 
+} 
+
+nc_get_nc_input --> tailf_netconf_inactive_I_inactive_params_grouping : uses 
+nc_get_config_nc_input --> tailf_netconf_inactive_I_inactive_params_grouping : uses 
+nc_edit_config_nc_input --> tailf_netconf_inactive_I_inactive_params_grouping : uses 
+nc_copy_config_nc_input --> tailf_netconf_inactive_I_inactive_params_grouping : uses 
+tr_start_transaction_tr_input --> tailf_netconf_inactive_I_inactive_params_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:30 </size>
+ endfooter 
+@enduml 

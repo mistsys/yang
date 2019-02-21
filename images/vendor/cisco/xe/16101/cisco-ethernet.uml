@@ -1,0 +1,74 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/cisco-ethernet.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title cisco-ethernet 
+package "if:ietf-interfaces" as if_ietf_interfaces { 
+} 
+package "ianaift:iana-if-type" as ianaift_iana_if_type { 
+} 
+note top of eth_cisco_ethernet : <b>Namespace: </b> urn:cisco:params:xml:ns:yang:cisco-ethernet \n<b>Prefix: </b> eth \n<b>Organization : </b>\nCisco Systems, Inc. \n<b>Contact : </b>\n Cisco Systems, Inc. \nCustomer Service \n \nPostal: 170 W Tasman Drive \nSan Jose, CA 95134 \n \nTel: +1 1800 553-NETS \n \nE-mail: cs-yang@cisco.com \n<b>Revision : </b> 2016-05-10 \n
+package "eth:cisco-ethernet" as eth_cisco_ethernet { 
+if_ietf_interfaces +-- eth_cisco_ethernet
+ianaift_iana_if_type +-- eth_cisco_ethernet
+class "cisco-ethernet" as cisco_ethernet << (M, #33CCFF) module>> 
+class "/if:interfaces/if:interface" as if_interfaces_if_interface << (A,CadetBlue) augment>>
+cisco_ethernet *--  if_interfaces_if_interface 
+note bottom of if_interfaces_if_interface
+<b>When: </b>if:type = 'ianaift:ethernetCsmacd'
+end note 
+class "ethernet" as  ietf_interfaces_I_interfaces_I_interface_I_ethernet <<container>> 
+if_interfaces_if_interface *-- "1" ietf_interfaces_I_interfaces_I_interface_I_ethernet 
+class "transmission-params" as  ietf_interfaces_I_interfaces_I_interface_I_ethernet_I_transmission_params <<container>> 
+ietf_interfaces_I_interfaces_I_interface_I_ethernet *-- "1" ietf_interfaces_I_interfaces_I_interface_I_ethernet_I_transmission_params 
+class "transmission-mode" as ietf_interfaces_I_interfaces_I_interface_I_ethernet_I_transmission_params_I_transmission_mode <<choice>> 
+ietf_interfaces_I_interfaces_I_interface_I_ethernet_I_transmission_params .. ietf_interfaces_I_interfaces_I_interface_I_ethernet_I_transmission_params_I_transmission_mode : choice 
+class "auto1" as ietf_interfaces_I_interfaces_I_interface_I_ethernet_I_transmission_params_I_transmission_mode_I_auto1_case <<case>>
+ietf_interfaces_I_interfaces_I_interface_I_ethernet_I_transmission_params_I_transmission_mode .. ietf_interfaces_I_interfaces_I_interface_I_ethernet_I_transmission_params_I_transmission_mode_I_auto1_case  : choice transmission-mode
+ietf_interfaces_I_interfaces_I_interface_I_ethernet_I_transmission_params_I_transmission_mode_I_auto1_case : auto-negotiate : empty  
+class "manual" as ietf_interfaces_I_interfaces_I_interface_I_ethernet_I_transmission_params_I_transmission_mode_I_manual_case <<case>>
+ietf_interfaces_I_interfaces_I_interface_I_ethernet_I_transmission_params_I_transmission_mode .. ietf_interfaces_I_interfaces_I_interface_I_ethernet_I_transmission_params_I_transmission_mode_I_manual_case  : choice transmission-mode
+ietf_interfaces_I_interfaces_I_interface_I_ethernet_I_transmission_params_I_transmission_mode_I_manual_case : duplex : enumeration : {half,full,}  
+ietf_interfaces_I_interfaces_I_interface_I_ethernet_I_transmission_params_I_transmission_mode_I_manual_case : speed : identityref {eth-if-speed}  
+ietf_interfaces_I_interfaces_I_interface_I_ethernet : mtu-size : uint16  
+class "/if:interfaces-state/if:interface" as if_interfaces_state_if_interface << (A,CadetBlue) augment>>
+cisco_ethernet *--  if_interfaces_state_if_interface 
+note bottom of if_interfaces_state_if_interface
+<b>When: </b>if:type = 'ianaift:ethernetCsmacd'
+end note 
+class "ethernet" as  ietf_interfaces_I_interfaces_state_I_interface_I_ethernet <<container>> 
+if_interfaces_state_if_interface *-- "1" ietf_interfaces_I_interfaces_state_I_interface_I_ethernet 
+ietf_interfaces_I_interfaces_state_I_interface_I_ethernet : duplex : enumeration : {half,full,disagree,}  
+class "supported-mtu-range" as  ietf_interfaces_I_interfaces_state_I_interface_I_ethernet_I_supported_mtu_range <<container>> 
+ietf_interfaces_I_interfaces_state_I_interface_I_ethernet *-- "1" ietf_interfaces_I_interfaces_state_I_interface_I_ethernet_I_supported_mtu_range 
+ietf_interfaces_I_interfaces_state_I_interface_I_ethernet_I_supported_mtu_range : min-mtu-size : uint16  
+ietf_interfaces_I_interfaces_state_I_interface_I_ethernet_I_supported_mtu_range : max-mtu-size : uint16  
+class "eth-if-speed" as eth_if_speed << (I,Silver) identity>> 
+class "eth-if-speed-10mb" as eth_if_speed_10mb << (I,Silver) identity>> 
+eth_if_speed <|-- eth_if_speed_10mb 
+class "eth-if-speed-100mb" as eth_if_speed_100mb << (I,Silver) identity>> 
+eth_if_speed <|-- eth_if_speed_100mb 
+class "eth-if-speed-1gb" as eth_if_speed_1gb << (I,Silver) identity>> 
+eth_if_speed <|-- eth_if_speed_1gb 
+class "eth-if-speed-10gb" as eth_if_speed_10gb << (I,Silver) identity>> 
+eth_if_speed <|-- eth_if_speed_10gb 
+class "eth-if-speed-40gb" as eth_if_speed_40gb << (I,Silver) identity>> 
+eth_if_speed <|-- eth_if_speed_40gb 
+class "eth-if-speed-100gb" as eth_if_speed_100gb << (I,Silver) identity>> 
+eth_if_speed <|-- eth_if_speed_100gb 
+ietf_interfaces_I_interfaces_I_interface_I_ethernet_I_transmission_params_I_transmission_mode_I_manual_case-->eth_if_speed: speed
+} 
+
+center footer
+ <size:20> UML Generated : 2019-02-21 00:42 </size>
+ endfooter 
+@enduml 

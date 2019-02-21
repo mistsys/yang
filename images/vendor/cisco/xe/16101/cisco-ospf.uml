@@ -1,0 +1,388 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/cisco-ospf.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title cisco-ospf 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "rt:ietf-routing" as rt_ietf_routing { 
+} 
+package "ospf:ietf-ospf" as ospf_ietf_ospf { 
+} 
+note top of cisco_ospf_cisco_ospf : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:cisco-ospf \n<b>Prefix: </b> cisco-ospf \n<b>Organization : </b>\nCisco Systems \n170 West Tasman Drive \nSan Jose, CA 95134-1706 \nUSA \n<b>Contact : </b>\nAuthor:   Manish Gupta \n          <magupta2@cisco.com> \n<b>Revision : </b> 2016-03-30 \n
+package "cisco-ospf:cisco-ospf" as cisco_ospf_cisco_ospf { 
+inet_ietf_inet_types +-- cisco_ospf_cisco_ospf
+rt_ietf_routing +-- cisco_ospf_cisco_ospf
+ospf_ietf_ospf +-- cisco_ospf_cisco_ospf
+class "cisco-ospf" as cisco_ospf << (M, #33CCFF) module>> 
+enum "ospf-external-type" as cisco_ospf_I_ospf_external_type {
+1
+2
+}
+class "access-list-standard-id-type" as access_list_standard_id_type << (T, YellowGreen) typedef>>
+access_list_standard_id_type : union{default-access-list-standard-id-type, string}
+class "default-access-list-standard-id-type" as default_access_list_standard_id_type << (T, YellowGreen) typedef>>
+default_access_list_standard_id_type : union{uint8, uint16}
+class "uint32_max" as uint32_max << (T, YellowGreen) typedef>>
+uint32_max : uint32 [0..4294967295]
+class "uint16_max" as uint16_max << (T, YellowGreen) typedef>>
+uint16_max : uint16 [1 .. 65535]
+class "uint8_max" as uint8_max << (T, YellowGreen) typedef>>
+uint8_max : uint8 [1 .. 255]
+class "delay_range" as delay_range << (T, YellowGreen) typedef>>
+delay_range : uint32 [0..600000]
+enum "access-list-in-out-type" as cisco_ospf_I_access_list_in_out_type {
+in
+out
+}
+enum "prefix-applicability" as cisco_ospf_I_prefix_applicability {
+protected
+all
+}
+class "process-id-or-name" as process_id_or_name << (T, YellowGreen) typedef>>
+process_id_or_name : union{uint16_max, string}
+enum "ospf-log-adj" as cisco_ospf_I_ospf_log_adj {
+enable
+detail
+disable
+}
+cisco_ospf : feature : graceful_shutdown 
+cisco_ospf : feature : database_filter 
+cisco_ospf : feature : flood_reduction 
+class "default-information" as cisco_ospf_I_default_information_grouping <<(G,Lime) grouping>> 
+class "default-information" as  cisco_ospf_I_default_information_I_default_information <<container>> 
+cisco_ospf_I_default_information_grouping *-- "1" cisco_ospf_I_default_information_I_default_information 
+class "originate" as  cisco_ospf_I_default_information_I_default_information_I_originate <<container>> 
+cisco_ospf_I_default_information_I_default_information *-- "0..1" cisco_ospf_I_default_information_I_default_information_I_originate 
+note bottom of cisco_ospf_I_default_information_I_default_information_I_originate
+<b>Presence: </b>Originate a default route
+end note 
+cisco_ospf_I_default_information_I_default_information_I_originate : always-advertise : boolean   = false 
+cisco_ospf_I_default_information_I_default_information_I_originate : metric : ospf:uint24   = 1 
+cisco_ospf_I_default_information_I_default_information_I_originate : metric-type : ospf-external-type   = 2 
+cisco_ospf_I_default_information_I_default_information_I_originate : route-map : string  
+class "default-metric" as cisco_ospf_I_default_metric_grouping <<(G,Lime) grouping>> 
+class "default-metric" as  cisco_ospf_I_default_metric_I_default_metric <<container>> 
+cisco_ospf_I_default_metric_grouping *-- "1" cisco_ospf_I_default_metric_I_default_metric 
+cisco_ospf_I_default_metric_I_default_metric : default-metric : ospf:uint24   = 1 
+class "log-adjacency-changes" as cisco_ospf_I_log_adjacency_changes_grouping <<(G,Lime) grouping>> 
+class "log-adjacency-changes" as  cisco_ospf_I_log_adjacency_changes_I_log_adjacency_changes <<container>> 
+cisco_ospf_I_log_adjacency_changes_grouping *-- "1" cisco_ospf_I_log_adjacency_changes_I_log_adjacency_changes 
+cisco_ospf_I_log_adjacency_changes_I_log_adjacency_changes : adjacency-changes : ospf-log-adj  
+class "summary-prefixes" as cisco_ospf_I_summary_prefixes_grouping <<(G,Lime) grouping>> 
+class "summary-prefixes" as  cisco_ospf_I_summary_prefixes_I_summary_prefixes <<container>> 
+cisco_ospf_I_summary_prefixes_grouping *-- "1" cisco_ospf_I_summary_prefixes_I_summary_prefixes 
+class "summary-prefix" as cisco_ospf_I_summary_prefixes_I_summary_prefixes_I_summary_prefix << (L, #FF7700) list>> 
+cisco_ospf_I_summary_prefixes_I_summary_prefixes *-- "0..N" cisco_ospf_I_summary_prefixes_I_summary_prefixes_I_summary_prefix 
+cisco_ospf_I_summary_prefixes_I_summary_prefixes_I_summary_prefix : +prefix : inet:ip-prefix  {key} 
+class "not-advertise-or-tag" as cisco_ospf_I_summary_prefixes_I_summary_prefixes_I_summary_prefix_I_not_advertise_or_tag <<choice>> 
+cisco_ospf_I_summary_prefixes_I_summary_prefixes_I_summary_prefix .. cisco_ospf_I_summary_prefixes_I_summary_prefixes_I_summary_prefix_I_not_advertise_or_tag : choice 
+class "tag-nssa-only" as cisco_ospf_I_summary_prefixes_I_summary_prefixes_I_summary_prefix_I_not_advertise_or_tag_I_tag_nssa_only_case <<case>>
+cisco_ospf_I_summary_prefixes_I_summary_prefixes_I_summary_prefix_I_not_advertise_or_tag .. cisco_ospf_I_summary_prefixes_I_summary_prefixes_I_summary_prefix_I_not_advertise_or_tag_I_tag_nssa_only_case  : choice not-advertise-or-tag
+cisco_ospf_I_summary_prefixes_I_summary_prefixes_I_summary_prefix_I_not_advertise_or_tag_I_tag_nssa_only_case : nssa-only : empty  
+cisco_ospf_I_summary_prefixes_I_summary_prefixes_I_summary_prefix_I_not_advertise_or_tag_I_tag_nssa_only_case : tag : uint32_max  
+class "not-advertise" as cisco_ospf_I_summary_prefixes_I_summary_prefixes_I_summary_prefix_I_not_advertise_or_tag_I_not_advertise_case <<case>>
+cisco_ospf_I_summary_prefixes_I_summary_prefixes_I_summary_prefix_I_not_advertise_or_tag .. cisco_ospf_I_summary_prefixes_I_summary_prefixes_I_summary_prefix_I_not_advertise_or_tag_I_not_advertise_case  : choice not-advertise-or-tag
+cisco_ospf_I_summary_prefixes_I_summary_prefixes_I_summary_prefix_I_not_advertise_or_tag_I_not_advertise_case : not-advertise : boolean  
+class "graceful-shutdown-timers" as cisco_ospf_I_graceful_shutdown_timers_grouping <<(G,Lime) grouping>> 
+class "graceful-shutdown" as  cisco_ospf_I_graceful_shutdown_timers_I_graceful_shutdown <<container>> 
+cisco_ospf_I_graceful_shutdown_timers_grouping *-- "1" cisco_ospf_I_graceful_shutdown_timers_I_graceful_shutdown 
+note bottom of cisco_ospf_I_graceful_shutdown_timers_I_graceful_shutdown
+<b>if-feature: </b>graceful-shutdown
+end note 
+cisco_ospf_I_graceful_shutdown_timers_I_graceful_shutdown : initial-delay : uint32 [0 .. 90]   = 5  {seconds}
+cisco_ospf_I_graceful_shutdown_timers_I_graceful_shutdown : retain-routes : uint32 [0 .. 90]   = 5  {seconds}
+class "timer-lsa" as cisco_ospf_I_timer_lsa_grouping <<(G,Lime) grouping>> 
+class "lsa" as  cisco_ospf_I_timer_lsa_I_lsa <<container>> 
+cisco_ospf_I_timer_lsa_grouping *-- "1" cisco_ospf_I_timer_lsa_I_lsa 
+cisco_ospf_I_timer_lsa_I_lsa : throttle-timers {uses} 
+cisco_ospf_I_timer_lsa_I_lsa : arrival : delay_range   = 1000  {millisecond}
+cisco_ospf_I_timer_lsa_I_lsa : group-pacing : uint32 [10 .. 1800]   = 240  {seconds}
+cisco_ospf_I_timer_lsa_I_lsa : refresh : uint32 [1800 .. 2700]   = 1800  {seconds}
+cisco_ospf_I_timer_lsa_I_lsa : flood : uint32 [5 .. 100]   = 33  {millisecond}
+cisco_ospf_I_timer_lsa_I_lsa : retransmission : uint32 [5 .. 200]   = 66  {millisecond}
+class "throttle-timers" as cisco_ospf_I_throttle_timers_grouping <<(G,Lime) grouping>> 
+class "throttle-timers" as  cisco_ospf_I_throttle_timers_I_throttle_timers <<container>> 
+cisco_ospf_I_throttle_timers_grouping *-- "1" cisco_ospf_I_throttle_timers_I_throttle_timers 
+cisco_ospf_I_throttle_timers_I_throttle_timers : init-delay : delay_range   {millisecond}
+cisco_ospf_I_throttle_timers_I_throttle_timers : min-delay : delay_range   {millisecond}
+cisco_ospf_I_throttle_timers_I_throttle_timers : max-delay : delay_range   {millisecond}
+class "discard-route" as cisco_ospf_I_discard_route_grouping <<(G,Lime) grouping>> 
+class "discard-route" as  cisco_ospf_I_discard_route_I_discard_route <<container>> 
+cisco_ospf_I_discard_route_grouping *-- "0..1" cisco_ospf_I_discard_route_I_discard_route 
+note bottom of cisco_ospf_I_discard_route_I_discard_route
+<b>Presence: </b>Enable or disable discard-route installation
+end note 
+cisco_ospf_I_discard_route_I_discard_route : external : empty  
+cisco_ospf_I_discard_route_I_discard_route : external-admin-distance : uint8_max   = 254 
+cisco_ospf_I_discard_route_I_discard_route : internal : empty  
+cisco_ospf_I_discard_route_I_discard_route : internal-admin-distance : uint8_max   = 110 
+class "max-metric" as cisco_ospf_I_max_metric_grouping <<(G,Lime) grouping>> 
+class "max-metric" as  cisco_ospf_I_max_metric_I_max_metric <<container>> 
+cisco_ospf_I_max_metric_grouping *-- "1" cisco_ospf_I_max_metric_I_max_metric 
+class "on-proc-restart" as  cisco_ospf_I_max_metric_I_max_metric_I_on_proc_restart <<container>> 
+cisco_ospf_I_max_metric_I_max_metric *-- "1" cisco_ospf_I_max_metric_I_max_metric_I_on_proc_restart 
+cisco_ospf_I_max_metric_I_max_metric_I_on_proc_restart : wait-for-bgp-or-time {uses} 
+cisco_ospf_I_max_metric_I_max_metric_I_on_proc_restart : max-metric-lsa-option {uses} 
+class "on-startup" as  cisco_ospf_I_max_metric_I_max_metric_I_on_startup <<container>> 
+cisco_ospf_I_max_metric_I_max_metric *-- "1" cisco_ospf_I_max_metric_I_max_metric_I_on_startup 
+cisco_ospf_I_max_metric_I_max_metric_I_on_startup : wait-for-bgp-or-time {uses} 
+cisco_ospf_I_max_metric_I_max_metric_I_on_startup : max-metric-lsa-option {uses} 
+class "on-proc-migration" as  cisco_ospf_I_max_metric_I_max_metric_I_on_proc_migration <<container>> 
+cisco_ospf_I_max_metric_I_max_metric *-- "1" cisco_ospf_I_max_metric_I_max_metric_I_on_proc_migration 
+cisco_ospf_I_max_metric_I_max_metric_I_on_proc_migration : wait-for-bgp-or-time {uses} 
+cisco_ospf_I_max_metric_I_max_metric_I_on_proc_migration : max-metric-lsa-option {uses} 
+class "always" as  cisco_ospf_I_max_metric_I_max_metric_I_always <<container>> 
+cisco_ospf_I_max_metric_I_max_metric *-- "1" cisco_ospf_I_max_metric_I_max_metric_I_always 
+cisco_ospf_I_max_metric_I_max_metric_I_always : max-metric-lsa-option {uses} 
+class "on-switchover" as  cisco_ospf_I_max_metric_I_max_metric_I_on_switchover <<container>> 
+cisco_ospf_I_max_metric_I_max_metric *-- "1" cisco_ospf_I_max_metric_I_max_metric_I_on_switchover 
+cisco_ospf_I_max_metric_I_max_metric_I_on_switchover : wait-for-bgp-or-time {uses} 
+cisco_ospf_I_max_metric_I_max_metric_I_on_switchover : max-metric-lsa-option {uses} 
+class "wait-for-bgp-or-time" as cisco_ospf_I_wait_for_bgp_or_time_grouping <<(G,Lime) grouping>> 
+class "lsa-grouping" as cisco_ospf_I_wait_for_bgp_or_time_I_lsa_grouping <<choice>> 
+cisco_ospf_I_wait_for_bgp_or_time_grouping .. cisco_ospf_I_wait_for_bgp_or_time_I_lsa_grouping : choice 
+class "wait-for-bgp" as cisco_ospf_I_wait_for_bgp_or_time_I_lsa_grouping_I_wait_for_bgp_case <<case>>
+cisco_ospf_I_wait_for_bgp_or_time_I_lsa_grouping .. cisco_ospf_I_wait_for_bgp_or_time_I_lsa_grouping_I_wait_for_bgp_case  : choice lsa-grouping
+cisco_ospf_I_wait_for_bgp_or_time_I_lsa_grouping_I_wait_for_bgp_case : wait-for-bgp : boolean  
+class "time" as cisco_ospf_I_wait_for_bgp_or_time_I_lsa_grouping_I_time_case <<case>>
+cisco_ospf_I_wait_for_bgp_or_time_I_lsa_grouping .. cisco_ospf_I_wait_for_bgp_or_time_I_lsa_grouping_I_time_case  : choice lsa-grouping
+cisco_ospf_I_wait_for_bgp_or_time_I_lsa_grouping_I_time_case : time : uint32 [5..86400]   {second}
+class "max-metric-lsa-option" as cisco_ospf_I_max_metric_lsa_option_grouping <<(G,Lime) grouping>> 
+class "max-metric-options" as  cisco_ospf_I_max_metric_lsa_option_I_max_metric_options <<container>> 
+cisco_ospf_I_max_metric_lsa_option_grouping *-- "1" cisco_ospf_I_max_metric_lsa_option_I_max_metric_options 
+cisco_ospf_I_max_metric_lsa_option_I_max_metric_options : include-stub : boolean  
+cisco_ospf_I_max_metric_lsa_option_I_max_metric_options : summary-lsa : boolean  
+cisco_ospf_I_max_metric_lsa_option_I_max_metric_options : summary-lsa-metric : ospf:uint24  
+cisco_ospf_I_max_metric_lsa_option_I_max_metric_options : external-lsa : boolean  
+cisco_ospf_I_max_metric_lsa_option_I_max_metric_options : external-lsa-metric : ospf:uint24  
+class "microloop-avoidance" as cisco_ospf_I_microloop_avoidance_grouping <<(G,Lime) grouping>> 
+class "microloop-avoidance" as  cisco_ospf_I_microloop_avoidance_I_microloop_avoidance <<container>> 
+cisco_ospf_I_microloop_avoidance_grouping *-- "1" cisco_ospf_I_microloop_avoidance_I_microloop_avoidance 
+cisco_ospf_I_microloop_avoidance_I_microloop_avoidance : enable : prefix-applicability   = all 
+cisco_ospf_I_microloop_avoidance_I_microloop_avoidance : disable : empty  
+cisco_ospf_I_microloop_avoidance_I_microloop_avoidance : rib-update-delay : ospf:uint24   = 5000  {millisecond}
+class "redistribute-ospf-match" as cisco_ospf_I_redistribute_ospf_match_grouping <<(G,Lime) grouping>> 
+class "match" as  cisco_ospf_I_redistribute_ospf_match_I_match <<container>> 
+cisco_ospf_I_redistribute_ospf_match_grouping *-- "1" cisco_ospf_I_redistribute_ospf_match_I_match 
+cisco_ospf_I_redistribute_ospf_match_I_match : internal : empty  
+class "external" as  cisco_ospf_I_redistribute_ospf_match_I_match_I_external <<container>> 
+cisco_ospf_I_redistribute_ospf_match_I_match *-- "0..1" cisco_ospf_I_redistribute_ospf_match_I_match_I_external 
+note bottom of cisco_ospf_I_redistribute_ospf_match_I_match_I_external
+<b>Presence: </b>Redistribute OSPF external routes
+end note 
+cisco_ospf_I_redistribute_ospf_match_I_match_I_external : external-routes : ospf-external-type  
+class "nssa-external" as  cisco_ospf_I_redistribute_ospf_match_I_match_I_nssa_external <<container>> 
+cisco_ospf_I_redistribute_ospf_match_I_match *-- "0..1" cisco_ospf_I_redistribute_ospf_match_I_match_I_nssa_external 
+note bottom of cisco_ospf_I_redistribute_ospf_match_I_match_I_nssa_external
+<b>Presence: </b>Redistribute OSPF NSSA external routes
+end note 
+cisco_ospf_I_redistribute_ospf_match_I_match_I_nssa_external : nssa-external-routes : ospf-external-type  
+class "redistribution" as cisco_ospf_I_redistribution_grouping <<(G,Lime) grouping>> 
+class "redistribution" as  cisco_ospf_I_redistribution_I_redistribution <<container>> 
+cisco_ospf_I_redistribution_grouping *-- "1" cisco_ospf_I_redistribution_I_redistribution 
+class "maximum-prefix" as  cisco_ospf_I_redistribution_I_redistribution_I_maximum_prefix <<container>> 
+cisco_ospf_I_redistribution_I_redistribution *-- "0..1" cisco_ospf_I_redistribution_I_redistribution_I_maximum_prefix 
+note bottom of cisco_ospf_I_redistribution_I_redistribution_I_maximum_prefix
+<b>Presence: </b>Maximum prefix to redistribute
+end note 
+cisco_ospf_I_redistribution_I_redistribution_I_maximum_prefix : IP-prefixes : uint32_max  
+cisco_ospf_I_redistribution_I_redistribution_I_maximum_prefix : Threshold-value : uint32 [1..100]  
+cisco_ospf_I_redistribution_I_redistribution_I_maximum_prefix : warning-only : empty  
+class "bgp" as  cisco_ospf_I_redistribution_I_redistribution_I_bgp <<container>> 
+cisco_ospf_I_redistribution_I_redistribution *-- "1" cisco_ospf_I_redistribution_I_redistribution_I_bgp 
+class "bgp-protocol" as cisco_ospf_I_redistribution_I_redistribution_I_bgp_I_bgp_protocol << (L, #FF7700) list>> 
+cisco_ospf_I_redistribution_I_redistribution_I_bgp *-- "0..N" cisco_ospf_I_redistribution_I_redistribution_I_bgp_I_bgp_protocol 
+cisco_ospf_I_redistribution_I_redistribution_I_bgp_I_bgp_protocol : +as-number : uint32_max  {key} 
+cisco_ospf_I_redistribution_I_redistribution_I_bgp_I_bgp_protocol : redist-option-grouping {uses} 
+class "eigrp" as  cisco_ospf_I_redistribution_I_redistribution_I_eigrp <<container>> 
+cisco_ospf_I_redistribution_I_redistribution *-- "1" cisco_ospf_I_redistribution_I_redistribution_I_eigrp 
+class "eigrp-protocol" as cisco_ospf_I_redistribution_I_redistribution_I_eigrp_I_eigrp_protocol << (L, #FF7700) list>> 
+cisco_ospf_I_redistribution_I_redistribution_I_eigrp *-- "0..N" cisco_ospf_I_redistribution_I_redistribution_I_eigrp_I_eigrp_protocol 
+cisco_ospf_I_redistribution_I_redistribution_I_eigrp_I_eigrp_protocol : +as-number : uint16_max  {key} 
+cisco_ospf_I_redistribution_I_redistribution_I_eigrp_I_eigrp_protocol : redist-option-grouping {uses} 
+class "isis" as  cisco_ospf_I_redistribution_I_redistribution_I_isis <<container>> 
+cisco_ospf_I_redistribution_I_redistribution *-- "1" cisco_ospf_I_redistribution_I_redistribution_I_isis 
+class "isis-protocol" as cisco_ospf_I_redistribution_I_redistribution_I_isis_I_isis_protocol << (L, #FF7700) list>> 
+cisco_ospf_I_redistribution_I_redistribution_I_isis *-- "0..N" cisco_ospf_I_redistribution_I_redistribution_I_isis_I_isis_protocol 
+cisco_ospf_I_redistribution_I_redistribution_I_isis_I_isis_protocol : +process-name : string  {key} 
+cisco_ospf_I_redistribution_I_redistribution_I_isis_I_isis_protocol : redistribute-isis-grouping {uses} 
+cisco_ospf_I_redistribution_I_redistribution_I_isis_I_isis_protocol : redist-option-grouping {uses} 
+class "applications" as  cisco_ospf_I_redistribution_I_redistribution_I_applications <<container>> 
+cisco_ospf_I_redistribution_I_redistribution *-- "1" cisco_ospf_I_redistribution_I_redistribution_I_applications 
+class "application" as cisco_ospf_I_redistribution_I_redistribution_I_applications_I_application << (L, #FF7700) list>> 
+cisco_ospf_I_redistribution_I_redistribution_I_applications *-- "0..N" cisco_ospf_I_redistribution_I_redistribution_I_applications_I_application 
+cisco_ospf_I_redistribution_I_redistribution_I_applications_I_application : +application-name : string  {key} 
+cisco_ospf_I_redistribution_I_redistribution_I_applications_I_application : redist-option-grouping {uses} 
+class "ospf" as  cisco_ospf_I_redistribution_I_redistribution_I_ospf <<container>> 
+cisco_ospf_I_redistribution_I_redistribution *-- "1" cisco_ospf_I_redistribution_I_redistribution_I_ospf 
+class "ospf" as cisco_ospf_I_redistribution_I_redistribution_I_ospf_I_ospf << (L, #FF7700) list>> 
+cisco_ospf_I_redistribution_I_redistribution_I_ospf *-- "0..N" cisco_ospf_I_redistribution_I_redistribution_I_ospf_I_ospf 
+cisco_ospf_I_redistribution_I_redistribution_I_ospf_I_ospf : +id-or-name : process-id-or-name  {key} 
+cisco_ospf_I_redistribution_I_redistribution_I_ospf_I_ospf : redistribute-ospf-match {uses} 
+cisco_ospf_I_redistribution_I_redistribution_I_ospf_I_ospf : redist-option-grouping {uses} 
+class "rip" as  cisco_ospf_I_redistribution_I_redistribution_I_rip <<container>> 
+cisco_ospf_I_redistribution_I_redistribution *-- "0..1" cisco_ospf_I_redistribution_I_redistribution_I_rip 
+note bottom of cisco_ospf_I_redistribution_I_redistribution_I_rip
+<b>Presence: </b>rip routes
+end note 
+cisco_ospf_I_redistribution_I_redistribution_I_rip : redist-option-grouping {uses} 
+class "static" as  cisco_ospf_I_redistribution_I_redistribution_I_static <<container>> 
+cisco_ospf_I_redistribution_I_redistribution *-- "0..1" cisco_ospf_I_redistribution_I_redistribution_I_static 
+note bottom of cisco_ospf_I_redistribution_I_redistribution_I_static
+<b>Presence: </b>Static routes
+end note 
+cisco_ospf_I_redistribution_I_redistribution_I_static : redist-option-grouping {uses} 
+class "subscriber" as  cisco_ospf_I_redistribution_I_redistribution_I_subscriber <<container>> 
+cisco_ospf_I_redistribution_I_redistribution *-- "0..1" cisco_ospf_I_redistribution_I_redistribution_I_subscriber 
+note bottom of cisco_ospf_I_redistribution_I_redistribution_I_subscriber
+<b>Presence: </b>Subscriber routes
+end note 
+cisco_ospf_I_redistribution_I_redistribution_I_subscriber : redist-option-grouping {uses} 
+class "connected" as  cisco_ospf_I_redistribution_I_redistribution_I_connected <<container>> 
+cisco_ospf_I_redistribution_I_redistribution *-- "0..1" cisco_ospf_I_redistribution_I_redistribution_I_connected 
+note bottom of cisco_ospf_I_redistribution_I_redistribution_I_connected
+<b>Presence: </b>connected routes
+end note 
+cisco_ospf_I_redistribution_I_redistribution_I_connected : redist-option-grouping {uses} 
+class "redist-option-grouping" as cisco_ospf_I_redist_option_grouping_grouping <<(G,Lime) grouping>> 
+class "redist-option" as  cisco_ospf_I_redist_option_grouping_I_redist_option <<container>> 
+cisco_ospf_I_redist_option_grouping_grouping *-- "1" cisco_ospf_I_redist_option_grouping_I_redist_option 
+cisco_ospf_I_redist_option_grouping_I_redist_option : metric : ospf:uint24  
+cisco_ospf_I_redist_option_grouping_I_redist_option : metric-type : uint32 [1..2]  
+cisco_ospf_I_redist_option_grouping_I_redist_option : tag : uint32_max  
+cisco_ospf_I_redist_option_grouping_I_redist_option : nssa-only : empty  
+cisco_ospf_I_redist_option_grouping_I_redist_option : route-map : string  
+class "redistribute-isis-grouping" as cisco_ospf_I_redistribute_isis_grouping_grouping <<(G,Lime) grouping>> 
+class "isis-levels" as cisco_ospf_I_redistribute_isis_grouping_I_isis_levels <<choice>> 
+cisco_ospf_I_redistribute_isis_grouping_grouping .. cisco_ospf_I_redistribute_isis_grouping_I_isis_levels : choice 
+class "level-1" as cisco_ospf_I_redistribute_isis_grouping_I_isis_levels_I_level_1_case <<case>>
+cisco_ospf_I_redistribute_isis_grouping_I_isis_levels .. cisco_ospf_I_redistribute_isis_grouping_I_isis_levels_I_level_1_case  : choice isis-levels
+cisco_ospf_I_redistribute_isis_grouping_I_isis_levels_I_level_1_case : level-1 : empty  
+class "level-2" as cisco_ospf_I_redistribute_isis_grouping_I_isis_levels_I_level_2_case <<case>>
+cisco_ospf_I_redistribute_isis_grouping_I_isis_levels .. cisco_ospf_I_redistribute_isis_grouping_I_isis_levels_I_level_2_case  : choice isis-levels
+cisco_ospf_I_redistribute_isis_grouping_I_isis_levels_I_level_2_case : level-2 : empty  
+class "level-1-2" as cisco_ospf_I_redistribute_isis_grouping_I_isis_levels_I_level_1_2_case <<case>>
+cisco_ospf_I_redistribute_isis_grouping_I_isis_levels .. cisco_ospf_I_redistribute_isis_grouping_I_isis_levels_I_level_1_2_case  : choice isis-levels
+cisco_ospf_I_redistribute_isis_grouping_I_isis_levels_I_level_1_2_case : level-1-2 : empty  
+class "database-filter" as cisco_ospf_I_database_filter_grouping <<(G,Lime) grouping>> 
+class "database-filter" as  cisco_ospf_I_database_filter_I_database_filter <<container>> 
+cisco_ospf_I_database_filter_grouping *-- "1" cisco_ospf_I_database_filter_I_database_filter 
+note bottom of cisco_ospf_I_database_filter_I_database_filter
+<b>if-feature: </b>database-filter
+end note 
+cisco_ospf_I_database_filter_I_database_filter : all-out : boolean   = false 
+class "flood-reduction" as cisco_ospf_I_flood_reduction_grouping <<(G,Lime) grouping>> 
+class "flood-reduction" as  cisco_ospf_I_flood_reduction_I_flood_reduction <<container>> 
+cisco_ospf_I_flood_reduction_grouping *-- "1" cisco_ospf_I_flood_reduction_I_flood_reduction 
+cisco_ospf_I_flood_reduction_I_flood_reduction : flood-reduction : boolean   = false  {if-feature : flood-reduction}
+class "ignore-lsa" as cisco_ospf_I_ignore_lsa_grouping <<(G,Lime) grouping>> 
+class "ignore-lsa" as  cisco_ospf_I_ignore_lsa_I_ignore_lsa <<container>> 
+cisco_ospf_I_ignore_lsa_grouping *-- "1" cisco_ospf_I_ignore_lsa_I_ignore_lsa 
+cisco_ospf_I_ignore_lsa_I_ignore_lsa : mospf : empty  
+class "distance-ip" as cisco_ospf_I_distance_ip_grouping <<(G,Lime) grouping>> 
+class "ospf-distance" as  cisco_ospf_I_distance_ip_I_ospf_distance <<container>> 
+cisco_ospf_I_distance_ip_grouping *-- "1" cisco_ospf_I_distance_ip_I_ospf_distance 
+cisco_ospf_I_distance_ip_I_ospf_distance : distance : uint32 [1 .. 255]  
+cisco_ospf_I_distance_ip_I_ospf_distance : ip : inet:ipv4-address  
+cisco_ospf_I_distance_ip_I_ospf_distance : wildcard : inet:ipv4-address  
+cisco_ospf_I_distance_ip_I_ospf_distance : acl-name : access-list-standard-id-type  
+class "max-lsa" as cisco_ospf_I_max_lsa_grouping <<(G,Lime) grouping>> 
+class "max-lsa-options" as  cisco_ospf_I_max_lsa_I_max_lsa_options <<container>> 
+cisco_ospf_I_max_lsa_grouping *-- "1" cisco_ospf_I_max_lsa_I_max_lsa_options 
+cisco_ospf_I_max_lsa_I_max_lsa_options : threshold-value : uint32 [1 .. 100]  
+cisco_ospf_I_max_lsa_I_max_lsa_options : ignore-count : uint32 [1 .. 65534]  
+cisco_ospf_I_max_lsa_I_max_lsa_options : ignore-time : uint32 [1 .. 17895]  
+cisco_ospf_I_max_lsa_I_max_lsa_options : reset-time : uint32 [2 .. 35791]  
+cisco_ospf_I_max_lsa_I_max_lsa_options : warning-only : empty  
+class "if-shutdown" as cisco_ospf_I_if_shutdown_grouping <<(G,Lime) grouping>> 
+class "shutdown" as  cisco_ospf_I_if_shutdown_I_shutdown <<container>> 
+cisco_ospf_I_if_shutdown_grouping *-- "0..1" cisco_ospf_I_if_shutdown_I_shutdown 
+note bottom of cisco_ospf_I_if_shutdown_I_shutdown
+<b>Presence: </b>shut down the interface
+end note 
+cisco_ospf_I_if_shutdown_I_shutdown : disable : empty  
+class "/rt:routing/rt:routing-instance/rt:routing-protocols/rt:routing-protocol/ospf:ospf/ospf:instance" as rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance << (A,CadetBlue) augment>>
+cisco_ospf *--  rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance : default-information {uses} 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance : default-metric {uses} 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance : log-adjacency-changes {uses} 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance : summary-prefixes {uses} 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance : graceful-shutdown-timers {uses} 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance : redistribution {uses} 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance : discard-route {uses} 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance : microloop-avoidance {uses} 
+class "/rt:routing/rt:routing-instance/rt:routing-protocols/rt:routing-protocol/ospf:ospf/ospf:instance/ospf:area/ospf:interface" as rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_area_ospf_interface << (A,CadetBlue) augment>>
+cisco_ospf *--  rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_area_ospf_interface 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_area_ospf_interface : database-filter {uses} 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_area_ospf_interface : flood-reduction {uses} 
+class "/rt:routing/rt:routing-instance/rt:routing-protocols/rt:routing-protocol/ospf:ospf/ospf:instance/ospf:admin-distance" as rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_admin_distance << (A,CadetBlue) augment>>
+cisco_ospf *--  rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_admin_distance 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_admin_distance : distance-ip {uses} 
+class "/rt:routing/rt:routing-instance/rt:routing-protocols/rt:routing-protocol/ospf:ospf/ospf:instance/ospf:spf-control" as rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_spf_control << (A,CadetBlue) augment>>
+cisco_ospf *--  rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_spf_control 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_spf_control : throttle-timers {uses} 
+class "/rt:routing/rt:routing-instance/rt:routing-protocols/rt:routing-protocol/ospf:ospf/ospf:instance/ospf:reload-control" as rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_reload_control << (A,CadetBlue) augment>>
+cisco_ospf *--  rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_reload_control 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_reload_control : max-metric {uses} 
+class "/rt:routing/rt:routing-instance/rt:routing-protocols/rt:routing-protocol/ospf:ospf/ospf:instance/ospf:database-control" as rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_database_control << (A,CadetBlue) augment>>
+cisco_ospf *--  rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_database_control 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_database_control : max-lsa {uses} 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_database_control : database-filter {uses} 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_database_control : flood-reduction {uses} 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_database_control : ignore-lsa {uses} 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_database_control : timer-lsa {uses} 
+} 
+
+cisco_ospf_I_timer_lsa_I_lsa --> cisco_ospf_I_throttle_timers_grouping : uses 
+cisco_ospf_I_max_metric_I_max_metric_I_on_proc_restart --> cisco_ospf_I_wait_for_bgp_or_time_grouping : uses 
+cisco_ospf_I_max_metric_I_max_metric_I_on_proc_restart --> cisco_ospf_I_max_metric_lsa_option_grouping : uses 
+cisco_ospf_I_max_metric_I_max_metric_I_on_startup --> cisco_ospf_I_wait_for_bgp_or_time_grouping : uses 
+cisco_ospf_I_max_metric_I_max_metric_I_on_startup --> cisco_ospf_I_max_metric_lsa_option_grouping : uses 
+cisco_ospf_I_max_metric_I_max_metric_I_on_proc_migration --> cisco_ospf_I_wait_for_bgp_or_time_grouping : uses 
+cisco_ospf_I_max_metric_I_max_metric_I_on_proc_migration --> cisco_ospf_I_max_metric_lsa_option_grouping : uses 
+cisco_ospf_I_max_metric_I_max_metric_I_always --> cisco_ospf_I_max_metric_lsa_option_grouping : uses 
+cisco_ospf_I_max_metric_I_max_metric_I_on_switchover --> cisco_ospf_I_wait_for_bgp_or_time_grouping : uses 
+cisco_ospf_I_max_metric_I_max_metric_I_on_switchover --> cisco_ospf_I_max_metric_lsa_option_grouping : uses 
+cisco_ospf_I_redistribution_I_redistribution_I_bgp_I_bgp_protocol --> cisco_ospf_I_redist_option_grouping_grouping : uses 
+cisco_ospf_I_redistribution_I_redistribution_I_eigrp_I_eigrp_protocol --> cisco_ospf_I_redist_option_grouping_grouping : uses 
+cisco_ospf_I_redistribution_I_redistribution_I_isis_I_isis_protocol --> cisco_ospf_I_redistribute_isis_grouping_grouping : uses 
+cisco_ospf_I_redistribution_I_redistribution_I_isis_I_isis_protocol --> cisco_ospf_I_redist_option_grouping_grouping : uses 
+cisco_ospf_I_redistribution_I_redistribution_I_applications_I_application --> cisco_ospf_I_redist_option_grouping_grouping : uses 
+cisco_ospf_I_redistribution_I_redistribution_I_ospf_I_ospf --> cisco_ospf_I_redistribute_ospf_match_grouping : uses 
+cisco_ospf_I_redistribution_I_redistribution_I_ospf_I_ospf --> cisco_ospf_I_redist_option_grouping_grouping : uses 
+cisco_ospf_I_redistribution_I_redistribution_I_rip --> cisco_ospf_I_redist_option_grouping_grouping : uses 
+cisco_ospf_I_redistribution_I_redistribution_I_static --> cisco_ospf_I_redist_option_grouping_grouping : uses 
+cisco_ospf_I_redistribution_I_redistribution_I_subscriber --> cisco_ospf_I_redist_option_grouping_grouping : uses 
+cisco_ospf_I_redistribution_I_redistribution_I_connected --> cisco_ospf_I_redist_option_grouping_grouping : uses 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance --> cisco_ospf_I_default_information_grouping : uses 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance --> cisco_ospf_I_default_metric_grouping : uses 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance --> cisco_ospf_I_log_adjacency_changes_grouping : uses 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance --> cisco_ospf_I_summary_prefixes_grouping : uses 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance --> cisco_ospf_I_graceful_shutdown_timers_grouping : uses 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance --> cisco_ospf_I_redistribution_grouping : uses 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance --> cisco_ospf_I_discard_route_grouping : uses 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance --> cisco_ospf_I_microloop_avoidance_grouping : uses 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_area_ospf_interface --> cisco_ospf_I_database_filter_grouping : uses 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_area_ospf_interface --> cisco_ospf_I_flood_reduction_grouping : uses 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_admin_distance --> cisco_ospf_I_distance_ip_grouping : uses 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_spf_control --> cisco_ospf_I_throttle_timers_grouping : uses 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_reload_control --> cisco_ospf_I_max_metric_grouping : uses 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_database_control --> cisco_ospf_I_max_lsa_grouping : uses 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_database_control --> cisco_ospf_I_database_filter_grouping : uses 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_database_control --> cisco_ospf_I_flood_reduction_grouping : uses 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_database_control --> cisco_ospf_I_ignore_lsa_grouping : uses 
+rt_routing_rt_routing_instance_rt_routing_protocols_rt_routing_protocol_ospf_ospf_ospf_instance_ospf_database_control --> cisco_ospf_I_timer_lsa_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:59 </size>
+ endfooter 
+@enduml 

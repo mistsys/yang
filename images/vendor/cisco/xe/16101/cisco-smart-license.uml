@@ -1,0 +1,392 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/cisco-smart-license.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title cisco-smart-license 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+note top of cisco_smart_license_cisco_smart_license : <b>Namespace: </b> http://cisco.com/ns/yang/cisco-smart-license \n<b>Prefix: </b> cisco-smart-license \n<b>Organization : </b>\nCisco Systems, Inc. \n<b>Contact : </b>\nCisco Systems, Inc. \nCustomer Service \nPostal: 170 W Tasman Drive \nSan Jose, CA 95134 \nTel: +1 1800 553-NETS \nE-mail: cs-yang@cisco.com \n<b>Revision : </b> 2017-10-11 \n
+package "cisco-smart-license:cisco-smart-license" as cisco_smart_license_cisco_smart_license { 
+yang_ietf_yang_types +-- cisco_smart_license_cisco_smart_license
+inet_ietf_inet_types +-- cisco_smart_license_cisco_smart_license
+package "cisco-smart-license-errors" as cisco_smart_license_errors { 
+}
+class "cisco-smart-license" as cisco_smart_license << (M, #33CCFF) module>> 
+class "fail-message-type" as fail_message_type << (T, YellowGreen) typedef>>
+fail_message_type : string {length = 0..255}
+enum "notif-register-failure-enum" as cisco_smart_license_I_notif_register_failure_enum {
+general-failure
+already-registered-failure
+de-register-failure
+}
+enum "registration-state-enum" as cisco_smart_license_I_registration_state_enum {
+reg-state-not-registered
+reg-state-complete
+reg-state-in-progress
+MORE
+}
+enum "authorization-state-enum" as cisco_smart_license_I_authorization_state_enum {
+auth-state-none
+auth-state-eval
+auth-state-eval-expired
+MORE
+}
+enum "utility-reporting-type-enum" as cisco_smart_license_I_utility_reporting_type_enum {
+utility-reporting-type-none
+utility-reporting-type-subscription
+utility-reporting-type-certificate
+}
+enum "transport-type-enum" as cisco_smart_license_I_transport_type_enum {
+transport-type-callhome
+transport-type-smart
+}
+enum "enforcement-mode-enum" as cisco_smart_license_I_enforcement_mode_enum {
+enforcement-waiting
+enforcement-in-compliance
+enforcement-out-of-compliance
+MORE
+}
+class "registration-fail-info" as cisco_smart_license_I_registration_fail_info_grouping <<(G,Lime) grouping>> 
+cisco_smart_license_I_registration_fail_info_grouping : fail-time : yang:date-and-time  
+cisco_smart_license_I_registration_fail_info_grouping : fail-message : fail-message-type  
+class "registration-state" as cisco_smart_license_I_registration_state_grouping <<(G,Lime) grouping>> 
+cisco_smart_license_I_registration_state_grouping : registration-state : registration-state-enum  
+class "registration-in-progress" as  cisco_smart_license_I_registration_state_I_registration_in_progress <<container>> 
+cisco_smart_license_I_registration_state_grouping *-- "1" cisco_smart_license_I_registration_state_I_registration_in_progress 
+note bottom of cisco_smart_license_I_registration_state_I_registration_in_progress
+<b>When: </b>../registration-state = 'reg-state-in-progress'
+end note 
+cisco_smart_license_I_registration_state_I_registration_in_progress : start-time : yang:date-and-time  
+class "registration-failed" as  cisco_smart_license_I_registration_state_I_registration_failed <<container>> 
+cisco_smart_license_I_registration_state_grouping *-- "1" cisco_smart_license_I_registration_state_I_registration_failed 
+note bottom of cisco_smart_license_I_registration_state_I_registration_failed
+<b>When: </b>../registration-state = 'reg-state-failed'
+end note 
+cisco_smart_license_I_registration_state_I_registration_failed : registration-fail-info {uses} 
+class "registration-retry" as  cisco_smart_license_I_registration_state_I_registration_retry <<container>> 
+cisco_smart_license_I_registration_state_grouping *-- "1" cisco_smart_license_I_registration_state_I_registration_retry 
+note bottom of cisco_smart_license_I_registration_state_I_registration_retry
+<b>When: </b>../registration-state = 'reg-state-retry'
+end note 
+cisco_smart_license_I_registration_state_I_registration_retry : retry-next-time : yang:date-and-time  
+cisco_smart_license_I_registration_state_I_registration_retry : registration-fail-info {uses} 
+class "registration-complete" as  cisco_smart_license_I_registration_state_I_registration_complete <<container>> 
+cisco_smart_license_I_registration_state_grouping *-- "1" cisco_smart_license_I_registration_state_I_registration_complete 
+note bottom of cisco_smart_license_I_registration_state_I_registration_complete
+<b>When: </b>../registration-state = 'reg-state-complete'
+end note 
+cisco_smart_license_I_registration_state_I_registration_complete : complete-time : yang:date-and-time  
+cisco_smart_license_I_registration_state_I_registration_complete : last-renew-time : yang:date-and-time  
+cisco_smart_license_I_registration_state_I_registration_complete : next-renew-time : yang:date-and-time  
+cisco_smart_license_I_registration_state_I_registration_complete : expire-time : yang:date-and-time  
+cisco_smart_license_I_registration_state_I_registration_complete : last-renew-success : boolean  
+cisco_smart_license_I_registration_state_I_registration_complete : fail-message : fail-message-type  
+cisco_smart_license_I_registration_state_I_registration_complete : smart-account : string {length = 1..255}  
+cisco_smart_license_I_registration_state_I_registration_complete : virtual-account : string {length = 1..255}  
+cisco_smart_license_I_registration_state_grouping : export-control-allowed : boolean  
+class "udi" as cisco_smart_license_I_udi_grouping <<(G,Lime) grouping>> 
+cisco_smart_license_I_udi_grouping : pid : string {length = 1..255}  
+cisco_smart_license_I_udi_grouping : sn : string {length = 1..255}  
+cisco_smart_license_I_udi_grouping : vid : string {length = 1..255}  
+cisco_smart_license_I_udi_grouping : uuid : yang:uuid  
+cisco_smart_license_I_udi_grouping : suvi : string {length = 1..255}  
+cisco_smart_license_I_udi_grouping : host-identifier : string {length = 1..255}  
+cisco_smart_license_I_udi_grouping : mac-address : yang:mac-address  
+class "authorization-info" as cisco_smart_license_I_authorization_info_grouping <<(G,Lime) grouping>> 
+cisco_smart_license_I_authorization_info_grouping : last-comm-status-success : boolean  
+cisco_smart_license_I_authorization_info_grouping : fail-message : fail-message-type  
+cisco_smart_license_I_authorization_info_grouping : last-comm-time : yang:date-and-time  
+cisco_smart_license_I_authorization_info_grouping : next-comm-time : yang:date-and-time  
+cisco_smart_license_I_authorization_info_grouping : comm-deadline-time : yang:date-and-time  
+class "evaluation-time-left" as cisco_smart_license_I_evaluation_time_left_grouping <<(G,Lime) grouping>> 
+cisco_smart_license_I_evaluation_time_left_grouping : seconds-left : uint64  
+class "authorization-state" as cisco_smart_license_I_authorization_state_grouping <<(G,Lime) grouping>> 
+cisco_smart_license_I_authorization_state_grouping : authorization-state : authorization-state-enum  
+class "authorization-none" as  cisco_smart_license_I_authorization_state_I_authorization_none <<container>> 
+cisco_smart_license_I_authorization_state_grouping *-- "1" cisco_smart_license_I_authorization_state_I_authorization_none 
+note bottom of cisco_smart_license_I_authorization_state_I_authorization_none
+<b>When: </b>../authorization-state = 'auth-state-none'
+end note 
+class "authorization-eval" as  cisco_smart_license_I_authorization_state_I_authorization_eval <<container>> 
+cisco_smart_license_I_authorization_state_grouping *-- "1" cisco_smart_license_I_authorization_state_I_authorization_eval 
+note bottom of cisco_smart_license_I_authorization_state_I_authorization_eval
+<b>When: </b>../authorization-state = 'auth-state-eval'
+end note 
+cisco_smart_license_I_authorization_state_I_authorization_eval : evaluation-time-left {uses} 
+class "authorization-eval-expired" as  cisco_smart_license_I_authorization_state_I_authorization_eval_expired <<container>> 
+cisco_smart_license_I_authorization_state_grouping *-- "1" cisco_smart_license_I_authorization_state_I_authorization_eval_expired 
+note bottom of cisco_smart_license_I_authorization_state_I_authorization_eval_expired
+<b>When: </b>../authorization-state = 'auth-state-eval-expired'
+end note 
+cisco_smart_license_I_authorization_state_I_authorization_eval_expired : expire-time : yang:date-and-time  
+class "authorization-authorized" as  cisco_smart_license_I_authorization_state_I_authorization_authorized <<container>> 
+cisco_smart_license_I_authorization_state_grouping *-- "1" cisco_smart_license_I_authorization_state_I_authorization_authorized 
+note bottom of cisco_smart_license_I_authorization_state_I_authorization_authorized
+<b>When: </b>../authorization-state = 'auth-state-authorized'
+end note 
+cisco_smart_license_I_authorization_state_I_authorization_authorized : authorization-info {uses} 
+class "authorization-authorized-reservation" as  cisco_smart_license_I_authorization_state_I_authorization_authorized_reservation <<container>> 
+cisco_smart_license_I_authorization_state_grouping *-- "1" cisco_smart_license_I_authorization_state_I_authorization_authorized_reservation 
+note bottom of cisco_smart_license_I_authorization_state_I_authorization_authorized_reservation
+<b>When: </b>../authorization-state = 'auth-state-authorized-reservation'
+end note 
+cisco_smart_license_I_authorization_state_I_authorization_authorized_reservation : reservation-time : yang:date-and-time  
+class "authorization-out-of-compliance" as  cisco_smart_license_I_authorization_state_I_authorization_out_of_compliance <<container>> 
+cisco_smart_license_I_authorization_state_grouping *-- "1" cisco_smart_license_I_authorization_state_I_authorization_out_of_compliance 
+note bottom of cisco_smart_license_I_authorization_state_I_authorization_out_of_compliance
+<b>When: </b>../authorization-state = 'auth-state-out-of-compliance'
+end note 
+cisco_smart_license_I_authorization_state_I_authorization_out_of_compliance : authorization-info {uses} 
+cisco_smart_license_I_authorization_state_I_authorization_out_of_compliance : ooc-time : yang:date-and-time  
+class "authorization-authorization-expired" as  cisco_smart_license_I_authorization_state_I_authorization_authorization_expired <<container>> 
+cisco_smart_license_I_authorization_state_grouping *-- "1" cisco_smart_license_I_authorization_state_I_authorization_authorization_expired 
+note bottom of cisco_smart_license_I_authorization_state_I_authorization_authorization_expired
+<b>When: </b>../authorization-state = 'auth-state-authorization-expired'
+end note 
+cisco_smart_license_I_authorization_state_I_authorization_authorization_expired : authorization-info {uses} 
+class "customer-info" as cisco_smart_license_I_customer_info_grouping <<(G,Lime) grouping>> 
+cisco_smart_license_I_customer_info_grouping : id : string {length = 1..250}  
+cisco_smart_license_I_customer_info_grouping : name : string {length = 1..250}  
+cisco_smart_license_I_customer_info_grouping : street : string {length = 1..250}  
+cisco_smart_license_I_customer_info_grouping : city : string {length = 1..250}  
+cisco_smart_license_I_customer_info_grouping : state : string {length = 1..250}  
+cisco_smart_license_I_customer_info_grouping : country : string {length = 1..250}  
+cisco_smart_license_I_customer_info_grouping : postal-code : string {length = 1..250}  
+class "utility-state" as cisco_smart_license_I_utility_state_grouping <<(G,Lime) grouping>> 
+cisco_smart_license_I_utility_state_grouping : enabled : boolean  
+cisco_smart_license_I_utility_state_grouping : reporting : utility-reporting-type-enum  
+class "reporting-times" as  cisco_smart_license_I_utility_state_I_reporting_times <<container>> 
+cisco_smart_license_I_utility_state_grouping *-- "1" cisco_smart_license_I_utility_state_I_reporting_times 
+note bottom of cisco_smart_license_I_utility_state_I_reporting_times
+<b>When: </b>../reporting != 'utility-reporting-none'
+end note 
+cisco_smart_license_I_utility_state_I_reporting_times : last-report-time : yang:date-and-time  
+cisco_smart_license_I_utility_state_I_reporting_times : last-report-success : boolean  
+cisco_smart_license_I_utility_state_I_reporting_times : fail-message : fail-message-type  
+cisco_smart_license_I_utility_state_I_reporting_times : next-report-time : yang:date-and-time  
+class "customer-info" as  cisco_smart_license_I_utility_state_I_customer_info <<container>> 
+cisco_smart_license_I_utility_state_grouping *-- "1" cisco_smart_license_I_utility_state_I_customer_info 
+note bottom of cisco_smart_license_I_utility_state_I_customer_info
+<b>When: </b>../reporting != 'utility-reporting-none'
+end note 
+cisco_smart_license_I_utility_state_I_customer_info : customer-info {uses} 
+class "transport-state" as cisco_smart_license_I_transport_state_grouping <<(G,Lime) grouping>> 
+cisco_smart_license_I_transport_state_grouping : transport-type : transport-type-enum  
+class "url-settings" as  cisco_smart_license_I_transport_state_I_url_settings <<container>> 
+cisco_smart_license_I_transport_state_grouping *-- "1" cisco_smart_license_I_transport_state_I_url_settings 
+note bottom of cisco_smart_license_I_transport_state_I_url_settings
+<b>When: </b>../transport-type = 'transport-type-smart'
+end note 
+cisco_smart_license_I_transport_state_I_url_settings : url-registration : inet:uri  
+cisco_smart_license_I_transport_state_I_url_settings : url-utility : inet:uri  
+class "privacy-info" as cisco_smart_license_I_privacy_info_grouping <<(G,Lime) grouping>> 
+cisco_smart_license_I_privacy_info_grouping : hostname : boolean  
+cisco_smart_license_I_privacy_info_grouping : version : boolean  
+class "eval-period-state" as cisco_smart_license_I_eval_period_state_grouping <<(G,Lime) grouping>> 
+cisco_smart_license_I_eval_period_state_grouping : eval-in-use : boolean  
+cisco_smart_license_I_eval_period_state_grouping : eval-expired : boolean  
+class "eval-period-left" as  cisco_smart_license_I_eval_period_state_I_eval_period_left <<container>> 
+cisco_smart_license_I_eval_period_state_grouping *-- "1" cisco_smart_license_I_eval_period_state_I_eval_period_left 
+note bottom of cisco_smart_license_I_eval_period_state_I_eval_period_left
+<b>When: </b>../eval-expired = 'false'
+end note 
+cisco_smart_license_I_eval_period_state_I_eval_period_left : time-left : uint32  
+class "eval-expire-time" as  cisco_smart_license_I_eval_period_state_I_eval_expire_time <<container>> 
+cisco_smart_license_I_eval_period_state_grouping *-- "1" cisco_smart_license_I_eval_period_state_I_eval_expire_time 
+note bottom of cisco_smart_license_I_eval_period_state_I_eval_expire_time
+<b>When: </b>../eval-expired = 'true'
+end note 
+cisco_smart_license_I_eval_period_state_I_eval_expire_time : expire-time : yang:date-and-time  
+class "license-usage" as cisco_smart_license_I_license_usage_grouping <<(G,Lime) grouping>> 
+cisco_smart_license_I_license_usage_grouping : entitlement-tag : string  
+cisco_smart_license_I_license_usage_grouping : short-name : string  
+cisco_smart_license_I_license_usage_grouping : license-name : string  
+cisco_smart_license_I_license_usage_grouping : description : string  
+cisco_smart_license_I_license_usage_grouping : count : uint32  
+cisco_smart_license_I_license_usage_grouping : enforcement-mode : enforcement-mode-enum  
+cisco_smart_license_I_license_usage_grouping : post-paid : boolean  
+cisco_smart_license_I_license_usage_grouping : subscription-id : string  
+class "notif-failure-data-group" as cisco_smart_license_I_notif_failure_data_group_grouping <<(G,Lime) grouping>> 
+cisco_smart_license_I_notif_failure_data_group_grouping : reason : notif-register-failure-enum  
+cisco_smart_license_I_notif_failure_data_group_grouping : message : fail-message-type  
+cisco_smart_license : register-id-token( in: id_token in: force out: return_code)
+cisco_smart_license : de-register( out: return_code)
+cisco_smart_license : renew-id( out: return_code)
+cisco_smart_license : renew-auth( out: return_code)
+class "ready" as cisco_smart_license_I_ready << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_ready : notification 
+class "enabled" as cisco_smart_license_I_enabled << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_enabled : notification 
+class "registration-fail" as cisco_smart_license_I_registration_fail << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_registration_fail : notification 
+cisco_smart_license_I_registration_fail : notif-failure-data-group {uses} 
+class "enforcement-mode" as cisco_smart_license_I_enforcement_mode << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_enforcement_mode : notification 
+cisco_smart_license_I_enforcement_mode : mode : authorization-state-enum  
+class "registration-success" as cisco_smart_license_I_registration_success << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_registration_success : notification 
+class "registration-expired" as cisco_smart_license_I_registration_expired << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_registration_expired : notification 
+cisco_smart_license_I_registration_expired : notif-failure-data-group {uses} 
+class "registration-renew-success" as cisco_smart_license_I_registration_renew_success << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_registration_renew_success : notification 
+class "registration-renew-fail" as cisco_smart_license_I_registration_renew_fail << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_registration_renew_fail : notification 
+cisco_smart_license_I_registration_renew_fail : notif-failure-data-group {uses} 
+class "authorization-renew-success" as cisco_smart_license_I_authorization_renew_success << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_authorization_renew_success : notification 
+class "authorization-renew-fail" as cisco_smart_license_I_authorization_renew_fail << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_authorization_renew_fail : notification 
+cisco_smart_license_I_authorization_renew_fail : notif-failure-data-group {uses} 
+class "communications-fail" as cisco_smart_license_I_communications_fail << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_communications_fail : notification 
+cisco_smart_license_I_communications_fail : notif-failure-data-group {uses} 
+class "communications-restored" as cisco_smart_license_I_communications_restored << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_communications_restored : notification 
+class "registration-out-of-range" as cisco_smart_license_I_registration_out_of_range << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_registration_out_of_range : notification 
+class "evaluation-expiration-warning" as cisco_smart_license_I_evaluation_expiration_warning << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_evaluation_expiration_warning : notification 
+cisco_smart_license_I_evaluation_expiration_warning : evaluation-time-left {uses} 
+class "evaluation-expired" as cisco_smart_license_I_evaluation_expired << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_evaluation_expired : notification 
+cisco_smart_license_I_evaluation_expired : expire-time : yang:date-and-time  
+class "registration-expiration-warning" as cisco_smart_license_I_registration_expiration_warning << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_registration_expiration_warning : notification 
+cisco_smart_license_I_registration_expiration_warning : expire-time : yang:date-and-time  
+class "de-register-success" as cisco_smart_license_I_de_register_success << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_de_register_success : notification 
+class "de-register-fail" as cisco_smart_license_I_de_register_fail << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_de_register_fail : notification 
+cisco_smart_license_I_de_register_fail : notif-failure-data-group {uses} 
+class "utility-expired" as cisco_smart_license_I_utility_expired << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_utility_expired : notification 
+cisco_smart_license_I_utility_expired : notif-failure-data-group {uses} 
+class "utility-renewal-fail" as cisco_smart_license_I_utility_renewal_fail << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_utility_renewal_fail : notification 
+cisco_smart_license_I_utility_renewal_fail : notif-failure-data-group {uses} 
+class "utility-renewal-success" as cisco_smart_license_I_utility_renewal_success << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_utility_renewal_success : notification 
+class "utility-RUM-fail" as cisco_smart_license_I_utility_RUM_fail << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_utility_RUM_fail : notification 
+cisco_smart_license_I_utility_RUM_fail : notif-failure-data-group {uses} 
+class "utility-reporting-started" as cisco_smart_license_I_utility_reporting_started << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_utility_reporting_started : notification 
+class "utility-reporting-stopped" as cisco_smart_license_I_utility_reporting_stopped << (N,#00D1B2) notification>> 
+cisco_smart_license -- cisco_smart_license_I_utility_reporting_stopped : notification 
+class "licensing" as  cisco_smart_license_I_licensing <<container>> 
+cisco_smart_license *-- "1" cisco_smart_license_I_licensing 
+class "config" as  cisco_smart_license_I_licensing_I_config <<container>> 
+cisco_smart_license_I_licensing *-- "1" cisco_smart_license_I_licensing_I_config 
+cisco_smart_license_I_licensing_I_config : enable : boolean  
+cisco_smart_license_I_licensing_I_config : custom-id : string  
+class "privacy" as  cisco_smart_license_I_licensing_I_config_I_privacy <<container>> 
+cisco_smart_license_I_licensing_I_config *-- "1" cisco_smart_license_I_licensing_I_config_I_privacy 
+cisco_smart_license_I_licensing_I_config_I_privacy : privacy-info {uses} 
+class "utility" as  cisco_smart_license_I_licensing_I_config_I_utility <<container>> 
+cisco_smart_license_I_licensing_I_config *-- "1" cisco_smart_license_I_licensing_I_config_I_utility 
+cisco_smart_license_I_licensing_I_config_I_utility : utility-enable : boolean  
+class "customer-info" as  cisco_smart_license_I_licensing_I_config_I_utility_I_customer_info <<container>> 
+cisco_smart_license_I_licensing_I_config_I_utility *-- "1" cisco_smart_license_I_licensing_I_config_I_utility_I_customer_info 
+cisco_smart_license_I_licensing_I_config_I_utility_I_customer_info : customer-info {uses} 
+class "transport" as  cisco_smart_license_I_licensing_I_config_I_transport <<container>> 
+cisco_smart_license_I_licensing_I_config *-- "1" cisco_smart_license_I_licensing_I_config_I_transport 
+cisco_smart_license_I_licensing_I_config_I_transport : transport-type : transport-type-enum  
+class "transport-smart" as  cisco_smart_license_I_licensing_I_config_I_transport_I_transport_smart <<container>> 
+cisco_smart_license_I_licensing_I_config_I_transport *-- "1" cisco_smart_license_I_licensing_I_config_I_transport_I_transport_smart 
+note bottom of cisco_smart_license_I_licensing_I_config_I_transport_I_transport_smart
+<b>When: </b>../transport-type = 'transport-type-smart'
+end note 
+class "url-setting" as cisco_smart_license_I_licensing_I_config_I_transport_I_transport_smart_I_url_setting <<choice>> 
+cisco_smart_license_I_licensing_I_config_I_transport_I_transport_smart .. cisco_smart_license_I_licensing_I_config_I_transport_I_transport_smart_I_url_setting : choice 
+class "set-default" as cisco_smart_license_I_licensing_I_config_I_transport_I_transport_smart_I_url_setting_I_set_default_case <<case>>
+cisco_smart_license_I_licensing_I_config_I_transport_I_transport_smart_I_url_setting .. cisco_smart_license_I_licensing_I_config_I_transport_I_transport_smart_I_url_setting_I_set_default_case  : choice url-setting
+cisco_smart_license_I_licensing_I_config_I_transport_I_transport_smart_I_url_setting_I_set_default_case : url-default : boolean  
+class "set-urls" as cisco_smart_license_I_licensing_I_config_I_transport_I_transport_smart_I_url_setting_I_set_urls_case <<case>>
+cisco_smart_license_I_licensing_I_config_I_transport_I_transport_smart_I_url_setting .. cisco_smart_license_I_licensing_I_config_I_transport_I_transport_smart_I_url_setting_I_set_urls_case  : choice url-setting
+class "urls" as  cisco_smart_license_I_licensing_I_config_I_transport_I_transport_smart_I_url_setting_I_set_urls_I_urls <<container>> 
+cisco_smart_license_I_licensing_I_config_I_transport_I_transport_smart_I_url_setting_I_set_urls_case *-- "1" cisco_smart_license_I_licensing_I_config_I_transport_I_transport_smart_I_url_setting_I_set_urls_I_urls 
+cisco_smart_license_I_licensing_I_config_I_transport_I_transport_smart_I_url_setting_I_set_urls_I_urls : url-registration : inet:uri  
+cisco_smart_license_I_licensing_I_config_I_transport_I_transport_smart_I_url_setting_I_set_urls_I_urls : url-utility : inet:uri  
+class "state" as  cisco_smart_license_I_licensing_I_state <<container>> 
+cisco_smart_license_I_licensing *-- "1" cisco_smart_license_I_licensing_I_state 
+note bottom of cisco_smart_license_I_licensing_I_state
+<b>Config = </b>false
+end note 
+cisco_smart_license_I_licensing_I_state : always-enabled : boolean  
+cisco_smart_license_I_licensing_I_state : smart-enabled : boolean  
+cisco_smart_license_I_licensing_I_state : version : string {length = 1..255}  
+class "state-info" as  cisco_smart_license_I_licensing_I_state_I_state_info <<container>> 
+cisco_smart_license_I_licensing_I_state *-- "1" cisco_smart_license_I_licensing_I_state_I_state_info 
+note bottom of cisco_smart_license_I_licensing_I_state_I_state_info
+<b>When: </b>../smart-enabled = 'true'
+end note 
+class "registration" as  cisco_smart_license_I_licensing_I_state_I_state_info_I_registration <<container>> 
+cisco_smart_license_I_licensing_I_state_I_state_info *-- "1" cisco_smart_license_I_licensing_I_state_I_state_info_I_registration 
+cisco_smart_license_I_licensing_I_state_I_state_info_I_registration : registration-state {uses} 
+class "authorization" as  cisco_smart_license_I_licensing_I_state_I_state_info_I_authorization <<container>> 
+cisco_smart_license_I_licensing_I_state_I_state_info *-- "1" cisco_smart_license_I_licensing_I_state_I_state_info_I_authorization 
+cisco_smart_license_I_licensing_I_state_I_state_info_I_authorization : authorization-state {uses} 
+class "utility" as  cisco_smart_license_I_licensing_I_state_I_state_info_I_utility <<container>> 
+cisco_smart_license_I_licensing_I_state_I_state_info *-- "1" cisco_smart_license_I_licensing_I_state_I_state_info_I_utility 
+cisco_smart_license_I_licensing_I_state_I_state_info_I_utility : utility-state {uses} 
+cisco_smart_license_I_licensing_I_state_I_state_info : custom-id : string  
+class "transport" as  cisco_smart_license_I_licensing_I_state_I_state_info_I_transport <<container>> 
+cisco_smart_license_I_licensing_I_state_I_state_info *-- "1" cisco_smart_license_I_licensing_I_state_I_state_info_I_transport 
+cisco_smart_license_I_licensing_I_state_I_state_info_I_transport : transport-state {uses} 
+class "privacy" as  cisco_smart_license_I_licensing_I_state_I_state_info_I_privacy <<container>> 
+cisco_smart_license_I_licensing_I_state_I_state_info *-- "1" cisco_smart_license_I_licensing_I_state_I_state_info_I_privacy 
+cisco_smart_license_I_licensing_I_state_I_state_info_I_privacy : privacy-info {uses} 
+class "evaluation" as  cisco_smart_license_I_licensing_I_state_I_state_info_I_evaluation <<container>> 
+cisco_smart_license_I_licensing_I_state_I_state_info *-- "1" cisco_smart_license_I_licensing_I_state_I_state_info_I_evaluation 
+cisco_smart_license_I_licensing_I_state_I_state_info_I_evaluation : eval-period-state {uses} 
+class "udi" as  cisco_smart_license_I_licensing_I_state_I_state_info_I_udi <<container>> 
+cisco_smart_license_I_licensing_I_state_I_state_info *-- "1" cisco_smart_license_I_licensing_I_state_I_state_info_I_udi 
+cisco_smart_license_I_licensing_I_state_I_state_info_I_udi : udi {uses} 
+class "usage" as cisco_smart_license_I_licensing_I_state_I_state_info_I_usage << (L, #FF7700) list>> 
+cisco_smart_license_I_licensing_I_state_I_state_info *-- "0..N" cisco_smart_license_I_licensing_I_state_I_state_info_I_usage 
+cisco_smart_license_I_licensing_I_state_I_state_info_I_usage : license-usage {uses} 
+} 
+
+cisco_smart_license_I_registration_state_I_registration_failed --> cisco_smart_license_I_registration_fail_info_grouping : uses 
+cisco_smart_license_I_registration_state_I_registration_retry --> cisco_smart_license_I_registration_fail_info_grouping : uses 
+cisco_smart_license_I_authorization_state_I_authorization_eval --> cisco_smart_license_I_evaluation_time_left_grouping : uses 
+cisco_smart_license_I_authorization_state_I_authorization_authorized --> cisco_smart_license_I_authorization_info_grouping : uses 
+cisco_smart_license_I_authorization_state_I_authorization_out_of_compliance --> cisco_smart_license_I_authorization_info_grouping : uses 
+cisco_smart_license_I_authorization_state_I_authorization_authorization_expired --> cisco_smart_license_I_authorization_info_grouping : uses 
+cisco_smart_license_I_utility_state_I_customer_info --> cisco_smart_license_I_customer_info_grouping : uses 
+cisco_smart_license_I_registration_fail --> cisco_smart_license_I_notif_failure_data_group_grouping : uses 
+cisco_smart_license_I_registration_expired --> cisco_smart_license_I_notif_failure_data_group_grouping : uses 
+cisco_smart_license_I_registration_renew_fail --> cisco_smart_license_I_notif_failure_data_group_grouping : uses 
+cisco_smart_license_I_authorization_renew_fail --> cisco_smart_license_I_notif_failure_data_group_grouping : uses 
+cisco_smart_license_I_communications_fail --> cisco_smart_license_I_notif_failure_data_group_grouping : uses 
+cisco_smart_license_I_evaluation_expiration_warning --> cisco_smart_license_I_evaluation_time_left_grouping : uses 
+cisco_smart_license_I_de_register_fail --> cisco_smart_license_I_notif_failure_data_group_grouping : uses 
+cisco_smart_license_I_utility_expired --> cisco_smart_license_I_notif_failure_data_group_grouping : uses 
+cisco_smart_license_I_utility_renewal_fail --> cisco_smart_license_I_notif_failure_data_group_grouping : uses 
+cisco_smart_license_I_utility_RUM_fail --> cisco_smart_license_I_notif_failure_data_group_grouping : uses 
+cisco_smart_license_I_licensing_I_config_I_privacy --> cisco_smart_license_I_privacy_info_grouping : uses 
+cisco_smart_license_I_licensing_I_config_I_utility_I_customer_info --> cisco_smart_license_I_customer_info_grouping : uses 
+cisco_smart_license_I_licensing_I_state_I_state_info_I_registration --> cisco_smart_license_I_registration_state_grouping : uses 
+cisco_smart_license_I_licensing_I_state_I_state_info_I_authorization --> cisco_smart_license_I_authorization_state_grouping : uses 
+cisco_smart_license_I_licensing_I_state_I_state_info_I_utility --> cisco_smart_license_I_utility_state_grouping : uses 
+cisco_smart_license_I_licensing_I_state_I_state_info_I_transport --> cisco_smart_license_I_transport_state_grouping : uses 
+cisco_smart_license_I_licensing_I_state_I_state_info_I_privacy --> cisco_smart_license_I_privacy_info_grouping : uses 
+cisco_smart_license_I_licensing_I_state_I_state_info_I_evaluation --> cisco_smart_license_I_eval_period_state_grouping : uses 
+cisco_smart_license_I_licensing_I_state_I_state_info_I_udi --> cisco_smart_license_I_udi_grouping : uses 
+cisco_smart_license_I_licensing_I_state_I_state_info_I_usage --> cisco_smart_license_I_license_usage_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:38 </size>
+ endfooter 
+@enduml 

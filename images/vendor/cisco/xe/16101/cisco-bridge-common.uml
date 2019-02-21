@@ -1,0 +1,128 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/cisco-bridge-common.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title cisco-bridge-common 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+note top of cbridge_cisco_bridge_common : <b>Namespace: </b> urn:cisco:params:xml:ns:yang:cisco-bridge-common \n<b>Prefix: </b> cbridge \n<b>Organization : </b>\nCisco Systems, Inc. \n<b>Contact : </b>\nCisco Systems, Inc. \nCustomer Service \n \nPostal: 170 W Tasman Drive \nSan Jose, CA 95134 \n \nTel: +1 1800 553-NETS \n \nE-mail: cs-yang@cisco.com \n<b>Revision : </b> 2016-12-14 \n
+package "cbridge:cisco-bridge-common" as cbridge_cisco_bridge_common { 
+yang_ietf_yang_types +-- cbridge_cisco_bridge_common
+class "cisco-bridge-common" as cisco_bridge_common << (M, #33CCFF) module>> 
+cisco_bridge_common : feature : configurable_bd_mac_aging_types 
+cisco_bridge_common : feature : configurable_bd_mac_limit_max 
+cisco_bridge_common : feature : configurable_bd_mac_limit_actions 
+cisco_bridge_common : feature : configurable_bd_mac_limit_notif 
+cisco_bridge_common : feature : configurable_bd_flooding_control 
+enum "eth-traffic-class" as cisco_bridge_common_I_eth_traffic_class {
+broadcast
+multicast
+unknown-unicast
+}
+enum "mac-aging-type" as cisco_bridge_common_I_mac_aging_type {
+inactivity
+absolute
+}
+enum "mac-limit-action" as cisco_bridge_common_I_mac_limit_action {
+none
+flood
+drop
+MORE
+}
+enum "mac-secure-action" as cisco_bridge_common_I_mac_secure_action {
+none
+restrict
+shutdown
+}
+class "mac-learning-config" as cisco_bridge_common_I_mac_learning_config_grouping <<(G,Lime) grouping>> 
+cisco_bridge_common_I_mac_learning_config_grouping : learning-enabled : boolean   = true 
+class "limit" as  cisco_bridge_common_I_mac_learning_config_I_limit <<container>> 
+cisco_bridge_common_I_mac_learning_config_grouping *-- "1" cisco_bridge_common_I_mac_learning_config_I_limit 
+cisco_bridge_common_I_mac_learning_config_I_limit : maximum : uint32   {if-feature : configurable-bd-mac-limit-max}
+cisco_bridge_common_I_mac_learning_config_I_limit : action : mac-limit-action   {if-feature : configurable-bd-mac-limit-actions}
+cisco_bridge_common_I_mac_learning_config_I_limit : notification : identityref {mac-limit-notification-type}   {if-feature : configurable-bd-mac-limit-notif}
+class "mac-flooding-config" as cisco_bridge_common_I_mac_flooding_config_grouping <<(G,Lime) grouping>> 
+class "flooding" as  cisco_bridge_common_I_mac_flooding_config_I_flooding <<container>> 
+cisco_bridge_common_I_mac_flooding_config_grouping *-- "1" cisco_bridge_common_I_mac_flooding_config_I_flooding 
+cisco_bridge_common_I_mac_flooding_config_I_flooding : disabled : empty  
+cisco_bridge_common_I_mac_flooding_config_I_flooding : disabled-unknown-unicast : empty  
+class "mac-flooding-state" as cisco_bridge_common_I_mac_flooding_state_grouping <<(G,Lime) grouping>> 
+class "flooding" as  cisco_bridge_common_I_mac_flooding_state_I_flooding <<container>> 
+cisco_bridge_common_I_mac_flooding_state_grouping *-- "1" cisco_bridge_common_I_mac_flooding_state_I_flooding 
+class "status" as cisco_bridge_common_I_mac_flooding_state_I_flooding_I_status << (L, #FF7700) list>> 
+cisco_bridge_common_I_mac_flooding_state_I_flooding *-- "0..N" cisco_bridge_common_I_mac_flooding_state_I_flooding_I_status 
+cisco_bridge_common_I_mac_flooding_state_I_flooding_I_status : +traffic-class : eth-traffic-class  {key} 
+cisco_bridge_common_I_mac_flooding_state_I_flooding_I_status : enabled : boolean  
+class "mac-aging-config" as cisco_bridge_common_I_mac_aging_config_grouping <<(G,Lime) grouping>> 
+class "aging" as  cisco_bridge_common_I_mac_aging_config_I_aging <<container>> 
+cisco_bridge_common_I_mac_aging_config_grouping *-- "1" cisco_bridge_common_I_mac_aging_config_I_aging 
+cisco_bridge_common_I_mac_aging_config_I_aging : time : uint32   = 300  {seconds}
+cisco_bridge_common_I_mac_aging_config_I_aging : type : mac-aging-type   {if-feature : configurable-bd-mac-aging-types}
+class "mac-event-action-config" as cisco_bridge_common_I_mac_event_action_config_grouping <<(G,Lime) grouping>> 
+class "port-down" as  cisco_bridge_common_I_mac_event_action_config_I_port_down <<container>> 
+cisco_bridge_common_I_mac_event_action_config_grouping *-- "1" cisco_bridge_common_I_mac_event_action_config_I_port_down 
+cisco_bridge_common_I_mac_event_action_config_I_port_down : flush : boolean   = true 
+class "mac-secure-config" as cisco_bridge_common_I_mac_secure_config_grouping <<(G,Lime) grouping>> 
+class "secure" as  cisco_bridge_common_I_mac_secure_config_I_secure <<container>> 
+cisco_bridge_common_I_mac_secure_config_grouping *-- "1" cisco_bridge_common_I_mac_secure_config_I_secure 
+cisco_bridge_common_I_mac_secure_config_I_secure : action : mac-secure-action   = restrict 
+cisco_bridge_common_I_mac_secure_config_I_secure : logging : boolean   = false 
+class "static-mac-list-config" as cisco_bridge_common_I_static_mac_list_config_grouping <<(G,Lime) grouping>> 
+class "static" as  cisco_bridge_common_I_static_mac_list_config_I_static <<container>> 
+cisco_bridge_common_I_static_mac_list_config_grouping *-- "1" cisco_bridge_common_I_static_mac_list_config_I_static 
+class "mac-addresses" as cisco_bridge_common_I_static_mac_list_config_I_static_I_mac_addresses << (L, #FF7700) list>> 
+cisco_bridge_common_I_static_mac_list_config_I_static *-- "0..N" cisco_bridge_common_I_static_mac_list_config_I_static_I_mac_addresses 
+cisco_bridge_common_I_static_mac_list_config_I_static_I_mac_addresses : +mac-addr : yang:mac-address  {key} 
+cisco_bridge_common_I_static_mac_list_config_I_static_I_mac_addresses : drop : boolean   {mandatory}
+class "dynamic-arp-inspection-config" as cisco_bridge_common_I_dynamic_arp_inspection_config_grouping <<(G,Lime) grouping>> 
+class "dynamic-arp-inspection" as  cisco_bridge_common_I_dynamic_arp_inspection_config_I_dynamic_arp_inspection <<container>> 
+cisco_bridge_common_I_dynamic_arp_inspection_config_grouping *-- "1" cisco_bridge_common_I_dynamic_arp_inspection_config_I_dynamic_arp_inspection 
+class "address-validation" as  cisco_bridge_common_I_dynamic_arp_inspection_config_I_dynamic_arp_inspection_I_address_validation <<container>> 
+cisco_bridge_common_I_dynamic_arp_inspection_config_I_dynamic_arp_inspection *-- "0..1" cisco_bridge_common_I_dynamic_arp_inspection_config_I_dynamic_arp_inspection_I_address_validation 
+note bottom of cisco_bridge_common_I_dynamic_arp_inspection_config_I_dynamic_arp_inspection_I_address_validation
+<b>Presence: </b>Existence of this container indicates that address
+validation is enabled.
+end note 
+cisco_bridge_common_I_dynamic_arp_inspection_config_I_dynamic_arp_inspection_I_address_validation : dst-mac : empty  
+cisco_bridge_common_I_dynamic_arp_inspection_config_I_dynamic_arp_inspection_I_address_validation : src-mac : empty  
+cisco_bridge_common_I_dynamic_arp_inspection_config_I_dynamic_arp_inspection_I_address_validation : ipv4 : empty  
+cisco_bridge_common_I_dynamic_arp_inspection_config_I_dynamic_arp_inspection : logging : boolean  
+class "ip-source-guard-config" as cisco_bridge_common_I_ip_source_guard_config_grouping <<(G,Lime) grouping>> 
+class "ip-source-guard" as  cisco_bridge_common_I_ip_source_guard_config_I_ip_source_guard <<container>> 
+cisco_bridge_common_I_ip_source_guard_config_grouping *-- "1" cisco_bridge_common_I_ip_source_guard_config_I_ip_source_guard 
+cisco_bridge_common_I_ip_source_guard_config_I_ip_source_guard : logging : boolean   = false 
+class "snooping-profile-config" as cisco_bridge_common_I_snooping_profile_config_grouping <<(G,Lime) grouping>> 
+class "igmp-snooping" as  cisco_bridge_common_I_snooping_profile_config_I_igmp_snooping <<container>> 
+cisco_bridge_common_I_snooping_profile_config_grouping *-- "1" cisco_bridge_common_I_snooping_profile_config_I_igmp_snooping 
+cisco_bridge_common_I_snooping_profile_config_I_igmp_snooping : profile-name : string   {mandatory}
+class "mld-snooping" as  cisco_bridge_common_I_snooping_profile_config_I_mld_snooping <<container>> 
+cisco_bridge_common_I_snooping_profile_config_grouping *-- "1" cisco_bridge_common_I_snooping_profile_config_I_mld_snooping 
+cisco_bridge_common_I_snooping_profile_config_I_mld_snooping : profile-name : string   {mandatory}
+class "dhcp-ipv4-snooping" as  cisco_bridge_common_I_snooping_profile_config_I_dhcp_ipv4_snooping <<container>> 
+cisco_bridge_common_I_snooping_profile_config_grouping *-- "1" cisco_bridge_common_I_snooping_profile_config_I_dhcp_ipv4_snooping 
+cisco_bridge_common_I_snooping_profile_config_I_dhcp_ipv4_snooping : profile-name : string   {mandatory}
+class "mac-limit-notification-type" as mac_limit_notification_type << (I,Silver) identity>> 
+class "notif-none" as notif_none << (I,Silver) identity>> 
+mac_limit_notification_type <|-- notif_none 
+class "notif-snmp-trap" as notif_snmp_trap << (I,Silver) identity>> 
+mac_limit_notification_type <|-- notif_snmp_trap 
+class "notif-syslog" as notif_syslog << (I,Silver) identity>> 
+mac_limit_notification_type <|-- notif_syslog 
+class "notif-syslog-and-snmp-trap" as notif_syslog_and_snmp_trap << (I,Silver) identity>> 
+mac_limit_notification_type <|-- notif_syslog_and_snmp_trap 
+cisco_bridge_common_I_mac_learning_config_I_limit-->mac_limit_notification_type: notification
+} 
+
+center footer
+ <size:20> UML Generated : 2019-02-21 00:30 </size>
+ endfooter 
+@enduml 

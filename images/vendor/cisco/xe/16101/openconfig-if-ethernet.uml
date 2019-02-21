@@ -1,0 +1,101 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-if-ethernet.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-if-ethernet 
+package "oc-if:openconfig-interfaces" as oc_if_openconfig_interfaces { 
+} 
+package "ift:iana-if-type" as ift_iana_if_type { 
+} 
+package "oc-yang:openconfig-yang-types" as oc_yang_openconfig_yang_types { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+note top of oc_eth_openconfig_if_ethernet : <b>Namespace: </b> http://openconfig.net/yang/interfaces/ethernet \n<b>Prefix: </b> oc-eth \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nnetopenconfig@googlegroups.com \n<b>Revision : </b> 2018-01-05 \n
+package "oc-eth:openconfig-if-ethernet" as oc_eth_openconfig_if_ethernet { 
+oc_if_openconfig_interfaces +-- oc_eth_openconfig_if_ethernet
+ift_iana_if_type +-- oc_eth_openconfig_if_ethernet
+oc_yang_openconfig_yang_types +-- oc_eth_openconfig_if_ethernet
+oc_ext_openconfig_extensions +-- oc_eth_openconfig_if_ethernet
+class "openconfig-if-ethernet" as openconfig_if_ethernet << (M, #33CCFF) module>> 
+class "ethernet-interface-config" as openconfig_if_ethernet_I_ethernet_interface_config_grouping <<(G,Lime) grouping>> 
+openconfig_if_ethernet_I_ethernet_interface_config_grouping : mac-address : oc-yang:mac-address  
+openconfig_if_ethernet_I_ethernet_interface_config_grouping : auto-negotiate : boolean   = true 
+openconfig_if_ethernet_I_ethernet_interface_config_grouping : duplex-mode : enumeration : {FULL,HALF,}  
+openconfig_if_ethernet_I_ethernet_interface_config_grouping : port-speed : identityref {ETHERNET_SPEED}  
+openconfig_if_ethernet_I_ethernet_interface_config_grouping : enable-flow-control : boolean   = false 
+class "ethernet-interface-state-counters" as openconfig_if_ethernet_I_ethernet_interface_state_counters_grouping <<(G,Lime) grouping>> 
+openconfig_if_ethernet_I_ethernet_interface_state_counters_grouping : in-mac-control-frames : oc-yang:counter64  
+openconfig_if_ethernet_I_ethernet_interface_state_counters_grouping : in-mac-pause-frames : oc-yang:counter64  
+openconfig_if_ethernet_I_ethernet_interface_state_counters_grouping : in-oversize-frames : oc-yang:counter64  
+openconfig_if_ethernet_I_ethernet_interface_state_counters_grouping : in-jabber-frames : oc-yang:counter64  
+openconfig_if_ethernet_I_ethernet_interface_state_counters_grouping : in-fragment-frames : oc-yang:counter64  
+openconfig_if_ethernet_I_ethernet_interface_state_counters_grouping : in-8021q-frames : oc-yang:counter64  
+openconfig_if_ethernet_I_ethernet_interface_state_counters_grouping : in-crc-errors : oc-yang:counter64  
+openconfig_if_ethernet_I_ethernet_interface_state_counters_grouping : out-mac-control-frames : oc-yang:counter64  
+openconfig_if_ethernet_I_ethernet_interface_state_counters_grouping : out-mac-pause-frames : oc-yang:counter64  
+openconfig_if_ethernet_I_ethernet_interface_state_counters_grouping : out-8021q-frames : oc-yang:counter64  
+class "ethernet-interface-state" as openconfig_if_ethernet_I_ethernet_interface_state_grouping <<(G,Lime) grouping>> 
+openconfig_if_ethernet_I_ethernet_interface_state_grouping : hw-mac-address : oc-yang:mac-address  
+openconfig_if_ethernet_I_ethernet_interface_state_grouping : negotiated-duplex-mode : enumeration : {FULL,HALF,}  
+openconfig_if_ethernet_I_ethernet_interface_state_grouping : negotiated-port-speed : identityref {ETHERNET_SPEED}  
+class "counters" as  openconfig_if_ethernet_I_ethernet_interface_state_I_counters <<container>> 
+openconfig_if_ethernet_I_ethernet_interface_state_grouping *-- "1" openconfig_if_ethernet_I_ethernet_interface_state_I_counters 
+openconfig_if_ethernet_I_ethernet_interface_state_I_counters : ethernet-interface-state-counters {uses} 
+class "ethernet-top" as openconfig_if_ethernet_I_ethernet_top_grouping <<(G,Lime) grouping>> 
+class "ethernet" as  openconfig_if_ethernet_I_ethernet_top_I_ethernet <<container>> 
+openconfig_if_ethernet_I_ethernet_top_grouping *-- "1" openconfig_if_ethernet_I_ethernet_top_I_ethernet 
+class "config" as  openconfig_if_ethernet_I_ethernet_top_I_ethernet_I_config <<container>> 
+openconfig_if_ethernet_I_ethernet_top_I_ethernet *-- "1" openconfig_if_ethernet_I_ethernet_top_I_ethernet_I_config 
+openconfig_if_ethernet_I_ethernet_top_I_ethernet_I_config : ethernet-interface-config {uses} 
+class "state" as  openconfig_if_ethernet_I_ethernet_top_I_ethernet_I_state <<container>> 
+openconfig_if_ethernet_I_ethernet_top_I_ethernet *-- "1" openconfig_if_ethernet_I_ethernet_top_I_ethernet_I_state 
+note bottom of openconfig_if_ethernet_I_ethernet_top_I_ethernet_I_state
+<b>Config = </b>false
+end note 
+openconfig_if_ethernet_I_ethernet_top_I_ethernet_I_state : ethernet-interface-config {uses} 
+openconfig_if_ethernet_I_ethernet_top_I_ethernet_I_state : ethernet-interface-state {uses} 
+class "/oc-if:interfaces/oc-if:interface" as oc_if_interfaces_oc_if_interface << (A,CadetBlue) augment>>
+openconfig_if_ethernet *--  oc_if_interfaces_oc_if_interface 
+oc_if_interfaces_oc_if_interface : ethernet-top {uses} 
+class "ETHERNET_SPEED" as ETHERNET_SPEED << (I,Silver) identity>> 
+class "SPEED_10MB" as SPEED_10MB << (I,Silver) identity>> 
+ETHERNET_SPEED <|-- SPEED_10MB 
+class "SPEED_100MB" as SPEED_100MB << (I,Silver) identity>> 
+ETHERNET_SPEED <|-- SPEED_100MB 
+class "SPEED_1GB" as SPEED_1GB << (I,Silver) identity>> 
+ETHERNET_SPEED <|-- SPEED_1GB 
+class "SPEED_10GB" as SPEED_10GB << (I,Silver) identity>> 
+ETHERNET_SPEED <|-- SPEED_10GB 
+class "SPEED_25GB" as SPEED_25GB << (I,Silver) identity>> 
+ETHERNET_SPEED <|-- SPEED_25GB 
+class "SPEED_40GB" as SPEED_40GB << (I,Silver) identity>> 
+ETHERNET_SPEED <|-- SPEED_40GB 
+class "SPEED_50GB" as SPEED_50GB << (I,Silver) identity>> 
+ETHERNET_SPEED <|-- SPEED_50GB 
+class "SPEED_100GB" as SPEED_100GB << (I,Silver) identity>> 
+ETHERNET_SPEED <|-- SPEED_100GB 
+class "SPEED_UNKNOWN" as SPEED_UNKNOWN << (I,Silver) identity>> 
+ETHERNET_SPEED <|-- SPEED_UNKNOWN 
+openconfig_if_ethernet_I_ethernet_interface_config_grouping-->ETHERNET_SPEED: port-speed
+openconfig_if_ethernet_I_ethernet_interface_state_grouping-->ETHERNET_SPEED: negotiated-port-speed
+} 
+
+openconfig_if_ethernet_I_ethernet_interface_state_I_counters --> openconfig_if_ethernet_I_ethernet_interface_state_counters_grouping : uses 
+openconfig_if_ethernet_I_ethernet_top_I_ethernet_I_config --> openconfig_if_ethernet_I_ethernet_interface_config_grouping : uses 
+openconfig_if_ethernet_I_ethernet_top_I_ethernet_I_state --> openconfig_if_ethernet_I_ethernet_interface_config_grouping : uses 
+openconfig_if_ethernet_I_ethernet_top_I_ethernet_I_state --> openconfig_if_ethernet_I_ethernet_interface_state_grouping : uses 
+oc_if_interfaces_oc_if_interface --> openconfig_if_ethernet_I_ethernet_top_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:59 </size>
+ endfooter 
+@enduml 

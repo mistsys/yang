@@ -1,0 +1,78 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-netconf-acm.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-netconf-acm 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+note top of nacm_ietf_netconf_acm : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-netconf-acm \n<b>Prefix: </b> nacm \n<b>Organization : </b>\nIETF NETCONF (Network Configuration) Working Group \n<b>Contact : </b>\nWG Web:   <http://tools.ietf.org/wg/netconf/> \nWG List:  <mailto:netconf@ietf.org> \n \nWG Chair: Mehmet Ersue \n          <mailto:mehmet.ersue@nsn.com> \n \nWG Chair: Bert Wijnen \n          <mailto:bertietf@bwijnen.net> \n \nEditor:   Andy Bierman \n          <mailto:andy@yumaworks.com> \n \nEditor:   Martin Bjorklund \n          <mailto:mbj@tail-f.com> \n<b>Revision : </b> 2012-02-22 \n
+package "nacm:ietf-netconf-acm" as nacm_ietf_netconf_acm { 
+yang_ietf_yang_types +-- nacm_ietf_netconf_acm
+class "ietf-netconf-acm" as ietf_netconf_acm << (M, #33CCFF) module>> 
+class "user-name-type" as user_name_type << (T, YellowGreen) typedef>>
+user_name_type : string {length = 1..max}
+class "matchall-string-type" as matchall_string_type << (T, YellowGreen) typedef>>
+matchall_string_type : string {pattern = \*}
+class "access-operations-type" as access_operations_type << (T, YellowGreen) typedef>>
+access_operations_type : bits
+class "group-name-type" as group_name_type << (T, YellowGreen) typedef>>
+group_name_type : string {length = 1..max} {pattern = [^\*].*}
+enum "action-type" as ietf_netconf_acm_I_action_type {
+permit
+deny
+}
+class "node-instance-identifier" as node_instance_identifier << (T, YellowGreen) typedef>>
+node_instance_identifier : yang:xpath1.0
+class "nacm" as  ietf_netconf_acm_I_nacm <<container>> 
+ietf_netconf_acm *-- "1" ietf_netconf_acm_I_nacm 
+ietf_netconf_acm_I_nacm : enable-nacm : boolean   = true 
+ietf_netconf_acm_I_nacm : read-default : action-type   = permit 
+ietf_netconf_acm_I_nacm : write-default : action-type   = deny 
+ietf_netconf_acm_I_nacm : exec-default : action-type   = permit 
+ietf_netconf_acm_I_nacm : enable-external-groups : boolean   = true 
+ietf_netconf_acm_I_nacm : denied-operations : yang:zero-based-counter32   {mandatory} {Config : false}
+ietf_netconf_acm_I_nacm : denied-data-writes : yang:zero-based-counter32   {mandatory} {Config : false}
+ietf_netconf_acm_I_nacm : denied-notifications : yang:zero-based-counter32   {mandatory} {Config : false}
+class "groups" as  ietf_netconf_acm_I_nacm_I_groups <<container>> 
+ietf_netconf_acm_I_nacm *-- "1" ietf_netconf_acm_I_nacm_I_groups 
+class "group" as ietf_netconf_acm_I_nacm_I_groups_I_group << (L, #FF7700) list>> 
+ietf_netconf_acm_I_nacm_I_groups *-- "0..N" ietf_netconf_acm_I_nacm_I_groups_I_group 
+ietf_netconf_acm_I_nacm_I_groups_I_group : +name : group-name-type  {key} 
+ietf_netconf_acm_I_nacm_I_groups_I_group : user-name []: user-name-type 
+class "rule-list" as ietf_netconf_acm_I_nacm_I_rule_list << (L, #FF7700) list>> 
+ietf_netconf_acm_I_nacm *-- "0..N" ietf_netconf_acm_I_nacm_I_rule_list : ordered-by : user
+ietf_netconf_acm_I_nacm_I_rule_list : +name : string {length = 1..max}  {key} 
+ietf_netconf_acm_I_nacm_I_rule_list : group []: union{matchall-string-type, group-name-type} 
+class "rule" as ietf_netconf_acm_I_nacm_I_rule_list_I_rule << (L, #FF7700) list>> 
+ietf_netconf_acm_I_nacm_I_rule_list *-- "0..N" ietf_netconf_acm_I_nacm_I_rule_list_I_rule : ordered-by : user
+ietf_netconf_acm_I_nacm_I_rule_list_I_rule : +name : string {length = 1..max}  {key} 
+ietf_netconf_acm_I_nacm_I_rule_list_I_rule : module-name : union{matchall-string-type, string}   = * 
+class "rule-type" as ietf_netconf_acm_I_nacm_I_rule_list_I_rule_I_rule_type <<choice>> 
+ietf_netconf_acm_I_nacm_I_rule_list_I_rule .. ietf_netconf_acm_I_nacm_I_rule_list_I_rule_I_rule_type : choice 
+class "protocol-operation" as ietf_netconf_acm_I_nacm_I_rule_list_I_rule_I_rule_type_I_protocol_operation_case <<case>>
+ietf_netconf_acm_I_nacm_I_rule_list_I_rule_I_rule_type .. ietf_netconf_acm_I_nacm_I_rule_list_I_rule_I_rule_type_I_protocol_operation_case  : choice rule-type
+ietf_netconf_acm_I_nacm_I_rule_list_I_rule_I_rule_type_I_protocol_operation_case : rpc-name : union{matchall-string-type, string}  
+class "notification" as ietf_netconf_acm_I_nacm_I_rule_list_I_rule_I_rule_type_I_notification_case <<case>>
+ietf_netconf_acm_I_nacm_I_rule_list_I_rule_I_rule_type .. ietf_netconf_acm_I_nacm_I_rule_list_I_rule_I_rule_type_I_notification_case  : choice rule-type
+ietf_netconf_acm_I_nacm_I_rule_list_I_rule_I_rule_type_I_notification_case : notification-name : union{matchall-string-type, string}  
+class "data-node" as ietf_netconf_acm_I_nacm_I_rule_list_I_rule_I_rule_type_I_data_node_case <<case>>
+ietf_netconf_acm_I_nacm_I_rule_list_I_rule_I_rule_type .. ietf_netconf_acm_I_nacm_I_rule_list_I_rule_I_rule_type_I_data_node_case  : choice rule-type
+ietf_netconf_acm_I_nacm_I_rule_list_I_rule_I_rule_type_I_data_node_case : path : node-instance-identifier   {mandatory}
+ietf_netconf_acm_I_nacm_I_rule_list_I_rule : access-operations : union{matchall-string-type, access-operations-type}   = * 
+ietf_netconf_acm_I_nacm_I_rule_list_I_rule : action : action-type   {mandatory}
+ietf_netconf_acm_I_nacm_I_rule_list_I_rule : comment : string  
+} 
+
+center footer
+ <size:20> UML Generated : 2019-02-21 00:37 </size>
+ endfooter 
+@enduml 

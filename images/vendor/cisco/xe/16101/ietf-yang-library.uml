@@ -1,0 +1,68 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-yang-library.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-yang-library 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+note top of yanglib_ietf_yang_library : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-yang-library \n<b>Prefix: </b> yanglib \n<b>Organization : </b>\nIETF NETCONF (Network Configuration) Working Group \n<b>Contact : </b>\nWG Web:   <https://datatracker.ietf.org/wg/netconf/> \nWG List:  <mailto:netconf@ietf.org> \n \nWG Chair: Mehmet Ersue \n          <mailto:mehmet.ersue@nsn.com> \n \nWG Chair: Mahesh Jethanandani \n          <mailto:mjethanandani@gmail.com> \n \nEditor:   Andy Bierman \n          <mailto:andy@yumaworks.com> \n \nEditor:   Martin Bjorklund \n          <mailto:mbj@tail-f.com> \n \nEditor:   Kent Watsen \n          <mailto:kwatsen@juniper.net> \n<b>Revision : </b> 2016-06-21 \n
+package "yanglib:ietf-yang-library" as yanglib_ietf_yang_library { 
+yang_ietf_yang_types +-- yanglib_ietf_yang_library
+inet_ietf_inet_types +-- yanglib_ietf_yang_library
+class "ietf-yang-library" as ietf_yang_library << (M, #33CCFF) module>> 
+class "revision-identifier" as revision_identifier << (T, YellowGreen) typedef>>
+revision_identifier : string {pattern = \d{4}-\d{2}-\d{2}}
+class "module-list" as ietf_yang_library_I_module_list_grouping <<(G,Lime) grouping>> 
+class "common-leafs" as ietf_yang_library_I_module_list_I_common_leafs_grouping <<(G,Red) grouping>> 
+ietf_yang_library_I_module_list_I_common_leafs_grouping : name : yang:yang-identifier  
+ietf_yang_library_I_module_list_I_common_leafs_grouping : revision : union{revision-identifier, string}  
+class "schema-leaf" as ietf_yang_library_I_module_list_I_schema_leaf_grouping <<(G,Red) grouping>> 
+ietf_yang_library_I_module_list_I_schema_leaf_grouping : schema : inet:uri  
+class "module" as ietf_yang_library_I_module_list_I_module << (L, #FF7700) list>> 
+ietf_yang_library_I_module_list_grouping *-- "0..N" ietf_yang_library_I_module_list_I_module 
+ietf_yang_library_I_module_list_I_module : common-leafs {uses} 
+ietf_yang_library_I_module_list_I_module : schema-leaf {uses} 
+ietf_yang_library_I_module_list_I_module : namespace : inet:uri   {mandatory}
+ietf_yang_library_I_module_list_I_module : feature []: yang:yang-identifier 
+class "deviation" as ietf_yang_library_I_module_list_I_module_I_deviation << (L, #FF7700) list>> 
+ietf_yang_library_I_module_list_I_module *-- "0..N" ietf_yang_library_I_module_list_I_module_I_deviation 
+ietf_yang_library_I_module_list_I_module_I_deviation : common-leafs {uses} 
+ietf_yang_library_I_module_list_I_module : conformance-type : enumeration : {implement,import,}   {mandatory}
+class "submodule" as ietf_yang_library_I_module_list_I_module_I_submodule << (L, #FF7700) list>> 
+ietf_yang_library_I_module_list_I_module *-- "0..N" ietf_yang_library_I_module_list_I_module_I_submodule 
+ietf_yang_library_I_module_list_I_module_I_submodule : common-leafs {uses} 
+ietf_yang_library_I_module_list_I_module_I_submodule : schema-leaf {uses} 
+class "modules-state" as  ietf_yang_library_I_modules_state <<container>> 
+ietf_yang_library *-- "1" ietf_yang_library_I_modules_state 
+note bottom of ietf_yang_library_I_modules_state
+<b>Config = </b>false
+end note 
+ietf_yang_library_I_modules_state : module-set-id : string   {mandatory}
+ietf_yang_library_I_modules_state : module-list {uses} 
+class "yang-library-change" as ietf_yang_library_I_yang_library_change << (N,#00D1B2) notification>> 
+ietf_yang_library -- ietf_yang_library_I_yang_library_change : notification 
+ietf_yang_library_I_yang_library_change : module-set-id : leafref : /yanglib:modules-state/yanglib:module-set-id   {mandatory}
+} 
+
+ietf_yang_library_I_module_list_I_module --> ietf_yang_library_I_module_list_I_common_leafs_grouping : uses 
+ietf_yang_library_I_module_list_I_module --> ietf_yang_library_I_module_list_I_schema_leaf_grouping : uses 
+ietf_yang_library_I_module_list_I_module_I_deviation --> ietf_yang_library_I_module_list_I_common_leafs_grouping : uses 
+ietf_yang_library_I_module_list_I_module_I_submodule --> ietf_yang_library_I_module_list_I_common_leafs_grouping : uses 
+ietf_yang_library_I_module_list_I_module_I_submodule --> ietf_yang_library_I_module_list_I_schema_leaf_grouping : uses 
+ietf_yang_library_I_modules_state --> ietf_yang_library_I_module_list_grouping : uses 
+ietf_yang_library_I_yang_library_change-->"yanglib:module-set-id"ietf_yang_library_I_modules_state: module-set-id
+center footer
+ <size:20> UML Generated : 2019-02-21 00:10 </size>
+ endfooter 
+@enduml 

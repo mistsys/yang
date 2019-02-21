@@ -1,0 +1,55 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/Cisco-IOS-XE-arp.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title Cisco-IOS-XE-arp 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "ios:Cisco-IOS-XE-native" as ios_Cisco_IOS_XE_native { 
+} 
+note top of ios_arp_Cisco_IOS_XE_arp : <b>Namespace: </b> http://cisco.com/ns/yang/Cisco-IOS-XE-arp \n<b>Prefix: </b> ios-arp \n<b>Organization : </b>\nCisco Systems, Inc. \n<b>Contact : </b>\nCisco Systems, Inc. \nCustomer Service \n \nPostal: 170 W Tasman Drive \nSan Jose, CA 95134 \n \nTel: +1 1800 553-NETS \n \nE-mail: cs-yang@cisco.com \n<b>Revision : </b> 2018-06-28 \n
+package "ios-arp:Cisco-IOS-XE-arp" as ios_arp_Cisco_IOS_XE_arp { 
+inet_ietf_inet_types +-- ios_arp_Cisco_IOS_XE_arp
+ios_Cisco_IOS_XE_native +-- ios_arp_Cisco_IOS_XE_arp
+class "Cisco-IOS-XE-arp" as Cisco_IOS_XE_arp << (M, #33CCFF) module>> 
+class "arp-entry-grouping" as Cisco_IOS_XE_arp_I_arp_entry_grouping_grouping <<(G,Lime) grouping>> 
+class "arp-entry" as Cisco_IOS_XE_arp_I_arp_entry_grouping_I_arp_entry << (L, #FF7700) list>> 
+Cisco_IOS_XE_arp_I_arp_entry_grouping_grouping *-- "0..N" Cisco_IOS_XE_arp_I_arp_entry_grouping_I_arp_entry 
+Cisco_IOS_XE_arp_I_arp_entry_grouping_I_arp_entry : +ip : inet:ip-address  {key} 
+Cisco_IOS_XE_arp_I_arp_entry_grouping_I_arp_entry : hardware-address : string  
+Cisco_IOS_XE_arp_I_arp_entry_grouping_I_arp_entry : arp-type : enumeration : {ARPA,SAP,SMDS,...}  
+Cisco_IOS_XE_arp_I_arp_entry_grouping_I_arp_entry : alias : empty  
+class "config-arp-grouping" as Cisco_IOS_XE_arp_I_config_arp_grouping_grouping <<(G,Lime) grouping>> 
+class "arp" as  Cisco_IOS_XE_arp_I_config_arp_grouping_I_arp <<container>> 
+Cisco_IOS_XE_arp_I_config_arp_grouping_grouping *-- "1" Cisco_IOS_XE_arp_I_config_arp_grouping_I_arp 
+Cisco_IOS_XE_arp_I_config_arp_grouping_I_arp : arp-entry-grouping {uses} 
+class "vrf" as Cisco_IOS_XE_arp_I_config_arp_grouping_I_arp_I_vrf << (L, #FF7700) list>> 
+Cisco_IOS_XE_arp_I_config_arp_grouping_I_arp *-- "0..N" Cisco_IOS_XE_arp_I_config_arp_grouping_I_arp_I_vrf 
+Cisco_IOS_XE_arp_I_config_arp_grouping_I_arp_I_vrf : +vrf-name : string  {key} 
+note bottom of Cisco_IOS_XE_arp_I_config_arp_grouping_I_arp_I_vrf
+<b>Must</b> (vrf-name):
+/ios:native/ios:vrf/ios:definition[ios:name=current()] or /ios:native/ios:ip/ios:vrf[ios:name=current()]
+
+end note 
+Cisco_IOS_XE_arp_I_config_arp_grouping_I_arp_I_vrf : arp-entry-grouping {uses} 
+class "/ios:native" as ios_native << (A,CadetBlue) augment>>
+Cisco_IOS_XE_arp *--  ios_native 
+ios_native : config-arp-grouping {uses} 
+} 
+
+Cisco_IOS_XE_arp_I_config_arp_grouping_I_arp --> Cisco_IOS_XE_arp_I_arp_entry_grouping_grouping : uses 
+Cisco_IOS_XE_arp_I_config_arp_grouping_I_arp_I_vrf --> Cisco_IOS_XE_arp_I_arp_entry_grouping_grouping : uses 
+ios_native --> Cisco_IOS_XE_arp_I_config_arp_grouping_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:30 </size>
+ endfooter 
+@enduml 

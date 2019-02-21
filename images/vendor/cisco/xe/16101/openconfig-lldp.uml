@@ -1,0 +1,218 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-lldp.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-lldp 
+package "oc-lldp-types:openconfig-lldp-types" as oc_lldp_types_openconfig_lldp_types { 
+} 
+package "oc-if:openconfig-interfaces" as oc_if_openconfig_interfaces { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+note top of oc_lldp_openconfig_lldp : <b>Namespace: </b> http://openconfig.net/yang/lldp \n<b>Prefix: </b> oc-lldp \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nwww.openconfig.net \n<b>Revision : </b> 2016-05-16 \n
+package "oc-lldp:openconfig-lldp" as oc_lldp_openconfig_lldp { 
+oc_lldp_types_openconfig_lldp_types +-- oc_lldp_openconfig_lldp
+oc_if_openconfig_interfaces +-- oc_lldp_openconfig_lldp
+yang_ietf_yang_types +-- oc_lldp_openconfig_lldp
+oc_ext_openconfig_extensions +-- oc_lldp_openconfig_lldp
+class "openconfig-lldp" as openconfig_lldp << (M, #33CCFF) module>> 
+class "lldp-common-counters" as openconfig_lldp_I_lldp_common_counters_grouping <<(G,Lime) grouping>> 
+openconfig_lldp_I_lldp_common_counters_grouping : frame-in : yang:counter64  
+openconfig_lldp_I_lldp_common_counters_grouping : frame-out : yang:counter64  
+openconfig_lldp_I_lldp_common_counters_grouping : frame-error-in : yang:counter64  
+openconfig_lldp_I_lldp_common_counters_grouping : frame-discard : yang:counter64  
+openconfig_lldp_I_lldp_common_counters_grouping : tlv-discard : yang:counter64  
+openconfig_lldp_I_lldp_common_counters_grouping : tlv-unknown : yang:counter64  
+openconfig_lldp_I_lldp_common_counters_grouping : last-clear : yang:date-and-time  
+class "lldp-global-counters" as openconfig_lldp_I_lldp_global_counters_grouping <<(G,Lime) grouping>> 
+openconfig_lldp_I_lldp_global_counters_grouping : lldp-common-counters {uses} 
+openconfig_lldp_I_lldp_global_counters_grouping : tlv-accepted : yang:counter64  
+openconfig_lldp_I_lldp_global_counters_grouping : entries-aged-out : yang:counter64  
+class "lldp-interface-counters" as openconfig_lldp_I_lldp_interface_counters_grouping <<(G,Lime) grouping>> 
+openconfig_lldp_I_lldp_interface_counters_grouping : lldp-common-counters {uses} 
+openconfig_lldp_I_lldp_interface_counters_grouping : frame-error-out : yang:counter64  
+class "lldp-system-info-config" as openconfig_lldp_I_lldp_system_info_config_grouping <<(G,Lime) grouping>> 
+openconfig_lldp_I_lldp_system_info_config_grouping : system-name : string {length = 0..255}  
+openconfig_lldp_I_lldp_system_info_config_grouping : system-description : string {length = 0..255}  
+openconfig_lldp_I_lldp_system_info_config_grouping : chassis-id : string  
+openconfig_lldp_I_lldp_system_info_config_grouping : chassis-id-type : oc-lldp-types:chassis-id-type  
+class "lldp-system-info-state" as openconfig_lldp_I_lldp_system_info_state_grouping <<(G,Lime) grouping>> 
+class "lldp-neighbor-config" as openconfig_lldp_I_lldp_neighbor_config_grouping <<(G,Lime) grouping>> 
+class "lldp-neighbor-state" as openconfig_lldp_I_lldp_neighbor_state_grouping <<(G,Lime) grouping>> 
+openconfig_lldp_I_lldp_neighbor_state_grouping : id : string  
+openconfig_lldp_I_lldp_neighbor_state_grouping : age : uint64   {seconds}
+openconfig_lldp_I_lldp_neighbor_state_grouping : last-update : int64  
+openconfig_lldp_I_lldp_neighbor_state_grouping : port-id : string  
+openconfig_lldp_I_lldp_neighbor_state_grouping : port-id-type : oc-lldp-types:port-id-type  
+openconfig_lldp_I_lldp_neighbor_state_grouping : port-description : string  
+openconfig_lldp_I_lldp_neighbor_state_grouping : management-address : string  
+openconfig_lldp_I_lldp_neighbor_state_grouping : management-address-type : string  
+class "lldp-capabilities-config" as openconfig_lldp_I_lldp_capabilities_config_grouping <<(G,Lime) grouping>> 
+class "lldp-capabilities-state" as openconfig_lldp_I_lldp_capabilities_state_grouping <<(G,Lime) grouping>> 
+openconfig_lldp_I_lldp_capabilities_state_grouping : name : identityref {oc-lldp-types:LLDP_SYSTEM_CAPABILITY}  
+openconfig_lldp_I_lldp_capabilities_state_grouping : enabled : boolean  
+class "lldp-capabilities-top" as openconfig_lldp_I_lldp_capabilities_top_grouping <<(G,Lime) grouping>> 
+class "capabilities" as  openconfig_lldp_I_lldp_capabilities_top_I_capabilities <<container>> 
+openconfig_lldp_I_lldp_capabilities_top_grouping *-- "1" openconfig_lldp_I_lldp_capabilities_top_I_capabilities 
+note bottom of openconfig_lldp_I_lldp_capabilities_top_I_capabilities
+<b>Config = </b>false
+end note 
+class "capability" as openconfig_lldp_I_lldp_capabilities_top_I_capabilities_I_capability << (L, #FF7700) list>> 
+openconfig_lldp_I_lldp_capabilities_top_I_capabilities *-- "0..N" openconfig_lldp_I_lldp_capabilities_top_I_capabilities_I_capability 
+openconfig_lldp_I_lldp_capabilities_top_I_capabilities_I_capability : +name : leafref : ../state/name  {key} 
+class "config" as  openconfig_lldp_I_lldp_capabilities_top_I_capabilities_I_capability_I_config <<container>> 
+openconfig_lldp_I_lldp_capabilities_top_I_capabilities_I_capability *-- "1" openconfig_lldp_I_lldp_capabilities_top_I_capabilities_I_capability_I_config 
+openconfig_lldp_I_lldp_capabilities_top_I_capabilities_I_capability_I_config : lldp-capabilities-config {uses} 
+class "state" as  openconfig_lldp_I_lldp_capabilities_top_I_capabilities_I_capability_I_state <<container>> 
+openconfig_lldp_I_lldp_capabilities_top_I_capabilities_I_capability *-- "1" openconfig_lldp_I_lldp_capabilities_top_I_capabilities_I_capability_I_state 
+note bottom of openconfig_lldp_I_lldp_capabilities_top_I_capabilities_I_capability_I_state
+<b>Config = </b>false
+end note 
+openconfig_lldp_I_lldp_capabilities_top_I_capabilities_I_capability_I_state : lldp-capabilities-config {uses} 
+openconfig_lldp_I_lldp_capabilities_top_I_capabilities_I_capability_I_state : lldp-capabilities-state {uses} 
+class "lldp-custom-tlv-config" as openconfig_lldp_I_lldp_custom_tlv_config_grouping <<(G,Lime) grouping>> 
+class "lldp-custom-tlv-state" as openconfig_lldp_I_lldp_custom_tlv_state_grouping <<(G,Lime) grouping>> 
+openconfig_lldp_I_lldp_custom_tlv_state_grouping : type : int32  
+openconfig_lldp_I_lldp_custom_tlv_state_grouping : oui : string  
+openconfig_lldp_I_lldp_custom_tlv_state_grouping : oui-subtype : string  
+openconfig_lldp_I_lldp_custom_tlv_state_grouping : value : binary  
+class "lldp-custom-tlv-top" as openconfig_lldp_I_lldp_custom_tlv_top_grouping <<(G,Lime) grouping>> 
+class "custom-tlvs" as  openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs <<container>> 
+openconfig_lldp_I_lldp_custom_tlv_top_grouping *-- "1" openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs 
+note bottom of openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs
+<b>Config = </b>false
+end note 
+class "tlv" as openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs_I_tlv << (L, #FF7700) list>> 
+openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs *-- "0..N" openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs_I_tlv 
+openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs_I_tlv : +type : leafref : ../state/type  {key} 
+openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs_I_tlv : +oui : leafref : ../state/oui  {key} 
+openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs_I_tlv : +oui-subtype : leafref : ../state/oui-subtype  {key} 
+class "config" as  openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs_I_tlv_I_config <<container>> 
+openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs_I_tlv *-- "1" openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs_I_tlv_I_config 
+openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs_I_tlv_I_config : lldp-custom-tlv-config {uses} 
+class "state" as  openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs_I_tlv_I_state <<container>> 
+openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs_I_tlv *-- "1" openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs_I_tlv_I_state 
+note bottom of openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs_I_tlv_I_state
+<b>Config = </b>false
+end note 
+openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs_I_tlv_I_state : lldp-custom-tlv-config {uses} 
+openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs_I_tlv_I_state : lldp-custom-tlv-state {uses} 
+class "lldp-neighbor-top" as openconfig_lldp_I_lldp_neighbor_top_grouping <<(G,Lime) grouping>> 
+class "neighbors" as  openconfig_lldp_I_lldp_neighbor_top_I_neighbors <<container>> 
+openconfig_lldp_I_lldp_neighbor_top_grouping *-- "1" openconfig_lldp_I_lldp_neighbor_top_I_neighbors 
+note bottom of openconfig_lldp_I_lldp_neighbor_top_I_neighbors
+<b>Config = </b>false
+end note 
+class "neighbor" as openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor << (L, #FF7700) list>> 
+openconfig_lldp_I_lldp_neighbor_top_I_neighbors *-- "0..N" openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor 
+openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor : +id : leafref : ../state/id  {key} 
+class "config" as  openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor_I_config <<container>> 
+openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor *-- "1" openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor_I_config 
+openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor_I_config : lldp-neighbor-config {uses} 
+class "state" as  openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor_I_state <<container>> 
+openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor *-- "1" openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor_I_state 
+note bottom of openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor_I_state
+<b>Config = </b>false
+end note 
+openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor_I_state : lldp-system-info-config {uses} 
+openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor_I_state : lldp-system-info-state {uses} 
+openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor_I_state : lldp-neighbor-config {uses} 
+openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor_I_state : lldp-neighbor-state {uses} 
+openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor : lldp-custom-tlv-top {uses} 
+openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor : lldp-capabilities-top {uses} 
+class "lldp-interface-config" as openconfig_lldp_I_lldp_interface_config_grouping <<(G,Lime) grouping>> 
+openconfig_lldp_I_lldp_interface_config_grouping : name : oc-if:base-interface-ref  
+openconfig_lldp_I_lldp_interface_config_grouping : enabled : boolean   = true 
+class "lldp-interface-state" as openconfig_lldp_I_lldp_interface_state_grouping <<(G,Lime) grouping>> 
+class "counters" as  openconfig_lldp_I_lldp_interface_state_I_counters <<container>> 
+openconfig_lldp_I_lldp_interface_state_grouping *-- "1" openconfig_lldp_I_lldp_interface_state_I_counters 
+openconfig_lldp_I_lldp_interface_state_I_counters : lldp-interface-counters {uses} 
+class "lldp-interface-top" as openconfig_lldp_I_lldp_interface_top_grouping <<(G,Lime) grouping>> 
+class "interfaces" as  openconfig_lldp_I_lldp_interface_top_I_interfaces <<container>> 
+openconfig_lldp_I_lldp_interface_top_grouping *-- "1" openconfig_lldp_I_lldp_interface_top_I_interfaces 
+class "interface" as openconfig_lldp_I_lldp_interface_top_I_interfaces_I_interface << (L, #FF7700) list>> 
+openconfig_lldp_I_lldp_interface_top_I_interfaces *-- "0..N" openconfig_lldp_I_lldp_interface_top_I_interfaces_I_interface 
+openconfig_lldp_I_lldp_interface_top_I_interfaces_I_interface : +name : leafref : ../config/name  {key} 
+class "config" as  openconfig_lldp_I_lldp_interface_top_I_interfaces_I_interface_I_config <<container>> 
+openconfig_lldp_I_lldp_interface_top_I_interfaces_I_interface *-- "1" openconfig_lldp_I_lldp_interface_top_I_interfaces_I_interface_I_config 
+openconfig_lldp_I_lldp_interface_top_I_interfaces_I_interface_I_config : lldp-interface-config {uses} 
+class "state" as  openconfig_lldp_I_lldp_interface_top_I_interfaces_I_interface_I_state <<container>> 
+openconfig_lldp_I_lldp_interface_top_I_interfaces_I_interface *-- "1" openconfig_lldp_I_lldp_interface_top_I_interfaces_I_interface_I_state 
+note bottom of openconfig_lldp_I_lldp_interface_top_I_interfaces_I_interface_I_state
+<b>Config = </b>false
+end note 
+openconfig_lldp_I_lldp_interface_top_I_interfaces_I_interface_I_state : lldp-interface-config {uses} 
+openconfig_lldp_I_lldp_interface_top_I_interfaces_I_interface_I_state : lldp-interface-state {uses} 
+openconfig_lldp_I_lldp_interface_top_I_interfaces_I_interface : lldp-neighbor-top {uses} 
+class "lldp-config" as openconfig_lldp_I_lldp_config_grouping <<(G,Lime) grouping>> 
+openconfig_lldp_I_lldp_config_grouping : enabled : boolean   = true 
+openconfig_lldp_I_lldp_config_grouping : hello-timer : uint64   {seconds}
+openconfig_lldp_I_lldp_config_grouping : suppress-tlv-advertisement []: identityref {oc-lldp-types:LLDP_TLV} 
+class "lldp-state" as openconfig_lldp_I_lldp_state_grouping <<(G,Lime) grouping>> 
+class "counters" as  openconfig_lldp_I_lldp_state_I_counters <<container>> 
+openconfig_lldp_I_lldp_state_grouping *-- "1" openconfig_lldp_I_lldp_state_I_counters 
+openconfig_lldp_I_lldp_state_I_counters : lldp-global-counters {uses} 
+class "lldp-top" as openconfig_lldp_I_lldp_top_grouping <<(G,Lime) grouping>> 
+class "lldp" as  openconfig_lldp_I_lldp_top_I_lldp <<container>> 
+openconfig_lldp_I_lldp_top_grouping *-- "1" openconfig_lldp_I_lldp_top_I_lldp 
+class "config" as  openconfig_lldp_I_lldp_top_I_lldp_I_config <<container>> 
+openconfig_lldp_I_lldp_top_I_lldp *-- "1" openconfig_lldp_I_lldp_top_I_lldp_I_config 
+openconfig_lldp_I_lldp_top_I_lldp_I_config : lldp-config {uses} 
+openconfig_lldp_I_lldp_top_I_lldp_I_config : lldp-system-info-config {uses} 
+class "state" as  openconfig_lldp_I_lldp_top_I_lldp_I_state <<container>> 
+openconfig_lldp_I_lldp_top_I_lldp *-- "1" openconfig_lldp_I_lldp_top_I_lldp_I_state 
+note bottom of openconfig_lldp_I_lldp_top_I_lldp_I_state
+<b>Config = </b>false
+end note 
+openconfig_lldp_I_lldp_top_I_lldp_I_state : lldp-config {uses} 
+openconfig_lldp_I_lldp_top_I_lldp_I_state : lldp-system-info-config {uses} 
+openconfig_lldp_I_lldp_top_I_lldp_I_state : lldp-system-info-state {uses} 
+openconfig_lldp_I_lldp_top_I_lldp_I_state : lldp-state {uses} 
+openconfig_lldp_I_lldp_top_I_lldp : lldp-interface-top {uses} 
+openconfig_lldp_I_lldp_capabilities_state_grouping-->oc_lldp_types_LLDP_SYSTEM_CAPABILITY: name
+openconfig_lldp_I_lldp_config_grouping-->oc_lldp_types_LLDP_TLV: suppress-tlv-advertisement
+} 
+
+openconfig_lldp_I_lldp_global_counters_grouping --> openconfig_lldp_I_lldp_common_counters_grouping : uses 
+openconfig_lldp_I_lldp_interface_counters_grouping --> openconfig_lldp_I_lldp_common_counters_grouping : uses 
+openconfig_lldp_I_lldp_capabilities_top_I_capabilities_I_capability_I_config --> openconfig_lldp_I_lldp_capabilities_config_grouping : uses 
+openconfig_lldp_I_lldp_capabilities_top_I_capabilities_I_capability_I_state --> openconfig_lldp_I_lldp_capabilities_config_grouping : uses 
+openconfig_lldp_I_lldp_capabilities_top_I_capabilities_I_capability_I_state --> openconfig_lldp_I_lldp_capabilities_state_grouping : uses 
+openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs_I_tlv_I_config --> openconfig_lldp_I_lldp_custom_tlv_config_grouping : uses 
+openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs_I_tlv_I_state --> openconfig_lldp_I_lldp_custom_tlv_config_grouping : uses 
+openconfig_lldp_I_lldp_custom_tlv_top_I_custom_tlvs_I_tlv_I_state --> openconfig_lldp_I_lldp_custom_tlv_state_grouping : uses 
+openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor_I_config --> openconfig_lldp_I_lldp_neighbor_config_grouping : uses 
+openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor_I_state --> openconfig_lldp_I_lldp_system_info_config_grouping : uses 
+openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor_I_state --> openconfig_lldp_I_lldp_system_info_state_grouping : uses 
+openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor_I_state --> openconfig_lldp_I_lldp_neighbor_config_grouping : uses 
+openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor_I_state --> openconfig_lldp_I_lldp_neighbor_state_grouping : uses 
+openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor --> openconfig_lldp_I_lldp_custom_tlv_top_grouping : uses 
+openconfig_lldp_I_lldp_neighbor_top_I_neighbors_I_neighbor --> openconfig_lldp_I_lldp_capabilities_top_grouping : uses 
+openconfig_lldp_I_lldp_interface_state_I_counters --> openconfig_lldp_I_lldp_interface_counters_grouping : uses 
+openconfig_lldp_I_lldp_interface_top_I_interfaces_I_interface_I_config --> openconfig_lldp_I_lldp_interface_config_grouping : uses 
+openconfig_lldp_I_lldp_interface_top_I_interfaces_I_interface_I_state --> openconfig_lldp_I_lldp_interface_config_grouping : uses 
+openconfig_lldp_I_lldp_interface_top_I_interfaces_I_interface_I_state --> openconfig_lldp_I_lldp_interface_state_grouping : uses 
+openconfig_lldp_I_lldp_interface_top_I_interfaces_I_interface --> openconfig_lldp_I_lldp_neighbor_top_grouping : uses 
+openconfig_lldp_I_lldp_state_I_counters --> openconfig_lldp_I_lldp_global_counters_grouping : uses 
+openconfig_lldp_I_lldp_top_I_lldp_I_config --> openconfig_lldp_I_lldp_config_grouping : uses 
+openconfig_lldp_I_lldp_top_I_lldp_I_config --> openconfig_lldp_I_lldp_system_info_config_grouping : uses 
+openconfig_lldp_I_lldp_top_I_lldp_I_state --> openconfig_lldp_I_lldp_config_grouping : uses 
+openconfig_lldp_I_lldp_top_I_lldp_I_state --> openconfig_lldp_I_lldp_system_info_config_grouping : uses 
+openconfig_lldp_I_lldp_top_I_lldp_I_state --> openconfig_lldp_I_lldp_system_info_state_grouping : uses 
+openconfig_lldp_I_lldp_top_I_lldp_I_state --> openconfig_lldp_I_lldp_state_grouping : uses 
+openconfig_lldp_I_lldp_top_I_lldp --> openconfig_lldp_I_lldp_interface_top_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:08 </size>
+ endfooter 
+@enduml 

@@ -1,0 +1,195 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-yang-push.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-yang-push 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "notif-bis:ietf-event-notifications" as notif_bis_ietf_event_notifications { 
+} 
+note top of yp_ietf_yang_push : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-yang-push \n<b>Prefix: </b> yp \n<b>Organization : </b>\nIETF \n<b>Contact : </b>\nWG Web:   <http://tools.ietf.org/wg/netconf/> \nWG List:  <mailto:netconf@ietf.org> \n \nWG Chair: Mahesh Jethanandani \n          <mailto:mjethanandani@gmail.com> \n \nWG Chair: Mehmet Ersue \n          <mailto:mehmet.ersue@nokia.com> \n \nEditor:   Alexander Clemm \n          <mailto:alex@sympotech.com> \n \nEditor:   Eric Voit \n          <mailto:evoit@cisco.com> \n \nEditor:   Alberto Gonzalez Prieto \n          <mailto:albertgo@cisco.com> \n \nEditor:   Ambika Prasad Tripathy \n          <mailto:ambtripa@cisco.com> \n \nEditor:   Einar Nilsen-Nygaard \n          <mailto:einarnn@cisco.com> \n \nEditor:   Andy Bierman \n          <mailto:andy@yumaworks.com> \n \nEditor:   Balazs Lengyel \n          <mailto:balazs.lengyel@ericsson.com> \n<b>Revision : </b> 2016-10-28 \n
+package "yp:ietf-yang-push" as yp_ietf_yang_push { 
+inet_ietf_inet_types +-- yp_ietf_yang_push
+yang_ietf_yang_types +-- yp_ietf_yang_push
+notif_bis_ietf_event_notifications +-- yp_ietf_yang_push
+class "ietf-yang-push" as ietf_yang_push << (M, #33CCFF) module>> 
+ietf_yang_push : feature : on_change 
+class "filter-id" as filter_id << (T, YellowGreen) typedef>>
+filter_id : uint32
+enum "change-type" as ietf_yang_push_I_change_type {
+create
+delete
+modify
+}
+class "update-filter" as ietf_yang_push_I_update_filter_grouping <<(G,Lime) grouping>> 
+class "update-filter" as ietf_yang_push_I_update_filter_I_update_filter <<choice>> 
+ietf_yang_push_I_update_filter_grouping .. ietf_yang_push_I_update_filter_I_update_filter : choice 
+class "subtree" as ietf_yang_push_I_update_filter_I_update_filter_I_subtree_case <<case>>
+ietf_yang_push_I_update_filter_I_update_filter .. ietf_yang_push_I_update_filter_I_update_filter_I_subtree_case  : choice update-filter
+ietf_yang_push_I_update_filter_I_update_filter_I_subtree_case : subtree-filter anyxml 
+class "xpath" as ietf_yang_push_I_update_filter_I_update_filter_I_xpath_case <<case>>
+ietf_yang_push_I_update_filter_I_update_filter .. ietf_yang_push_I_update_filter_I_update_filter_I_xpath_case  : choice update-filter
+ietf_yang_push_I_update_filter_I_update_filter_I_xpath_case : xpath-filter : yang:xpath1.0  
+class "update-policy" as ietf_yang_push_I_update_policy_grouping <<(G,Lime) grouping>> 
+class "update-trigger" as ietf_yang_push_I_update_policy_I_update_trigger <<choice>> 
+ietf_yang_push_I_update_policy_grouping .. ietf_yang_push_I_update_policy_I_update_trigger : choice 
+class "periodic" as ietf_yang_push_I_update_policy_I_update_trigger_I_periodic_case <<case>>
+ietf_yang_push_I_update_policy_I_update_trigger .. ietf_yang_push_I_update_policy_I_update_trigger_I_periodic_case  : choice update-trigger
+ietf_yang_push_I_update_policy_I_update_trigger_I_periodic_case : period : yang:timeticks   {mandatory}
+ietf_yang_push_I_update_policy_I_update_trigger_I_periodic_case : anchor-time : yang:date-and-time  
+class "on-change" as ietf_yang_push_I_update_policy_I_update_trigger_I_on_change_case <<case>>
+ietf_yang_push_I_update_policy_I_update_trigger .. ietf_yang_push_I_update_policy_I_update_trigger_I_on_change_case  : choice update-trigger
+note bottom of ietf_yang_push_I_update_policy_I_update_trigger_I_on_change_case
+<b>if-feature: </b>on-change
+end note 
+ietf_yang_push_I_update_policy_I_update_trigger_I_on_change_case : no-synch-on-start : empty  
+ietf_yang_push_I_update_policy_I_update_trigger_I_on_change_case : dampening-period : yang:timeticks   {mandatory}
+ietf_yang_push_I_update_policy_I_update_trigger_I_on_change_case : excluded-change []: change-type 
+class "subscription-qos" as ietf_yang_push_I_subscription_qos_grouping <<(G,Lime) grouping>> 
+ietf_yang_push_I_subscription_qos_grouping : dscp : inet:dscp   = 0  {if-feature : notif-bis:configured-subscriptions}
+ietf_yang_push_I_subscription_qos_grouping : subscription-priority : uint8  
+ietf_yang_push_I_subscription_qos_grouping : subscription-dependency : string  
+class "/notif-bis:establish-subscription/notif-bis:input" as notif_bis_establish_subscription_notif_bis_input << (A,CadetBlue) augment>>
+ietf_yang_push *--  notif_bis_establish_subscription_notif_bis_input 
+notif_bis_establish_subscription_notif_bis_input : update-policy {uses} 
+notif_bis_establish_subscription_notif_bis_input : subscription-qos {uses} 
+class "/notif-bis:establish-subscription/notif-bis:input/notif-bis:filter-type" as notif_bis_establish_subscription_notif_bis_input_notif_bis_filter_type << (A,CadetBlue) augment>>
+ietf_yang_push *--  notif_bis_establish_subscription_notif_bis_input_notif_bis_filter_type 
+class "update-filter" as ietf_event_notifications_I_establish_subscription_I_input_I_filter_type_I_update_filter_case <<case>>
+notif_bis_establish_subscription_notif_bis_input_notif_bis_filter_type .. ietf_event_notifications_I_establish_subscription_I_input_I_filter_type_I_update_filter_case  : choice filter-type
+ietf_event_notifications_I_establish_subscription_I_input_I_filter_type_I_update_filter_case : update-filter {uses} 
+class "/notif-bis:establish-subscription/notif-bis:output" as notif_bis_establish_subscription_notif_bis_output << (A,CadetBlue) augment>>
+ietf_yang_push *--  notif_bis_establish_subscription_notif_bis_output 
+notif_bis_establish_subscription_notif_bis_output : update-policy {uses} 
+notif_bis_establish_subscription_notif_bis_output : subscription-qos {uses} 
+class "/notif-bis:establish-subscription/notif-bis:output/notif-bis:result/notif-bis:no-success/notif-bis:filter-type" as notif_bis_establish_subscription_notif_bis_output_notif_bis_result_notif_bis_no_success_notif_bis_filter_type << (A,CadetBlue) augment>>
+ietf_yang_push *--  notif_bis_establish_subscription_notif_bis_output_notif_bis_result_notif_bis_no_success_notif_bis_filter_type 
+class "update-filter" as ietf_event_notifications_I_establish_subscription_I_output_I_result_I_no_success_I_filter_type_I_update_filter_case <<case>>
+notif_bis_establish_subscription_notif_bis_output_notif_bis_result_notif_bis_no_success_notif_bis_filter_type .. ietf_event_notifications_I_establish_subscription_I_output_I_result_I_no_success_I_filter_type_I_update_filter_case  : choice filter-type
+ietf_event_notifications_I_establish_subscription_I_output_I_result_I_no_success_I_filter_type_I_update_filter_case : update-filter {uses} 
+class "/notif-bis:modify-subscription/notif-bis:input" as notif_bis_modify_subscription_notif_bis_input << (A,CadetBlue) augment>>
+ietf_yang_push *--  notif_bis_modify_subscription_notif_bis_input 
+notif_bis_modify_subscription_notif_bis_input : update-policy {uses} 
+class "/notif-bis:modify-subscription/notif-bis:input/notif-bis:filter-type" as notif_bis_modify_subscription_notif_bis_input_notif_bis_filter_type << (A,CadetBlue) augment>>
+ietf_yang_push *--  notif_bis_modify_subscription_notif_bis_input_notif_bis_filter_type 
+class "update-filter" as ietf_event_notifications_I_modify_subscription_I_input_I_filter_type_I_update_filter_case <<case>>
+notif_bis_modify_subscription_notif_bis_input_notif_bis_filter_type .. ietf_event_notifications_I_modify_subscription_I_input_I_filter_type_I_update_filter_case  : choice filter-type
+ietf_event_notifications_I_modify_subscription_I_input_I_filter_type_I_update_filter_case : update-filter {uses} 
+class "/notif-bis:modify-subscription/notif-bis:output" as notif_bis_modify_subscription_notif_bis_output << (A,CadetBlue) augment>>
+ietf_yang_push *--  notif_bis_modify_subscription_notif_bis_output 
+notif_bis_modify_subscription_notif_bis_output : update-policy {uses} 
+notif_bis_modify_subscription_notif_bis_output : subscription-qos {uses} 
+class "/notif-bis:modify-subscription/notif-bis:output/notif-bis:result/notif-bis:no-success/notif-bis:filter-type" as notif_bis_modify_subscription_notif_bis_output_notif_bis_result_notif_bis_no_success_notif_bis_filter_type << (A,CadetBlue) augment>>
+ietf_yang_push *--  notif_bis_modify_subscription_notif_bis_output_notif_bis_result_notif_bis_no_success_notif_bis_filter_type 
+class "update-filter" as ietf_event_notifications_I_modify_subscription_I_output_I_result_I_no_success_I_filter_type_I_update_filter_case <<case>>
+notif_bis_modify_subscription_notif_bis_output_notif_bis_result_notif_bis_no_success_notif_bis_filter_type .. ietf_event_notifications_I_modify_subscription_I_output_I_result_I_no_success_I_filter_type_I_update_filter_case  : choice filter-type
+ietf_event_notifications_I_modify_subscription_I_output_I_result_I_no_success_I_filter_type_I_update_filter_case : update-filter {uses} 
+class "push-update" as ietf_yang_push_I_push_update << (N,#00D1B2) notification>> 
+ietf_yang_push -- ietf_yang_push_I_push_update : notification 
+ietf_yang_push_I_push_update : subscription-id : notif-bis:subscription-id   {mandatory}
+ietf_yang_push_I_push_update : time-of-update : yang:date-and-time  
+ietf_yang_push_I_push_update : updates-not-sent : empty  
+ietf_yang_push_I_push_update : datastore-contents-string : string  
+class "push-change-update" as ietf_yang_push_I_push_change_update << (N,#00D1B2) notification>> 
+ietf_yang_push -- ietf_yang_push_I_push_change_update : notification 
+note bottom of ietf_yang_push_I_push_change_update
+<b>if-feature: </b>on-change
+end note 
+ietf_yang_push_I_push_change_update : subscription-id : notif-bis:subscription-id   {mandatory}
+ietf_yang_push_I_push_change_update : time-of-update : yang:date-and-time  
+ietf_yang_push_I_push_change_update : updates-not-sent : empty  
+ietf_yang_push_I_push_change_update : datastore-changes-string : string  
+class "/notif-bis:subscription-started" as notif_bis_subscription_started << (A,CadetBlue) augment>>
+ietf_yang_push *--  notif_bis_subscription_started 
+notif_bis_subscription_started : update-policy {uses} 
+notif_bis_subscription_started : subscription-qos {uses} 
+class "/notif-bis:subscription-started/notif-bis:filter-type" as notif_bis_subscription_started_notif_bis_filter_type << (A,CadetBlue) augment>>
+ietf_yang_push *--  notif_bis_subscription_started_notif_bis_filter_type 
+class "update-filter" as ietf_event_notifications_I_subscription_started_I_filter_type_I_update_filter_case <<case>>
+notif_bis_subscription_started_notif_bis_filter_type .. ietf_event_notifications_I_subscription_started_I_filter_type_I_update_filter_case  : choice filter-type
+ietf_event_notifications_I_subscription_started_I_filter_type_I_update_filter_case : update-filter {uses} 
+class "/notif-bis:subscription-modified" as notif_bis_subscription_modified << (A,CadetBlue) augment>>
+ietf_yang_push *--  notif_bis_subscription_modified 
+notif_bis_subscription_modified : update-policy {uses} 
+notif_bis_subscription_modified : subscription-qos {uses} 
+class "/notif-bis:subscription-modified/notif-bis:filter-type" as notif_bis_subscription_modified_notif_bis_filter_type << (A,CadetBlue) augment>>
+ietf_yang_push *--  notif_bis_subscription_modified_notif_bis_filter_type 
+class "update-filter" as ietf_event_notifications_I_subscription_modified_I_filter_type_I_update_filter_case <<case>>
+notif_bis_subscription_modified_notif_bis_filter_type .. ietf_event_notifications_I_subscription_modified_I_filter_type_I_update_filter_case  : choice filter-type
+ietf_event_notifications_I_subscription_modified_I_filter_type_I_update_filter_case : update-filter {uses} 
+class "/notif-bis:filters/notif-bis:filter/notif-bis:filter-type" as notif_bis_filters_notif_bis_filter_notif_bis_filter_type << (A,CadetBlue) augment>>
+ietf_yang_push *--  notif_bis_filters_notif_bis_filter_notif_bis_filter_type 
+class "update-filter" as ietf_event_notifications_I_filters_I_filter_I_filter_type_I_update_filter_case <<case>>
+notif_bis_filters_notif_bis_filter_notif_bis_filter_type .. ietf_event_notifications_I_filters_I_filter_I_filter_type_I_update_filter_case  : choice filter-type
+ietf_event_notifications_I_filters_I_filter_I_filter_type_I_update_filter_case : update-filter {uses} 
+class "/notif-bis:subscription-config/notif-bis:subscription" as notif_bis_subscription_config_notif_bis_subscription << (A,CadetBlue) augment>>
+ietf_yang_push *--  notif_bis_subscription_config_notif_bis_subscription 
+notif_bis_subscription_config_notif_bis_subscription : update-policy {uses} 
+notif_bis_subscription_config_notif_bis_subscription : subscription-qos {uses} 
+class "/notif-bis:subscription-config/notif-bis:subscription/notif-bis:filter-type" as notif_bis_subscription_config_notif_bis_subscription_notif_bis_filter_type << (A,CadetBlue) augment>>
+ietf_yang_push *--  notif_bis_subscription_config_notif_bis_subscription_notif_bis_filter_type 
+class "update-filter" as ietf_event_notifications_I_subscription_config_I_subscription_I_filter_type_I_update_filter_case <<case>>
+notif_bis_subscription_config_notif_bis_subscription_notif_bis_filter_type .. ietf_event_notifications_I_subscription_config_I_subscription_I_filter_type_I_update_filter_case  : choice filter-type
+ietf_event_notifications_I_subscription_config_I_subscription_I_filter_type_I_update_filter_case : update-filter {uses} 
+class "/notif-bis:subscriptions/notif-bis:subscription" as notif_bis_subscriptions_notif_bis_subscription << (A,CadetBlue) augment>>
+ietf_yang_push *--  notif_bis_subscriptions_notif_bis_subscription 
+notif_bis_subscriptions_notif_bis_subscription : update-policy {uses} 
+notif_bis_subscriptions_notif_bis_subscription : subscription-qos {uses} 
+class "/notif-bis:subscriptions/notif-bis:subscription/notif-bis:filter-type" as notif_bis_subscriptions_notif_bis_subscription_notif_bis_filter_type << (A,CadetBlue) augment>>
+ietf_yang_push *--  notif_bis_subscriptions_notif_bis_subscription_notif_bis_filter_type 
+class "update-filter" as ietf_event_notifications_I_subscriptions_I_subscription_I_filter_type_I_update_filter_case <<case>>
+notif_bis_subscriptions_notif_bis_subscription_notif_bis_filter_type .. ietf_event_notifications_I_subscriptions_I_subscription_I_filter_type_I_update_filter_case  : choice filter-type
+ietf_event_notifications_I_subscriptions_I_subscription_I_filter_type_I_update_filter_case : update-filter {uses} 
+class "notif-bis:error" as notif_bis_error << (I,Silver) identity>> 
+class "notif-bis:stream" as notif_bis_stream << (I,Silver) identity>> 
+class "notif-bis:stream" as notif_bis_stream << (I,Silver) identity>> 
+class "notif-bis:transport" as notif_bis_transport << (I,Silver) identity>> 
+class "error-data-not-authorized" as error_data_not_authorized << (I,Silver) identity>> 
+notif_bis_error <|-- error_data_not_authorized 
+class "yang-push" as yang_push << (I,Silver) identity>> 
+notif_bis_stream <|-- yang_push 
+class "custom-stream" as custom_stream << (I,Silver) identity>> 
+notif_bis_stream <|-- custom_stream 
+class "http2" as http2 << (I,Silver) identity>> 
+notif_bis_transport <|-- http2 
+} 
+
+notif_bis_establish_subscription_notif_bis_input --> ietf_yang_push_I_update_policy_grouping : uses 
+notif_bis_establish_subscription_notif_bis_input --> ietf_yang_push_I_subscription_qos_grouping : uses 
+ietf_event_notifications_I_establish_subscription_I_input_I_filter_type_I_update_filter_case --> ietf_yang_push_I_update_filter_grouping : uses 
+notif_bis_establish_subscription_notif_bis_output --> ietf_yang_push_I_update_policy_grouping : uses 
+notif_bis_establish_subscription_notif_bis_output --> ietf_yang_push_I_subscription_qos_grouping : uses 
+ietf_event_notifications_I_establish_subscription_I_output_I_result_I_no_success_I_filter_type_I_update_filter_case --> ietf_yang_push_I_update_filter_grouping : uses 
+notif_bis_modify_subscription_notif_bis_input --> ietf_yang_push_I_update_policy_grouping : uses 
+ietf_event_notifications_I_modify_subscription_I_input_I_filter_type_I_update_filter_case --> ietf_yang_push_I_update_filter_grouping : uses 
+notif_bis_modify_subscription_notif_bis_output --> ietf_yang_push_I_update_policy_grouping : uses 
+notif_bis_modify_subscription_notif_bis_output --> ietf_yang_push_I_subscription_qos_grouping : uses 
+ietf_event_notifications_I_modify_subscription_I_output_I_result_I_no_success_I_filter_type_I_update_filter_case --> ietf_yang_push_I_update_filter_grouping : uses 
+notif_bis_subscription_started --> ietf_yang_push_I_update_policy_grouping : uses 
+notif_bis_subscription_started --> ietf_yang_push_I_subscription_qos_grouping : uses 
+ietf_event_notifications_I_subscription_started_I_filter_type_I_update_filter_case --> ietf_yang_push_I_update_filter_grouping : uses 
+notif_bis_subscription_modified --> ietf_yang_push_I_update_policy_grouping : uses 
+notif_bis_subscription_modified --> ietf_yang_push_I_subscription_qos_grouping : uses 
+ietf_event_notifications_I_subscription_modified_I_filter_type_I_update_filter_case --> ietf_yang_push_I_update_filter_grouping : uses 
+ietf_event_notifications_I_filters_I_filter_I_filter_type_I_update_filter_case --> ietf_yang_push_I_update_filter_grouping : uses 
+notif_bis_subscription_config_notif_bis_subscription --> ietf_yang_push_I_update_policy_grouping : uses 
+notif_bis_subscription_config_notif_bis_subscription --> ietf_yang_push_I_subscription_qos_grouping : uses 
+ietf_event_notifications_I_subscription_config_I_subscription_I_filter_type_I_update_filter_case --> ietf_yang_push_I_update_filter_grouping : uses 
+notif_bis_subscriptions_notif_bis_subscription --> ietf_yang_push_I_update_policy_grouping : uses 
+notif_bis_subscriptions_notif_bis_subscription --> ietf_yang_push_I_subscription_qos_grouping : uses 
+ietf_event_notifications_I_subscriptions_I_subscription_I_filter_type_I_update_filter_case --> ietf_yang_push_I_update_filter_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:26 </size>
+ endfooter 
+@enduml 

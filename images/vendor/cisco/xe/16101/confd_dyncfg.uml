@@ -1,0 +1,1223 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/confd_dyncfg.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title confd_dyncfg 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "tailf:tailf-common" as tailf_tailf_common { 
+} 
+package "xs:tailf-xsd-types" as xs_tailf_xsd_types { 
+} 
+note top of confd_dyncfg_confd_dyncfg : <b>Namespace: </b> http://tail-f.com/ns/confd_dyncfg/1.0 \n<b>Prefix: </b> confd_dyncfg \n<b>Organization : </b>\nTail-f Systems \n<b>Revision : </b> 2018-07-31 \n
+package "confd_dyncfg:confd_dyncfg" as confd_dyncfg_confd_dyncfg { 
+yang_ietf_yang_types +-- confd_dyncfg_confd_dyncfg
+inet_ietf_inet_types +-- confd_dyncfg_confd_dyncfg
+tailf_tailf_common +-- confd_dyncfg_confd_dyncfg
+xs_tailf_xsd_types +-- confd_dyncfg_confd_dyncfg
+class "confd_dyncfg" as confd_dyncfg << (M, #33CCFF) module>> 
+enum "candidateImplementationType" as confd_dyncfg_I_candidateImplementationType {
+confd
+external
+}
+enum "whoHistoryDateTimeFormatType" as confd_dyncfg_I_whoHistoryDateTimeFormatType {
+long
+short
+}
+enum "multiPatternOperationType" as confd_dyncfg_I_multiPatternOperationType {
+any
+all
+}
+enum "confirmUncommitedOnExitType" as confd_dyncfg_I_confirmUncommitedOnExitType {
+prompt
+discard
+commit
+}
+enum "tableBehaviorType" as confd_dyncfg_I_tableBehaviorType {
+dynamic
+suppress
+enforce
+}
+enum "rollNumbering" as confd_dyncfg_I_rollNumbering {
+fixed
+rolling
+}
+enum "completionMetaInfoType" as confd_dyncfg_I_completionMetaInfoType {
+false
+alt1
+alt2
+}
+enum "pipeHelpModeType" as confd_dyncfg_I_pipeHelpModeType {
+always
+auto
+never
+}
+enum "candidateStorageType" as confd_dyncfg_I_candidateStorageType {
+disk
+ram
+auto
+}
+enum "editWrapModeType" as confd_dyncfg_I_editWrapModeType {
+wrap
+newline
+vt100
+}
+enum "cliTimezoneType" as confd_dyncfg_I_cliTimezoneType {
+utc
+local
+}
+enum "journalCompactionType" as confd_dyncfg_I_journalCompactionType {
+automatic
+manual
+}
+enum "configurationReplicationType" as confd_dyncfg_I_configurationReplicationType {
+async
+sync
+}
+enum "operationalPersistentType" as confd_dyncfg_I_operationalPersistentType {
+confspec
+always
+never
+}
+enum "operationalReplicationType" as confd_dyncfg_I_operationalReplicationType {
+never
+always
+persistent
+}
+enum "operationalReplicationModeType" as confd_dyncfg_I_operationalReplicationModeType {
+async
+sync
+}
+enum "snmpVersionType" as confd_dyncfg_I_snmpVersionType {
+v1
+v2c
+}
+class "dscpType" as dscpType << (T, YellowGreen) typedef>>
+dscpType : uint8 [0 .. 63]
+class "limitType" as limitType << (T, YellowGreen) typedef>>
+limitType : union{uint32, unboundedType}
+enum "unboundedType" as confd_dyncfg_I_unboundedType {
+unbounded
+}
+enum "infinityType" as confd_dyncfg_I_infinityType {
+infinity
+}
+class "timeoutType" as timeoutType << (T, YellowGreen) typedef>>
+timeoutType : union{xs:duration, infinityType}
+enum "rpcErrorType" as confd_dyncfg_I_rpcErrorType {
+close
+inline
+}
+enum "dbAccessType" as confd_dyncfg_I_dbAccessType {
+read-write
+writable-through-candidate
+}
+enum "pubkeyAuthenticationType" as confd_dyncfg_I_pubkeyAuthenticationType {
+none
+local
+system
+}
+enum "expirationWarningType" as confd_dyncfg_I_expirationWarningType {
+ignore
+display
+prompt
+}
+enum "auditUserNameType" as confd_dyncfg_I_auditUserNameType {
+always
+known
+never
+}
+enum "defaultHandlingModeType" as confd_dyncfg_I_defaultHandlingModeType {
+explicit
+trim
+report-all
+}
+enum "syslogVersionType" as confd_dyncfg_I_syslogVersionType {
+bsd
+1
+}
+enum "cliAuditLogType" as confd_dyncfg_I_cliAuditLogType {
+all
+none
+denied
+MORE
+}
+enum "cliActionMapType" as confd_dyncfg_I_cliActionMapType {
+both
+config
+oper
+}
+enum "cliModeNameStyleType" as confd_dyncfg_I_cliModeNameStyleType {
+short
+two
+full
+}
+enum "quoteStyleType" as confd_dyncfg_I_quoteStyleType {
+quote
+backslash
+}
+enum "modeInfoInAAAType" as confd_dyncfg_I_modeInfoInAAAType {
+true
+false
+path
+}
+enum "modeInfoInAuditType" as confd_dyncfg_I_modeInfoInAuditType {
+true
+false
+path
+}
+enum "enableDisplayLevelType" as confd_dyncfg_I_enableDisplayLevelType {
+true
+false
+pipe
+}
+enum "cliStyle" as confd_dyncfg_I_cliStyle {
+j
+c
+i
+}
+enum "rollbackType" as confd_dyncfg_I_rollbackType {
+full
+delta
+}
+class "syslogFacilityType" as syslogFacilityType << (T, YellowGreen) typedef>>
+syslogFacilityType : union{bsdFacilityType, intFacilityType}
+enum "bsdFacilityType" as confd_dyncfg_I_bsdFacilityType {
+daemon
+authpriv
+local0
+MORE
+}
+class "intFacilityType" as intFacilityType << (T, YellowGreen) typedef>>
+intFacilityType : uint32 [min .. 2147483647]
+class "cliMax" as cliMax << (T, YellowGreen) typedef>>
+cliMax : uint32 [5 .. 2147483647]
+class "rollMax" as rollMax << (T, YellowGreen) typedef>>
+rollMax : uint32 [0 .. 2147483647]
+class "hex8ValueType" as hex8ValueType << (T, YellowGreen) typedef>>
+hex8ValueType : xs:hexBinary
+class "charType" as charType << (T, YellowGreen) typedef>>
+charType : string {length = 1}
+enum "falseType" as confd_dyncfg_I_falseType {
+false
+}
+class "aliasQuoteType" as aliasQuoteType << (T, YellowGreen) typedef>>
+aliasQuoteType : union{falseType, charType}
+class "hex16ValueType" as hex16ValueType << (T, YellowGreen) typedef>>
+hex16ValueType : xs:hexBinary
+class "verifyType" as verifyType << (T, YellowGreen) typedef>>
+verifyType : uint32 [1 .. 3]
+enum "pendingChangesActionType" as confd_dyncfg_I_pendingChangesActionType {
+continue
+fail
+}
+enum "developerLogLevelType" as confd_dyncfg_I_developerLogLevelType {
+error
+info
+trace
+}
+enum "snmpLogLevelType" as confd_dyncfg_I_snmpLogLevelType {
+error
+info
+}
+enum "netconfTraceFormatType" as confd_dyncfg_I_netconfTraceFormatType {
+pretty
+raw
+}
+class "subagentNameType" as subagentNameType << (T, YellowGreen) typedef>>
+subagentNameType : xs:token {length = min .. 31}
+class "SNMPAgentNameType" as SNMPAgentNameType << (T, YellowGreen) typedef>>
+SNMPAgentNameType : xs:token {length = min .. 31}
+class "SNMPContextNameType" as SNMPContextNameType << (T, YellowGreen) typedef>>
+SNMPContextNameType : xs:token {length = min .. 31}
+enum "cryptHashAlgorithmType" as confd_dyncfg_I_cryptHashAlgorithmType {
+md5
+sha-256
+sha-512
+}
+class "cryptHashRoundsType" as cryptHashRoundsType << (T, YellowGreen) typedef>>
+cryptHashRoundsType : uint32 [1000 .. 999999999]
+enum "runtimeReconfigurationType" as confd_dyncfg_I_runtimeReconfigurationType {
+config-file
+namespace
+}
+class "idType" as idType << (T, YellowGreen) typedef>>
+idType : union{uint64, fixedIdType}
+enum "fixedIdType" as confd_dyncfg_I_fixedIdType {
+confd
+user
+root
+}
+class "maxFilesType" as maxFilesType << (T, YellowGreen) typedef>>
+maxFilesType : int64 [2 .. max]
+enum "X-Frame-OptionsType" as confd_dyncfg_I_X_Frame_OptionsType {
+DENY
+SAMEORIGIN
+ALLOW-FROM
+}
+class "dhGroupSizeType" as dhGroupSizeType << (T, YellowGreen) typedef>>
+dhGroupSizeType : uint32 [1024 .. 8192]
+enum "cliLeafListStyleType" as confd_dyncfg_I_cliLeafListStyleType {
+flat-list
+range-list
+}
+enum "cliActionNoListInst" as confd_dyncfg_I_cliActionNoListInst {
+create-instance
+deny-call
+}
+class "confdConfig" as  confd_dyncfg_I_confdConfig <<container>> 
+confd_dyncfg *-- "1" confd_dyncfg_I_confdConfig 
+class "subagents" as  confd_dyncfg_I_confdConfig_I_subagents <<container>> 
+confd_dyncfg_I_confdConfig *-- "0..1" confd_dyncfg_I_confdConfig_I_subagents 
+note bottom of confd_dyncfg_I_confdConfig_I_subagents
+<b>Presence: </b>
+end note 
+class "subagent" as confd_dyncfg_I_confdConfig_I_subagents_I_subagent << (L, #FF7700) list>> 
+confd_dyncfg_I_confdConfig_I_subagents *-- "0..N" confd_dyncfg_I_confdConfig_I_subagents_I_subagent 
+confd_dyncfg_I_confdConfig_I_subagents_I_subagent : +name : subagentNameType  {key} 
+confd_dyncfg_I_confdConfig_I_subagents_I_subagent : enabled : boolean   = true 
+class "tcp" as  confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_tcp <<container>> 
+confd_dyncfg_I_confdConfig_I_subagents_I_subagent *-- "0..1" confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_tcp 
+note bottom of confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_tcp
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_tcp : ip : inet:ip-address   {mandatory}
+confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_tcp : port : inet:port-number   = 2023 
+class "confdAuth" as  confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_tcp_I_confdAuth <<container>> 
+confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_tcp *-- "1" confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_tcp_I_confdAuth 
+confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_tcp_I_confdAuth : user : string   {mandatory}
+confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_tcp_I_confdAuth : group : string   {mandatory}
+class "ssh" as  confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_ssh <<container>> 
+confd_dyncfg_I_confdConfig_I_subagents_I_subagent *-- "0..1" confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_ssh 
+note bottom of confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_ssh
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_ssh : ip : inet:ip-address   {mandatory}
+confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_ssh : port : inet:port-number   = 2022 
+confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_ssh : user : string   {mandatory}
+confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_ssh : password : string   {mandatory}
+class "mount" as  confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_mount <<container>> 
+confd_dyncfg_I_confdConfig_I_subagents_I_subagent *-- "1" confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_mount 
+confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_mount : path : string   {mandatory}
+confd_dyncfg_I_confdConfig_I_subagents_I_subagent_I_mount : node []: xs:QName 
+confd_dyncfg_I_confdConfig_I_subagents_I_subagent : disableSubtreeOptimization : boolean   = false 
+class "notifications" as  confd_dyncfg_I_confdConfig_I_notifications <<container>> 
+confd_dyncfg_I_confdConfig *-- "0..1" confd_dyncfg_I_confdConfig_I_notifications 
+note bottom of confd_dyncfg_I_confdConfig_I_notifications
+<b>Presence: </b>
+end note 
+class "eventStreams" as  confd_dyncfg_I_confdConfig_I_notifications_I_eventStreams <<container>> 
+confd_dyncfg_I_confdConfig_I_notifications *-- "1" confd_dyncfg_I_confdConfig_I_notifications_I_eventStreams 
+class "stream" as confd_dyncfg_I_confdConfig_I_notifications_I_eventStreams_I_stream << (L, #FF7700) list>> 
+confd_dyncfg_I_confdConfig_I_notifications_I_eventStreams *-- "0..N" confd_dyncfg_I_confdConfig_I_notifications_I_eventStreams_I_stream 
+confd_dyncfg_I_confdConfig_I_notifications_I_eventStreams_I_stream : +name : xs:token  {key} 
+confd_dyncfg_I_confdConfig_I_notifications_I_eventStreams_I_stream : description : string   {mandatory}
+confd_dyncfg_I_confdConfig_I_notifications_I_eventStreams_I_stream : replaySupport : boolean   {mandatory}
+class "builtinReplayStore" as  confd_dyncfg_I_confdConfig_I_notifications_I_eventStreams_I_stream_I_builtinReplayStore <<container>> 
+confd_dyncfg_I_confdConfig_I_notifications_I_eventStreams_I_stream *-- "0..1" confd_dyncfg_I_confdConfig_I_notifications_I_eventStreams_I_stream_I_builtinReplayStore 
+note bottom of confd_dyncfg_I_confdConfig_I_notifications_I_eventStreams_I_stream_I_builtinReplayStore
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_notifications_I_eventStreams_I_stream_I_builtinReplayStore : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_notifications_I_eventStreams_I_stream_I_builtinReplayStore : dir : string   {mandatory}
+confd_dyncfg_I_confdConfig_I_notifications_I_eventStreams_I_stream_I_builtinReplayStore : maxSize : tailf:size   {mandatory}
+confd_dyncfg_I_confdConfig_I_notifications_I_eventStreams_I_stream_I_builtinReplayStore : maxFiles : maxFilesType   {mandatory}
+class "opcache" as  confd_dyncfg_I_confdConfig_I_opcache <<container>> 
+confd_dyncfg_I_confdConfig *-- "0..1" confd_dyncfg_I_confdConfig_I_opcache 
+note bottom of confd_dyncfg_I_confdConfig_I_opcache
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_opcache : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_opcache : timeout : uint64 [0 .. max]   {mandatory}
+class "snmpgw" as  confd_dyncfg_I_confdConfig_I_snmpgw <<container>> 
+confd_dyncfg_I_confdConfig *-- "0..1" confd_dyncfg_I_confdConfig_I_snmpgw 
+note bottom of confd_dyncfg_I_confdConfig_I_snmpgw
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_snmpgw : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_snmpgw : trapPort : inet:port-number  
+confd_dyncfg_I_confdConfig_I_snmpgw : rowCacheMaxAge : xs:duration   = PT5S 
+class "agent" as confd_dyncfg_I_confdConfig_I_snmpgw_I_agent << (L, #FF7700) list>> 
+confd_dyncfg_I_confdConfig_I_snmpgw *-- "0..N" confd_dyncfg_I_confdConfig_I_snmpgw_I_agent 
+confd_dyncfg_I_confdConfig_I_snmpgw_I_agent : +name : SNMPAgentNameType  {key} 
+confd_dyncfg_I_confdConfig_I_snmpgw_I_agent : subscriptionId : xs:token  
+confd_dyncfg_I_confdConfig_I_snmpgw_I_agent : forwardNotifStream : xs:token  
+confd_dyncfg_I_confdConfig_I_snmpgw_I_agent : enabled : boolean   = true 
+confd_dyncfg_I_confdConfig_I_snmpgw_I_agent : community : string   = private 
+confd_dyncfg_I_confdConfig_I_snmpgw_I_agent : community_bin : xs:hexBinary  
+confd_dyncfg_I_confdConfig_I_snmpgw_I_agent : version : snmpVersionType   = v2c 
+confd_dyncfg_I_confdConfig_I_snmpgw_I_agent : timeout : xs:duration   = PT5S 
+confd_dyncfg_I_confdConfig_I_snmpgw_I_agent : ip : inet:ip-address   {mandatory}
+confd_dyncfg_I_confdConfig_I_snmpgw_I_agent : port : inet:port-number   = 161 
+confd_dyncfg_I_confdConfig_I_snmpgw_I_agent : module []: string 
+class "hideGroup" as confd_dyncfg_I_confdConfig_I_hideGroup << (L, #FF7700) list>> 
+confd_dyncfg_I_confdConfig *-- "0..N" confd_dyncfg_I_confdConfig_I_hideGroup 
+confd_dyncfg_I_confdConfig_I_hideGroup : +name : string  {key} 
+confd_dyncfg_I_confdConfig_I_hideGroup : password : tailf:md5-digest-string   =  
+confd_dyncfg_I_confdConfig_I_hideGroup : callback : string  
+class "encryptedStrings" as  confd_dyncfg_I_confdConfig_I_encryptedStrings <<container>> 
+confd_dyncfg_I_confdConfig *-- "0..1" confd_dyncfg_I_confdConfig_I_encryptedStrings 
+note bottom of confd_dyncfg_I_confdConfig_I_encryptedStrings
+<b>Presence: </b>
+end note 
+class "DES3CBC" as  confd_dyncfg_I_confdConfig_I_encryptedStrings_I_DES3CBC <<container>> 
+confd_dyncfg_I_confdConfig_I_encryptedStrings *-- "0..1" confd_dyncfg_I_confdConfig_I_encryptedStrings_I_DES3CBC 
+note bottom of confd_dyncfg_I_confdConfig_I_encryptedStrings_I_DES3CBC
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_encryptedStrings_I_DES3CBC : key1 : hex8ValueType   {mandatory}
+confd_dyncfg_I_confdConfig_I_encryptedStrings_I_DES3CBC : key2 : hex8ValueType   {mandatory}
+confd_dyncfg_I_confdConfig_I_encryptedStrings_I_DES3CBC : key3 : hex8ValueType   {mandatory}
+confd_dyncfg_I_confdConfig_I_encryptedStrings_I_DES3CBC : initVector : hex8ValueType  
+class "AESCFB128" as  confd_dyncfg_I_confdConfig_I_encryptedStrings_I_AESCFB128 <<container>> 
+confd_dyncfg_I_confdConfig_I_encryptedStrings *-- "0..1" confd_dyncfg_I_confdConfig_I_encryptedStrings_I_AESCFB128 
+note bottom of confd_dyncfg_I_confdConfig_I_encryptedStrings_I_AESCFB128
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_encryptedStrings_I_AESCFB128 : key : hex16ValueType   {mandatory}
+confd_dyncfg_I_confdConfig_I_encryptedStrings_I_AESCFB128 : initVector : hex16ValueType  
+class "logs" as  confd_dyncfg_I_confdConfig_I_logs <<container>> 
+confd_dyncfg_I_confdConfig *-- "0..1" confd_dyncfg_I_confdConfig_I_logs 
+note bottom of confd_dyncfg_I_confdConfig_I_logs
+<b>Presence: </b>
+end note 
+class "syslogConfig" as  confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig <<container>> 
+confd_dyncfg_I_confdConfig_I_logs *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig : version : syslogVersionType   = bsd 
+confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig : facility : syslogFacilityType   = daemon 
+class "udp" as  confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig_I_udp <<container>> 
+confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig_I_udp 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig_I_udp
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig_I_udp : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig_I_udp : host : inet:host   {mandatory}
+confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig_I_udp : port : inet:port-number   = 514 
+class "syslogServers" as  confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig_I_syslogServers <<container>> 
+confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig_I_syslogServers 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig_I_syslogServers
+<b>Presence: </b>
+end note 
+class "server" as confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig_I_syslogServers_I_server << (L, #FF7700) list>> 
+confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig_I_syslogServers *-- "0..N" confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig_I_syslogServers_I_server 
+confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig_I_syslogServers_I_server : +host : inet:host  {key} 
+confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig_I_syslogServers_I_server : port : inet:port-number   = 514 
+confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig_I_syslogServers_I_server : version : syslogVersionType   = bsd 
+confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig_I_syslogServers_I_server : facility : syslogFacilityType   = daemon 
+confd_dyncfg_I_confdConfig_I_logs_I_syslogConfig_I_syslogServers_I_server : enabled : boolean   = true 
+class "confdLog" as  confd_dyncfg_I_confdConfig_I_logs_I_confdLog <<container>> 
+confd_dyncfg_I_confdConfig_I_logs *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_confdLog 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_confdLog
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_confdLog : enabled : boolean   = true 
+class "file" as  confd_dyncfg_I_confdConfig_I_logs_I_confdLog_I_file <<container>> 
+confd_dyncfg_I_confdConfig_I_logs_I_confdLog *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_confdLog_I_file 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_confdLog_I_file
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_confdLog_I_file : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_logs_I_confdLog_I_file : name : string   {mandatory}
+class "syslog" as  confd_dyncfg_I_confdConfig_I_logs_I_confdLog_I_syslog <<container>> 
+confd_dyncfg_I_confdConfig_I_logs_I_confdLog *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_confdLog_I_syslog 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_confdLog_I_syslog
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_confdLog_I_syslog : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_logs_I_confdLog_I_syslog : facility : syslogFacilityType  
+class "developerLog" as  confd_dyncfg_I_confdConfig_I_logs_I_developerLog <<container>> 
+confd_dyncfg_I_confdConfig_I_logs *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_developerLog 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_developerLog
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_developerLog : enabled : boolean   = true 
+class "file" as  confd_dyncfg_I_confdConfig_I_logs_I_developerLog_I_file <<container>> 
+confd_dyncfg_I_confdConfig_I_logs_I_developerLog *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_developerLog_I_file 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_developerLog_I_file
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_developerLog_I_file : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_logs_I_developerLog_I_file : name : string   {mandatory}
+class "syslog" as  confd_dyncfg_I_confdConfig_I_logs_I_developerLog_I_syslog <<container>> 
+confd_dyncfg_I_confdConfig_I_logs_I_developerLog *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_developerLog_I_syslog 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_developerLog_I_syslog
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_developerLog_I_syslog : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_logs_I_developerLog_I_syslog : facility : syslogFacilityType  
+confd_dyncfg_I_confdConfig_I_logs : developerLogLevel : developerLogLevelType   = info 
+class "auditLog" as  confd_dyncfg_I_confdConfig_I_logs_I_auditLog <<container>> 
+confd_dyncfg_I_confdConfig_I_logs *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_auditLog 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_auditLog
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_auditLog : enabled : boolean   = true 
+class "file" as  confd_dyncfg_I_confdConfig_I_logs_I_auditLog_I_file <<container>> 
+confd_dyncfg_I_confdConfig_I_logs_I_auditLog *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_auditLog_I_file 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_auditLog_I_file
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_auditLog_I_file : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_logs_I_auditLog_I_file : name : string   {mandatory}
+class "syslog" as  confd_dyncfg_I_confdConfig_I_logs_I_auditLog_I_syslog <<container>> 
+confd_dyncfg_I_confdConfig_I_logs_I_auditLog *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_auditLog_I_syslog 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_auditLog_I_syslog
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_auditLog_I_syslog : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_logs_I_auditLog_I_syslog : facility : syslogFacilityType  
+confd_dyncfg_I_confdConfig_I_logs : auditLogCommit : boolean   = false 
+class "netconfLog" as  confd_dyncfg_I_confdConfig_I_logs_I_netconfLog <<container>> 
+confd_dyncfg_I_confdConfig_I_logs *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_netconfLog 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_netconfLog
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_netconfLog : enabled : boolean   = true 
+class "file" as  confd_dyncfg_I_confdConfig_I_logs_I_netconfLog_I_file <<container>> 
+confd_dyncfg_I_confdConfig_I_logs_I_netconfLog *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_netconfLog_I_file 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_netconfLog_I_file
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_netconfLog_I_file : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_logs_I_netconfLog_I_file : name : string   {mandatory}
+class "syslog" as  confd_dyncfg_I_confdConfig_I_logs_I_netconfLog_I_syslog <<container>> 
+confd_dyncfg_I_confdConfig_I_logs_I_netconfLog *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_netconfLog_I_syslog 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_netconfLog_I_syslog
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_netconfLog_I_syslog : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_logs_I_netconfLog_I_syslog : facility : syslogFacilityType  
+class "snmpLog" as  confd_dyncfg_I_confdConfig_I_logs_I_snmpLog <<container>> 
+confd_dyncfg_I_confdConfig_I_logs *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_snmpLog 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_snmpLog
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_snmpLog : enabled : boolean   = true 
+class "file" as  confd_dyncfg_I_confdConfig_I_logs_I_snmpLog_I_file <<container>> 
+confd_dyncfg_I_confdConfig_I_logs_I_snmpLog *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_snmpLog_I_file 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_snmpLog_I_file
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_snmpLog_I_file : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_logs_I_snmpLog_I_file : name : string   {mandatory}
+class "syslog" as  confd_dyncfg_I_confdConfig_I_logs_I_snmpLog_I_syslog <<container>> 
+confd_dyncfg_I_confdConfig_I_logs_I_snmpLog *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_snmpLog_I_syslog 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_snmpLog_I_syslog
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_snmpLog_I_syslog : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_logs_I_snmpLog_I_syslog : facility : syslogFacilityType  
+confd_dyncfg_I_confdConfig_I_logs : snmpLogLevel : snmpLogLevelType   = info 
+class "webuiBrowserLog" as  confd_dyncfg_I_confdConfig_I_logs_I_webuiBrowserLog <<container>> 
+confd_dyncfg_I_confdConfig_I_logs *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_webuiBrowserLog 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_webuiBrowserLog
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_webuiBrowserLog : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_logs_I_webuiBrowserLog : filename : string   {mandatory}
+class "webuiAccessLog" as  confd_dyncfg_I_confdConfig_I_logs_I_webuiAccessLog <<container>> 
+confd_dyncfg_I_confdConfig_I_logs *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_webuiAccessLog 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_webuiAccessLog
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_webuiAccessLog : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_logs_I_webuiAccessLog : trafficLog : boolean   = false 
+confd_dyncfg_I_confdConfig_I_logs_I_webuiAccessLog : dir : string   {mandatory}
+class "netconfTraceLog" as  confd_dyncfg_I_confdConfig_I_logs_I_netconfTraceLog <<container>> 
+confd_dyncfg_I_confdConfig_I_logs *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_netconfTraceLog 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_netconfTraceLog
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_netconfTraceLog : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_logs_I_netconfTraceLog : filename : string   {mandatory}
+confd_dyncfg_I_confdConfig_I_logs_I_netconfTraceLog : format : netconfTraceFormatType   = pretty 
+class "xpathTraceLog" as  confd_dyncfg_I_confdConfig_I_logs_I_xpathTraceLog <<container>> 
+confd_dyncfg_I_confdConfig_I_logs *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_xpathTraceLog 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_xpathTraceLog
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_xpathTraceLog : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_logs_I_xpathTraceLog : filename : string   {mandatory}
+class "errorLog" as  confd_dyncfg_I_confdConfig_I_logs_I_errorLog <<container>> 
+confd_dyncfg_I_confdConfig_I_logs *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_errorLog 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_errorLog
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_errorLog : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_logs_I_errorLog : filename : string   {mandatory}
+confd_dyncfg_I_confdConfig_I_logs_I_errorLog : maxSize : tailf:size   = S1M 
+class "debug" as  confd_dyncfg_I_confdConfig_I_logs_I_errorLog_I_debug <<container>> 
+confd_dyncfg_I_confdConfig_I_logs_I_errorLog *-- "0..1" confd_dyncfg_I_confdConfig_I_logs_I_errorLog_I_debug 
+note bottom of confd_dyncfg_I_confdConfig_I_logs_I_errorLog_I_debug
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_logs_I_errorLog_I_debug : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_logs_I_errorLog_I_debug : level : uint16   = 2 
+confd_dyncfg_I_confdConfig_I_logs_I_errorLog_I_debug : tag []: xs:token 
+class "sessionLimits" as  confd_dyncfg_I_confdConfig_I_sessionLimits <<container>> 
+confd_dyncfg_I_confdConfig *-- "0..1" confd_dyncfg_I_confdConfig_I_sessionLimits 
+note bottom of confd_dyncfg_I_confdConfig_I_sessionLimits
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_sessionLimits : maxSessions : limitType   = unbounded 
+class "sessionLimit" as confd_dyncfg_I_confdConfig_I_sessionLimits_I_sessionLimit << (L, #FF7700) list>> 
+confd_dyncfg_I_confdConfig_I_sessionLimits *-- "0..N" confd_dyncfg_I_confdConfig_I_sessionLimits_I_sessionLimit 
+confd_dyncfg_I_confdConfig_I_sessionLimits_I_sessionLimit : +context : xs:token  {key} 
+confd_dyncfg_I_confdConfig_I_sessionLimits_I_sessionLimit : maxSessions : limitType   {mandatory}
+confd_dyncfg_I_confdConfig_I_sessionLimits : maxConfigSessions : limitType   = unbounded 
+class "configSessionLimit" as confd_dyncfg_I_confdConfig_I_sessionLimits_I_configSessionLimit << (L, #FF7700) list>> 
+confd_dyncfg_I_confdConfig_I_sessionLimits *-- "0..N" confd_dyncfg_I_confdConfig_I_sessionLimits_I_configSessionLimit 
+confd_dyncfg_I_confdConfig_I_sessionLimits_I_configSessionLimit : +context : xs:token  {key} 
+confd_dyncfg_I_confdConfig_I_sessionLimits_I_configSessionLimit : maxSessions : limitType   {mandatory}
+class "aaa" as  confd_dyncfg_I_confdConfig_I_aaa <<container>> 
+confd_dyncfg_I_confdConfig *-- "0..1" confd_dyncfg_I_confdConfig_I_aaa 
+note bottom of confd_dyncfg_I_confdConfig_I_aaa
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_aaa : sshPubkeyAuthentication : pubkeyAuthenticationType   = system 
+confd_dyncfg_I_confdConfig_I_aaa : sshLoginGraceTime : xs:duration   = PT10M 
+confd_dyncfg_I_confdConfig_I_aaa : sshMaxAuthTries : limitType   = unbounded 
+confd_dyncfg_I_confdConfig_I_aaa : defaultGroup : string  
+confd_dyncfg_I_confdConfig_I_aaa : authOrder : string  
+confd_dyncfg_I_confdConfig_I_aaa : validationOrder : string  
+confd_dyncfg_I_confdConfig_I_aaa : expirationWarning : expirationWarningType   = ignore 
+confd_dyncfg_I_confdConfig_I_aaa : auditUserName : auditUserNameType   = always 
+class "pam" as  confd_dyncfg_I_confdConfig_I_aaa_I_pam <<container>> 
+confd_dyncfg_I_confdConfig_I_aaa *-- "0..1" confd_dyncfg_I_confdConfig_I_aaa_I_pam 
+note bottom of confd_dyncfg_I_confdConfig_I_aaa_I_pam
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_aaa_I_pam : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_aaa_I_pam : service : string   = common-auth 
+confd_dyncfg_I_confdConfig_I_aaa_I_pam : timeout : xs:duration   = PT10S 
+class "rest" as  confd_dyncfg_I_confdConfig_I_aaa_I_rest <<container>> 
+confd_dyncfg_I_confdConfig_I_aaa *-- "0..1" confd_dyncfg_I_confdConfig_I_aaa_I_rest 
+note bottom of confd_dyncfg_I_confdConfig_I_aaa_I_rest
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_aaa_I_rest : authCacheTTL : xs:duration   = PT10S 
+confd_dyncfg_I_confdConfig_I_aaa_I_rest : enableAuthCacheClientIp : boolean   = false 
+class "externalAuthentication" as  confd_dyncfg_I_confdConfig_I_aaa_I_externalAuthentication <<container>> 
+confd_dyncfg_I_confdConfig_I_aaa *-- "0..1" confd_dyncfg_I_confdConfig_I_aaa_I_externalAuthentication 
+note bottom of confd_dyncfg_I_confdConfig_I_aaa_I_externalAuthentication
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_aaa_I_externalAuthentication : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_aaa_I_externalAuthentication : executable : string  
+confd_dyncfg_I_confdConfig_I_aaa_I_externalAuthentication : useBase64 : boolean   = false 
+confd_dyncfg_I_confdConfig_I_aaa_I_externalAuthentication : includeExtra : boolean   = false 
+class "localAuthentication" as  confd_dyncfg_I_confdConfig_I_aaa_I_localAuthentication <<container>> 
+confd_dyncfg_I_confdConfig_I_aaa *-- "0..1" confd_dyncfg_I_confdConfig_I_aaa_I_localAuthentication 
+note bottom of confd_dyncfg_I_confdConfig_I_aaa_I_localAuthentication
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_aaa_I_localAuthentication : enabled : boolean   = true 
+class "authenticationCallback" as  confd_dyncfg_I_confdConfig_I_aaa_I_authenticationCallback <<container>> 
+confd_dyncfg_I_confdConfig_I_aaa *-- "0..1" confd_dyncfg_I_confdConfig_I_aaa_I_authenticationCallback 
+note bottom of confd_dyncfg_I_confdConfig_I_aaa_I_authenticationCallback
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_aaa_I_authenticationCallback : enabled : boolean   = false 
+class "externalValidation" as  confd_dyncfg_I_confdConfig_I_aaa_I_externalValidation <<container>> 
+confd_dyncfg_I_confdConfig_I_aaa *-- "0..1" confd_dyncfg_I_confdConfig_I_aaa_I_externalValidation 
+note bottom of confd_dyncfg_I_confdConfig_I_aaa_I_externalValidation
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_aaa_I_externalValidation : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_aaa_I_externalValidation : executable : string  
+confd_dyncfg_I_confdConfig_I_aaa_I_externalValidation : useBase64 : boolean   = false 
+confd_dyncfg_I_confdConfig_I_aaa_I_externalValidation : includeExtra : boolean   = false 
+class "validationCallback" as  confd_dyncfg_I_confdConfig_I_aaa_I_validationCallback <<container>> 
+confd_dyncfg_I_confdConfig_I_aaa *-- "0..1" confd_dyncfg_I_confdConfig_I_aaa_I_validationCallback 
+note bottom of confd_dyncfg_I_confdConfig_I_aaa_I_validationCallback
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_aaa_I_validationCallback : enabled : boolean   = false 
+class "authorization" as  confd_dyncfg_I_confdConfig_I_aaa_I_authorization <<container>> 
+confd_dyncfg_I_confdConfig_I_aaa *-- "0..1" confd_dyncfg_I_confdConfig_I_aaa_I_authorization 
+note bottom of confd_dyncfg_I_confdConfig_I_aaa_I_authorization
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_aaa_I_authorization : enabled : boolean   = true 
+class "callback" as  confd_dyncfg_I_confdConfig_I_aaa_I_authorization_I_callback <<container>> 
+confd_dyncfg_I_confdConfig_I_aaa_I_authorization *-- "0..1" confd_dyncfg_I_confdConfig_I_aaa_I_authorization_I_callback 
+note bottom of confd_dyncfg_I_confdConfig_I_aaa_I_authorization_I_callback
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_aaa_I_authorization_I_callback : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_aaa_I_authorization : nacmCompliant : boolean   = true 
+class "ssh" as  confd_dyncfg_I_confdConfig_I_ssh <<container>> 
+confd_dyncfg_I_confdConfig *-- "0..1" confd_dyncfg_I_confdConfig_I_ssh 
+note bottom of confd_dyncfg_I_confdConfig_I_ssh
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_ssh : idleConnectionTimeout : xs:duration   = PT10M 
+class "algorithms" as  confd_dyncfg_I_confdConfig_I_ssh_I_algorithms <<container>> 
+confd_dyncfg_I_confdConfig_I_ssh *-- "0..1" confd_dyncfg_I_confdConfig_I_ssh_I_algorithms 
+note bottom of confd_dyncfg_I_confdConfig_I_ssh_I_algorithms
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_ssh_I_algorithms : serverHostKey : string   =  
+confd_dyncfg_I_confdConfig_I_ssh_I_algorithms : kex : string   =  
+class "dhGroup" as  confd_dyncfg_I_confdConfig_I_ssh_I_algorithms_I_dhGroup <<container>> 
+confd_dyncfg_I_confdConfig_I_ssh_I_algorithms *-- "0..1" confd_dyncfg_I_confdConfig_I_ssh_I_algorithms_I_dhGroup 
+note bottom of confd_dyncfg_I_confdConfig_I_ssh_I_algorithms_I_dhGroup
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_ssh_I_algorithms_I_dhGroup : minSize : dhGroupSizeType   = 2048 
+note bottom of confd_dyncfg_I_confdConfig_I_ssh_I_algorithms_I_dhGroup
+<b>Must</b> (minSize):
+. <= ../maxSize
+
+end note 
+confd_dyncfg_I_confdConfig_I_ssh_I_algorithms_I_dhGroup : maxSize : dhGroupSizeType   = 4096 
+confd_dyncfg_I_confdConfig_I_ssh_I_algorithms : mac : string   =  
+confd_dyncfg_I_confdConfig_I_ssh_I_algorithms : encryption : string   =  
+confd_dyncfg_I_confdConfig_I_ssh : clientAliveInterval : timeoutType   = infinity 
+confd_dyncfg_I_confdConfig_I_ssh : clientAliveCountMax : uint32   = 3 
+class "cli" as  confd_dyncfg_I_confdConfig_I_cli <<container>> 
+confd_dyncfg_I_confdConfig *-- "0..1" confd_dyncfg_I_confdConfig_I_cli 
+note bottom of confd_dyncfg_I_confdConfig_I_cli
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_cli : enabled : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : maxLineLength : uint32   = 0 
+confd_dyncfg_I_confdConfig_I_cli : allowImplicitWildcard : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : startupScriptNonInteractive : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : modeNameStyle : cliModeNameStyleType   = short 
+confd_dyncfg_I_confdConfig_I_cli : allowOverwriteOnCopy : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : inheritPaginate : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : safeScriptExecution : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : exitConfigModeOnCtrlC : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : execNavigationCmds : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : allowOldStyleModeCmds : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : continueOnErrorCmdStack : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : topLevelCmdsInSubMode : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : mixedMode : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : completionShowOldVal : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : completionMetaInfo : completionMetaInfoType   = false 
+confd_dyncfg_I_confdConfig_I_cli : reportInvalidCompletionInput : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : useShortEnabled : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : smartRenameFiltering : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : allowParenQuotes : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : singleElemPattern : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : multiPatternOperation : multiPatternOperationType   = any 
+confd_dyncfg_I_confdConfig_I_cli : sortSubmodeCmds : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : sortLocalCmds : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : displayEmptyConfigContainers : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : displayNonPresenceAttributes : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : showEditors : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : whoShowMode : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : whoHistoryDateTimeFormat : whoHistoryDateTimeFormatType   = short 
+confd_dyncfg_I_confdConfig_I_cli : resetScreenAfterMore : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : editWrapMode : editWrapModeType   = wrap 
+confd_dyncfg_I_confdConfig_I_cli : supportQuotedEOL : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : allowWildcard : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : allowAllAsWildcard : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : allowRangeExpression : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : allowRangeExpressionAllTypes : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : useDoubleDotRanges : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : addExtraTableSpacing : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : suppressRangeKeyword : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : exitModeOnEmptyRange : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : tableLabel : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : tableLookAhead : uint64 [1 .. max]   = 50 
+confd_dyncfg_I_confdConfig_I_cli : moreBufferLines : limitType   = 5000 
+confd_dyncfg_I_confdConfig_I_cli : showTableLabelsIfMultiple : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : defaultTableBehavior : tableBehaviorType   = dynamic 
+confd_dyncfg_I_confdConfig_I_cli : allowTableOverflow : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : tableOverflowTruncate : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : allowTableCellWrap : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : showAllNs : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : useExposeNsPrefix : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : orderedShowConfig : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : suppressFastShow : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : leafPrompting : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : modeInfoInAudit : modeInfoInAuditType   = false 
+confd_dyncfg_I_confdConfig_I_cli : auditLogMode : cliAuditLogType   = all 
+confd_dyncfg_I_confdConfig_I_cli : transactions : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : transactionCtrlCmds : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : actionCallNoListInstance : cliActionNoListInst   = deny-call 
+confd_dyncfg_I_confdConfig_I_cli : style : cliStyle   = j 
+confd_dyncfg_I_confdConfig_I_cli : completionShowMax : cliMax   = 100 
+confd_dyncfg_I_confdConfig_I_cli : rollbackAAA : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : rollbackMax : rollMax   = 1000 
+confd_dyncfg_I_confdConfig_I_cli : rollbackNumbering : rollNumbering   = rolling 
+confd_dyncfg_I_confdConfig_I_cli : rollbackNumberingInitial : int64   = 10000 
+confd_dyncfg_I_confdConfig_I_cli : inconsistentDatabaseSuffix : string   =  
+confd_dyncfg_I_confdConfig_I_cli : showDefaults : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : reallocateOperTrans : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : quickSshTeardown : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : cAlignLeafValues : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : jAlignLeafValues : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : defaultPrefix : string   =  
+confd_dyncfg_I_confdConfig_I_cli : jWarningPrefix : string   = Warning:  
+confd_dyncfg_I_confdConfig_I_cli : jAbortedPrefix : string   = Aborted:  
+confd_dyncfg_I_confdConfig_I_cli : jErrorPrefix : string   = Error:  
+confd_dyncfg_I_confdConfig_I_cli : cWarningPrefix : string   = Warning:  
+confd_dyncfg_I_confdConfig_I_cli : cAbortedPrefix : string   = Aborted:  
+confd_dyncfg_I_confdConfig_I_cli : cErrorPrefix : string   = Error:  
+confd_dyncfg_I_confdConfig_I_cli : invalidDataString : string   = --ERROR-- 
+confd_dyncfg_I_confdConfig_I_cli : showKeyName : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : commitRetryTimeout : timeoutType   = PT0S 
+confd_dyncfg_I_confdConfig_I_cli : timezone : cliTimezoneType   = local 
+confd_dyncfg_I_confdConfig_I_cli : utcOffset : int64   = 0 
+confd_dyncfg_I_confdConfig_I_cli : oldDetailsArg : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : withDefaults : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : ignoreShowWithDefaultOnDiff : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : trimDefaultShow : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : trimDefaultSave : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : banner : string   =  
+confd_dyncfg_I_confdConfig_I_cli : bannerFile : string   =  
+confd_dyncfg_I_confdConfig_I_cli : prompt1 : string   = \u@\h\M>  
+confd_dyncfg_I_confdConfig_I_cli : prompt2 : string   = \u@\h\M%  
+confd_dyncfg_I_confdConfig_I_cli : cPrompt1 : string   = \h\M#  
+confd_dyncfg_I_confdConfig_I_cli : cPrompt2 : string   = \h(\m)#  
+confd_dyncfg_I_confdConfig_I_cli : cStylePromptInJStyle : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : waitLockedConfigMode : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : promptHostnameDelimiter : string   = . 
+confd_dyncfg_I_confdConfig_I_cli : asyncPromptRefresh : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : showLogDirectory : string   = /var/log 
+confd_dyncfg_I_confdConfig_I_cli : idleTimeout : xs:duration   = PT30M 
+confd_dyncfg_I_confdConfig_I_cli : promptSessionsCLI : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : disableIdleTimeoutOnCmd : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : commandTimeout : timeoutType   = infinity 
+class "spaceCompletion" as  confd_dyncfg_I_confdConfig_I_cli_I_spaceCompletion <<container>> 
+confd_dyncfg_I_confdConfig_I_cli *-- "0..1" confd_dyncfg_I_confdConfig_I_cli_I_spaceCompletion 
+note bottom of confd_dyncfg_I_confdConfig_I_cli_I_spaceCompletion
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_cli_I_spaceCompletion : enabled : boolean   = true 
+class "timestamp" as  confd_dyncfg_I_confdConfig_I_cli_I_timestamp <<container>> 
+confd_dyncfg_I_confdConfig_I_cli *-- "0..1" confd_dyncfg_I_confdConfig_I_cli_I_timestamp 
+note bottom of confd_dyncfg_I_confdConfig_I_cli_I_timestamp
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_cli_I_timestamp : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli_I_timestamp : clock24 : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli_I_timestamp : format : string   = \d{l,4}\m{l,5}\D{l,3}\H{r,2,0}:\t{r,2,0}:\s{r,2,0}.\c{l,3,0} UTC\u{l,1}\o{r,2,0}:\k{r,2,0} 
+class "autoWizard" as  confd_dyncfg_I_confdConfig_I_cli_I_autoWizard <<container>> 
+confd_dyncfg_I_confdConfig_I_cli *-- "0..1" confd_dyncfg_I_confdConfig_I_cli_I_autoWizard 
+note bottom of confd_dyncfg_I_confdConfig_I_cli_I_autoWizard
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_cli_I_autoWizard : enabled : boolean   = true 
+class "ssh" as  confd_dyncfg_I_confdConfig_I_cli_I_ssh <<container>> 
+confd_dyncfg_I_confdConfig_I_cli *-- "0..1" confd_dyncfg_I_confdConfig_I_cli_I_ssh 
+note bottom of confd_dyncfg_I_confdConfig_I_cli_I_ssh
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_cli_I_ssh : enabled : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli_I_ssh : ip : inet:ip-address   = 0.0.0.0 
+confd_dyncfg_I_confdConfig_I_cli_I_ssh : port : inet:port-number   = 2024 
+confd_dyncfg_I_confdConfig_I_cli_I_ssh : extraIpPorts []: xs:token 
+confd_dyncfg_I_confdConfig_I_cli_I_ssh : dscp : dscpType  
+confd_dyncfg_I_confdConfig_I_cli_I_ssh : banner : string   =  
+confd_dyncfg_I_confdConfig_I_cli_I_ssh : bannerFile : string   =  
+confd_dyncfg_I_confdConfig_I_cli : commitMessage : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : commitMessageFormat : string   = \nSystem message at $(time)...\nCommit performed by $(user) via $(proto) using $(ctx).\n 
+class "suppressCommitMessages" as  confd_dyncfg_I_confdConfig_I_cli_I_suppressCommitMessages <<container>> 
+confd_dyncfg_I_confdConfig_I_cli *-- "0..1" confd_dyncfg_I_confdConfig_I_cli_I_suppressCommitMessages 
+note bottom of confd_dyncfg_I_confdConfig_I_cli_I_suppressCommitMessages
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_cli_I_suppressCommitMessages : context []: string 
+confd_dyncfg_I_confdConfig_I_cli : jShowCR : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : showPipe : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : showPipeConfig : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : disablePipe : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : disablePipeConfig : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : pipeHelpMode : pipeHelpModeType   = auto 
+confd_dyncfg_I_confdConfig_I_cli : jAllowDeleteAll : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : cSilentNo : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : noFollowIncompleteCommand : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : cRestrictiveNo : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : prioritizeSubmodeCmds : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : cExtendedCmdSearch : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : cSuppressCmdSearch : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : enterSubmodeOnLeaf : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : jExtendedShow : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : jShowUnset : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : jShowUnsetText : string   = UNSET 
+confd_dyncfg_I_confdConfig_I_cli : jStatusFormat : string   = [$(status)][$(time)]\n 
+confd_dyncfg_I_confdConfig_I_cli : cModeExitFormat : string   = ! 
+confd_dyncfg_I_confdConfig_I_cli : forcedExitFormat : string   = \nYou are forced out of configure mode by $(sender).\n 
+confd_dyncfg_I_confdConfig_I_cli : showSubsystemMessages : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : ignoreSubsystemFailures : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : showEmptyContainers : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : showTags : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : showAnnotations : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : showServiceMetaData : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : suppressNedErrors : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : jShowTableRecursive : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : cPrivate : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : cTab : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : cTabInfo : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : tabExtend : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : cHelp : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : jHideHelp : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : restrictedFileAccess : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : hideDotFiles : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : restrictedFileRegexp : string   =  
+confd_dyncfg_I_confdConfig_I_cli : historySave : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : historyRemoveDuplicates : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : historyMaxSize : int64   = 1000 
+confd_dyncfg_I_confdConfig_I_cli : messageMaxSize : int64   = 10000 
+confd_dyncfg_I_confdConfig_I_cli : mapActions : cliActionMapType   = both 
+confd_dyncfg_I_confdConfig_I_cli : compactTable : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : compactShow : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : compactStatsShow : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : prettifyStatsName : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : showCommitProgress : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : commitActivityClock : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : confirmUncommitedOnExit : confirmUncommitedOnExitType   = prompt 
+confd_dyncfg_I_confdConfig_I_cli : reconfirmHidden : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : dequoteHidden : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : enumKeyInfo : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : columnStats : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : allowAbbrevCmds : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : allowAbbrevCmdsOnLoad : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : allowAbbrevKeys : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : allowAbbrevParamNames : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : allowAbbrevEnums : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : allowCaseInsensitiveEnums : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : strictRefsOnLoad : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : stopLoadOnError : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : suppressBurstErrors : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : allOrNothingLoad : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : autocommitLoad : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : autocommitLoadChunkSize : uint64 [1 .. max]   = 1 
+confd_dyncfg_I_confdConfig_I_cli : enableLoadMerge : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : loadActivityClock : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : instanceDescription : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : addErrorPrefixSuffix : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : compListCompact : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : completionListLine : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : infoOnMatch : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : externalActionErrorMsg : string  
+confd_dyncfg_I_confdConfig_I_cli : enableDisplayLevel : enableDisplayLevelType   = pipe 
+confd_dyncfg_I_confdConfig_I_cli : defaultDisplayLevel : int64   = 99999999 
+confd_dyncfg_I_confdConfig_I_cli : enableDisplayGroups : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : unifiedHistory : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : modeInfoInAAA : modeInfoInAAAType   = false 
+confd_dyncfg_I_confdConfig_I_cli : cmdAAAForAutowizard : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : cStrictAAA : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : quoteStyle : quoteStyleType   = backslash 
+confd_dyncfg_I_confdConfig_I_cli : laxBarQuoting : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : expandAliasOnCompletion : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : expandAliasEscape : aliasQuoteType   = false 
+confd_dyncfg_I_confdConfig_I_cli : docWrap : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : infoOnTab : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : infoOnSpace : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : newLogout : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : newInsert : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : messageFormat : string   = \nMessage from $(sender) at $(time)...\n$(message)\nEOF\n 
+confd_dyncfg_I_confdConfig_I_cli : messageWordWrap : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : messageQueueSize : int64   = 10 
+confd_dyncfg_I_confdConfig_I_cli : promptEnumLimit : uint64 [0 .. max]   = 4 
+confd_dyncfg_I_confdConfig_I_cli : caseInsensitive : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : caseInsensitiveKeys : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : ignoreLeadingWhitespace : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : indentTemplates : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : wrapInfo : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : wrapPrompt : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : sortShowElems : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : showMatchBeforePossible : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : possibleCompletionsFormat : string   = Possible completions: 
+confd_dyncfg_I_confdConfig_I_cli : matchCompletionsFormat : string   = Possible match completions: 
+confd_dyncfg_I_confdConfig_I_cli : noMatchCompletionsFormat : string   =  
+confd_dyncfg_I_confdConfig_I_cli : showDescription : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : explicitSetCreate : boolean   = false 
+class "templateFilter" as confd_dyncfg_I_confdConfig_I_cli_I_templateFilter << (L, #FF7700) list>> 
+confd_dyncfg_I_confdConfig_I_cli *-- "0..N" confd_dyncfg_I_confdConfig_I_cli_I_templateFilter 
+confd_dyncfg_I_confdConfig_I_cli_I_templateFilter : +name : string  {key} 
+confd_dyncfg_I_confdConfig_I_cli_I_templateFilter : callback : string  
+confd_dyncfg_I_confdConfig_I_cli : escapeBackslash : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : showNedErrorAsInfo : boolean   = true 
+confd_dyncfg_I_confdConfig_I_cli : defaultLeafListStyle : cliLeafListStyleType  
+confd_dyncfg_I_confdConfig_I_cli : bypassAllowAbbrevKeys : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : jEnableLoadMergeLeafList : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : enableLoadMergeLeafList : boolean   = false 
+confd_dyncfg_I_confdConfig_I_cli : enableCliCache : boolean   = true 
+class "webui" as  confd_dyncfg_I_confdConfig_I_webui <<container>> 
+confd_dyncfg_I_confdConfig *-- "0..1" confd_dyncfg_I_confdConfig_I_webui 
+note bottom of confd_dyncfg_I_confdConfig_I_webui
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_webui : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_webui : serverName : xs:token   = localhost 
+confd_dyncfg_I_confdConfig_I_webui : matchHostName : boolean   = false 
+confd_dyncfg_I_confdConfig_I_webui : cacheRefreshSecs : uint64 [0 .. max]   = 0 
+confd_dyncfg_I_confdConfig_I_webui : maxRefEntries : uint64 [0 .. max]   = 100 
+confd_dyncfg_I_confdConfig_I_webui : docroot : string  
+confd_dyncfg_I_confdConfig_I_webui : webuiIndexUrl : string   = /index.html 
+confd_dyncfg_I_confdConfig_I_webui : webuiOneUrl : string   = /webui-one 
+confd_dyncfg_I_confdConfig_I_webui : loginDir : string  
+confd_dyncfg_I_confdConfig_I_webui : customDir : string  
+class "customHeaders" as  confd_dyncfg_I_confdConfig_I_webui_I_customHeaders <<container>> 
+confd_dyncfg_I_confdConfig_I_webui *-- "0..1" confd_dyncfg_I_confdConfig_I_webui_I_customHeaders 
+note bottom of confd_dyncfg_I_confdConfig_I_webui_I_customHeaders
+<b>Presence: </b>
+end note 
+class "header" as confd_dyncfg_I_confdConfig_I_webui_I_customHeaders_I_header << (L, #FF7700) list>> 
+confd_dyncfg_I_confdConfig_I_webui_I_customHeaders *-- "0..N" confd_dyncfg_I_confdConfig_I_webui_I_customHeaders_I_header 
+confd_dyncfg_I_confdConfig_I_webui_I_customHeaders_I_header : +name : string  {key} 
+confd_dyncfg_I_confdConfig_I_webui_I_customHeaders_I_header : value : string   {mandatory}
+confd_dyncfg_I_confdConfig_I_webui : X-Frame-Options : X-Frame-OptionsType   = DENY 
+class "disableAuth" as  confd_dyncfg_I_confdConfig_I_webui_I_disableAuth <<container>> 
+confd_dyncfg_I_confdConfig_I_webui *-- "0..1" confd_dyncfg_I_confdConfig_I_webui_I_disableAuth 
+note bottom of confd_dyncfg_I_confdConfig_I_webui_I_disableAuth
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_webui_I_disableAuth : dir []: string 
+confd_dyncfg_I_confdConfig_I_webui : allowSymlinks : boolean   = true 
+class "transport" as  confd_dyncfg_I_confdConfig_I_webui_I_transport <<container>> 
+confd_dyncfg_I_confdConfig_I_webui *-- "0..1" confd_dyncfg_I_confdConfig_I_webui_I_transport 
+note bottom of confd_dyncfg_I_confdConfig_I_webui_I_transport
+<b>Presence: </b>
+end note 
+class "tcp" as  confd_dyncfg_I_confdConfig_I_webui_I_transport_I_tcp <<container>> 
+confd_dyncfg_I_confdConfig_I_webui_I_transport *-- "0..1" confd_dyncfg_I_confdConfig_I_webui_I_transport_I_tcp 
+note bottom of confd_dyncfg_I_confdConfig_I_webui_I_transport_I_tcp
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_tcp : enabled : boolean   = true 
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_tcp : disableNonAuthRedirect : boolean   = false 
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_tcp : redirect : string  
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_tcp : ip : inet:ip-address   = 0.0.0.0 
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_tcp : port : inet:port-number   = 8008 
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_tcp : extraIpPorts []: xs:token 
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_tcp : dscp : dscpType  
+class "ssl" as  confd_dyncfg_I_confdConfig_I_webui_I_transport_I_ssl <<container>> 
+confd_dyncfg_I_confdConfig_I_webui_I_transport *-- "0..1" confd_dyncfg_I_confdConfig_I_webui_I_transport_I_ssl 
+note bottom of confd_dyncfg_I_confdConfig_I_webui_I_transport_I_ssl
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_ssl : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_ssl : disableNonAuthRedirect : boolean   = false 
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_ssl : redirect : string  
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_ssl : ip : inet:ip-address   = 0.0.0.0 
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_ssl : port : inet:port-number   = 8888 
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_ssl : extraIpPorts []: xs:token 
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_ssl : dscp : dscpType  
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_ssl : keyFile : string  
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_ssl : certFile : string  
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_ssl : caCertFile : string  
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_ssl : verify : verifyType   = 1 
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_ssl : depth : uint64 [0 .. max]   = 1 
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_ssl : ciphers : string   = DEFAULT 
+confd_dyncfg_I_confdConfig_I_webui_I_transport_I_ssl : protocols : string   = DEFAULT 
+class "cgi" as  confd_dyncfg_I_confdConfig_I_webui_I_cgi <<container>> 
+confd_dyncfg_I_confdConfig_I_webui *-- "0..1" confd_dyncfg_I_confdConfig_I_webui_I_cgi 
+note bottom of confd_dyncfg_I_confdConfig_I_webui_I_cgi
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_webui_I_cgi : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_webui_I_cgi : dir : string   = cgi-bin 
+confd_dyncfg_I_confdConfig_I_webui_I_cgi : requestFilter : string  
+confd_dyncfg_I_confdConfig_I_webui_I_cgi : maxRequestLength : uint16  
+class "php" as  confd_dyncfg_I_confdConfig_I_webui_I_cgi_I_php <<container>> 
+confd_dyncfg_I_confdConfig_I_webui_I_cgi *-- "0..1" confd_dyncfg_I_confdConfig_I_webui_I_cgi_I_php 
+note bottom of confd_dyncfg_I_confdConfig_I_webui_I_cgi_I_php
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_webui_I_cgi_I_php : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_webui : idleTimeout : xs:duration   = PT30M 
+confd_dyncfg_I_confdConfig_I_webui : absoluteTimeout : xs:duration   = PT16H 
+confd_dyncfg_I_confdConfig_I_webui : rateLimiting : uint64 [0 .. max]   = 1000000 
+confd_dyncfg_I_confdConfig_I_webui : audit : boolean   = false 
+class "rest" as  confd_dyncfg_I_confdConfig_I_rest <<container>> 
+confd_dyncfg_I_confdConfig *-- "0..1" confd_dyncfg_I_confdConfig_I_rest 
+note bottom of confd_dyncfg_I_confdConfig_I_rest
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_rest : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_rest : showHidden : boolean   = false 
+class "customHeaders" as  confd_dyncfg_I_confdConfig_I_rest_I_customHeaders <<container>> 
+confd_dyncfg_I_confdConfig_I_rest *-- "0..1" confd_dyncfg_I_confdConfig_I_rest_I_customHeaders 
+note bottom of confd_dyncfg_I_confdConfig_I_rest_I_customHeaders
+<b>Presence: </b>
+end note 
+class "header" as confd_dyncfg_I_confdConfig_I_rest_I_customHeaders_I_header << (L, #FF7700) list>> 
+confd_dyncfg_I_confdConfig_I_rest_I_customHeaders *-- "0..N" confd_dyncfg_I_confdConfig_I_rest_I_customHeaders_I_header 
+confd_dyncfg_I_confdConfig_I_rest_I_customHeaders_I_header : +name : string  {key} 
+confd_dyncfg_I_confdConfig_I_rest_I_customHeaders_I_header : value : string   {mandatory}
+class "restconf" as  confd_dyncfg_I_confdConfig_I_restconf <<container>> 
+confd_dyncfg_I_confdConfig *-- "0..1" confd_dyncfg_I_confdConfig_I_restconf 
+note bottom of confd_dyncfg_I_confdConfig_I_restconf
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_restconf : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_restconf : rootResource : string   = restconf 
+confd_dyncfg_I_confdConfig_I_restconf : schemaServerUrl : string {pattern = (http[s]?:)//[a-zA-Z...}  
+class "tokenResponse" as  confd_dyncfg_I_confdConfig_I_restconf_I_tokenResponse <<container>> 
+confd_dyncfg_I_confdConfig_I_restconf *-- "0..1" confd_dyncfg_I_confdConfig_I_restconf_I_tokenResponse 
+note bottom of confd_dyncfg_I_confdConfig_I_restconf_I_tokenResponse
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_restconf_I_tokenResponse : xAuthToken : boolean   = false 
+class "tokenCookie" as  confd_dyncfg_I_confdConfig_I_restconf_I_tokenResponse_I_tokenCookie <<container>> 
+confd_dyncfg_I_confdConfig_I_restconf_I_tokenResponse *-- "0..1" confd_dyncfg_I_confdConfig_I_restconf_I_tokenResponse_I_tokenCookie 
+note bottom of confd_dyncfg_I_confdConfig_I_restconf_I_tokenResponse_I_tokenCookie
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_restconf_I_tokenResponse_I_tokenCookie : +name : string  {key}  =  
+confd_dyncfg_I_confdConfig_I_restconf_I_tokenResponse_I_tokenCookie : directives : string   =  
+class "proxyForwarding" as  confd_dyncfg_I_confdConfig_I_proxyForwarding <<container>> 
+confd_dyncfg_I_confdConfig *-- "0..1" confd_dyncfg_I_confdConfig_I_proxyForwarding 
+note bottom of confd_dyncfg_I_confdConfig_I_proxyForwarding
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_proxyForwarding : autoLogin : boolean   = false 
+class "proxy" as confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy << (L, #FF7700) list>> 
+confd_dyncfg_I_confdConfig_I_proxyForwarding *-- "0..N" confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy 
+confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy : +target : xs:token  {key} 
+confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy : address : inet:host   {mandatory}
+class "netconf" as  confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_netconf <<container>> 
+confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy *-- "0..1" confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_netconf 
+note bottom of confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_netconf
+<b>Presence: </b>
+end note 
+class "transport1" as confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_netconf_I_transport1 <<choice>> 
+confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_netconf .. confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_netconf_I_transport1 : choice 
+class "ssh" as confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_netconf_I_transport1_I_ssh_case <<case>> 
+confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_netconf_I_transport1 .. confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_netconf_I_transport1_I_ssh_case : choice transport1
+class "ssh" as  confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_netconf_I_transport1_I_ssh <<container>> 
+confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_netconf_I_transport1_I_ssh_case *-- "1" confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_netconf_I_transport1_I_ssh 
+confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_netconf_I_transport1_I_ssh : port : inet:port-number   = 2022 
+class "tcp" as confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_netconf_I_transport1_I_tcp_case <<case>> 
+confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_netconf_I_transport1 .. confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_netconf_I_transport1_I_tcp_case : choice transport1
+class "tcp" as  confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_netconf_I_transport1_I_tcp <<container>> 
+confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_netconf_I_transport1_I_tcp_case *-- "1" confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_netconf_I_transport1_I_tcp 
+confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_netconf_I_transport1_I_tcp : port : inet:port-number   = 2023 
+class "cli" as  confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_cli <<container>> 
+confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy *-- "0..1" confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_cli 
+note bottom of confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_cli
+<b>Presence: </b>
+end note 
+class "transport" as confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_cli_I_transport <<choice>> 
+confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_cli .. confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_cli_I_transport : choice 
+class "ssh" as confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_cli_I_transport_I_ssh_case <<case>> 
+confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_cli_I_transport .. confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_cli_I_transport_I_ssh_case : choice transport
+class "ssh" as  confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_cli_I_transport_I_ssh <<container>> 
+confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_cli_I_transport_I_ssh_case *-- "1" confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_cli_I_transport_I_ssh 
+confd_dyncfg_I_confdConfig_I_proxyForwarding_I_proxy_I_cli_I_transport_I_ssh : port : inet:port-number   = 22 
+class "snmpAgent" as  confd_dyncfg_I_confdConfig_I_snmpAgent <<container>> 
+confd_dyncfg_I_confdConfig *-- "0..1" confd_dyncfg_I_confdConfig_I_snmpAgent 
+note bottom of confd_dyncfg_I_confdConfig_I_snmpAgent
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_snmpAgent : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_snmpAgent : ip : inet:ip-address   = 0.0.0.0 
+confd_dyncfg_I_confdConfig_I_snmpAgent : port : inet:port-number   = 161 
+confd_dyncfg_I_confdConfig_I_snmpAgent : extraIpPorts []: xs:token 
+confd_dyncfg_I_confdConfig_I_snmpAgent : dscp : dscpType  
+class "mibs" as  confd_dyncfg_I_confdConfig_I_snmpAgent_I_mibs <<container>> 
+confd_dyncfg_I_confdConfig_I_snmpAgent *-- "0..1" confd_dyncfg_I_confdConfig_I_snmpAgent_I_mibs 
+note bottom of confd_dyncfg_I_confdConfig_I_snmpAgent_I_mibs
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_snmpAgent_I_mibs : file []: string 
+confd_dyncfg_I_confdConfig_I_snmpAgent_I_mibs : fromLoadPath : boolean   = false 
+confd_dyncfg_I_confdConfig_I_snmpAgent : temporaryStorageTime : uint32   = 300 
+class "snmpVersions" as  confd_dyncfg_I_confdConfig_I_snmpAgent_I_snmpVersions <<container>> 
+confd_dyncfg_I_confdConfig_I_snmpAgent *-- "0..1" confd_dyncfg_I_confdConfig_I_snmpAgent_I_snmpVersions 
+note bottom of confd_dyncfg_I_confdConfig_I_snmpAgent_I_snmpVersions
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_snmpAgent_I_snmpVersions : v1 : boolean   = true 
+confd_dyncfg_I_confdConfig_I_snmpAgent_I_snmpVersions : v2c : boolean   = true 
+confd_dyncfg_I_confdConfig_I_snmpAgent_I_snmpVersions : v3 : boolean   = true 
+class "snmpEngine" as  confd_dyncfg_I_confdConfig_I_snmpAgent_I_snmpEngine <<container>> 
+confd_dyncfg_I_confdConfig_I_snmpAgent *-- "0..1" confd_dyncfg_I_confdConfig_I_snmpAgent_I_snmpEngine 
+note bottom of confd_dyncfg_I_confdConfig_I_snmpAgent_I_snmpEngine
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_snmpAgent_I_snmpEngine : snmpEngineID : tailf:hex-list   {mandatory}
+confd_dyncfg_I_confdConfig_I_snmpAgent_I_snmpEngine : snmpEngineMaxMessageSize : uint64 [0 .. max]   = 50000 
+confd_dyncfg_I_confdConfig_I_snmpAgent : sessionIgnorePort : boolean   = false 
+confd_dyncfg_I_confdConfig_I_snmpAgent : authenticationFailureNotifyName : string   =  
+class "candidate" as  confd_dyncfg_I_confdConfig_I_snmpAgent_I_candidate <<container>> 
+confd_dyncfg_I_confdConfig_I_snmpAgent *-- "0..1" confd_dyncfg_I_confdConfig_I_snmpAgent_I_candidate 
+note bottom of confd_dyncfg_I_confdConfig_I_snmpAgent_I_candidate
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_snmpAgent_I_candidate : maxLockWait : xs:duration   = PT0S 
+confd_dyncfg_I_confdConfig_I_snmpAgent_I_candidate : pendingChangesAction : pendingChangesActionType   = continue 
+confd_dyncfg_I_confdConfig_I_snmpAgent : dropWhenInUse : boolean   = false 
+confd_dyncfg_I_confdConfig_I_snmpAgent : contexts []: SNMPContextNameType 
+class "system" as  confd_dyncfg_I_confdConfig_I_snmpAgent_I_system <<container>> 
+confd_dyncfg_I_confdConfig_I_snmpAgent *-- "0..1" confd_dyncfg_I_confdConfig_I_snmpAgent_I_system 
+note bottom of confd_dyncfg_I_confdConfig_I_snmpAgent_I_system
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_snmpAgent_I_system : sysDescr : string  
+confd_dyncfg_I_confdConfig_I_snmpAgent_I_system : sysObjectID : yang:object-identifier  
+confd_dyncfg_I_confdConfig_I_snmpAgent_I_system : sysServices : uint64 [0 .. max]   = 72 
+class "sysORTable" as  confd_dyncfg_I_confdConfig_I_snmpAgent_I_system_I_sysORTable <<container>> 
+confd_dyncfg_I_confdConfig_I_snmpAgent_I_system *-- "0..1" confd_dyncfg_I_confdConfig_I_snmpAgent_I_system_I_sysORTable 
+note bottom of confd_dyncfg_I_confdConfig_I_snmpAgent_I_system_I_sysORTable
+<b>Presence: </b>
+end note 
+class "sysOREntry" as confd_dyncfg_I_confdConfig_I_snmpAgent_I_system_I_sysORTable_I_sysOREntry << (L, #FF7700) list>> 
+confd_dyncfg_I_confdConfig_I_snmpAgent_I_system_I_sysORTable *-- "0..N" confd_dyncfg_I_confdConfig_I_snmpAgent_I_system_I_sysORTable_I_sysOREntry 
+confd_dyncfg_I_confdConfig_I_snmpAgent_I_system_I_sysORTable_I_sysOREntry : +sysORIndex : uint64 [0 .. max]  {key} 
+confd_dyncfg_I_confdConfig_I_snmpAgent_I_system_I_sysORTable_I_sysOREntry : sysORID : yang:object-identifier   {mandatory}
+confd_dyncfg_I_confdConfig_I_snmpAgent_I_system_I_sysORTable_I_sysOREntry : sysORDescr : string   {mandatory}
+class "netconf" as  confd_dyncfg_I_confdConfig_I_netconf <<container>> 
+confd_dyncfg_I_confdConfig *-- "0..1" confd_dyncfg_I_confdConfig_I_netconf 
+note bottom of confd_dyncfg_I_confdConfig_I_netconf
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_netconf : enabled : boolean   = true 
+class "transport" as  confd_dyncfg_I_confdConfig_I_netconf_I_transport <<container>> 
+confd_dyncfg_I_confdConfig_I_netconf *-- "0..1" confd_dyncfg_I_confdConfig_I_netconf_I_transport 
+note bottom of confd_dyncfg_I_confdConfig_I_netconf_I_transport
+<b>Presence: </b>
+end note 
+class "ssh" as  confd_dyncfg_I_confdConfig_I_netconf_I_transport_I_ssh <<container>> 
+confd_dyncfg_I_confdConfig_I_netconf_I_transport *-- "0..1" confd_dyncfg_I_confdConfig_I_netconf_I_transport_I_ssh 
+note bottom of confd_dyncfg_I_confdConfig_I_netconf_I_transport_I_ssh
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_netconf_I_transport_I_ssh : enabled : boolean   = true 
+confd_dyncfg_I_confdConfig_I_netconf_I_transport_I_ssh : ip : inet:ip-address   = 0.0.0.0 
+confd_dyncfg_I_confdConfig_I_netconf_I_transport_I_ssh : port : inet:port-number   = 2022 
+confd_dyncfg_I_confdConfig_I_netconf_I_transport_I_ssh : extraIpPorts []: xs:token 
+confd_dyncfg_I_confdConfig_I_netconf_I_transport_I_ssh : dscp : dscpType  
+class "tcp" as  confd_dyncfg_I_confdConfig_I_netconf_I_transport_I_tcp <<container>> 
+confd_dyncfg_I_confdConfig_I_netconf_I_transport *-- "0..1" confd_dyncfg_I_confdConfig_I_netconf_I_transport_I_tcp 
+note bottom of confd_dyncfg_I_confdConfig_I_netconf_I_transport_I_tcp
+<b>Presence: </b>
+end note 
+confd_dyncfg_I_confdConfig_I_netconf_I_transport_I_tcp : enabled : boolean   = false 
+confd_dyncfg_I_confdConfig_I_netconf_I_transport_I_tcp : ip : inet:ip-address   = 0.0.0.0 
+confd_dyncfg_I_confdConfig_I_netconf_I_transport_I_tcp : port : inet:port-number   = 2023 
+confd_dyncfg_I_confdConfig_I_netconf_I_transport_I_tcp : extraIpPorts []: xs:token 
+confd_dyncfg_I_confdConfig_I_netconf_I_transport_I_tcp : dscp : dscpType  
+confd_dyncfg_I_confdConfig_I_netconf : extendedSessions : boolean   = false 
+confd_dyncfg_I_confdConfig_I_netconf : sendDefaults : boolean   = false 
+confd_dyncfg_I_confdConfig_I_netconf : idleTimeout : xs:duration   = PT0S 
+confd_dyncfg_I_confdConfig_I_netconf : writeTimeout : xs:duration   = PT0S 
+confd_dyncfg_I_confdConfig_I_netconf : rpcErrors : rpcErrorType   = close 
+confd_dyncfg_I_confdConfig_I_netconf : maxBatchProcesses : limitType   = unbounded 
+} 
+
+center footer
+ <size:20> UML Generated : 2019-02-21 00:05 </size>
+ endfooter 
+@enduml 

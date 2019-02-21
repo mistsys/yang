@@ -1,0 +1,52 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/cisco-xe-openconfig-vlan-ext.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title cisco-xe-openconfig-vlan-ext 
+package "oc-vlan:openconfig-vlan" as oc_vlan_openconfig_vlan { 
+} 
+package "oc-vlan-types:openconfig-vlan-types" as oc_vlan_types_openconfig_vlan_types { 
+} 
+package "oc-if:openconfig-interfaces" as oc_if_openconfig_interfaces { 
+} 
+note top of oc_vlan_ext_cisco_xe_openconfig_vlan_ext : <b>Namespace: </b> http://cisco.com/ns/yang/cisco-xe-openconfig-vlan-ext \n<b>Prefix: </b> oc-vlan-ext \n<b>Organization : </b>\nCisco Systems \n<b>Revision : </b> 2017-06-14 \n
+package "oc-vlan-ext:cisco-xe-openconfig-vlan-ext" as oc_vlan_ext_cisco_xe_openconfig_vlan_ext { 
+oc_vlan_openconfig_vlan +-- oc_vlan_ext_cisco_xe_openconfig_vlan_ext
+oc_vlan_types_openconfig_vlan_types +-- oc_vlan_ext_cisco_xe_openconfig_vlan_ext
+oc_if_openconfig_interfaces +-- oc_vlan_ext_cisco_xe_openconfig_vlan_ext
+class "cisco-xe-openconfig-vlan-ext" as cisco_xe_openconfig_vlan_ext << (M, #33CCFF) module>> 
+class "default-vlans" as cisco_xe_openconfig_vlan_ext_I_default_vlans_grouping <<(G,Lime) grouping>> 
+class "default-vlan" as cisco_xe_openconfig_vlan_ext_I_default_vlans_I_default_vlan << (L, #FF7700) list>> 
+cisco_xe_openconfig_vlan_ext_I_default_vlans_grouping *-- "0..N" cisco_xe_openconfig_vlan_ext_I_default_vlans_I_default_vlan 
+note bottom of cisco_xe_openconfig_vlan_ext_I_default_vlans_I_default_vlan
+<b>Config = </b>false
+end note 
+cisco_xe_openconfig_vlan_ext_I_default_vlans_I_default_vlan : +vlan-id : uint16 [1 | 1002..1005]  {key} 
+cisco_xe_openconfig_vlan_ext_I_default_vlans_I_default_vlan : name : string  
+cisco_xe_openconfig_vlan_ext_I_default_vlans_I_default_vlan : status : enumeration : {ACTIVE,SUSPENDED,}   = ACTIVE 
+class "ports" as cisco_xe_openconfig_vlan_ext_I_default_vlans_I_default_vlan_I_ports << (L, #FF7700) list>> 
+cisco_xe_openconfig_vlan_ext_I_default_vlans_I_default_vlan *-- "0..N" cisco_xe_openconfig_vlan_ext_I_default_vlans_I_default_vlan_I_ports 
+note bottom of cisco_xe_openconfig_vlan_ext_I_default_vlans_I_default_vlan_I_ports
+<b>Config = </b>false
+end note 
+cisco_xe_openconfig_vlan_ext_I_default_vlans_I_default_vlan_I_ports : interface : string  
+cisco_xe_openconfig_vlan_ext_I_default_vlans_I_default_vlan_I_ports : subinterface : uint32  
+class "/oc-vlan:vlans" as oc_vlan_vlans << (A,CadetBlue) augment>>
+cisco_xe_openconfig_vlan_ext *--  oc_vlan_vlans 
+oc_vlan_vlans : default-vlans {uses} 
+} 
+
+oc_vlan_vlans --> cisco_xe_openconfig_vlan_ext_I_default_vlans_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:54 </size>
+ endfooter 
+@enduml 

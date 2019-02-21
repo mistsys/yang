@@ -1,0 +1,84 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-alarms.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-alarms 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+package "oc-types:openconfig-types" as oc_types_openconfig_types { 
+} 
+package "oc-platform:openconfig-platform" as oc_platform_openconfig_platform { 
+} 
+note top of oc_alarms_openconfig_alarms : <b>Namespace: </b> http://openconfig.net/yang/alarms \n<b>Prefix: </b> oc-alarms \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nwww.openconfig.net \n<b>Revision : </b> 2017-08-24 \n
+package "oc-alarms:openconfig-alarms" as oc_alarms_openconfig_alarms { 
+oc_ext_openconfig_extensions +-- oc_alarms_openconfig_alarms
+oc_types_openconfig_types +-- oc_alarms_openconfig_alarms
+oc_platform_openconfig_platform +-- oc_alarms_openconfig_alarms
+class "openconfig-alarms" as openconfig_alarms << (M, #33CCFF) module>> 
+class "alarm-state" as openconfig_alarms_I_alarm_state_grouping <<(G,Lime) grouping>> 
+openconfig_alarms_I_alarm_state_grouping : resource : string  
+openconfig_alarms_I_alarm_state_grouping : text : string  
+openconfig_alarms_I_alarm_state_grouping : time-created : oc-types:timeticks64  
+openconfig_alarms_I_alarm_state_grouping : severity : identityref {OPENCONFIG_ALARM_SEVERITY}  
+openconfig_alarms_I_alarm_state_grouping : type-id : union{string, identityref}  
+class "alarm-config" as openconfig_alarms_I_alarm_config_grouping <<(G,Lime) grouping>> 
+openconfig_alarms_I_alarm_config_grouping : id : string  
+class "alarms-top" as openconfig_alarms_I_alarms_top_grouping <<(G,Lime) grouping>> 
+class "alarms" as  openconfig_alarms_I_alarms_top_I_alarms <<container>> 
+openconfig_alarms_I_alarms_top_grouping *-- "1" openconfig_alarms_I_alarms_top_I_alarms 
+class "alarm" as openconfig_alarms_I_alarms_top_I_alarms_I_alarm << (L, #FF7700) list>> 
+openconfig_alarms_I_alarms_top_I_alarms *-- "0..N" openconfig_alarms_I_alarms_top_I_alarms_I_alarm 
+openconfig_alarms_I_alarms_top_I_alarms_I_alarm : +id : leafref : ../config/id  {key} 
+class "config" as  openconfig_alarms_I_alarms_top_I_alarms_I_alarm_I_config <<container>> 
+openconfig_alarms_I_alarms_top_I_alarms_I_alarm *-- "1" openconfig_alarms_I_alarms_top_I_alarms_I_alarm_I_config 
+openconfig_alarms_I_alarms_top_I_alarms_I_alarm_I_config : alarm-config {uses} 
+class "state" as  openconfig_alarms_I_alarms_top_I_alarms_I_alarm_I_state <<container>> 
+openconfig_alarms_I_alarms_top_I_alarms_I_alarm *-- "1" openconfig_alarms_I_alarms_top_I_alarms_I_alarm_I_state 
+note bottom of openconfig_alarms_I_alarms_top_I_alarms_I_alarm_I_state
+<b>Config = </b>false
+end note 
+openconfig_alarms_I_alarms_top_I_alarms_I_alarm_I_state : alarm-config {uses} 
+openconfig_alarms_I_alarms_top_I_alarms_I_alarm_I_state : alarm-state {uses} 
+class "/oc-platform:components/oc-platform:component/oc-platform:state" as oc_platform_components_oc_platform_component_oc_platform_state << (A,CadetBlue) augment>>
+openconfig_alarms *--  oc_platform_components_oc_platform_component_oc_platform_state 
+oc_platform_components_oc_platform_component_oc_platform_state : equipment-failure : boolean   = false 
+oc_platform_components_oc_platform_component_oc_platform_state : equipment-mismatch : boolean   = false 
+class "OPENCONFIG_ALARM_TYPE_ID" as OPENCONFIG_ALARM_TYPE_ID << (I,Silver) identity>> 
+class "AIS" as AIS << (I,Silver) identity>> 
+OPENCONFIG_ALARM_TYPE_ID <|-- AIS 
+class "EQPT" as EQPT << (I,Silver) identity>> 
+OPENCONFIG_ALARM_TYPE_ID <|-- EQPT 
+class "LOS" as LOS << (I,Silver) identity>> 
+OPENCONFIG_ALARM_TYPE_ID <|-- LOS 
+class "OTS" as OTS << (I,Silver) identity>> 
+OPENCONFIG_ALARM_TYPE_ID <|-- OTS 
+class "OPENCONFIG_ALARM_SEVERITY" as OPENCONFIG_ALARM_SEVERITY << (I,Silver) identity>> 
+class "UNKNOWN" as UNKNOWN << (I,Silver) identity>> 
+OPENCONFIG_ALARM_SEVERITY <|-- UNKNOWN 
+class "MINOR" as MINOR << (I,Silver) identity>> 
+OPENCONFIG_ALARM_SEVERITY <|-- MINOR 
+class "WARNING" as WARNING << (I,Silver) identity>> 
+OPENCONFIG_ALARM_SEVERITY <|-- WARNING 
+class "MAJOR" as MAJOR << (I,Silver) identity>> 
+OPENCONFIG_ALARM_SEVERITY <|-- MAJOR 
+class "CRITICAL" as CRITICAL << (I,Silver) identity>> 
+OPENCONFIG_ALARM_SEVERITY <|-- CRITICAL 
+openconfig_alarms_I_alarm_state_grouping-->OPENCONFIG_ALARM_SEVERITY: severity
+} 
+
+openconfig_alarms_I_alarms_top_I_alarms_I_alarm_I_config --> openconfig_alarms_I_alarm_config_grouping : uses 
+openconfig_alarms_I_alarms_top_I_alarms_I_alarm_I_state --> openconfig_alarms_I_alarm_config_grouping : uses 
+openconfig_alarms_I_alarms_top_I_alarms_I_alarm_I_state --> openconfig_alarms_I_alarm_state_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:02 </size>
+ endfooter 
+@enduml 

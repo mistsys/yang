@@ -1,0 +1,112 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/Cisco-IOS-XE-mdt-oper.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title Cisco-IOS-XE-mdt-oper 
+package "mdt-common-defs:Cisco-IOS-XE-mdt-common-defs" as mdt_common_defs_Cisco_IOS_XE_mdt_common_defs { 
+} 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+note top of mdt_oper_Cisco_IOS_XE_mdt_oper : <b>Namespace: </b> http://cisco.com/ns/yang/Cisco-IOS-XE-mdt-oper \n<b>Prefix: </b> mdt-oper \n<b>Organization : </b>\nCisco Systems, Inc. \n<b>Contact : </b>\nCisco Systems, Inc. \nCustomer Service \n \nPostal: 170 W Tasman Drive \nSan Jose, CA 95134 \n \nTel: +1 1800 553-NETS \n \nE-mail: cs-yang@cisco.com \n<b>Revision : </b> 2018-06-13 \n
+package "mdt-oper:Cisco-IOS-XE-mdt-oper" as mdt_oper_Cisco_IOS_XE_mdt_oper { 
+mdt_common_defs_Cisco_IOS_XE_mdt_common_defs +-- mdt_oper_Cisco_IOS_XE_mdt_oper
+inet_ietf_inet_types +-- mdt_oper_Cisco_IOS_XE_mdt_oper
+class "Cisco-IOS-XE-mdt-oper" as Cisco_IOS_XE_mdt_oper << (M, #33CCFF) module>> 
+enum "mdt-sub-type" as Cisco_IOS_XE_mdt_oper_I_mdt_sub_type {
+sub-type-dynamic
+sub-type-static
+sub-type-permanent
+}
+enum "mdt-sub-state" as Cisco_IOS_XE_mdt_oper_I_mdt_sub_state {
+sub-state-valid
+sub-state-suspended
+sub-state-terminated
+MORE
+}
+enum "mdt-receiver-state" as Cisco_IOS_XE_mdt_oper_I_mdt_receiver_state {
+rcvr-state-invalid
+rcvr-state-disconnected
+rcvr-state-connecting
+MORE
+}
+enum "mdt-con-state" as Cisco_IOS_XE_mdt_oper_I_mdt_con_state {
+con-state-active
+con-state-connecting
+con-state-pending
+MORE
+}
+class "mdt-stream" as Cisco_IOS_XE_mdt_oper_I_mdt_stream_grouping <<(G,Lime) grouping>> 
+Cisco_IOS_XE_mdt_oper_I_mdt_stream_grouping : stream []: string 
+class "mdt-subscription-oper" as Cisco_IOS_XE_mdt_oper_I_mdt_subscription_oper_grouping <<(G,Lime) grouping>> 
+Cisco_IOS_XE_mdt_oper_I_mdt_subscription_oper_grouping : subscription-id : uint32  
+class "base" as  Cisco_IOS_XE_mdt_oper_I_mdt_subscription_oper_I_base <<container>> 
+Cisco_IOS_XE_mdt_oper_I_mdt_subscription_oper_grouping *-- "1" Cisco_IOS_XE_mdt_oper_I_mdt_subscription_oper_I_base 
+Cisco_IOS_XE_mdt_oper_I_mdt_subscription_oper_I_base : mdt-common-defs:mdt-subscription-base {uses} 
+Cisco_IOS_XE_mdt_oper_I_mdt_subscription_oper_grouping : type : mdt-oper:mdt-sub-type  
+Cisco_IOS_XE_mdt_oper_I_mdt_subscription_oper_grouping : state : mdt-oper:mdt-sub-state  
+Cisco_IOS_XE_mdt_oper_I_mdt_subscription_oper_grouping : comments : string  
+Cisco_IOS_XE_mdt_oper_I_mdt_subscription_oper_grouping : updates-in : uint64  
+Cisco_IOS_XE_mdt_oper_I_mdt_subscription_oper_grouping : updates-dampened : uint64  
+Cisco_IOS_XE_mdt_oper_I_mdt_subscription_oper_grouping : updates-dropped : uint64  
+class "mdt-receivers" as Cisco_IOS_XE_mdt_oper_I_mdt_subscription_oper_I_mdt_receivers << (L, #FF7700) list>> 
+Cisco_IOS_XE_mdt_oper_I_mdt_subscription_oper_grouping *-- "0..N" Cisco_IOS_XE_mdt_oper_I_mdt_subscription_oper_I_mdt_receivers 
+Cisco_IOS_XE_mdt_oper_I_mdt_subscription_oper_I_mdt_receivers : mdt-oper:mdt-receiver-oper {uses} 
+Cisco_IOS_XE_mdt_oper_I_mdt_subscription_oper_I_mdt_receivers : mdt-common-defs:mdt-receiver-id {uses} 
+class "mdt-receiver-oper" as Cisco_IOS_XE_mdt_oper_I_mdt_receiver_oper_grouping <<(G,Lime) grouping>> 
+Cisco_IOS_XE_mdt_oper_I_mdt_receiver_oper_grouping : protocol : string  
+Cisco_IOS_XE_mdt_oper_I_mdt_receiver_oper_grouping : state : mdt-oper:mdt-receiver-state  
+Cisco_IOS_XE_mdt_oper_I_mdt_receiver_oper_grouping : comments : string  
+Cisco_IOS_XE_mdt_oper_I_mdt_receiver_oper_grouping : profile : string  
+class "mdt-connection-id" as Cisco_IOS_XE_mdt_oper_I_mdt_connection_id_grouping <<(G,Lime) grouping>> 
+Cisco_IOS_XE_mdt_oper_I_mdt_connection_id_grouping : +address : inet:ip-address  {key} 
+Cisco_IOS_XE_mdt_oper_I_mdt_connection_id_grouping : +port : uint16  {key} 
+Cisco_IOS_XE_mdt_oper_I_mdt_connection_id_grouping : source-vrf : string  
+Cisco_IOS_XE_mdt_oper_I_mdt_connection_id_grouping : source-address : inet:ip-address  
+class "mdt-connection-data" as Cisco_IOS_XE_mdt_oper_I_mdt_connection_data_grouping <<(G,Lime) grouping>> 
+Cisco_IOS_XE_mdt_oper_I_mdt_connection_data_grouping : transport : string  
+Cisco_IOS_XE_mdt_oper_I_mdt_connection_data_grouping : peer-id : string  
+Cisco_IOS_XE_mdt_oper_I_mdt_connection_data_grouping : state : mdt-oper:mdt-con-state  
+class "mdt-sub-con-stats" as Cisco_IOS_XE_mdt_oper_I_mdt_connection_data_I_mdt_sub_con_stats << (L, #FF7700) list>> 
+Cisco_IOS_XE_mdt_oper_I_mdt_connection_data_grouping *-- "0..N" Cisco_IOS_XE_mdt_oper_I_mdt_connection_data_I_mdt_sub_con_stats 
+Cisco_IOS_XE_mdt_oper_I_mdt_connection_data_I_mdt_sub_con_stats : mdt-oper:mdt-sub-con-stats {uses} 
+Cisco_IOS_XE_mdt_oper_I_mdt_connection_data_grouping : profile : string  
+class "mdt-sub-con-stats" as Cisco_IOS_XE_mdt_oper_I_mdt_sub_con_stats_grouping <<(G,Lime) grouping>> 
+Cisco_IOS_XE_mdt_oper_I_mdt_sub_con_stats_grouping : +sub-id : uint32  {key} 
+Cisco_IOS_XE_mdt_oper_I_mdt_sub_con_stats_grouping : updates-sent : uint64  
+Cisco_IOS_XE_mdt_oper_I_mdt_sub_con_stats_grouping : updates-dropped : uint64  
+class "mdt-oper-data" as  Cisco_IOS_XE_mdt_oper_I_mdt_oper_data <<container>> 
+Cisco_IOS_XE_mdt_oper *-- "1" Cisco_IOS_XE_mdt_oper_I_mdt_oper_data 
+note bottom of Cisco_IOS_XE_mdt_oper_I_mdt_oper_data
+<b>Config = </b>false
+end note 
+class "mdt-streams" as  Cisco_IOS_XE_mdt_oper_I_mdt_oper_data_I_mdt_streams <<container>> 
+Cisco_IOS_XE_mdt_oper_I_mdt_oper_data *-- "1" Cisco_IOS_XE_mdt_oper_I_mdt_oper_data_I_mdt_streams 
+Cisco_IOS_XE_mdt_oper_I_mdt_oper_data_I_mdt_streams : mdt-oper:mdt-stream {uses} 
+class "mdt-subscriptions" as Cisco_IOS_XE_mdt_oper_I_mdt_oper_data_I_mdt_subscriptions << (L, #FF7700) list>> 
+Cisco_IOS_XE_mdt_oper_I_mdt_oper_data *-- "0..N" Cisco_IOS_XE_mdt_oper_I_mdt_oper_data_I_mdt_subscriptions 
+Cisco_IOS_XE_mdt_oper_I_mdt_oper_data_I_mdt_subscriptions : mdt-oper:mdt-subscription-oper {uses} 
+class "mdt-connections" as Cisco_IOS_XE_mdt_oper_I_mdt_oper_data_I_mdt_connections << (L, #FF7700) list>> 
+Cisco_IOS_XE_mdt_oper_I_mdt_oper_data *-- "0..N" Cisco_IOS_XE_mdt_oper_I_mdt_oper_data_I_mdt_connections 
+Cisco_IOS_XE_mdt_oper_I_mdt_oper_data_I_mdt_connections : mdt-oper:mdt-connection-data {uses} 
+Cisco_IOS_XE_mdt_oper_I_mdt_oper_data_I_mdt_connections : mdt-oper:mdt-connection-id {uses} 
+} 
+
+Cisco_IOS_XE_mdt_oper_I_mdt_subscription_oper_I_mdt_receivers --> Cisco_IOS_XE_mdt_oper_I_mdt_receiver_oper_grouping : uses 
+Cisco_IOS_XE_mdt_oper_I_mdt_connection_data_I_mdt_sub_con_stats --> Cisco_IOS_XE_mdt_oper_I_mdt_sub_con_stats_grouping : uses 
+Cisco_IOS_XE_mdt_oper_I_mdt_oper_data_I_mdt_streams --> Cisco_IOS_XE_mdt_oper_I_mdt_stream_grouping : uses 
+Cisco_IOS_XE_mdt_oper_I_mdt_oper_data_I_mdt_subscriptions --> Cisco_IOS_XE_mdt_oper_I_mdt_subscription_oper_grouping : uses 
+Cisco_IOS_XE_mdt_oper_I_mdt_oper_data_I_mdt_connections --> Cisco_IOS_XE_mdt_oper_I_mdt_connection_data_grouping : uses 
+Cisco_IOS_XE_mdt_oper_I_mdt_oper_data_I_mdt_connections --> Cisco_IOS_XE_mdt_oper_I_mdt_connection_id_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:00 </size>
+ endfooter 
+@enduml 

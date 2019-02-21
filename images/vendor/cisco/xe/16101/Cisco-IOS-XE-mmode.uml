@@ -1,0 +1,77 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/Cisco-IOS-XE-mmode.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title Cisco-IOS-XE-mmode 
+package "ios:Cisco-IOS-XE-native" as ios_Cisco_IOS_XE_native { 
+} 
+note top of ios_mmode_Cisco_IOS_XE_mmode : <b>Namespace: </b> http://cisco.com/ns/yang/Cisco-IOS-XE-mmode \n<b>Prefix: </b> ios-mmode \n<b>Revision : </b> 2017-11-29 \n
+package "ios-mmode:Cisco-IOS-XE-mmode" as ios_mmode_Cisco_IOS_XE_mmode { 
+ios_Cisco_IOS_XE_native +-- ios_mmode_Cisco_IOS_XE_mmode
+class "Cisco-IOS-XE-mmode" as Cisco_IOS_XE_mmode << (M, #33CCFF) module>> 
+class "/ios:native/ios:system" as ios_native_ios_system << (A,CadetBlue) augment>>
+Cisco_IOS_XE_mmode *--  ios_native_ios_system 
+class "mode" as  Cisco_IOS_XE_native_I_native_I_system_I_mode <<container>> 
+ios_native_ios_system *-- "1" Cisco_IOS_XE_native_I_native_I_system_I_mode 
+class "maintenance" as  Cisco_IOS_XE_native_I_native_I_system_I_mode_I_maintenance <<container>> 
+Cisco_IOS_XE_native_I_native_I_system_I_mode *-- "0..1" Cisco_IOS_XE_native_I_native_I_system_I_mode_I_maintenance 
+note bottom of Cisco_IOS_XE_native_I_native_I_system_I_mode_I_maintenance
+<b>Presence: </b>true
+end note 
+class "config-maintenance" as  Cisco_IOS_XE_native_I_native_I_system_I_mode_I_maintenance_I_config_maintenance <<container>> 
+Cisco_IOS_XE_native_I_native_I_system_I_mode_I_maintenance *-- "1" Cisco_IOS_XE_native_I_native_I_system_I_mode_I_maintenance_I_config_maintenance 
+Cisco_IOS_XE_native_I_native_I_system_I_mode_I_maintenance_I_config_maintenance : failsafe : uint8 [15..180]  
+class "on-reload" as  Cisco_IOS_XE_native_I_native_I_system_I_mode_I_maintenance_I_config_maintenance_I_on_reload <<container>> 
+Cisco_IOS_XE_native_I_native_I_system_I_mode_I_maintenance_I_config_maintenance *-- "1" Cisco_IOS_XE_native_I_native_I_system_I_mode_I_maintenance_I_config_maintenance_I_on_reload 
+class "reset-reason" as  Cisco_IOS_XE_native_I_native_I_system_I_mode_I_maintenance_I_config_maintenance_I_on_reload_I_reset_reason <<container>> 
+Cisco_IOS_XE_native_I_native_I_system_I_mode_I_maintenance_I_config_maintenance_I_on_reload *-- "1" Cisco_IOS_XE_native_I_native_I_system_I_mode_I_maintenance_I_config_maintenance_I_on_reload_I_reset_reason 
+Cisco_IOS_XE_native_I_native_I_system_I_mode_I_maintenance_I_config_maintenance_I_on_reload_I_reset_reason : maintenance : empty  
+Cisco_IOS_XE_native_I_native_I_system_I_mode_I_maintenance_I_config_maintenance : template : string  
+Cisco_IOS_XE_native_I_native_I_system_I_mode_I_maintenance_I_config_maintenance : timeout : uint8 [15..180]  
+class "/ios:native" as ios_native << (A,CadetBlue) augment>>
+Cisco_IOS_XE_mmode *--  ios_native 
+class "maintenance-template" as Cisco_IOS_XE_native_I_native_I_maintenance_template << (L, #FF7700) list>> 
+ios_native *-- "0..N" Cisco_IOS_XE_native_I_native_I_maintenance_template 
+Cisco_IOS_XE_native_I_native_I_maintenance_template : +templ-name : string  {key} 
+class "config-maintenance-templ" as  Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ <<container>> 
+Cisco_IOS_XE_native_I_native_I_maintenance_template *-- "1" Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ 
+class "router" as  Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_router <<container>> 
+Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ *-- "1" Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_router 
+class "routing-protocol" as Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_router_I_routing_protocol << (L, #FF7700) list>> 
+Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_router *-- "0..N" Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_router_I_routing_protocol : ordered-by : user
+Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_router_I_routing_protocol : +protocol : enumeration : {bgp,isis,ospf,...}  {key} 
+Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_router_I_routing_protocol : +instance : uint16 [1..65535]  {key} 
+class "hsrp" as Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_hsrp << (L, #FF7700) list>> 
+Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ *-- "0..N" Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_hsrp : ordered-by : user
+Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_hsrp : +interface : string  {key} 
+Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_hsrp : +group-number : uint16 [0..255]  {key} 
+class "vrrp" as Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_vrrp << (L, #FF7700) list>> 
+Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ *-- "0..N" Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_vrrp : ordered-by : user
+Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_vrrp : +interface : string  {key} 
+Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_vrrp : +group-number : uint16 [0..255]  {key} 
+class "vrrpv3" as Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_vrrpv3 << (L, #FF7700) list>> 
+Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ *-- "0..N" Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_vrrpv3 : ordered-by : user
+Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_vrrpv3 : +interface : string  {key} 
+Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_vrrpv3 : +group-number : uint16 [0..255]  {key} 
+Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_vrrpv3 : +address-family : enumeration : {ipv4,ipv6,}  {key} 
+class "shutdown" as  Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_shutdown <<container>> 
+Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ *-- "1" Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_shutdown 
+Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_shutdown : l2 : empty  
+class "ipmulticast" as  Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_ipmulticast <<container>> 
+Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ *-- "1" Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_ipmulticast 
+Cisco_IOS_XE_native_I_native_I_maintenance_template_I_config_maintenance_templ_I_ipmulticast : vrf []: string 
+} 
+
+center footer
+ <size:20> UML Generated : 2019-02-21 00:36 </size>
+ endfooter 
+@enduml 

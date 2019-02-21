@@ -1,0 +1,128 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-openflow.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-openflow 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+package "oc-inet:openconfig-inet-types" as oc_inet_openconfig_inet_types { 
+} 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "oc-if:openconfig-interfaces" as oc_if_openconfig_interfaces { 
+} 
+package "of-types:openconfig-openflow-types" as of_types_openconfig_openflow_types { 
+} 
+package "oc-sys:openconfig-system" as oc_sys_openconfig_system { 
+} 
+note top of openflow_openconfig_openflow : <b>Namespace: </b> http://openconfig.net/yang/openflow \n<b>Prefix: </b> openflow \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nwww.openconfig.net \n<b>Revision : </b> 2017-06-01 \n
+package "openflow:openconfig-openflow" as openflow_openconfig_openflow { 
+oc_ext_openconfig_extensions +-- openflow_openconfig_openflow
+oc_inet_openconfig_inet_types +-- openflow_openconfig_openflow
+inet_ietf_inet_types +-- openflow_openconfig_openflow
+oc_if_openconfig_interfaces +-- openflow_openconfig_openflow
+of_types_openconfig_openflow_types +-- openflow_openconfig_openflow
+oc_sys_openconfig_system +-- openflow_openconfig_openflow
+class "openconfig-openflow" as openconfig_openflow << (M, #33CCFF) module>> 
+class "openflow-controller-config" as openconfig_openflow_I_openflow_controller_config_grouping <<(G,Lime) grouping>> 
+openconfig_openflow_I_openflow_controller_config_grouping : name : string  
+class "openflow-controller-state" as openconfig_openflow_I_openflow_controller_state_grouping <<(G,Lime) grouping>> 
+class "openflow-controllers-top" as openconfig_openflow_I_openflow_controllers_top_grouping <<(G,Lime) grouping>> 
+class "controllers" as  openconfig_openflow_I_openflow_controllers_top_I_controllers <<container>> 
+openconfig_openflow_I_openflow_controllers_top_grouping *-- "1" openconfig_openflow_I_openflow_controllers_top_I_controllers 
+class "controller" as openconfig_openflow_I_openflow_controllers_top_I_controllers_I_controller << (L, #FF7700) list>> 
+openconfig_openflow_I_openflow_controllers_top_I_controllers *-- "0..N" openconfig_openflow_I_openflow_controllers_top_I_controllers_I_controller 
+openconfig_openflow_I_openflow_controllers_top_I_controllers_I_controller : +name : leafref : ../config/name  {key} 
+class "config" as  openconfig_openflow_I_openflow_controllers_top_I_controllers_I_controller_I_config <<container>> 
+openconfig_openflow_I_openflow_controllers_top_I_controllers_I_controller *-- "1" openconfig_openflow_I_openflow_controllers_top_I_controllers_I_controller_I_config 
+openconfig_openflow_I_openflow_controllers_top_I_controllers_I_controller_I_config : openflow-controller-config {uses} 
+class "state" as  openconfig_openflow_I_openflow_controllers_top_I_controllers_I_controller_I_state <<container>> 
+openconfig_openflow_I_openflow_controllers_top_I_controllers_I_controller *-- "1" openconfig_openflow_I_openflow_controllers_top_I_controllers_I_controller_I_state 
+note bottom of openconfig_openflow_I_openflow_controllers_top_I_controllers_I_controller_I_state
+<b>Config = </b>false
+end note 
+openconfig_openflow_I_openflow_controllers_top_I_controllers_I_controller_I_state : openflow-controller-config {uses} 
+openconfig_openflow_I_openflow_controllers_top_I_controllers_I_controller_I_state : openflow-controller-state {uses} 
+openconfig_openflow_I_openflow_controllers_top_I_controllers_I_controller : openflow-connections-top {uses} 
+class "openflow-connections-config" as openconfig_openflow_I_openflow_connections_config_grouping <<(G,Lime) grouping>> 
+openconfig_openflow_I_openflow_connections_config_grouping : aux-id : of-types:auxiliary-id  
+openconfig_openflow_I_openflow_connections_config_grouping : priority : uint8  
+openconfig_openflow_I_openflow_connections_config_grouping : enable-ports : boolean   = true 
+openconfig_openflow_I_openflow_connections_config_grouping : address : oc-inet:ip-address  
+openconfig_openflow_I_openflow_connections_config_grouping : port : oc-inet:port-number   = 6653 
+openconfig_openflow_I_openflow_connections_config_grouping : transport : of-types:transport   = TCP 
+openconfig_openflow_I_openflow_connections_config_grouping : source-interface : oc-if:base-interface-ref  
+class "openflow-connections-state" as openconfig_openflow_I_openflow_connections_state_grouping <<(G,Lime) grouping>> 
+openconfig_openflow_I_openflow_connections_state_grouping : connected : boolean  
+class "openflow-connections-top" as openconfig_openflow_I_openflow_connections_top_grouping <<(G,Lime) grouping>> 
+class "connections" as  openconfig_openflow_I_openflow_connections_top_I_connections <<container>> 
+openconfig_openflow_I_openflow_connections_top_grouping *-- "1" openconfig_openflow_I_openflow_connections_top_I_connections 
+class "connection" as openconfig_openflow_I_openflow_connections_top_I_connections_I_connection << (L, #FF7700) list>> 
+openconfig_openflow_I_openflow_connections_top_I_connections *-- "0..N" openconfig_openflow_I_openflow_connections_top_I_connections_I_connection 
+openconfig_openflow_I_openflow_connections_top_I_connections_I_connection : +aux-id : leafref : ../config/aux-id  {key} 
+class "config" as  openconfig_openflow_I_openflow_connections_top_I_connections_I_connection_I_config <<container>> 
+openconfig_openflow_I_openflow_connections_top_I_connections_I_connection *-- "1" openconfig_openflow_I_openflow_connections_top_I_connections_I_connection_I_config 
+openconfig_openflow_I_openflow_connections_top_I_connections_I_connection_I_config : openflow-connections-config {uses} 
+class "state" as  openconfig_openflow_I_openflow_connections_top_I_connections_I_connection_I_state <<container>> 
+openconfig_openflow_I_openflow_connections_top_I_connections_I_connection *-- "1" openconfig_openflow_I_openflow_connections_top_I_connections_I_connection_I_state 
+note bottom of openconfig_openflow_I_openflow_connections_top_I_connections_I_connection_I_state
+<b>Config = </b>false
+end note 
+openconfig_openflow_I_openflow_connections_top_I_connections_I_connection_I_state : openflow-connections-config {uses} 
+openconfig_openflow_I_openflow_connections_top_I_connections_I_connection_I_state : openflow-connections-state {uses} 
+class "openflow-agent-config" as openconfig_openflow_I_openflow_agent_config_grouping <<(G,Lime) grouping>> 
+openconfig_openflow_I_openflow_agent_config_grouping : datapath-id : of-types:datapath-id  
+openconfig_openflow_I_openflow_agent_config_grouping : failure-mode : of-types:failure-mode  
+openconfig_openflow_I_openflow_agent_config_grouping : backoff-interval : uint32   {seconds}
+openconfig_openflow_I_openflow_agent_config_grouping : max-backoff : uint32   {seconds}
+openconfig_openflow_I_openflow_agent_config_grouping : inactivity-probe : uint32   {seconds}
+class "openflow-agent-state" as openconfig_openflow_I_openflow_agent_state_grouping <<(G,Lime) grouping>> 
+class "openflow-agent-top" as openconfig_openflow_I_openflow_agent_top_grouping <<(G,Lime) grouping>> 
+class "agent" as  openconfig_openflow_I_openflow_agent_top_I_agent <<container>> 
+openconfig_openflow_I_openflow_agent_top_grouping *-- "1" openconfig_openflow_I_openflow_agent_top_I_agent 
+class "config" as  openconfig_openflow_I_openflow_agent_top_I_agent_I_config <<container>> 
+openconfig_openflow_I_openflow_agent_top_I_agent *-- "1" openconfig_openflow_I_openflow_agent_top_I_agent_I_config 
+openconfig_openflow_I_openflow_agent_top_I_agent_I_config : openflow-agent-config {uses} 
+class "state" as  openconfig_openflow_I_openflow_agent_top_I_agent_I_state <<container>> 
+openconfig_openflow_I_openflow_agent_top_I_agent *-- "1" openconfig_openflow_I_openflow_agent_top_I_agent_I_state 
+note bottom of openconfig_openflow_I_openflow_agent_top_I_agent_I_state
+<b>Config = </b>false
+end note 
+openconfig_openflow_I_openflow_agent_top_I_agent_I_state : openflow-agent-config {uses} 
+openconfig_openflow_I_openflow_agent_top_I_agent_I_state : openflow-agent-state {uses} 
+class "openflow-top" as openconfig_openflow_I_openflow_top_grouping <<(G,Lime) grouping>> 
+class "openflow" as  openconfig_openflow_I_openflow_top_I_openflow <<container>> 
+openconfig_openflow_I_openflow_top_grouping *-- "1" openconfig_openflow_I_openflow_top_I_openflow 
+openconfig_openflow_I_openflow_top_I_openflow : openflow-controllers-top {uses} 
+openconfig_openflow_I_openflow_top_I_openflow : openflow-agent-top {uses} 
+class "/oc-sys:system" as oc_sys_system << (A,CadetBlue) augment>>
+openconfig_openflow *--  oc_sys_system 
+oc_sys_system : openflow-top {uses} 
+} 
+
+openconfig_openflow_I_openflow_controllers_top_I_controllers_I_controller_I_config --> openconfig_openflow_I_openflow_controller_config_grouping : uses 
+openconfig_openflow_I_openflow_controllers_top_I_controllers_I_controller_I_state --> openconfig_openflow_I_openflow_controller_config_grouping : uses 
+openconfig_openflow_I_openflow_controllers_top_I_controllers_I_controller_I_state --> openconfig_openflow_I_openflow_controller_state_grouping : uses 
+openconfig_openflow_I_openflow_controllers_top_I_controllers_I_controller --> openconfig_openflow_I_openflow_connections_top_grouping : uses 
+openconfig_openflow_I_openflow_connections_top_I_connections_I_connection_I_config --> openconfig_openflow_I_openflow_connections_config_grouping : uses 
+openconfig_openflow_I_openflow_connections_top_I_connections_I_connection_I_state --> openconfig_openflow_I_openflow_connections_config_grouping : uses 
+openconfig_openflow_I_openflow_connections_top_I_connections_I_connection_I_state --> openconfig_openflow_I_openflow_connections_state_grouping : uses 
+openconfig_openflow_I_openflow_agent_top_I_agent_I_config --> openconfig_openflow_I_openflow_agent_config_grouping : uses 
+openconfig_openflow_I_openflow_agent_top_I_agent_I_state --> openconfig_openflow_I_openflow_agent_config_grouping : uses 
+openconfig_openflow_I_openflow_agent_top_I_agent_I_state --> openconfig_openflow_I_openflow_agent_state_grouping : uses 
+openconfig_openflow_I_openflow_top_I_openflow --> openconfig_openflow_I_openflow_controllers_top_grouping : uses 
+openconfig_openflow_I_openflow_top_I_openflow --> openconfig_openflow_I_openflow_agent_top_grouping : uses 
+oc_sys_system --> openconfig_openflow_I_openflow_top_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:06 </size>
+ endfooter 
+@enduml 

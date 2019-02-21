@@ -1,0 +1,164 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/cisco-ia.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title cisco-ia 
+package "cisco-sfm:cisco-self-mgmt" as cisco_sfm_cisco_self_mgmt { 
+} 
+package "tailf:tailf-common" as tailf_tailf_common { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+note top of cisco_ia_cisco_ia : <b>Namespace: </b> http://cisco.com/yang/cisco-ia \n<b>Prefix: </b> cisco-ia \n<b>Organization : </b>\nCisco Systems \n<b>Contact : </b>\n<mailto:cs-yang@cisco.com> \n<b>Revision : </b> 2018-08-03 \n
+package "cisco-ia:cisco-ia" as cisco_ia_cisco_ia { 
+cisco_sfm_cisco_self_mgmt +-- cisco_ia_cisco_ia
+tailf_tailf_common +-- cisco_ia_cisco_ia
+yang_ietf_yang_types +-- cisco_ia_cisco_ia
+class "cisco-ia" as cisco_ia << (M, #33CCFF) module>> 
+class "cisco-ia-output" as cisco_ia_I_cisco_ia_output_grouping <<(G,Lime) grouping>> 
+cisco_ia_I_cisco_ia_output_grouping : result : string  
+enum "parser-msg-processing-method" as cisco_ia_I_parser_msg_processing_method {
+blacklist
+whitelist
+}
+enum "cia-sync-type" as cisco_ia_I_cia_sync_type {
+disabled
+without-defaults
+include-defaults
+}
+enum "cia-log-level" as cisco_ia_I_cia_log_level {
+none
+error
+warning
+MORE
+}
+enum "onep-log-level" as cisco_ia_I_onep_log_level {
+none
+fatal
+error
+MORE
+}
+enum "syslog-severity" as cisco_ia_I_syslog_severity {
+none
+emergency
+alert
+MORE
+}
+cisco_ia : sync-from( in: sync_defaults in: ignore_presrv_paths out: cisco_ia_output)
+cisco_ia : save-config( out: cisco_ia_output)
+cisco_ia : is-syncing( out: cisco_ia_output)
+cisco_ia : checkpoint( out: cisco_ia_output)
+cisco_ia : revert( in: now in: timer in: idle out: cisco_ia_output)
+cisco_ia : rollback( in: target_url in: verbose in: nolock in: revert_on_error in: revert_timer out: cisco_ia_output)
+class "/cisco-sfm:netconf-yang" as cisco_sfm_netconf_yang << (A,CadetBlue) augment>>
+cisco_ia *--  cisco_sfm_netconf_yang 
+class "cisco-ia" as  cisco_self_mgmt_I_netconf_yang_I_cisco_ia <<container>> 
+cisco_sfm_netconf_yang *-- "1" cisco_self_mgmt_I_netconf_yang_I_cisco_ia 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia : auto-sync : cia-sync-type   = without-defaults 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia : init-sync : cia-sync-type   = without-defaults 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia : intelligent-sync : boolean   = true 
+class "snmp-trap-control" as  cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_snmp_trap_control <<container>> 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia *-- "1" cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_snmp_trap_control 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_snmp_trap_control : global-forwarding : boolean   = true 
+class "trap-list" as cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_snmp_trap_control_I_trap_list << (L, #FF7700) list>> 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_snmp_trap_control *-- "0..10" cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_snmp_trap_control_I_trap_list 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_snmp_trap_control_I_trap_list : +trap-oid : yang:object-identifier-128  {key} 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_snmp_trap_control_I_trap_list : description : string  
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_snmp_trap_control_I_trap_list : forward : boolean   = true 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia : message-diag-level : int16 [0..3]   = 0 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia : max-diag-messages-saved : int16 [0..199]   = 30 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia : post-sync-acl-process : boolean   = true 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia : config-change-delay : int16   = 0 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia : process-missing-prc : boolean   = true 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia : missing-prc-method : parser-msg-processing-method   = blacklist 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia : snmp-community-string : string   = private 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia : preserve-paths-enabled : boolean   = false 
+class "preserve-ned-path" as cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_preserve_ned_path << (L, #FF7700) list>> 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia *-- "0..50" cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_preserve_ned_path 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_preserve_ned_path : +xpath : string {length = 1..1024}  {key} 
+class "parser-msg-ignore" as cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_parser_msg_ignore << (L, #FF7700) list>> 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia *-- "0..N" cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_parser_msg_ignore 
+note bottom of cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_parser_msg_ignore
+<b>Config = </b>false
+end note 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_parser_msg_ignore : +message : string {length = 1..255}  {key} 
+class "conf-parser-msg-ignore" as cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_conf_parser_msg_ignore << (L, #FF7700) list>> 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia *-- "0..N" cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_conf_parser_msg_ignore 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_conf_parser_msg_ignore : +message : string {length = 1..255}  {key} 
+class "parser-msg-error" as cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_parser_msg_error << (L, #FF7700) list>> 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia *-- "0..N" cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_parser_msg_error 
+note bottom of cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_parser_msg_error
+<b>Config = </b>false
+end note 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_parser_msg_error : +message : string {length = 1..255}  {key} 
+class "conf-parser-msg-error" as cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_conf_parser_msg_error << (L, #FF7700) list>> 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia *-- "0..N" cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_conf_parser_msg_error 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_conf_parser_msg_error : +message : string {length = 1..255}  {key} 
+class "full-sync-cli" as cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_full_sync_cli << (L, #FF7700) list>> 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia *-- "0..200" cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_full_sync_cli 
+note bottom of cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_full_sync_cli
+<b>Config = </b>false
+end note 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_full_sync_cli : +command : string {length = 1..255}  {key} 
+class "conf-full-sync-cli" as cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_conf_full_sync_cli << (L, #FF7700) list>> 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia *-- "0..50" cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_conf_full_sync_cli 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_conf_full_sync_cli : +command : string {length = 1..255}  {key} 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia : nes-ttynum : int16   {Config : false}
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia : restored : boolean   = false 
+class "logging" as  cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_logging <<container>> 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia *-- "1" cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_logging 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_logging : confd-log-level : syslog-severity   = error 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_logging : ciaauthd-log-level : cia-log-level   = error 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_logging : nes-log-level : cia-log-level   = error 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_logging : onep-log-level : onep-log-level   = error 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_logging : odm-log-level : cia-log-level   = error  {obsolete}
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_logging : sync-log-level : cia-log-level   = error 
+class "blocking" as  cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_blocking <<container>> 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia *-- "1" cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_blocking 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_blocking : cli-blocking-enabled : boolean   = false 
+class "network-element-command" as cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_blocking_I_network_element_command << (L, #FF7700) list>> 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_blocking *-- "0..30" cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_blocking_I_network_element_command 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_blocking_I_network_element_command : +command : string {length = 1..255}  {key} 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_blocking : confd-cfg-blocking-enabled : boolean   = true 
+class "confd-cfg-command" as cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_blocking_I_confd_cfg_command << (L, #FF7700) list>> 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_blocking *-- "0..50" cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_blocking_I_confd_cfg_command 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_blocking_I_confd_cfg_command : +command : string  {key} 
+class "pivot-commands" as  cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_pivot_commands <<container>> 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia *-- "1" cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_pivot_commands 
+class "pivot-command-grouping" as cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_pivot_commands_I_pivot_command_grouping_grouping <<(G,Red) grouping>> 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_pivot_commands_I_pivot_command_grouping_grouping : +command : string {length = 1 .. 255}  {key} 
+class "retry" as  cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_pivot_commands_I_pivot_command_grouping_I_retry <<container>> 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_pivot_commands_I_pivot_command_grouping_grouping *-- "0..1" cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_pivot_commands_I_pivot_command_grouping_I_retry 
+note bottom of cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_pivot_commands_I_pivot_command_grouping_I_retry
+<b>Presence: </b>The pivot command will be retried if it fails.
+end note 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_pivot_commands_I_pivot_command_grouping_I_retry : min-retry-time : uint16 [10 .. 60000]   {milliseconds}
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_pivot_commands_I_pivot_command_grouping_I_retry : max-retry-time : uint16 [10 .. 60000]   {milliseconds}
+class "pivot-command" as cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_pivot_commands_I_pivot_command << (L, #FF7700) list>> 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_pivot_commands *-- "0..N" cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_pivot_commands_I_pivot_command 
+note bottom of cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_pivot_commands_I_pivot_command
+<b>Config = </b>false
+end note 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_pivot_commands_I_pivot_command : pivot-command-grouping {uses} 
+} 
+
+cisco_ia --> cisco_ia_I_cisco_ia_output_grouping : uses 
+cisco_ia --> cisco_ia_I_cisco_ia_output_grouping : uses 
+cisco_ia --> cisco_ia_I_cisco_ia_output_grouping : uses 
+cisco_ia --> cisco_ia_I_cisco_ia_output_grouping : uses 
+cisco_ia --> cisco_ia_I_cisco_ia_output_grouping : uses 
+cisco_ia --> cisco_ia_I_cisco_ia_output_grouping : uses 
+cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_pivot_commands_I_pivot_command --> cisco_self_mgmt_I_netconf_yang_I_cisco_ia_I_pivot_commands_I_pivot_command_grouping_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:45 </size>
+ endfooter 
+@enduml 

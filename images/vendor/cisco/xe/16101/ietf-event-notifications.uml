@@ -1,0 +1,249 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-event-notifications.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-event-notifications 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "if:ietf-interfaces" as if_ietf_interfaces { 
+} 
+note top of notif_bis_ietf_event_notifications : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-event-notifications \n<b>Prefix: </b> notif-bis \n<b>Organization : </b>\nIETF \n<b>Contact : </b>\nWG Web:   &lt;http://tools.ietf.org/wg/netconf/&gt; \nWG List:  &lt;mailto:netconf@ietf.org&gt; \n \nWG Chair: Mahesh Jethanandani \n          &lt;mailto:mjethanandani@gmail.com&gt; \n \nWG Chair: Mehmet Ersue \n          &lt;mailto:mehmet.ersue@nokia.com&gt; \nEditor:   Alexander Clemm \n          &lt;mailto:alex@sympotech.com&gt; \n \nEditor:   Alberto Gonzalez Prieto \n          &lt;mailto:albertgo@cisco.com&gt; \n \nEditor:   Eric Voit \n          &lt;mailto:evoit@cisco.com&gt; \n \nEditor:   Einar Nilsen-Nygaard \n          &lt;mailto:einarnn@cisco.com&gt; \n \nEditor:   Ambika Prasad Tripathy \n          &lt;mailto:ambtripa@cisco.com&gt; \n \nEditor:   Sharon Chisholm \n          &lt;mailto:schishol@ciena.com&gt; \n \nEditor:   Hector Trevino \n          &lt;mailto:htrevino@cisco.com \n<b>Revision : </b> 2016-10-27 \n
+package "notif-bis:ietf-event-notifications" as notif_bis_ietf_event_notifications { 
+yang_ietf_yang_types +-- notif_bis_ietf_event_notifications
+inet_ietf_inet_types +-- notif_bis_ietf_event_notifications
+if_ietf_interfaces +-- notif_bis_ietf_event_notifications
+class "ietf-event-notifications" as ietf_event_notifications << (M, #33CCFF) module>> 
+ietf_event_notifications : feature : json 
+ietf_event_notifications : feature : configured_subscriptions 
+class "subscription-id" as subscription_id << (T, YellowGreen) typedef>>
+subscription_id : uint32
+class "filter-id" as filter_id << (T, YellowGreen) typedef>>
+filter_id : uint32
+class "subscription-result" as subscription_result << (T, YellowGreen) typedef>>
+subscription_result : identityref {subscription-result}
+class "subscription-term-reason" as subscription_term_reason << (T, YellowGreen) typedef>>
+subscription_term_reason : identityref {subscription-errors}
+class "subscription-susp-reason" as subscription_susp_reason << (T, YellowGreen) typedef>>
+subscription_susp_reason : identityref {subscription-errors}
+class "encoding" as encoding << (T, YellowGreen) typedef>>
+encoding : identityref {encodings}
+class "subscription-status" as subscription_status << (T, YellowGreen) typedef>>
+subscription_status : identityref {subscription-stream-status}
+class "transport-protocol" as transport_protocol << (T, YellowGreen) typedef>>
+transport_protocol : identityref {transport}
+enum "push-source" as ietf_event_notifications_I_push_source {
+interface-originated
+address-originated
+}
+class "stream" as stream << (T, YellowGreen) typedef>>
+stream : identityref {stream}
+class "filter-ref" as filter_ref << (T, YellowGreen) typedef>>
+filter_ref : leafref : /notif-bis:filters/notif-bis:filter/notif-bis:filter-id
+class "base-filter" as ietf_event_notifications_I_base_filter_grouping <<(G,Lime) grouping>> 
+class "filter-type" as ietf_event_notifications_I_base_filter_I_filter_type <<choice>> 
+ietf_event_notifications_I_base_filter_grouping .. ietf_event_notifications_I_base_filter_I_filter_type : choice 
+class "rfc5277" as ietf_event_notifications_I_base_filter_I_filter_type_I_rfc5277_case <<case>>
+ietf_event_notifications_I_base_filter_I_filter_type .. ietf_event_notifications_I_base_filter_I_filter_type_I_rfc5277_case  : choice filter-type
+ietf_event_notifications_I_base_filter_I_filter_type_I_rfc5277_case : filter anyxml 
+class "subscription-info-basic-non-modifiable" as ietf_event_notifications_I_subscription_info_basic_non_modifiable_grouping <<(G,Lime) grouping>> 
+ietf_event_notifications_I_subscription_info_basic_non_modifiable_grouping : stream : stream  
+ietf_event_notifications_I_subscription_info_basic_non_modifiable_grouping : encoding : encoding   = encode-xml 
+class "subscription-info-basic-modifiable" as ietf_event_notifications_I_subscription_info_basic_modifiable_grouping <<(G,Lime) grouping>> 
+ietf_event_notifications_I_subscription_info_basic_modifiable_grouping : base-filter {uses} 
+ietf_event_notifications_I_subscription_info_basic_modifiable_grouping : startTime : yang:date-and-time  
+ietf_event_notifications_I_subscription_info_basic_modifiable_grouping : stopTime : yang:date-and-time  
+note bottom of ietf_event_notifications_I_subscription_info_basic_modifiable_grouping
+<b>Must</b> (stopTime):
+current()  > ../startTime
+
+end note 
+class "subscription-info-all-modifiable" as ietf_event_notifications_I_subscription_info_all_modifiable_grouping <<(G,Lime) grouping>> 
+ietf_event_notifications_I_subscription_info_all_modifiable_grouping : subscription-info-basic-modifiable {uses} 
+class "subscription-info" as ietf_event_notifications_I_subscription_info_grouping <<(G,Lime) grouping>> 
+ietf_event_notifications_I_subscription_info_grouping : subscription-info-basic-non-modifiable {uses} 
+ietf_event_notifications_I_subscription_info_grouping : subscription-info-all-modifiable {uses} 
+class "push-source-info" as ietf_event_notifications_I_push_source_info_grouping <<(G,Lime) grouping>> 
+class "push-source" as ietf_event_notifications_I_push_source_info_I_push_source <<choice>> 
+ietf_event_notifications_I_push_source_info_grouping .. ietf_event_notifications_I_push_source_info_I_push_source : choice 
+class "interface-originated" as ietf_event_notifications_I_push_source_info_I_push_source_I_interface_originated_case <<case>>
+ietf_event_notifications_I_push_source_info_I_push_source .. ietf_event_notifications_I_push_source_info_I_push_source_I_interface_originated_case  : choice push-source
+ietf_event_notifications_I_push_source_info_I_push_source_I_interface_originated_case : source-interface : if:interface-ref  
+class "address-originated" as ietf_event_notifications_I_push_source_info_I_push_source_I_address_originated_case <<case>>
+ietf_event_notifications_I_push_source_info_I_push_source .. ietf_event_notifications_I_push_source_info_I_push_source_I_address_originated_case  : choice push-source
+ietf_event_notifications_I_push_source_info_I_push_source_I_address_originated_case : source-vrf : uint32 [16..1048574]  
+ietf_event_notifications_I_push_source_info_I_push_source_I_address_originated_case : source-address : inet:ip-address-no-zone   {mandatory}
+class "receiver-info" as ietf_event_notifications_I_receiver_info_grouping <<(G,Lime) grouping>> 
+class "receivers" as  ietf_event_notifications_I_receiver_info_I_receivers <<container>> 
+ietf_event_notifications_I_receiver_info_grouping *-- "1" ietf_event_notifications_I_receiver_info_I_receivers 
+class "receiver" as ietf_event_notifications_I_receiver_info_I_receivers_I_receiver << (L, #FF7700) list>> 
+ietf_event_notifications_I_receiver_info_I_receivers *-- "1..N" ietf_event_notifications_I_receiver_info_I_receivers_I_receiver 
+ietf_event_notifications_I_receiver_info_I_receivers_I_receiver : +address : inet:host  {key}  {mandatory}
+ietf_event_notifications_I_receiver_info_I_receivers_I_receiver : port : inet:port-number   {mandatory}
+ietf_event_notifications_I_receiver_info_I_receivers_I_receiver : protocol : transport-protocol   = netconf 
+class "subscription-response" as ietf_event_notifications_I_subscription_response_grouping <<(G,Lime) grouping>> 
+ietf_event_notifications_I_subscription_response_grouping : subscription-result : subscription-result   {mandatory}
+class "result" as ietf_event_notifications_I_subscription_response_I_result <<choice>> 
+ietf_event_notifications_I_subscription_response_grouping .. ietf_event_notifications_I_subscription_response_I_result : choice 
+class "success" as ietf_event_notifications_I_subscription_response_I_result_I_success_case <<case>>
+ietf_event_notifications_I_subscription_response_I_result .. ietf_event_notifications_I_subscription_response_I_result_I_success_case  : choice result
+ietf_event_notifications_I_subscription_response_I_result_I_success_case : subscription-id : subscription-id   {mandatory}
+class "no-success" as ietf_event_notifications_I_subscription_response_I_result_I_no_success_case <<case>>
+ietf_event_notifications_I_subscription_response_I_result .. ietf_event_notifications_I_subscription_response_I_result_I_no_success_case  : choice result
+ietf_event_notifications_I_subscription_response_I_result_I_no_success_case : subscription-info {uses} 
+ietf_event_notifications : establish-subscription( in: subscription_info out: subscription_response)
+ietf_event_notifications : create-subscription( in: subscription_info_basic_non_modifiable in: subscription_info_basic_modifiable)
+ietf_event_notifications : modify-subscription( in: subscription_id in: subscription_info_all_modifiable out: subscription_response)
+ietf_event_notifications : delete-subscription( in: subscription_id out: subscription_result)
+class "replay-complete" as ietf_event_notifications_I_replay_complete << (N,#00D1B2) notification>> 
+ietf_event_notifications -- ietf_event_notifications_I_replay_complete : notification 
+ietf_event_notifications_I_replay_complete : subscription-id : subscription-id   {mandatory}
+class "notification-complete" as ietf_event_notifications_I_notification_complete << (N,#00D1B2) notification>> 
+ietf_event_notifications -- ietf_event_notifications_I_notification_complete : notification 
+ietf_event_notifications_I_notification_complete : subscription-id : subscription-id   {mandatory}
+class "subscription-started" as ietf_event_notifications_I_subscription_started << (N,#00D1B2) notification>> 
+ietf_event_notifications -- ietf_event_notifications_I_subscription_started : notification 
+ietf_event_notifications_I_subscription_started : subscription-id : subscription-id   {mandatory}
+ietf_event_notifications_I_subscription_started : subscription-info {uses} 
+class "subscription-suspended" as ietf_event_notifications_I_subscription_suspended << (N,#00D1B2) notification>> 
+ietf_event_notifications -- ietf_event_notifications_I_subscription_suspended : notification 
+ietf_event_notifications_I_subscription_suspended : subscription-id : subscription-id   {mandatory}
+ietf_event_notifications_I_subscription_suspended : reason : subscription-susp-reason  
+class "subscription-resumed" as ietf_event_notifications_I_subscription_resumed << (N,#00D1B2) notification>> 
+ietf_event_notifications -- ietf_event_notifications_I_subscription_resumed : notification 
+ietf_event_notifications_I_subscription_resumed : subscription-id : subscription-id   {mandatory}
+class "subscription-modified" as ietf_event_notifications_I_subscription_modified << (N,#00D1B2) notification>> 
+ietf_event_notifications -- ietf_event_notifications_I_subscription_modified : notification 
+ietf_event_notifications_I_subscription_modified : subscription-id : subscription-id   {mandatory}
+ietf_event_notifications_I_subscription_modified : subscription-info {uses} 
+class "subscription-terminated" as ietf_event_notifications_I_subscription_terminated << (N,#00D1B2) notification>> 
+ietf_event_notifications -- ietf_event_notifications_I_subscription_terminated : notification 
+ietf_event_notifications_I_subscription_terminated : subscription-id : subscription-id   {mandatory}
+ietf_event_notifications_I_subscription_terminated : reason : subscription-term-reason  
+class "streams" as  ietf_event_notifications_I_streams <<container>> 
+ietf_event_notifications *-- "1" ietf_event_notifications_I_streams 
+note bottom of ietf_event_notifications_I_streams
+<b>Config = </b>false
+end note 
+ietf_event_notifications_I_streams : stream []: stream 
+class "filters" as  ietf_event_notifications_I_filters <<container>> 
+ietf_event_notifications *-- "1" ietf_event_notifications_I_filters 
+class "filter" as ietf_event_notifications_I_filters_I_filter << (L, #FF7700) list>> 
+ietf_event_notifications_I_filters *-- "0..N" ietf_event_notifications_I_filters_I_filter 
+ietf_event_notifications_I_filters_I_filter : +filter-id : filter-id  {key} 
+ietf_event_notifications_I_filters_I_filter : base-filter {uses} 
+class "subscription-config" as  ietf_event_notifications_I_subscription_config <<container>> 
+ietf_event_notifications *-- "1" ietf_event_notifications_I_subscription_config 
+note bottom of ietf_event_notifications_I_subscription_config
+<b>if-feature: </b>configured-subscriptions
+end note 
+class "subscription" as ietf_event_notifications_I_subscription_config_I_subscription << (L, #FF7700) list>> 
+ietf_event_notifications_I_subscription_config *-- "0..N" ietf_event_notifications_I_subscription_config_I_subscription 
+ietf_event_notifications_I_subscription_config_I_subscription : +subscription-id : subscription-id  {key} 
+ietf_event_notifications_I_subscription_config_I_subscription : subscription-info {uses} 
+ietf_event_notifications_I_subscription_config_I_subscription : receiver-info {uses} 
+ietf_event_notifications_I_subscription_config_I_subscription : push-source-info {uses} 
+class "subscriptions" as  ietf_event_notifications_I_subscriptions <<container>> 
+ietf_event_notifications *-- "1" ietf_event_notifications_I_subscriptions 
+note bottom of ietf_event_notifications_I_subscriptions
+<b>Config = </b>false
+end note 
+class "subscription" as ietf_event_notifications_I_subscriptions_I_subscription << (L, #FF7700) list>> 
+ietf_event_notifications_I_subscriptions *-- "0..N" ietf_event_notifications_I_subscriptions_I_subscription 
+note bottom of ietf_event_notifications_I_subscriptions_I_subscription
+<b>Config = </b>false
+end note 
+ietf_event_notifications_I_subscriptions_I_subscription : +subscription-id : subscription-id  {key} 
+ietf_event_notifications_I_subscriptions_I_subscription : configured-subscription : empty   {if-feature : configured-subscriptions}
+ietf_event_notifications_I_subscriptions_I_subscription : subscription-status : subscription-status  
+ietf_event_notifications_I_subscriptions_I_subscription : subscription-info {uses} 
+ietf_event_notifications_I_subscriptions_I_subscription : receiver-info {uses} 
+ietf_event_notifications_I_subscriptions_I_subscription : push-source-info {uses} 
+class "stream" as stream << (I,Silver) identity>> 
+class "NETCONF" as NETCONF << (I,Silver) identity>> 
+stream <|-- NETCONF 
+class "subscription-result" as subscription_result << (I,Silver) identity>> 
+class "ok" as ok << (I,Silver) identity>> 
+subscription_result <|-- ok 
+class "error" as error << (I,Silver) identity>> 
+subscription_result <|-- error 
+class "error-no-such-subscription" as error_no_such_subscription << (I,Silver) identity>> 
+error <|-- error_no_such_subscription 
+class "error-no-such-option" as error_no_such_option << (I,Silver) identity>> 
+error <|-- error_no_such_option 
+class "error-insufficient-resources" as error_insufficient_resources << (I,Silver) identity>> 
+error <|-- error_insufficient_resources 
+class "error-configured-subscription" as error_configured_subscription << (I,Silver) identity>> 
+error <|-- error_configured_subscription 
+class "error-other" as error_other << (I,Silver) identity>> 
+error <|-- error_other 
+class "subscription-stream-status" as subscription_stream_status << (I,Silver) identity>> 
+class "active" as active << (I,Silver) identity>> 
+subscription_stream_status <|-- active 
+class "inactive" as inactive << (I,Silver) identity>> 
+subscription_stream_status <|-- inactive 
+class "suspended" as suspended << (I,Silver) identity>> 
+subscription_stream_status <|-- suspended 
+class "in-error" as in_error << (I,Silver) identity>> 
+subscription_stream_status <|-- in_error 
+class "subscription-errors" as subscription_errors << (I,Silver) identity>> 
+class "internal-error" as internal_error << (I,Silver) identity>> 
+subscription_errors <|-- internal_error 
+class "no-resources" as no_resources << (I,Silver) identity>> 
+subscription_errors <|-- no_resources 
+class "subscription-deleted" as subscription_deleted << (I,Silver) identity>> 
+subscription_errors <|-- subscription_deleted 
+class "other" as other << (I,Silver) identity>> 
+subscription_errors <|-- other 
+class "encodings" as encodings << (I,Silver) identity>> 
+class "encode-xml" as encode_xml << (I,Silver) identity>> 
+encodings <|-- encode_xml 
+class "encode-json" as encode_json << (I,Silver) identity>> 
+encodings <|-- encode_json 
+class "transport" as transport << (I,Silver) identity>> 
+class "netconf" as netconf << (I,Silver) identity>> 
+transport <|-- netconf 
+ietf_event_notifications-->subscription_result: subscription-result
+ietf_event_notifications-->subscription_errors: subscription-term-reason
+ietf_event_notifications-->subscription_errors: subscription-susp-reason
+ietf_event_notifications-->encodings: encoding
+ietf_event_notifications-->subscription_stream_status: subscription-status
+ietf_event_notifications-->transport: transport-protocol
+ietf_event_notifications-->stream: stream
+} 
+
+ietf_event_notifications_I_subscription_info_basic_modifiable_grouping --> ietf_event_notifications_I_base_filter_grouping : uses 
+ietf_event_notifications_I_subscription_info_all_modifiable_grouping --> ietf_event_notifications_I_subscription_info_basic_modifiable_grouping : uses 
+ietf_event_notifications_I_subscription_info_grouping --> ietf_event_notifications_I_subscription_info_basic_non_modifiable_grouping : uses 
+ietf_event_notifications_I_subscription_info_grouping --> ietf_event_notifications_I_subscription_info_all_modifiable_grouping : uses 
+ietf_event_notifications_I_subscription_response_I_result_I_no_success_case --> ietf_event_notifications_I_subscription_info_grouping : uses 
+ietf_event_notifications --> ietf_event_notifications_I_subscription_info_grouping : uses 
+ietf_event_notifications --> ietf_event_notifications_I_subscription_response_grouping : uses 
+ietf_event_notifications --> ietf_event_notifications_I_subscription_info_basic_non_modifiable_grouping : uses 
+ietf_event_notifications --> ietf_event_notifications_I_subscription_info_basic_modifiable_grouping : uses 
+ietf_event_notifications --> ietf_event_notifications_I_subscription_info_all_modifiable_grouping : uses 
+ietf_event_notifications --> ietf_event_notifications_I_subscription_response_grouping : uses 
+ietf_event_notifications_I_subscription_started --> ietf_event_notifications_I_subscription_info_grouping : uses 
+ietf_event_notifications_I_subscription_modified --> ietf_event_notifications_I_subscription_info_grouping : uses 
+ietf_event_notifications_I_filters_I_filter --> ietf_event_notifications_I_base_filter_grouping : uses 
+ietf_event_notifications_I_subscription_config_I_subscription --> ietf_event_notifications_I_subscription_info_grouping : uses 
+ietf_event_notifications_I_subscription_config_I_subscription --> ietf_event_notifications_I_receiver_info_grouping : uses 
+ietf_event_notifications_I_subscription_config_I_subscription --> ietf_event_notifications_I_push_source_info_grouping : uses 
+ietf_event_notifications_I_subscriptions_I_subscription --> ietf_event_notifications_I_subscription_info_grouping : uses 
+ietf_event_notifications_I_subscriptions_I_subscription --> ietf_event_notifications_I_receiver_info_grouping : uses 
+ietf_event_notifications_I_subscriptions_I_subscription --> ietf_event_notifications_I_push_source_info_grouping : uses 
+filter_ref-->"notif-bis:filter-id"ietf_event_notifications_I_filters_I_filter: filter-ref
+center footer
+ <size:20> UML Generated : 2019-02-20 23:33 </size>
+ endfooter 
+@enduml 

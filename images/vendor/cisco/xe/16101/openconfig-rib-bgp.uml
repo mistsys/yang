@@ -1,0 +1,237 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-rib-bgp.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-rib-bgp 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "oc-bgpt:openconfig-bgp-types" as oc_bgpt_openconfig_bgp_types { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+package "oc-bgpribt:openconfig-rib-bgp-types" as oc_bgpribt_openconfig_rib_bgp_types { 
+} 
+note top of oc_bgprib_openconfig_rib_bgp : <b>Namespace: </b> http://openconfig.net/yang/rib/bgp \n<b>Prefix: </b> oc-bgprib \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nwww.openconfig.net \n<b>Revision : </b> 2017-03-07 \n
+package "oc-bgprib:openconfig-rib-bgp" as oc_bgprib_openconfig_rib_bgp { 
+inet_ietf_inet_types +-- oc_bgprib_openconfig_rib_bgp
+yang_ietf_yang_types +-- oc_bgprib_openconfig_rib_bgp
+oc_bgpt_openconfig_bgp_types +-- oc_bgprib_openconfig_rib_bgp
+oc_ext_openconfig_extensions +-- oc_bgprib_openconfig_rib_bgp
+oc_bgpribt_openconfig_rib_bgp_types +-- oc_bgprib_openconfig_rib_bgp
+class "openconfig-rib-bgp" as openconfig_rib_bgp << (M, #33CCFF) module>> 
+class "bgp-base-attributes" as openconfig_rib_bgp_I_bgp_base_attributes_grouping <<(G,Lime) grouping>> 
+class "next-hops" as openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops << (L, #FF7700) list>> 
+openconfig_rib_bgp_I_bgp_base_attributes_grouping *-- "0..N" openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops 
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops : +next-hop : inet:ip-address  {key} 
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops : origin : oc-bgpt:bgp-origin-attr-type  
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops : as-path : string  
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops : as4-path : string  
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops : med : uint32  
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops : local-pref : uint32  
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops : atomic-aggr : boolean  
+class "aggregator" as  openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops_I_aggregator <<container>> 
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops *-- "1" openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops_I_aggregator 
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops_I_aggregator : as : uint32  
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops_I_aggregator : as4 : uint32  
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops_I_aggregator : address : inet:ipv4-address  
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops : community []: oc-bgpt:bgp-std-community-type 
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops : originator-id : inet:ipv4-address  
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops : cluster-list []: inet:ipv4-address 
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops : ext-community []: oc-bgpt:bgp-ext-community-type 
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops : aigp : uint64  
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops : path-id : uint32  
+class "unknown-attribute" as openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops_I_unknown_attribute << (L, #FF7700) list>> 
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops *-- "0..N" openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops_I_unknown_attribute 
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops_I_unknown_attribute : +attr-type : uint16  {key} 
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops_I_unknown_attribute : attr-len : uint16  
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops_I_unknown_attribute : attr-value : binary {length = 1..65535}  
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops : last-modified-date : yang:date-and-time  
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops : last-update-received : yang:date-and-time  
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops : valid-route : boolean  
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops : invalid-reason : identityref {oc-bgpribt:INVALID_ROUTE_REASON}  
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops : best-path : boolean  
+class "bgp-extended-attributes" as openconfig_rib_bgp_I_bgp_extended_attributes_grouping <<(G,Lime) grouping>> 
+openconfig_rib_bgp_I_bgp_extended_attributes_grouping : originator-id : inet:ipv4-address  
+openconfig_rib_bgp_I_bgp_extended_attributes_grouping : cluster-list []: inet:ipv4-address 
+openconfig_rib_bgp_I_bgp_extended_attributes_grouping : ext-community []: oc-bgpt:bgp-ext-community-type 
+openconfig_rib_bgp_I_bgp_extended_attributes_grouping : aigp : uint64  
+openconfig_rib_bgp_I_bgp_extended_attributes_grouping : path-id : uint32  
+class "unknown-attribute" as openconfig_rib_bgp_I_bgp_extended_attributes_I_unknown_attribute << (L, #FF7700) list>> 
+openconfig_rib_bgp_I_bgp_extended_attributes_grouping *-- "0..N" openconfig_rib_bgp_I_bgp_extended_attributes_I_unknown_attribute 
+openconfig_rib_bgp_I_bgp_extended_attributes_I_unknown_attribute : +attr-type : uint16  {key} 
+openconfig_rib_bgp_I_bgp_extended_attributes_I_unknown_attribute : attr-len : uint16  
+openconfig_rib_bgp_I_bgp_extended_attributes_I_unknown_attribute : attr-value : binary {length = 1..65535}  
+class "common-route-annotations" as openconfig_rib_bgp_I_common_route_annotations_grouping <<(G,Lime) grouping>> 
+openconfig_rib_bgp_I_common_route_annotations_grouping : last-modified-date : yang:date-and-time  
+openconfig_rib_bgp_I_common_route_annotations_grouping : last-update-received : yang:date-and-time  
+openconfig_rib_bgp_I_common_route_annotations_grouping : valid-route : boolean  
+openconfig_rib_bgp_I_common_route_annotations_grouping : invalid-reason : identityref {oc-bgpribt:INVALID_ROUTE_REASON}  
+openconfig_rib_bgp_I_common_route_annotations_grouping : best-path : boolean  
+class "common-table-attrs" as openconfig_rib_bgp_I_common_table_attrs_grouping <<(G,Lime) grouping>> 
+openconfig_rib_bgp_I_common_table_attrs_grouping : num-routes : uint64  
+class "common-route-attrs" as openconfig_rib_bgp_I_common_route_attrs_grouping <<(G,Lime) grouping>> 
+class "attributes" as  openconfig_rib_bgp_I_common_route_attrs_I_attributes <<container>> 
+openconfig_rib_bgp_I_common_route_attrs_grouping *-- "1" openconfig_rib_bgp_I_common_route_attrs_I_attributes 
+note bottom of openconfig_rib_bgp_I_common_route_attrs_I_attributes
+<b>Config = </b>false
+end note 
+openconfig_rib_bgp_I_common_route_attrs_I_attributes : bgp-base-attributes {uses} 
+class "ipv4-routes" as openconfig_rib_bgp_I_ipv4_routes_grouping <<(G,Lime) grouping>> 
+class "routes" as  openconfig_rib_bgp_I_ipv4_routes_I_routes <<container>> 
+openconfig_rib_bgp_I_ipv4_routes_grouping *-- "1" openconfig_rib_bgp_I_ipv4_routes_I_routes 
+note bottom of openconfig_rib_bgp_I_ipv4_routes_I_routes
+<b>Config = </b>false
+end note 
+class "route" as openconfig_rib_bgp_I_ipv4_routes_I_routes_I_route << (L, #FF7700) list>> 
+openconfig_rib_bgp_I_ipv4_routes_I_routes *-- "0..N" openconfig_rib_bgp_I_ipv4_routes_I_routes_I_route 
+note bottom of openconfig_rib_bgp_I_ipv4_routes_I_routes_I_route
+<b>Config = </b>false
+end note 
+openconfig_rib_bgp_I_ipv4_routes_I_routes_I_route : +prefix : inet:ipv4-prefix  {key} 
+openconfig_rib_bgp_I_ipv4_routes_I_routes_I_route : common-route-attrs {uses} 
+class "ipv6-routes" as openconfig_rib_bgp_I_ipv6_routes_grouping <<(G,Lime) grouping>> 
+class "routes" as  openconfig_rib_bgp_I_ipv6_routes_I_routes <<container>> 
+openconfig_rib_bgp_I_ipv6_routes_grouping *-- "1" openconfig_rib_bgp_I_ipv6_routes_I_routes 
+note bottom of openconfig_rib_bgp_I_ipv6_routes_I_routes
+<b>Config = </b>false
+end note 
+class "route" as openconfig_rib_bgp_I_ipv6_routes_I_routes_I_route << (L, #FF7700) list>> 
+openconfig_rib_bgp_I_ipv6_routes_I_routes *-- "0..N" openconfig_rib_bgp_I_ipv6_routes_I_routes_I_route 
+note bottom of openconfig_rib_bgp_I_ipv6_routes_I_routes_I_route
+<b>Config = </b>false
+end note 
+openconfig_rib_bgp_I_ipv6_routes_I_routes_I_route : +prefix : inet:ipv6-prefix  {key} 
+openconfig_rib_bgp_I_ipv6_routes_I_routes_I_route : common-route-attrs {uses} 
+class "ip-rib-top" as openconfig_rib_bgp_I_ip_rib_top_grouping <<(G,Lime) grouping>> 
+class "loc-rib" as  openconfig_rib_bgp_I_ip_rib_top_I_loc_rib <<container>> 
+openconfig_rib_bgp_I_ip_rib_top_grouping *-- "1" openconfig_rib_bgp_I_ip_rib_top_I_loc_rib 
+note bottom of openconfig_rib_bgp_I_ip_rib_top_I_loc_rib
+<b>Config = </b>false
+end note 
+openconfig_rib_bgp_I_ip_rib_top_I_loc_rib : common-table-attrs {uses} 
+class "neighbors" as  openconfig_rib_bgp_I_ip_rib_top_I_neighbors <<container>> 
+openconfig_rib_bgp_I_ip_rib_top_grouping *-- "1" openconfig_rib_bgp_I_ip_rib_top_I_neighbors 
+note bottom of openconfig_rib_bgp_I_ip_rib_top_I_neighbors
+<b>Config = </b>false
+end note 
+class "neighbor" as openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor << (L, #FF7700) list>> 
+openconfig_rib_bgp_I_ip_rib_top_I_neighbors *-- "0..N" openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor 
+openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor : +neighbor-address : inet:ip-address  {key} 
+class "adj-rib-in-pre" as  openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor_I_adj_rib_in_pre <<container>> 
+openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor *-- "1" openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor_I_adj_rib_in_pre 
+openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor_I_adj_rib_in_pre : common-table-attrs {uses} 
+class "adj-rib-in-post" as  openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor_I_adj_rib_in_post <<container>> 
+openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor *-- "1" openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor_I_adj_rib_in_post 
+openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor_I_adj_rib_in_post : common-table-attrs {uses} 
+class "adj-rib-out-pre" as  openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor_I_adj_rib_out_pre <<container>> 
+openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor *-- "1" openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor_I_adj_rib_out_pre 
+openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor_I_adj_rib_out_pre : common-table-attrs {uses} 
+class "adj-rib-out-post" as  openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor_I_adj_rib_out_post <<container>> 
+openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor *-- "1" openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor_I_adj_rib_out_post 
+openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor_I_adj_rib_out_post : common-table-attrs {uses} 
+class "bgp-rib-top" as openconfig_rib_bgp_I_bgp_rib_top_grouping <<(G,Lime) grouping>> 
+class "bgp-rib" as  openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib <<container>> 
+openconfig_rib_bgp_I_bgp_rib_top_grouping *-- "1" openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib 
+note bottom of openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib
+<b>Config = </b>false
+end note 
+class "afi-safis" as  openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib_I_afi_safis <<container>> 
+openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib *-- "1" openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib_I_afi_safis 
+note bottom of openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib_I_afi_safis
+<b>Config = </b>false
+end note 
+class "afi-safi" as openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib_I_afi_safis_I_afi_safi << (L, #FF7700) list>> 
+openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib_I_afi_safis *-- "0..N" openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib_I_afi_safis_I_afi_safi 
+openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib_I_afi_safis_I_afi_safi : +afi-safi-name : identityref {oc-bgpt:AFI_SAFI_TYPE}  {key} 
+class "ipv4-unicast" as  openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib_I_afi_safis_I_afi_safi_I_ipv4_unicast <<container>> 
+openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib_I_afi_safis_I_afi_safi *-- "1" openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib_I_afi_safis_I_afi_safi_I_ipv4_unicast 
+note bottom of openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib_I_afi_safis_I_afi_safi_I_ipv4_unicast
+<b>When: </b>../afi-safi-name = 'oc-bgp-types:IPV4_UNICAST'
+end note 
+openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib_I_afi_safis_I_afi_safi_I_ipv4_unicast : ip-rib-top {uses} 
+class "ipv6-unicast" as  openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib_I_afi_safis_I_afi_safi_I_ipv6_unicast <<container>> 
+openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib_I_afi_safis_I_afi_safi *-- "1" openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib_I_afi_safis_I_afi_safi_I_ipv6_unicast 
+note bottom of openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib_I_afi_safis_I_afi_safi_I_ipv6_unicast
+<b>When: </b>../afi-safi-name = 'oc-bgp-types:IPV6_UNICAST'
+end note 
+openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib_I_afi_safis_I_afi_safi_I_ipv6_unicast : ip-rib-top {uses} 
+class "/bgp-rib/afi-safis/afi-safi/ipv4-unicast/loc-rib" as bgp_rib_afi_safis_afi_safi_ipv4_unicast_loc_rib << (A,CadetBlue) augment>>
+openconfig_rib_bgp *--  bgp_rib_afi_safis_afi_safi_ipv4_unicast_loc_rib 
+bgp_rib_afi_safis_afi_safi_ipv4_unicast_loc_rib : ipv4-routes {uses} 
+class "/bgp-rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-pre" as bgp_rib_afi_safis_afi_safi_ipv4_unicast_neighbors_neighbor_adj_rib_in_pre << (A,CadetBlue) augment>>
+openconfig_rib_bgp *--  bgp_rib_afi_safis_afi_safi_ipv4_unicast_neighbors_neighbor_adj_rib_in_pre 
+bgp_rib_afi_safis_afi_safi_ipv4_unicast_neighbors_neighbor_adj_rib_in_pre : ipv4-routes {uses} 
+class "/bgp-rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-in-post" as bgp_rib_afi_safis_afi_safi_ipv4_unicast_neighbors_neighbor_adj_rib_in_post << (A,CadetBlue) augment>>
+openconfig_rib_bgp *--  bgp_rib_afi_safis_afi_safi_ipv4_unicast_neighbors_neighbor_adj_rib_in_post 
+bgp_rib_afi_safis_afi_safi_ipv4_unicast_neighbors_neighbor_adj_rib_in_post : ipv4-routes {uses} 
+class "/bgp-rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-pre" as bgp_rib_afi_safis_afi_safi_ipv4_unicast_neighbors_neighbor_adj_rib_out_pre << (A,CadetBlue) augment>>
+openconfig_rib_bgp *--  bgp_rib_afi_safis_afi_safi_ipv4_unicast_neighbors_neighbor_adj_rib_out_pre 
+bgp_rib_afi_safis_afi_safi_ipv4_unicast_neighbors_neighbor_adj_rib_out_pre : ipv4-routes {uses} 
+class "/bgp-rib/afi-safis/afi-safi/ipv4-unicast/neighbors/neighbor/adj-rib-out-post" as bgp_rib_afi_safis_afi_safi_ipv4_unicast_neighbors_neighbor_adj_rib_out_post << (A,CadetBlue) augment>>
+openconfig_rib_bgp *--  bgp_rib_afi_safis_afi_safi_ipv4_unicast_neighbors_neighbor_adj_rib_out_post 
+bgp_rib_afi_safis_afi_safi_ipv4_unicast_neighbors_neighbor_adj_rib_out_post : ipv4-routes {uses} 
+class "/bgp-rib/afi-safis/afi-safi/ipv6-unicast/loc-rib" as bgp_rib_afi_safis_afi_safi_ipv6_unicast_loc_rib << (A,CadetBlue) augment>>
+openconfig_rib_bgp *--  bgp_rib_afi_safis_afi_safi_ipv6_unicast_loc_rib 
+bgp_rib_afi_safis_afi_safi_ipv6_unicast_loc_rib : ipv6-routes {uses} 
+class "/bgp-rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-pre" as bgp_rib_afi_safis_afi_safi_ipv6_unicast_neighbors_neighbor_adj_rib_in_pre << (A,CadetBlue) augment>>
+openconfig_rib_bgp *--  bgp_rib_afi_safis_afi_safi_ipv6_unicast_neighbors_neighbor_adj_rib_in_pre 
+bgp_rib_afi_safis_afi_safi_ipv6_unicast_neighbors_neighbor_adj_rib_in_pre : ipv6-routes {uses} 
+class "/bgp-rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-in-post" as bgp_rib_afi_safis_afi_safi_ipv6_unicast_neighbors_neighbor_adj_rib_in_post << (A,CadetBlue) augment>>
+openconfig_rib_bgp *--  bgp_rib_afi_safis_afi_safi_ipv6_unicast_neighbors_neighbor_adj_rib_in_post 
+bgp_rib_afi_safis_afi_safi_ipv6_unicast_neighbors_neighbor_adj_rib_in_post : ipv6-routes {uses} 
+class "/bgp-rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-pre" as bgp_rib_afi_safis_afi_safi_ipv6_unicast_neighbors_neighbor_adj_rib_out_pre << (A,CadetBlue) augment>>
+openconfig_rib_bgp *--  bgp_rib_afi_safis_afi_safi_ipv6_unicast_neighbors_neighbor_adj_rib_out_pre 
+bgp_rib_afi_safis_afi_safi_ipv6_unicast_neighbors_neighbor_adj_rib_out_pre : ipv6-routes {uses} 
+class "/bgp-rib/afi-safis/afi-safi/ipv6-unicast/neighbors/neighbor/adj-rib-out-post" as bgp_rib_afi_safis_afi_safi_ipv6_unicast_neighbors_neighbor_adj_rib_out_post << (A,CadetBlue) augment>>
+openconfig_rib_bgp *--  bgp_rib_afi_safis_afi_safi_ipv6_unicast_neighbors_neighbor_adj_rib_out_post 
+bgp_rib_afi_safis_afi_safi_ipv6_unicast_neighbors_neighbor_adj_rib_out_post : ipv6-routes {uses} 
+openconfig_rib_bgp_I_bgp_base_attributes_I_next_hops-->oc_bgpribt_INVALID_ROUTE_REASON: invalid-reason
+openconfig_rib_bgp_I_common_route_annotations_grouping-->oc_bgpribt_INVALID_ROUTE_REASON: invalid-reason
+openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib_I_afi_safis_I_afi_safi-->oc_bgpt_AFI_SAFI_TYPE: afi-safi-name
+} 
+
+openconfig_rib_bgp_I_common_route_attrs_I_attributes --> openconfig_rib_bgp_I_bgp_base_attributes_grouping : uses 
+openconfig_rib_bgp_I_ipv4_routes_I_routes_I_route --> openconfig_rib_bgp_I_common_route_attrs_grouping : uses 
+openconfig_rib_bgp_I_ipv6_routes_I_routes_I_route --> openconfig_rib_bgp_I_common_route_attrs_grouping : uses 
+openconfig_rib_bgp_I_ip_rib_top_I_loc_rib --> openconfig_rib_bgp_I_common_table_attrs_grouping : uses 
+openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor_I_adj_rib_in_pre --> openconfig_rib_bgp_I_common_table_attrs_grouping : uses 
+openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor_I_adj_rib_in_post --> openconfig_rib_bgp_I_common_table_attrs_grouping : uses 
+openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor_I_adj_rib_out_pre --> openconfig_rib_bgp_I_common_table_attrs_grouping : uses 
+openconfig_rib_bgp_I_ip_rib_top_I_neighbors_I_neighbor_I_adj_rib_out_post --> openconfig_rib_bgp_I_common_table_attrs_grouping : uses 
+openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib_I_afi_safis_I_afi_safi_I_ipv4_unicast --> openconfig_rib_bgp_I_ip_rib_top_grouping : uses 
+openconfig_rib_bgp_I_bgp_rib_top_I_bgp_rib_I_afi_safis_I_afi_safi_I_ipv6_unicast --> openconfig_rib_bgp_I_ip_rib_top_grouping : uses 
+bgp_rib_afi_safis_afi_safi_ipv4_unicast_loc_rib --> openconfig_rib_bgp_I_ipv4_routes_grouping : uses 
+bgp_rib_afi_safis_afi_safi_ipv4_unicast_neighbors_neighbor_adj_rib_in_pre --> openconfig_rib_bgp_I_ipv4_routes_grouping : uses 
+bgp_rib_afi_safis_afi_safi_ipv4_unicast_neighbors_neighbor_adj_rib_in_post --> openconfig_rib_bgp_I_ipv4_routes_grouping : uses 
+bgp_rib_afi_safis_afi_safi_ipv4_unicast_neighbors_neighbor_adj_rib_out_pre --> openconfig_rib_bgp_I_ipv4_routes_grouping : uses 
+bgp_rib_afi_safis_afi_safi_ipv4_unicast_neighbors_neighbor_adj_rib_out_post --> openconfig_rib_bgp_I_ipv4_routes_grouping : uses 
+bgp_rib_afi_safis_afi_safi_ipv6_unicast_loc_rib --> openconfig_rib_bgp_I_ipv6_routes_grouping : uses 
+bgp_rib_afi_safis_afi_safi_ipv6_unicast_neighbors_neighbor_adj_rib_in_pre --> openconfig_rib_bgp_I_ipv6_routes_grouping : uses 
+bgp_rib_afi_safis_afi_safi_ipv6_unicast_neighbors_neighbor_adj_rib_in_post --> openconfig_rib_bgp_I_ipv6_routes_grouping : uses 
+bgp_rib_afi_safis_afi_safi_ipv6_unicast_neighbors_neighbor_adj_rib_out_pre --> openconfig_rib_bgp_I_ipv6_routes_grouping : uses 
+bgp_rib_afi_safis_afi_safi_ipv6_unicast_neighbors_neighbor_adj_rib_out_post --> openconfig_rib_bgp_I_ipv6_routes_grouping : uses 
+bgp_rib_afi_safis_afi_safi_ipv6_unicast_neighbors_neighbor_adj_rib_out_pre-->openconfig_rib_bgp_I_bgp_rib_I_afi_safis_I_afi_safi_I_ipv6_unicast_I_neighbors_I_neighbor_I_adj_rib_out_pre : augments
+bgp_rib_afi_safis_afi_safi_ipv4_unicast_loc_rib-->openconfig_rib_bgp_I_bgp_rib_I_afi_safis_I_afi_safi_I_ipv4_unicast_I_loc_rib : augments
+bgp_rib_afi_safis_afi_safi_ipv4_unicast_neighbors_neighbor_adj_rib_out_pre-->openconfig_rib_bgp_I_bgp_rib_I_afi_safis_I_afi_safi_I_ipv4_unicast_I_neighbors_I_neighbor_I_adj_rib_out_pre : augments
+bgp_rib_afi_safis_afi_safi_ipv4_unicast_neighbors_neighbor_adj_rib_in_pre-->openconfig_rib_bgp_I_bgp_rib_I_afi_safis_I_afi_safi_I_ipv4_unicast_I_neighbors_I_neighbor_I_adj_rib_in_pre : augments
+bgp_rib_afi_safis_afi_safi_ipv6_unicast_neighbors_neighbor_adj_rib_out_post-->openconfig_rib_bgp_I_bgp_rib_I_afi_safis_I_afi_safi_I_ipv6_unicast_I_neighbors_I_neighbor_I_adj_rib_out_post : augments
+bgp_rib_afi_safis_afi_safi_ipv6_unicast_loc_rib-->openconfig_rib_bgp_I_bgp_rib_I_afi_safis_I_afi_safi_I_ipv6_unicast_I_loc_rib : augments
+bgp_rib_afi_safis_afi_safi_ipv6_unicast_neighbors_neighbor_adj_rib_in_post-->openconfig_rib_bgp_I_bgp_rib_I_afi_safis_I_afi_safi_I_ipv6_unicast_I_neighbors_I_neighbor_I_adj_rib_in_post : augments
+bgp_rib_afi_safis_afi_safi_ipv4_unicast_neighbors_neighbor_adj_rib_out_post-->openconfig_rib_bgp_I_bgp_rib_I_afi_safis_I_afi_safi_I_ipv4_unicast_I_neighbors_I_neighbor_I_adj_rib_out_post : augments
+bgp_rib_afi_safis_afi_safi_ipv6_unicast_neighbors_neighbor_adj_rib_in_pre-->openconfig_rib_bgp_I_bgp_rib_I_afi_safis_I_afi_safi_I_ipv6_unicast_I_neighbors_I_neighbor_I_adj_rib_in_pre : augments
+bgp_rib_afi_safis_afi_safi_ipv4_unicast_neighbors_neighbor_adj_rib_in_post-->openconfig_rib_bgp_I_bgp_rib_I_afi_safis_I_afi_safi_I_ipv4_unicast_I_neighbors_I_neighbor_I_adj_rib_in_post : augments
+center footer
+ <size:20> UML Generated : 2019-02-20 23:30 </size>
+ endfooter 
+@enduml 

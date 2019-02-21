@@ -1,0 +1,49 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/tailf-common.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title tailf-common 
+note top of tailf_tailf_common : <b>Namespace: </b> http://tail-f.com/yang/common \n<b>Prefix: </b> tailf \n<b>Organization : </b>\nTail-f Systems \n<b>Revision : </b> 2018-09-11 \n
+package "tailf:tailf-common" as tailf_tailf_common { 
+package "tailf-meta-extensions" as tailf_meta_extensions { 
+}
+package "tailf-cli-extensions" as tailf_cli_extensions { 
+}
+class "tailf-common" as tailf_common << (M, #33CCFF) module>> 
+class "size" as size << (T, YellowGreen) typedef>>
+size : string {pattern = S(\d+G)?(\d+M)?(\d+K...}
+class "octet-list" as octet_list << (T, YellowGreen) typedef>>
+octet_list : string {pattern = (\d*(.\d*)*)?}
+class "md5-digest-string" as md5_digest_string << (T, YellowGreen) typedef>>
+md5_digest_string : string
+class "sha-256-digest-string" as sha_256_digest_string << (T, YellowGreen) typedef>>
+sha_256_digest_string : string {pattern = $0$.*|$5$(rounds=\d+...}
+class "sha-512-digest-string" as sha_512_digest_string << (T, YellowGreen) typedef>>
+sha_512_digest_string : string {pattern = $0$.*|$6$(rounds=\d+...}
+class "des3-cbc-encrypted-string" as des3_cbc_encrypted_string << (T, YellowGreen) typedef>>
+des3_cbc_encrypted_string : string
+class "aes-cfb-128-encrypted-string" as aes_cfb_128_encrypted_string << (T, YellowGreen) typedef>>
+aes_cfb_128_encrypted_string : string
+class "ipv4-address-and-prefix-length" as ipv4_address_and_prefix_length << (T, YellowGreen) typedef>>
+ipv4_address_and_prefix_length : string {pattern = (([0-9]|[1-9][0-9]|1...}
+class "ipv6-address-and-prefix-length" as ipv6_address_and_prefix_length << (T, YellowGreen) typedef>>
+ipv6_address_and_prefix_length : string {pattern = ((:|[0-9a-fA-F]{0,4}...}
+class "ip-address-and-prefix-length" as ip_address_and_prefix_length << (T, YellowGreen) typedef>>
+ip_address_and_prefix_length : union{tailf:ipv4-address-and-prefix-length, tailf:ipv6-address-and-prefix-length}
+class "hex-list" as hex_list << (T, YellowGreen) typedef>>
+hex_list : string {pattern = (([0-9a-fA-F]){2}(:(...}
+} 
+
+center footer
+ <size:20> UML Generated : 2019-02-21 00:09 </size>
+ endfooter 
+@enduml 

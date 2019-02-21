@@ -1,0 +1,62 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/tailf-common-query.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title tailf-common-query 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "tailf:tailf-common" as tailf_tailf_common { 
+} 
+note top of tfcq_tailf_common_query : <b>Namespace: </b> http://tail-f.com/ns/common/query \n<b>Prefix: </b> tfcq \n<b>Organization : </b>\nTail-f Systems \n<b>Revision : </b> 2017-12-15 \n
+package "tfcq:tailf-common-query" as tfcq_tailf_common_query { 
+yang_ietf_yang_types +-- tfcq_tailf_common_query
+tailf_tailf_common +-- tfcq_tailf_common_query
+class "tailf-common-query" as tailf_common_query << (M, #33CCFF) module>> 
+class "start-query-parameters" as tailf_common_query_I_start_query_parameters_grouping <<(G,Lime) grouping>> 
+tailf_common_query_I_start_query_parameters_grouping : foreach : yang:xpath1.0   {mandatory}
+class "select" as tailf_common_query_I_start_query_parameters_I_select << (L, #FF7700) list>> 
+tailf_common_query_I_start_query_parameters_grouping *-- "0..N" tailf_common_query_I_start_query_parameters_I_select 
+tailf_common_query_I_start_query_parameters_I_select : label : string  
+tailf_common_query_I_start_query_parameters_I_select : expression : yang:xpath1.0   {mandatory}
+tailf_common_query_I_start_query_parameters_I_select : result-type []: enumeration : {string,path,leaf-value,...} 
+tailf_common_query_I_start_query_parameters_grouping : sort-by []: yang:xpath1.0 
+tailf_common_query_I_start_query_parameters_grouping : limit : uint32 [1..max]  
+tailf_common_query_I_start_query_parameters_grouping : offset : uint32 [1..max]   = 1 
+tailf_common_query_I_start_query_parameters_grouping : timeout : uint32 [1..max]   = 600 
+class "query-handle" as tailf_common_query_I_query_handle_grouping <<(G,Lime) grouping>> 
+tailf_common_query_I_query_handle_grouping : query-handle : uint32  
+class "query-result" as tailf_common_query_I_query_result_grouping <<(G,Lime) grouping>> 
+class "result" as tailf_common_query_I_query_result_I_result << (L, #FF7700) list>> 
+tailf_common_query_I_query_result_grouping *-- "0..N" tailf_common_query_I_query_result_I_result 
+class "select" as tailf_common_query_I_query_result_I_result_I_select << (L, #FF7700) list>> 
+tailf_common_query_I_query_result_I_result *-- "0..N" tailf_common_query_I_query_result_I_result_I_select 
+tailf_common_query_I_query_result_I_result_I_select : label : string  
+class "select-result" as tailf_common_query_I_query_result_I_result_I_select_I_select_result <<choice>> 
+tailf_common_query_I_query_result_I_result_I_select .. tailf_common_query_I_query_result_I_result_I_select_I_select_result : choice 
+class "path-value" as tailf_common_query_I_query_result_I_result_I_select_I_select_result_I_path_value_case <<case>>
+tailf_common_query_I_query_result_I_result_I_select_I_select_result .. tailf_common_query_I_query_result_I_result_I_select_I_select_result_I_path_value_case  : choice select-result
+tailf_common_query_I_query_result_I_result_I_select_I_select_result_I_path_value_case : path : instance-identifier  
+tailf_common_query_I_query_result_I_result_I_select_I_select_result_I_path_value_case : value : string  
+class "inline" as tailf_common_query_I_query_result_I_result_I_select_I_select_result_I_inline_case <<case>>
+tailf_common_query_I_query_result_I_result_I_select_I_select_result .. tailf_common_query_I_query_result_I_result_I_select_I_select_result_I_inline_case  : choice select-result
+tailf_common_query_I_query_result_I_result_I_select_I_select_result_I_inline_case : data anyxml 
+class "reset-query-parameters" as tailf_common_query_I_reset_query_parameters_grouping <<(G,Lime) grouping>> 
+tailf_common_query_I_reset_query_parameters_grouping : query-handle {uses} 
+tailf_common_query_I_reset_query_parameters_grouping : offset : uint32 [1..max]   = 1 
+tailf_common_query_I_reset_query_parameters_grouping : timeout : uint32 [1..max]   = 600 
+} 
+
+tailf_common_query_I_reset_query_parameters_grouping --> tailf_common_query_I_query_handle_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:00 </size>
+ endfooter 
+@enduml 

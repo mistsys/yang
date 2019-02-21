@@ -1,0 +1,61 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/cisco-storm-control.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title cisco-storm-control 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "cbridge:cisco-bridge-common" as cbridge_cisco_bridge_common { 
+} 
+package "tailf:tailf-common" as tailf_tailf_common { 
+} 
+note top of cisco_stormctrl_cisco_storm_control : <b>Namespace: </b> urn:cisco:params:xml:ns:yang:cisco-storm-control \n<b>Prefix: </b> cisco-stormctrl \n<b>Organization : </b>\nCisco Systems, Inc. \n<b>Contact : </b>\nCisco Systems, Inc. \nCustomer Service \n \nPostal: 170 W Tasman Drive \nSan Jose, CA 95134 \n \nTel: +1 1800 553-NETS \n \nE-mail: cs-yang@cisco.com \n<b>Revision : </b> 2016-12-14 \n
+package "cisco-stormctrl:cisco-storm-control" as cisco_stormctrl_cisco_storm_control { 
+yang_ietf_yang_types +-- cisco_stormctrl_cisco_storm_control
+cbridge_cisco_bridge_common +-- cisco_stormctrl_cisco_storm_control
+tailf_tailf_common +-- cisco_stormctrl_cisco_storm_control
+class "cisco-storm-control" as cisco_storm_control << (M, #33CCFF) module>> 
+cisco_storm_control : feature : configurable_storm_control_actions 
+class "traffic-threshold-config" as cisco_storm_control_I_traffic_threshold_config_grouping <<(G,Lime) grouping>> 
+cisco_storm_control_I_traffic_threshold_config_grouping : value : uint32   {mandatory}
+cisco_storm_control_I_traffic_threshold_config_grouping : unit : enumeration : {bps,kbps,pps,}   {mandatory}
+class "storm-control-config" as cisco_storm_control_I_storm_control_config_grouping <<(G,Lime) grouping>> 
+class "storm-control" as  cisco_storm_control_I_storm_control_config_I_storm_control <<container>> 
+cisco_storm_control_I_storm_control_config_grouping *-- "1" cisco_storm_control_I_storm_control_config_I_storm_control 
+class "thresholds" as cisco_storm_control_I_storm_control_config_I_storm_control_I_thresholds << (L, #FF7700) list>> 
+cisco_storm_control_I_storm_control_config_I_storm_control *-- "0..N" cisco_storm_control_I_storm_control_config_I_storm_control_I_thresholds 
+cisco_storm_control_I_storm_control_config_I_storm_control_I_thresholds : +traffic-class : cbridge:eth-traffic-class  {key} 
+cisco_storm_control_I_storm_control_config_I_storm_control_I_thresholds : traffic-threshold-config {uses} 
+cisco_storm_control_I_storm_control_config_I_storm_control : action : identityref {storm-control-action}   {if-feature : configurable-storm-control-actions}
+class "storm-control-stats" as cisco_storm_control_I_storm_control_stats_grouping <<(G,Lime) grouping>> 
+class "storm-control" as  cisco_storm_control_I_storm_control_stats_I_storm_control <<container>> 
+cisco_storm_control_I_storm_control_stats_grouping *-- "1" cisco_storm_control_I_storm_control_stats_I_storm_control 
+class "drop-counter" as cisco_storm_control_I_storm_control_stats_I_storm_control_I_drop_counter << (L, #FF7700) list>> 
+cisco_storm_control_I_storm_control_stats_I_storm_control *-- "0..N" cisco_storm_control_I_storm_control_stats_I_storm_control_I_drop_counter 
+cisco_storm_control_I_storm_control_stats_I_storm_control_I_drop_counter : +traffic-class : cbridge:eth-traffic-class  {key} 
+cisco_storm_control_I_storm_control_stats_I_storm_control_I_drop_counter : packet-drops : yang:counter64  
+cisco_storm_control_I_storm_control_stats_I_storm_control_I_drop_counter : octate-drops : yang:counter64  
+class "storm-control-action" as storm_control_action << (I,Silver) identity>> 
+class "action-drop" as action_drop << (I,Silver) identity>> 
+storm_control_action <|-- action_drop 
+class "action-snmp-trap" as action_snmp_trap << (I,Silver) identity>> 
+storm_control_action <|-- action_snmp_trap 
+class "action-shutdown" as action_shutdown << (I,Silver) identity>> 
+storm_control_action <|-- action_shutdown 
+cisco_storm_control_I_storm_control_config_I_storm_control-->storm_control_action: action
+} 
+
+cisco_storm_control_I_storm_control_config_I_storm_control_I_thresholds --> cisco_storm_control_I_traffic_threshold_config_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:47 </size>
+ endfooter 
+@enduml 

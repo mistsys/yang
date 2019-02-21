@@ -1,0 +1,89 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/pim.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title pim 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "if:ietf-interfaces" as if_ietf_interfaces { 
+} 
+note top of pim_pim : <b>Namespace: </b> urn:cisco:params:xml:ns:yang:pim \n<b>Prefix: </b> pim \n<b>Organization : </b>\n \nCisco Systems, Inc. \n \n<b>Contact : </b>\n \nCisco Systems, Inc. \nCustomer Service \n \nPostal: 170 W Tasman Drive \n San Jose, CA 95134 \n \nTel: +1 1800 553-NETS \n     \nE-mail: cs-yang@cisco.com \n \n<b>Revision : </b> 2014-06-27 \n
+package "pim:pim" as pim_pim { 
+inet_ietf_inet_types +-- pim_pim
+yang_ietf_yang_types +-- pim_pim
+if_ietf_interfaces +-- pim_pim
+class "pim" as pim << (M, #33CCFF) module>> 
+pim : feature : auto_rp 
+pim : feature : bsr 
+enum "Route-protocol-type" as pim_I_Route_protocol_type {
+other
+local
+netmgmt
+MORE
+}
+enum "Mroute-protocol-type" as pim_I_Mroute_protocol_type {
+other
+local
+netmgmt
+MORE
+}
+enum "Pim-mode" as pim_I_Pim_mode {
+sparse
+dense
+sparse-dense
+MORE
+}
+enum "Origin" as pim_I_Origin {
+other-origin
+pim-request
+ssm-request
+MORE
+}
+class "IP-Multicast-Group-Address" as IP_Multicast_Group_Address << (T, YellowGreen) typedef>>
+IP_Multicast_Group_Address : union{IPv4-Multicast-Group-Address, IPv6-Multicast-Group-Address}
+class "IPv4-Multicast-Group-Address" as IPv4_Multicast_Group_Address << (T, YellowGreen) typedef>>
+IPv4_Multicast_Group_Address : string {pattern = (2((2[4-9])|(3[0-9])...}
+class "IPv6-Multicast-Group-Address" as IPv6_Multicast_Group_Address << (T, YellowGreen) typedef>>
+IPv6_Multicast_Group_Address : string {pattern = (((FF|ff)[0-9a-fA-F]...}
+class "IP-Multicast-Group-Address-Prefix" as IP_Multicast_Group_Address_Prefix << (T, YellowGreen) typedef>>
+IP_Multicast_Group_Address_Prefix : union{IPv4-Multicast-Group-Address-Prefix, IPv6-Multicast-Group-Address-Prefix}
+class "IPv4-Multicast-Group-Address-Prefix" as IPv4_Multicast_Group_Address_Prefix << (T, YellowGreen) typedef>>
+IPv4_Multicast_Group_Address_Prefix : string {pattern = (2((2[4-9])|(3[0-9])...}
+class "IPv6-Multicast-Group-Address-Prefix" as IPv6_Multicast_Group_Address_Prefix << (T, YellowGreen) typedef>>
+IPv6_Multicast_Group_Address_Prefix : string {pattern = (((FF|ff)[0-9a-fA-F]...}
+class "IP-SSM-Group-Address" as IP_SSM_Group_Address << (T, YellowGreen) typedef>>
+IP_SSM_Group_Address : union{IPv4-SSM-Group-Address, IPv6-SSM-Group-Address}
+class "IPv4-SSM-Group-Address" as IPv4_SSM_Group_Address << (T, YellowGreen) typedef>>
+IPv4_SSM_Group_Address : string {pattern = (232\.)(([0-9]|[1-9]...}
+class "IPv6-SSM-Group-Address" as IPv6_SSM_Group_Address << (T, YellowGreen) typedef>>
+IPv6_SSM_Group_Address : string {pattern = ((FF3|ff3)([0-9a-fA-...}
+class "group-to-rp-mapping-mode" as group_to_rp_mapping_mode << (I,Silver) identity>> 
+class "dm-mapping-mode" as dm_mapping_mode << (I,Silver) identity>> 
+group_to_rp_mapping_mode <|-- dm_mapping_mode 
+class "sm-mapping-mode" as sm_mapping_mode << (I,Silver) identity>> 
+group_to_rp_mapping_mode <|-- sm_mapping_mode 
+class "pim-bidir-mapping-mode" as pim_bidir_mapping_mode << (I,Silver) identity>> 
+group_to_rp_mapping_mode <|-- pim_bidir_mapping_mode 
+class "ssm-mapping-mode" as ssm_mapping_mode << (I,Silver) identity>> 
+group_to_rp_mapping_mode <|-- ssm_mapping_mode 
+class "asm-mapping-mode" as asm_mapping_mode << (I,Silver) identity>> 
+group_to_rp_mapping_mode <|-- asm_mapping_mode 
+class "other-mapping-mode" as other_mapping_mode << (I,Silver) identity>> 
+group_to_rp_mapping_mode <|-- other_mapping_mode 
+} 
+
+center footer
+ <size:20> UML Generated : 2019-02-21 00:47 </size>
+ endfooter 
+@enduml 

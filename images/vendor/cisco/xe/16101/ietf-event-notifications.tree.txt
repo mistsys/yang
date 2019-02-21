@@ -1,0 +1,158 @@
+module: ietf-event-notifications
+   +--ro streams
+   |  +--ro stream*   stream
+   +--rw filters
+   |  +--rw filter* [filter-id]
+   |     +--rw filter-id    filter-id
+   |     +--rw (filter-type)?
+   |        +--:(rfc5277)
+   |           +--rw filter?
+   +--rw subscription-config {configured-subscriptions}?
+   |  +--rw subscription* [subscription-id]
+   |     +--rw subscription-id     subscription-id
+   |     +--rw stream?             stream
+   |     +--rw encoding?           encoding
+   |     +--rw (filter-type)?
+   |     |  +--:(rfc5277)
+   |     |  |  +--rw filter?
+   |     |  +--:(by-reference)
+   |     |     +--rw filter-ref?         filter-ref
+   |     +--rw startTime?          yang:date-and-time
+   |     +--rw stopTime?           yang:date-and-time
+   |     +--rw receivers
+   |     |  +--rw receiver* [address]
+   |     |     +--rw address     inet:host
+   |     |     +--rw port        inet:port-number
+   |     |     +--rw protocol?   transport-protocol
+   |     +--rw (push-source)?
+   |        +--:(interface-originated)
+   |        |  +--rw source-interface?   if:interface-ref
+   |        +--:(address-originated)
+   |           +--rw source-vrf?         uint32
+   |           +--rw source-address      inet:ip-address-no-zone
+   +--ro subscriptions
+      +--ro subscription* [subscription-id]
+         +--ro subscription-id            subscription-id
+         +--ro configured-subscription?   empty {configured-subscriptions}?
+         +--ro subscription-status?       subscription-status
+         +--ro stream?                    stream
+         +--ro encoding?                  encoding
+         +--ro (filter-type)?
+         |  +--:(rfc5277)
+         |  |  +--ro filter?
+         |  +--:(by-reference)
+         |     +--ro filter-ref?                filter-ref
+         +--ro startTime?                 yang:date-and-time
+         +--ro stopTime?                  yang:date-and-time
+         +--ro receivers
+         |  +--ro receiver* [address]
+         |     +--ro address     inet:host
+         |     +--ro port        inet:port-number
+         |     +--ro protocol?   transport-protocol
+         +--ro (push-source)?
+            +--:(interface-originated)
+            |  +--ro source-interface?          if:interface-ref
+            +--:(address-originated)
+               +--ro source-vrf?                uint32
+               +--ro source-address             inet:ip-address-no-zone
+rpcs:
+   +---x establish-subscription
+   |  +---w input
+   |  |  +---w stream?       stream
+   |  |  +---w encoding?     encoding
+   |  |  +---w (filter-type)?
+   |  |  |  +--:(rfc5277)
+   |  |  |  |  +---w filter?
+   |  |  |  +--:(by-reference)
+   |  |  |     +---w filter-ref?   filter-ref
+   |  |  +---w startTime?    yang:date-and-time
+   |  |  +---w stopTime?     yang:date-and-time
+   |  +--ro output
+   |     +--ro subscription-result    subscription-result
+   |     +--ro (result)?
+   |        +--:(success)
+   |        |  +--ro subscription-id        subscription-id
+   |        +--:(no-success)
+   |           +--ro stream?                stream
+   |           +--ro encoding?              encoding
+   |           +--ro (filter-type)?
+   |           |  +--:(rfc5277)
+   |           |  |  +--ro filter?
+   |           |  +--:(by-reference)
+   |           |     +--ro filter-ref?            filter-ref
+   |           +--ro startTime?             yang:date-and-time
+   |           +--ro stopTime?              yang:date-and-time
+   +---x create-subscription
+   |  +---w input
+   |     +---w stream?      stream
+   |     +---w encoding?    encoding
+   |     +---w (filter-type)?
+   |     |  +--:(rfc5277)
+   |     |     +---w filter?
+   |     +---w startTime?   yang:date-and-time
+   |     +---w stopTime?    yang:date-and-time
+   +---x modify-subscription
+   |  +---w input
+   |  |  +---w subscription-id?   subscription-id
+   |  |  +---w (filter-type)?
+   |  |  |  +--:(rfc5277)
+   |  |  |  |  +---w filter?
+   |  |  |  +--:(by-reference)
+   |  |  |     +---w filter-ref?        filter-ref
+   |  |  +---w startTime?         yang:date-and-time
+   |  |  +---w stopTime?          yang:date-and-time
+   |  +--ro output
+   |     +--ro subscription-result    subscription-result
+   |     +--ro (result)?
+   |        +--:(success)
+   |        |  +--ro subscription-id        subscription-id
+   |        +--:(no-success)
+   |           +--ro stream?                stream
+   |           +--ro encoding?              encoding
+   |           +--ro (filter-type)?
+   |           |  +--:(rfc5277)
+   |           |  |  +--ro filter?
+   |           |  +--:(by-reference)
+   |           |     +--ro filter-ref?            filter-ref
+   |           +--ro startTime?             yang:date-and-time
+   |           +--ro stopTime?              yang:date-and-time
+   +---x delete-subscription
+      +---w input
+      |  +---w subscription-id    subscription-id
+      +--ro output
+         +--ro subscription-result    subscription-result
+notifications:
+   +---n replay-complete
+   |  +--ro subscription-id    subscription-id
+   +---n notification-complete
+   |  +--ro subscription-id    subscription-id
+   +---n subscription-started
+   |  +--ro subscription-id    subscription-id
+   |  +--ro stream?            stream
+   |  +--ro encoding?          encoding
+   |  +--ro (filter-type)?
+   |  |  +--:(rfc5277)
+   |  |  |  +--ro filter?
+   |  |  +--:(by-reference)
+   |  |     +--ro filter-ref?        filter-ref
+   |  +--ro startTime?         yang:date-and-time
+   |  +--ro stopTime?          yang:date-and-time
+   +---n subscription-suspended
+   |  +--ro subscription-id    subscription-id
+   |  +--ro reason?            subscription-susp-reason
+   +---n subscription-resumed
+   |  +--ro subscription-id    subscription-id
+   +---n subscription-modified
+   |  +--ro subscription-id    subscription-id
+   |  +--ro stream?            stream
+   |  +--ro encoding?          encoding
+   |  +--ro (filter-type)?
+   |  |  +--:(rfc5277)
+   |  |  |  +--ro filter?
+   |  |  +--:(by-reference)
+   |  |     +--ro filter-ref?        filter-ref
+   |  +--ro startTime?         yang:date-and-time
+   |  +--ro stopTime?          yang:date-and-time
+   +---n subscription-terminated
+      +--ro subscription-id    subscription-id
+      +--ro reason?            subscription-term-reason

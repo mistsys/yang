@@ -1,0 +1,54 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-restconf-monitoring.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-restconf-monitoring 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+note top of rcmon_ietf_restconf_monitoring : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-restconf-monitoring \n<b>Prefix: </b> rcmon \n<b>Organization : </b>\nIETF NETCONF (Network Configuration) Working Group \n<b>Contact : </b>\nWG Web:   <https://datatracker.ietf.org/wg/netconf/> \nWG List:  <mailto:netconf@ietf.org> \n \nAuthor:   Andy Bierman \n          <mailto:andy@yumaworks.com> \n \nAuthor:   Martin Bjorklund \n          <mailto:mbj@tail-f.com> \n \nAuthor:   Kent Watsen \n          <mailto:kwatsen@juniper.net> \n<b>Revision : </b> 2017-01-26 \n
+package "rcmon:ietf-restconf-monitoring" as rcmon_ietf_restconf_monitoring { 
+yang_ietf_yang_types +-- rcmon_ietf_restconf_monitoring
+inet_ietf_inet_types +-- rcmon_ietf_restconf_monitoring
+class "ietf-restconf-monitoring" as ietf_restconf_monitoring << (M, #33CCFF) module>> 
+class "restconf-state" as  ietf_restconf_monitoring_I_restconf_state <<container>> 
+ietf_restconf_monitoring *-- "1" ietf_restconf_monitoring_I_restconf_state 
+note bottom of ietf_restconf_monitoring_I_restconf_state
+<b>Config = </b>false
+end note 
+class "capabilities" as  ietf_restconf_monitoring_I_restconf_state_I_capabilities <<container>> 
+ietf_restconf_monitoring_I_restconf_state *-- "1" ietf_restconf_monitoring_I_restconf_state_I_capabilities 
+ietf_restconf_monitoring_I_restconf_state_I_capabilities : capability []: inet:uri 
+class "streams" as  ietf_restconf_monitoring_I_restconf_state_I_streams <<container>> 
+ietf_restconf_monitoring_I_restconf_state *-- "1" ietf_restconf_monitoring_I_restconf_state_I_streams 
+class "stream" as ietf_restconf_monitoring_I_restconf_state_I_streams_I_stream << (L, #FF7700) list>> 
+ietf_restconf_monitoring_I_restconf_state_I_streams *-- "0..N" ietf_restconf_monitoring_I_restconf_state_I_streams_I_stream 
+ietf_restconf_monitoring_I_restconf_state_I_streams_I_stream : +name : string  {key} 
+ietf_restconf_monitoring_I_restconf_state_I_streams_I_stream : description : string  
+ietf_restconf_monitoring_I_restconf_state_I_streams_I_stream : replay-support : boolean   = false 
+ietf_restconf_monitoring_I_restconf_state_I_streams_I_stream : replay-log-creation-time : yang:date-and-time  
+note bottom of ietf_restconf_monitoring_I_restconf_state_I_streams_I_stream
+<b>When</b> (replay-log-creation-time):
+../replay-support
+
+end note 
+class "access" as ietf_restconf_monitoring_I_restconf_state_I_streams_I_stream_I_access << (L, #FF7700) list>> 
+ietf_restconf_monitoring_I_restconf_state_I_streams_I_stream *-- "1..N" ietf_restconf_monitoring_I_restconf_state_I_streams_I_stream_I_access 
+ietf_restconf_monitoring_I_restconf_state_I_streams_I_stream_I_access : +encoding : string  {key} 
+ietf_restconf_monitoring_I_restconf_state_I_streams_I_stream_I_access : location : inet:uri   {mandatory}
+} 
+
+center footer
+ <size:20> UML Generated : 2019-02-21 00:05 </size>
+ endfooter 
+@enduml 

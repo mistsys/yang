@@ -1,0 +1,131 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-platform-transceiver.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-platform-transceiver 
+package "oc-platform:openconfig-platform" as oc_platform_openconfig_platform { 
+} 
+package "oc-if:openconfig-interfaces" as oc_if_openconfig_interfaces { 
+} 
+package "oc-opt-types:openconfig-transport-types" as oc_opt_types_openconfig_transport_types { 
+} 
+package "oc-types:openconfig-types" as oc_types_openconfig_types { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+package "oc-yang:openconfig-yang-types" as oc_yang_openconfig_yang_types { 
+} 
+note top of oc_transceiver_openconfig_platform_transceiver : <b>Namespace: </b> http://openconfig.net/yang/platform/transceiver \n<b>Prefix: </b> oc-transceiver \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nwww.openconfig.net \n<b>Revision : </b> 2017-09-18 \n
+package "oc-transceiver:openconfig-platform-transceiver" as oc_transceiver_openconfig_platform_transceiver { 
+oc_platform_openconfig_platform +-- oc_transceiver_openconfig_platform_transceiver
+oc_if_openconfig_interfaces +-- oc_transceiver_openconfig_platform_transceiver
+oc_opt_types_openconfig_transport_types +-- oc_transceiver_openconfig_platform_transceiver
+oc_types_openconfig_types +-- oc_transceiver_openconfig_platform_transceiver
+oc_ext_openconfig_extensions +-- oc_transceiver_openconfig_platform_transceiver
+oc_yang_openconfig_yang_types +-- oc_transceiver_openconfig_platform_transceiver
+class "openconfig-platform-transceiver" as openconfig_platform_transceiver << (M, #33CCFF) module>> 
+class "optical-power-state" as openconfig_platform_transceiver_I_optical_power_state_grouping <<(G,Lime) grouping>> 
+class "output-power" as  openconfig_platform_transceiver_I_optical_power_state_I_output_power <<container>> 
+openconfig_platform_transceiver_I_optical_power_state_grouping *-- "1" openconfig_platform_transceiver_I_optical_power_state_I_output_power 
+openconfig_platform_transceiver_I_optical_power_state_I_output_power : oc-types:avg-min-max-instant-stats-precision2-dBm {uses} 
+class "input-power" as  openconfig_platform_transceiver_I_optical_power_state_I_input_power <<container>> 
+openconfig_platform_transceiver_I_optical_power_state_grouping *-- "1" openconfig_platform_transceiver_I_optical_power_state_I_input_power 
+openconfig_platform_transceiver_I_optical_power_state_I_input_power : oc-types:avg-min-max-instant-stats-precision2-dBm {uses} 
+class "laser-bias-current" as  openconfig_platform_transceiver_I_optical_power_state_I_laser_bias_current <<container>> 
+openconfig_platform_transceiver_I_optical_power_state_grouping *-- "1" openconfig_platform_transceiver_I_optical_power_state_I_laser_bias_current 
+openconfig_platform_transceiver_I_optical_power_state_I_laser_bias_current : oc-types:avg-min-max-instant-stats-precision2-mA {uses} 
+class "output-optical-frequency" as openconfig_platform_transceiver_I_output_optical_frequency_grouping <<(G,Lime) grouping>> 
+openconfig_platform_transceiver_I_output_optical_frequency_grouping : output-frequency : oc-opt-types:frequency-type  
+class "physical-channel-config" as openconfig_platform_transceiver_I_physical_channel_config_grouping <<(G,Lime) grouping>> 
+openconfig_platform_transceiver_I_physical_channel_config_grouping : index : uint16 [0..max]  
+openconfig_platform_transceiver_I_physical_channel_config_grouping : description : string  
+openconfig_platform_transceiver_I_physical_channel_config_grouping : tx-laser : boolean  
+openconfig_platform_transceiver_I_physical_channel_config_grouping : target-output-power : decimal64   {dBm}
+class "physical-channel-state" as openconfig_platform_transceiver_I_physical_channel_state_grouping <<(G,Lime) grouping>> 
+openconfig_platform_transceiver_I_physical_channel_state_grouping : output-optical-frequency {uses} 
+openconfig_platform_transceiver_I_physical_channel_state_grouping : optical-power-state {uses} 
+class "physical-channel-top" as openconfig_platform_transceiver_I_physical_channel_top_grouping <<(G,Lime) grouping>> 
+class "physical-channels" as  openconfig_platform_transceiver_I_physical_channel_top_I_physical_channels <<container>> 
+openconfig_platform_transceiver_I_physical_channel_top_grouping *-- "1" openconfig_platform_transceiver_I_physical_channel_top_I_physical_channels 
+class "channel" as openconfig_platform_transceiver_I_physical_channel_top_I_physical_channels_I_channel << (L, #FF7700) list>> 
+openconfig_platform_transceiver_I_physical_channel_top_I_physical_channels *-- "0..N" openconfig_platform_transceiver_I_physical_channel_top_I_physical_channels_I_channel 
+openconfig_platform_transceiver_I_physical_channel_top_I_physical_channels_I_channel : +index : leafref : ../config/index  {key} 
+class "config" as  openconfig_platform_transceiver_I_physical_channel_top_I_physical_channels_I_channel_I_config <<container>> 
+openconfig_platform_transceiver_I_physical_channel_top_I_physical_channels_I_channel *-- "1" openconfig_platform_transceiver_I_physical_channel_top_I_physical_channels_I_channel_I_config 
+openconfig_platform_transceiver_I_physical_channel_top_I_physical_channels_I_channel_I_config : physical-channel-config {uses} 
+class "state" as  openconfig_platform_transceiver_I_physical_channel_top_I_physical_channels_I_channel_I_state <<container>> 
+openconfig_platform_transceiver_I_physical_channel_top_I_physical_channels_I_channel *-- "1" openconfig_platform_transceiver_I_physical_channel_top_I_physical_channels_I_channel_I_state 
+note bottom of openconfig_platform_transceiver_I_physical_channel_top_I_physical_channels_I_channel_I_state
+<b>Config = </b>false
+end note 
+openconfig_platform_transceiver_I_physical_channel_top_I_physical_channels_I_channel_I_state : physical-channel-config {uses} 
+openconfig_platform_transceiver_I_physical_channel_top_I_physical_channels_I_channel_I_state : physical-channel-state {uses} 
+class "port-transceiver-config" as openconfig_platform_transceiver_I_port_transceiver_config_grouping <<(G,Lime) grouping>> 
+openconfig_platform_transceiver_I_port_transceiver_config_grouping : enabled : boolean  
+openconfig_platform_transceiver_I_port_transceiver_config_grouping : form-factor-preconf : identityref {oc-opt-types:TRANSCEIVER_FORM_FACTOR_TYPE}  
+openconfig_platform_transceiver_I_port_transceiver_config_grouping : ethernet-pmd-preconf : identityref {oc-opt-types:ETHERNET_PMD_TYPE}  
+class "port-transceiver-state" as openconfig_platform_transceiver_I_port_transceiver_state_grouping <<(G,Lime) grouping>> 
+openconfig_platform_transceiver_I_port_transceiver_state_grouping : present : enumeration : {PRESENT,NOT_PRESENT,}  
+openconfig_platform_transceiver_I_port_transceiver_state_grouping : form-factor : identityref {oc-opt-types:TRANSCEIVER_FORM_FACTOR_TYPE}  
+openconfig_platform_transceiver_I_port_transceiver_state_grouping : connector-type : identityref {oc-opt-types:FIBER_CONNECTOR_TYPE}  
+openconfig_platform_transceiver_I_port_transceiver_state_grouping : internal-temp : int16 [-40..125]  
+openconfig_platform_transceiver_I_port_transceiver_state_grouping : vendor : string {length = 1..16}  
+openconfig_platform_transceiver_I_port_transceiver_state_grouping : vendor-part : string {length = 1..16}  
+openconfig_platform_transceiver_I_port_transceiver_state_grouping : vendor-rev : string {length = 1..2}  
+openconfig_platform_transceiver_I_port_transceiver_state_grouping : ethernet-pmd : identityref {oc-opt-types:ETHERNET_PMD_TYPE}  
+openconfig_platform_transceiver_I_port_transceiver_state_grouping : sonet-sdh-compliance-code : identityref {oc-opt-types:SONET_APPLICATION_CODE}  
+openconfig_platform_transceiver_I_port_transceiver_state_grouping : otn-compliance-code : identityref {oc-opt-types:OTN_APPLICATION_CODE}  
+openconfig_platform_transceiver_I_port_transceiver_state_grouping : serial-no : string {length = 1..16}  
+openconfig_platform_transceiver_I_port_transceiver_state_grouping : date-code : oc-yang:date-and-time  
+openconfig_platform_transceiver_I_port_transceiver_state_grouping : fault-condition : boolean  
+openconfig_platform_transceiver_I_port_transceiver_state_grouping : optical-power-state {uses} 
+class "port-transceiver-top" as openconfig_platform_transceiver_I_port_transceiver_top_grouping <<(G,Lime) grouping>> 
+class "transceiver" as  openconfig_platform_transceiver_I_port_transceiver_top_I_transceiver <<container>> 
+openconfig_platform_transceiver_I_port_transceiver_top_grouping *-- "1" openconfig_platform_transceiver_I_port_transceiver_top_I_transceiver 
+class "config" as  openconfig_platform_transceiver_I_port_transceiver_top_I_transceiver_I_config <<container>> 
+openconfig_platform_transceiver_I_port_transceiver_top_I_transceiver *-- "1" openconfig_platform_transceiver_I_port_transceiver_top_I_transceiver_I_config 
+openconfig_platform_transceiver_I_port_transceiver_top_I_transceiver_I_config : port-transceiver-config {uses} 
+class "state" as  openconfig_platform_transceiver_I_port_transceiver_top_I_transceiver_I_state <<container>> 
+openconfig_platform_transceiver_I_port_transceiver_top_I_transceiver *-- "1" openconfig_platform_transceiver_I_port_transceiver_top_I_transceiver_I_state 
+note bottom of openconfig_platform_transceiver_I_port_transceiver_top_I_transceiver_I_state
+<b>Config = </b>false
+end note 
+openconfig_platform_transceiver_I_port_transceiver_top_I_transceiver_I_state : port-transceiver-config {uses} 
+openconfig_platform_transceiver_I_port_transceiver_top_I_transceiver_I_state : port-transceiver-state {uses} 
+openconfig_platform_transceiver_I_port_transceiver_top_I_transceiver : physical-channel-top {uses} 
+class "/oc-platform:components/oc-platform:component" as oc_platform_components_oc_platform_component << (A,CadetBlue) augment>>
+openconfig_platform_transceiver *--  oc_platform_components_oc_platform_component 
+oc_platform_components_oc_platform_component : port-transceiver-top {uses} 
+openconfig_platform_transceiver_I_port_transceiver_config_grouping-->oc_opt_types_TRANSCEIVER_FORM_FACTOR_TYPE: form-factor-preconf
+openconfig_platform_transceiver_I_port_transceiver_config_grouping-->oc_opt_types_ETHERNET_PMD_TYPE: ethernet-pmd-preconf
+openconfig_platform_transceiver_I_port_transceiver_state_grouping-->oc_opt_types_TRANSCEIVER_FORM_FACTOR_TYPE: form-factor
+openconfig_platform_transceiver_I_port_transceiver_state_grouping-->oc_opt_types_FIBER_CONNECTOR_TYPE: connector-type
+openconfig_platform_transceiver_I_port_transceiver_state_grouping-->oc_opt_types_ETHERNET_PMD_TYPE: ethernet-pmd
+openconfig_platform_transceiver_I_port_transceiver_state_grouping-->oc_opt_types_SONET_APPLICATION_CODE: sonet-sdh-compliance-code
+openconfig_platform_transceiver_I_port_transceiver_state_grouping-->oc_opt_types_OTN_APPLICATION_CODE: otn-compliance-code
+} 
+
+openconfig_platform_transceiver_I_physical_channel_state_grouping --> openconfig_platform_transceiver_I_output_optical_frequency_grouping : uses 
+openconfig_platform_transceiver_I_physical_channel_state_grouping --> openconfig_platform_transceiver_I_optical_power_state_grouping : uses 
+openconfig_platform_transceiver_I_physical_channel_top_I_physical_channels_I_channel_I_config --> openconfig_platform_transceiver_I_physical_channel_config_grouping : uses 
+openconfig_platform_transceiver_I_physical_channel_top_I_physical_channels_I_channel_I_state --> openconfig_platform_transceiver_I_physical_channel_config_grouping : uses 
+openconfig_platform_transceiver_I_physical_channel_top_I_physical_channels_I_channel_I_state --> openconfig_platform_transceiver_I_physical_channel_state_grouping : uses 
+openconfig_platform_transceiver_I_port_transceiver_state_grouping --> openconfig_platform_transceiver_I_optical_power_state_grouping : uses 
+openconfig_platform_transceiver_I_port_transceiver_top_I_transceiver_I_config --> openconfig_platform_transceiver_I_port_transceiver_config_grouping : uses 
+openconfig_platform_transceiver_I_port_transceiver_top_I_transceiver_I_state --> openconfig_platform_transceiver_I_port_transceiver_config_grouping : uses 
+openconfig_platform_transceiver_I_port_transceiver_top_I_transceiver_I_state --> openconfig_platform_transceiver_I_port_transceiver_state_grouping : uses 
+openconfig_platform_transceiver_I_port_transceiver_top_I_transceiver --> openconfig_platform_transceiver_I_physical_channel_top_grouping : uses 
+oc_platform_components_oc_platform_component --> openconfig_platform_transceiver_I_port_transceiver_top_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:01 </size>
+ endfooter 
+@enduml 

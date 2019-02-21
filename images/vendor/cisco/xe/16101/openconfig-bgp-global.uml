@@ -1,0 +1,138 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-bgp-global.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-bgp-global 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package openconfig-bgp {
+note top of _openconfig_bgp_global : <b>Prefix: </b>  \n<b>Belongs-to: </b> openconfig-bgp \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nnetopenconfig@googlegroups.com \n<b>Revision : </b> 2016-06-21 \n
+package ":openconfig-bgp-global" as _openconfig_bgp_global { 
+oc_ext_openconfig_extensions +-- _openconfig_bgp_global
+inet_ietf_inet_types +-- _openconfig_bgp_global
+yang_ietf_yang_types +-- _openconfig_bgp_global
+package "openconfig-bgp-common" as openconfig_bgp_common { 
+}
+package "openconfig-bgp-common-multiprotocol" as openconfig_bgp_common_multiprotocol { 
+}
+class "openconfig-bgp-global" as openconfig_bgp_global << (M, #33CCFF) module>> 
+class "bgp-global-config" as openconfig_bgp_global_I_bgp_global_config_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_global_I_bgp_global_config_grouping : as : inet:as-number   {mandatory}
+openconfig_bgp_global_I_bgp_global_config_grouping : router-id : yang:dotted-quad  
+class "bgp-global-state" as openconfig_bgp_global_I_bgp_global_state_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_global_I_bgp_global_state_grouping : bgp-common-state {uses} 
+class "bgp-global-default-route-distance-config" as openconfig_bgp_global_I_bgp_global_default_route_distance_config_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_global_I_bgp_global_default_route_distance_config_grouping : external-route-distance : uint8 [1..255]  
+openconfig_bgp_global_I_bgp_global_default_route_distance_config_grouping : internal-route-distance : uint8 [1..255]  
+class "bgp-global-confederation-config" as openconfig_bgp_global_I_bgp_global_confederation_config_grouping <<(G,Lime) grouping>> 
+openconfig_bgp_global_I_bgp_global_confederation_config_grouping : enabled : boolean  
+openconfig_bgp_global_I_bgp_global_confederation_config_grouping : identifier : inet:as-number  
+openconfig_bgp_global_I_bgp_global_confederation_config_grouping : member-as []: inet:as-number 
+class "bgp-global-afi-safi-list" as openconfig_bgp_global_I_bgp_global_afi_safi_list_grouping <<(G,Lime) grouping>> 
+class "afi-safi" as openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi << (L, #FF7700) list>> 
+openconfig_bgp_global_I_bgp_global_afi_safi_list_grouping *-- "0..N" openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi 
+openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi : +afi-safi-name : leafref : ../config/afi-safi-name  {key} 
+class "config" as  openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi_I_config <<container>> 
+openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi *-- "1" openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi_I_config 
+openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi_I_config : bgp-common-mp-afi-safi-config {uses} 
+class "state" as  openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi_I_state <<container>> 
+openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi *-- "1" openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi_I_state 
+note bottom of openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi_I_state : bgp-common-mp-afi-safi-config {uses} 
+openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi_I_state : bgp-common-state {uses} 
+class "graceful-restart" as  openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi_I_graceful_restart <<container>> 
+openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi *-- "1" openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi_I_graceful_restart 
+class "config" as  openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi_I_graceful_restart_I_config <<container>> 
+openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi_I_graceful_restart *-- "1" openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi_I_graceful_restart_I_config 
+openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi_I_graceful_restart_I_config : bgp-common-mp-afi-safi-graceful-restart-config {uses} 
+class "state" as  openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi_I_graceful_restart_I_state <<container>> 
+openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi_I_graceful_restart *-- "1" openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi_I_graceful_restart_I_state 
+note bottom of openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi_I_graceful_restart_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi_I_graceful_restart_I_state : bgp-common-mp-afi-safi-graceful-restart-config {uses} 
+openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi : bgp-common-route-selection-options {uses} 
+openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi : bgp-common-global-group-use-multiple-paths {uses} 
+openconfig_bgp_global_I_bgp_global_afi_safi_list_I_afi_safi : bgp-common-mp-all-afi-safi-list-contents {uses} 
+class "bgp-global-base" as openconfig_bgp_global_I_bgp_global_base_grouping <<(G,Lime) grouping>> 
+class "config" as  openconfig_bgp_global_I_bgp_global_base_I_config <<container>> 
+openconfig_bgp_global_I_bgp_global_base_grouping *-- "0..1" openconfig_bgp_global_I_bgp_global_base_I_config 
+note bottom of openconfig_bgp_global_I_bgp_global_base_I_config
+<b>Presence: </b>Enable BGP
+end note 
+openconfig_bgp_global_I_bgp_global_base_I_config : bgp-global-config {uses} 
+class "state" as  openconfig_bgp_global_I_bgp_global_base_I_state <<container>> 
+openconfig_bgp_global_I_bgp_global_base_grouping *-- "1" openconfig_bgp_global_I_bgp_global_base_I_state 
+note bottom of openconfig_bgp_global_I_bgp_global_base_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_global_I_bgp_global_base_I_state : bgp-global-config {uses} 
+openconfig_bgp_global_I_bgp_global_base_I_state : bgp-global-state {uses} 
+class "default-route-distance" as  openconfig_bgp_global_I_bgp_global_base_I_default_route_distance <<container>> 
+openconfig_bgp_global_I_bgp_global_base_grouping *-- "1" openconfig_bgp_global_I_bgp_global_base_I_default_route_distance 
+class "config" as  openconfig_bgp_global_I_bgp_global_base_I_default_route_distance_I_config <<container>> 
+openconfig_bgp_global_I_bgp_global_base_I_default_route_distance *-- "1" openconfig_bgp_global_I_bgp_global_base_I_default_route_distance_I_config 
+openconfig_bgp_global_I_bgp_global_base_I_default_route_distance_I_config : bgp-global-default-route-distance-config {uses} 
+class "state" as  openconfig_bgp_global_I_bgp_global_base_I_default_route_distance_I_state <<container>> 
+openconfig_bgp_global_I_bgp_global_base_I_default_route_distance *-- "1" openconfig_bgp_global_I_bgp_global_base_I_default_route_distance_I_state 
+note bottom of openconfig_bgp_global_I_bgp_global_base_I_default_route_distance_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_global_I_bgp_global_base_I_default_route_distance_I_state : bgp-global-default-route-distance-config {uses} 
+class "confederation" as  openconfig_bgp_global_I_bgp_global_base_I_confederation <<container>> 
+openconfig_bgp_global_I_bgp_global_base_grouping *-- "1" openconfig_bgp_global_I_bgp_global_base_I_confederation 
+class "config" as  openconfig_bgp_global_I_bgp_global_base_I_confederation_I_config <<container>> 
+openconfig_bgp_global_I_bgp_global_base_I_confederation *-- "1" openconfig_bgp_global_I_bgp_global_base_I_confederation_I_config 
+openconfig_bgp_global_I_bgp_global_base_I_confederation_I_config : bgp-global-confederation-config {uses} 
+class "state" as  openconfig_bgp_global_I_bgp_global_base_I_confederation_I_state <<container>> 
+openconfig_bgp_global_I_bgp_global_base_I_confederation *-- "1" openconfig_bgp_global_I_bgp_global_base_I_confederation_I_state 
+note bottom of openconfig_bgp_global_I_bgp_global_base_I_confederation_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_global_I_bgp_global_base_I_confederation_I_state : bgp-global-confederation-config {uses} 
+class "graceful-restart" as  openconfig_bgp_global_I_bgp_global_base_I_graceful_restart <<container>> 
+openconfig_bgp_global_I_bgp_global_base_grouping *-- "1" openconfig_bgp_global_I_bgp_global_base_I_graceful_restart 
+class "config" as  openconfig_bgp_global_I_bgp_global_base_I_graceful_restart_I_config <<container>> 
+openconfig_bgp_global_I_bgp_global_base_I_graceful_restart *-- "1" openconfig_bgp_global_I_bgp_global_base_I_graceful_restart_I_config 
+openconfig_bgp_global_I_bgp_global_base_I_graceful_restart_I_config : bgp-common-graceful-restart-config {uses} 
+class "state" as  openconfig_bgp_global_I_bgp_global_base_I_graceful_restart_I_state <<container>> 
+openconfig_bgp_global_I_bgp_global_base_I_graceful_restart *-- "1" openconfig_bgp_global_I_bgp_global_base_I_graceful_restart_I_state 
+note bottom of openconfig_bgp_global_I_bgp_global_base_I_graceful_restart_I_state
+<b>Config = </b>false
+end note 
+openconfig_bgp_global_I_bgp_global_base_I_graceful_restart_I_state : bgp-common-graceful-restart-config {uses} 
+openconfig_bgp_global_I_bgp_global_base_grouping : bgp-common-global-group-use-multiple-paths {uses} 
+openconfig_bgp_global_I_bgp_global_base_grouping : bgp-common-route-selection-options {uses} 
+class "afi-safis" as  openconfig_bgp_global_I_bgp_global_base_I_afi_safis <<container>> 
+openconfig_bgp_global_I_bgp_global_base_grouping *-- "1" openconfig_bgp_global_I_bgp_global_base_I_afi_safis 
+openconfig_bgp_global_I_bgp_global_base_I_afi_safis : bgp-global-afi-safi-list {uses} 
+} 
+} 
+
+openconfig_bgp_global_I_bgp_global_base_I_config --> openconfig_bgp_global_I_bgp_global_config_grouping : uses 
+openconfig_bgp_global_I_bgp_global_base_I_state --> openconfig_bgp_global_I_bgp_global_config_grouping : uses 
+openconfig_bgp_global_I_bgp_global_base_I_state --> openconfig_bgp_global_I_bgp_global_state_grouping : uses 
+openconfig_bgp_global_I_bgp_global_base_I_default_route_distance_I_config --> openconfig_bgp_global_I_bgp_global_default_route_distance_config_grouping : uses 
+openconfig_bgp_global_I_bgp_global_base_I_default_route_distance_I_state --> openconfig_bgp_global_I_bgp_global_default_route_distance_config_grouping : uses 
+openconfig_bgp_global_I_bgp_global_base_I_confederation_I_config --> openconfig_bgp_global_I_bgp_global_confederation_config_grouping : uses 
+openconfig_bgp_global_I_bgp_global_base_I_confederation_I_state --> openconfig_bgp_global_I_bgp_global_confederation_config_grouping : uses 
+openconfig_bgp_global_I_bgp_global_base_I_afi_safis --> openconfig_bgp_global_I_bgp_global_afi_safi_list_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:32 </size>
+ endfooter 
+@enduml 

@@ -1,0 +1,49 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-vlan-types.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-vlan-types 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+note top of oc_vlan_types_openconfig_vlan_types : <b>Namespace: </b> http://openconfig.net/yang/vlan-types \n<b>Prefix: </b> oc-vlan-types \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nnetopenconfig@googlegroups.com \n<b>Revision : </b> 2016-05-26 \n
+package "oc-vlan-types:openconfig-vlan-types" as oc_vlan_types_openconfig_vlan_types { 
+oc_ext_openconfig_extensions +-- oc_vlan_types_openconfig_vlan_types
+class "openconfig-vlan-types" as openconfig_vlan_types << (M, #33CCFF) module>> 
+class "vlan-id" as vlan_id << (T, YellowGreen) typedef>>
+vlan_id : uint16 [1..4094]
+class "vlan-range" as vlan_range << (T, YellowGreen) typedef>>
+vlan_range : string {pattern = (409[0-4]|40[0-8][0-...}
+class "qinq-id" as qinq_id << (T, YellowGreen) typedef>>
+qinq_id : string {pattern = (409[0-4]|40[0-8][0-...}
+class "qinq-id-range" as qinq_id_range << (T, YellowGreen) typedef>>
+qinq_id_range : union{string, string}
+enum "vlan-mode-type" as openconfig_vlan_types_I_vlan_mode_type {
+ACCESS
+TRUNK
+}
+class "vlan-ref" as vlan_ref << (T, YellowGreen) typedef>>
+vlan_ref : union{vlan-id, string}
+class "TPID_TYPES" as TPID_TYPES << (I,Silver) identity>> 
+class "TPID_0x8100" as TPID_0x8100 << (I,Silver) identity>> 
+TPID_TYPES <|-- TPID_0x8100 
+class "TPID_0x8A88" as TPID_0x8A88 << (I,Silver) identity>> 
+TPID_TYPES <|-- TPID_0x8A88 
+class "TPID_0x9100" as TPID_0x9100 << (I,Silver) identity>> 
+TPID_TYPES <|-- TPID_0x9100 
+class "TPID_0X9200" as TPID_0X9200 << (I,Silver) identity>> 
+TPID_TYPES <|-- TPID_0X9200 
+} 
+
+center footer
+ <size:20> UML Generated : 2019-02-20 23:56 </size>
+ endfooter 
+@enduml 

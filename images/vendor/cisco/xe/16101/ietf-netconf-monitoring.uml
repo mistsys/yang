@@ -1,0 +1,131 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-netconf-monitoring.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-netconf-monitoring 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+note top of ncm_ietf_netconf_monitoring : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring \n<b>Prefix: </b> ncm \n<b>Organization : </b>\nIETF NETCONF (Network Configuration) Working Group \n<b>Contact : </b>\nWG Web:   <http://tools.ietf.org/wg/netconf/> \nWG List:  <mailto:netconf@ietf.org> \n \nWG Chair: Mehmet Ersue \n          <mailto:mehmet.ersue@nsn.com> \n \nWG Chair: Bert Wijnen \n          <mailto:bertietf@bwijnen.net> \n \nEditor:   Mark Scott \n          <mailto:mark.scott@ericsson.com> \n \nEditor:   Martin Bjorklund \n          <mailto:mbj@tail-f.com> \n<b>Revision : </b> 2010-10-04 \n
+package "ncm:ietf-netconf-monitoring" as ncm_ietf_netconf_monitoring { 
+yang_ietf_yang_types +-- ncm_ietf_netconf_monitoring
+inet_ietf_inet_types +-- ncm_ietf_netconf_monitoring
+class "ietf-netconf-monitoring" as ietf_netconf_monitoring << (M, #33CCFF) module>> 
+enum "netconf-datastore-type" as ietf_netconf_monitoring_I_netconf_datastore_type {
+running
+candidate
+startup
+}
+class "common-counters" as ietf_netconf_monitoring_I_common_counters_grouping <<(G,Lime) grouping>> 
+ietf_netconf_monitoring_I_common_counters_grouping : in-rpcs : yang:zero-based-counter32  
+ietf_netconf_monitoring_I_common_counters_grouping : in-bad-rpcs : yang:zero-based-counter32  
+ietf_netconf_monitoring_I_common_counters_grouping : out-rpc-errors : yang:zero-based-counter32  
+ietf_netconf_monitoring_I_common_counters_grouping : out-notifications : yang:zero-based-counter32  
+class "netconf-state" as  ietf_netconf_monitoring_I_netconf_state <<container>> 
+ietf_netconf_monitoring *-- "1" ietf_netconf_monitoring_I_netconf_state 
+note bottom of ietf_netconf_monitoring_I_netconf_state
+<b>Config = </b>false
+end note 
+class "capabilities" as  ietf_netconf_monitoring_I_netconf_state_I_capabilities <<container>> 
+ietf_netconf_monitoring_I_netconf_state *-- "1" ietf_netconf_monitoring_I_netconf_state_I_capabilities 
+ietf_netconf_monitoring_I_netconf_state_I_capabilities : capability []: inet:uri 
+class "datastores" as  ietf_netconf_monitoring_I_netconf_state_I_datastores <<container>> 
+ietf_netconf_monitoring_I_netconf_state *-- "1" ietf_netconf_monitoring_I_netconf_state_I_datastores 
+class "datastore" as ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore << (L, #FF7700) list>> 
+ietf_netconf_monitoring_I_netconf_state_I_datastores *-- "0..N" ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore 
+ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore : +name : netconf-datastore-type  {key} 
+class "locks" as  ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks <<container>> 
+ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore *-- "0..1" ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks 
+note bottom of ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks
+<b>Presence: </b>This container is present only if the datastore
+is locked.
+end note 
+class "lock-info" as ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_info_grouping <<(G,Red) grouping>> 
+ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_info_grouping : locked-by-session : uint32   {mandatory}
+ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_info_grouping : locked-time : yang:date-and-time   {mandatory}
+class "lock-type" as ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type <<choice>> 
+ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks .. ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type : choice 
+class "global-lock" as ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type_I_global_lock_case <<case>> 
+ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type .. ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type_I_global_lock_case : choice lock-type
+class "global-lock" as  ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type_I_global_lock <<container>> 
+ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type_I_global_lock_case *-- "1" ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type_I_global_lock 
+ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type_I_global_lock : lock-info {uses} 
+class "partial-lock" as ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type_I_partial_lock_case <<case>> 
+ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type .. ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type_I_partial_lock_case : choice lock-type
+class "partial-lock" as ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type_I_partial_lock << (L, #FF7700) list>> 
+ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type_I_partial_lock_case *-- "0..N" ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type_I_partial_lock 
+ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type_I_partial_lock : +lock-id : uint32  {key} 
+ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type_I_partial_lock : lock-info {uses} 
+ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type_I_partial_lock : select []: yang:xpath1.0 
+ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type_I_partial_lock : locked-node []: instance-identifier 
+class "schemas" as  ietf_netconf_monitoring_I_netconf_state_I_schemas <<container>> 
+ietf_netconf_monitoring_I_netconf_state *-- "1" ietf_netconf_monitoring_I_netconf_state_I_schemas 
+class "schema" as ietf_netconf_monitoring_I_netconf_state_I_schemas_I_schema << (L, #FF7700) list>> 
+ietf_netconf_monitoring_I_netconf_state_I_schemas *-- "0..N" ietf_netconf_monitoring_I_netconf_state_I_schemas_I_schema 
+ietf_netconf_monitoring_I_netconf_state_I_schemas_I_schema : +identifier : string  {key} 
+ietf_netconf_monitoring_I_netconf_state_I_schemas_I_schema : +version : string  {key} 
+ietf_netconf_monitoring_I_netconf_state_I_schemas_I_schema : +format : identityref {schema-format}  {key} 
+ietf_netconf_monitoring_I_netconf_state_I_schemas_I_schema : namespace : inet:uri   {mandatory}
+ietf_netconf_monitoring_I_netconf_state_I_schemas_I_schema : location []: union{enumeration, inet:uri} 
+class "sessions" as  ietf_netconf_monitoring_I_netconf_state_I_sessions <<container>> 
+ietf_netconf_monitoring_I_netconf_state *-- "1" ietf_netconf_monitoring_I_netconf_state_I_sessions 
+class "session" as ietf_netconf_monitoring_I_netconf_state_I_sessions_I_session << (L, #FF7700) list>> 
+ietf_netconf_monitoring_I_netconf_state_I_sessions *-- "0..N" ietf_netconf_monitoring_I_netconf_state_I_sessions_I_session 
+ietf_netconf_monitoring_I_netconf_state_I_sessions_I_session : +session-id : uint32 [1..max]  {key} 
+ietf_netconf_monitoring_I_netconf_state_I_sessions_I_session : transport : identityref {transport}   {mandatory}
+ietf_netconf_monitoring_I_netconf_state_I_sessions_I_session : username : string   {mandatory}
+ietf_netconf_monitoring_I_netconf_state_I_sessions_I_session : source-host : inet:host  
+ietf_netconf_monitoring_I_netconf_state_I_sessions_I_session : login-time : yang:date-and-time   {mandatory}
+ietf_netconf_monitoring_I_netconf_state_I_sessions_I_session : common-counters {uses} 
+class "statistics" as  ietf_netconf_monitoring_I_netconf_state_I_statistics <<container>> 
+ietf_netconf_monitoring_I_netconf_state *-- "1" ietf_netconf_monitoring_I_netconf_state_I_statistics 
+ietf_netconf_monitoring_I_netconf_state_I_statistics : netconf-start-time : yang:date-and-time  
+ietf_netconf_monitoring_I_netconf_state_I_statistics : in-bad-hellos : yang:zero-based-counter32  
+ietf_netconf_monitoring_I_netconf_state_I_statistics : in-sessions : yang:zero-based-counter32  
+ietf_netconf_monitoring_I_netconf_state_I_statistics : dropped-sessions : yang:zero-based-counter32  
+ietf_netconf_monitoring_I_netconf_state_I_statistics : common-counters {uses} 
+ietf_netconf_monitoring : get-schema( in: identifier in: version in: format out: data)
+class "transport" as transport << (I,Silver) identity>> 
+class "netconf-ssh" as netconf_ssh << (I,Silver) identity>> 
+transport <|-- netconf_ssh 
+class "netconf-soap-over-beep" as netconf_soap_over_beep << (I,Silver) identity>> 
+transport <|-- netconf_soap_over_beep 
+class "netconf-soap-over-https" as netconf_soap_over_https << (I,Silver) identity>> 
+transport <|-- netconf_soap_over_https 
+class "netconf-beep" as netconf_beep << (I,Silver) identity>> 
+transport <|-- netconf_beep 
+class "netconf-tls" as netconf_tls << (I,Silver) identity>> 
+transport <|-- netconf_tls 
+class "schema-format" as schema_format << (I,Silver) identity>> 
+class "xsd" as xsd << (I,Silver) identity>> 
+schema_format <|-- xsd 
+class "yang" as yang << (I,Silver) identity>> 
+schema_format <|-- yang 
+class "yin" as yin << (I,Silver) identity>> 
+schema_format <|-- yin 
+class "rng" as rng << (I,Silver) identity>> 
+schema_format <|-- rng 
+class "rnc" as rnc << (I,Silver) identity>> 
+schema_format <|-- rnc 
+ietf_netconf_monitoring_I_netconf_state_I_schemas_I_schema-->schema_format: format
+ietf_netconf_monitoring_I_netconf_state_I_sessions_I_session-->transport: transport
+} 
+
+ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type_I_global_lock --> ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_info_grouping : uses 
+ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_type_I_partial_lock --> ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_lock_info_grouping : uses 
+ietf_netconf_monitoring_I_netconf_state_I_sessions_I_session --> ietf_netconf_monitoring_I_common_counters_grouping : uses 
+ietf_netconf_monitoring_I_netconf_state_I_statistics --> ietf_netconf_monitoring_I_common_counters_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:58 </size>
+ endfooter 
+@enduml 

@@ -1,0 +1,389 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/cisco-pw.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title cisco-pw 
+package "if:ietf-interfaces" as if_ietf_interfaces { 
+} 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+note top of l2vpn_pw_cisco_pw : <b>Namespace: </b> urn:cisco:params:xml:ns:yang:pw \n<b>Prefix: </b> l2vpn-pw \n<b>Organization : </b>\nCisco Systems, Inc. \n<b>Contact : </b>\nCisco Systems, Inc. \nCustomer Service \n \nPostal: 170 W Tasman Drive \nSan Jose, CA 95134 \n \nTel: +1 1800 553-NETS \n \nE-mail: cs-yang@cisco.com \n<b>Revision : </b> 2016-12-07 \n
+package "l2vpn-pw:cisco-pw" as l2vpn_pw_cisco_pw { 
+if_ietf_interfaces +-- l2vpn_pw_cisco_pw
+inet_ietf_inet_types +-- l2vpn_pw_cisco_pw
+yang_ietf_yang_types +-- l2vpn_pw_cisco_pw
+class "cisco-pw" as cisco_pw << (M, #33CCFF) module>> 
+cisco_pw : feature : pw_interface 
+cisco_pw : feature : pw_load_balancing 
+cisco_pw : feature : pw_class_flow_setting 
+cisco_pw : feature : flow_label_tlv_code17 
+cisco_pw : feature : flow_label_static_config 
+cisco_pw : feature : pw_preferred_path 
+cisco_pw : feature : preferred_path_peer 
+cisco_pw : feature : pw_vccv 
+cisco_pw : feature : pw_class_switchover_delay 
+cisco_pw : feature : pw_class_source_ip 
+cisco_pw : feature : pw_class_tag_rewrite 
+cisco_pw : feature : pw_tag_impose_vlan_id 
+cisco_pw : feature : pw_ipv6_source 
+cisco_pw : feature : pw_port_profiles 
+cisco_pw : feature : pw_class_status 
+cisco_pw : feature : pw_sequencing 
+cisco_pw : feature : pw_mac_withdraw_config 
+cisco_pw : feature : pw_short_config 
+cisco_pw : feature : static_label_direct_config 
+cisco_pw : feature : pw_grouping_config 
+cisco_pw : feature : pw_oam_refresh_config 
+cisco_pw : feature : pw_status_config 
+cisco_pw : feature : predictive_redundancy_config 
+cisco_pw : feature : pw_static_oam_config 
+class "pw-template-ref" as pw_template_ref << (T, YellowGreen) typedef>>
+pw_template_ref : leafref : /l2vpn-pw:pseudowire-config/pw-templates/l2vpn-pw:pw-template/l2vpn-pw:name
+class "pw-oper-vc-peer-addr-ref" as pw_oper_vc_peer_addr_ref << (T, YellowGreen) typedef>>
+pw_oper_vc_peer_addr_ref : leafref : /l2vpn-pw:pseudowire-state/l2vpn-pw:pseudowires/l2vpn-pw:vc-peer-address
+class "pw-oper-vc-id-ref" as pw_oper_vc_id_ref << (T, YellowGreen) typedef>>
+pw_oper_vc_id_ref : leafref : /l2vpn-pw:pseudowire-state/l2vpn-pw:pseudowires/l2vpn-pw:vc-id
+class "pw-group-id-type" as pw_group_id_type << (T, YellowGreen) typedef>>
+pw_group_id_type : uint32
+class "pw-vc-id-type" as pw_vc_id_type << (T, YellowGreen) typedef>>
+pw_vc_id_type : uint32
+class "pw-vc-index-type" as pw_vc_index_type << (T, YellowGreen) typedef>>
+pw_vc_index_type : uint32
+enum "pw-oper-state-type" as cisco_pw_I_pw_oper_state_type {
+up
+down
+cold-standby
+MORE
+}
+class "pw-backup-delay-config" as cisco_pw_I_pw_backup_delay_config_grouping <<(G,Lime) grouping>> 
+cisco_pw_I_pw_backup_delay_config_grouping : switchover-timer : uint8 [0..120]  
+class "restore-timer-or-never" as cisco_pw_I_pw_backup_delay_config_I_restore_timer_or_never <<choice>> 
+cisco_pw_I_pw_backup_delay_config_grouping .. cisco_pw_I_pw_backup_delay_config_I_restore_timer_or_never : choice 
+class "timer" as cisco_pw_I_pw_backup_delay_config_I_restore_timer_or_never_I_timer_case <<case>> 
+cisco_pw_I_pw_backup_delay_config_I_restore_timer_or_never .. cisco_pw_I_pw_backup_delay_config_I_restore_timer_or_never_I_timer_case : choice restore-timer-or-never
+cisco_pw_I_pw_backup_delay_config_I_restore_timer_or_never_I_timer_case : timer : uint8 [0..180]  
+class "never" as cisco_pw_I_pw_backup_delay_config_I_restore_timer_or_never_I_never_case <<case>> 
+cisco_pw_I_pw_backup_delay_config_I_restore_timer_or_never .. cisco_pw_I_pw_backup_delay_config_I_restore_timer_or_never_I_never_case : choice restore-timer-or-never
+cisco_pw_I_pw_backup_delay_config_I_restore_timer_or_never_I_never_case : never : boolean   = false 
+class "pw-oper-ref-keys" as cisco_pw_I_pw_oper_ref_keys_grouping <<(G,Lime) grouping>> 
+cisco_pw_I_pw_oper_ref_keys_grouping : vc-peer-address : pw-oper-vc-peer-addr-ref  
+cisco_pw_I_pw_oper_ref_keys_grouping : vc-id : pw-oper-vc-id-ref  
+class "pw-class-template-config" as cisco_pw_I_pw_class_template_config_grouping <<(G,Lime) grouping>> 
+cisco_pw_I_pw_class_template_config_grouping : encapsulation : identityref {pw-encapsulation-type}  
+cisco_pw_I_pw_class_template_config_grouping : control-word : boolean  
+note bottom of cisco_pw_I_pw_class_template_config_grouping
+<b>When</b> (control-word):
+../encapsulation = 'pw-encap-mpls'
+
+end note 
+cisco_pw_I_pw_class_template_config_grouping : signaling-protocol : identityref {pw-signaling-protocol-type}  
+class "load-balance" as  cisco_pw_I_pw_class_template_config_I_load_balance <<container>> 
+cisco_pw_I_pw_class_template_config_grouping *-- "1" cisco_pw_I_pw_class_template_config_I_load_balance 
+note bottom of cisco_pw_I_pw_class_template_config_I_load_balance
+<b>if-feature: </b>pw-load-balancing
+end note 
+class "flow" as cisco_pw_I_pw_class_template_config_I_load_balance_I_flow <<choice>> 
+cisco_pw_I_pw_class_template_config_I_load_balance .. cisco_pw_I_pw_class_template_config_I_load_balance_I_flow : choice 
+note bottom of cisco_pw_I_pw_class_template_config_I_load_balance_I_flow
+<b>if-feature: </b>pw-class-flow-setting
+end note 
+class "ethernet" as cisco_pw_I_pw_class_template_config_I_load_balance_I_flow_I_ethernet_case <<case>>
+cisco_pw_I_pw_class_template_config_I_load_balance_I_flow .. cisco_pw_I_pw_class_template_config_I_load_balance_I_flow_I_ethernet_case  : choice flow
+cisco_pw_I_pw_class_template_config_I_load_balance_I_flow_I_ethernet_case : ethernet : identityref {pw-lb-ethernet-type}   = pw-lb-eth-src-dst-mac 
+class "ip" as cisco_pw_I_pw_class_template_config_I_load_balance_I_flow_I_ip_case <<case>>
+cisco_pw_I_pw_class_template_config_I_load_balance_I_flow .. cisco_pw_I_pw_class_template_config_I_load_balance_I_flow_I_ip_case  : choice flow
+cisco_pw_I_pw_class_template_config_I_load_balance_I_flow_I_ip_case : ip : identityref {pw-lb-ip-type}  
+class "flow-label" as  cisco_pw_I_pw_class_template_config_I_load_balance_I_flow_label <<container>> 
+cisco_pw_I_pw_class_template_config_I_load_balance *-- "1" cisco_pw_I_pw_class_template_config_I_load_balance_I_flow_label 
+cisco_pw_I_pw_class_template_config_I_load_balance_I_flow_label : direction : enumeration : {transmit,receive,both,}  
+cisco_pw_I_pw_class_template_config_I_load_balance_I_flow_label : tlv-code-17 : boolean   {if-feature : flow-label-tlv-code17}
+cisco_pw_I_pw_class_template_config_I_load_balance_I_flow_label : static : boolean   = false  {if-feature : flow-label-static-config}
+class "preferred-path" as  cisco_pw_I_pw_class_template_config_I_preferred_path <<container>> 
+cisco_pw_I_pw_class_template_config_grouping *-- "1" cisco_pw_I_pw_class_template_config_I_preferred_path 
+note bottom of cisco_pw_I_pw_class_template_config_I_preferred_path
+<b>if-feature: </b>pw-preferred-path
+end note 
+class "path" as cisco_pw_I_pw_class_template_config_I_preferred_path_I_path <<choice>> 
+cisco_pw_I_pw_class_template_config_I_preferred_path .. cisco_pw_I_pw_class_template_config_I_preferred_path_I_path : choice 
+class "interface" as cisco_pw_I_pw_class_template_config_I_preferred_path_I_path_I_interface_case <<case>>
+cisco_pw_I_pw_class_template_config_I_preferred_path_I_path .. cisco_pw_I_pw_class_template_config_I_preferred_path_I_path_I_interface_case  : choice path
+cisco_pw_I_pw_class_template_config_I_preferred_path_I_path_I_interface_case : interface : if:interface-ref  
+class "address" as cisco_pw_I_pw_class_template_config_I_preferred_path_I_path_I_address_case <<case>>
+cisco_pw_I_pw_class_template_config_I_preferred_path_I_path .. cisco_pw_I_pw_class_template_config_I_preferred_path_I_path_I_address_case  : choice path
+note bottom of cisco_pw_I_pw_class_template_config_I_preferred_path_I_path_I_address_case
+<b>if-feature: </b>preferred-path-peer
+end note 
+cisco_pw_I_pw_class_template_config_I_preferred_path_I_path_I_address_case : address : inet:ip-address  
+class "hostname" as cisco_pw_I_pw_class_template_config_I_preferred_path_I_path_I_hostname_case <<case>>
+cisco_pw_I_pw_class_template_config_I_preferred_path_I_path .. cisco_pw_I_pw_class_template_config_I_preferred_path_I_path_I_hostname_case  : choice path
+note bottom of cisco_pw_I_pw_class_template_config_I_preferred_path_I_path_I_hostname_case
+<b>if-feature: </b>preferred-path-peer
+end note 
+cisco_pw_I_pw_class_template_config_I_preferred_path_I_path_I_hostname_case : hostname : string  
+cisco_pw_I_pw_class_template_config_I_preferred_path : disable-fallback : boolean  
+class "sequencing" as  cisco_pw_I_pw_class_template_config_I_sequencing <<container>> 
+cisco_pw_I_pw_class_template_config_grouping *-- "1" cisco_pw_I_pw_class_template_config_I_sequencing 
+note bottom of cisco_pw_I_pw_class_template_config_I_sequencing
+<b>if-feature: </b>pw-sequencing
+end note 
+cisco_pw_I_pw_class_template_config_I_sequencing : direction : identityref {pw-sequencing-type}  
+cisco_pw_I_pw_class_template_config_I_sequencing : resync : int32 [5..65535]  
+cisco_pw_I_pw_class_template_config_grouping : vc-type : identityref {pw-vc-type}  
+cisco_pw_I_pw_class_template_config_grouping : switching-tlv : boolean  
+class "vccv" as  cisco_pw_I_pw_class_template_config_I_vccv <<container>> 
+cisco_pw_I_pw_class_template_config_grouping *-- "1" cisco_pw_I_pw_class_template_config_I_vccv 
+note bottom of cisco_pw_I_pw_class_template_config_I_vccv
+<b>if-feature: </b>pw-vccv
+end note 
+cisco_pw_I_pw_class_template_config_I_vccv : control-word : boolean  
+class "switchover-delay" as  cisco_pw_I_pw_class_template_config_I_switchover_delay <<container>> 
+cisco_pw_I_pw_class_template_config_grouping *-- "1" cisco_pw_I_pw_class_template_config_I_switchover_delay 
+note bottom of cisco_pw_I_pw_class_template_config_I_switchover_delay
+<b>if-feature: </b>pw-class-switchover-delay
+end note 
+cisco_pw_I_pw_class_template_config_I_switchover_delay : pw-backup-delay-config {uses} 
+cisco_pw_I_pw_class_template_config_grouping : source-ip : inet:ipv4-address   {if-feature : pw-class-source-ip}
+cisco_pw_I_pw_class_template_config_grouping : tag-rewrite-ingress-vlan : uint16 [1..4094]   {if-feature : pw-class-tag-rewrite}
+cisco_pw_I_pw_class_template_config_grouping : mac-withdraw : boolean   = false  {if-feature : pw-mac-withdraw-config}
+class "status" as  cisco_pw_I_pw_class_template_config_I_status <<container>> 
+cisco_pw_I_pw_class_template_config_grouping *-- "1" cisco_pw_I_pw_class_template_config_I_status 
+cisco_pw_I_pw_class_template_config_I_status : decoupled : boolean   = false  {if-feature : pw-class-status}
+cisco_pw_I_pw_class_template_config_I_status : disable : boolean   = false  {if-feature : pw-class-status}
+cisco_pw_I_pw_class_template_config_I_status : peer-topo-dual-homed : boolean  
+cisco_pw_I_pw_class_template_config_I_status : route-watch-disable : boolean   = false  {if-feature : pw-class-status}
+cisco_pw_I_pw_class_template_config_I_status : redundancy-master : boolean   = false  {if-feature : pw-class-status}
+class "pw-neighbor-base-config" as cisco_pw_I_pw_neighbor_base_config_grouping <<(G,Lime) grouping>> 
+cisco_pw_I_pw_neighbor_base_config_grouping : neighbor-ip-address : inet:ip-address  
+cisco_pw_I_pw_neighbor_base_config_grouping : vc-id : uint32 [1..4294967295]  
+class "pw-static-label-config" as cisco_pw_I_pw_static_label_config_grouping <<(G,Lime) grouping>> 
+cisco_pw_I_pw_static_label_config_grouping : local-label : uint32 [16..1048575]  
+cisco_pw_I_pw_static_label_config_grouping : remote-label : uint32 [16..1048575]  
+class "pw-neighbor-config" as cisco_pw_I_pw_neighbor_config_grouping <<(G,Lime) grouping>> 
+cisco_pw_I_pw_neighbor_config_grouping : pw-neighbor-base-config {uses} 
+class "static-label" as  cisco_pw_I_pw_neighbor_config_I_static_label <<container>> 
+cisco_pw_I_pw_neighbor_config_grouping *-- "1" cisco_pw_I_pw_neighbor_config_I_static_label 
+note bottom of cisco_pw_I_pw_neighbor_config_I_static_label
+<b>if-feature: </b>static-label-direct-config
+end note 
+cisco_pw_I_pw_neighbor_config_I_static_label : pw-static-label-config {uses} 
+class "pw-class-or-specs" as cisco_pw_I_pw_neighbor_config_I_pw_class_or_specs <<choice>> 
+cisco_pw_I_pw_neighbor_config_grouping .. cisco_pw_I_pw_neighbor_config_I_pw_class_or_specs : choice 
+class "pw-class-template" as cisco_pw_I_pw_neighbor_config_I_pw_class_or_specs_I_pw_class_template_case <<case>>
+cisco_pw_I_pw_neighbor_config_I_pw_class_or_specs .. cisco_pw_I_pw_neighbor_config_I_pw_class_or_specs_I_pw_class_template_case  : choice pw-class-or-specs
+cisco_pw_I_pw_neighbor_config_I_pw_class_or_specs_I_pw_class_template_case : pw-class-template : pw-template-ref  
+class "specs" as cisco_pw_I_pw_neighbor_config_I_pw_class_or_specs_I_specs_case <<case>>
+cisco_pw_I_pw_neighbor_config_I_pw_class_or_specs .. cisco_pw_I_pw_neighbor_config_I_pw_class_or_specs_I_specs_case  : choice pw-class-or-specs
+cisco_pw_I_pw_neighbor_config_I_pw_class_or_specs_I_specs_case : encap-type : identityref {pw-encapsulation-type}   {if-feature : pw-short-config}
+cisco_pw_I_pw_neighbor_config_I_pw_class_or_specs_I_specs_case : tag-impose-vlan : uint16 [1..4094]   {if-feature : pw-tag-impose-vlan-id}
+cisco_pw_I_pw_neighbor_config_I_pw_class_or_specs_I_specs_case : source-ipv6 : inet:ipv6-address   {if-feature : pw-ipv6-source}
+class "pw-backup-neighbor-config" as cisco_pw_I_pw_backup_neighbor_config_grouping <<(G,Lime) grouping>> 
+cisco_pw_I_pw_backup_neighbor_config_grouping : pw-neighbor-base-config {uses} 
+cisco_pw_I_pw_backup_neighbor_config_grouping : pw-class-template : pw-template-ref  
+class "pw-intf-or-pw-neighbor-config" as cisco_pw_I_pw_intf_or_pw_neighbor_config_grouping <<(G,Lime) grouping>> 
+class "pw-intf-or-pw-neighbor" as cisco_pw_I_pw_intf_or_pw_neighbor_config_I_pw_intf_or_pw_neighbor <<choice>> 
+cisco_pw_I_pw_intf_or_pw_neighbor_config_grouping .. cisco_pw_I_pw_intf_or_pw_neighbor_config_I_pw_intf_or_pw_neighbor : choice 
+class "pw-intf" as cisco_pw_I_pw_intf_or_pw_neighbor_config_I_pw_intf_or_pw_neighbor_I_pw_intf_case <<case>> 
+cisco_pw_I_pw_intf_or_pw_neighbor_config_I_pw_intf_or_pw_neighbor .. cisco_pw_I_pw_intf_or_pw_neighbor_config_I_pw_intf_or_pw_neighbor_I_pw_intf_case : choice pw-intf-or-pw-neighbor
+cisco_pw_I_pw_intf_or_pw_neighbor_config_I_pw_intf_or_pw_neighbor_I_pw_intf_case : pw-intf : if:interface-ref   {if-feature : pw-interface}
+note bottom of cisco_pw_I_pw_intf_or_pw_neighbor_config_I_pw_intf_or_pw_neighbor_I_pw_intf_case
+<b>Must</b> (pw-intf):
+/if:interfaces/if:interface/if:type= 'ifPwType'
+
+end note 
+class "pw-neighbor" as cisco_pw_I_pw_intf_or_pw_neighbor_config_I_pw_intf_or_pw_neighbor_I_pw_neighbor_case <<case>> 
+cisco_pw_I_pw_intf_or_pw_neighbor_config_I_pw_intf_or_pw_neighbor .. cisco_pw_I_pw_intf_or_pw_neighbor_config_I_pw_intf_or_pw_neighbor_I_pw_neighbor_case : choice pw-intf-or-pw-neighbor
+class "pw-neighbor" as  cisco_pw_I_pw_intf_or_pw_neighbor_config_I_pw_intf_or_pw_neighbor_I_pw_neighbor <<container>> 
+cisco_pw_I_pw_intf_or_pw_neighbor_config_I_pw_intf_or_pw_neighbor_I_pw_neighbor_case *-- "1" cisco_pw_I_pw_intf_or_pw_neighbor_config_I_pw_intf_or_pw_neighbor_I_pw_neighbor 
+cisco_pw_I_pw_intf_or_pw_neighbor_config_I_pw_intf_or_pw_neighbor_I_pw_neighbor : pw-neighbor-config {uses} 
+class "pseudowire-config" as  cisco_pw_I_pseudowire_config <<container>> 
+cisco_pw *-- "1" cisco_pw_I_pseudowire_config 
+class "global" as  cisco_pw_I_pseudowire_config_I_global <<container>> 
+cisco_pw_I_pseudowire_config *-- "1" cisco_pw_I_pseudowire_config_I_global 
+cisco_pw_I_pseudowire_config_I_global : pw-grouping : boolean   = false  {if-feature : pw-grouping-config}
+cisco_pw_I_pseudowire_config_I_global : pw-oam-refresh-transmit : uint32 [1..4095]   {if-feature : pw-oam-refresh-config}
+cisco_pw_I_pseudowire_config_I_global : pw-status : boolean   {if-feature : pw-status-config}
+cisco_pw_I_pseudowire_config_I_global : predictive-redundancy : boolean   {if-feature : predictive-redundancy-config}
+cisco_pw_I_pseudowire_config_I_global : vc-state-notification-enabled : boolean  
+cisco_pw_I_pseudowire_config_I_global : vc-state-notification-batch-size : uint32  
+cisco_pw_I_pseudowire_config_I_global : vc-state-notification-rate : uint32  
+class "pw-templates" as  cisco_pw_I_pseudowire_config_I_pw_templates <<container>> 
+cisco_pw_I_pseudowire_config *-- "1" cisco_pw_I_pseudowire_config_I_pw_templates 
+class "pw-template" as cisco_pw_I_pseudowire_config_I_pw_templates_I_pw_template << (L, #FF7700) list>> 
+cisco_pw_I_pseudowire_config_I_pw_templates *-- "0..N" cisco_pw_I_pseudowire_config_I_pw_templates_I_pw_template 
+cisco_pw_I_pseudowire_config_I_pw_templates_I_pw_template : +name : string  {key} 
+cisco_pw_I_pseudowire_config_I_pw_templates_I_pw_template : pw-class-template-config {uses} 
+class "port-profile-spec" as  cisco_pw_I_pseudowire_config_I_pw_templates_I_pw_template_I_port_profile_spec <<container>> 
+cisco_pw_I_pseudowire_config_I_pw_templates_I_pw_template *-- "1" cisco_pw_I_pseudowire_config_I_pw_templates_I_pw_template_I_port_profile_spec 
+note bottom of cisco_pw_I_pseudowire_config_I_pw_templates_I_pw_template_I_port_profile_spec
+<b>if-feature: </b>pw-port-profiles
+end note 
+cisco_pw_I_pseudowire_config_I_pw_templates_I_pw_template_I_port_profile_spec : description : string  
+cisco_pw_I_pseudowire_config_I_pw_templates_I_pw_template_I_port_profile_spec : shutdown : boolean   = false 
+cisco_pw_I_pseudowire_config_I_pw_templates_I_pw_template_I_port_profile_spec : shut-force : boolean   = false 
+cisco_pw_I_pseudowire_config_I_pw_templates_I_pw_template_I_port_profile_spec : mtu : uint32  
+cisco_pw_I_pseudowire_config_I_pw_templates_I_pw_template_I_port_profile_spec : max-ports : uint16 [1..16384]  
+cisco_pw_I_pseudowire_config_I_pw_templates_I_pw_template_I_port_profile_spec : enabled : boolean   = false 
+class "pw-static-oam-classes" as  cisco_pw_I_pseudowire_config_I_pw_static_oam_classes <<container>> 
+cisco_pw_I_pseudowire_config *-- "1" cisco_pw_I_pseudowire_config_I_pw_static_oam_classes 
+note bottom of cisco_pw_I_pseudowire_config_I_pw_static_oam_classes
+<b>if-feature: </b>pw-static-oam-config
+end note 
+class "pw-static-oam-class" as cisco_pw_I_pseudowire_config_I_pw_static_oam_classes_I_pw_static_oam_class << (L, #FF7700) list>> 
+cisco_pw_I_pseudowire_config_I_pw_static_oam_classes *-- "0..N" cisco_pw_I_pseudowire_config_I_pw_static_oam_classes_I_pw_static_oam_class 
+cisco_pw_I_pseudowire_config_I_pw_static_oam_classes_I_pw_static_oam_class : +name : string  {key} 
+cisco_pw_I_pseudowire_config_I_pw_static_oam_classes_I_pw_static_oam_class : ack : boolean  
+cisco_pw_I_pseudowire_config_I_pw_static_oam_classes_I_pw_static_oam_class : keepalive : uint32 [1..4095]   = 600 
+cisco_pw_I_pseudowire_config_I_pw_static_oam_classes_I_pw_static_oam_class : timeout-refresh-send : uint32 [1..4095]   = 30 
+cisco_pw_I_pseudowire_config_I_pw_static_oam_classes_I_pw_static_oam_class : timeout-refresh-ack : uint32 [1..4095]   = 600 
+class "/if:interfaces/if:interface" as if_interfaces_if_interface << (A,CadetBlue) augment>>
+cisco_pw *--  if_interfaces_if_interface 
+note bottom of if_interfaces_if_interface
+<b>When: </b>if:type = 'ifPwType'
+end note 
+class "pw-neighbor" as  ietf_interfaces_I_interfaces_I_interface_I_pw_neighbor <<container>> 
+if_interfaces_if_interface *-- "1" ietf_interfaces_I_interfaces_I_interface_I_pw_neighbor 
+note bottom of ietf_interfaces_I_interfaces_I_interface_I_pw_neighbor
+<b>if-feature: </b>pw-interface
+end note 
+ietf_interfaces_I_interfaces_I_interface_I_pw_neighbor : pw-neighbor-base-config {uses} 
+class "static-label" as  ietf_interfaces_I_interfaces_I_interface_I_pw_neighbor_I_static_label <<container>> 
+ietf_interfaces_I_interfaces_I_interface_I_pw_neighbor *-- "1" ietf_interfaces_I_interfaces_I_interface_I_pw_neighbor_I_static_label 
+ietf_interfaces_I_interfaces_I_interface_I_pw_neighbor_I_static_label : pw-static-label-config {uses} 
+ietf_interfaces_I_interfaces_I_interface_I_pw_neighbor : source-template : pw-template-ref  
+ietf_interfaces_I_interfaces_I_interface_I_pw_neighbor : pw-class-template-config {uses} 
+class "pseudowire-state" as  cisco_pw_I_pseudowire_state <<container>> 
+cisco_pw *-- "1" cisco_pw_I_pseudowire_state 
+note bottom of cisco_pw_I_pseudowire_state
+<b>Config = </b>false
+end note 
+class "pseudowires" as cisco_pw_I_pseudowire_state_I_pseudowires << (L, #FF7700) list>> 
+cisco_pw_I_pseudowire_state *-- "0..N" cisco_pw_I_pseudowire_state_I_pseudowires 
+cisco_pw_I_pseudowire_state_I_pseudowires : vc-type : identityref {pw-vc-type}  
+cisco_pw_I_pseudowire_state_I_pseudowires : +vc-owner-type : enumeration : {vpws,vpls-vfi,vpls-bridge-domain,...}  {key} 
+cisco_pw_I_pseudowire_state_I_pseudowires : vc-owner-name : string  
+cisco_pw_I_pseudowire_state_I_pseudowires : vc-psn-type : enumeration : {mpls,l2tp,ip,...}  
+cisco_pw_I_pseudowire_state_I_pseudowires : +vc-peer-address : inet:ip-address  {key} 
+cisco_pw_I_pseudowire_state_I_pseudowires : +vc-id : pw-vc-id-type  {key} 
+cisco_pw_I_pseudowire_state_I_pseudowires : +vc-index : pw-vc-index-type  {key} 
+cisco_pw_I_pseudowire_state_I_pseudowires : vc-local-group-id : pw-group-id-type  
+cisco_pw_I_pseudowire_state_I_pseudowires : vc-control-word : boolean  
+cisco_pw_I_pseudowire_state_I_pseudowires : vc-local-if-mtu : uint32  
+cisco_pw_I_pseudowire_state_I_pseudowires : vc-remote-group-id : pw-group-id-type  
+cisco_pw_I_pseudowire_state_I_pseudowires : vc-remote-control-word : enumeration : {noControlWord,withControlWord,notYetKnown,}  
+cisco_pw_I_pseudowire_state_I_pseudowires : vc-remote-if-mtu : uint32  
+cisco_pw_I_pseudowire_state_I_pseudowires : vc-outbound-label : uint32  
+cisco_pw_I_pseudowire_state_I_pseudowires : vc-inbound-label : uint32  
+cisco_pw_I_pseudowire_state_I_pseudowires : +vc-name : string  {key} 
+cisco_pw_I_pseudowire_state_I_pseudowires : vc-oper-status : pw-oper-state-type  
+cisco_pw_I_pseudowire_state_I_pseudowires : vc-inbound-oper-status : pw-oper-state-type  
+cisco_pw_I_pseudowire_state_I_pseudowires : vc-outbound-oper-status : pw-oper-state-type  
+class "statistics" as  cisco_pw_I_pseudowire_state_I_pseudowires_I_statistics <<container>> 
+cisco_pw_I_pseudowire_state_I_pseudowires *-- "1" cisco_pw_I_pseudowire_state_I_pseudowires_I_statistics 
+cisco_pw_I_pseudowire_state_I_pseudowires_I_statistics : vc-create-time : yang:timestamp  
+cisco_pw_I_pseudowire_state_I_pseudowires_I_statistics : vc-up-time : yang:timeticks  
+cisco_pw_I_pseudowire_state_I_pseudowires_I_statistics : discontinuity-time : yang:date-and-time   {mandatory}
+cisco_pw_I_pseudowire_state_I_pseudowires_I_statistics : in-octets : yang:counter64  
+cisco_pw_I_pseudowire_state_I_pseudowires_I_statistics : in-pkts : yang:counter64  
+cisco_pw_I_pseudowire_state_I_pseudowires_I_statistics : in-errors : yang:counter64  
+cisco_pw_I_pseudowire_state_I_pseudowires_I_statistics : out-octets : yang:counter64  
+cisco_pw_I_pseudowire_state_I_pseudowires_I_statistics : out-pkts : yang:counter64  
+cisco_pw_I_pseudowire_state_I_pseudowires_I_statistics : out-errors : yang:counter64  
+class "/if:interfaces-state/if:interface" as if_interfaces_state_if_interface << (A,CadetBlue) augment>>
+cisco_pw *--  if_interfaces_state_if_interface 
+note bottom of if_interfaces_state_if_interface
+<b>When: </b>if:type = 'ifPwType'
+end note 
+class "pseudowire" as  ietf_interfaces_I_interfaces_state_I_interface_I_pseudowire <<container>> 
+if_interfaces_state_if_interface *-- "1" ietf_interfaces_I_interfaces_state_I_interface_I_pseudowire 
+ietf_interfaces_I_interfaces_state_I_interface_I_pseudowire : pw-neighbor-base-config {uses} 
+class "vc-up-notification" as cisco_pw_I_vc_up_notification << (N,#00D1B2) notification>> 
+cisco_pw -- cisco_pw_I_vc_up_notification : notification 
+class "vc-list" as cisco_pw_I_vc_up_notification_I_vc_list << (L, #FF7700) list>> 
+cisco_pw_I_vc_up_notification *-- "0..N" cisco_pw_I_vc_up_notification_I_vc_list 
+cisco_pw_I_vc_up_notification_I_vc_list : l2vpn-pw:pw-oper-ref-keys {uses} 
+class "vc-down-notification" as cisco_pw_I_vc_down_notification << (N,#00D1B2) notification>> 
+cisco_pw -- cisco_pw_I_vc_down_notification : notification 
+class "vc-list" as cisco_pw_I_vc_down_notification_I_vc_list << (L, #FF7700) list>> 
+cisco_pw_I_vc_down_notification *-- "0..N" cisco_pw_I_vc_down_notification_I_vc_list 
+cisco_pw_I_vc_down_notification_I_vc_list : l2vpn-pw:pw-oper-ref-keys {uses} 
+class "pw-encapsulation-type" as pw_encapsulation_type << (I,Silver) identity>> 
+class "pw-encap-mpls" as pw_encap_mpls << (I,Silver) identity>> 
+pw_encapsulation_type <|-- pw_encap_mpls 
+class "pw-vc-type" as pw_vc_type << (I,Silver) identity>> 
+class "pw-vc-type-ether" as pw_vc_type_ether << (I,Silver) identity>> 
+pw_vc_type <|-- pw_vc_type_ether 
+class "pw-vc-type-vlan" as pw_vc_type_vlan << (I,Silver) identity>> 
+pw_vc_type <|-- pw_vc_type_vlan 
+class "pw-vc-type-vlan-passthrough" as pw_vc_type_vlan_passthrough << (I,Silver) identity>> 
+pw_vc_type <|-- pw_vc_type_vlan_passthrough 
+class "pw-load-balance-type" as pw_load_balance_type << (I,Silver) identity>> 
+class "pw-lb-ethernet-type" as pw_lb_ethernet_type << (I,Silver) identity>> 
+pw_load_balance_type <|-- pw_lb_ethernet_type 
+class "pw-lb-eth-src-mac" as pw_lb_eth_src_mac << (I,Silver) identity>> 
+pw_lb_ethernet_type <|-- pw_lb_eth_src_mac 
+class "pw-lb-eth-dst-mac" as pw_lb_eth_dst_mac << (I,Silver) identity>> 
+pw_lb_ethernet_type <|-- pw_lb_eth_dst_mac 
+class "pw-lb-eth-src-dst-mac" as pw_lb_eth_src_dst_mac << (I,Silver) identity>> 
+pw_lb_ethernet_type <|-- pw_lb_eth_src_dst_mac 
+class "pw-lb-ip-type" as pw_lb_ip_type << (I,Silver) identity>> 
+pw_load_balance_type <|-- pw_lb_ip_type 
+class "pw-lb-ip-src-ip" as pw_lb_ip_src_ip << (I,Silver) identity>> 
+pw_lb_ip_type <|-- pw_lb_ip_src_ip 
+class "pw-lb-ip-dst-ip" as pw_lb_ip_dst_ip << (I,Silver) identity>> 
+pw_load_balance_type <|-- pw_lb_ip_dst_ip 
+class "pw-lb-ip-src-dst-ip" as pw_lb_ip_src_dst_ip << (I,Silver) identity>> 
+pw_lb_ip_type <|-- pw_lb_ip_src_dst_ip 
+class "pw-signaling-protocol-type" as pw_signaling_protocol_type << (I,Silver) identity>> 
+class "pw-signaling-protocol-none" as pw_signaling_protocol_none << (I,Silver) identity>> 
+pw_signaling_protocol_type <|-- pw_signaling_protocol_none 
+class "pw-signaling-protocol-ldp" as pw_signaling_protocol_ldp << (I,Silver) identity>> 
+pw_signaling_protocol_type <|-- pw_signaling_protocol_ldp 
+class "pw-signaling-protocol-bgp" as pw_signaling_protocol_bgp << (I,Silver) identity>> 
+pw_signaling_protocol_type <|-- pw_signaling_protocol_bgp 
+class "pw-sequencing-type" as pw_sequencing_type << (I,Silver) identity>> 
+class "pw-sequencing-receive" as pw_sequencing_receive << (I,Silver) identity>> 
+pw_sequencing_type <|-- pw_sequencing_receive 
+class "pw-sequencing-transmit" as pw_sequencing_transmit << (I,Silver) identity>> 
+pw_sequencing_type <|-- pw_sequencing_transmit 
+class "pw-sequencing-both" as pw_sequencing_both << (I,Silver) identity>> 
+pw_sequencing_type <|-- pw_sequencing_both 
+cisco_pw_I_pw_class_template_config_grouping-->pw_encapsulation_type: encapsulation
+cisco_pw_I_pw_class_template_config_grouping-->pw_signaling_protocol_type: signaling-protocol
+cisco_pw_I_pw_class_template_config_I_load_balance_I_flow_I_ethernet_case-->pw_lb_ethernet_type: ethernet
+cisco_pw_I_pw_class_template_config_I_load_balance_I_flow_I_ip_case-->pw_lb_ip_type: ip
+cisco_pw_I_pw_class_template_config_I_sequencing-->pw_sequencing_type: direction
+cisco_pw_I_pw_class_template_config_grouping-->pw_vc_type: vc-type
+cisco_pw_I_pw_neighbor_config_I_pw_class_or_specs_I_specs_case-->pw_encapsulation_type: encap-type
+cisco_pw_I_pseudowire_state_I_pseudowires-->pw_vc_type: vc-type
+} 
+
+cisco_pw_I_pw_class_template_config_I_switchover_delay --> cisco_pw_I_pw_backup_delay_config_grouping : uses 
+cisco_pw_I_pw_neighbor_config_grouping --> cisco_pw_I_pw_neighbor_base_config_grouping : uses 
+cisco_pw_I_pw_neighbor_config_I_static_label --> cisco_pw_I_pw_static_label_config_grouping : uses 
+cisco_pw_I_pw_backup_neighbor_config_grouping --> cisco_pw_I_pw_neighbor_base_config_grouping : uses 
+cisco_pw_I_pw_intf_or_pw_neighbor_config_I_pw_intf_or_pw_neighbor_I_pw_neighbor --> cisco_pw_I_pw_neighbor_config_grouping : uses 
+cisco_pw_I_pseudowire_config_I_pw_templates_I_pw_template --> cisco_pw_I_pw_class_template_config_grouping : uses 
+ietf_interfaces_I_interfaces_I_interface_I_pw_neighbor --> cisco_pw_I_pw_neighbor_base_config_grouping : uses 
+ietf_interfaces_I_interfaces_I_interface_I_pw_neighbor_I_static_label --> cisco_pw_I_pw_static_label_config_grouping : uses 
+ietf_interfaces_I_interfaces_I_interface_I_pw_neighbor --> cisco_pw_I_pw_class_template_config_grouping : uses 
+ietf_interfaces_I_interfaces_state_I_interface_I_pseudowire --> cisco_pw_I_pw_neighbor_base_config_grouping : uses 
+cisco_pw_I_vc_up_notification_I_vc_list --> cisco_pw_I_pw_oper_ref_keys_grouping : uses 
+cisco_pw_I_vc_down_notification_I_vc_list --> cisco_pw_I_pw_oper_ref_keys_grouping : uses 
+pw_template_ref-->"l2vpn-pw:name"cisco_pw_I_pseudowire_config_I_pw_templates_I_pw_template: pw-template-ref
+pw_oper_vc_peer_addr_ref-->"l2vpn-pw:vc-peer-address"cisco_pw_I_pseudowire_state_I_pseudowires: pw-oper-vc-peer-addr-ref
+pw_oper_vc_id_ref-->"l2vpn-pw:vc-id"cisco_pw_I_pseudowire_state_I_pseudowires: pw-oper-vc-id-ref
+center footer
+ <size:20> UML Generated : 2019-02-21 00:12 </size>
+ endfooter 
+@enduml 

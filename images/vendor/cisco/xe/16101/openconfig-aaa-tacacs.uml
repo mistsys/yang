@@ -1,0 +1,61 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-aaa-tacacs.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-aaa-tacacs 
+package "oc-inet:openconfig-inet-types" as oc_inet_openconfig_inet_types { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+package "oc-aaa-types:openconfig-aaa-types" as oc_aaa_types_openconfig_aaa_types { 
+} 
+package "oc-types:openconfig-types" as oc_types_openconfig_types { 
+} 
+package openconfig-aaa {
+note top of _openconfig_aaa_tacacs : <b>Prefix: </b>  \n<b>Belongs-to: </b> openconfig-aaa \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nwww.openconfig.net \n<b>Revision : </b> 2017-09-18 \n
+package ":openconfig-aaa-tacacs" as _openconfig_aaa_tacacs { 
+oc_inet_openconfig_inet_types +-- _openconfig_aaa_tacacs
+oc_ext_openconfig_extensions +-- _openconfig_aaa_tacacs
+oc_aaa_types_openconfig_aaa_types +-- _openconfig_aaa_tacacs
+oc_types_openconfig_types +-- _openconfig_aaa_tacacs
+class "openconfig-aaa-tacacs" as openconfig_aaa_tacacs << (M, #33CCFF) module>> 
+class "aaa-tacacs-server-config" as openconfig_aaa_tacacs_I_aaa_tacacs_server_config_grouping <<(G,Lime) grouping>> 
+openconfig_aaa_tacacs_I_aaa_tacacs_server_config_grouping : port : oc-inet:port-number   = 49 
+openconfig_aaa_tacacs_I_aaa_tacacs_server_config_grouping : secret-key : oc-types:routing-password  
+openconfig_aaa_tacacs_I_aaa_tacacs_server_config_grouping : source-address : oc-inet:ip-address  
+class "aaa-tacacs-server-state" as openconfig_aaa_tacacs_I_aaa_tacacs_server_state_grouping <<(G,Lime) grouping>> 
+class "aaa-tacacs-server-top" as openconfig_aaa_tacacs_I_aaa_tacacs_server_top_grouping <<(G,Lime) grouping>> 
+class "tacacs" as  openconfig_aaa_tacacs_I_aaa_tacacs_server_top_I_tacacs <<container>> 
+openconfig_aaa_tacacs_I_aaa_tacacs_server_top_grouping *-- "1" openconfig_aaa_tacacs_I_aaa_tacacs_server_top_I_tacacs 
+class "config" as  openconfig_aaa_tacacs_I_aaa_tacacs_server_top_I_tacacs_I_config <<container>> 
+openconfig_aaa_tacacs_I_aaa_tacacs_server_top_I_tacacs *-- "1" openconfig_aaa_tacacs_I_aaa_tacacs_server_top_I_tacacs_I_config 
+openconfig_aaa_tacacs_I_aaa_tacacs_server_top_I_tacacs_I_config : aaa-tacacs-server-config {uses} 
+class "state" as  openconfig_aaa_tacacs_I_aaa_tacacs_server_top_I_tacacs_I_state <<container>> 
+openconfig_aaa_tacacs_I_aaa_tacacs_server_top_I_tacacs *-- "1" openconfig_aaa_tacacs_I_aaa_tacacs_server_top_I_tacacs_I_state 
+note bottom of openconfig_aaa_tacacs_I_aaa_tacacs_server_top_I_tacacs_I_state
+<b>Config = </b>false
+end note 
+openconfig_aaa_tacacs_I_aaa_tacacs_server_top_I_tacacs_I_state : aaa-tacacs-server-config {uses} 
+openconfig_aaa_tacacs_I_aaa_tacacs_server_top_I_tacacs_I_state : aaa-tacacs-server-state {uses} 
+class "oc-aaa-types:AAA_SERVER_TYPE" as oc_aaa_types_AAA_SERVER_TYPE << (I,Silver) identity>> 
+} 
+class "TACACS" as TACACS << (I,Silver) identity>> 
+oc_aaa_types_AAA_SERVER_TYPE <|-- TACACS 
+} 
+
+openconfig_aaa_tacacs_I_aaa_tacacs_server_top_I_tacacs_I_config --> openconfig_aaa_tacacs_I_aaa_tacacs_server_config_grouping : uses 
+openconfig_aaa_tacacs_I_aaa_tacacs_server_top_I_tacacs_I_state --> openconfig_aaa_tacacs_I_aaa_tacacs_server_config_grouping : uses 
+openconfig_aaa_tacacs_I_aaa_tacacs_server_top_I_tacacs_I_state --> openconfig_aaa_tacacs_I_aaa_tacacs_server_state_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:59 </size>
+ endfooter 
+@enduml 

@@ -1,0 +1,83 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/openconfig-if-aggregate.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title openconfig-if-aggregate 
+package "oc-if:openconfig-interfaces" as oc_if_openconfig_interfaces { 
+} 
+package "oc-eth:openconfig-if-ethernet" as oc_eth_openconfig_if_ethernet { 
+} 
+package "ift:iana-if-type" as ift_iana_if_type { 
+} 
+package "oc-ext:openconfig-extensions" as oc_ext_openconfig_extensions { 
+} 
+note top of oc_lag_openconfig_if_aggregate : <b>Namespace: </b> http://openconfig.net/yang/interfaces/aggregate \n<b>Prefix: </b> oc-lag \n<b>Organization : </b>\nOpenConfig working group \n<b>Contact : </b>\nOpenConfig working group \nnetopenconfig@googlegroups.com \n<b>Revision : </b> 2018-01-05 \n
+package "oc-lag:openconfig-if-aggregate" as oc_lag_openconfig_if_aggregate { 
+oc_if_openconfig_interfaces +-- oc_lag_openconfig_if_aggregate
+oc_eth_openconfig_if_ethernet +-- oc_lag_openconfig_if_aggregate
+ift_iana_if_type +-- oc_lag_openconfig_if_aggregate
+oc_ext_openconfig_extensions +-- oc_lag_openconfig_if_aggregate
+class "openconfig-if-aggregate" as openconfig_if_aggregate << (M, #33CCFF) module>> 
+enum "aggregation-type" as openconfig_if_aggregate_I_aggregation_type {
+LACP
+STATIC
+}
+class "aggregation-logical-config" as openconfig_if_aggregate_I_aggregation_logical_config_grouping <<(G,Lime) grouping>> 
+openconfig_if_aggregate_I_aggregation_logical_config_grouping : lag-type : aggregation-type  
+openconfig_if_aggregate_I_aggregation_logical_config_grouping : min-links : uint16  
+class "aggregation-logical-state" as openconfig_if_aggregate_I_aggregation_logical_state_grouping <<(G,Lime) grouping>> 
+openconfig_if_aggregate_I_aggregation_logical_state_grouping : lag-speed : uint32   {Mbps}
+openconfig_if_aggregate_I_aggregation_logical_state_grouping : member []: oc-if:base-interface-ref 
+note bottom of openconfig_if_aggregate_I_aggregation_logical_state_grouping
+<b>When</b> (member):
+../lag-type = 'STATIC'
+
+end note 
+class "aggregation-logical-top" as openconfig_if_aggregate_I_aggregation_logical_top_grouping <<(G,Lime) grouping>> 
+class "aggregation" as  openconfig_if_aggregate_I_aggregation_logical_top_I_aggregation <<container>> 
+openconfig_if_aggregate_I_aggregation_logical_top_grouping *-- "1" openconfig_if_aggregate_I_aggregation_logical_top_I_aggregation 
+class "config" as  openconfig_if_aggregate_I_aggregation_logical_top_I_aggregation_I_config <<container>> 
+openconfig_if_aggregate_I_aggregation_logical_top_I_aggregation *-- "1" openconfig_if_aggregate_I_aggregation_logical_top_I_aggregation_I_config 
+openconfig_if_aggregate_I_aggregation_logical_top_I_aggregation_I_config : aggregation-logical-config {uses} 
+class "state" as  openconfig_if_aggregate_I_aggregation_logical_top_I_aggregation_I_state <<container>> 
+openconfig_if_aggregate_I_aggregation_logical_top_I_aggregation *-- "1" openconfig_if_aggregate_I_aggregation_logical_top_I_aggregation_I_state 
+note bottom of openconfig_if_aggregate_I_aggregation_logical_top_I_aggregation_I_state
+<b>Config = </b>false
+end note 
+openconfig_if_aggregate_I_aggregation_logical_top_I_aggregation_I_state : aggregation-logical-config {uses} 
+openconfig_if_aggregate_I_aggregation_logical_top_I_aggregation_I_state : aggregation-logical-state {uses} 
+class "ethernet-if-aggregation-config" as openconfig_if_aggregate_I_ethernet_if_aggregation_config_grouping <<(G,Lime) grouping>> 
+openconfig_if_aggregate_I_ethernet_if_aggregation_config_grouping : aggregate-id : leafref : /oc-if:interfaces/oc-if:interface/oc-if:name  
+class "/oc-if:interfaces/oc-if:interface" as oc_if_interfaces_oc_if_interface << (A,CadetBlue) augment>>
+openconfig_if_aggregate *--  oc_if_interfaces_oc_if_interface 
+note bottom of oc_if_interfaces_oc_if_interface
+<b>When: </b>(oc-if:config/oc-if:type = 'ianaift:ieee8023adLag' or oc-if:config/oc-if:type = 'ianaift:propVirtual') and not (contains(oc-if:config/oc-if:name, 'LISP')) and not (contains(oc-if:config/oc-if:name, 'VirtualPortGroup'))
+end note 
+oc_if_interfaces_oc_if_interface : aggregation-logical-top {uses} 
+class "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:config" as oc_if_interfaces_oc_if_interface_oc_eth_ethernet_oc_eth_config << (A,CadetBlue) augment>>
+openconfig_if_aggregate *--  oc_if_interfaces_oc_if_interface_oc_eth_ethernet_oc_eth_config 
+oc_if_interfaces_oc_if_interface_oc_eth_ethernet_oc_eth_config : ethernet-if-aggregation-config {uses} 
+class "/oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state" as oc_if_interfaces_oc_if_interface_oc_eth_ethernet_oc_eth_state << (A,CadetBlue) augment>>
+openconfig_if_aggregate *--  oc_if_interfaces_oc_if_interface_oc_eth_ethernet_oc_eth_state 
+oc_if_interfaces_oc_if_interface_oc_eth_ethernet_oc_eth_state : ethernet-if-aggregation-config {uses} 
+} 
+
+openconfig_if_aggregate_I_aggregation_logical_top_I_aggregation_I_config --> openconfig_if_aggregate_I_aggregation_logical_config_grouping : uses 
+openconfig_if_aggregate_I_aggregation_logical_top_I_aggregation_I_state --> openconfig_if_aggregate_I_aggregation_logical_config_grouping : uses 
+openconfig_if_aggregate_I_aggregation_logical_top_I_aggregation_I_state --> openconfig_if_aggregate_I_aggregation_logical_state_grouping : uses 
+oc_if_interfaces_oc_if_interface --> openconfig_if_aggregate_I_aggregation_logical_top_grouping : uses 
+oc_if_interfaces_oc_if_interface_oc_eth_ethernet_oc_eth_config --> openconfig_if_aggregate_I_ethernet_if_aggregation_config_grouping : uses 
+oc_if_interfaces_oc_if_interface_oc_eth_ethernet_oc_eth_state --> openconfig_if_aggregate_I_ethernet_if_aggregation_config_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-21 00:09 </size>
+ endfooter 
+@enduml 

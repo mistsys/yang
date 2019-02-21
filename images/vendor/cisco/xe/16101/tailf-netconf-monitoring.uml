@@ -1,0 +1,106 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/tailf-netconf-monitoring.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title tailf-netconf-monitoring 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "ncm:ietf-netconf-monitoring" as ncm_ietf_netconf_monitoring { 
+} 
+package "tailf:tailf-common" as tailf_tailf_common { 
+} 
+note top of tncm_tailf_netconf_monitoring : <b>Namespace: </b> http://tail-f.com/yang/netconf-monitoring \n<b>Prefix: </b> tncm \n<b>Organization : </b>\nTail-f Systems \n<b>Revision : </b> 2016-11-24 \n
+package "tncm:tailf-netconf-monitoring" as tncm_tailf_netconf_monitoring { 
+yang_ietf_yang_types +-- tncm_tailf_netconf_monitoring
+ncm_ietf_netconf_monitoring +-- tncm_tailf_netconf_monitoring
+tailf_tailf_common +-- tncm_tailf_netconf_monitoring
+class "tailf-netconf-monitoring" as tailf_netconf_monitoring << (M, #33CCFF) module>> 
+class "/ncm:netconf-state" as ncm_netconf_state << (A,CadetBlue) augment>>
+tailf_netconf_monitoring *--  ncm_netconf_state 
+class "files" as  ietf_netconf_monitoring_I_netconf_state_I_files <<container>> 
+ncm_netconf_state *-- "1" ietf_netconf_monitoring_I_netconf_state_I_files 
+note bottom of ietf_netconf_monitoring_I_netconf_state_I_files
+<b>Config = </b>false
+end note 
+class "file" as ietf_netconf_monitoring_I_netconf_state_I_files_I_file << (L, #FF7700) list>> 
+ietf_netconf_monitoring_I_netconf_state_I_files *-- "0..N" ietf_netconf_monitoring_I_netconf_state_I_files_I_file 
+ietf_netconf_monitoring_I_netconf_state_I_files_I_file : +name : string  {key} 
+ietf_netconf_monitoring_I_netconf_state_I_files_I_file : creator : string  
+ietf_netconf_monitoring_I_netconf_state_I_files_I_file : created : yang:date-and-time  
+ietf_netconf_monitoring_I_netconf_state_I_files_I_file : context : union{enumeration, string}  
+class "/ncm:netconf-state/ncm:datastores/ncm:datastore" as ncm_netconf_state_ncm_datastores_ncm_datastore << (A,CadetBlue) augment>>
+tailf_netconf_monitoring *--  ncm_netconf_state_ncm_datastores_ncm_datastore 
+note bottom of ncm_netconf_state_ncm_datastores_ncm_datastore
+<b>When: </b>ncm:name = 'running'
+end note 
+ncm_netconf_state_ncm_datastores_ncm_datastore : transaction-id : string  
+class "/ncm:netconf-state/ncm:datastores/ncm:datastore/ncm:locks" as ncm_netconf_state_ncm_datastores_ncm_datastore_ncm_locks << (A,CadetBlue) augment>>
+tailf_netconf_monitoring *--  ncm_netconf_state_ncm_datastores_ncm_datastore_ncm_locks 
+note bottom of ncm_netconf_state_ncm_datastores_ncm_datastore_ncm_locks
+<b>When: </b>../ncm:name = 'running'
+end note 
+class "transaction-lock" as  ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_transaction_lock <<container>> 
+ncm_netconf_state_ncm_datastores_ncm_datastore_ncm_locks *-- "0..1" ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_transaction_lock 
+note bottom of ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_transaction_lock
+<b>Presence: </b>Present if the (implicit) transaction lock is set
+end note 
+ietf_netconf_monitoring_I_netconf_state_I_datastores_I_datastore_I_locks_I_transaction_lock : locked-by-session : uint32   {mandatory}
+class "/ncm:netconf-state" as ncm_netconf_state << (A,CadetBlue) augment>>
+class "streams" as  ietf_netconf_monitoring_I_netconf_state_I_streams <<container>> 
+ncm_netconf_state *-- "1" ietf_netconf_monitoring_I_netconf_state_I_streams 
+class "stream" as ietf_netconf_monitoring_I_netconf_state_I_streams_I_stream << (L, #FF7700) list>> 
+ietf_netconf_monitoring_I_netconf_state_I_streams *-- "0..N" ietf_netconf_monitoring_I_netconf_state_I_streams_I_stream 
+ietf_netconf_monitoring_I_netconf_state_I_streams_I_stream : +name : string  {key} 
+ietf_netconf_monitoring_I_netconf_state_I_streams_I_stream : description : string   {mandatory}
+ietf_netconf_monitoring_I_netconf_state_I_streams_I_stream : replay-support : boolean   {mandatory}
+ietf_netconf_monitoring_I_netconf_state_I_streams_I_stream : replay-log-creation-time : yang:date-and-time   {mandatory}
+ietf_netconf_monitoring_I_netconf_state_I_streams_I_stream : replay-log-aged-time : yang:date-and-time  
+class "/ncm:netconf-state/tncm:streams/tncm:stream" as ncm_netconf_state_tncm_streams_tncm_stream << (A,CadetBlue) augment>>
+tailf_netconf_monitoring *--  ncm_netconf_state_tncm_streams_tncm_stream 
+class "subscriber" as ietf_netconf_monitoring_I_netconf_state_I_streams_I_stream_I_subscriber << (L, #FF7700) list>> 
+ncm_netconf_state_tncm_streams_tncm_stream *-- "0..N" ietf_netconf_monitoring_I_netconf_state_I_streams_I_stream_I_subscriber 
+ietf_netconf_monitoring_I_netconf_state_I_streams_I_stream_I_subscriber : +session-id : uint32  {key} 
+ietf_netconf_monitoring_I_netconf_state_I_streams_I_stream_I_subscriber : start-time : yang:date-and-time   {mandatory}
+ietf_netconf_monitoring_I_netconf_state_I_streams_I_stream_I_subscriber : stop-time : yang:date-and-time  
+class "ncm:transport" as ncm_transport << (I,Silver) identity>> 
+class "ncm:transport" as ncm_transport << (I,Silver) identity>> 
+class "ncm:transport" as ncm_transport << (I,Silver) identity>> 
+class "ncm:transport" as ncm_transport << (I,Silver) identity>> 
+class "ncm:transport" as ncm_transport << (I,Silver) identity>> 
+class "ncm:transport" as ncm_transport << (I,Silver) identity>> 
+class "ncm:transport" as ncm_transport << (I,Silver) identity>> 
+class "ncm:transport" as ncm_transport << (I,Silver) identity>> 
+class "ncm:transport" as ncm_transport << (I,Silver) identity>> 
+class "cli-console" as cli_console << (I,Silver) identity>> 
+ncm_transport <|-- cli_console 
+class "cli-ssh" as cli_ssh << (I,Silver) identity>> 
+ncm_transport <|-- cli_ssh 
+class "cli-tcp" as cli_tcp << (I,Silver) identity>> 
+ncm_transport <|-- cli_tcp 
+class "webui-http" as webui_http << (I,Silver) identity>> 
+ncm_transport <|-- webui_http 
+class "webui-https" as webui_https << (I,Silver) identity>> 
+ncm_transport <|-- webui_https 
+class "netconf-tcp" as netconf_tcp << (I,Silver) identity>> 
+ncm_transport <|-- netconf_tcp 
+class "snmp-udp" as snmp_udp << (I,Silver) identity>> 
+ncm_transport <|-- snmp_udp 
+class "rest-http" as rest_http << (I,Silver) identity>> 
+ncm_transport <|-- rest_http 
+class "rest-https" as rest_https << (I,Silver) identity>> 
+ncm_transport <|-- rest_https 
+} 
+
+center footer
+ <size:20> UML Generated : 2019-02-21 00:45 </size>
+ endfooter 
+@enduml 

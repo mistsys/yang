@@ -1,0 +1,242 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-diffserv-action.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-diffserv-action 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "classifier:ietf-diffserv-classifier" as classifier_ietf_diffserv_classifier { 
+} 
+package "policy:ietf-diffserv-policy" as policy_ietf_diffserv_policy { 
+} 
+package "policy-types:policy-types" as policy_types_policy_types { 
+} 
+note top of action_ietf_diffserv_action : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-diffserv-action \n<b>Prefix: </b> action \n<b>Organization : </b>\nIETF NETMOD (Netmod Working Group) Working Group \n<b>Contact : </b>\nWG Web: <http://tools.ietf.org/wg/netmod/> WG List: <mailto:netmod@ietf.org> \nWG Chair: Jurgen Schonwalder <mailto:j.schoenwaelder@jacobs-university.de> \nWG Chair: Tom Nadeau <mailto:tnadeau@lucidvision.com> Editor: \nAseem Choudhary <mailto:asechoud@cisco.com> Editor: Shitanshu \nShah <mailto:svshah@cisco.com> \n<b>Revision : </b> 2015-04-07 \n
+package "action:ietf-diffserv-action" as action_ietf_diffserv_action { 
+inet_ietf_inet_types +-- action_ietf_diffserv_action
+classifier_ietf_diffserv_classifier +-- action_ietf_diffserv_action
+policy_ietf_diffserv_policy +-- action_ietf_diffserv_action
+policy_types_policy_types +-- action_ietf_diffserv_action
+class "ietf-diffserv-action" as ietf_diffserv_action << (M, #33CCFF) module>> 
+ietf_diffserv_action : feature : hierarchial_policy_support 
+ietf_diffserv_action : feature : aqm_red_support 
+ietf_diffserv_action : feature : priority_rate_burst_support 
+class "dscp-range" as ietf_diffserv_action_I_dscp_range_grouping <<(G,Lime) grouping>> 
+ietf_diffserv_action_I_dscp_range_grouping : dscp-min : inet:dscp  
+ietf_diffserv_action_I_dscp_range_grouping : dscp-max : inet:dscp  
+class "burst" as ietf_diffserv_action_I_burst_grouping <<(G,Lime) grouping>> 
+class "burst-type" as ietf_diffserv_action_I_burst_I_burst_type <<choice>> 
+ietf_diffserv_action_I_burst_grouping .. ietf_diffserv_action_I_burst_I_burst_type : choice 
+class "size" as ietf_diffserv_action_I_burst_I_burst_type_I_size_case <<case>>
+ietf_diffserv_action_I_burst_I_burst_type .. ietf_diffserv_action_I_burst_I_burst_type_I_size_case  : choice burst-type
+ietf_diffserv_action_I_burst_I_burst_type_I_size_case : burst-size : uint64   {bytes}
+class "interval" as ietf_diffserv_action_I_burst_I_burst_type_I_interval_case <<case>>
+ietf_diffserv_action_I_burst_I_burst_type .. ietf_diffserv_action_I_burst_I_burst_type_I_interval_case  : choice burst-type
+ietf_diffserv_action_I_burst_I_burst_type_I_interval_case : burst-interval : uint64   {microsecond}
+class "threshold" as ietf_diffserv_action_I_threshold_grouping <<(G,Lime) grouping>> 
+class "threshold" as  ietf_diffserv_action_I_threshold_I_threshold <<container>> 
+ietf_diffserv_action_I_threshold_grouping *-- "1" ietf_diffserv_action_I_threshold_I_threshold 
+class "threshold-type" as ietf_diffserv_action_I_threshold_I_threshold_I_threshold_type <<choice>> 
+ietf_diffserv_action_I_threshold_I_threshold .. ietf_diffserv_action_I_threshold_I_threshold_I_threshold_type : choice 
+class "size" as ietf_diffserv_action_I_threshold_I_threshold_I_threshold_type_I_size_case <<case>>
+ietf_diffserv_action_I_threshold_I_threshold_I_threshold_type .. ietf_diffserv_action_I_threshold_I_threshold_I_threshold_type_I_size_case  : choice threshold-type
+ietf_diffserv_action_I_threshold_I_threshold_I_threshold_type_I_size_case : threshold-size : uint64   {bytes}
+class "interval" as ietf_diffserv_action_I_threshold_I_threshold_I_threshold_type_I_interval_case <<case>>
+ietf_diffserv_action_I_threshold_I_threshold_I_threshold_type .. ietf_diffserv_action_I_threshold_I_threshold_I_threshold_type_I_interval_case  : choice threshold-type
+ietf_diffserv_action_I_threshold_I_threshold_I_threshold_type_I_interval_case : threshold-interval : uint64   {microsecond}
+class "drop" as ietf_diffserv_action_I_drop_grouping <<(G,Lime) grouping>> 
+ietf_diffserv_action_I_drop_grouping : drop-action : empty  
+class "queuelimit" as ietf_diffserv_action_I_queuelimit_grouping <<(G,Lime) grouping>> 
+class "qlimit-dscp-thresh" as ietf_diffserv_action_I_queuelimit_I_qlimit_dscp_thresh << (L, #FF7700) list>> 
+ietf_diffserv_action_I_queuelimit_grouping *-- "0..N" ietf_diffserv_action_I_queuelimit_I_qlimit_dscp_thresh 
+ietf_diffserv_action_I_queuelimit_I_qlimit_dscp_thresh : dscp-range {uses} 
+ietf_diffserv_action_I_queuelimit_I_qlimit_dscp_thresh : threshold {uses} 
+class "meter-action-params" as ietf_diffserv_action_I_meter_action_params_grouping <<(G,Lime) grouping>> 
+ietf_diffserv_action_I_meter_action_params_grouping : meter-action-type : identityref {meter-action-type}  
+ietf_diffserv_action_I_meter_action_params_grouping : next-meter-id : uint16  
+class "val" as ietf_diffserv_action_I_meter_action_params_I_val <<choice>> 
+ietf_diffserv_action_I_meter_action_params_grouping .. ietf_diffserv_action_I_meter_action_params_I_val : choice 
+class "meter-action-mark" as ietf_diffserv_action_I_meter_action_params_I_val_I_meter_action_mark_case <<case>>
+ietf_diffserv_action_I_meter_action_params_I_val .. ietf_diffserv_action_I_meter_action_params_I_val_I_meter_action_mark_case  : choice val
+ietf_diffserv_action_I_meter_action_params_I_val_I_meter_action_mark_case : marking {uses} 
+class "meter-action-drop" as ietf_diffserv_action_I_meter_action_params_I_val_I_meter_action_drop_case <<case>>
+ietf_diffserv_action_I_meter_action_params_I_val .. ietf_diffserv_action_I_meter_action_params_I_val_I_meter_action_drop_case  : choice val
+ietf_diffserv_action_I_meter_action_params_I_val_I_meter_action_drop_case : drop {uses} 
+class "meter" as ietf_diffserv_action_I_meter_grouping <<(G,Lime) grouping>> 
+ietf_diffserv_action_I_meter_grouping : meter-id : uint16  
+ietf_diffserv_action_I_meter_grouping : meter-rate : uint64   {bits-per-second}
+ietf_diffserv_action_I_meter_grouping : burst {uses} 
+class "color" as  ietf_diffserv_action_I_meter_I_color <<container>> 
+ietf_diffserv_action_I_meter_grouping *-- "1" ietf_diffserv_action_I_meter_I_color 
+ietf_diffserv_action_I_meter_I_color : classifier:classifier-entry-generic-attr {uses} 
+class "succeed-action" as  ietf_diffserv_action_I_meter_I_succeed_action <<container>> 
+ietf_diffserv_action_I_meter_grouping *-- "1" ietf_diffserv_action_I_meter_I_succeed_action 
+ietf_diffserv_action_I_meter_I_succeed_action : meter-action-params {uses} 
+class "fail-action" as  ietf_diffserv_action_I_meter_I_fail_action <<container>> 
+ietf_diffserv_action_I_meter_grouping *-- "1" ietf_diffserv_action_I_meter_I_fail_action 
+ietf_diffserv_action_I_meter_I_fail_action : meter-action-params {uses} 
+class "priority" as ietf_diffserv_action_I_priority_grouping <<(G,Lime) grouping>> 
+ietf_diffserv_action_I_priority_grouping : priority-level : uint8  
+class "min-rate" as ietf_diffserv_action_I_min_rate_grouping <<(G,Lime) grouping>> 
+ietf_diffserv_action_I_min_rate_grouping : min-rate : uint64   {bits-per-second}
+class "marking" as ietf_diffserv_action_I_marking_grouping <<(G,Lime) grouping>> 
+ietf_diffserv_action_I_marking_grouping : dscp : inet:dscp  
+class "max-rate" as ietf_diffserv_action_I_max_rate_grouping <<(G,Lime) grouping>> 
+ietf_diffserv_action_I_max_rate_grouping : absolute-rate : uint64   {bits-per-second}
+ietf_diffserv_action_I_max_rate_grouping : burst {uses} 
+class "red-threshold" as ietf_diffserv_action_I_red_threshold_grouping <<(G,Lime) grouping>> 
+class "red-min-thresh" as  ietf_diffserv_action_I_red_threshold_I_red_min_thresh <<container>> 
+ietf_diffserv_action_I_red_threshold_grouping *-- "1" ietf_diffserv_action_I_red_threshold_I_red_min_thresh 
+ietf_diffserv_action_I_red_threshold_I_red_min_thresh : threshold {uses} 
+class "red-max-thresh" as  ietf_diffserv_action_I_red_threshold_I_red_max_thresh <<container>> 
+ietf_diffserv_action_I_red_threshold_grouping *-- "1" ietf_diffserv_action_I_red_threshold_I_red_max_thresh 
+ietf_diffserv_action_I_red_threshold_I_red_max_thresh : threshold {uses} 
+ietf_diffserv_action_I_red_threshold_grouping : mark-probability : uint32 [1..1000]  
+class "randomdetect" as ietf_diffserv_action_I_randomdetect_grouping <<(G,Lime) grouping>> 
+ietf_diffserv_action_I_randomdetect_grouping : exp-weighting-const : uint32  
+ietf_diffserv_action_I_randomdetect_grouping : red-threshold {uses} 
+class "percent-value-1to100" as percent_value_1to100 << (T, YellowGreen) typedef>>
+percent_value_1to100 : uint8 [1..100]
+class "RATE-OPER" as ietf_diffserv_action_I_RATE_OPER_grouping <<(G,Lime) grouping>> 
+ietf_diffserv_action_I_RATE_OPER_grouping : rate : uint64   {bits-per-second}
+ietf_diffserv_action_I_RATE_OPER_grouping : RATE-UNIT {uses} 
+class "RATE-UNIT" as ietf_diffserv_action_I_RATE_UNIT_grouping <<(G,Lime) grouping>> 
+ietf_diffserv_action_I_RATE_UNIT_grouping : absolute-rate-metric : policy-types:metric   = none 
+ietf_diffserv_action_I_RATE_UNIT_grouping : absolute-rate-units : policy-types:rate-unit  
+ietf_diffserv_action_I_RATE_UNIT_grouping : rate-percent : percent-value-1to100  
+ietf_diffserv_action_I_RATE_UNIT_grouping : rate-ratio : uint32 [1..65532]  
+class "/policy:policies/policy:policy-entry/policy:classifier-entry/policy:classifier-action-entry-cfg/policy:action-cfg-params" as policy_policies_policy_policy_entry_policy_classifier_entry_policy_classifier_action_entry_cfg_policy_action_cfg_params << (A,CadetBlue) augment>>
+ietf_diffserv_action *--  policy_policies_policy_policy_entry_policy_classifier_entry_policy_classifier_action_entry_cfg_policy_action_cfg_params 
+class "marking" as ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_marking_case <<case>>
+policy_policies_policy_policy_entry_policy_classifier_entry_policy_classifier_action_entry_cfg_policy_action_cfg_params .. ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_marking_case  : choice action-cfg-params
+class "marking-cfg" as  ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_marking_I_marking_cfg <<container>> 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_marking_case *-- "1" ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_marking_I_marking_cfg 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_marking_I_marking_cfg : marking {uses} 
+class "priority" as ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_priority_case <<case>>
+policy_policies_policy_policy_entry_policy_classifier_entry_policy_classifier_action_entry_cfg_policy_action_cfg_params .. ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_priority_case  : choice action-cfg-params
+class "priority-cfg" as  ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_priority_I_priority_cfg <<container>> 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_priority_case *-- "1" ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_priority_I_priority_cfg 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_priority_I_priority_cfg : priority {uses} 
+class "rate-burst" as  ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_priority_I_priority_cfg_I_rate_burst <<container>> 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_priority_I_priority_cfg *-- "1" ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_priority_I_priority_cfg_I_rate_burst 
+note bottom of ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_priority_I_priority_cfg_I_rate_burst
+<b>if-feature: </b>priority-rate-burst-support
+end note 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_priority_I_priority_cfg_I_rate_burst : RATE-OPER {uses} 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_priority_I_priority_cfg_I_rate_burst : burst {uses} 
+class "meter" as ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_meter_case <<case>>
+policy_policies_policy_policy_entry_policy_classifier_entry_policy_classifier_action_entry_cfg_policy_action_cfg_params .. ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_meter_case  : choice action-cfg-params
+class "meter-cfg" as  ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_meter_I_meter_cfg <<container>> 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_meter_case *-- "1" ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_meter_I_meter_cfg 
+class "meter-list" as ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_meter_I_meter_cfg_I_meter_list << (L, #FF7700) list>> 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_meter_I_meter_cfg *-- "0..N" ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_meter_I_meter_cfg_I_meter_list 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_meter_I_meter_cfg_I_meter_list : meter {uses} 
+class "min-rate" as ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_min_rate_case <<case>>
+policy_policies_policy_policy_entry_policy_classifier_entry_policy_classifier_action_entry_cfg_policy_action_cfg_params .. ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_min_rate_case  : choice action-cfg-params
+class "min-rate-cfg" as  ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_min_rate_I_min_rate_cfg <<container>> 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_min_rate_case *-- "1" ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_min_rate_I_min_rate_cfg 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_min_rate_I_min_rate_cfg : min-rate {uses} 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_min_rate_I_min_rate_cfg : RATE-UNIT {uses} 
+class "bw-excess-share-cfg" as  ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_min_rate_I_min_rate_cfg_I_bw_excess_share_cfg <<container>> 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_min_rate_I_min_rate_cfg *-- "1" ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_min_rate_I_min_rate_cfg_I_bw_excess_share_cfg 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_min_rate_I_min_rate_cfg_I_bw_excess_share_cfg : value : uint32  
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_min_rate_I_min_rate_cfg_I_bw_excess_share_cfg : RATE-UNIT {uses} 
+class "max-rate" as ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_max_rate_case <<case>>
+policy_policies_policy_policy_entry_policy_classifier_entry_policy_classifier_action_entry_cfg_policy_action_cfg_params .. ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_max_rate_case  : choice action-cfg-params
+class "max-rate-cfg" as  ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_max_rate_I_max_rate_cfg <<container>> 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_max_rate_case *-- "1" ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_max_rate_I_max_rate_cfg 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_max_rate_I_max_rate_cfg : max-rate {uses} 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_max_rate_I_max_rate_cfg : RATE-UNIT {uses} 
+class "algorithmic-drop" as ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_case <<case>>
+policy_policies_policy_policy_entry_policy_classifier_entry_policy_classifier_action_entry_cfg_policy_action_cfg_params .. ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_case  : choice action-cfg-params
+class "drop-algorithm" as ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm <<choice>> 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_case .. ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm : choice 
+class "always-drop" as ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_always_drop_case <<case>>
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm .. ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_always_drop_case  : choice drop-algorithm
+class "drop-cfg" as  ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_always_drop_I_drop_cfg <<container>> 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_always_drop_case *-- "1" ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_always_drop_I_drop_cfg 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_always_drop_I_drop_cfg : drop {uses} 
+class "tail-drop" as ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_tail_drop_case <<case>>
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm .. ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_tail_drop_case  : choice drop-algorithm
+class "tail-drop-cfg" as  ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_tail_drop_I_tail_drop_cfg <<container>> 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_tail_drop_case *-- "1" ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_tail_drop_I_tail_drop_cfg 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_tail_drop_I_tail_drop_cfg : queuelimit {uses} 
+class "random-detect" as ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_random_detect_case <<case>>
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm .. ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_random_detect_case  : choice drop-algorithm
+class "random-detect-cfg" as  ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_random_detect_I_random_detect_cfg <<container>> 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_random_detect_case *-- "1" ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_random_detect_I_random_detect_cfg 
+note bottom of ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_random_detect_I_random_detect_cfg
+<b>if-feature: </b>aqm-red-support
+end note 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_random_detect_I_random_detect_cfg : randomdetect {uses} 
+class "policy:action-type" as policy_action_type << (I,Silver) identity>> 
+class "policy:action-type" as policy_action_type << (I,Silver) identity>> 
+class "policy:action-type" as policy_action_type << (I,Silver) identity>> 
+class "policy:action-type" as policy_action_type << (I,Silver) identity>> 
+class "policy:action-type" as policy_action_type << (I,Silver) identity>> 
+class "policy:action-type" as policy_action_type << (I,Silver) identity>> 
+class "marking" as marking << (I,Silver) identity>> 
+policy_action_type <|-- marking 
+class "meter" as meter << (I,Silver) identity>> 
+policy_action_type <|-- meter 
+class "priority" as priority << (I,Silver) identity>> 
+policy_action_type <|-- priority 
+class "min-rate" as min_rate << (I,Silver) identity>> 
+policy_action_type <|-- min_rate 
+class "max-rate" as max_rate << (I,Silver) identity>> 
+policy_action_type <|-- max_rate 
+class "algorithmic-drop" as algorithmic_drop << (I,Silver) identity>> 
+policy_action_type <|-- algorithmic_drop 
+class "drop-type" as drop_type << (I,Silver) identity>> 
+class "always-drop" as always_drop << (I,Silver) identity>> 
+drop_type <|-- always_drop 
+class "tail-drop" as tail_drop << (I,Silver) identity>> 
+drop_type <|-- tail_drop 
+class "random-detect" as random_detect << (I,Silver) identity>> 
+drop_type <|-- random_detect 
+class "meter-action-type" as meter_action_type << (I,Silver) identity>> 
+class "meter-action-drop" as meter_action_drop << (I,Silver) identity>> 
+meter_action_type <|-- meter_action_drop 
+class "meter-action-set" as meter_action_set << (I,Silver) identity>> 
+meter_action_type <|-- meter_action_set 
+ietf_diffserv_action_I_meter_action_params_grouping-->meter_action_type: meter-action-type
+} 
+
+ietf_diffserv_action_I_queuelimit_I_qlimit_dscp_thresh --> ietf_diffserv_action_I_dscp_range_grouping : uses 
+ietf_diffserv_action_I_queuelimit_I_qlimit_dscp_thresh --> ietf_diffserv_action_I_threshold_grouping : uses 
+ietf_diffserv_action_I_meter_action_params_I_val_I_meter_action_mark_case --> ietf_diffserv_action_I_marking_grouping : uses 
+ietf_diffserv_action_I_meter_action_params_I_val_I_meter_action_drop_case --> ietf_diffserv_action_I_drop_grouping : uses 
+ietf_diffserv_action_I_meter_grouping --> ietf_diffserv_action_I_burst_grouping : uses 
+ietf_diffserv_action_I_meter_I_succeed_action --> ietf_diffserv_action_I_meter_action_params_grouping : uses 
+ietf_diffserv_action_I_meter_I_fail_action --> ietf_diffserv_action_I_meter_action_params_grouping : uses 
+ietf_diffserv_action_I_max_rate_grouping --> ietf_diffserv_action_I_burst_grouping : uses 
+ietf_diffserv_action_I_red_threshold_I_red_min_thresh --> ietf_diffserv_action_I_threshold_grouping : uses 
+ietf_diffserv_action_I_red_threshold_I_red_max_thresh --> ietf_diffserv_action_I_threshold_grouping : uses 
+ietf_diffserv_action_I_randomdetect_grouping --> ietf_diffserv_action_I_red_threshold_grouping : uses 
+ietf_diffserv_action_I_RATE_OPER_grouping --> ietf_diffserv_action_I_RATE_UNIT_grouping : uses 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_marking_I_marking_cfg --> ietf_diffserv_action_I_marking_grouping : uses 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_priority_I_priority_cfg --> ietf_diffserv_action_I_priority_grouping : uses 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_priority_I_priority_cfg_I_rate_burst --> ietf_diffserv_action_I_RATE_OPER_grouping : uses 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_priority_I_priority_cfg_I_rate_burst --> ietf_diffserv_action_I_burst_grouping : uses 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_meter_I_meter_cfg_I_meter_list --> ietf_diffserv_action_I_meter_grouping : uses 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_min_rate_I_min_rate_cfg --> ietf_diffserv_action_I_min_rate_grouping : uses 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_min_rate_I_min_rate_cfg --> ietf_diffserv_action_I_RATE_UNIT_grouping : uses 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_min_rate_I_min_rate_cfg_I_bw_excess_share_cfg --> ietf_diffserv_action_I_RATE_UNIT_grouping : uses 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_max_rate_I_max_rate_cfg --> ietf_diffserv_action_I_max_rate_grouping : uses 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_max_rate_I_max_rate_cfg --> ietf_diffserv_action_I_RATE_UNIT_grouping : uses 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_always_drop_I_drop_cfg --> ietf_diffserv_action_I_drop_grouping : uses 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_tail_drop_I_tail_drop_cfg --> ietf_diffserv_action_I_queuelimit_grouping : uses 
+ietf_diffserv_policy_I_policies_I_policy_entry_I_classifier_entry_I_classifier_action_entry_cfg_I_action_cfg_params_I_algorithmic_drop_I_drop_algorithm_I_random_detect_I_random_detect_cfg --> ietf_diffserv_action_I_randomdetect_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:25 </size>
+ endfooter 
+@enduml 

@@ -1,0 +1,87 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/ietf-netconf-notifications.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title ietf-netconf-notifications 
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "nc:ietf-netconf" as nc_ietf_netconf { 
+} 
+note top of ncn_ietf_netconf_notifications : <b>Namespace: </b> urn:ietf:params:xml:ns:yang:ietf-netconf-notifications \n<b>Prefix: </b> ncn \n<b>Organization : </b>\nIETF NETCONF (Network Configuration Protocol) Working Group \n<b>Contact : </b>\nWG Web:   <http://tools.ietf.org/wg/netconf/> \nWG List:  <mailto:netconf@ietf.org> \n \nWG Chair: Bert Wijnen \n          <mailto:bertietf@bwijnen.net> \n \nWG Chair: Mehmet Ersue \n          <mailto:mehmet.ersue@nsn.com> \n \nEditor:   Andy Bierman \n          <mailto:andy@netconfcentral.org> \n<b>Revision : </b> 2012-02-06 \n
+package "ncn:ietf-netconf-notifications" as ncn_ietf_netconf_notifications { 
+inet_ietf_inet_types +-- ncn_ietf_netconf_notifications
+nc_ietf_netconf +-- ncn_ietf_netconf_notifications
+class "ietf-netconf-notifications" as ietf_netconf_notifications << (M, #33CCFF) module>> 
+class "common-session-parms" as ietf_netconf_notifications_I_common_session_parms_grouping <<(G,Lime) grouping>> 
+ietf_netconf_notifications_I_common_session_parms_grouping : username : string   {mandatory}
+ietf_netconf_notifications_I_common_session_parms_grouping : session-id : nc:session-id-or-zero-type   {mandatory}
+ietf_netconf_notifications_I_common_session_parms_grouping : source-host : inet:ip-address  
+class "changed-by-parms" as ietf_netconf_notifications_I_changed_by_parms_grouping <<(G,Lime) grouping>> 
+class "changed-by" as  ietf_netconf_notifications_I_changed_by_parms_I_changed_by <<container>> 
+ietf_netconf_notifications_I_changed_by_parms_grouping *-- "1" ietf_netconf_notifications_I_changed_by_parms_I_changed_by 
+class "server-or-user" as ietf_netconf_notifications_I_changed_by_parms_I_changed_by_I_server_or_user <<choice>> 
+ietf_netconf_notifications_I_changed_by_parms_I_changed_by .. ietf_netconf_notifications_I_changed_by_parms_I_changed_by_I_server_or_user : choice 
+class "server" as ietf_netconf_notifications_I_changed_by_parms_I_changed_by_I_server_or_user_I_server_case <<case>> 
+ietf_netconf_notifications_I_changed_by_parms_I_changed_by_I_server_or_user .. ietf_netconf_notifications_I_changed_by_parms_I_changed_by_I_server_or_user_I_server_case : choice server-or-user
+ietf_netconf_notifications_I_changed_by_parms_I_changed_by_I_server_or_user_I_server_case : server : empty  
+class "by-user" as ietf_netconf_notifications_I_changed_by_parms_I_changed_by_I_server_or_user_I_by_user_case <<case>>
+ietf_netconf_notifications_I_changed_by_parms_I_changed_by_I_server_or_user .. ietf_netconf_notifications_I_changed_by_parms_I_changed_by_I_server_or_user_I_by_user_case  : choice server-or-user
+ietf_netconf_notifications_I_changed_by_parms_I_changed_by_I_server_or_user_I_by_user_case : common-session-parms {uses} 
+class "netconf-config-change" as ietf_netconf_notifications_I_netconf_config_change << (N,#00D1B2) notification>> 
+ietf_netconf_notifications -- ietf_netconf_notifications_I_netconf_config_change : notification 
+ietf_netconf_notifications_I_netconf_config_change : changed-by-parms {uses} 
+ietf_netconf_notifications_I_netconf_config_change : datastore : enumeration : {running,startup,}   = running 
+class "edit" as ietf_netconf_notifications_I_netconf_config_change_I_edit << (L, #FF7700) list>> 
+ietf_netconf_notifications_I_netconf_config_change *-- "0..N" ietf_netconf_notifications_I_netconf_config_change_I_edit 
+ietf_netconf_notifications_I_netconf_config_change_I_edit : target : instance-identifier  
+ietf_netconf_notifications_I_netconf_config_change_I_edit : operation : nc:edit-operation-type  
+class "netconf-capability-change" as ietf_netconf_notifications_I_netconf_capability_change << (N,#00D1B2) notification>> 
+ietf_netconf_notifications -- ietf_netconf_notifications_I_netconf_capability_change : notification 
+ietf_netconf_notifications_I_netconf_capability_change : changed-by-parms {uses} 
+ietf_netconf_notifications_I_netconf_capability_change : added-capability []: inet:uri 
+ietf_netconf_notifications_I_netconf_capability_change : deleted-capability []: inet:uri 
+ietf_netconf_notifications_I_netconf_capability_change : modified-capability []: inet:uri 
+class "netconf-session-start" as ietf_netconf_notifications_I_netconf_session_start << (N,#00D1B2) notification>> 
+ietf_netconf_notifications -- ietf_netconf_notifications_I_netconf_session_start : notification 
+ietf_netconf_notifications_I_netconf_session_start : common-session-parms {uses} 
+class "netconf-session-end" as ietf_netconf_notifications_I_netconf_session_end << (N,#00D1B2) notification>> 
+ietf_netconf_notifications -- ietf_netconf_notifications_I_netconf_session_end : notification 
+ietf_netconf_notifications_I_netconf_session_end : common-session-parms {uses} 
+ietf_netconf_notifications_I_netconf_session_end : killed-by : nc:session-id-type  
+note bottom of ietf_netconf_notifications_I_netconf_session_end
+<b>When</b> (killed-by):
+../termination-reason = 'killed'
+
+end note 
+ietf_netconf_notifications_I_netconf_session_end : termination-reason : enumeration : {closed,killed,dropped,...}   {mandatory}
+class "netconf-confirmed-commit" as ietf_netconf_notifications_I_netconf_confirmed_commit << (N,#00D1B2) notification>> 
+ietf_netconf_notifications -- ietf_netconf_notifications_I_netconf_confirmed_commit : notification 
+ietf_netconf_notifications_I_netconf_confirmed_commit : common-session-parms {uses} 
+ietf_netconf_notifications_I_netconf_confirmed_commit : confirm-event : enumeration : {start,cancel,timeout,...}   {mandatory}
+ietf_netconf_notifications_I_netconf_confirmed_commit : timeout : uint32   {seconds}
+note bottom of ietf_netconf_notifications_I_netconf_confirmed_commit
+<b>When</b> (timeout):
+../confirm-event = 'start' or ../confirm-event = 'extend'
+
+end note 
+} 
+
+ietf_netconf_notifications_I_changed_by_parms_I_changed_by_I_server_or_user_I_by_user_case --> ietf_netconf_notifications_I_common_session_parms_grouping : uses 
+ietf_netconf_notifications_I_netconf_config_change --> ietf_netconf_notifications_I_changed_by_parms_grouping : uses 
+ietf_netconf_notifications_I_netconf_capability_change --> ietf_netconf_notifications_I_changed_by_parms_grouping : uses 
+ietf_netconf_notifications_I_netconf_session_start --> ietf_netconf_notifications_I_common_session_parms_grouping : uses 
+ietf_netconf_notifications_I_netconf_session_end --> ietf_netconf_notifications_I_common_session_parms_grouping : uses 
+ietf_netconf_notifications_I_netconf_confirmed_commit --> ietf_netconf_notifications_I_common_session_parms_grouping : uses 
+center footer
+ <size:20> UML Generated : 2019-02-20 23:21 </size>
+ endfooter 
+@enduml 
