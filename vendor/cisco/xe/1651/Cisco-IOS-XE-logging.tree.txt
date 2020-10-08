@@ -1,0 +1,185 @@
+submodule: Cisco-IOS-XE-logging (belongs-to Cisco-IOS-XE-native)
+
+  grouping config-logging-grouping
+    +-- logging
+       +-- discriminator* [name]
+       |  +-- name?       string
+       |  +-- msg-body
+       |     +-- includes?   string
+       +-- persistent!
+       |  +-- file
+       |     +-- url?         string
+       |     +-- size?        string
+       |     +-- threshold?   string
+       |     +-- protected?   empty
+       +-- monitor-conf
+       |  +-- monitor?   boolean
+       +-- monitor!
+       |  +-- severity?        logging-level-type
+       |  +-- discriminator* [name]
+       |     +-- name?       string
+       |     +-- severity?   logging-level-type
+       +-- alarm?              union
+       +-- buffered!
+       |  +-- (buffered-param)?
+       |     +--:(discriminator-param)
+       |     |  +-- discriminator* [name]
+       |     |     +-- name?       string
+       |     |     +-- severity?   logging-level-type
+       |     +--:(size-param)
+       |     |  +-- size?            uint32
+       |     +--:(severity-level)
+       |     |  +-- severity?        logging-level-type
+       |     +--:(xxml-buffer)
+       |        +-- xxml?            uint32
+       +-- console-conf
+       |  +-- console?   boolean
+       +-- console!
+       |  +-- discriminator* [name]
+       |  |  +-- name?       string
+       |  |  +-- severity?   logging-level-type
+       |  +-- filtered?        empty
+       |  +-- guaranteed?      empty
+       |  +-- xxml?            logging-level-type
+       |  +-- severity?        logging-level-type
+       +-- event
+       |  +-- link-status
+       |     +-- boot?      empty
+       |     +-- global?    empty
+       |     +-- default?   empty
+       +-- esm
+       |  +-- config?   empty
+       +-- facility?           enumeration
+       +-- history
+       |  +-- size?             uint16
+       |  +-- severity-level?   union
+       +-- host
+       |  +-- ipv4-host-list* [ipv4-host]
+       |  |  +-- ipv4-host?       inet:host
+       |  |  +-- vrf?             string
+       |  |  +-- discriminator?   string
+       |  +-- ipv6
+       |     +-- ipv6-host-list* [ipv6-host]
+       |        +-- ipv6-host?   ios-types:ipv6-host
+       +-- rate-limit-conf
+       |  +-- rate-limit?   boolean
+       +-- rate-limit!
+       |  +-- console
+       |     +-- range* [range]
+       |     |  +-- range?    uint16
+       |     |  +-- except!
+       |     |     +-- range?           uint8
+       |     |     +-- alerts?          empty
+       |     |     +-- critical?        empty
+       |     |     +-- debugging?       empty
+       |     |     +-- emergencies?     empty
+       |     |     +-- errors?          empty
+       |     |     +-- informational?   empty
+       |     |     +-- notifications?   empty
+       |     |     +-- warnings?        empty
+       |     +-- all
+       |        +-- range* [range]
+       |           +-- range?    uint16
+       |           +-- except!
+       |              +-- range?           uint8
+       |              +-- alerts?          empty
+       |              +-- critical?        empty
+       |              +-- debugging?       empty
+       |              +-- emergencies?     empty
+       |              +-- errors?          boolean
+       |              +-- informational?   empty
+       |              +-- notifications?   empty
+       |              +-- warnings?        empty
+       +-- source-interface
+       |  +-- (interface-choice)?
+       |  |  +--:(AppNav-Compress)
+       |  |  |  +-- AppNav-Compress?             uint16
+       |  |  +--:(AppNav-UnCompress)
+       |  |  |  +-- AppNav-UnCompress?           uint16
+       |  |  +--:(ATM)
+       |  |  |  +-- ATM?                         string
+       |  |  +--:(ATM-subinterface)
+       |  |  |  +-- ATM-subinterface
+       |  |  |     +-- ATM?   string
+       |  |  +--:(ATM-ACR)
+       |  |  |  +-- ATM-ACR?                     string
+       |  |  +--:(ATM-ACRsubinterface)
+       |  |  |  +-- ATM-ACRsubinterface
+       |  |  |     +-- ATM-ACR?   string
+       |  |  +--:(BDI)
+       |  |  |  +-- BDI?                         string
+       |  |  +--:(CEM)
+       |  |  |  +-- CEM?                         string
+       |  |  +--:(CEM-ACR)
+       |  |  |  +-- CEM-ACR?                     uint8
+       |  |  +--:(Embedded-Service-Engine)
+       |  |  |  +-- Embedded-Service-Engine?     string
+       |  |  +--:(FastEthernet)
+       |  |  |  +-- FastEthernet?                string
+       |  |  +--:(GigabitEthernet)
+       |  |  |  +-- GigabitEthernet?             string
+       |  |  +--:(LISP)
+       |  |  |  +-- LISP?                        uint16
+       |  |  +--:(LISP-subinterface)
+       |  |  |  +-- LISP-subinterface
+       |  |  |     +-- LISP?   string
+       |  |  +--:(Loopback)
+       |  |  |  +-- Loopback?                    uint32
+       |  |  +--:(Multilink)
+       |  |  |  +-- Multilink?                   uint16
+       |  |  +--:(nve)
+       |  |  |  +-- nve?                         uint16
+       |  |  +--:(overlay)
+       |  |  |  +-- overlay?                     uint16
+       |  |  +--:(Port-channel)
+       |  |  |  +-- Port-channel?                uint32
+       |  |  +--:(Port-channel-subinterface)
+       |  |  |  +-- Port-channel-subinterface
+       |  |  |     +-- Port-channel?   string
+       |  |  +--:(pseudowire)
+       |  |  |  +-- pseudowire?                  uint32
+       |  |  +--:(SM)
+       |  |  |  +-- SM?                          string
+       |  |  +--:(Cellular)
+       |  |  |  +-- Cellular?                    string
+       |  |  +--:(Serial)
+       |  |  |  +-- Serial?                      string
+       |  |  +--:(TenGigabitEthernet)
+       |  |  |  +-- TenGigabitEthernet?          string
+       |  |  +--:(Tunnel)
+       |  |  |  +-- Tunnel?                      uint32
+       |  |  +--:(Virtual-Template)
+       |  |  |  +-- Virtual-Template?            uint16
+       |  |  +--:(Vlan)
+       |  |  |  +-- Vlan?                        uint16
+       |  |  +--:(VirtualPortGroup)
+       |  |  |  +-- VirtualPortGroup?            uint16
+       |  |  +--:(vasileft)
+       |  |  |  +-- vasileft?                    uint16
+       |  |  +--:(vasiright)
+       |  |     +-- vasiright?                   uint16
+       |  +-- vrf?                               string
+       +-- snmp-trap
+       |  +-- alerts?          empty
+       |  +-- critical?        empty
+       |  +-- debugging?       empty
+       |  +-- emergencies?     empty
+       |  +-- errors?          empty
+       |  +-- informational?   empty
+       |  +-- notifications?   empty
+       |  +-- warnings?        empty
+       +-- trap!
+       |  +-- (level)?
+       |     +--:(set-default)
+       |     |  +-- trap-default?   empty
+       |     +--:(set-level)
+       |        +-- severity?       union
+       +-- hostip?             inet:host
+       +-- file
+       |  +-- name?       string
+       |  +-- max-size?   uint32
+       |  +-- min-size?   uint32
+       |  +-- severity?   logging-level-type
+       +-- snmp-authfail?      empty
+       +-- buginf?             empty
+       +-- userinfo?           empty

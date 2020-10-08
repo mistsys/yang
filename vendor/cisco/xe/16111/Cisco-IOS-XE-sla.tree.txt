@@ -1,0 +1,2497 @@
+
+module: Cisco-IOS-XE-sla
+  augment /ios:native/ios:ip:
+    +--rw sla
+       +--rw entry* [number]
+       |  +--rw number               uint32
+       |  +--rw (sla-param)?
+       |     +--:(icmp-echo-case)
+       |     |  +--rw icmp-echo
+       |     |     +--rw destination?              union
+       |     |     +--rw (source-param)?
+       |     |     |  +--:(source-interface)
+       |     |     |  |  +--rw source-interface?   string
+       |     |     |  +--:(source-ip)
+       |     |     |     +--rw source-ip?          union
+       |     |     +--rw data-pattern?             string
+       |     |     +--rw owner?                    string
+       |     |     +--rw tag?                      string
+       |     |     +--rw threshold?                uint32
+       |     |     +--rw timeout?                  uint32
+       |     |     +--rw frequency?                uint32
+       |     |     +--rw history
+       |     |     |  +--rw enhanced
+       |     |     |  |  +--rw interval?   uint16
+       |     |     |  |  +--rw buckets?    uint8
+       |     |     |  +--rw buckets-kept?                       uint8
+       |     |     |  +--rw distributions-of-statistics-kept?   uint8
+       |     |     |  +--rw filter?                             enumeration
+       |     |     |  +--rw hours-of-statistics-kept?           uint8
+       |     |     |  +--rw lives-kept?                         uint8
+       |     |     |  +--rw statistics-distribution-interval?   uint8
+       |     |     +--rw request-data-size?        uint32
+       |     |     +--rw (tos-param)?
+       |     |     |  +--:(tos)
+       |     |     |  |  +--rw tos?                uint8
+       |     |     |  +--:(traffic-class)
+       |     |     |     +--rw traffic-class?      uint8
+       |     |     +--rw verify-data?              empty
+       |     |     +--rw vrf?                      string
+       |     +--:(icmp-jitter-case)
+       |     |  +--rw icmp-jitter
+       |     |     +--rw dst-ip?        union
+       |     |     +--rw interval?      uint16
+       |     |     +--rw num-packets?   uint16
+       |     |     +--rw source-ip?     union
+       |     |     +--rw owner?         string
+       |     |     +--rw tag?           string
+       |     |     +--rw threshold?     uint32
+       |     |     +--rw timeout?       uint32
+       |     |     +--rw frequency?     uint32
+       |     |     +--rw history
+       |     |     |  +--rw distributions-of-statistics-kept?   uint8
+       |     |     |  +--rw enhanced
+       |     |     |  |  +--rw interval?   uint16
+       |     |     |  |  +--rw buckets?    uint8
+       |     |     |  +--rw hours-of-statistics-kept?           uint8
+       |     |     |  +--rw statistics-distribution-interval?   uint8
+       |     |     +--rw tos?           uint8
+       |     |     +--rw vrf?           string
+       |     +--:(path-echo-case)
+       |     |  +--rw path-echo
+       |     |     +--rw dst-ip?                     union
+       |     |     +--rw source-ip?                  union
+       |     |     +--rw owner?                      string
+       |     |     +--rw tag?                        string
+       |     |     +--rw threshold?                  uint32
+       |     |     +--rw timeout?                    uint32
+       |     |     +--rw frequency?                  uint32
+       |     |     +--rw paths-of-statistics-kept?   uint8
+       |     |     +--rw samples-of-history-kept?    uint8
+       |     |     +--rw hops-of-statistics-kept?    uint8
+       |     |     +--rw lsr-path*                   union
+       |     |     +--rw request-data-size?          uint32
+       |     |     +--rw (tos-param)?
+       |     |     |  +--:(tos)
+       |     |     |  |  +--rw tos?                  uint8
+       |     |     |  +--:(traffic-class)
+       |     |     |     +--rw traffic-class?        uint8
+       |     |     +--rw verify-data?                empty
+       |     |     +--rw vrf?                        string
+       |     |     +--rw history
+       |     |        +--rw buckets-kept?                       uint8
+       |     |        +--rw distributions-of-statistics-kept?   uint8
+       |     |        +--rw filter?                             enumeration
+       |     |        +--rw hours-of-statistics-kept?           uint8
+       |     |        +--rw lives-kept?                         uint8
+       |     |        +--rw statistics-distribution-interval?   uint8
+       |     +--:(path-jitter-case)
+       |     |  +--rw path-jitter
+       |     |     +--rw dst-ip?                union
+       |     |     +--rw source-ip?             union
+       |     |     +--rw default
+       |     |     |  +--rw frequency?           empty
+       |     |     |  +--rw lsr-path?            empty
+       |     |     |  +--rw owner?               empty
+       |     |     |  +--rw request-data-size?   empty
+       |     |     |  +--rw tag?                 empty
+       |     |     |  +--rw threshold?           empty
+       |     |     |  +--rw timeout?             empty
+       |     |     |  +--rw tos?                 empty
+       |     |     |  +--rw verify-data?         empty
+       |     |     |  +--rw vrf?                 empty
+       |     |     +--rw owner?                 string
+       |     |     +--rw tag?                   string
+       |     |     +--rw threshold?             uint32
+       |     |     +--rw timeout?               uint32
+       |     |     +--rw frequency?             uint32
+       |     |     +--rw lsr-path*              union
+       |     |     +--rw request-data-size?     uint32
+       |     |     +--rw (tos-param)?
+       |     |     |  +--:(tos)
+       |     |     |  |  +--rw tos?             uint8
+       |     |     |  +--:(traffic-class)
+       |     |     |     +--rw traffic-class?   uint8
+       |     |     +--rw flow-label?            uint64
+       |     |     +--rw verify-data?           empty
+       |     |     +--rw vrf?                   string
+       |     +--:(udp-echo-case)
+       |     |  +--rw udp-echo
+       |     |     +--rw dest-addr?             union
+       |     |     +--rw dest-port?             uint16
+       |     |     +--rw source-ip?             union
+       |     |     +--rw source-port?           uint16
+       |     |     +--rw owner?                 string
+       |     |     +--rw tag?                   string
+       |     |     +--rw threshold?             uint32
+       |     |     +--rw timeout?               uint32
+       |     |     +--rw frequency?             uint32
+       |     |     +--rw history
+       |     |     |  +--rw enhanced
+       |     |     |  |  +--rw interval?   uint16
+       |     |     |  |  +--rw buckets?    uint8
+       |     |     |  +--rw buckets-kept?                       uint8
+       |     |     |  +--rw distributions-of-statistics-kept?   uint8
+       |     |     |  +--rw filter?                             enumeration
+       |     |     |  +--rw hours-of-statistics-kept?           uint8
+       |     |     |  +--rw lives-kept?                         uint8
+       |     |     |  +--rw statistics-distribution-interval?   uint8
+       |     |     +--rw request-data-size?     uint16
+       |     |     +--rw (tos-param)?
+       |     |     |  +--:(tos)
+       |     |     |  |  +--rw tos?             uint8
+       |     |     |  +--:(traffic-class)
+       |     |     |     +--rw traffic-class?   uint8
+       |     |     +--rw vrf?                   string
+       |     |     +--rw data-pattern?          string
+       |     +--:(udp-jitter-case)
+       |     |  +--rw udp-jitter
+       |     |     +--rw dest-addr?                   union
+       |     |     +--rw portno?                      uint16
+       |     |     +--rw (type-param)?
+       |     |     |  +--:(codec)
+       |     |     |  |  +--rw codec?                 enumeration
+       |     |     |  |  +--rw advantage-factor?      uint16
+       |     |     |  |  +--rw codec-interval?        uint32
+       |     |     |  |  +--rw codec-numpackets?      uint32
+       |     |     |  |  +--rw codec-size?            uint16
+       |     |     |  +--:(non-codec)
+       |     |     |     +--rw num-packets?           uint16
+       |     |     |     +--rw interval?              uint16
+       |     |     +--rw source-ip?                   union
+       |     |     +--rw source-port?                 uint16
+       |     |     +--rw control?                     enumeration
+       |     |     +--rw owner?                       string
+       |     |     +--rw tag?                         string
+       |     |     +--rw threshold?                   uint32
+       |     |     +--rw timeout?                     uint32
+       |     |     +--rw frequency?                   uint32
+       |     |     +--rw history
+       |     |     |  +--rw distributions-of-statistics-kept?   uint8
+       |     |     |  +--rw enhanced
+       |     |     |  |  +--rw interval?   uint16
+       |     |     |  |  +--rw buckets?    uint8
+       |     |     |  +--rw hours-of-statistics-kept?           uint8
+       |     |     |  +--rw statistics-distribution-interval?   uint8
+       |     |     +--rw data-pattern?                string
+       |     |     +--rw request-data-size?           uint16
+       |     |     +--rw response-data-size?          uint16
+       |     |     +--rw (tos-param)?
+       |     |     |  +--:(tos)
+       |     |     |  |  +--rw tos?                   uint8
+       |     |     |  +--:(traffic-class)
+       |     |     |     +--rw traffic-class?         uint8
+       |     |     +--rw vrf?                         string
+       |     |     +--rw verify-data?                 empty
+       |     |     +--rw precision?                   enumeration
+       |     |     +--rw optimize?                    enumeration
+       |     |     +--rw enhanced?                    enumeration
+       |     |     +--rw operation-packet-priority?   enumeration
+       |     |     +--rw clock-tolerance!
+       |     |        +--rw ntp!
+       |     |           +--rw oneway
+       |     |              +--rw (clock-tolerance-param)?
+       |     |                 +--:(absolute-type)
+       |     |                 |  +--rw absolute?   uint32
+       |     |                 +--:(percent-type)
+       |     |                    +--rw percent?    uint8
+       |     +--:(http-case)
+       |     |  +--rw http
+       |     |     +--rw (http-choice)?
+       |     |     |  +--:(http-get)
+       |     |     |  |  +--rw get
+       |     |     |  |     +--rw url?           string
+       |     |     |  |     +--rw cache?         enumeration
+       |     |     |  |     +--rw source-ip?     union
+       |     |     |  |     +--rw source-port?   uint16
+       |     |     |  |     +--rw name-server?   union
+       |     |     |  |     +--rw proxy?         string
+       |     |     |  |     +--rw version?       enumeration
+       |     |     |  +--:(http-raw)
+       |     |     |     +--rw raw
+       |     |     |        +--rw url?           string
+       |     |     |        +--rw cache?         enumeration
+       |     |     |        +--rw source-ip?     union
+       |     |     |        +--rw source-port?   uint16
+       |     |     |        +--rw name-server?   union
+       |     |     |        +--rw proxy?         string
+       |     |     |        +--rw version?       enumeration
+       |     |     +--rw owner?                     string
+       |     |     +--rw tag?                       string
+       |     |     +--rw threshold?                 uint32
+       |     |     +--rw timeout?                   uint32
+       |     |     +--rw frequency?                 uint32
+       |     |     +--rw history
+       |     |     |  +--rw distributions-of-statistics-kept?   uint8
+       |     |     |  +--rw hours-of-statistics-kept?           uint8
+       |     |     |  +--rw statistics-distribution-interval?   uint8
+       |     |     +--rw http-status-code-ignore?   empty
+       |     |     +--rw vrf?                       string
+       |     |     +--rw (tos-param)?
+       |     |     |  +--:(tos)
+       |     |     |  |  +--rw tos?                 uint8
+       |     |     |  +--:(traffic-class)
+       |     |     |     +--rw traffic-class?       uint8
+       |     |     +--rw http-raw-request
+       |     |        +--rw raw-request-string?   string
+       |     +--:(dhcp-case)
+       |     |  +--rw dhcp
+       |     |     +--rw dst-ip?      union
+       |     |     +--rw source-ip?   union
+       |     |     +--rw owner?       string
+       |     |     +--rw tag?         string
+       |     |     +--rw threshold?   uint32
+       |     |     +--rw timeout?     uint32
+       |     |     +--rw frequency?   uint32
+       |     |     +--rw history
+       |     |        +--rw buckets-kept?                       uint8
+       |     |        +--rw distributions-of-statistics-kept?   uint8
+       |     |        +--rw filter?                             enumeration
+       |     |        +--rw hours-of-statistics-kept?           uint8
+       |     |        +--rw lives-kept?                         uint8
+       |     |        +--rw statistics-distribution-interval?   uint8
+       |     +--:(tcp-connect-case)
+       |     |  +--rw tcp-connect
+       |     |     +--rw dest-addr?             union
+       |     |     +--rw dest-port?             uint16
+       |     |     +--rw source-ip?             union
+       |     |     +--rw source-port?           uint16
+       |     |     +--rw control?               enumeration
+       |     |     +--rw owner?                 string
+       |     |     +--rw tag?                   string
+       |     |     +--rw threshold?             uint32
+       |     |     +--rw timeout?               uint32
+       |     |     +--rw frequency?             uint32
+       |     |     +--rw history
+       |     |     |  +--rw enhanced
+       |     |     |  |  +--rw interval?   uint16
+       |     |     |  |  +--rw buckets?    uint8
+       |     |     |  +--rw buckets-kept?                       uint8
+       |     |     |  +--rw distributions-of-statistics-kept?   uint8
+       |     |     |  +--rw filter?                             enumeration
+       |     |     |  +--rw hours-of-statistics-kept?           uint8
+       |     |     |  +--rw lives-kept?                         uint8
+       |     |     |  +--rw statistics-distribution-interval?   uint8
+       |     |     +--rw (tos-param)?
+       |     |     |  +--:(tos)
+       |     |     |  |  +--rw tos?             uint8
+       |     |     |  +--:(traffic-class)
+       |     |     |     +--rw traffic-class?   uint8
+       |     |     +--rw vrf?                   string
+       |     +--:(dns-case)
+       |     |  +--rw dns
+       |     |     +--rw dest-addr?     union
+       |     |     +--rw name-server?   union
+       |     |     +--rw source-ip?     union
+       |     |     +--rw source-port?   uint16
+       |     |     +--rw owner?         string
+       |     |     +--rw tag?           string
+       |     |     +--rw threshold?     uint32
+       |     |     +--rw timeout?       uint32
+       |     |     +--rw frequency?     uint32
+       |     |     +--rw history
+       |     |     |  +--rw buckets-kept?                       uint8
+       |     |     |  +--rw distributions-of-statistics-kept?   uint8
+       |     |     |  +--rw filter?                             enumeration
+       |     |     |  +--rw hours-of-statistics-kept?           uint8
+       |     |     |  +--rw lives-kept?                         uint8
+       |     |     |  +--rw statistics-distribution-interval?   uint8
+       |     |     +--rw vrf?           string
+       |     +--:(ftp-case)
+       |     |  +--rw ftp
+       |     |     +--rw get!
+       |     |        +--rw url?         union
+       |     |        +--rw mode?        enumeration
+       |     |        +--rw source-ip?   union
+       |     |        +--rw owner?       string
+       |     |        +--rw tag?         string
+       |     |        +--rw threshold?   uint32
+       |     |        +--rw timeout?     uint32
+       |     |        +--rw frequency?   uint32
+       |     |        +--rw history
+       |     |           +--rw enhanced
+       |     |           |  +--rw interval?   uint16
+       |     |           |  +--rw buckets?    uint8
+       |     |           +--rw buckets-kept?                       uint8
+       |     |           +--rw distributions-of-statistics-kept?   uint8
+       |     |           +--rw filter?                             enumeration
+       |     |           +--rw hours-of-statistics-kept?           uint8
+       |     |           +--rw lives-kept?                         uint8
+       |     |           +--rw statistics-distribution-interval?   uint8
+       |     +--:(ethernet-case)
+       |        +--rw ethernet
+       |           +--rw y1731
+       |           |  +--rw delay
+       |           |  |  +--rw name?                enumeration
+       |           |  |  +--rw burst?               empty
+       |           |  |  +--rw domain?              string
+       |           |  |  +--rw (evc-or-vlan)?
+       |           |  |  |  +--:(evc)
+       |           |  |  |  |  +--rw evc?           string
+       |           |  |  |  +--:(vlan)
+       |           |  |  |     +--rw vlan?          uint16
+       |           |  |  +--rw (mac-or-mpid)?
+       |           |  |  |  +--:(mac-address)
+       |           |  |  |  |  +--rw mac-address?   ios-types:cisco-mac-address-type
+       |           |  |  |  +--:(mpid)
+       |           |  |  |     +--rw mpid?          uint16
+       |           |  |  +--rw cos?                 uint8
+       |           |  |  +--rw source
+       |           |  |     +--rw (mac-or-mpid)?
+       |           |  |        +--:(mac-address)
+       |           |  |        |  +--rw mac-address?   ios-types:cisco-mac-address-type
+       |           |  |        +--:(mpid)
+       |           |  |           +--rw mpid?          uint16
+       |           |  +--rw loss
+       |           |     +--rw name?                enumeration
+       |           |     +--rw burst?               empty
+       |           |     +--rw domain?              string
+       |           |     +--rw (evc-or-vlan)?
+       |           |     |  +--:(evc)
+       |           |     |  |  +--rw evc?           string
+       |           |     |  +--:(vlan)
+       |           |     |     +--rw vlan?          uint16
+       |           |     +--rw (mac-or-mpid)?
+       |           |     |  +--:(mac-address)
+       |           |     |  |  +--rw mac-address?   ios-types:cisco-mac-address-type
+       |           |     |  +--:(mpid)
+       |           |     |     +--rw mpid?          uint16
+       |           |     +--rw cos?                 uint8
+       |           |     +--rw source
+       |           |        +--rw (mac-or-mpid)?
+       |           |           +--:(mac-address)
+       |           |           |  +--rw mac-address?   ios-types:cisco-mac-address-type
+       |           |           +--:(mpid)
+       |           |              +--rw mpid?          uint16
+       |           +--rw aggregate
+       |           |  +--rw interval?   uint32
+       |           +--rw history
+       |              +--rw interval?   uint8
+       +--rw enable
+       |  +--rw reaction-alerts?   empty
+       +--rw responder!
+       |  +--rw udp-echo
+       |  |  +--rw port?        uint16
+       |  |  +--rw ipaddress* [host]
+       |  |     +--rw host    union
+       |  |     +--rw port?   uint16
+       |  +--rw tcp-connect
+       |     +--rw port?        uint16
+       |     +--rw ipaddress* [host]
+       |        +--rw host    union
+       |        +--rw port?   uint16
+       +--rw logging
+       |  +--rw traps?   empty
+       +--rw group
+       |  +--rw schedule* [entry-number]
+       |     +--rw entry-number    uint32
+       |     +--rw probe-ids* [word]
+       |        +--rw word               string
+       |        +--rw schedule-period
+       |           +--rw seconds?      uint32
+       |           +--rw frequency
+       |           |  +--rw (frequency-choice)?
+       |           |     +--:(frequency-value)
+       |           |     |  +--rw frequency-val?   uint32
+       |           |     +--:(frequency-range)
+       |           |        +--rw range?           string
+       |           +--rw start-time
+       |           |  +--rw now?   empty
+       |           +--rw life?         union
+       +--rw schedule* [entry-number]
+       |  +--rw entry-number    -> /ios:native/ip/ios-sla:sla/entry/number
+       |  +--rw ageout?         uint32
+       |  +--rw life?           union
+       |  +--rw recurring?      empty
+       |  +--rw start-time
+       |     +--rw after?          string
+       |     +--rw hour-min?       string
+       |     +--rw hour-min-sec?   string
+       |     +--rw now?            empty
+       |     +--rw pending?        empty
+       |     +--rw random?         uint32
+       +--rw reaction-configuration* [entry-number]
+       |  +--rw entry-number    uint64
+       |  +--rw react
+       |     +--rw connectionLoss!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw action-type?      enumeration
+       |     +--rw rtt!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw timeout!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw action-type?      enumeration
+       |     +--rw protocolSpecificError!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw action-type?      enumeration
+       |     +--rw verifyError!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw action-type?      enumeration
+       |     +--rw icpif!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw jitterAvg!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw jitterAvgPct!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw jitterDSAvg!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw jitterDSAvgPct!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw jitterSDAvg!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw jitterSDAvgPct!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw maxOfNegativeDS!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw maxOfNegativeSD!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw maxOfPositiveDS!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw maxOfPositiveSD!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw mos!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw overThreshold!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw packetLateArrival!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw packetLossDS!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw packetLossSD!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw packetMIA!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw packetOutOfSequence!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw rttPct!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw latencyDSAvg!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw latencyDSAvgPct!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw latencySDAvg!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw latencySDAvgPct!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw maxOflatencySD!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw maxOflatencySDPct!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw maxOflatencyDS!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw maxOflatencyDSPct!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw successivePacketLoss!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |  |  +--rw upper-limit-val?   uint32
+       |     |  |  +--rw lower-limit-val?   uint32
+       |     |  +--rw action-type?       enumeration
+       |     +--rw loss-ratioDS!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |     +--rw upper-limit-val?   uint32
+       |     |     +--rw lower-limit-val?   uint32
+       |     +--rw loss-ratioSD!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |     +--rw upper-limit-val?   uint32
+       |     |     +--rw lower-limit-val?   uint32
+       |     +--rw unavailableDS!
+       |     |  +--rw threshold-type
+       |     |  |  +--rw (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +--rw xOfy!
+       |     |  |     |     +--rw x-val?   uint8
+       |     |  |     |     +--rw y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +--rw average!
+       |     |  |     |     +--rw average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +--rw consecutive!
+       |     |  |     |     +--rw consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +--rw immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +--rw never?         empty
+       |     |  +--rw threshold-value
+       |     |     +--rw upper-limit-val?   uint32
+       |     |     +--rw lower-limit-val?   uint32
+       |     +--rw unavailableSD!
+       |        +--rw threshold-type
+       |        |  +--rw (threshold-type-param)?
+       |        |     +--:(xOfy-type)
+       |        |     |  +--rw xOfy!
+       |        |     |     +--rw x-val?   uint8
+       |        |     |     +--rw y-val?   uint8
+       |        |     +--:(average-type)
+       |        |     |  +--rw average!
+       |        |     |     +--rw average-val?   uint8
+       |        |     +--:(consecutive-type)
+       |        |     |  +--rw consecutive!
+       |        |     |     +--rw consecutive-val?   uint8
+       |        |     +--:(immediate-type)
+       |        |     |  +--rw immediate?     empty
+       |        |     +--:(never-type)
+       |        |        +--rw never?         empty
+       |        +--rw threshold-value
+       |           +--rw upper-limit-val?   uint32
+       |           +--rw lower-limit-val?   uint32
+       +--rw server
+          +--rw twamp!
+
+  grouping ip-sla-sub-mode-commands-grouping
+    +-- owner?       string
+    +-- tag?         string
+    +-- threshold?   uint32
+    +-- timeout?     uint32
+    +-- frequency?   uint32
+  grouping ip-sla-full-history-grouping
+    +-- history
+       +-- enhanced
+       |  +-- interval?   uint16
+       |  +-- buckets?    uint8
+       +-- buckets-kept?                       uint8
+       +-- distributions-of-statistics-kept?   uint8
+       +-- filter?                             enumeration
+       +-- hours-of-statistics-kept?           uint8
+       +-- lives-kept?                         uint8
+       +-- statistics-distribution-interval?   uint8
+  grouping ip-sla-history-without-enhanced-grouping
+    +-- history
+       +-- buckets-kept?                       uint8
+       +-- distributions-of-statistics-kept?   uint8
+       +-- filter?                             enumeration
+       +-- hours-of-statistics-kept?           uint8
+       +-- lives-kept?                         uint8
+       +-- statistics-distribution-interval?   uint8
+  grouping ip-sla-path-echo-grouping
+    +-- paths-of-statistics-kept?   uint8
+    +-- samples-of-history-kept?    uint8
+    +-- hops-of-statistics-kept?    uint8
+    +-- lsr-path*                   union
+    +-- request-data-size?          uint32
+    +-- (tos-param)?
+    |  +--:(tos)
+    |  |  +-- tos?                  uint8
+    |  +--:(traffic-class)
+    |     +-- traffic-class?        uint8
+    +-- verify-data?                empty
+    +-- vrf?                        string
+    +-- history
+       +-- buckets-kept?                       uint8
+       +-- distributions-of-statistics-kept?   uint8
+       +-- filter?                             enumeration
+       +-- hours-of-statistics-kept?           uint8
+       +-- lives-kept?                         uint8
+       +-- statistics-distribution-interval?   uint8
+  grouping ip-sla-path-jitter-grouping
+    +-- lsr-path*              union
+    +-- request-data-size?     uint32
+    +-- (tos-param)?
+    |  +--:(tos)
+    |  |  +-- tos?             uint8
+    |  +--:(traffic-class)
+    |     +-- traffic-class?   uint8
+    +-- flow-label?            uint64
+    +-- verify-data?           empty
+    +-- vrf?                   string
+  grouping ip-sla-default-path-jitter-grouping
+    +-- frequency?           empty
+    +-- lsr-path?            empty
+    +-- owner?               empty
+    +-- request-data-size?   empty
+    +-- tag?                 empty
+    +-- threshold?           empty
+    +-- timeout?             empty
+    +-- tos?                 empty
+    +-- verify-data?         empty
+    +-- vrf?                 empty
+  grouping ip-sla-udp-jitter-grouping
+    +-- history
+    |  +-- distributions-of-statistics-kept?   uint8
+    |  +-- enhanced
+    |  |  +-- interval?   uint16
+    |  |  +-- buckets?    uint8
+    |  +-- hours-of-statistics-kept?           uint8
+    |  +-- statistics-distribution-interval?   uint8
+    +-- data-pattern?                string
+    +-- request-data-size?           uint16
+    +-- response-data-size?          uint16
+    +-- (tos-param)?
+    |  +--:(tos)
+    |  |  +-- tos?                   uint8
+    |  +--:(traffic-class)
+    |     +-- traffic-class?         uint8
+    +-- vrf?                         string
+    +-- verify-data?                 empty
+    +-- precision?                   enumeration
+    +-- optimize?                    enumeration
+    +-- enhanced?                    enumeration
+    +-- operation-packet-priority?   enumeration
+    +-- clock-tolerance!
+       +-- ntp!
+          +-- oneway
+             +-- (clock-tolerance-param)?
+                +--:(absolute-type)
+                |  +-- absolute?   uint32
+                +--:(percent-type)
+                   +-- percent?    uint8
+  grouping ip-sla-udp-echo-grouping
+    +-- history
+    |  +-- enhanced
+    |  |  +-- interval?   uint16
+    |  |  +-- buckets?    uint8
+    |  +-- buckets-kept?                       uint8
+    |  +-- distributions-of-statistics-kept?   uint8
+    |  +-- filter?                             enumeration
+    |  +-- hours-of-statistics-kept?           uint8
+    |  +-- lives-kept?                         uint8
+    |  +-- statistics-distribution-interval?   uint8
+    +-- request-data-size?     uint16
+    +-- (tos-param)?
+    |  +--:(tos)
+    |  |  +-- tos?             uint8
+    |  +--:(traffic-class)
+    |     +-- traffic-class?   uint8
+    +-- vrf?                   string
+    +-- data-pattern?          string
+  grouping ip-sla-ethernet-delay-grouping
+    +-- aggregate
+    |  +-- interval?   uint32
+    +-- history
+       +-- interval?   uint8
+  grouping config-ip-sla-react-threshold-type-grouping
+    +-- threshold-type
+       +-- (threshold-type-param)?
+          +--:(xOfy-type)
+          |  +-- xOfy!
+          |     +-- x-val?   uint8
+          |     +-- y-val?   uint8
+          +--:(average-type)
+          |  +-- average!
+          |     +-- average-val?   uint8
+          +--:(consecutive-type)
+          |  +-- consecutive!
+          |     +-- consecutive-val?   uint8
+          +--:(immediate-type)
+          |  +-- immediate?     empty
+          +--:(never-type)
+             +-- never?         empty
+  grouping config-ip-sla-react-threshold-value-grouping
+    +-- threshold-value
+       +-- upper-limit-val?   uint32
+       +-- lower-limit-val?   uint32
+  grouping config-ip-sla-grouping
+    +-- sla
+       +-- entry* [number]
+       |  +-- number?              uint32
+       |  +-- (sla-param)?
+       |     +--:(icmp-echo-case)
+       |     |  +-- icmp-echo
+       |     |     +-- destination?              union
+       |     |     +-- (source-param)?
+       |     |     |  +--:(source-interface)
+       |     |     |  |  +-- source-interface?   string
+       |     |     |  +--:(source-ip)
+       |     |     |     +-- source-ip?          union
+       |     |     +-- data-pattern?             string
+       |     |     +-- owner?                    string
+       |     |     +-- tag?                      string
+       |     |     +-- threshold?                uint32
+       |     |     +-- timeout?                  uint32
+       |     |     +-- frequency?                uint32
+       |     |     +-- history
+       |     |     |  +-- enhanced
+       |     |     |  |  +-- interval?   uint16
+       |     |     |  |  +-- buckets?    uint8
+       |     |     |  +-- buckets-kept?                       uint8
+       |     |     |  +-- distributions-of-statistics-kept?   uint8
+       |     |     |  +-- filter?                             enumeration
+       |     |     |  +-- hours-of-statistics-kept?           uint8
+       |     |     |  +-- lives-kept?                         uint8
+       |     |     |  +-- statistics-distribution-interval?   uint8
+       |     |     +-- request-data-size?        uint32
+       |     |     +-- (tos-param)?
+       |     |     |  +--:(tos)
+       |     |     |  |  +-- tos?                uint8
+       |     |     |  +--:(traffic-class)
+       |     |     |     +-- traffic-class?      uint8
+       |     |     +-- verify-data?              empty
+       |     |     +-- vrf?                      string
+       |     +--:(icmp-jitter-case)
+       |     |  +-- icmp-jitter
+       |     |     +-- dst-ip?        union
+       |     |     +-- interval?      uint16
+       |     |     +-- num-packets?   uint16
+       |     |     +-- source-ip?     union
+       |     |     +-- owner?         string
+       |     |     +-- tag?           string
+       |     |     +-- threshold?     uint32
+       |     |     +-- timeout?       uint32
+       |     |     +-- frequency?     uint32
+       |     |     +-- history
+       |     |     |  +-- distributions-of-statistics-kept?   uint8
+       |     |     |  +-- enhanced
+       |     |     |  |  +-- interval?   uint16
+       |     |     |  |  +-- buckets?    uint8
+       |     |     |  +-- hours-of-statistics-kept?           uint8
+       |     |     |  +-- statistics-distribution-interval?   uint8
+       |     |     +-- tos?           uint8
+       |     |     +-- vrf?           string
+       |     +--:(path-echo-case)
+       |     |  +-- path-echo
+       |     |     +-- dst-ip?                     union
+       |     |     +-- source-ip?                  union
+       |     |     +-- owner?                      string
+       |     |     +-- tag?                        string
+       |     |     +-- threshold?                  uint32
+       |     |     +-- timeout?                    uint32
+       |     |     +-- frequency?                  uint32
+       |     |     +-- paths-of-statistics-kept?   uint8
+       |     |     +-- samples-of-history-kept?    uint8
+       |     |     +-- hops-of-statistics-kept?    uint8
+       |     |     +-- lsr-path*                   union
+       |     |     +-- request-data-size?          uint32
+       |     |     +-- (tos-param)?
+       |     |     |  +--:(tos)
+       |     |     |  |  +-- tos?                  uint8
+       |     |     |  +--:(traffic-class)
+       |     |     |     +-- traffic-class?        uint8
+       |     |     +-- verify-data?                empty
+       |     |     +-- vrf?                        string
+       |     |     +-- history
+       |     |        +-- buckets-kept?                       uint8
+       |     |        +-- distributions-of-statistics-kept?   uint8
+       |     |        +-- filter?                             enumeration
+       |     |        +-- hours-of-statistics-kept?           uint8
+       |     |        +-- lives-kept?                         uint8
+       |     |        +-- statistics-distribution-interval?   uint8
+       |     +--:(path-jitter-case)
+       |     |  +-- path-jitter
+       |     |     +-- dst-ip?                union
+       |     |     +-- source-ip?             union
+       |     |     +-- default
+       |     |     |  +-- frequency?           empty
+       |     |     |  +-- lsr-path?            empty
+       |     |     |  +-- owner?               empty
+       |     |     |  +-- request-data-size?   empty
+       |     |     |  +-- tag?                 empty
+       |     |     |  +-- threshold?           empty
+       |     |     |  +-- timeout?             empty
+       |     |     |  +-- tos?                 empty
+       |     |     |  +-- verify-data?         empty
+       |     |     |  +-- vrf?                 empty
+       |     |     +-- owner?                 string
+       |     |     +-- tag?                   string
+       |     |     +-- threshold?             uint32
+       |     |     +-- timeout?               uint32
+       |     |     +-- frequency?             uint32
+       |     |     +-- lsr-path*              union
+       |     |     +-- request-data-size?     uint32
+       |     |     +-- (tos-param)?
+       |     |     |  +--:(tos)
+       |     |     |  |  +-- tos?             uint8
+       |     |     |  +--:(traffic-class)
+       |     |     |     +-- traffic-class?   uint8
+       |     |     +-- flow-label?            uint64
+       |     |     +-- verify-data?           empty
+       |     |     +-- vrf?                   string
+       |     +--:(udp-echo-case)
+       |     |  +-- udp-echo
+       |     |     +-- dest-addr?             union
+       |     |     +-- dest-port?             uint16
+       |     |     +-- source-ip?             union
+       |     |     +-- source-port?           uint16
+       |     |     +-- owner?                 string
+       |     |     +-- tag?                   string
+       |     |     +-- threshold?             uint32
+       |     |     +-- timeout?               uint32
+       |     |     +-- frequency?             uint32
+       |     |     +-- history
+       |     |     |  +-- enhanced
+       |     |     |  |  +-- interval?   uint16
+       |     |     |  |  +-- buckets?    uint8
+       |     |     |  +-- buckets-kept?                       uint8
+       |     |     |  +-- distributions-of-statistics-kept?   uint8
+       |     |     |  +-- filter?                             enumeration
+       |     |     |  +-- hours-of-statistics-kept?           uint8
+       |     |     |  +-- lives-kept?                         uint8
+       |     |     |  +-- statistics-distribution-interval?   uint8
+       |     |     +-- request-data-size?     uint16
+       |     |     +-- (tos-param)?
+       |     |     |  +--:(tos)
+       |     |     |  |  +-- tos?             uint8
+       |     |     |  +--:(traffic-class)
+       |     |     |     +-- traffic-class?   uint8
+       |     |     +-- vrf?                   string
+       |     |     +-- data-pattern?          string
+       |     +--:(udp-jitter-case)
+       |     |  +-- udp-jitter
+       |     |     +-- dest-addr?                   union
+       |     |     +-- portno?                      uint16
+       |     |     +-- (type-param)?
+       |     |     |  +--:(codec)
+       |     |     |  |  +-- codec?                 enumeration
+       |     |     |  |  +-- advantage-factor?      uint16
+       |     |     |  |  +-- codec-interval?        uint32
+       |     |     |  |  +-- codec-numpackets?      uint32
+       |     |     |  |  +-- codec-size?            uint16
+       |     |     |  +--:(non-codec)
+       |     |     |     +-- num-packets?           uint16
+       |     |     |     +-- interval?              uint16
+       |     |     +-- source-ip?                   union
+       |     |     +-- source-port?                 uint16
+       |     |     +-- control?                     enumeration
+       |     |     +-- owner?                       string
+       |     |     +-- tag?                         string
+       |     |     +-- threshold?                   uint32
+       |     |     +-- timeout?                     uint32
+       |     |     +-- frequency?                   uint32
+       |     |     +-- history
+       |     |     |  +-- distributions-of-statistics-kept?   uint8
+       |     |     |  +-- enhanced
+       |     |     |  |  +-- interval?   uint16
+       |     |     |  |  +-- buckets?    uint8
+       |     |     |  +-- hours-of-statistics-kept?           uint8
+       |     |     |  +-- statistics-distribution-interval?   uint8
+       |     |     +-- data-pattern?                string
+       |     |     +-- request-data-size?           uint16
+       |     |     +-- response-data-size?          uint16
+       |     |     +-- (tos-param)?
+       |     |     |  +--:(tos)
+       |     |     |  |  +-- tos?                   uint8
+       |     |     |  +--:(traffic-class)
+       |     |     |     +-- traffic-class?         uint8
+       |     |     +-- vrf?                         string
+       |     |     +-- verify-data?                 empty
+       |     |     +-- precision?                   enumeration
+       |     |     +-- optimize?                    enumeration
+       |     |     +-- enhanced?                    enumeration
+       |     |     +-- operation-packet-priority?   enumeration
+       |     |     +-- clock-tolerance!
+       |     |        +-- ntp!
+       |     |           +-- oneway
+       |     |              +-- (clock-tolerance-param)?
+       |     |                 +--:(absolute-type)
+       |     |                 |  +-- absolute?   uint32
+       |     |                 +--:(percent-type)
+       |     |                    +-- percent?    uint8
+       |     +--:(http-case)
+       |     |  +-- http
+       |     |     +-- (http-choice)?
+       |     |     |  +--:(http-get)
+       |     |     |  |  +-- get
+       |     |     |  |     +-- url?           string
+       |     |     |  |     +-- cache?         enumeration
+       |     |     |  |     +-- source-ip?     union
+       |     |     |  |     +-- source-port?   uint16
+       |     |     |  |     +-- name-server?   union
+       |     |     |  |     +-- proxy?         string
+       |     |     |  |     +-- version?       enumeration
+       |     |     |  +--:(http-raw)
+       |     |     |     +-- raw
+       |     |     |        +-- url?           string
+       |     |     |        +-- cache?         enumeration
+       |     |     |        +-- source-ip?     union
+       |     |     |        +-- source-port?   uint16
+       |     |     |        +-- name-server?   union
+       |     |     |        +-- proxy?         string
+       |     |     |        +-- version?       enumeration
+       |     |     +-- owner?                     string
+       |     |     +-- tag?                       string
+       |     |     +-- threshold?                 uint32
+       |     |     +-- timeout?                   uint32
+       |     |     +-- frequency?                 uint32
+       |     |     +-- history
+       |     |     |  +-- distributions-of-statistics-kept?   uint8
+       |     |     |  +-- hours-of-statistics-kept?           uint8
+       |     |     |  +-- statistics-distribution-interval?   uint8
+       |     |     +-- http-status-code-ignore?   empty
+       |     |     +-- vrf?                       string
+       |     |     +-- (tos-param)?
+       |     |     |  +--:(tos)
+       |     |     |  |  +-- tos?                 uint8
+       |     |     |  +--:(traffic-class)
+       |     |     |     +-- traffic-class?       uint8
+       |     |     +-- http-raw-request
+       |     |        +-- raw-request-string?   string
+       |     +--:(dhcp-case)
+       |     |  +-- dhcp
+       |     |     +-- dst-ip?      union
+       |     |     +-- source-ip?   union
+       |     |     +-- owner?       string
+       |     |     +-- tag?         string
+       |     |     +-- threshold?   uint32
+       |     |     +-- timeout?     uint32
+       |     |     +-- frequency?   uint32
+       |     |     +-- history
+       |     |        +-- buckets-kept?                       uint8
+       |     |        +-- distributions-of-statistics-kept?   uint8
+       |     |        +-- filter?                             enumeration
+       |     |        +-- hours-of-statistics-kept?           uint8
+       |     |        +-- lives-kept?                         uint8
+       |     |        +-- statistics-distribution-interval?   uint8
+       |     +--:(tcp-connect-case)
+       |     |  +-- tcp-connect
+       |     |     +-- dest-addr?             union
+       |     |     +-- dest-port?             uint16
+       |     |     +-- source-ip?             union
+       |     |     +-- source-port?           uint16
+       |     |     +-- control?               enumeration
+       |     |     +-- owner?                 string
+       |     |     +-- tag?                   string
+       |     |     +-- threshold?             uint32
+       |     |     +-- timeout?               uint32
+       |     |     +-- frequency?             uint32
+       |     |     +-- history
+       |     |     |  +-- enhanced
+       |     |     |  |  +-- interval?   uint16
+       |     |     |  |  +-- buckets?    uint8
+       |     |     |  +-- buckets-kept?                       uint8
+       |     |     |  +-- distributions-of-statistics-kept?   uint8
+       |     |     |  +-- filter?                             enumeration
+       |     |     |  +-- hours-of-statistics-kept?           uint8
+       |     |     |  +-- lives-kept?                         uint8
+       |     |     |  +-- statistics-distribution-interval?   uint8
+       |     |     +-- (tos-param)?
+       |     |     |  +--:(tos)
+       |     |     |  |  +-- tos?             uint8
+       |     |     |  +--:(traffic-class)
+       |     |     |     +-- traffic-class?   uint8
+       |     |     +-- vrf?                   string
+       |     +--:(dns-case)
+       |     |  +-- dns
+       |     |     +-- dest-addr?     union
+       |     |     +-- name-server?   union
+       |     |     +-- source-ip?     union
+       |     |     +-- source-port?   uint16
+       |     |     +-- owner?         string
+       |     |     +-- tag?           string
+       |     |     +-- threshold?     uint32
+       |     |     +-- timeout?       uint32
+       |     |     +-- frequency?     uint32
+       |     |     +-- history
+       |     |     |  +-- buckets-kept?                       uint8
+       |     |     |  +-- distributions-of-statistics-kept?   uint8
+       |     |     |  +-- filter?                             enumeration
+       |     |     |  +-- hours-of-statistics-kept?           uint8
+       |     |     |  +-- lives-kept?                         uint8
+       |     |     |  +-- statistics-distribution-interval?   uint8
+       |     |     +-- vrf?           string
+       |     +--:(ftp-case)
+       |     |  +-- ftp
+       |     |     +-- get!
+       |     |        +-- url?         union
+       |     |        +-- mode?        enumeration
+       |     |        +-- source-ip?   union
+       |     |        +-- owner?       string
+       |     |        +-- tag?         string
+       |     |        +-- threshold?   uint32
+       |     |        +-- timeout?     uint32
+       |     |        +-- frequency?   uint32
+       |     |        +-- history
+       |     |           +-- enhanced
+       |     |           |  +-- interval?   uint16
+       |     |           |  +-- buckets?    uint8
+       |     |           +-- buckets-kept?                       uint8
+       |     |           +-- distributions-of-statistics-kept?   uint8
+       |     |           +-- filter?                             enumeration
+       |     |           +-- hours-of-statistics-kept?           uint8
+       |     |           +-- lives-kept?                         uint8
+       |     |           +-- statistics-distribution-interval?   uint8
+       |     +--:(ethernet-case)
+       |        +-- ethernet
+       |           +-- y1731
+       |           |  +-- delay
+       |           |  |  +-- name?                enumeration
+       |           |  |  +-- burst?               empty
+       |           |  |  +-- domain?              string
+       |           |  |  +-- (evc-or-vlan)?
+       |           |  |  |  +--:(evc)
+       |           |  |  |  |  +-- evc?           string
+       |           |  |  |  +--:(vlan)
+       |           |  |  |     +-- vlan?          uint16
+       |           |  |  +-- (mac-or-mpid)?
+       |           |  |  |  +--:(mac-address)
+       |           |  |  |  |  +-- mac-address?   ios-types:cisco-mac-address-type
+       |           |  |  |  +--:(mpid)
+       |           |  |  |     +-- mpid?          uint16
+       |           |  |  +-- cos?                 uint8
+       |           |  |  +-- source
+       |           |  |     +-- (mac-or-mpid)?
+       |           |  |        +--:(mac-address)
+       |           |  |        |  +-- mac-address?   ios-types:cisco-mac-address-type
+       |           |  |        +--:(mpid)
+       |           |  |           +-- mpid?          uint16
+       |           |  +-- loss
+       |           |     +-- name?                enumeration
+       |           |     +-- burst?               empty
+       |           |     +-- domain?              string
+       |           |     +-- (evc-or-vlan)?
+       |           |     |  +--:(evc)
+       |           |     |  |  +-- evc?           string
+       |           |     |  +--:(vlan)
+       |           |     |     +-- vlan?          uint16
+       |           |     +-- (mac-or-mpid)?
+       |           |     |  +--:(mac-address)
+       |           |     |  |  +-- mac-address?   ios-types:cisco-mac-address-type
+       |           |     |  +--:(mpid)
+       |           |     |     +-- mpid?          uint16
+       |           |     +-- cos?                 uint8
+       |           |     +-- source
+       |           |        +-- (mac-or-mpid)?
+       |           |           +--:(mac-address)
+       |           |           |  +-- mac-address?   ios-types:cisco-mac-address-type
+       |           |           +--:(mpid)
+       |           |              +-- mpid?          uint16
+       |           +-- aggregate
+       |           |  +-- interval?   uint32
+       |           +-- history
+       |              +-- interval?   uint8
+       +-- enable
+       |  +-- reaction-alerts?   empty
+       +-- responder!
+       |  +-- udp-echo
+       |  |  +-- port?        uint16
+       |  |  +-- ipaddress* [host]
+       |  |     +-- host?   union
+       |  |     +-- port?   uint16
+       |  +-- tcp-connect
+       |     +-- port?        uint16
+       |     +-- ipaddress* [host]
+       |        +-- host?   union
+       |        +-- port?   uint16
+       +-- logging
+       |  +-- traps?   empty
+       +-- group
+       |  +-- schedule* [entry-number]
+       |     +-- entry-number?   uint32
+       |     +-- probe-ids* [word]
+       |        +-- word?              string
+       |        +-- schedule-period
+       |           +-- seconds?      uint32
+       |           +-- frequency
+       |           |  +-- (frequency-choice)?
+       |           |     +--:(frequency-value)
+       |           |     |  +-- frequency-val?   uint32
+       |           |     +--:(frequency-range)
+       |           |        +-- range?           string
+       |           +-- start-time
+       |           |  +-- now?   empty
+       |           +-- life?         union
+       +-- schedule* [entry-number]
+       |  +-- entry-number?   -> /ios:native/ip/ios-sla:sla/entry/number
+       |  +-- ageout?         uint32
+       |  +-- life?           union
+       |  +-- recurring?      empty
+       |  +-- start-time
+       |     +-- after?          string
+       |     +-- hour-min?       string
+       |     +-- hour-min-sec?   string
+       |     +-- now?            empty
+       |     +-- pending?        empty
+       |     +-- random?         uint32
+       +-- reaction-configuration* [entry-number]
+       |  +-- entry-number?   uint64
+       |  +-- react
+       |     +-- connectionLoss!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- action-type?      enumeration
+       |     +-- rtt!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- timeout!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- action-type?      enumeration
+       |     +-- protocolSpecificError!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- action-type?      enumeration
+       |     +-- verifyError!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- action-type?      enumeration
+       |     +-- icpif!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- jitterAvg!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- jitterAvgPct!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- jitterDSAvg!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- jitterDSAvgPct!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- jitterSDAvg!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- jitterSDAvgPct!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- maxOfNegativeDS!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- maxOfNegativeSD!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- maxOfPositiveDS!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- maxOfPositiveSD!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- mos!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- overThreshold!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- packetLateArrival!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- packetLossDS!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- packetLossSD!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- packetMIA!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- packetOutOfSequence!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- rttPct!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- latencyDSAvg!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- latencyDSAvgPct!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- latencySDAvg!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- latencySDAvgPct!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- maxOflatencySD!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- maxOflatencySDPct!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- maxOflatencyDS!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- maxOflatencyDSPct!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- successivePacketLoss!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |  |  +-- upper-limit-val?   uint32
+       |     |  |  +-- lower-limit-val?   uint32
+       |     |  +-- action-type?       enumeration
+       |     +-- loss-ratioDS!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |     +-- upper-limit-val?   uint32
+       |     |     +-- lower-limit-val?   uint32
+       |     +-- loss-ratioSD!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |     +-- upper-limit-val?   uint32
+       |     |     +-- lower-limit-val?   uint32
+       |     +-- unavailableDS!
+       |     |  +-- threshold-type
+       |     |  |  +-- (threshold-type-param)?
+       |     |  |     +--:(xOfy-type)
+       |     |  |     |  +-- xOfy!
+       |     |  |     |     +-- x-val?   uint8
+       |     |  |     |     +-- y-val?   uint8
+       |     |  |     +--:(average-type)
+       |     |  |     |  +-- average!
+       |     |  |     |     +-- average-val?   uint8
+       |     |  |     +--:(consecutive-type)
+       |     |  |     |  +-- consecutive!
+       |     |  |     |     +-- consecutive-val?   uint8
+       |     |  |     +--:(immediate-type)
+       |     |  |     |  +-- immediate?     empty
+       |     |  |     +--:(never-type)
+       |     |  |        +-- never?         empty
+       |     |  +-- threshold-value
+       |     |     +-- upper-limit-val?   uint32
+       |     |     +-- lower-limit-val?   uint32
+       |     +-- unavailableSD!
+       |        +-- threshold-type
+       |        |  +-- (threshold-type-param)?
+       |        |     +--:(xOfy-type)
+       |        |     |  +-- xOfy!
+       |        |     |     +-- x-val?   uint8
+       |        |     |     +-- y-val?   uint8
+       |        |     +--:(average-type)
+       |        |     |  +-- average!
+       |        |     |     +-- average-val?   uint8
+       |        |     +--:(consecutive-type)
+       |        |     |  +-- consecutive!
+       |        |     |     +-- consecutive-val?   uint8
+       |        |     +--:(immediate-type)
+       |        |     |  +-- immediate?     empty
+       |        |     +--:(never-type)
+       |        |        +-- never?         empty
+       |        +-- threshold-value
+       |           +-- upper-limit-val?   uint32
+       |           +-- lower-limit-val?   uint32
+       +-- server
+          +-- twamp!

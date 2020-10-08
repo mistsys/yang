@@ -1,0 +1,125 @@
+module: Cisco-IOS-XE-mdt-oper
+  +--ro mdt-oper-data
+  |  +--ro mdt-streams
+  |  |  +--ro stream*   string
+  |  +--ro mdt-subscriptions* [subscription-id]
+  |  |  +--ro subscription-id           uint32
+  |  |  +--ro base
+  |  |  |  +--ro stream?                    string
+  |  |  |  +--ro filter-type?               mdt-common-defs:mdt-sub-filter-type
+  |  |  |  +--ro encoding?                  string
+  |  |  |  +--ro update-trigger?            mdt-common-defs:mdt-sub-update-trigger
+  |  |  |  +--ro source-vrf?                string
+  |  |  |  +--ro source-address?            inet:ip-address
+  |  |  |  +--ro (update-trigger-choice)?
+  |  |  |  |  +--:(sub-upd-trig-none)
+  |  |  |  |  |  +--ro no-trigger?          uint32
+  |  |  |  |  +--:(sub-upd-trig-periodic)
+  |  |  |  |  |  +--ro period               uint32
+  |  |  |  |  +--:(sub-upd-trig-on-change)
+  |  |  |  |     +--ro no-synch-on-start?   boolean
+  |  |  |  +--ro (filter-type-choice)?
+  |  |  |     +--:(sub-filter-type-none)
+  |  |  |     |  +--ro no-filter?           uint32
+  |  |  |     +--:(sub-filter-type-xpath)
+  |  |  |     |  +--ro xpath?               string
+  |  |  |     +--:(sub-filter-type-tdl-uri)
+  |  |  |     |  +--ro tdl-uri?             string
+  |  |  |     +--:(sub-filter-type-tdl-transform)
+  |  |  |     |  +--ro transform-name?      string
+  |  |  |     +--:(sub-filter-type-nested-uri)
+  |  |  |        +--ro nested-uri?          string
+  |  |  +--ro type?                     mdt-oper:mdt-sub-type
+  |  |  +--ro state?                    mdt-oper:mdt-sub-state
+  |  |  +--ro comments?                 string
+  |  |  +--ro mdt-receivers* [address port]
+  |  |  |  +--ro protocol?                 string
+  |  |  |  +--ro state?                    mdt-oper:mdt-receiver-state
+  |  |  |  +--ro comments?                 string
+  |  |  |  +--ro profile?                  string
+  |  |  |  +--ro last-state-change-time?   yang:date-and-time
+  |  |  |  +--ro address                   inet:ip-address
+  |  |  |  +--ro port                      uint16
+  |  |  +--ro last-state-change-time?   yang:date-and-time
+  |  +--ro mdt-connections* [address port vrf-table-id source-address]
+  |     +--ro transport?                string
+  |     +--ro peer-id?                  string
+  |     +--ro state?                    mdt-oper:mdt-con-state
+  |     +--ro mdt-sub-con-info* [sub-id]
+  |     |  +--ro sub-id                uint32
+  |     |  +--ro time-of-connection?   yang:date-and-time
+  |     +--ro profile?                  string
+  |     +--ro last-state-change-time?   yang:date-and-time
+  |     +--ro source-address-in-use?    inet:ip-address
+  |     +--ro address                   inet:ip-address
+  |     +--ro port                      uint16
+  |     +--ro vrf-table-id              uint32
+  |     +--ro source-address            inet:ip-address
+  +--rw schema-metadata-Cisco-IOS-XE-mdt-oper
+  |  +--rw json-metadata-leaf?             empty
+  |  +--rw Cisco-IOS-XE-mdt-common-defs
+  +--rw gnmi-model-data
+
+  grouping mdt-stream
+    +-- stream*   string
+  grouping mdt-subscription-oper
+    +-- subscription-id?          uint32
+    +-- base
+    |  +-- stream?                    string
+    |  +--ro filter-type?               mdt-common-defs:mdt-sub-filter-type
+    |  +-- encoding?                  string
+    |  +--ro update-trigger?            mdt-common-defs:mdt-sub-update-trigger
+    |  +-- source-vrf?                string
+    |  +-- source-address?            inet:ip-address
+    |  +-- (update-trigger-choice)?
+    |  |  +--:(sub-upd-trig-none)
+    |  |  |  +-- no-trigger?          uint32
+    |  |  +--:(sub-upd-trig-periodic)
+    |  |  |  +-- period               uint32
+    |  |  +--:(sub-upd-trig-on-change)
+    |  |     +-- no-synch-on-start?   boolean
+    |  +-- (filter-type-choice)?
+    |     +--:(sub-filter-type-none)
+    |     |  +-- no-filter?           uint32
+    |     +--:(sub-filter-type-xpath)
+    |     |  +-- xpath?               string
+    |     +--:(sub-filter-type-tdl-uri)
+    |     |  +-- tdl-uri?             string
+    |     +--:(sub-filter-type-tdl-transform)
+    |     |  +-- transform-name?      string
+    |     +--:(sub-filter-type-nested-uri)
+    |        +-- nested-uri?          string
+    +-- type?                     mdt-oper:mdt-sub-type
+    +-- state?                    mdt-oper:mdt-sub-state
+    +-- comments?                 string
+    +-- mdt-receivers* [address port]
+    |  +-- protocol?                 string
+    |  +-- state?                    mdt-oper:mdt-receiver-state
+    |  +-- comments?                 string
+    |  +-- profile?                  string
+    |  +-- last-state-change-time?   yang:date-and-time
+    |  +-- address                   inet:ip-address
+    |  +-- port                      uint16
+    +-- last-state-change-time?   yang:date-and-time
+  grouping mdt-receiver-oper
+    +-- protocol?                 string
+    +-- state?                    mdt-oper:mdt-receiver-state
+    +-- comments?                 string
+    +-- profile?                  string
+    +-- last-state-change-time?   yang:date-and-time
+  grouping mdt-connection-data
+    +-- transport?                string
+    +-- peer-id?                  string
+    +-- state?                    mdt-oper:mdt-con-state
+    +-- mdt-sub-con-info* [sub-id]
+    |  +-- sub-id?               uint32
+    |  +-- time-of-connection?   yang:date-and-time
+    +-- profile?                  string
+    +-- last-state-change-time?   yang:date-and-time
+    +-- source-address-in-use?    inet:ip-address
+  grouping mdt-sub-con-info
+    +-- sub-id?               uint32
+    +-- time-of-connection?   yang:date-and-time
+  grouping __yangpp_metadata
+    +-- json-metadata-leaf?             empty
+    +-- Cisco-IOS-XE-mdt-common-defs

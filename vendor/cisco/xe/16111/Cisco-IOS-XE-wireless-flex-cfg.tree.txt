@@ -1,0 +1,117 @@
+module: Cisco-IOS-XE-wireless-flex-cfg
+  +--rw flex-cfg-data
+     +--rw flex-policy-entries
+        +--rw flex-policy-entry* [policy-name]
+           +--rw policy-name                    string
+           +--rw description?                   string
+           +--rw eap-fast-profile-name?         string
+           +--rw radius-server-group-name?      string
+           +--rw fallback-radio-shut?           boolean
+           +--rw arp-caching?                   boolean
+           +--rw cts-inline-tagging?            boolean
+           +--rw cts-rolebased-enforce?         boolean
+           +--rw cts-profile-name?              string
+           +--rw join-min-latency?              boolean
+           +--rw radius-enable?                 boolean
+           +--rw vlan-enable?                   boolean
+           +--rw is-home-ap-enable?             boolean
+           +--rw is-radio-backhaul?             boolean
+           +--rw is-resilient-mode?             boolean
+           +--rw efficient-ap-upgrade-enable?   boolean
+           +--rw http-proxy-ip?                 inet:ip-address
+           +--rw security
+           |  +--rw is-peap?   empty
+           |  +--rw is-leap?   empty
+           |  +--rw is-eap?    empty
+           |  +--rw is-tls?    empty
+           +--rw native-vlan-id?                uint32
+           +--rw slave-max-retry-count?         uint32
+           +--rw http-proxy-port?               uint16
+           +--rw vlan-acls
+           |  +--rw vlan-acl* [vlan-id]
+           |     +--rw vlan-id             uint32
+           |     +--rw ingress-acl-name?   string
+           |     +--rw egress-acl-name?    string
+           +--rw policy-acls
+           |  +--rw policy-acl* [acl-name]
+           |     +--rw acl-name              string
+           |     +--rw is-cwa?               boolean
+           |     +--rw urlfilterlist-name?   string
+           +--rw local-auth-users
+           |  +--rw local-auth-user* [user-name]
+           |     +--rw user-name        string
+           |     +--rw password?        string
+           |     +--rw password-type?   wireless-enum-types:crypt-type
+           +--rw if-name-vlan-ids
+              +--rw if-name-vlan-id* [interface-name]
+                 +--rw interface-name    string
+                 +--rw vlan-id?          uint32
+                 +--rw acl-name?         string
+
+  grouping vlan-acl-list
+    +-- vlan-id?            uint32
+    +-- ingress-acl-name?   string
+    +-- egress-acl-name?    string
+  grouping local-auth-user-list
+    +-- user-name?       string
+    +-- password?        string
+    +-- password-type?   wireless-enum-types:crypt-type
+  grouping policy-acl-list
+    +-- acl-name?             string
+    +-- is-cwa?               boolean
+    +-- urlfilterlist-name?   string
+  grouping if-name-vlan-id-list
+    +-- interface-name?   string
+    +-- vlan-id?          uint32
+    +-- acl-name?         string
+  grouping st-security-params
+    +-- is-peap?   empty
+    +-- is-leap?   empty
+    +-- is-eap?    empty
+    +-- is-tls?    empty
+  grouping flex-policy-config
+    +-- policy-name?                   string
+    +-- description?                   string
+    +-- eap-fast-profile-name?         string
+    +-- radius-server-group-name?      string
+    +-- fallback-radio-shut?           boolean
+    +-- arp-caching?                   boolean
+    +-- cts-inline-tagging?            boolean
+    +-- cts-rolebased-enforce?         boolean
+    +-- cts-profile-name?              string
+    +-- join-min-latency?              boolean
+    +-- radius-enable?                 boolean
+    +-- vlan-enable?                   boolean
+    +-- is-home-ap-enable?             boolean
+    +-- is-radio-backhaul?             boolean
+    +-- is-resilient-mode?             boolean
+    +-- efficient-ap-upgrade-enable?   boolean
+    +-- http-proxy-ip?                 inet:ip-address
+    +-- security
+    |  +-- is-peap?   empty
+    |  +-- is-leap?   empty
+    |  +-- is-eap?    empty
+    |  +-- is-tls?    empty
+    +-- native-vlan-id?                uint32
+    +-- slave-max-retry-count?         uint32
+    +-- http-proxy-port?               uint16
+    +-- vlan-acls
+    |  +-- vlan-acl* [vlan-id]
+    |     +-- vlan-id?            uint32
+    |     +-- ingress-acl-name?   string
+    |     +-- egress-acl-name?    string
+    +-- policy-acls
+    |  +-- policy-acl* [acl-name]
+    |     +-- acl-name?             string
+    |     +-- is-cwa?               boolean
+    |     +-- urlfilterlist-name?   string
+    +-- local-auth-users
+    |  +-- local-auth-user* [user-name]
+    |     +-- user-name?       string
+    |     +-- password?        string
+    |     +-- password-type?   wireless-enum-types:crypt-type
+    +-- if-name-vlan-ids
+       +-- if-name-vlan-id* [interface-name]
+          +-- interface-name?   string
+          +-- vlan-id?          uint32
+          +-- acl-name?         string

@@ -1,0 +1,49 @@
+
+module: Cisco-IOS-XE-digitalio
+  augment /ios:native:
+    +--rw alarm
+       +--rw contact
+          +--rw attach-to-iox?   empty
+          +--rw port* [id]
+             +--rw id             uint8
+             +--rw application?   enumeration
+             +--rw description?   string
+             +--rw enable?        empty
+             +--rw severity?      enumeration
+             +--rw threshold?     uint16
+             +--rw trigger?       enumeration
+             +--rw output!
+                +--rw (output-type)?
+                   +--:(value)
+                   |  +--rw value?   uint8
+                   +--:(relay)
+                      +--rw relay
+                         +--rw (relay-type)?
+                            +--:(input-alarm)
+                            |  +--rw input-alarm?   uint8
+                            +--:(temperature)
+                               +--rw temperature?   enumeration
+
+  grouping config-alarm-grouping
+    +-- alarm
+       +-- contact
+          +-- attach-to-iox?   empty
+          +-- port* [id]
+             +-- id?            uint8
+             +-- application?   enumeration
+             +-- description?   string
+             +-- enable?        empty
+             +-- severity?      enumeration
+             +-- threshold?     uint16
+             +-- trigger?       enumeration
+             +-- output!
+                +-- (output-type)?
+                   +--:(value)
+                   |  +-- value?   uint8
+                   +--:(relay)
+                      +-- relay
+                         +-- (relay-type)?
+                            +--:(input-alarm)
+                            |  +-- input-alarm?   uint8
+                            +--:(temperature)
+                               +-- temperature?   enumeration

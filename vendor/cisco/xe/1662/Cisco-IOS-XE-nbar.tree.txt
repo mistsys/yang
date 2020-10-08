@@ -1,0 +1,129 @@
+
+module: Cisco-IOS-XE-nbar
+  augment /ios:native/ios:ip:
+    +--rw nbar
+       +--rw attribute
+       |  +--rw application-group
+       |  |  +--rw custom* [name]
+       |  |     +--rw name    string
+       |  |     +--rw help?   string
+       |  +--rw category
+       |  |  +--rw custom* [name]
+       |  |     +--rw name    string
+       |  |     +--rw help?   string
+       |  +--rw sub-category
+       |     +--rw custom* [name]
+       |        +--rw name    string
+       |        +--rw help?   string
+       +--rw attribute-map* [name]
+       |  +--rw name         string
+       |  +--rw attribute
+       |     +--rw application-group?    union
+       |     +--rw business-relevance?   enumeration
+       |     +--rw category?             union
+       |     +--rw encrypted?            enumeration
+       |     +--rw sub-category?         union
+       |     +--rw traffic-class?        enumeration
+       |     +--rw tunnel?               enumeration
+       +--rw attribute-set* [protocol-name]
+       |  +--rw protocol-name    string
+       |  +--rw profile-name?    string
+       +--rw custom* [name]
+          +--rw name    string
+          +--rw http
+             +--rw cookie?             string
+             +--rw host?               string
+             +--rw method?             string
+             +--rw referer?            string
+             +--rw (http-uv)?
+             |  +--:(url-case)
+             |  |  +--rw url?          string
+             |  +--:(user-agent-case)
+             |  |  +--rw user-agent?   string
+             |  +--:(version-case)
+             |  |  +--rw version?      string
+             |  +--:(via-case)
+             |     +--rw via?          string
+             +--rw id?                 uint16
+  augment /ios:native/ios:interface/ios:FastEthernet/ios:ip:
+    +--rw nbar
+       +--rw protocol-discovery!
+          +--rw ipv4-ipv6?   enumeration
+  augment /ios:native/ios:interface/ios:GigabitEthernet/ios:ip:
+    +--rw nbar
+       +--rw protocol-discovery!
+          +--rw ipv4-ipv6?   enumeration
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet/ios:ip:
+    +--rw nbar
+       +--rw protocol-discovery!
+          +--rw ipv4-ipv6?   enumeration
+  augment /ios:native/ios:interface/ios:Port-channel/ios:ip:
+    +--rw nbar
+       +--rw protocol-discovery!
+          +--rw ipv4-ipv6?   enumeration
+  augment /ios:native/ios:interface/ios:Loopback/ios:ip:
+    +--rw nbar
+       +--rw protocol-discovery!
+          +--rw ipv4-ipv6?   enumeration
+  augment /ios:native/ios:interface/ios:Tunnel/ios:ip:
+    +--rw nbar
+       +--rw protocol-discovery!
+          +--rw ipv4-ipv6?   enumeration
+  augment /ios:native/ios:interface/ios:Vlan/ios:ip:
+    +--rw nbar
+       +--rw protocol-discovery!
+          +--rw ipv4-ipv6?   enumeration
+
+  grouping ip-nbar-attribute-custom-grouping
+    +-- custom* [name]
+       +-- name?   string
+       +-- help?   string
+  grouping config-interface-ip-nbar-grouping
+    +-- nbar
+       +-- protocol-discovery!
+          +-- ipv4-ipv6?   enumeration
+  grouping config-ip-nbar-grouping
+    +-- nbar
+       +-- attribute
+       |  +-- application-group
+       |  |  +-- custom* [name]
+       |  |     +-- name?   string
+       |  |     +-- help?   string
+       |  +-- category
+       |  |  +-- custom* [name]
+       |  |     +-- name?   string
+       |  |     +-- help?   string
+       |  +-- sub-category
+       |     +-- custom* [name]
+       |        +-- name?   string
+       |        +-- help?   string
+       +-- attribute-map* [name]
+       |  +-- name?        string
+       |  +-- attribute
+       |     +-- application-group?    union
+       |     +-- business-relevance?   enumeration
+       |     +-- category?             union
+       |     +-- encrypted?            enumeration
+       |     +-- sub-category?         union
+       |     +-- traffic-class?        enumeration
+       |     +-- tunnel?               enumeration
+       +-- attribute-set* [protocol-name]
+       |  +-- protocol-name?   string
+       |  +-- profile-name?    string
+       +-- custom* [name]
+          +-- name?   string
+          +-- http
+             +-- cookie?             string
+             +-- host?               string
+             +-- method?             string
+             +-- referer?            string
+             +-- (http-uv)?
+             |  +--:(url-case)
+             |  |  +-- url?          string
+             |  +--:(user-agent-case)
+             |  |  +-- user-agent?   string
+             |  +--:(version-case)
+             |  |  +-- version?      string
+             |  +--:(via-case)
+             |     +-- via?          string
+             +-- id?                 uint16

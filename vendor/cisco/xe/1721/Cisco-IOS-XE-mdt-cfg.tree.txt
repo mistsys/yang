@@ -1,0 +1,443 @@
+module: Cisco-IOS-XE-mdt-cfg
+  +--rw mdt-config-data
+     +--rw mdt-subscription* [subscription-id]
+     |  +--rw subscription-id    uint32
+     |  +--rw base
+     |  |  +--rw stream?                    string
+     |  |  +--rw encoding?                  string
+     |  |  +--rw source-vrf?                string
+     |  |  +--rw source-address?            inet:ip-address
+     |  |  +--rw (update-trigger-choice)?
+     |  |  |  +--:(sub-upd-trig-none)
+     |  |  |  |  +--rw no-trigger?          uint32
+     |  |  |  +--:(sub-upd-trig-periodic)
+     |  |  |  |  +--rw period               uint32
+     |  |  |  +--:(sub-upd-trig-on-change)
+     |  |  |     +--rw no-synch-on-start?   boolean
+     |  |  +--rw (filter-type-choice)?
+     |  |     +--:(sub-filter-type-none)
+     |  |     |  +--rw no-filter?           uint32
+     |  |     +--:(sub-filter-type-xpath)
+     |  |     |  +--rw xpath?               string
+     |  |     +--:(sub-filter-type-tdl-uri)
+     |  |     |  +--rw tdl-uri?             string
+     |  |     +--:(sub-filter-type-tdl-transform)
+     |  |     |  +--rw transform-name?      string
+     |  |     +--:(sub-filter-type-nested-uri)
+     |  |        +--rw nested-uri?          string
+     |  +--rw mdt-receivers* [address port]
+     |     +--rw protocol    string
+     |     +--rw profile?    string
+     |     +--rw address     inet:ip-address
+     |     +--rw port        uint16
+     +--rw mdt-xfrm* [name]
+        +--rw name              string
+        +--rw fully-specify?    boolean
+        +--rw mdt-xfrm-input* [table-name]
+        |  +--rw table-name              string
+        |  +--rw uri?                    string
+        |  +--rw mdt-xfrm-input-field* [field]
+        |  |  +--rw field    string
+        |  +--rw join-key?               string
+        |  +--rw attr-type?              mdt-cfg:mdt-xfrm-attr-type
+        |  +--rw lop?                    mdt-cfg:mdt-xfrm-logic-op
+        |  +--rw key?                    string
+        +--rw mdt-xfrm-op* [id]
+           +--rw id                     uint32
+           +--rw mdt-xfrm-op-filters* [filter-id]
+           |  +--rw filter-id                       uint32
+           |  +--rw field?                          string
+           |  +--rw op-event
+           |  |  +--rw onchange?   boolean
+           |  +--rw lop?                            mdt-cfg:mdt-xfrm-logic-op
+           |  +--rw condition
+           |  |  +--rw operator?     mdt-cfg:mdt-xfrm-operator
+           |  |  +--rw value?        string
+           |  |  +--rw check-with?   mdt-cfg:mdt-xfrm-condition-check-with
+           |  +--rw next-lop?                       mdt-cfg:mdt-xfrm-logic-op
+           |  +--rw (operation-type-choice)?
+           |     +--:(xfrm-oper-none)
+           |     |  +--rw operation-no-op?          boolean
+           |     +--:(xfrm-oper-mean)
+           |     |  +--rw operation-mean?           empty
+           |     +--:(xfrm-oper-mean-window)
+           |     |  +--rw operation-mean-window
+           |     |     +--rw window-size-type?      mdt-cfg:mdt-xfrm-window-size-type
+           |     |     +--rw window-size?           uint32
+           |     |     +--rw window-segment-type?   mdt-cfg:mdt-xfrm-window-segment-type
+           |     +--:(xfrm-oper-rate)
+           |     |  +--rw operation-rate?           empty
+           |     +--:(xfrm-oper-ewma)
+           |     |  +--rw operation-ewma
+           |     |     +--rw lambda?   string
+           |     +--:(xfrm-oper-delta)
+           |     |  +--rw operation-delta?          empty
+           |     +--:(xfrm-oper-div)
+           |     |  +--rw operation-div
+           |     |     +--rw operand-ref-type?   mdt-cfg:mdt-operand-ref-type
+           |     |     +--rw operand-role?       mdt-cfg:mdt-div-operand-role
+           |     |     +--rw operand?            string
+           |     +--:(xfrm-oper-div-of-delta)
+           |        +--rw operation-div-of-delta
+           |           +--rw operand-ref-type?   mdt-cfg:mdt-operand-ref-type
+           |           +--rw operand-role?       mdt-cfg:mdt-div-operand-role
+           |           +--rw operand?            string
+           +--rw mdt-xfrm-op-fields* [field-id]
+           |  +--rw field-id                        uint32
+           |  +--rw field?                          string
+           |  +--rw op-type?                        mdt-cfg:mdt-xfrm-op-type
+           |  +--rw name?                           string
+           |  +--rw (operation-type-choice)?
+           |     +--:(xfrm-oper-none)
+           |     |  +--rw operation-no-op?          boolean
+           |     +--:(xfrm-oper-mean)
+           |     |  +--rw operation-mean?           empty
+           |     +--:(xfrm-oper-mean-window)
+           |     |  +--rw operation-mean-window
+           |     |     +--rw window-size-type?      mdt-cfg:mdt-xfrm-window-size-type
+           |     |     +--rw window-size?           uint32
+           |     |     +--rw window-segment-type?   mdt-cfg:mdt-xfrm-window-segment-type
+           |     +--:(xfrm-oper-rate)
+           |     |  +--rw operation-rate?           empty
+           |     +--:(xfrm-oper-ewma)
+           |     |  +--rw operation-ewma
+           |     |     +--rw lambda?   string
+           |     +--:(xfrm-oper-delta)
+           |     |  +--rw operation-delta?          empty
+           |     +--:(xfrm-oper-div)
+           |     |  +--rw operation-div
+           |     |     +--rw operand-ref-type?   mdt-cfg:mdt-operand-ref-type
+           |     |     +--rw operand-role?       mdt-cfg:mdt-div-operand-role
+           |     |     +--rw operand?            string
+           |     +--:(xfrm-oper-div-of-delta)
+           |     |  +--rw operation-div-of-delta
+           |     |     +--rw operand-ref-type?   mdt-cfg:mdt-operand-ref-type
+           |     |     +--rw operand-role?       mdt-cfg:mdt-div-operand-role
+           |     |     +--rw operand?            string
+           |     +--:(xfrm-oper-hist)
+           |        +--rw operation-hist
+           |           +--rw bin-size?   uint64
+           |           +--rw min?        uint64
+           |           +--rw max?        uint64
+           +--rw alert-data
+              +--rw alert-type?        mdt-cfg:mdt-xfrm-alert-type
+              +--rw alert-size-type?   mdt-cfg:mdt-xfrm-alert-size-type
+              +--rw alert-size?        uint32
+
+  grouping mdt-xfrm-op-event-type
+    +-- onchange?   boolean
+  grouping mdt-xfrm-field-condition
+    +-- operator?     mdt-cfg:mdt-xfrm-operator
+    +-- value?        string
+    +-- check-with?   mdt-cfg:mdt-xfrm-condition-check-with
+  grouping mdt-xfrm-input-field
+    +-- field?   string
+  grouping mdt-xfrm-input
+    +-- table-name?             string
+    +-- uri?                    string
+    +-- mdt-xfrm-input-field* [field]
+    |  +-- field?   string
+    +-- join-key?               string
+    +-- attr-type?              mdt-cfg:mdt-xfrm-attr-type
+    +-- lop?                    mdt-cfg:mdt-xfrm-logic-op
+    +-- key?                    string
+  grouping mdt-xfrm-operation-window-data
+    +-- window-size-type?      mdt-cfg:mdt-xfrm-window-size-type
+    +-- window-size?           uint32
+    +-- window-segment-type?   mdt-cfg:mdt-xfrm-window-segment-type
+  grouping mdt-xfrm-operation-ewma-data
+    +-- lambda?   string
+  grouping mdt-xfrm-op-div-data
+    +-- operand-ref-type?   mdt-cfg:mdt-operand-ref-type
+    +-- operand-role?       mdt-cfg:mdt-div-operand-role
+    +-- operand?            string
+  grouping mdt-xfrm-op-hist-data
+    +-- bin-size?   uint64
+    +-- min?        uint64
+    +-- max?        uint64
+  grouping mdt-xfrm-alert-data
+    +-- alert-type?        mdt-cfg:mdt-xfrm-alert-type
+    +-- alert-size-type?   mdt-cfg:mdt-xfrm-alert-size-type
+    +-- alert-size?        uint32
+  grouping mdt-xfrm-op-filter
+    +-- filter-id?                      uint32
+    +-- field?                          string
+    +-- op-event
+    |  +-- onchange?   boolean
+    +-- lop?                            mdt-cfg:mdt-xfrm-logic-op
+    +-- condition
+    |  +-- operator?     mdt-cfg:mdt-xfrm-operator
+    |  +-- value?        string
+    |  +-- check-with?   mdt-cfg:mdt-xfrm-condition-check-with
+    +-- next-lop?                       mdt-cfg:mdt-xfrm-logic-op
+    +-- (operation-type-choice)?
+       +--:(xfrm-oper-none)
+       |  +-- operation-no-op?          boolean
+       +--:(xfrm-oper-mean)
+       |  +-- operation-mean?           empty
+       +--:(xfrm-oper-mean-window)
+       |  +-- operation-mean-window
+       |     +-- window-size-type?      mdt-cfg:mdt-xfrm-window-size-type
+       |     +-- window-size?           uint32
+       |     +-- window-segment-type?   mdt-cfg:mdt-xfrm-window-segment-type
+       +--:(xfrm-oper-rate)
+       |  +-- operation-rate?           empty
+       +--:(xfrm-oper-ewma)
+       |  +-- operation-ewma
+       |     +-- lambda?   string
+       +--:(xfrm-oper-delta)
+       |  +-- operation-delta?          empty
+       +--:(xfrm-oper-div)
+       |  +-- operation-div
+       |     +-- operand-ref-type?   mdt-cfg:mdt-operand-ref-type
+       |     +-- operand-role?       mdt-cfg:mdt-div-operand-role
+       |     +-- operand?            string
+       +--:(xfrm-oper-div-of-delta)
+          +-- operation-div-of-delta
+             +-- operand-ref-type?   mdt-cfg:mdt-operand-ref-type
+             +-- operand-role?       mdt-cfg:mdt-div-operand-role
+             +-- operand?            string
+  grouping mdt-xfrm-op-field
+    +-- field-id?                       uint32
+    +-- field?                          string
+    +-- op-type?                        mdt-cfg:mdt-xfrm-op-type
+    +-- name?                           string
+    +-- (operation-type-choice)?
+       +--:(xfrm-oper-none)
+       |  +-- operation-no-op?          boolean
+       +--:(xfrm-oper-mean)
+       |  +-- operation-mean?           empty
+       +--:(xfrm-oper-mean-window)
+       |  +-- operation-mean-window
+       |     +-- window-size-type?      mdt-cfg:mdt-xfrm-window-size-type
+       |     +-- window-size?           uint32
+       |     +-- window-segment-type?   mdt-cfg:mdt-xfrm-window-segment-type
+       +--:(xfrm-oper-rate)
+       |  +-- operation-rate?           empty
+       +--:(xfrm-oper-ewma)
+       |  +-- operation-ewma
+       |     +-- lambda?   string
+       +--:(xfrm-oper-delta)
+       |  +-- operation-delta?          empty
+       +--:(xfrm-oper-div)
+       |  +-- operation-div
+       |     +-- operand-ref-type?   mdt-cfg:mdt-operand-ref-type
+       |     +-- operand-role?       mdt-cfg:mdt-div-operand-role
+       |     +-- operand?            string
+       +--:(xfrm-oper-div-of-delta)
+       |  +-- operation-div-of-delta
+       |     +-- operand-ref-type?   mdt-cfg:mdt-operand-ref-type
+       |     +-- operand-role?       mdt-cfg:mdt-div-operand-role
+       |     +-- operand?            string
+       +--:(xfrm-oper-hist)
+          +-- operation-hist
+             +-- bin-size?   uint64
+             +-- min?        uint64
+             +-- max?        uint64
+  grouping mdt-xfrm-op
+    +-- id?                    uint32
+    +-- mdt-xfrm-op-filters* [filter-id]
+    |  +-- filter-id?                      uint32
+    |  +-- field?                          string
+    |  +-- op-event
+    |  |  +-- onchange?   boolean
+    |  +-- lop?                            mdt-cfg:mdt-xfrm-logic-op
+    |  +-- condition
+    |  |  +-- operator?     mdt-cfg:mdt-xfrm-operator
+    |  |  +-- value?        string
+    |  |  +-- check-with?   mdt-cfg:mdt-xfrm-condition-check-with
+    |  +-- next-lop?                       mdt-cfg:mdt-xfrm-logic-op
+    |  +-- (operation-type-choice)?
+    |     +--:(xfrm-oper-none)
+    |     |  +-- operation-no-op?          boolean
+    |     +--:(xfrm-oper-mean)
+    |     |  +-- operation-mean?           empty
+    |     +--:(xfrm-oper-mean-window)
+    |     |  +-- operation-mean-window
+    |     |     +-- window-size-type?      mdt-cfg:mdt-xfrm-window-size-type
+    |     |     +-- window-size?           uint32
+    |     |     +-- window-segment-type?   mdt-cfg:mdt-xfrm-window-segment-type
+    |     +--:(xfrm-oper-rate)
+    |     |  +-- operation-rate?           empty
+    |     +--:(xfrm-oper-ewma)
+    |     |  +-- operation-ewma
+    |     |     +-- lambda?   string
+    |     +--:(xfrm-oper-delta)
+    |     |  +-- operation-delta?          empty
+    |     +--:(xfrm-oper-div)
+    |     |  +-- operation-div
+    |     |     +-- operand-ref-type?   mdt-cfg:mdt-operand-ref-type
+    |     |     +-- operand-role?       mdt-cfg:mdt-div-operand-role
+    |     |     +-- operand?            string
+    |     +--:(xfrm-oper-div-of-delta)
+    |        +-- operation-div-of-delta
+    |           +-- operand-ref-type?   mdt-cfg:mdt-operand-ref-type
+    |           +-- operand-role?       mdt-cfg:mdt-div-operand-role
+    |           +-- operand?            string
+    +-- mdt-xfrm-op-fields* [field-id]
+    |  +-- field-id?                       uint32
+    |  +-- field?                          string
+    |  +-- op-type?                        mdt-cfg:mdt-xfrm-op-type
+    |  +-- name?                           string
+    |  +-- (operation-type-choice)?
+    |     +--:(xfrm-oper-none)
+    |     |  +-- operation-no-op?          boolean
+    |     +--:(xfrm-oper-mean)
+    |     |  +-- operation-mean?           empty
+    |     +--:(xfrm-oper-mean-window)
+    |     |  +-- operation-mean-window
+    |     |     +-- window-size-type?      mdt-cfg:mdt-xfrm-window-size-type
+    |     |     +-- window-size?           uint32
+    |     |     +-- window-segment-type?   mdt-cfg:mdt-xfrm-window-segment-type
+    |     +--:(xfrm-oper-rate)
+    |     |  +-- operation-rate?           empty
+    |     +--:(xfrm-oper-ewma)
+    |     |  +-- operation-ewma
+    |     |     +-- lambda?   string
+    |     +--:(xfrm-oper-delta)
+    |     |  +-- operation-delta?          empty
+    |     +--:(xfrm-oper-div)
+    |     |  +-- operation-div
+    |     |     +-- operand-ref-type?   mdt-cfg:mdt-operand-ref-type
+    |     |     +-- operand-role?       mdt-cfg:mdt-div-operand-role
+    |     |     +-- operand?            string
+    |     +--:(xfrm-oper-div-of-delta)
+    |     |  +-- operation-div-of-delta
+    |     |     +-- operand-ref-type?   mdt-cfg:mdt-operand-ref-type
+    |     |     +-- operand-role?       mdt-cfg:mdt-div-operand-role
+    |     |     +-- operand?            string
+    |     +--:(xfrm-oper-hist)
+    |        +-- operation-hist
+    |           +-- bin-size?   uint64
+    |           +-- min?        uint64
+    |           +-- max?        uint64
+    +-- alert-data
+       +-- alert-type?        mdt-cfg:mdt-xfrm-alert-type
+       +-- alert-size-type?   mdt-cfg:mdt-xfrm-alert-size-type
+       +-- alert-size?        uint32
+  grouping mdt-xfrm
+    +-- name?             string
+    +-- fully-specify?    boolean
+    +-- mdt-xfrm-input* [table-name]
+    |  +-- table-name?             string
+    |  +-- uri?                    string
+    |  +-- mdt-xfrm-input-field* [field]
+    |  |  +-- field?   string
+    |  +-- join-key?               string
+    |  +-- attr-type?              mdt-cfg:mdt-xfrm-attr-type
+    |  +-- lop?                    mdt-cfg:mdt-xfrm-logic-op
+    |  +-- key?                    string
+    +-- mdt-xfrm-op* [id]
+       +-- id?                    uint32
+       +-- mdt-xfrm-op-filters* [filter-id]
+       |  +-- filter-id?                      uint32
+       |  +-- field?                          string
+       |  +-- op-event
+       |  |  +-- onchange?   boolean
+       |  +-- lop?                            mdt-cfg:mdt-xfrm-logic-op
+       |  +-- condition
+       |  |  +-- operator?     mdt-cfg:mdt-xfrm-operator
+       |  |  +-- value?        string
+       |  |  +-- check-with?   mdt-cfg:mdt-xfrm-condition-check-with
+       |  +-- next-lop?                       mdt-cfg:mdt-xfrm-logic-op
+       |  +-- (operation-type-choice)?
+       |     +--:(xfrm-oper-none)
+       |     |  +-- operation-no-op?          boolean
+       |     +--:(xfrm-oper-mean)
+       |     |  +-- operation-mean?           empty
+       |     +--:(xfrm-oper-mean-window)
+       |     |  +-- operation-mean-window
+       |     |     +-- window-size-type?      mdt-cfg:mdt-xfrm-window-size-type
+       |     |     +-- window-size?           uint32
+       |     |     +-- window-segment-type?   mdt-cfg:mdt-xfrm-window-segment-type
+       |     +--:(xfrm-oper-rate)
+       |     |  +-- operation-rate?           empty
+       |     +--:(xfrm-oper-ewma)
+       |     |  +-- operation-ewma
+       |     |     +-- lambda?   string
+       |     +--:(xfrm-oper-delta)
+       |     |  +-- operation-delta?          empty
+       |     +--:(xfrm-oper-div)
+       |     |  +-- operation-div
+       |     |     +-- operand-ref-type?   mdt-cfg:mdt-operand-ref-type
+       |     |     +-- operand-role?       mdt-cfg:mdt-div-operand-role
+       |     |     +-- operand?            string
+       |     +--:(xfrm-oper-div-of-delta)
+       |        +-- operation-div-of-delta
+       |           +-- operand-ref-type?   mdt-cfg:mdt-operand-ref-type
+       |           +-- operand-role?       mdt-cfg:mdt-div-operand-role
+       |           +-- operand?            string
+       +-- mdt-xfrm-op-fields* [field-id]
+       |  +-- field-id?                       uint32
+       |  +-- field?                          string
+       |  +-- op-type?                        mdt-cfg:mdt-xfrm-op-type
+       |  +-- name?                           string
+       |  +-- (operation-type-choice)?
+       |     +--:(xfrm-oper-none)
+       |     |  +-- operation-no-op?          boolean
+       |     +--:(xfrm-oper-mean)
+       |     |  +-- operation-mean?           empty
+       |     +--:(xfrm-oper-mean-window)
+       |     |  +-- operation-mean-window
+       |     |     +-- window-size-type?      mdt-cfg:mdt-xfrm-window-size-type
+       |     |     +-- window-size?           uint32
+       |     |     +-- window-segment-type?   mdt-cfg:mdt-xfrm-window-segment-type
+       |     +--:(xfrm-oper-rate)
+       |     |  +-- operation-rate?           empty
+       |     +--:(xfrm-oper-ewma)
+       |     |  +-- operation-ewma
+       |     |     +-- lambda?   string
+       |     +--:(xfrm-oper-delta)
+       |     |  +-- operation-delta?          empty
+       |     +--:(xfrm-oper-div)
+       |     |  +-- operation-div
+       |     |     +-- operand-ref-type?   mdt-cfg:mdt-operand-ref-type
+       |     |     +-- operand-role?       mdt-cfg:mdt-div-operand-role
+       |     |     +-- operand?            string
+       |     +--:(xfrm-oper-div-of-delta)
+       |     |  +-- operation-div-of-delta
+       |     |     +-- operand-ref-type?   mdt-cfg:mdt-operand-ref-type
+       |     |     +-- operand-role?       mdt-cfg:mdt-div-operand-role
+       |     |     +-- operand?            string
+       |     +--:(xfrm-oper-hist)
+       |        +-- operation-hist
+       |           +-- bin-size?   uint64
+       |           +-- min?        uint64
+       |           +-- max?        uint64
+       +-- alert-data
+          +-- alert-type?        mdt-cfg:mdt-xfrm-alert-type
+          +-- alert-size-type?   mdt-cfg:mdt-xfrm-alert-size-type
+          +-- alert-size?        uint32
+  grouping mdt-subscription-cnfg
+    +-- subscription-id?   uint32
+    +-- base
+    |  +-- stream?                    string
+    |  +-- encoding?                  string
+    |  +-- source-vrf?                string
+    |  +-- source-address?            inet:ip-address
+    |  +-- (update-trigger-choice)?
+    |  |  +--:(sub-upd-trig-none)
+    |  |  |  +-- no-trigger?          uint32
+    |  |  +--:(sub-upd-trig-periodic)
+    |  |  |  +-- period               uint32
+    |  |  +--:(sub-upd-trig-on-change)
+    |  |     +-- no-synch-on-start?   boolean
+    |  +-- (filter-type-choice)?
+    |     +--:(sub-filter-type-none)
+    |     |  +-- no-filter?           uint32
+    |     +--:(sub-filter-type-xpath)
+    |     |  +-- xpath?               string
+    |     +--:(sub-filter-type-tdl-uri)
+    |     |  +-- tdl-uri?             string
+    |     +--:(sub-filter-type-tdl-transform)
+    |     |  +-- transform-name?      string
+    |     +--:(sub-filter-type-nested-uri)
+    |        +-- nested-uri?          string
+    +-- mdt-receivers* [address port]
+       +-- protocol    string
+       +-- profile?    string
+       +-- address     inet:ip-address
+       +-- port        uint16
+  grouping mdt-receiver-cnfg
+    +-- protocol    string
+    +-- profile?    string

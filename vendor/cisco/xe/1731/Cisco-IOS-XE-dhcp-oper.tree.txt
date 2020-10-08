@@ -1,0 +1,230 @@
+module: Cisco-IOS-XE-dhcp-oper
+  +--ro dhcp-oper-data
+  |  +--ro dhcpv4-server-oper* [pool-name client-ip vrf-name]
+  |  |  +--ro pool-name         string
+  |  |  +--ro client-ip         inet:ip-address
+  |  |  +--ro vrf-name          string
+  |  |  +--ro client-id-type?   dhcp-ios-xe-oper:dhcp-client-id-type
+  |  |  +--ro client-id?        string
+  |  |  +--ro expiration
+  |  |  |  +--ro expiration-time?   dhcp-ios-xe-oper:dhcp-expiry-option
+  |  |  |  +--ro (expiration-time-choice)?
+  |  |  |     +--:(dhcp-expiration-time)
+  |  |  |     |  +--ro time?        yang:date-and-time
+  |  |  |     +--:(dhcp-expiration-infinite)
+  |  |  |        +--ro infinite?    empty
+  |  |  +--ro type?             dhcp-ios-xe-oper:dhcp-server-binding-type
+  |  |  +--ro state?            dhcp-ios-xe-oper:dhcp-server-binding-state
+  |  |  +--ro interface?        string
+  |  +--ro dhcpv4-client-oper* [if-name client-addr vrf-name]
+  |  |  +--ro if-name                  string
+  |  |  +--ro client-addr              inet:ip-address
+  |  |  +--ro vrf-name                 string
+  |  |  +--ro state?                   dhcp-ios-xe-oper:dhcp-client-state
+  |  |  +--ro lease-server-addr?       inet:ip-address
+  |  |  +--ro gateway-addr?            inet:ip-address
+  |  |  +--ro lease-time?              uint32
+  |  |  +--ro lease-expiry
+  |  |  |  +--ro expiration-time?   dhcp-ios-xe-oper:dhcp-expiry-option
+  |  |  |  +--ro (expiration-time-choice)?
+  |  |  |     +--:(dhcp-expiration-time)
+  |  |  |     |  +--ro time?        yang:date-and-time
+  |  |  |     +--:(dhcp-expiration-infinite)
+  |  |  |        +--ro infinite?    empty
+  |  |  +--ro lease-remaining?         uint32
+  |  |  +--ro dns-address?             inet:ip-address
+  |  |  +--ro dns-address-secondary?   inet:ip-address
+  |  |  +--ro subnet-mask?             inet:ip-address
+  |  +--ro dhcpv6-binding-vrf-oper* [v6-vrf]
+  |  |  +--ro v6-vrf                string
+  |  |  +--ro client-addr?          inet:ipv6-address
+  |  |  +--ro duid?                 string
+  |  |  +--ro ppp-username?         string
+  |  |  +--ro interface?            string
+  |  |  +--ro iaid?                 uint32
+  |  |  +--ro t1?                   uint32
+  |  |  +--ro t2?                   uint32
+  |  |  +--ro preferred-lifetime?   uint32
+  |  |  +--ro valid-lifetime?       uint32
+  |  |  +--ro expiring-time?        yang:date-and-time
+  |  +--ro dhcpv6-intf-at-relay-oper* [v6-intf-at-relay]
+  |  |  +--ro v6-intf-at-relay       string
+  |  |  +--ro mode?                  dhcp-ios-xe-oper:dhcpv6-interface-mode
+  |  |  +--ro ipv6-dhcp-intf-addr?   inet:ipv6-address
+  |  |  +--ro via-intf?              string
+  |  +--ro dhcpv6-intf-at-srv-oper* [v6-intf-at-srv]
+  |  |  +--ro v6-intf-at-srv     string
+  |  |  +--ro mode?              dhcp-ios-xe-oper:dhcpv6-interface-mode
+  |  |  +--ro poolname?          string
+  |  |  +--ro preference?        uint8
+  |  |  +--ro hint?              uint8
+  |  |  +--ro rapid-commit?      uint8
+  |  |  +--ro pending-aaa-req?   uint8
+  |  |  +--ro prefix?            inet:ipv6-address
+  |  |  +--ro prefix-len?        uint8
+  |  +--ro dhcpv6-intf-at-client-oper* [v6-intf-at-client]
+  |  |  +--ro v6-intf-at-client       string
+  |  |  +--ro mode?                   dhcp-ios-xe-oper:dhcpv6-interface-mode
+  |  |  +--ro prefix-state?           dhcp-ios-xe-oper:dhcpv6-client-state
+  |  |  +--ro address-state?          dhcp-ios-xe-oper:dhcpv6-client-state
+  |  |  +--ro renew-time?             uint32
+  |  |  +--ro refersh-time?           uint32
+  |  |  +--ro retransmission-time?    uint32
+  |  |  +--ro rebind-time?            uint32
+  |  |  +--ro reachable-via-addr?     inet:ipv6-address
+  |  |  +--ro duid?                   string
+  |  |  +--ro preference?             uint8
+  |  |  +--ro dns?                    inet:ipv6-address
+  |  |  +--ro domain?                 string
+  |  |  +--ro sip-dns?                inet:ipv6-address
+  |  |  +--ro sip-domain?             string
+  |  |  +--ro nis-dns?                inet:ipv6-address
+  |  |  +--ro nis-domain?             string
+  |  |  +--ro bootf-url?              string
+  |  |  +--ro nsip-dns?               inet:ipv6-address
+  |  |  +--ro nsip-domain?            string
+  |  |  +--ro sntp-dns?               inet:ipv6-address
+  |  |  +--ro info-refresh-time?      uint32
+  |  |  +--ro vendor-ent-id?          uint32
+  |  |  +--ro prefix-name?            string
+  |  |  +--ro prefix-rapid-commit?    boolean
+  |  |  +--ro address-rapid-commit?   boolean
+  |  |  +--ro prefix?                 inet:ipv6-address
+  |  |  +--ro prefix-len?             uint8
+  |  +--ro dhcpv6-relay-binding-oper* [v6-relay-vrf]
+  |     +--ro v6-relay-vrf                string
+  |     +--ro num-binding?                uint32
+  |     +--ro iapd-binding?               uint32
+  |     +--ro iana-binding?               uint32
+  |     +--ro binding-bulk-lease-query?   uint32
+  |     +--ro addr?                       inet:ipv6-address
+  |     +--ro prefix?                     inet:ipv6-address
+  |     +--ro prefix-len?                 uint32
+  |     +--ro duid?                       string
+  |     +--ro iaid?                       uint32
+  |     +--ro lifetime?                   uint32
+  |     +--ro expiration?                 uint32
+  +--rw schema-metadata-Cisco-IOS-XE-dhcp-oper
+  |  +--rw json-metadata-leaf?   empty
+  +--rw gnmi-model-data
+
+  grouping dhcp-expiry
+    +--ro expiration-time?   dhcp-ios-xe-oper:dhcp-expiry-option
+    +-- (expiration-time-choice)?
+       +--:(dhcp-expiration-time)
+       |  +-- time?        yang:date-and-time
+       +--:(dhcp-expiration-infinite)
+          +-- infinite?    empty
+  grouping dhcpv4-server-key
+    +-- pool-name?   string
+    +-- client-ip?   inet:ip-address
+    +-- vrf-name?    string
+  grouping dhcpv4-server-oper
+    +-- client-id-type?   dhcp-ios-xe-oper:dhcp-client-id-type
+    +-- client-id?        string
+    +-- expiration
+    |  +--ro expiration-time?   dhcp-ios-xe-oper:dhcp-expiry-option
+    |  +-- (expiration-time-choice)?
+    |     +--:(dhcp-expiration-time)
+    |     |  +-- time?        yang:date-and-time
+    |     +--:(dhcp-expiration-infinite)
+    |        +-- infinite?    empty
+    +-- type?             dhcp-ios-xe-oper:dhcp-server-binding-type
+    +-- state?            dhcp-ios-xe-oper:dhcp-server-binding-state
+    +-- interface?        string
+  grouping dhcpv4-client-key
+    +-- if-name?       string
+    +-- client-addr?   inet:ip-address
+    +-- vrf-name?      string
+  grouping dhcpv4-client-oper
+    +-- state?                   dhcp-ios-xe-oper:dhcp-client-state
+    +-- lease-server-addr?       inet:ip-address
+    +-- gateway-addr?            inet:ip-address
+    +-- lease-time?              uint32
+    +-- lease-expiry
+    |  +--ro expiration-time?   dhcp-ios-xe-oper:dhcp-expiry-option
+    |  +-- (expiration-time-choice)?
+    |     +--:(dhcp-expiration-time)
+    |     |  +-- time?        yang:date-and-time
+    |     +--:(dhcp-expiration-infinite)
+    |        +-- infinite?    empty
+    +-- lease-remaining?         uint32
+    +-- dns-address?             inet:ip-address
+    +-- dns-address-secondary?   inet:ip-address
+    +-- subnet-mask?             inet:ip-address
+  grouping dhcpv6-relay-binding-key
+    +-- v6-relay-vrf?   string
+  grouping dhcpv6-relay-binding-oper
+    +-- num-binding?                uint32
+    +-- iapd-binding?               uint32
+    +-- iana-binding?               uint32
+    +-- binding-bulk-lease-query?   uint32
+    +-- addr?                       inet:ipv6-address
+    +-- prefix?                     inet:ipv6-address
+    +-- prefix-len?                 uint32
+    +-- duid?                       string
+    +-- iaid?                       uint32
+    +-- lifetime?                   uint32
+    +-- expiration?                 uint32
+  grouping dhcpv6-intf-at-client-key
+    +-- v6-intf-at-client?   string
+  grouping dhcpv6-intf-at-client-oper
+    +-- mode?                   dhcp-ios-xe-oper:dhcpv6-interface-mode
+    +-- prefix-state?           dhcp-ios-xe-oper:dhcpv6-client-state
+    +-- address-state?          dhcp-ios-xe-oper:dhcpv6-client-state
+    +-- renew-time?             uint32
+    +-- refersh-time?           uint32
+    +-- retransmission-time?    uint32
+    +-- rebind-time?            uint32
+    +-- reachable-via-addr?     inet:ipv6-address
+    +-- duid?                   string
+    +-- preference?             uint8
+    +-- dns?                    inet:ipv6-address
+    +-- domain?                 string
+    +-- sip-dns?                inet:ipv6-address
+    +-- sip-domain?             string
+    +-- nis-dns?                inet:ipv6-address
+    +-- nis-domain?             string
+    +-- bootf-url?              string
+    +-- nsip-dns?               inet:ipv6-address
+    +-- nsip-domain?            string
+    +-- sntp-dns?               inet:ipv6-address
+    +-- info-refresh-time?      uint32
+    +-- vendor-ent-id?          uint32
+    +-- prefix-name?            string
+    +-- prefix-rapid-commit?    boolean
+    +-- address-rapid-commit?   boolean
+    +-- prefix?                 inet:ipv6-address
+    +-- prefix-len?             uint8
+  grouping dhcpv6-intf-at-srv-key
+    +-- v6-intf-at-srv?   string
+  grouping dhcpv6-intf-at-srv-oper
+    +-- mode?              dhcp-ios-xe-oper:dhcpv6-interface-mode
+    +-- poolname?          string
+    +-- preference?        uint8
+    +-- hint?              uint8
+    +-- rapid-commit?      uint8
+    +-- pending-aaa-req?   uint8
+    +-- prefix?            inet:ipv6-address
+    +-- prefix-len?        uint8
+  grouping dhcpv6-intf-at-relay-key
+    +-- v6-intf-at-relay?   string
+  grouping dhcpv6-intf-at-relay-oper
+    +-- mode?                  dhcp-ios-xe-oper:dhcpv6-interface-mode
+    +-- ipv6-dhcp-intf-addr?   inet:ipv6-address
+    +-- via-intf?              string
+  grouping dhcpv6-binding-vrf-key
+    +-- v6-vrf?   string
+  grouping dhcpv6-binding-vrf-oper
+    +-- client-addr?          inet:ipv6-address
+    +-- duid?                 string
+    +-- ppp-username?         string
+    +-- interface?            string
+    +-- iaid?                 uint32
+    +-- t1?                   uint32
+    +-- t2?                   uint32
+    +-- preferred-lifetime?   uint32
+    +-- valid-lifetime?       uint32
+    +-- expiring-time?        yang:date-and-time
+  grouping __yangpp_metadata
+    +-- json-metadata-leaf?   empty

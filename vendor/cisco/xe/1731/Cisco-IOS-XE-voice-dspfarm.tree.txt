@@ -1,0 +1,84 @@
+submodule: Cisco-IOS-XE-voice-dspfarm (belongs-to Cisco-IOS-XE-voice)
+
+  grouping config-dspfarm-profile-grouping
+    +-- dspfarm
+       +-- profile* [id]
+          +-- id?                          uint16
+          +-- type                         enumeration
+          +-- universal?                   empty
+          +-- codec
+          |  +-- g711ulaw?       empty
+          |  +-- g711alaw?       empty
+          |  +-- g722-64?        empty
+          |  +-- g729abr8?       empty
+          |  +-- g729ar8?        empty
+          |  +-- g729br8?        empty
+          |  +-- g729r8?         empty
+          |  +-- ilbc?           empty
+          |  +-- isac?           empty
+          |  +-- pass-through?   empty
+          +-- associate
+          |  +-- application?   enumeration
+          +-- plc?                         boolean
+          +-- acoustic-shock-protection?   boolean
+          +-- noise-reduction?             boolean
+          +-- call-progress-analysis?      boolean
+          +-- rsvp?                        boolean
+          +-- cng-fax-detect?              boolean
+          +-- maximum
+          |  +-- sessions
+          |  |  +-- max-sessions?       uint32
+          |  |  +-- max-mtp-sessions
+          |  |     +-- hardware?   uint32
+          |  |     +-- software?   uint32
+          |  +-- conference-participants?   enumeration
+          +-- conference-join
+          |  +-- custom-cptone?   string
+          +-- conference-leave
+          |  +-- custom-cptone?   string
+          +-- dtmf
+          |  +-- suppress?   boolean
+          +-- shutdown?                    boolean
+  grouping config-sccp-grouping
+    +-- sccp-config
+    |  +-- sccp
+    |     +-- local?                 string
+    |     +-- sccp-ccm-list
+    |     |  +-- ccm* [host]
+    |     |     +-- host?         union
+    |     |     +-- identifier?   uint16
+    |     |     +-- version?      enumeration
+    |     +-- sccp-ccm-group-list
+    |        +-- ccm
+    |           +-- group* [id]
+    |              +-- id?            uint16
+    |              +-- description?   string
+    |              +-- associate
+    |              |  +-- ccm* [id]
+    |              |  |  +-- id?         uint16
+    |              |  |  +-- priority?   uint16
+    |              |  +-- profile* [id]
+    |              |     +-- id?         -> ../../../../../../../../dspfarm/profile/id
+    |              |     +-- register?   string
+    |              +-- switchover
+    |              |  +-- method
+    |              |     +-- (switchover-choice)?
+    |              |        +--:(graceful)
+    |              |        |  +-- graceful?    empty
+    |              |        +--:(immediate)
+    |              |           +-- immediate?   empty
+    |              +-- switchback
+    |                 +-- interval?   uint16
+    |                 +-- method
+    |                    +-- (switchback-choice)?
+    |                       +--:(graceful)
+    |                       |  +-- graceful?    empty
+    |                       +--:(immediate)
+    |                       |  +-- immediate?   empty
+    |                       +--:(guard)
+    |                       |  +-- guard!
+    |                       |     +-- timeout?   uint32
+    |                       +--:(uptime)
+    |                          +-- uptime!
+    |                             +-- timeout?   uint32
+    +-- sccp?          empty

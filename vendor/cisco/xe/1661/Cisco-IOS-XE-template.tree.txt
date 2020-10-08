@@ -1,0 +1,137 @@
+
+module: Cisco-IOS-XE-template
+  augment /ios:native/ios:template:
+    +--rw template_details* [template_name]
+       +--rw template_name    string
+       +--rw ethernet
+          +--rw oam
+             +--rw link-monitor
+             |  +--rw frame
+             |  |  +--rw threshold
+             |  |     +--rw high
+             |  |     |  +--rw high-range?   uint16
+             |  |     |  +--rw none?         empty
+             |  |     +--rw low?    uint16
+             |  +--rw window?           uint16
+             |  +--rw frame-period
+             |  |  +--rw threshold
+             |  |  |  +--rw high
+             |  |  |  |  +--rw high-range?   uint16
+             |  |  |  |  +--rw none?         empty
+             |  |  |  +--rw low?    uint16
+             |  |  +--rw window?      uint16
+             |  +--rw frame-seconds
+             |  |  +--rw threshold
+             |  |  |  +--rw high
+             |  |  |  |  +--rw high-range?   uint16
+             |  |  |  |  +--rw none?         empty
+             |  |  |  +--rw low?    uint16
+             |  |  +--rw window?      uint16
+             |  +--rw high-threshold
+             |  |  +--rw action
+             |  |     +--rw error-disable-interface?   empty
+             |  +--rw receive-crc
+             |  |  +--rw threshold
+             |  |  |  +--rw high
+             |  |  |  |  +--rw high-range?   uint16
+             |  |  |  |  +--rw none?         empty
+             |  |  |  +--rw low?    uint16
+             |  |  +--rw window?      uint16
+             |  +--rw symbol-period
+             |  |  +--rw threshold
+             |  |  |  +--rw high
+             |  |  |  |  +--rw high-range?   uint16
+             |  |  |  |  +--rw none?         empty
+             |  |  |  +--rw low?    uint16
+             |  |  +--rw window?      uint16
+             |  +--rw transmit-crc
+             |     +--rw threshold
+             |     |  +--rw high
+             |     |  |  +--rw high-range?   uint16
+             |     |  |  +--rw none?         empty
+             |     |  +--rw low?    uint16
+             |     +--rw window?      uint16
+             +--rw remote-failure
+                +--rw critical-event
+                |  +--rw action
+                |     +--rw error-disable-interface?   empty
+                +--rw dying-gasp
+                |  +--rw action!
+                |     +--rw error-disable-interface?   empty
+                +--rw link-fault
+                   +--rw action!
+                      +--rw error-disable-interface?   empty
+
+  grouping template-error-disable-grouping
+    +-- error-disable-interface?   empty
+  grouping template-threshold-grouping-64k
+    +-- threshold
+       +-- high
+       |  +-- high-range?   uint16
+       |  +-- none?         empty
+       +-- low?    uint16
+  grouping template-window-grouping-64k
+    +-- window?   uint16
+  grouping template-window-grouping-1800
+    +-- window?   uint16
+  grouping config-template-grouping
+    +-- template_details* [template_name]
+       +-- template_name?   string
+       +-- ethernet
+          +-- oam
+             +-- link-monitor
+             |  +-- frame
+             |  |  +-- threshold
+             |  |     +-- high
+             |  |     |  +-- high-range?   uint16
+             |  |     |  +-- none?         empty
+             |  |     +-- low?    uint16
+             |  +-- window?           uint16
+             |  +-- frame-period
+             |  |  +-- threshold
+             |  |  |  +-- high
+             |  |  |  |  +-- high-range?   uint16
+             |  |  |  |  +-- none?         empty
+             |  |  |  +-- low?    uint16
+             |  |  +-- window?      uint16
+             |  +-- frame-seconds
+             |  |  +-- threshold
+             |  |  |  +-- high
+             |  |  |  |  +-- high-range?   uint16
+             |  |  |  |  +-- none?         empty
+             |  |  |  +-- low?    uint16
+             |  |  +-- window?      uint16
+             |  +-- high-threshold
+             |  |  +-- action
+             |  |     +-- error-disable-interface?   empty
+             |  +-- receive-crc
+             |  |  +-- threshold
+             |  |  |  +-- high
+             |  |  |  |  +-- high-range?   uint16
+             |  |  |  |  +-- none?         empty
+             |  |  |  +-- low?    uint16
+             |  |  +-- window?      uint16
+             |  +-- symbol-period
+             |  |  +-- threshold
+             |  |  |  +-- high
+             |  |  |  |  +-- high-range?   uint16
+             |  |  |  |  +-- none?         empty
+             |  |  |  +-- low?    uint16
+             |  |  +-- window?      uint16
+             |  +-- transmit-crc
+             |     +-- threshold
+             |     |  +-- high
+             |     |  |  +-- high-range?   uint16
+             |     |  |  +-- none?         empty
+             |     |  +-- low?    uint16
+             |     +-- window?      uint16
+             +-- remote-failure
+                +-- critical-event
+                |  +-- action
+                |     +-- error-disable-interface?   empty
+                +-- dying-gasp
+                |  +-- action!
+                |     +-- error-disable-interface?   empty
+                +-- link-fault
+                   +-- action!
+                      +-- error-disable-interface?   empty

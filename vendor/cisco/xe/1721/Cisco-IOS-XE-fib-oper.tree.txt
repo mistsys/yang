@@ -1,0 +1,365 @@
+module: Cisco-IOS-XE-fib-oper
+  +--ro fib-oper-data
+     +--ro fib-ni-entry* [instance-name]
+     |  +--ro instance-name      string
+     |  +--ro af?                fib-ios-xe-oper:fib-address-family
+     |  +--ro num-pfx?           uint32
+     |  +--ro num-pfx-fwd?       uint32
+     |  +--ro num-pfx-non-fwd?   uint32
+     |  +--ro fib-entries* [ip-addr]
+     |     +--ro ip-addr                inet:ip-prefix
+     |     +--ro instance-name?         string
+     |     +--ro af?                    fib-ios-xe-oper:fib-address-family
+     |     +--ro num-paths?             uint8
+     |     +--ro packets-forwarded?     uint64
+     |     +--ro octets-forwarded?      uint64
+     |     +--ro fib-nexthop-entries* [nh-addr]
+     |        +--ro nh-addr             inet:ip-prefix
+     |        +--ro index?              uint32
+     |        +--ro af?                 fib-ios-xe-oper:fib-address-family
+     |        +--ro ifname?             string
+     |        +--ro path-type?          fib-ios-xe-oper:fib-path-type
+     |        +--ro path-id?            uint32
+     |        +--ro weight?             uint8
+     |        +--ro encap?              fib-ios-xe-oper:encapsulation-header-type
+     |        +--ro decap?              fib-ios-xe-oper:encapsulation-header-type
+     |        +--ro resolved-nh-addr?   inet:ip-prefix
+     +--ro adjacency-table!
+     |  +--ro num-adjacencies?              uint32
+     |  +--ro num-complete-adjacencies?     uint32
+     |  +--ro num-incomplete-adjacencies?   uint32
+     |  +--ro adjacency-entry* [connection-id address linktype if-name]
+     |     +--ro refcount?        uint32
+     |     +--ro incomplete?      boolean
+     |     +--ro connection-id    uint64
+     |     +--ro address          inet:ip-address
+     |     +--ro linktype         fib-ios-xe-oper:adj-link-type
+     |     +--ro if-name          string
+     +--ro cef-state!
+        +--ro fib
+        |  +--ro instance-type?        fib-ios-xe-oper:fib-instance-type
+        |  +--ro fib-common-enabled?   boolean
+        |  +--ro ipv4
+        |  |  +--ro fib-enabled?             empty
+        |  |  +--ro fib-running?             empty
+        |  |  +--ro fib-reenable?            empty
+        |  |  +--ro fib-dist-enabled?        empty
+        |  |  +--ro fib-dist-running?        empty
+        |  |  +--ro fib-dist-reenable?       empty
+        |  |  +--ro fib-shutting-down?       empty
+        |  |  +--ro fib-switching-enabled?   empty
+        |  |  +--ro fib-switching-running?   empty
+        |  |  +--ro alg-type?                fib-ios-xe-oper:fib-hash-algs-type
+        |  +--ro ipv6
+        |  |  +--ro fib-enabled?        empty
+        |  |  +--ro fib-running?        empty
+        |  |  +--ro fib-dist-enabled?   empty
+        |  |  +--ro fib-dist-running?   empty
+        |  |  +--ro alg-type?           fib-ios-xe-oper:fib-hash-algs-type
+        |  +--ro rrp
+        |  |  +--ro i-am-standby?                 empty
+        |  |  +--ro peer-presence?                empty
+        |  |  +--ro peer-comm-reached?            empty
+        |  |  +--ro rf-has-done-standby-config?   empty
+        |  |  +--ro rf-prog-blocked?              empty
+        |  |  +--ro nsf-sync-enabled?             empty
+        |  |  +--ro lc-nsf-sync-running?          empty
+        |  +--ro issu
+        |     +--ro xdrc-fibhwidb-broker?   empty
+        |     +--ro xdrc-fibidb-broker?     empty
+        |     +--ro xdrc-fibhwsb-broker?    empty
+        |     +--ro xdrc-fibswsb-broker?    empty
+        |     +--ro xdrc-adj-broker?        empty
+        |     +--ro xdrc-ipv4-broker?       empty
+        |     +--ro xdrc-ipv6-broker?       empty
+        |     +--ro xdrc-cef?               empty
+        +--ro capability
+           +--ro distributed-platform?            empty
+           +--ro warm-or-hot-standby-supported?   empty
+           +--ro non-stop-forwarding?             empty
+           +--ro hw-fwd-in-use?                   empty
+           +--ro fib-chck-auto-repair?            empty
+           +--ro crashdump-when-no-mem?           empty
+           +--ro block-sso-until-rrp-synced?      empty
+           +--ro ipv4
+           |  +--ro default-fib-switching?    empty
+           |  +--ro always-fib-switching?     empty
+           |  +--ro default-dfib-switching?   empty
+           |  +--ro always-dfib-switching?    empty
+           |  +--ro multicast-pkt-drop?       empty
+           |  +--ro punt-ok?                  empty
+           |  +--ro do-not-nvgen-fib-state?   empty
+           |  +--ro fastsend-used?            empty
+           |  +--ro no-per-packet-load?       empty
+           |  +--ro mcast-groups-in-table?    empty
+           |  +--ro rib-installs-locals?      empty
+           +--ro ipv6
+              +--ro default-fib-switching?    empty
+              +--ro always-fib-switching?     empty
+              +--ro default-dfib-switching?   empty
+              +--ro always-dfib-switching?    empty
+              +--ro multicast-pkt-drop?       empty
+              +--ro punt-ok?                  empty
+              +--ro do-not-nvgen-fib-state?   empty
+              +--ro fastsend-used?            empty
+
+  grouping fib-nexthop-entry
+    +-- nh-addr?            inet:ip-prefix
+    +-- index?              uint32
+    +-- af?                 fib-ios-xe-oper:fib-address-family
+    +-- ifname?             string
+    +-- path-type?          fib-ios-xe-oper:fib-path-type
+    +-- path-id?            uint32
+    +-- weight?             uint8
+    +-- encap?              fib-ios-xe-oper:encapsulation-header-type
+    +-- decap?              fib-ios-xe-oper:encapsulation-header-type
+    +-- resolved-nh-addr?   inet:ip-prefix
+  grouping fib-entry
+    +-- ip-addr?               inet:ip-prefix
+    +-- instance-name?         string
+    +-- af?                    fib-ios-xe-oper:fib-address-family
+    +-- num-paths?             uint8
+    +-- packets-forwarded?     uint64
+    +-- octets-forwarded?      uint64
+    +-- fib-nexthop-entries* [nh-addr]
+       +-- nh-addr?            inet:ip-prefix
+       +-- index?              uint32
+       +-- af?                 fib-ios-xe-oper:fib-address-family
+       +-- ifname?             string
+       +-- path-type?          fib-ios-xe-oper:fib-path-type
+       +-- path-id?            uint32
+       +-- weight?             uint8
+       +-- encap?              fib-ios-xe-oper:encapsulation-header-type
+       +-- decap?              fib-ios-xe-oper:encapsulation-header-type
+       +-- resolved-nh-addr?   inet:ip-prefix
+  grouping fib-ni-entry
+    +-- instance-name?     string
+    +-- af?                fib-ios-xe-oper:fib-address-family
+    +-- num-pfx?           uint32
+    +-- num-pfx-fwd?       uint32
+    +-- num-pfx-non-fwd?   uint32
+    +-- fib-entries* [ip-addr]
+       +-- ip-addr?               inet:ip-prefix
+       +-- instance-name?         string
+       +-- af?                    fib-ios-xe-oper:fib-address-family
+       +-- num-paths?             uint8
+       +-- packets-forwarded?     uint64
+       +-- octets-forwarded?      uint64
+       +-- fib-nexthop-entries* [nh-addr]
+          +-- nh-addr?            inet:ip-prefix
+          +-- index?              uint32
+          +-- af?                 fib-ios-xe-oper:fib-address-family
+          +-- ifname?             string
+          +-- path-type?          fib-ios-xe-oper:fib-path-type
+          +-- path-id?            uint32
+          +-- weight?             uint8
+          +-- encap?              fib-ios-xe-oper:encapsulation-header-type
+          +-- decap?              fib-ios-xe-oper:encapsulation-header-type
+          +-- resolved-nh-addr?   inet:ip-prefix
+  grouping adjacency-entry
+    +-- refcount?     uint32
+    +-- incomplete?   boolean
+  grouping adjacency-entry-key
+    +-- connection-id?   uint64
+    +-- address?         inet:ip-address
+    +-- linktype?        fib-ios-xe-oper:adj-link-type
+    +-- if-name?         string
+  grouping adjacency-table
+    +-- num-adjacencies?              uint32
+    +-- num-complete-adjacencies?     uint32
+    +-- num-incomplete-adjacencies?   uint32
+    +-- adjacency-entry* [connection-id address linktype if-name]
+       +-- refcount?        uint32
+       +-- incomplete?      boolean
+       +-- connection-id?   uint64
+       +-- address?         inet:ip-address
+       +-- linktype?        fib-ios-xe-oper:adj-link-type
+       +-- if-name?         string
+  grouping ipv4-fib-state
+    +-- fib-enabled?             empty
+    +-- fib-running?             empty
+    +-- fib-reenable?            empty
+    +-- fib-dist-enabled?        empty
+    +-- fib-dist-running?        empty
+    +-- fib-dist-reenable?       empty
+    +-- fib-shutting-down?       empty
+    +-- fib-switching-enabled?   empty
+    +-- fib-switching-running?   empty
+    +-- alg-type?                fib-ios-xe-oper:fib-hash-algs-type
+  grouping ipv6-fib-state
+    +-- fib-enabled?        empty
+    +-- fib-running?        empty
+    +-- fib-dist-enabled?   empty
+    +-- fib-dist-running?   empty
+    +-- alg-type?           fib-ios-xe-oper:fib-hash-algs-type
+  grouping fib-rrp-state
+    +-- i-am-standby?                 empty
+    +-- peer-presence?                empty
+    +-- peer-comm-reached?            empty
+    +-- rf-has-done-standby-config?   empty
+    +-- rf-prog-blocked?              empty
+    +-- nsf-sync-enabled?             empty
+    +-- lc-nsf-sync-running?          empty
+  grouping fib-issu-state
+    +-- xdrc-fibhwidb-broker?   empty
+    +-- xdrc-fibidb-broker?     empty
+    +-- xdrc-fibhwsb-broker?    empty
+    +-- xdrc-fibswsb-broker?    empty
+    +-- xdrc-adj-broker?        empty
+    +-- xdrc-ipv4-broker?       empty
+    +-- xdrc-ipv6-broker?       empty
+    +-- xdrc-cef?               empty
+  grouping fib-state
+    +-- instance-type?        fib-ios-xe-oper:fib-instance-type
+    +-- fib-common-enabled?   boolean
+    +-- ipv4
+    |  +-- fib-enabled?             empty
+    |  +-- fib-running?             empty
+    |  +-- fib-reenable?            empty
+    |  +-- fib-dist-enabled?        empty
+    |  +-- fib-dist-running?        empty
+    |  +-- fib-dist-reenable?       empty
+    |  +-- fib-shutting-down?       empty
+    |  +-- fib-switching-enabled?   empty
+    |  +-- fib-switching-running?   empty
+    |  +-- alg-type?                fib-ios-xe-oper:fib-hash-algs-type
+    +-- ipv6
+    |  +-- fib-enabled?        empty
+    |  +-- fib-running?        empty
+    |  +-- fib-dist-enabled?   empty
+    |  +-- fib-dist-running?   empty
+    |  +-- alg-type?           fib-ios-xe-oper:fib-hash-algs-type
+    +-- rrp
+    |  +-- i-am-standby?                 empty
+    |  +-- peer-presence?                empty
+    |  +-- peer-comm-reached?            empty
+    |  +-- rf-has-done-standby-config?   empty
+    |  +-- rf-prog-blocked?              empty
+    |  +-- nsf-sync-enabled?             empty
+    |  +-- lc-nsf-sync-running?          empty
+    +-- issu
+       +-- xdrc-fibhwidb-broker?   empty
+       +-- xdrc-fibidb-broker?     empty
+       +-- xdrc-fibhwsb-broker?    empty
+       +-- xdrc-fibswsb-broker?    empty
+       +-- xdrc-adj-broker?        empty
+       +-- xdrc-ipv4-broker?       empty
+       +-- xdrc-ipv6-broker?       empty
+       +-- xdrc-cef?               empty
+  grouping ipv4-fib-capability-state
+    +-- default-fib-switching?    empty
+    +-- always-fib-switching?     empty
+    +-- default-dfib-switching?   empty
+    +-- always-dfib-switching?    empty
+    +-- multicast-pkt-drop?       empty
+    +-- punt-ok?                  empty
+    +-- do-not-nvgen-fib-state?   empty
+    +-- fastsend-used?            empty
+    +-- no-per-packet-load?       empty
+    +-- mcast-groups-in-table?    empty
+    +-- rib-installs-locals?      empty
+  grouping ipv6-fib-capability-state
+    +-- default-fib-switching?    empty
+    +-- always-fib-switching?     empty
+    +-- default-dfib-switching?   empty
+    +-- always-dfib-switching?    empty
+    +-- multicast-pkt-drop?       empty
+    +-- punt-ok?                  empty
+    +-- do-not-nvgen-fib-state?   empty
+    +-- fastsend-used?            empty
+  grouping fib-capability-state
+    +-- distributed-platform?            empty
+    +-- warm-or-hot-standby-supported?   empty
+    +-- non-stop-forwarding?             empty
+    +-- hw-fwd-in-use?                   empty
+    +-- fib-chck-auto-repair?            empty
+    +-- crashdump-when-no-mem?           empty
+    +-- block-sso-until-rrp-synced?      empty
+    +-- ipv4
+    |  +-- default-fib-switching?    empty
+    |  +-- always-fib-switching?     empty
+    |  +-- default-dfib-switching?   empty
+    |  +-- always-dfib-switching?    empty
+    |  +-- multicast-pkt-drop?       empty
+    |  +-- punt-ok?                  empty
+    |  +-- do-not-nvgen-fib-state?   empty
+    |  +-- fastsend-used?            empty
+    |  +-- no-per-packet-load?       empty
+    |  +-- mcast-groups-in-table?    empty
+    |  +-- rib-installs-locals?      empty
+    +-- ipv6
+       +-- default-fib-switching?    empty
+       +-- always-fib-switching?     empty
+       +-- default-dfib-switching?   empty
+       +-- always-dfib-switching?    empty
+       +-- multicast-pkt-drop?       empty
+       +-- punt-ok?                  empty
+       +-- do-not-nvgen-fib-state?   empty
+       +-- fastsend-used?            empty
+  grouping cef-state
+    +-- fib
+    |  +-- instance-type?        fib-ios-xe-oper:fib-instance-type
+    |  +-- fib-common-enabled?   boolean
+    |  +-- ipv4
+    |  |  +-- fib-enabled?             empty
+    |  |  +-- fib-running?             empty
+    |  |  +-- fib-reenable?            empty
+    |  |  +-- fib-dist-enabled?        empty
+    |  |  +-- fib-dist-running?        empty
+    |  |  +-- fib-dist-reenable?       empty
+    |  |  +-- fib-shutting-down?       empty
+    |  |  +-- fib-switching-enabled?   empty
+    |  |  +-- fib-switching-running?   empty
+    |  |  +-- alg-type?                fib-ios-xe-oper:fib-hash-algs-type
+    |  +-- ipv6
+    |  |  +-- fib-enabled?        empty
+    |  |  +-- fib-running?        empty
+    |  |  +-- fib-dist-enabled?   empty
+    |  |  +-- fib-dist-running?   empty
+    |  |  +-- alg-type?           fib-ios-xe-oper:fib-hash-algs-type
+    |  +-- rrp
+    |  |  +-- i-am-standby?                 empty
+    |  |  +-- peer-presence?                empty
+    |  |  +-- peer-comm-reached?            empty
+    |  |  +-- rf-has-done-standby-config?   empty
+    |  |  +-- rf-prog-blocked?              empty
+    |  |  +-- nsf-sync-enabled?             empty
+    |  |  +-- lc-nsf-sync-running?          empty
+    |  +-- issu
+    |     +-- xdrc-fibhwidb-broker?   empty
+    |     +-- xdrc-fibidb-broker?     empty
+    |     +-- xdrc-fibhwsb-broker?    empty
+    |     +-- xdrc-fibswsb-broker?    empty
+    |     +-- xdrc-adj-broker?        empty
+    |     +-- xdrc-ipv4-broker?       empty
+    |     +-- xdrc-ipv6-broker?       empty
+    |     +-- xdrc-cef?               empty
+    +-- capability
+       +-- distributed-platform?            empty
+       +-- warm-or-hot-standby-supported?   empty
+       +-- non-stop-forwarding?             empty
+       +-- hw-fwd-in-use?                   empty
+       +-- fib-chck-auto-repair?            empty
+       +-- crashdump-when-no-mem?           empty
+       +-- block-sso-until-rrp-synced?      empty
+       +-- ipv4
+       |  +-- default-fib-switching?    empty
+       |  +-- always-fib-switching?     empty
+       |  +-- default-dfib-switching?   empty
+       |  +-- always-dfib-switching?    empty
+       |  +-- multicast-pkt-drop?       empty
+       |  +-- punt-ok?                  empty
+       |  +-- do-not-nvgen-fib-state?   empty
+       |  +-- fastsend-used?            empty
+       |  +-- no-per-packet-load?       empty
+       |  +-- mcast-groups-in-table?    empty
+       |  +-- rib-installs-locals?      empty
+       +-- ipv6
+          +-- default-fib-switching?    empty
+          +-- always-fib-switching?     empty
+          +-- default-dfib-switching?   empty
+          +-- always-dfib-switching?    empty
+          +-- multicast-pkt-drop?       empty
+          +-- punt-ok?                  empty
+          +-- do-not-nvgen-fib-state?   empty
+          +-- fastsend-used?            empty

@@ -1,0 +1,878 @@
+module: mpls-ldp
+  +--rw mpls-ldp
+     +--ro mpls-ldp-state
+     |  +--ro oper-summary {mpls-ldp-extended}?
+     |  |  +--ro common {mpls-ldp-extended}?
+     |  |  |  +--ro address-families?                           af
+     |  |  |  +--ro number-of-neighbors?                        uint32
+     |  |  |  +--ro number-of-graceful-restart-neighbors?       uint32
+     |  |  |  +--ro number-of-downstream-on-demand-neighbors?   uint32
+     |  |  |  +--ro numberof-ipv4-hello-adj?                    uint32
+     |  |  |  +--ro number-of-ipv4-routes?                      uint32
+     |  |  |  +--ro number-of-ipv4-local-addresses?             uint32
+     |  |  |  +--ro number-of-ldp-interfaces?                   uint32
+     |  |  |  +--ro number-of-ipv4ldp-interfaces?               uint32
+     |  |  +--ro number-of-vrf?                  uint32
+     |  |  +--ro number-of-vrf-oper?             uint32
+     |  |  +--ro number-of-interfaces?           uint32
+     |  |  +--ro number-of-fwd-ref-interfaces?   uint32
+     |  |  +--ro number-of-autocfg-interfaces?   uint32
+     |  |  +--ro no-of-ipv4-rib-tbl?             uint32
+     |  |  +--ro no-of-ipv4-rib-tbl-reg?         uint32
+     |  +--ro forwarding-summary
+     |  |  +--ro pfxs
+     |  |  |  +--ro labeled-pfxs-aggr
+     |  |  |  |  +--ro labeled-pfxs?           uint16
+     |  |  |  |  +--ro labeled-pfxs-partial?   uint16
+     |  |  |  |  +--ro unlabeled-pfxs?         uint16
+     |  |  |  +--ro labeled-pfxs-primary
+     |  |  |  |  +--ro labeled-pfxs?           uint16
+     |  |  |  |  +--ro labeled-pfxs-partial?   uint16
+     |  |  |  |  +--ro unlabeled-pfxs?         uint16
+     |  |  |  +--ro labeled-pfxs-backup
+     |  |  |  |  +--ro labeled-pfxs?           uint16
+     |  |  |  |  +--ro labeled-pfxs-partial?   uint16
+     |  |  |  |  +--ro unlabeled-pfxs?         uint16
+     |  |  |  +--ro total-pfxs?             uint16
+     |  |  |  +--ro ecmp-pfxs?              uint16
+     |  |  |  +--ro protected-pfxs?         uint16
+     |  |  +--ro nhs
+     |  |  |  +--ro total-paths?            uint32
+     |  |  |  +--ro protected-paths?        uint32
+     |  |  |  +--ro backup-paths?           uint32
+     |  |  |  +--ro remote-backup-paths?    uint32
+     |  |  |  +--ro labeled-paths?          uint32
+     |  |  |  +--ro labeled-backup-paths?   uint32
+     |  |  +--ro intfs-fwd-count?   uint16
+     |  |  +--ro local-lbls?        uint16
+     |  +--ro bindings-summary
+     |  |  +--ro binding-total?                 uint32
+     |  |  +--ro binding-no-route?              uint32
+     |  |  +--ro binding-local-no-route?        uint32
+     |  |  +--ro binding-local?                 uint32
+     |  |  +--ro binding-local-null?            uint32
+     |  |  +--ro binding-local-implicit-null?   uint32
+     |  |  +--ro binding-local-explicit-null?   uint32
+     |  |  +--ro binding-local-non-null?        uint32
+     |  |  +--ro binding-local-oor?             uint32
+     |  |  +--ro lowest-allocated-label?        uint32
+     |  |  +--ro highest-allocated-label?       uint32
+     |  |  +--ro binding-remote?                uint32
+     |  +--ro nsr-summary-all {mpls-ldp-nsr}?
+     |  |  +--ro nsr-sum-in-label-reqs-created?       yang:counter32
+     |  |  +--ro nsr-sum-in-label-reqs-freed?         yang:counter32
+     |  |  +--ro nsr-sum-in-label-withdraw-created?   yang:counter32
+     |  |  +--ro nsr-sum-in-label-withdraw-freed?     yang:counter32
+     |  |  +--ro nsr-sum-lcl-addr-withdraw-set?       yang:counter32
+     |  |  +--ro nsr-sum-lcl-addr-withdraw-cleared?   yang:counter32
+     |  +--ro icpm-summary-all {mpls-ldp-iccp}?
+     |  |  +--ro iccp-rg-conn-count?       uint32
+     |  |  +--ro iccp-rg-disconn-count?    uint32
+     |  |  +--ro iccp-rg-notif-count?      uint32
+     |  |  +--ro iccp-rg-app-data-count?   uint32
+     |  |  +--ro icpm-rgid-table-info
+     |  |  |  +--ro red-group* [rg-id]
+     |  |  |     +--ro rg-id             uint32
+     |  |  |     +--ro icpm-protocols* [icpm-type]
+     |  |  |        +--ro icpm-type       identityref
+     |  |  |        +--ro redun-groups* [rg-id]
+     |  |  |           +--ro rg-id        uint32
+     |  |  |           +--ro peer-id?     inet:ip-address
+     |  |  |           +--ro client_id?   uint32
+     |  |  |           +--ro state?       string
+     |  |  |           +--ro iccp-apps* [iccp-app]
+     |  |  |              +--ro iccp-app     identityref
+     |  |  |              +--ro app-state?   iccp-state
+     |  |  |              +--ro ptcl-ver?    uint32
+     |  |  +--ro icpm-session-table
+     |  |     +--ro session-table* [session-id]
+     |  |        +--ro session-id        uint32
+     |  |        +--ro icpm-protocols* [icpm-type]
+     |  |           +--ro icpm-type       identityref
+     |  |           +--ro redun-groups* [rg-id]
+     |  |              +--ro rg-id        uint32
+     |  |              +--ro peer-id?     inet:ip-address
+     |  |              +--ro client_id?   uint32
+     |  |              +--ro state?       string
+     |  |              +--ro iccp-apps* [iccp-app]
+     |  |                 +--ro iccp-app     identityref
+     |  |                 +--ro app-state?   iccp-state
+     |  |                 +--ro ptcl-ver?    uint32
+     |  +--ro parameters
+     |  |  +--ro global-md5-password-enabled?                    boolean
+     |  |  +--ro protocol-version?                               uint32
+     |  |  +--ro keepalive-interval?                             uint32
+     |  |  +--ro session-hold-time?                              uint32
+     |  |  +--ro le-no-route-timeout?                            uint32
+     |  |  +--ro af-binding-withdraw-delay?                      uint32
+     |  |  +--ro max-intf-attached?                              uint32
+     |  |  +--ro max-intf-te?                                    uint32
+     |  |  +--ro max-peer?                                       uint32
+     |  |  +--ro out-of-mem-state?                               yang:counter32
+     |  |  +--ro discovery-quick-start-disabled-on-interfaces?   boolean
+     |  |  +--ro address-family-parameter* [address-family]
+     |  |  |  +--ro address-family                  af
+     |  |  |  +--ro discovery-transport-address?    inet:ip-address
+     |  |  |  +--ro is-accepting-targeted-hellos?   boolean
+     |  |  |  +--ro targeted-hello-filter?          string
+     |  |  +--ro dod-max-hop?                                    uint32
+     |  |  +--ro feature*                                        string
+     |  |  +--ro loop-detection?                                 loop-detection-type
+     |  +--ro capabilities
+     |  |  +--ro capability* [cap-type]
+     |  |     +--ro capability-owner?         string
+     |  |     +--ro cap-type                  uint16
+     |  |     +--ro cap-des?                  string
+     |  |     +--ro capability-data-length?   uint16
+     |  |     +--ro capability-data?          string
+     |  +--ro backoff-parameters
+     |  |  +--ro initial-seconds?   uint32
+     |  |  +--ro maximum-seconds?   uint32
+     |  |  +--ro backoff-seconds?   uint32
+     |  |  +--ro waiting-seconds?   uint32
+     |  +--ro graceful-restart
+     |  |  +--ro is-graceful-restart-configured?                  boolean
+     |  |  +--ro graceful-restart-reconnect-timeout?              uint32
+     |  |  +--ro graceful-restart-forwarding-state-hold-time?     uint32
+     |  |  +--ro is-forwarding-state-hold-timer-running?          empty
+     |  |  +--ro forwarding-state-hold-timer-remaining-seconds?   uint32
+     |  +--ro vrfs
+     |  |  +--ro vrf* [vrf-name]
+     |  |     +--ro vrf-name       string
+     |  |     +--ro vrf-summary {mpls-ldp-extended}?
+     |  |     |  +--ro address-families?                           af
+     |  |     |  +--ro number-of-neighbors?                        uint32
+     |  |     |  +--ro number-of-graceful-restart-neighbors?       uint32
+     |  |     |  +--ro number-of-downstream-on-demand-neighbors?   uint32
+     |  |     |  +--ro numberof-ipv4-hello-adj?                    uint32
+     |  |     |  +--ro number-of-ipv4-routes?                      uint32
+     |  |     |  +--ro number-of-ipv4-local-addresses?             uint32
+     |  |     |  +--ro number-of-ldp-interfaces?                   uint32
+     |  |     |  +--ro number-of-ipv4ldp-interfaces?               uint32
+     |  |     +--ro afs
+     |  |        +--ro af* [af-name]
+     |  |           +--ro af-name              af
+     |  |           +--ro interface-summary
+     |  |           |  +--ro known-ip-interface-count?                   uint32
+     |  |           |  +--ro known-ip-interface-ldp-enabled?             uint32
+     |  |           |  +--ro configured-attached-interface?              uint32
+     |  |           |  +--ro configured-te-interface?                    uint32
+     |  |           |  +--ro forward-references?                         uint32
+     |  |           |  +--ro auto-config-disabled?                       uint32
+     |  |           |  +--ro auto-config?                                uint32
+     |  |           |  +--ro auto-config-forward-reference-interfaces?   uint32
+     |  |           +--ro igp
+     |  |              +--ro sync* [interface]
+     |  |                 +--ro interface                 if:interface-ref
+     |  |                 +--ro igp-sync-state?           igp-sync-state
+     |  |                 +--ro is-delay-timer-running?   empty
+     |  |                 +--ro delay-timer-remaining?    uint32
+     |  |                 +--ro igp-sync-down-reason?     identityref
+     |  |                 +--ro peers* []
+     |  |                    +--ro peer-id?            string
+     |  |                    +--ro is-gr-enabled?      boolean
+     |  |                    +--ro is-chkpt-created?   empty
+     |  +--ro discovery
+     |  |  +--ro discovery-stats
+     |  |  |  +--ro num-of-ldp-interfaces?          uint32
+     |  |  |  +--ro num-of-active-ldp-interfaces?   uint32
+     |  |  |  +--ro num-of-lnk-disc-xmit?           uint32
+     |  |  |  +--ro num-of-tgt-disc-xmit?           uint32
+     |  |  |  +--ro num-of-lnk-disc-recv?           uint32
+     |  |  |  +--ro num-of-tgt-disc-recv?           uint32
+     |  |  +--ro link-hello-state
+     |  |  |  +--ro link-hellos* [interface nbr-transport-addr]
+     |  |  |     +--ro interface               if:interface-ref
+     |  |  |     +--ro nbr-transport-addr      inet:ip-address
+     |  |  |     +--ro hello-interval?         uint32
+     |  |  |     +--ro local-src-addr?         inet:ip-address
+     |  |  |     +--ro local-transport-addr?   inet:ip-address
+     |  |  |     +--ro nbr-src-addr?           inet:ip-address
+     |  |  |     +--ro nbr-ldp-id?             string
+     |  |  |     +--ro session-up?             empty
+     |  |  |     +--ro nbr-hold-time?          uint32
+     |  |  |     +--ro next-hello?             uint32
+     |  |  |     +--ro hold-time-remaining?    uint32
+     |  |  +--ro targeted-hellos
+     |  |     +--ro targeted-hello-interval?    uint32
+     |  |     +--ro targeted-hello-hold-time?   uint32
+     |  |     +--ro targeted-hello* [vrf-name target-address]
+     |  |        +--ro vrf-name                   string
+     |  |        +--ro local-address?             inet:ip-address
+     |  |        +--ro target-address             inet:ip-address
+     |  |        +--ro neighbor-ldp-identifier?   string
+     |  |        +--ro state?                     dhc-state
+     |  |        +--ro nbr-hold-time?             uint32
+     |  |        +--ro next-hello?                uint32
+     |  |        +--ro hold-time-remaining?       uint32
+     |  +--ro forwarding
+     |  |  +--ro forwarding-vrf-summs
+     |  |  |  +--ro forwarding-vrf-summ* [vrf-name]
+     |  |  |     +--ro vrf-name           string
+     |  |  |     +--ro pfxs
+     |  |  |     |  +--ro labeled-pfxs-aggr
+     |  |  |     |  |  +--ro labeled-pfxs?           uint16
+     |  |  |     |  |  +--ro labeled-pfxs-partial?   uint16
+     |  |  |     |  |  +--ro unlabeled-pfxs?         uint16
+     |  |  |     |  +--ro labeled-pfxs-primary
+     |  |  |     |  |  +--ro labeled-pfxs?           uint16
+     |  |  |     |  |  +--ro labeled-pfxs-partial?   uint16
+     |  |  |     |  |  +--ro unlabeled-pfxs?         uint16
+     |  |  |     |  +--ro labeled-pfxs-backup
+     |  |  |     |  |  +--ro labeled-pfxs?           uint16
+     |  |  |     |  |  +--ro labeled-pfxs-partial?   uint16
+     |  |  |     |  |  +--ro unlabeled-pfxs?         uint16
+     |  |  |     |  +--ro total-pfxs?             uint16
+     |  |  |     |  +--ro ecmp-pfxs?              uint16
+     |  |  |     |  +--ro protected-pfxs?         uint16
+     |  |  |     +--ro nhs
+     |  |  |     |  +--ro total-paths?            uint32
+     |  |  |     |  +--ro protected-paths?        uint32
+     |  |  |     |  +--ro backup-paths?           uint32
+     |  |  |     |  +--ro remote-backup-paths?    uint32
+     |  |  |     |  +--ro labeled-paths?          uint32
+     |  |  |     |  +--ro labeled-backup-paths?   uint32
+     |  |  |     +--ro intfs-fwd-count?   uint16
+     |  |  |     +--ro local-lbls?        uint16
+     |  |  +--ro forwarding-detail* [vrf-name prefix]
+     |  |     +--ro vrf-name         string
+     |  |     +--ro prefix           inet:ip-prefix
+     |  |     +--ro fwd-prefix?      inet:ip-address
+     |  |     +--ro route
+     |  |     |  +--ro version?                       uint32
+     |  |     |  +--ro priority?                      uint8
+     |  |     |  +--ro source?                        uint16
+     |  |     |  +--ro type?                          uint16
+     |  |     |  +--ro metric?                        uint32
+     |  |     |  +--ro is-local-vrf-leaked?           boolean
+     |  |     |  +--ro routing-update-count?          yang:counter32
+     |  |     |  +--ro routing-update-timestamp?      uint64
+     |  |     |  +--ro routing-update-age?            uint64
+     |  |     |  +--ro local-label?                   uint32
+     |  |     |  +--ro forwarding-update-count?       yang:counter32
+     |  |     |  +--ro forwarding-update-timestamp?   uint64
+     |  |     |  +--ro forwarding-update-age?         uint64
+     |  |     +--ro table-id?        uint32
+     |  |     +--ro prefix-length?   uint8
+     |  |     +--ro paths* []
+     |  |        +--ro routing
+     |  |        |  +--ro next-hop?              inet:ip-address
+     |  |        |  +--ro remote-node-id?        inet:ip-address
+     |  |        |  +--ro has-remote-lfa-bkup?   boolean
+     |  |        |  +--ro interface?             if:interface-ref
+     |  |        |  +--ro nh-is-overriden?       empty
+     |  |        |  +--ro nexthop-id?            uint32
+     |  |        |  +--ro next-hop-table-id?     uint32
+     |  |        |  +--ro load-metric?           uint32
+     |  |        |  +--ro path-id?               uint8
+     |  |        |  +--ro bkup-path-id?          uint8
+     |  |        |  +--ro path-type?             identityref
+     |  |        +--ro mpls
+     |  |           +--ro mpls-outgoing-info
+     |  |           |  +--ro nexthop-peer-ldp-ident
+     |  |           |  |  +--ro lsr-id?           inet:ip-address
+     |  |           |  |  +--ro label-space-id?   uint16
+     |  |           |  +--ro out-label?                               uint32
+     |  |           |  +--ro out-label-type?                          identityref
+     |  |           |  +--ro out-label-owner?                         identityref
+     |  |           |  +--ro is-from-graceful-restartable-neighbor?   boolean
+     |  |           |  +--ro is-stale?                                boolean
+     |  |           +--ro remote-lfa
+     |  |              +--ro mpls-outgoing-info
+     |  |              |  +--ro nexthop-peer-ldp-ident
+     |  |              |  |  +--ro lsr-id?           inet:ip-address
+     |  |              |  |  +--ro label-space-id?   uint16
+     |  |              |  +--ro out-label?                               uint32
+     |  |              |  +--ro out-label-type?                          identityref
+     |  |              |  +--ro out-label-owner?                         identityref
+     |  |              |  +--ro is-from-graceful-restartable-neighbor?   boolean
+     |  |              |  +--ro is-stale?                                boolean
+     |  |              +--ro has-remote-lfa-bkup?   boolean
+     |  +--ro bindings
+     |  |  +--ro bindings-sum-afs
+     |  |  |  +--ro binding-sum-af* [vrf-name af-name]
+     |  |  |     +--ro vrf-name                       string
+     |  |  |     +--ro af-name                        af
+     |  |  |     +--ro binding-total?                 uint32
+     |  |  |     +--ro binding-no-route?              uint32
+     |  |  |     +--ro binding-local-no-route?        uint32
+     |  |  |     +--ro binding-local?                 uint32
+     |  |  |     +--ro binding-local-null?            uint32
+     |  |  |     +--ro binding-local-implicit-null?   uint32
+     |  |  |     +--ro binding-local-explicit-null?   uint32
+     |  |  |     +--ro binding-local-non-null?        uint32
+     |  |  |     +--ro binding-local-oor?             uint32
+     |  |  |     +--ro lowest-allocated-label?        uint32
+     |  |  |     +--ro highest-allocated-label?       uint32
+     |  |  |     +--ro binding-remote?                uint32
+     |  |  +--ro binding* [vrf-name prefix]
+     |  |     +--ro vrf-name                             string
+     |  |     +--ro prefix                               inet:ip-prefix
+     |  |     +--ro fwd-prefix?                          inet:ip-address
+     |  |     +--ro prefix-length?                       uint8
+     |  |     +--ro local-label?                         uint32
+     |  |     +--ro le-local-binding-revision?           uint32
+     |  |     +--ro le-local-label-state?                local-label-state
+     |  |     +--ro is-no-route?                         boolean
+     |  |     +--ro label-oor?                           boolean
+     |  |     +--ro advertise-prefix-filter?             string
+     |  |     +--ro advertise-lsr-filter?                string
+     |  |     +--ro config-enforced-local-label-value?   boolean
+     |  |     +--ro remote-binding* []
+     |  |     |  +--ro assigning-peer-ldp-ident
+     |  |     |  |  +--ro lsr-id?           inet:ip-address
+     |  |     |  |  +--ro label-space-id?   uint16
+     |  |     |  +--ro remote-label?               uint32
+     |  |     |  +--ro is-stale?                   boolean
+     |  |     +--ro peers-advertised-to* []
+     |  |        +--ro lsr-id?           inet:ip-address
+     |  |        +--ro label-space-id?   uint16
+     |  +--ro neighbors
+     |  |  +--ro neighbor* [vrf-name lsr-id]
+     |  |  |  +--ro vrf-name                      string
+     |  |  |  +--ro lsr-id                        inet:ip-address
+     |  |  |  +--ro label-space-id?               uint32
+     |  |  |  +--ro session-role?                 enumeration
+     |  |  |  +--ro session-prot-ver?             uint32
+     |  |  |  +--ro up-time-seconds?              uint32
+     |  |  |  +--ro nbr-path-vector-limit?        int32
+     |  |  |  +--ro nbr-stats
+     |  |  |  |  +--ro ta-pies-sent?                yang:counter32
+     |  |  |  |  +--ro ta-pies-rcvd?                yang:counter32
+     |  |  |  |  +--ro num-of-nbr-ipv4-discovery?   uint32
+     |  |  |  |  +--ro num-of-nbr-ipv6-discovery?   uint32
+     |  |  |  |  +--ro num-of-nbr-ipv4-addresses?   uint32
+     |  |  |  |  +--ro num-of-nbr-ipv6-addresses?   uint32
+     |  |  |  |  +--ro num-of-nbr-ipv4-lbl?         uint32
+     |  |  |  |  +--ro num-of-nbr-ipv6-lbl?         uint32
+     |  |  |  +--ro graceful-restart-adjacency
+     |  |  |  |  +--ro is-graceful-restartable?            boolean
+     |  |  |  |  +--ro reconnect-timeout?                  uint32
+     |  |  |  |  +--ro recovery-time?                      uint32
+     |  |  |  |  +--ro is-liveness-timer-running?          empty
+     |  |  |  |  +--ro liveness-timer-remaining-seconds?   uint32
+     |  |  |  |  +--ro is-recovery-timer-running?          empty
+     |  |  |  |  +--ro recovery-timer-remaining-seconds?   uint32
+     |  |  |  |  +--ro down-nbr-flap-count?                uint32
+     |  |  |  |  +--ro down-nbr-down-reason?               identityref
+     |  |  |  +--ro downstream-on-demand?         boolean
+     |  |  |  +--ro tcp-information
+     |  |  |  |  +--ro foreign-host?   inet:ip-address
+     |  |  |  |  +--ro local-host?     inet:ip-address
+     |  |  |  |  +--ro foreign-port?   uint16
+     |  |  |  |  +--ro local-port?     uint16
+     |  |  |  |  +--ro is-md5-on?      boolean
+     |  |  |  |  +--ro up-time?        string
+     |  |  |  +--ro capabilities
+     |  |  |  |  +--ro sent-caps* [cap-type]
+     |  |  |  |  |  +--ro cap-type                  uint16
+     |  |  |  |  |  +--ro cap-des?                  string
+     |  |  |  |  |  +--ro capability-data-length?   uint16
+     |  |  |  |  |  +--ro capability-data?          string
+     |  |  |  |  +--ro received-caps* [cap-type]
+     |  |  |  |     +--ro cap-type                  uint16
+     |  |  |  |     +--ro cap-des?                  string
+     |  |  |  |     +--ro capability-data-length?   uint16
+     |  |  |  |     +--ro capability-data?          string
+     |  |  |  +--ro peer-hold-time?               uint32
+     |  |  |  +--ro peer-keep-alive-interval?     uint32
+     |  |  |  +--ro peer-state?                   adj-state
+     |  |  |  +--ro inbound-ipv4?                 string
+     |  |  |  +--ro inbound-ipv6-filter?          string
+     |  |  |  +--ro outbound-ipv4-filter?         string
+     |  |  |  +--ro outbound-ipv6-filter?         string
+     |  |  |  +--ro has-sp?                       boolean
+     |  |  |  +--ro sp-state?                     string
+     |  |  |  +--ro sp-filter?                    string
+     |  |  |  +--ro sp-has-duration?              boolean
+     |  |  |  +--ro sp-duration?                  uint32
+     |  |  |  +--ro spht-running?                 boolean
+     |  |  |  +--ro spht-remaining?               uint32
+     |  |  |  +--ro bgp-advertisement-state?      nbr-bgp-advt-state {mpls-ldp-bgp}?
+     |  |  |  +--ro advertise-bgp-prefixes?       boolean {mpls-ldp-bgp}?
+     |  |  |  +--ro client*                       string
+     |  |  |  +--ro duplicate-address*            inet:ip-address
+     |  |  |  +--ro nbr-bound-address*            inet:ip-address
+     |  |  +--ro nbr-adjs* []
+     |  |  |  +--ro (hello-type)?
+     |  |  |     +--:(link-hello-type)
+     |  |  |     |  +--ro interface?        if:interface-ref
+     |  |  |     +--:(targeted-hello-type)
+     |  |  |        +--ro local-address?    inet:ip-address
+     |  |  |        +--ro target-address?   inet:ip-address
+     |  |  |        +--ro target-state?     dhc-state
+     |  |  +--ro stats-info
+     |  |  |  +--ro message-out
+     |  |  |  |  +--ro total-count?                 yang:counter32
+     |  |  |  |  +--ro init-count?                  yang:counter32
+     |  |  |  |  +--ro address-count?               yang:counter32
+     |  |  |  |  +--ro address-withdraw-count?      yang:counter32
+     |  |  |  |  +--ro label-map-count?             yang:counter32
+     |  |  |  |  +--ro label-withdraw-count?        yang:counter32
+     |  |  |  |  +--ro label-release-count?         yang:counter32
+     |  |  |  |  +--ro label-request-count?         yang:counter32
+     |  |  |  |  +--ro label-abort-request-count?   yang:counter32
+     |  |  |  |  +--ro notification-count?          yang:counter32
+     |  |  |  |  +--ro keep-alive-count?            yang:counter32
+     |  |  |  |  +--ro iccp-rg-conn-count?          yang:counter32
+     |  |  |  |  +--ro iccp-rg-disconn-count?       yang:counter32
+     |  |  |  |  +--ro iccp-rg-notif-count?         yang:counter32
+     |  |  |  |  +--ro iccp-rg-app-data-count?      yang:counter32
+     |  |  |  +--ro message-in
+     |  |  |  |  +--ro total-count?                 yang:counter32
+     |  |  |  |  +--ro init-count?                  yang:counter32
+     |  |  |  |  +--ro address-count?               yang:counter32
+     |  |  |  |  +--ro address-withdraw-count?      yang:counter32
+     |  |  |  |  +--ro label-map-count?             yang:counter32
+     |  |  |  |  +--ro label-withdraw-count?        yang:counter32
+     |  |  |  |  +--ro label-release-count?         yang:counter32
+     |  |  |  |  +--ro label-request-count?         yang:counter32
+     |  |  |  |  +--ro label-abort-request-count?   yang:counter32
+     |  |  |  |  +--ro notification-count?          yang:counter32
+     |  |  |  |  +--ro keep-alive-count?            yang:counter32
+     |  |  |  |  +--ro iccp-rg-conn-count?          yang:counter32
+     |  |  |  |  +--ro iccp-rg-disconn-count?       yang:counter32
+     |  |  |  |  +--ro iccp-rg-notif-count?         yang:counter32
+     |  |  |  |  +--ro iccp-rg-app-data-count?      yang:counter32
+     |  |  |  +--ro discon-time?            yang:timestamp
+     |  |  |  +--ro session-attempts?       yang:counter32
+     |  |  |  +--ro sess-reject-no-hello?   yang:counter32
+     |  |  |  +--ro sess-rej-ad?            yang:counter32
+     |  |  |  +--ro sess-rej-max-pdu?       yang:counter32
+     |  |  |  +--ro sess-rej-lr?            yang:counter32
+     |  |  |  +--ro bad-ldpid?              yang:counter32
+     |  |  |  +--ro bad-pdu-len?            yang:counter32
+     |  |  |  +--ro bad-msg-len?            yang:counter32
+     |  |  |  +--ro bad-tlv-len?            yang:counter32
+     |  |  |  +--ro malformed-tlv-val?      yang:counter32
+     |  |  |  +--ro keep-alive-exp?         yang:counter32
+     |  |  |  +--ro shutdown-notif-rec?     yang:counter32
+     |  |  |  +--ro shutdow-notif-sent?     yang:counter32
+     |  |  +--ro backoffs
+     |  |  |  +--ro backoff-seconds?   uint32
+     |  |  |  +--ro waiting-seconds?   uint32
+     |  |  +--ro nsr-nbr-detail {mpls-ldp-nsr}?
+     |  |     +--ro nsr-state?                             identityref {mpls-ldp-nsr}?
+     |  |     +--ro nsr-nbr-sync-state?                    identityref {mpls-ldp-nsr}?
+     |  |     +--ro nsr-nbr-last-sync-error?               identityref {mpls-ldp-nsr}?
+     |  |     +--ro nsr-nbr-last-sync-nack-reason?         identityref {mpls-ldp-nsr}?
+     |  |     +--ro nsr-nbr-pend-label-req-resps?          yang:counter32
+     |  |     +--ro nsr-nbr-pend-label-withdraw-resps?     yang:counter32
+     |  |     +--ro nsr-nbr-pend-lcl-addr-withdraw-acks?   yang:counter32
+     |  |     +--ro nsr-nbr-in-label-reqs-created?         yang:counter32
+     |  |     +--ro nsr-nbr-in-label-reqs-freed?           yang:counter32
+     |  |     +--ro nsr-nbr-in-label-withdraw-created?     yang:counter32
+     |  |     +--ro nsr-nbr-in-label-withdraw-freed?       yang:counter32
+     |  |     +--ro nsr-nbr-lcl-addr-withdraw-set?         yang:counter32
+     |  |     +--ro nsr-nbr-lcl-addr-withdraw-cleared?     yang:counter32
+     |  |     +--ro nsr-nbr-xmit-ctxt-enq?                 yang:counter32
+     |  |     +--ro nsr-nbr-xmit-ctxt-deq?                 yang:counter32
+     |  |     +--ro nbr-sess
+     |  |     |  +--ro last-stat-change?    yang:timestamp
+     |  |     |  +--ro state?               enumeration
+     |  |     |  +--ro keep-alive-remain?   uint32
+     |  |     |  +--ro keep-alive-time?     uint32
+     |  |     |  +--ro max-pdu?             uint32
+     |  |     |  +--ro discon-time?         yang:timestamp
+     |  |     |  +--ro unknown-mess-err?    yang:counter32
+     |  |     |  +--ro unknown-tlv?         yang:counter32
+     |  |     +--ro path-vector-limit?                     int32
+     |  +--ro label-ranges
+     |     +--ro label-range* [lr-min lr-max]
+     |        +--ro lr-min    uint32
+     |        +--ro lr-max    uint32
+     +--rw mpls-ldp-config
+        +--rw global-cfg
+        |  +--rw shutdown?                   empty
+        |  +--rw enable-nsr?                 boolean {mpls-ldp-nsr}?
+        |  +--rw disable-quick-start?        boolean
+        |  +--rw loop-detection?             boolean
+        |  +--rw admin-status?               enumeration
+        |  +--rw (pak-priority)?
+        |  |  +--:(dscp)
+        |  |  |  +--rw dcsp-val?             uint32
+        |  |  +--:(internal)
+        |  |     +--rw high-priority?        boolean
+        |  +--rw (igp-sync-delay-val)?
+        |  |  +--:(timer)
+        |  |  |  +--rw seconds?              uint32
+        |  |  +--:(disable)
+        |  |     +--rw disable-delay?        empty
+        |  +--rw (igp-sync-delay-proc)?
+        |  |  +--:(timer)
+        |  |  |  +--rw seconds-delay-proc?   uint32
+        |  |  +--:(disable)
+        |  |     +--rw disable-delay-proc?   empty
+        |  +--rw router-id* [vrf-name]
+        |  |  +--rw vrf-name           string
+        |  |  +--rw (router-id-val)?
+        |  |  |  +--:(interface)
+        |  |  |  |  +--rw lsr-id-if?   if:interface-ref
+        |  |  |  +--:(ip-address)
+        |  |  |     +--rw lsr-id-ip?   inet:ip-address
+        |  |  +--rw force?             empty
+        |  +--rw session
+        |  |  +--rw downstream-on-demand* [vrf-name]
+        |  |  |  +--rw vrf-name    string
+        |  |  |  +--rw enabled?    boolean
+        |  |  |  +--rw filter?     string
+        |  |  +--rw backoff-init?           uint32
+        |  |  +--rw backoff-max?            uint32
+        |  |  +--rw (hold-time)?
+        |  |  |  +--:(seconds)
+        |  |  |  |  +--rw seconds?          uint16
+        |  |  |  +--:(infinite)
+        |  |  |     +--rw infinite?         boolean
+        |  |  +--rw protection
+        |  |     +--rw enable-prot?     boolean
+        |  |     +--rw peer-filter?     string
+        |  |     +--rw (duration)?
+        |  |        +--:(finite)
+        |  |        |  +--rw seconds?   uint32
+        |  |        +--:(infinite)
+        |  |           +--rw inf?       empty
+        |  +--rw per-af
+        |  |  +--rw af-cfg* [vrf-name af-name]
+        |  |     +--rw vrf-name           string
+        |  |     +--rw af-name            af
+        |  |     +--rw default-route?     boolean
+        |  |     +--rw (disc-trans-addr)?
+        |  |        +--:(exp-addr)
+        |  |        |  +--rw ipaddr?      inet:ip-address
+        |  |        +--:(exp-int)
+        |  |        |  +--rw interface?   if:interface-ref
+        |  |        +--:(imp-addr)
+        |  |           +--rw implicit?    empty
+        |  +--rw protocol?                   enumeration
+        |  +--rw init-sess-thresh?           int32
+        +--rw nbr-table
+        |  +--rw nbr-cfg* [nbr-vrf nbr-ip]
+        |     +--rw nbr-vrf                 string
+        |     +--rw nbr-ip                  inet:ip-address-no-zone
+        |     +--rw admin-status?           enumeration
+        |     +--rw implicit-withdraw?      boolean
+        |     +--rw targeted?               boolean
+        |     +--rw label-protocol?         enumeration
+        |     +--rw label-binding-filter?   string
+        |     +--rw password?               string
+        +--rw passwords
+        |  +--rw password* [nbr-vrf nbr-id password-num]
+        |     +--rw nbr-vrf                string
+        |     +--rw nbr-id                 union
+        |     +--rw password-num           uint32
+        |     +--rw pass-required?         boolean
+        |     +--rw (password)?
+        |        +--:(clear)
+        |        |  +--rw clear-pass?      string
+        |        +--:(encrypt)
+        |        |  +--rw encrypt-pass?    string
+        |        +--:(keychain)
+        |           +--rw keychain-pass?   string
+        +--rw session
+        |  +--rw backoff?          uint32
+        |  +--rw (holdtime)?
+        |     +--:(seconds)
+        |     |  +--rw seconds?    uint16
+        |     +--:(infinite)
+        |        +--rw infinite?   empty
+        +--rw label-cfg
+        |  +--rw label-af-cfg* [vrf-name af-name]
+        |     +--rw vrf-name                   string
+        |     +--rw af-name                    af
+        |     +--rw (alloc-filter)?
+        |     |  +--:(prefix)
+        |     |  |  +--rw prefix-filter?       string
+        |     |  +--:(host-route-only)
+        |     |     +--rw host-route-enable?   boolean
+        |     +--rw advt-filter* [prefix-filter peer-filter interface]
+        |        +--rw prefix-filter    string
+        |        +--rw peer-filter      string
+        |        +--rw interface        if:interface-ref
+        |        +--rw adv-label-cfg?   adv-label-type
+        +--rw discovery
+        |  +--rw link-hello
+        |  |  +--rw holdtime?   uint16
+        |  |  +--rw interval?   uint16
+        |  +--rw targeted-hello
+        |  |  +--rw holdtime?   uint16
+        |  |  +--rw interval?   uint16
+        |  |  +--rw enable?     boolean
+        |  |  +--rw accept
+        |  |     +--rw enable?       boolean
+        |  |     +--rw src-filter?   string
+        |  +--rw instance-tlv?      boolean
+        |  +--rw int-trans-addrs
+        |     +--rw int-trans-addr* [af-name int-name]
+        |        +--rw af-name            af
+        |        +--rw int-name           if:interface-ref
+        |        +--rw (disc-trans-addr-int)?
+        |           +--:(addr)
+        |           |  +--rw trans-ip?    inet:ip-address
+        |           +--:(int)
+        |              +--rw trans-int?   if:interface-ref
+        +--rw graceful-restart
+        |  +--rw is-graceful-restartable?   boolean
+        |  +--rw forwarding-holding?        uint32
+        |  +--rw max-recovery?              uint32
+        |  +--rw nbr-liveness?              uint32
+        |  +--rw helper* [helper-vrf helper-filter]
+        |     +--rw helper-vrf       string
+        |     +--rw helper-filter    string
+        +--rw logging
+        |  +--rw graceful-restart?     boolean
+        |  +--rw neighbor?             boolean
+        |  +--rw nsr?                  boolean
+        |  +--rw adjacency?            boolean
+        |  +--rw session-protection?   boolean
+        |  +--rw password
+        |     +--rw config-msg
+        |     |  +--rw enable?       boolean
+        |     |  +--rw rate-limit?   uint32
+        |     +--rw rollover-msg
+        |        +--rw enable?       boolean
+        |        +--rw rate-limit?   uint32
+        +--rw interfaces
+        |  +--rw interface* [vrf interface]
+        |     +--rw vrf                        string
+        |     +--rw interface                  if:interface-ref
+        |     +--rw link-hello-int?            uint32
+        |     +--rw link-hello-hold?           uint32
+        |     +--rw disable-quick-start-int?   boolean
+        |     +--rw (igp-sync-delay)?
+        |     |  +--:(timer)
+        |     |  |  +--rw seconds?             uint32
+        |     |  +--:(disable)
+        |     |     +--rw disable-delay?       empty
+        |     +--rw afs
+        |        +--rw af* [af-name]
+        |           +--rw af-name               af
+        |           +--rw enable?               boolean
+        |           +--rw bgp-redist
+        |           |  +--rw as-xx?          uint32
+        |           |  +--rw as-yy?          uint32
+        |           |  +--rw advertise-to?   string
+        |           |  +--rw enable?         boolean
+        |           +--rw autoconfig-disable?   boolean
+        +--rw routing
+        |  +--rw routing-inst* [routing-inst-name]
+        |     +--rw routing-inst-name    string
+        |     +--rw autoconfig-enable?   boolean
+        |     +--rw (autoconfig-scope)?
+        |     |  +--:(area)
+        |     |  |  +--rw area-id?       uint32
+        |     |  +--:(level)
+        |     |     +--rw level-id?      enumeration
+        |     +--rw sync?                boolean
+        +--rw dual-stack
+           +--rw max-wait?            uint32
+           +--rw prefer-ipv4-peers?   string
+
+  rpcs:
+    +---x clear-msg-counters
+    |  +---w input
+    |  |  +---w (scope)?
+    |  |     +--:(lsr-id)
+    |  |     |  +---w vrf-name?   string
+    |  |     |  +---w nbr-ip?     inet:ip-address
+    |  |     +--:(all)
+    |  |        +---w all?        empty
+    |  +--ro output
+    |     +--ro status?   string
+    +---x restart-neighbor
+    |  +---w input
+    |  |  +---w (scope)?
+    |  |     +--:(lsr-id)
+    |  |     |  +---w vrf-name?   string
+    |  |     |  +---w nbr-ip?     inet:ip-address
+    |  |     +--:(all)
+    |  |        +---w all?        empty
+    |  +--ro output
+    |     +--ro status?   string
+    +---x clear-forwarding
+       +---w input
+       |  +---w (scope)?
+       |     +--:(prefix-addr)
+       |     |  +---w vrf-name?    string
+       |     |  +---w prefix-ip?   inet:ip-address
+       |     +--:(all)
+       |        +---w all?         empty
+       +--ro output
+          +--ro status?   string
+
+  notifications:
+    +---n init-sess-thresh-ex
+    |  +--ro lsr-id?             inet:ip-address
+    |  +--ro label-space-id?     uint16
+    |  +--ro init-sess-thresh?   int32
+    +---n path-vector-limit-mismatch
+    |  +--ro lsr-id?                   inet:ip-address
+    |  +--ro label-space-id?           uint16
+    |  +--ro path-vector-limit?        int32
+    |  +--ro peer-id?                  inet:ip-address
+    |  +--ro peer-path-vector-limit?   int32
+    +---n session-up
+    |  +--ro lsr-id?                    inet:ip-address
+    |  +--ro label-space-id?            uint16
+    |  +--ro peer-id?                   inet:ip-address
+    |  +--ro session-state?             session-state
+    |  +--ro session-discon-time?       yang:timestamp
+    |  +--ro unknown-mes-type-errors?   yang:counter32
+    |  +--ro unknown-tlv-errors?        yang:counter32
+    +---n session-down
+       +--ro lsr-id?                    inet:ip-address
+       +--ro label-space-id?            uint16
+       +--ro peer-id?                   inet:ip-address
+       +--ro state?                     session-state
+       +--ro session-discon-time?       yang:timestamp
+       +--ro unknown-mes-type-errors?   yang:counter32
+       +--ro unknown-tlv-errors?        yang:counter32
+
+  grouping MSG-COUNTERS
+    +-- total-count?                 yang:counter32
+    +-- init-count?                  yang:counter32
+    +-- address-count?               yang:counter32
+    +-- address-withdraw-count?      yang:counter32
+    +-- label-map-count?             yang:counter32
+    +-- label-withdraw-count?        yang:counter32
+    +-- label-release-count?         yang:counter32
+    +-- label-request-count?         yang:counter32
+    +-- label-abort-request-count?   yang:counter32
+    +-- notification-count?          yang:counter32
+    +-- keep-alive-count?            yang:counter32
+    +-- iccp-rg-conn-count?          yang:counter32
+    +-- iccp-rg-disconn-count?       yang:counter32
+    +-- iccp-rg-notif-count?         yang:counter32
+    +-- iccp-rg-app-data-count?      yang:counter32
+  grouping FWD-RW-PFX-LBL-SUM
+    +-- labeled-pfxs?           uint16
+    +-- labeled-pfxs-partial?   uint16
+    +-- unlabeled-pfxs?         uint16
+  grouping FWD-SUMM-INFO
+    +-- pfxs
+    |  +-- labeled-pfxs-aggr
+    |  |  +-- labeled-pfxs?           uint16
+    |  |  +-- labeled-pfxs-partial?   uint16
+    |  |  +-- unlabeled-pfxs?         uint16
+    |  +-- labeled-pfxs-primary
+    |  |  +-- labeled-pfxs?           uint16
+    |  |  +-- labeled-pfxs-partial?   uint16
+    |  |  +-- unlabeled-pfxs?         uint16
+    |  +-- labeled-pfxs-backup
+    |  |  +-- labeled-pfxs?           uint16
+    |  |  +-- labeled-pfxs-partial?   uint16
+    |  |  +-- unlabeled-pfxs?         uint16
+    |  +-- total-pfxs?             uint16
+    |  +-- ecmp-pfxs?              uint16
+    |  +-- protected-pfxs?         uint16
+    +-- nhs
+    |  +-- total-paths?            uint32
+    |  +-- protected-paths?        uint32
+    |  +-- backup-paths?           uint32
+    |  +-- remote-backup-paths?    uint32
+    |  +-- labeled-paths?          uint32
+    |  +-- labeled-backup-paths?   uint32
+    +-- intfs-fwd-count?   uint16
+    +-- local-lbls?        uint16
+  grouping LDPID-INFO
+    +-- lsr-id?           inet:ip-address
+    +-- label-space-id?   uint16
+  grouping FWD-PATH-MPLS-NH-INFO
+    +-- nexthop-peer-ldp-ident
+    |  +-- lsr-id?           inet:ip-address
+    |  +-- label-space-id?   uint16
+    +-- out-label?                               uint32
+    +-- out-label-type?                          identityref
+    +-- out-label-owner?                         identityref
+    +-- is-from-graceful-restartable-neighbor?   boolean
+    +-- is-stale?                                boolean
+  grouping BINDING-SUMM-INFO
+    +-- binding-total?                 uint32
+    +-- binding-no-route?              uint32
+    +-- binding-local-no-route?        uint32
+    +-- binding-local?                 uint32
+    +-- binding-local-null?            uint32
+    +-- binding-local-implicit-null?   uint32
+    +-- binding-local-explicit-null?   uint32
+    +-- binding-local-non-null?        uint32
+    +-- binding-local-oor?             uint32
+    +-- lowest-allocated-label?        uint32
+    +-- highest-allocated-label?       uint32
+    +-- binding-remote?                uint32
+  grouping SUMMARY-COMMON
+    +-- address-families?                           af
+    +-- number-of-neighbors?                        uint32
+    +-- number-of-graceful-restart-neighbors?       uint32
+    +-- number-of-downstream-on-demand-neighbors?   uint32
+    +-- numberof-ipv4-hello-adj?                    uint32
+    +-- number-of-ipv4-routes?                      uint32
+    +-- number-of-ipv4-local-addresses?             uint32
+    +-- number-of-ldp-interfaces?                   uint32
+    +-- number-of-ipv4ldp-interfaces?               uint32
+  grouping SUMMARY
+    +-- common {mpls-ldp-extended}?
+    |  +-- address-families?                           af
+    |  +-- number-of-neighbors?                        uint32
+    |  +-- number-of-graceful-restart-neighbors?       uint32
+    |  +-- number-of-downstream-on-demand-neighbors?   uint32
+    |  +-- numberof-ipv4-hello-adj?                    uint32
+    |  +-- number-of-ipv4-routes?                      uint32
+    |  +-- number-of-ipv4-local-addresses?             uint32
+    |  +-- number-of-ldp-interfaces?                   uint32
+    |  +-- number-of-ipv4ldp-interfaces?               uint32
+    +-- number-of-vrf?                  uint32
+    +-- number-of-vrf-oper?             uint32
+    +-- number-of-interfaces?           uint32
+    +-- number-of-fwd-ref-interfaces?   uint32
+    +-- number-of-autocfg-interfaces?   uint32
+    +-- no-of-ipv4-rib-tbl?             uint32
+    +-- no-of-ipv4-rib-tbl-reg?         uint32
+  grouping CAP-DESC
+    +-- cap-type?                 uint16
+    +-- cap-des?                  string
+    +-- capability-data-length?   uint16
+    +-- capability-data?          string
+  grouping ICPM-PR-LIST
+    +-- icpm-protocols* [icpm-type]
+       +-- icpm-type?      identityref
+       +-- redun-groups* [rg-id]
+          +-- rg-id?       uint32
+          +-- peer-id?     inet:ip-address
+          +-- client_id?   uint32
+          +-- state?       string
+          +-- iccp-apps* [iccp-app]
+             +-- iccp-app?    identityref
+             +-- app-state?   iccp-state
+             +-- ptcl-ver?    uint32
+  grouping ICPM-INFO
+    +-- iccp-rg-conn-count?       uint32
+    +-- iccp-rg-disconn-count?    uint32
+    +-- iccp-rg-notif-count?      uint32
+    +-- iccp-rg-app-data-count?   uint32
+    +-- icpm-rgid-table-info
+    |  +-- red-group* [rg-id]
+    |     +-- rg-id?            uint32
+    |     +-- icpm-protocols* [icpm-type]
+    |        +-- icpm-type?      identityref
+    |        +-- redun-groups* [rg-id]
+    |           +-- rg-id?       uint32
+    |           +-- peer-id?     inet:ip-address
+    |           +-- client_id?   uint32
+    |           +-- state?       string
+    |           +-- iccp-apps* [iccp-app]
+    |              +-- iccp-app?    identityref
+    |              +-- app-state?   iccp-state
+    |              +-- ptcl-ver?    uint32
+    +-- icpm-session-table
+       +-- session-table* [session-id]
+          +-- session-id?       uint32
+          +-- icpm-protocols* [icpm-type]
+             +-- icpm-type?      identityref
+             +-- redun-groups* [rg-id]
+                +-- rg-id?       uint32
+                +-- peer-id?     inet:ip-address
+                +-- client_id?   uint32
+                +-- state?       string
+                +-- iccp-apps* [iccp-app]
+                   +-- iccp-app?    identityref
+                   +-- app-state?   iccp-state
+                   +-- ptcl-ver?    uint32

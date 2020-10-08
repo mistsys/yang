@@ -1,0 +1,359 @@
+module: openconfig-lldp
+  +--rw lldp
+     +--rw config
+     |  +--rw enabled?                      boolean
+     |  +--rw hello-timer?                  uint64
+     |  +--rw suppress-tlv-advertisement*   identityref
+     |  +--rw system-name?                  string
+     |  +--rw system-description?           string
+     |  +--rw chassis-id?                   string
+     |  +--rw chassis-id-type?              oc-lldp-types:chassis-id-type
+     +--ro state
+     |  +--ro enabled?                      boolean
+     |  +--ro hello-timer?                  uint64
+     |  +--ro suppress-tlv-advertisement*   identityref
+     |  +--ro system-name?                  string
+     |  +--ro system-description?           string
+     |  +--ro chassis-id?                   string
+     |  +--ro chassis-id-type?              oc-lldp-types:chassis-id-type
+     |  +--ro counters
+     |     +--ro frame-in?           yang:counter64
+     |     +--ro frame-out?          yang:counter64
+     |     +--ro frame-error-in?     yang:counter64
+     |     +--ro frame-discard?      yang:counter64
+     |     +--ro tlv-discard?        yang:counter64
+     |     +--ro tlv-unknown?        yang:counter64
+     |     +--ro last-clear?         yang:date-and-time
+     |     +--ro tlv-accepted?       yang:counter64
+     |     +--ro entries-aged-out?   yang:counter64
+     +--rw interfaces
+        +--rw interface* [name]
+           +--rw name         -> ../config/name
+           +--rw config
+           |  +--rw name?      oc-if:base-interface-ref
+           |  +--rw enabled?   boolean
+           +--ro state
+           |  +--ro name?       oc-if:base-interface-ref
+           |  +--ro enabled?    boolean
+           |  +--ro counters
+           |     +--ro frame-in?          yang:counter64
+           |     +--ro frame-out?         yang:counter64
+           |     +--ro frame-error-in?    yang:counter64
+           |     +--ro frame-discard?     yang:counter64
+           |     +--ro tlv-discard?       yang:counter64
+           |     +--ro tlv-unknown?       yang:counter64
+           |     +--ro last-clear?        yang:date-and-time
+           |     +--ro frame-error-out?   yang:counter64
+           +--ro neighbors
+              +--ro neighbor* [id]
+                 +--ro id              -> ../state/id
+                 +--ro config
+                 +--ro state
+                 |  +--ro system-name?               string
+                 |  +--ro system-description?        string
+                 |  +--ro chassis-id?                string
+                 |  +--ro chassis-id-type?           oc-lldp-types:chassis-id-type
+                 |  +--ro id?                        string
+                 |  +--ro age?                       uint64
+                 |  +--ro last-update?               int64
+                 |  +--ro ttl?                       uint16
+                 |  +--ro port-id?                   string
+                 |  +--ro port-id-type?              oc-lldp-types:port-id-type
+                 |  +--ro port-description?          string
+                 |  +--ro management-address?        string
+                 |  +--ro management-address-type?   string
+                 +--ro custom-tlvs
+                 |  +--ro tlv* [type oui oui-subtype]
+                 |     +--ro type           -> ../state/type
+                 |     +--ro oui            -> ../state/oui
+                 |     +--ro oui-subtype    -> ../state/oui-subtype
+                 |     +--ro config
+                 |     +--ro state
+                 |        +--ro type?          int32
+                 |        +--ro oui?           string
+                 |        +--ro oui-subtype?   string
+                 |        +--ro value?         binary
+                 +--ro capabilities
+                    +--ro capability* [name]
+                       +--ro name      -> ../state/name
+                       +--ro config
+                       +--ro state
+                          +--ro name?      identityref
+                          +--ro enabled?   boolean
+
+  grouping lldp-common-counters
+    +-- frame-in?         yang:counter64
+    +-- frame-out?        yang:counter64
+    +-- frame-error-in?   yang:counter64
+    +-- frame-discard?    yang:counter64
+    +-- tlv-discard?      yang:counter64
+    +-- tlv-unknown?      yang:counter64
+    +-- last-clear?       yang:date-and-time
+  grouping lldp-global-counters
+    +-- frame-in?           yang:counter64
+    +-- frame-out?          yang:counter64
+    +-- frame-error-in?     yang:counter64
+    +-- frame-discard?      yang:counter64
+    +-- tlv-discard?        yang:counter64
+    +-- tlv-unknown?        yang:counter64
+    +-- last-clear?         yang:date-and-time
+    +-- tlv-accepted?       yang:counter64
+    +-- entries-aged-out?   yang:counter64
+  grouping lldp-interface-counters
+    +-- frame-in?          yang:counter64
+    +-- frame-out?         yang:counter64
+    +-- frame-error-in?    yang:counter64
+    +-- frame-discard?     yang:counter64
+    +-- tlv-discard?       yang:counter64
+    +-- tlv-unknown?       yang:counter64
+    +-- last-clear?        yang:date-and-time
+    +-- frame-error-out?   yang:counter64
+  grouping lldp-system-info-config
+    +-- system-name?          string
+    +-- system-description?   string
+    +-- chassis-id?           string
+    +-- chassis-id-type?      oc-lldp-types:chassis-id-type
+  grouping lldp-system-info-state
+  grouping lldp-neighbor-config
+  grouping lldp-neighbor-state
+    +-- id?                        string
+    +-- age?                       uint64
+    +-- last-update?               int64
+    +-- ttl?                       uint16
+    +-- port-id?                   string
+    +-- port-id-type?              oc-lldp-types:port-id-type
+    +-- port-description?          string
+    +-- management-address?        string
+    +-- management-address-type?   string
+  grouping lldp-capabilities-config
+  grouping lldp-capabilities-state
+    +-- name?      identityref
+    +-- enabled?   boolean
+  grouping lldp-capabilities-top
+    +--ro capabilities
+       +--ro capability* [name]
+          +--ro name?     -> ../state/name
+          +--ro config
+          +--ro state
+             +--ro name?      identityref
+             +--ro enabled?   boolean
+  grouping lldp-custom-tlv-config
+  grouping lldp-custom-tlv-state
+    +-- type?          int32
+    +-- oui?           string
+    +-- oui-subtype?   string
+    +-- value?         binary
+  grouping lldp-custom-tlv-top
+    +--ro custom-tlvs
+       +--ro tlv* [type oui oui-subtype]
+          +--ro type?          -> ../state/type
+          +--ro oui?           -> ../state/oui
+          +--ro oui-subtype?   -> ../state/oui-subtype
+          +--ro config
+          +--ro state
+             +--ro type?          int32
+             +--ro oui?           string
+             +--ro oui-subtype?   string
+             +--ro value?         binary
+  grouping lldp-neighbor-top
+    +--ro neighbors
+       +--ro neighbor* [id]
+          +--ro id?             -> ../state/id
+          +--ro config
+          +--ro state
+          |  +--ro system-name?               string
+          |  +--ro system-description?        string
+          |  +--ro chassis-id?                string
+          |  +--ro chassis-id-type?           oc-lldp-types:chassis-id-type
+          |  +--ro id?                        string
+          |  +--ro age?                       uint64
+          |  +--ro last-update?               int64
+          |  +--ro ttl?                       uint16
+          |  +--ro port-id?                   string
+          |  +--ro port-id-type?              oc-lldp-types:port-id-type
+          |  +--ro port-description?          string
+          |  +--ro management-address?        string
+          |  +--ro management-address-type?   string
+          +--ro custom-tlvs
+          |  +--ro tlv* [type oui oui-subtype]
+          |     +--ro type?          -> ../state/type
+          |     +--ro oui?           -> ../state/oui
+          |     +--ro oui-subtype?   -> ../state/oui-subtype
+          |     +--ro config
+          |     +--ro state
+          |        +--ro type?          int32
+          |        +--ro oui?           string
+          |        +--ro oui-subtype?   string
+          |        +--ro value?         binary
+          +--ro capabilities
+             +--ro capability* [name]
+                +--ro name?     -> ../state/name
+                +--ro config
+                +--ro state
+                   +--ro name?      identityref
+                   +--ro enabled?   boolean
+  grouping lldp-interface-config
+    +-- name?      oc-if:base-interface-ref
+    +-- enabled?   boolean
+  grouping lldp-interface-state
+    +-- counters
+       +-- frame-in?          yang:counter64
+       +-- frame-out?         yang:counter64
+       +-- frame-error-in?    yang:counter64
+       +-- frame-discard?     yang:counter64
+       +-- tlv-discard?       yang:counter64
+       +-- tlv-unknown?       yang:counter64
+       +-- last-clear?        yang:date-and-time
+       +-- frame-error-out?   yang:counter64
+  grouping lldp-interface-top
+    +-- interfaces
+       +-- interface* [name]
+          +-- name?        -> ../config/name
+          +-- config
+          |  +-- name?      oc-if:base-interface-ref
+          |  +-- enabled?   boolean
+          +--ro state
+          |  +--ro name?       oc-if:base-interface-ref
+          |  +--ro enabled?    boolean
+          |  +--ro counters
+          |     +--ro frame-in?          yang:counter64
+          |     +--ro frame-out?         yang:counter64
+          |     +--ro frame-error-in?    yang:counter64
+          |     +--ro frame-discard?     yang:counter64
+          |     +--ro tlv-discard?       yang:counter64
+          |     +--ro tlv-unknown?       yang:counter64
+          |     +--ro last-clear?        yang:date-and-time
+          |     +--ro frame-error-out?   yang:counter64
+          +--ro neighbors
+             +--ro neighbor* [id]
+                +--ro id?             -> ../state/id
+                +--ro config
+                +--ro state
+                |  +--ro system-name?               string
+                |  +--ro system-description?        string
+                |  +--ro chassis-id?                string
+                |  +--ro chassis-id-type?           oc-lldp-types:chassis-id-type
+                |  +--ro id?                        string
+                |  +--ro age?                       uint64
+                |  +--ro last-update?               int64
+                |  +--ro ttl?                       uint16
+                |  +--ro port-id?                   string
+                |  +--ro port-id-type?              oc-lldp-types:port-id-type
+                |  +--ro port-description?          string
+                |  +--ro management-address?        string
+                |  +--ro management-address-type?   string
+                +--ro custom-tlvs
+                |  +--ro tlv* [type oui oui-subtype]
+                |     +--ro type?          -> ../state/type
+                |     +--ro oui?           -> ../state/oui
+                |     +--ro oui-subtype?   -> ../state/oui-subtype
+                |     +--ro config
+                |     +--ro state
+                |        +--ro type?          int32
+                |        +--ro oui?           string
+                |        +--ro oui-subtype?   string
+                |        +--ro value?         binary
+                +--ro capabilities
+                   +--ro capability* [name]
+                      +--ro name?     -> ../state/name
+                      +--ro config
+                      +--ro state
+                         +--ro name?      identityref
+                         +--ro enabled?   boolean
+  grouping lldp-config
+    +-- enabled?                      boolean
+    +-- hello-timer?                  uint64
+    +-- suppress-tlv-advertisement*   identityref
+  grouping lldp-state
+    +-- counters
+       +-- frame-in?           yang:counter64
+       +-- frame-out?          yang:counter64
+       +-- frame-error-in?     yang:counter64
+       +-- frame-discard?      yang:counter64
+       +-- tlv-discard?        yang:counter64
+       +-- tlv-unknown?        yang:counter64
+       +-- last-clear?         yang:date-and-time
+       +-- tlv-accepted?       yang:counter64
+       +-- entries-aged-out?   yang:counter64
+  grouping lldp-top
+    +-- lldp
+       +-- config
+       |  +-- enabled?                      boolean
+       |  +-- hello-timer?                  uint64
+       |  +-- suppress-tlv-advertisement*   identityref
+       |  +-- system-name?                  string
+       |  +-- system-description?           string
+       |  +-- chassis-id?                   string
+       |  +-- chassis-id-type?              oc-lldp-types:chassis-id-type
+       +--ro state
+       |  +--ro enabled?                      boolean
+       |  +--ro hello-timer?                  uint64
+       |  +--ro suppress-tlv-advertisement*   identityref
+       |  +--ro system-name?                  string
+       |  +--ro system-description?           string
+       |  +--ro chassis-id?                   string
+       |  +--ro chassis-id-type?              oc-lldp-types:chassis-id-type
+       |  +--ro counters
+       |     +--ro frame-in?           yang:counter64
+       |     +--ro frame-out?          yang:counter64
+       |     +--ro frame-error-in?     yang:counter64
+       |     +--ro frame-discard?      yang:counter64
+       |     +--ro tlv-discard?        yang:counter64
+       |     +--ro tlv-unknown?        yang:counter64
+       |     +--ro last-clear?         yang:date-and-time
+       |     +--ro tlv-accepted?       yang:counter64
+       |     +--ro entries-aged-out?   yang:counter64
+       +-- interfaces
+          +-- interface* [name]
+             +-- name?        -> ../config/name
+             +-- config
+             |  +-- name?      oc-if:base-interface-ref
+             |  +-- enabled?   boolean
+             +--ro state
+             |  +--ro name?       oc-if:base-interface-ref
+             |  +--ro enabled?    boolean
+             |  +--ro counters
+             |     +--ro frame-in?          yang:counter64
+             |     +--ro frame-out?         yang:counter64
+             |     +--ro frame-error-in?    yang:counter64
+             |     +--ro frame-discard?     yang:counter64
+             |     +--ro tlv-discard?       yang:counter64
+             |     +--ro tlv-unknown?       yang:counter64
+             |     +--ro last-clear?        yang:date-and-time
+             |     +--ro frame-error-out?   yang:counter64
+             +--ro neighbors
+                +--ro neighbor* [id]
+                   +--ro id?             -> ../state/id
+                   +--ro config
+                   +--ro state
+                   |  +--ro system-name?               string
+                   |  +--ro system-description?        string
+                   |  +--ro chassis-id?                string
+                   |  +--ro chassis-id-type?           oc-lldp-types:chassis-id-type
+                   |  +--ro id?                        string
+                   |  +--ro age?                       uint64
+                   |  +--ro last-update?               int64
+                   |  +--ro ttl?                       uint16
+                   |  +--ro port-id?                   string
+                   |  +--ro port-id-type?              oc-lldp-types:port-id-type
+                   |  +--ro port-description?          string
+                   |  +--ro management-address?        string
+                   |  +--ro management-address-type?   string
+                   +--ro custom-tlvs
+                   |  +--ro tlv* [type oui oui-subtype]
+                   |     +--ro type?          -> ../state/type
+                   |     +--ro oui?           -> ../state/oui
+                   |     +--ro oui-subtype?   -> ../state/oui-subtype
+                   |     +--ro config
+                   |     +--ro state
+                   |        +--ro type?          int32
+                   |        +--ro oui?           string
+                   |        +--ro oui-subtype?   string
+                   |        +--ro value?         binary
+                   +--ro capabilities
+                      +--ro capability* [name]
+                         +--ro name?     -> ../state/name
+                         +--ro config
+                         +--ro state
+                            +--ro name?      identityref
+                            +--ro enabled?   boolean

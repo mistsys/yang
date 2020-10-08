@@ -1,0 +1,1039 @@
+module: Cisco-IOS-XE-bgp-route-oper
+
+  grouping peer-group
+    +-- name?                       string
+    +-- description?                string
+    +-- remote-as?                  uint32
+    +-- bgp-version?                uint16
+    +-- min-time?                   uint16
+    +-- num-of-sessions?            uint32
+    +-- num-estab-sessions?         uint32
+    +-- num-sso-sessions?           uint32
+    +-- peer-members*               string
+    +-- fmt-grp-ix?                 uint16
+    +-- adv-ix?                     uint16
+    +-- aspath-in?                  uint32
+    +-- aspath-out?                 uint32
+    +-- routemap-in?                string
+    +-- routemap-out?               string
+    +-- updated-messages?           uint64
+    +-- rep-count?                  uint32
+    +-- slowpeer-detection-value?   uint16
+    +-- weight?                     uint16
+    +-- send-community?             boolean
+    +-- extended-community?         boolean
+    +-- remove-private-as?          boolean
+  grouping path-status
+    +-- suppressed?        empty
+    +-- damped?            empty
+    +-- history?           empty
+    +-- valid?             empty
+    +-- sourced?           empty
+    +-- bestpath?          empty
+    +-- internal?          empty
+    +-- rib-fail?          empty
+    +-- stale?             empty
+    +-- multipath?         empty
+    +-- backup-path?       empty
+    +-- rt-filter?         empty
+    +-- best-external?     empty
+    +-- additional-path?   empty
+    +-- rib-compressed?    empty
+  grouping path-type
+    +-- nexthop?              string
+    +-- metric?               uint32
+    +-- local-pref?           uint32
+    +-- weight?               uint32
+    +-- as-path?              string
+    +-- origin?               bgp-route-ios-xe-oper:bgp-origin-code
+    +-- path-status
+    |  +-- suppressed?        empty
+    |  +-- damped?            empty
+    |  +-- history?           empty
+    |  +-- valid?             empty
+    |  +-- sourced?           empty
+    |  +-- bestpath?          empty
+    |  +-- internal?          empty
+    |  +-- rib-fail?          empty
+    |  +-- stale?             empty
+    |  +-- multipath?         empty
+    |  +-- backup-path?       empty
+    |  +-- rt-filter?         empty
+    |  +-- best-external?     empty
+    |  +-- additional-path?   empty
+    |  +-- rib-compressed?    empty
+    +-- rpki-status?          bgp-route-ios-xe-oper:bgp-rpki-status
+    +-- community?            string
+    +-- mpls-in?              string
+    +-- mpls-out?             string
+    +-- sr-profile-name?      string
+    +-- sr-binding-sid?       uint32
+    +-- sr-label-indx?        uint32
+    +-- as4-path?             string
+    +-- atomic-aggregate?     boolean
+    +-- aggr-as-number?       uint32
+    +-- aggr-as4-number?      uint32
+    +-- aggr-address?         string
+    +-- originator-id?        string
+    +-- cluster-list?         string
+    +-- extended-community?   string
+    +-- ext-aigp-metric?      uint64
+    +-- path-id?              uint32
+  grouping route-entry
+    +-- prefix?             string
+    +-- version?            uint32
+    +-- available-paths?    uint32
+    +-- advertised-to?      string
+    +-- bgp-path-entries
+       +-- bgp-path-entry* [nexthop]
+          +-- nexthop?              string
+          +-- metric?               uint32
+          +-- local-pref?           uint32
+          +-- weight?               uint32
+          +-- as-path?              string
+          +-- origin?               bgp-route-ios-xe-oper:bgp-origin-code
+          +-- path-status
+          |  +-- suppressed?        empty
+          |  +-- damped?            empty
+          |  +-- history?           empty
+          |  +-- valid?             empty
+          |  +-- sourced?           empty
+          |  +-- bestpath?          empty
+          |  +-- internal?          empty
+          |  +-- rib-fail?          empty
+          |  +-- stale?             empty
+          |  +-- multipath?         empty
+          |  +-- backup-path?       empty
+          |  +-- rt-filter?         empty
+          |  +-- best-external?     empty
+          |  +-- additional-path?   empty
+          |  +-- rib-compressed?    empty
+          +-- rpki-status?          bgp-route-ios-xe-oper:bgp-rpki-status
+          +-- community?            string
+          +-- mpls-in?              string
+          +-- mpls-out?             string
+          +-- sr-profile-name?      string
+          +-- sr-binding-sid?       uint32
+          +-- sr-label-indx?        uint32
+          +-- as4-path?             string
+          +-- atomic-aggregate?     boolean
+          +-- aggr-as-number?       uint32
+          +-- aggr-as4-number?      uint32
+          +-- aggr-address?         string
+          +-- originator-id?        string
+          +-- cluster-list?         string
+          +-- extended-community?   string
+          +-- ext-aigp-metric?      uint64
+          +-- path-id?              uint32
+  grouping route-filter
+    +-- route-filter?        bgp-route-ios-xe-oper:bgp-route-filters
+    +-- bgp-route-entries
+       +-- bgp-route-entry* [prefix]
+          +-- prefix?             string
+          +-- version?            uint32
+          +-- available-paths?    uint32
+          +-- advertised-to?      string
+          +-- bgp-path-entries
+             +-- bgp-path-entry* [nexthop]
+                +-- nexthop?              string
+                +-- metric?               uint32
+                +-- local-pref?           uint32
+                +-- weight?               uint32
+                +-- as-path?              string
+                +-- origin?               bgp-route-ios-xe-oper:bgp-origin-code
+                +-- path-status
+                |  +-- suppressed?        empty
+                |  +-- damped?            empty
+                |  +-- history?           empty
+                |  +-- valid?             empty
+                |  +-- sourced?           empty
+                |  +-- bestpath?          empty
+                |  +-- internal?          empty
+                |  +-- rib-fail?          empty
+                |  +-- stale?             empty
+                |  +-- multipath?         empty
+                |  +-- backup-path?       empty
+                |  +-- rt-filter?         empty
+                |  +-- best-external?     empty
+                |  +-- additional-path?   empty
+                |  +-- rib-compressed?    empty
+                +-- rpki-status?          bgp-route-ios-xe-oper:bgp-rpki-status
+                +-- community?            string
+                +-- mpls-in?              string
+                +-- mpls-out?             string
+                +-- sr-profile-name?      string
+                +-- sr-binding-sid?       uint32
+                +-- sr-label-indx?        uint32
+                +-- as4-path?             string
+                +-- atomic-aggregate?     boolean
+                +-- aggr-as-number?       uint32
+                +-- aggr-as4-number?      uint32
+                +-- aggr-address?         string
+                +-- originator-id?        string
+                +-- cluster-list?         string
+                +-- extended-community?   string
+                +-- ext-aigp-metric?      uint64
+                +-- path-id?              uint32
+  grouping neighbor-route-entry
+    +-- prefix?                      string
+    +-- version?                     uint32
+    +-- available-paths?             uint32
+    +-- advertised-to?               string
+    +-- bgp-neighbor-path-entries
+       +-- bgp-neighbor-path-entry* [nexthop]
+          +-- nexthop?              string
+          +-- metric?               uint32
+          +-- local-pref?           uint32
+          +-- weight?               uint32
+          +-- as-path?              string
+          +-- origin?               bgp-route-ios-xe-oper:bgp-origin-code
+          +-- path-status
+          |  +-- suppressed?        empty
+          |  +-- damped?            empty
+          |  +-- history?           empty
+          |  +-- valid?             empty
+          |  +-- sourced?           empty
+          |  +-- bestpath?          empty
+          |  +-- internal?          empty
+          |  +-- rib-fail?          empty
+          |  +-- stale?             empty
+          |  +-- multipath?         empty
+          |  +-- backup-path?       empty
+          |  +-- rt-filter?         empty
+          |  +-- best-external?     empty
+          |  +-- additional-path?   empty
+          |  +-- rib-compressed?    empty
+          +-- rpki-status?          bgp-route-ios-xe-oper:bgp-rpki-status
+          +-- community?            string
+          +-- mpls-in?              string
+          +-- mpls-out?             string
+          +-- sr-profile-name?      string
+          +-- sr-binding-sid?       uint32
+          +-- sr-label-indx?        uint32
+          +-- as4-path?             string
+          +-- atomic-aggregate?     boolean
+          +-- aggr-as-number?       uint32
+          +-- aggr-as4-number?      uint32
+          +-- aggr-address?         string
+          +-- originator-id?        string
+          +-- cluster-list?         string
+          +-- extended-community?   string
+          +-- ext-aigp-metric?      uint64
+          +-- path-id?              uint32
+  grouping neighbor-route-filter
+    +-- nbr-fltr?                     bgp-route-ios-xe-oper:bgp-neighbor-route-filters
+    +-- bgp-neighbor-route-entries
+       +-- bgp-neighbor-route-entry* [prefix]
+          +-- prefix?                      string
+          +-- version?                     uint32
+          +-- available-paths?             uint32
+          +-- advertised-to?               string
+          +-- bgp-neighbor-path-entries
+             +-- bgp-neighbor-path-entry* [nexthop]
+                +-- nexthop?              string
+                +-- metric?               uint32
+                +-- local-pref?           uint32
+                +-- weight?               uint32
+                +-- as-path?              string
+                +-- origin?               bgp-route-ios-xe-oper:bgp-origin-code
+                +-- path-status
+                |  +-- suppressed?        empty
+                |  +-- damped?            empty
+                |  +-- history?           empty
+                |  +-- valid?             empty
+                |  +-- sourced?           empty
+                |  +-- bestpath?          empty
+                |  +-- internal?          empty
+                |  +-- rib-fail?          empty
+                |  +-- stale?             empty
+                |  +-- multipath?         empty
+                |  +-- backup-path?       empty
+                |  +-- rt-filter?         empty
+                |  +-- best-external?     empty
+                |  +-- additional-path?   empty
+                |  +-- rib-compressed?    empty
+                +-- rpki-status?          bgp-route-ios-xe-oper:bgp-rpki-status
+                +-- community?            string
+                +-- mpls-in?              string
+                +-- mpls-out?             string
+                +-- sr-profile-name?      string
+                +-- sr-binding-sid?       uint32
+                +-- sr-label-indx?        uint32
+                +-- as4-path?             string
+                +-- atomic-aggregate?     boolean
+                +-- aggr-as-number?       uint32
+                +-- aggr-as4-number?      uint32
+                +-- aggr-address?         string
+                +-- originator-id?        string
+                +-- cluster-list?         string
+                +-- extended-community?   string
+                +-- ext-aigp-metric?      uint64
+                +-- path-id?              uint32
+  grouping bgp-route-neighbor
+    +-- nbr-id?                       string
+    +-- bgp-neighbor-route-filters
+       +-- bgp-neighbor-route-filter* [nbr-fltr]
+          +-- nbr-fltr?                     bgp-route-ios-xe-oper:bgp-neighbor-route-filters
+          +-- bgp-neighbor-route-entries
+             +-- bgp-neighbor-route-entry* [prefix]
+                +-- prefix?                      string
+                +-- version?                     uint32
+                +-- available-paths?             uint32
+                +-- advertised-to?               string
+                +-- bgp-neighbor-path-entries
+                   +-- bgp-neighbor-path-entry* [nexthop]
+                      +-- nexthop?              string
+                      +-- metric?               uint32
+                      +-- local-pref?           uint32
+                      +-- weight?               uint32
+                      +-- as-path?              string
+                      +-- origin?               bgp-route-ios-xe-oper:bgp-origin-code
+                      +-- path-status
+                      |  +-- suppressed?        empty
+                      |  +-- damped?            empty
+                      |  +-- history?           empty
+                      |  +-- valid?             empty
+                      |  +-- sourced?           empty
+                      |  +-- bestpath?          empty
+                      |  +-- internal?          empty
+                      |  +-- rib-fail?          empty
+                      |  +-- stale?             empty
+                      |  +-- multipath?         empty
+                      |  +-- backup-path?       empty
+                      |  +-- rt-filter?         empty
+                      |  +-- best-external?     empty
+                      |  +-- additional-path?   empty
+                      |  +-- rib-compressed?    empty
+                      +-- rpki-status?          bgp-route-ios-xe-oper:bgp-rpki-status
+                      +-- community?            string
+                      +-- mpls-in?              string
+                      +-- mpls-out?             string
+                      +-- sr-profile-name?      string
+                      +-- sr-binding-sid?       uint32
+                      +-- sr-label-indx?        uint32
+                      +-- as4-path?             string
+                      +-- atomic-aggregate?     boolean
+                      +-- aggr-as-number?       uint32
+                      +-- aggr-as4-number?      uint32
+                      +-- aggr-address?         string
+                      +-- originator-id?        string
+                      +-- cluster-list?         string
+                      +-- extended-community?   string
+                      +-- ext-aigp-metric?      uint64
+                      +-- path-id?              uint32
+  grouping af-record
+    +-- afi-safi?              bgp-common-ios-xe-oper:afi-safi
+    +-- bgp-route-filters
+    |  +-- bgp-route-filter* [route-filter]
+    |     +-- route-filter?        bgp-route-ios-xe-oper:bgp-route-filters
+    |     +-- bgp-route-entries
+    |        +-- bgp-route-entry* [prefix]
+    |           +-- prefix?             string
+    |           +-- version?            uint32
+    |           +-- available-paths?    uint32
+    |           +-- advertised-to?      string
+    |           +-- bgp-path-entries
+    |              +-- bgp-path-entry* [nexthop]
+    |                 +-- nexthop?              string
+    |                 +-- metric?               uint32
+    |                 +-- local-pref?           uint32
+    |                 +-- weight?               uint32
+    |                 +-- as-path?              string
+    |                 +-- origin?               bgp-route-ios-xe-oper:bgp-origin-code
+    |                 +-- path-status
+    |                 |  +-- suppressed?        empty
+    |                 |  +-- damped?            empty
+    |                 |  +-- history?           empty
+    |                 |  +-- valid?             empty
+    |                 |  +-- sourced?           empty
+    |                 |  +-- bestpath?          empty
+    |                 |  +-- internal?          empty
+    |                 |  +-- rib-fail?          empty
+    |                 |  +-- stale?             empty
+    |                 |  +-- multipath?         empty
+    |                 |  +-- backup-path?       empty
+    |                 |  +-- rt-filter?         empty
+    |                 |  +-- best-external?     empty
+    |                 |  +-- additional-path?   empty
+    |                 |  +-- rib-compressed?    empty
+    |                 +-- rpki-status?          bgp-route-ios-xe-oper:bgp-rpki-status
+    |                 +-- community?            string
+    |                 +-- mpls-in?              string
+    |                 +-- mpls-out?             string
+    |                 +-- sr-profile-name?      string
+    |                 +-- sr-binding-sid?       uint32
+    |                 +-- sr-label-indx?        uint32
+    |                 +-- as4-path?             string
+    |                 +-- atomic-aggregate?     boolean
+    |                 +-- aggr-as-number?       uint32
+    |                 +-- aggr-as4-number?      uint32
+    |                 +-- aggr-address?         string
+    |                 +-- originator-id?        string
+    |                 +-- cluster-list?         string
+    |                 +-- extended-community?   string
+    |                 +-- ext-aigp-metric?      uint64
+    |                 +-- path-id?              uint32
+    +-- bgp-route-neighbors
+    |  +-- bgp-route-neighbor* [nbr-id]
+    |     +-- nbr-id?                       string
+    |     +-- bgp-neighbor-route-filters
+    |        +-- bgp-neighbor-route-filter* [nbr-fltr]
+    |           +-- nbr-fltr?                     bgp-route-ios-xe-oper:bgp-neighbor-route-filters
+    |           +-- bgp-neighbor-route-entries
+    |              +-- bgp-neighbor-route-entry* [prefix]
+    |                 +-- prefix?                      string
+    |                 +-- version?                     uint32
+    |                 +-- available-paths?             uint32
+    |                 +-- advertised-to?               string
+    |                 +-- bgp-neighbor-path-entries
+    |                    +-- bgp-neighbor-path-entry* [nexthop]
+    |                       +-- nexthop?              string
+    |                       +-- metric?               uint32
+    |                       +-- local-pref?           uint32
+    |                       +-- weight?               uint32
+    |                       +-- as-path?              string
+    |                       +-- origin?               bgp-route-ios-xe-oper:bgp-origin-code
+    |                       +-- path-status
+    |                       |  +-- suppressed?        empty
+    |                       |  +-- damped?            empty
+    |                       |  +-- history?           empty
+    |                       |  +-- valid?             empty
+    |                       |  +-- sourced?           empty
+    |                       |  +-- bestpath?          empty
+    |                       |  +-- internal?          empty
+    |                       |  +-- rib-fail?          empty
+    |                       |  +-- stale?             empty
+    |                       |  +-- multipath?         empty
+    |                       |  +-- backup-path?       empty
+    |                       |  +-- rt-filter?         empty
+    |                       |  +-- best-external?     empty
+    |                       |  +-- additional-path?   empty
+    |                       |  +-- rib-compressed?    empty
+    |                       +-- rpki-status?          bgp-route-ios-xe-oper:bgp-rpki-status
+    |                       +-- community?            string
+    |                       +-- mpls-in?              string
+    |                       +-- mpls-out?             string
+    |                       +-- sr-profile-name?      string
+    |                       +-- sr-binding-sid?       uint32
+    |                       +-- sr-label-indx?        uint32
+    |                       +-- as4-path?             string
+    |                       +-- atomic-aggregate?     boolean
+    |                       +-- aggr-as-number?       uint32
+    |                       +-- aggr-as4-number?      uint32
+    |                       +-- aggr-address?         string
+    |                       +-- originator-id?        string
+    |                       +-- cluster-list?         string
+    |                       +-- extended-community?   string
+    |                       +-- ext-aigp-metric?      uint64
+    |                       +-- path-id?              uint32
+    +-- bgp-peer-groups
+       +-- bgp-peer-group* [name]
+          +-- name?                       string
+          +-- description?                string
+          +-- remote-as?                  uint32
+          +-- bgp-version?                uint16
+          +-- min-time?                   uint16
+          +-- num-of-sessions?            uint32
+          +-- num-estab-sessions?         uint32
+          +-- num-sso-sessions?           uint32
+          +-- peer-members*               string
+          +-- fmt-grp-ix?                 uint16
+          +-- adv-ix?                     uint16
+          +-- aspath-in?                  uint32
+          +-- aspath-out?                 uint32
+          +-- routemap-in?                string
+          +-- routemap-out?               string
+          +-- updated-messages?           uint64
+          +-- rep-count?                  uint32
+          +-- slowpeer-detection-value?   uint16
+          +-- weight?                     uint16
+          +-- send-community?             boolean
+          +-- extended-community?         boolean
+          +-- remove-private-as?          boolean
+  grouping vrf-record
+    +-- vrf?             string
+    +-- bgp-route-afs
+       +-- bgp-route-af* [afi-safi]
+          +-- afi-safi?              bgp-common-ios-xe-oper:afi-safi
+          +-- bgp-route-filters
+          |  +-- bgp-route-filter* [route-filter]
+          |     +-- route-filter?        bgp-route-ios-xe-oper:bgp-route-filters
+          |     +-- bgp-route-entries
+          |        +-- bgp-route-entry* [prefix]
+          |           +-- prefix?             string
+          |           +-- version?            uint32
+          |           +-- available-paths?    uint32
+          |           +-- advertised-to?      string
+          |           +-- bgp-path-entries
+          |              +-- bgp-path-entry* [nexthop]
+          |                 +-- nexthop?              string
+          |                 +-- metric?               uint32
+          |                 +-- local-pref?           uint32
+          |                 +-- weight?               uint32
+          |                 +-- as-path?              string
+          |                 +-- origin?               bgp-route-ios-xe-oper:bgp-origin-code
+          |                 +-- path-status
+          |                 |  +-- suppressed?        empty
+          |                 |  +-- damped?            empty
+          |                 |  +-- history?           empty
+          |                 |  +-- valid?             empty
+          |                 |  +-- sourced?           empty
+          |                 |  +-- bestpath?          empty
+          |                 |  +-- internal?          empty
+          |                 |  +-- rib-fail?          empty
+          |                 |  +-- stale?             empty
+          |                 |  +-- multipath?         empty
+          |                 |  +-- backup-path?       empty
+          |                 |  +-- rt-filter?         empty
+          |                 |  +-- best-external?     empty
+          |                 |  +-- additional-path?   empty
+          |                 |  +-- rib-compressed?    empty
+          |                 +-- rpki-status?          bgp-route-ios-xe-oper:bgp-rpki-status
+          |                 +-- community?            string
+          |                 +-- mpls-in?              string
+          |                 +-- mpls-out?             string
+          |                 +-- sr-profile-name?      string
+          |                 +-- sr-binding-sid?       uint32
+          |                 +-- sr-label-indx?        uint32
+          |                 +-- as4-path?             string
+          |                 +-- atomic-aggregate?     boolean
+          |                 +-- aggr-as-number?       uint32
+          |                 +-- aggr-as4-number?      uint32
+          |                 +-- aggr-address?         string
+          |                 +-- originator-id?        string
+          |                 +-- cluster-list?         string
+          |                 +-- extended-community?   string
+          |                 +-- ext-aigp-metric?      uint64
+          |                 +-- path-id?              uint32
+          +-- bgp-route-neighbors
+          |  +-- bgp-route-neighbor* [nbr-id]
+          |     +-- nbr-id?                       string
+          |     +-- bgp-neighbor-route-filters
+          |        +-- bgp-neighbor-route-filter* [nbr-fltr]
+          |           +-- nbr-fltr?                     bgp-route-ios-xe-oper:bgp-neighbor-route-filters
+          |           +-- bgp-neighbor-route-entries
+          |              +-- bgp-neighbor-route-entry* [prefix]
+          |                 +-- prefix?                      string
+          |                 +-- version?                     uint32
+          |                 +-- available-paths?             uint32
+          |                 +-- advertised-to?               string
+          |                 +-- bgp-neighbor-path-entries
+          |                    +-- bgp-neighbor-path-entry* [nexthop]
+          |                       +-- nexthop?              string
+          |                       +-- metric?               uint32
+          |                       +-- local-pref?           uint32
+          |                       +-- weight?               uint32
+          |                       +-- as-path?              string
+          |                       +-- origin?               bgp-route-ios-xe-oper:bgp-origin-code
+          |                       +-- path-status
+          |                       |  +-- suppressed?        empty
+          |                       |  +-- damped?            empty
+          |                       |  +-- history?           empty
+          |                       |  +-- valid?             empty
+          |                       |  +-- sourced?           empty
+          |                       |  +-- bestpath?          empty
+          |                       |  +-- internal?          empty
+          |                       |  +-- rib-fail?          empty
+          |                       |  +-- stale?             empty
+          |                       |  +-- multipath?         empty
+          |                       |  +-- backup-path?       empty
+          |                       |  +-- rt-filter?         empty
+          |                       |  +-- best-external?     empty
+          |                       |  +-- additional-path?   empty
+          |                       |  +-- rib-compressed?    empty
+          |                       +-- rpki-status?          bgp-route-ios-xe-oper:bgp-rpki-status
+          |                       +-- community?            string
+          |                       +-- mpls-in?              string
+          |                       +-- mpls-out?             string
+          |                       +-- sr-profile-name?      string
+          |                       +-- sr-binding-sid?       uint32
+          |                       +-- sr-label-indx?        uint32
+          |                       +-- as4-path?             string
+          |                       +-- atomic-aggregate?     boolean
+          |                       +-- aggr-as-number?       uint32
+          |                       +-- aggr-as4-number?      uint32
+          |                       +-- aggr-address?         string
+          |                       +-- originator-id?        string
+          |                       +-- cluster-list?         string
+          |                       +-- extended-community?   string
+          |                       +-- ext-aigp-metric?      uint64
+          |                       +-- path-id?              uint32
+          +-- bgp-peer-groups
+             +-- bgp-peer-group* [name]
+                +-- name?                       string
+                +-- description?                string
+                +-- remote-as?                  uint32
+                +-- bgp-version?                uint16
+                +-- min-time?                   uint16
+                +-- num-of-sessions?            uint32
+                +-- num-estab-sessions?         uint32
+                +-- num-sso-sessions?           uint32
+                +-- peer-members*               string
+                +-- fmt-grp-ix?                 uint16
+                +-- adv-ix?                     uint16
+                +-- aspath-in?                  uint32
+                +-- aspath-out?                 uint32
+                +-- routemap-in?                string
+                +-- routemap-out?               string
+                +-- updated-messages?           uint64
+                +-- rep-count?                  uint32
+                +-- slowpeer-detection-value?   uint16
+                +-- weight?                     uint16
+                +-- send-community?             boolean
+                +-- extended-community?         boolean
+                +-- remove-private-as?          boolean
+  grouping bgp-rd-neighbor-route-entry
+    +-- prefix?                         string
+    +-- version?                        uint32
+    +-- available-paths?                uint32
+    +-- advertised-to?                  string
+    +-- bgp-rd-neighbor-path-entries
+       +-- bgp-rd-neighbor-path-entry* [nexthop]
+          +-- nexthop?              string
+          +-- metric?               uint32
+          +-- local-pref?           uint32
+          +-- weight?               uint32
+          +-- as-path?              string
+          +-- origin?               bgp-route-ios-xe-oper:bgp-origin-code
+          +-- path-status
+          |  +-- suppressed?        empty
+          |  +-- damped?            empty
+          |  +-- history?           empty
+          |  +-- valid?             empty
+          |  +-- sourced?           empty
+          |  +-- bestpath?          empty
+          |  +-- internal?          empty
+          |  +-- rib-fail?          empty
+          |  +-- stale?             empty
+          |  +-- multipath?         empty
+          |  +-- backup-path?       empty
+          |  +-- rt-filter?         empty
+          |  +-- best-external?     empty
+          |  +-- additional-path?   empty
+          |  +-- rib-compressed?    empty
+          +-- rpki-status?          bgp-route-ios-xe-oper:bgp-rpki-status
+          +-- community?            string
+          +-- mpls-in?              string
+          +-- mpls-out?             string
+          +-- sr-profile-name?      string
+          +-- sr-binding-sid?       uint32
+          +-- sr-label-indx?        uint32
+          +-- as4-path?             string
+          +-- atomic-aggregate?     boolean
+          +-- aggr-as-number?       uint32
+          +-- aggr-as4-number?      uint32
+          +-- aggr-address?         string
+          +-- originator-id?        string
+          +-- cluster-list?         string
+          +-- extended-community?   string
+          +-- ext-aigp-metric?      uint64
+          +-- path-id?              uint32
+  grouping bgp-rd-neighbor-route-filter
+    +-- neighbor-filter?                 bgp-route-ios-xe-oper:bgp-neighbor-route-filters
+    +-- bgp-rd-neighbor-route-entries
+       +-- bgp-rd-neighbor-route-entry* [prefix]
+          +-- prefix?                         string
+          +-- version?                        uint32
+          +-- available-paths?                uint32
+          +-- advertised-to?                  string
+          +-- bgp-rd-neighbor-path-entries
+             +-- bgp-rd-neighbor-path-entry* [nexthop]
+                +-- nexthop?              string
+                +-- metric?               uint32
+                +-- local-pref?           uint32
+                +-- weight?               uint32
+                +-- as-path?              string
+                +-- origin?               bgp-route-ios-xe-oper:bgp-origin-code
+                +-- path-status
+                |  +-- suppressed?        empty
+                |  +-- damped?            empty
+                |  +-- history?           empty
+                |  +-- valid?             empty
+                |  +-- sourced?           empty
+                |  +-- bestpath?          empty
+                |  +-- internal?          empty
+                |  +-- rib-fail?          empty
+                |  +-- stale?             empty
+                |  +-- multipath?         empty
+                |  +-- backup-path?       empty
+                |  +-- rt-filter?         empty
+                |  +-- best-external?     empty
+                |  +-- additional-path?   empty
+                |  +-- rib-compressed?    empty
+                +-- rpki-status?          bgp-route-ios-xe-oper:bgp-rpki-status
+                +-- community?            string
+                +-- mpls-in?              string
+                +-- mpls-out?             string
+                +-- sr-profile-name?      string
+                +-- sr-binding-sid?       uint32
+                +-- sr-label-indx?        uint32
+                +-- as4-path?             string
+                +-- atomic-aggregate?     boolean
+                +-- aggr-as-number?       uint32
+                +-- aggr-as4-number?      uint32
+                +-- aggr-address?         string
+                +-- originator-id?        string
+                +-- cluster-list?         string
+                +-- extended-community?   string
+                +-- ext-aigp-metric?      uint64
+                +-- path-id?              uint32
+  grouping bgp-rd-route-neighbor
+    +-- neighbor-id?                     string
+    +-- bgp-rd-neighbor-route-filters
+       +-- bgp-rd-neighbor-route-filter* [neighbor-filter]
+          +-- neighbor-filter?                 bgp-route-ios-xe-oper:bgp-neighbor-route-filters
+          +-- bgp-rd-neighbor-route-entries
+             +-- bgp-rd-neighbor-route-entry* [prefix]
+                +-- prefix?                         string
+                +-- version?                        uint32
+                +-- available-paths?                uint32
+                +-- advertised-to?                  string
+                +-- bgp-rd-neighbor-path-entries
+                   +-- bgp-rd-neighbor-path-entry* [nexthop]
+                      +-- nexthop?              string
+                      +-- metric?               uint32
+                      +-- local-pref?           uint32
+                      +-- weight?               uint32
+                      +-- as-path?              string
+                      +-- origin?               bgp-route-ios-xe-oper:bgp-origin-code
+                      +-- path-status
+                      |  +-- suppressed?        empty
+                      |  +-- damped?            empty
+                      |  +-- history?           empty
+                      |  +-- valid?             empty
+                      |  +-- sourced?           empty
+                      |  +-- bestpath?          empty
+                      |  +-- internal?          empty
+                      |  +-- rib-fail?          empty
+                      |  +-- stale?             empty
+                      |  +-- multipath?         empty
+                      |  +-- backup-path?       empty
+                      |  +-- rt-filter?         empty
+                      |  +-- best-external?     empty
+                      |  +-- additional-path?   empty
+                      |  +-- rib-compressed?    empty
+                      +-- rpki-status?          bgp-route-ios-xe-oper:bgp-rpki-status
+                      +-- community?            string
+                      +-- mpls-in?              string
+                      +-- mpls-out?             string
+                      +-- sr-profile-name?      string
+                      +-- sr-binding-sid?       uint32
+                      +-- sr-label-indx?        uint32
+                      +-- as4-path?             string
+                      +-- atomic-aggregate?     boolean
+                      +-- aggr-as-number?       uint32
+                      +-- aggr-as4-number?      uint32
+                      +-- aggr-address?         string
+                      +-- originator-id?        string
+                      +-- cluster-list?         string
+                      +-- extended-community?   string
+                      +-- ext-aigp-metric?      uint64
+                      +-- path-id?              uint32
+  grouping bgp-rd-route-entry
+    +-- prefix?                string
+    +-- version?               uint32
+    +-- available-paths?       uint32
+    +-- advertised-to?         string
+    +-- bgp-rd-path-entries
+       +-- bgp-rd-path-entry* [nexthop]
+          +-- nexthop?              string
+          +-- metric?               uint32
+          +-- local-pref?           uint32
+          +-- weight?               uint32
+          +-- as-path?              string
+          +-- origin?               bgp-route-ios-xe-oper:bgp-origin-code
+          +-- path-status
+          |  +-- suppressed?        empty
+          |  +-- damped?            empty
+          |  +-- history?           empty
+          |  +-- valid?             empty
+          |  +-- sourced?           empty
+          |  +-- bestpath?          empty
+          |  +-- internal?          empty
+          |  +-- rib-fail?          empty
+          |  +-- stale?             empty
+          |  +-- multipath?         empty
+          |  +-- backup-path?       empty
+          |  +-- rt-filter?         empty
+          |  +-- best-external?     empty
+          |  +-- additional-path?   empty
+          |  +-- rib-compressed?    empty
+          +-- rpki-status?          bgp-route-ios-xe-oper:bgp-rpki-status
+          +-- community?            string
+          +-- mpls-in?              string
+          +-- mpls-out?             string
+          +-- sr-profile-name?      string
+          +-- sr-binding-sid?       uint32
+          +-- sr-label-indx?        uint32
+          +-- as4-path?             string
+          +-- atomic-aggregate?     boolean
+          +-- aggr-as-number?       uint32
+          +-- aggr-as4-number?      uint32
+          +-- aggr-address?         string
+          +-- originator-id?        string
+          +-- cluster-list?         string
+          +-- extended-community?   string
+          +-- ext-aigp-metric?      uint64
+          +-- path-id?              uint32
+  grouping bgp-rd-route-filter
+    +-- route-filter?           bgp-route-ios-xe-oper:bgp-route-filters
+    +-- bgp-rd-route-entries
+       +-- bgp-rd-route-entry* [prefix]
+          +-- prefix?                string
+          +-- version?               uint32
+          +-- available-paths?       uint32
+          +-- advertised-to?         string
+          +-- bgp-rd-path-entries
+             +-- bgp-rd-path-entry* [nexthop]
+                +-- nexthop?              string
+                +-- metric?               uint32
+                +-- local-pref?           uint32
+                +-- weight?               uint32
+                +-- as-path?              string
+                +-- origin?               bgp-route-ios-xe-oper:bgp-origin-code
+                +-- path-status
+                |  +-- suppressed?        empty
+                |  +-- damped?            empty
+                |  +-- history?           empty
+                |  +-- valid?             empty
+                |  +-- sourced?           empty
+                |  +-- bestpath?          empty
+                |  +-- internal?          empty
+                |  +-- rib-fail?          empty
+                |  +-- stale?             empty
+                |  +-- multipath?         empty
+                |  +-- backup-path?       empty
+                |  +-- rt-filter?         empty
+                |  +-- best-external?     empty
+                |  +-- additional-path?   empty
+                |  +-- rib-compressed?    empty
+                +-- rpki-status?          bgp-route-ios-xe-oper:bgp-rpki-status
+                +-- community?            string
+                +-- mpls-in?              string
+                +-- mpls-out?             string
+                +-- sr-profile-name?      string
+                +-- sr-binding-sid?       uint32
+                +-- sr-label-indx?        uint32
+                +-- as4-path?             string
+                +-- atomic-aggregate?     boolean
+                +-- aggr-as-number?       uint32
+                +-- aggr-as4-number?      uint32
+                +-- aggr-address?         string
+                +-- originator-id?        string
+                +-- cluster-list?         string
+                +-- extended-community?   string
+                +-- ext-aigp-metric?      uint64
+                +-- path-id?              uint32
+  grouping bgp-rd-route-af
+    +-- afi-safi?                 bgp-common-ios-xe-oper:afi-safi
+    +-- bgp-rd-route-filters
+    |  +-- bgp-rd-route-filter* [route-filter]
+    |     +-- route-filter?           bgp-route-ios-xe-oper:bgp-route-filters
+    |     +-- bgp-rd-route-entries
+    |        +-- bgp-rd-route-entry* [prefix]
+    |           +-- prefix?                string
+    |           +-- version?               uint32
+    |           +-- available-paths?       uint32
+    |           +-- advertised-to?         string
+    |           +-- bgp-rd-path-entries
+    |              +-- bgp-rd-path-entry* [nexthop]
+    |                 +-- nexthop?              string
+    |                 +-- metric?               uint32
+    |                 +-- local-pref?           uint32
+    |                 +-- weight?               uint32
+    |                 +-- as-path?              string
+    |                 +-- origin?               bgp-route-ios-xe-oper:bgp-origin-code
+    |                 +-- path-status
+    |                 |  +-- suppressed?        empty
+    |                 |  +-- damped?            empty
+    |                 |  +-- history?           empty
+    |                 |  +-- valid?             empty
+    |                 |  +-- sourced?           empty
+    |                 |  +-- bestpath?          empty
+    |                 |  +-- internal?          empty
+    |                 |  +-- rib-fail?          empty
+    |                 |  +-- stale?             empty
+    |                 |  +-- multipath?         empty
+    |                 |  +-- backup-path?       empty
+    |                 |  +-- rt-filter?         empty
+    |                 |  +-- best-external?     empty
+    |                 |  +-- additional-path?   empty
+    |                 |  +-- rib-compressed?    empty
+    |                 +-- rpki-status?          bgp-route-ios-xe-oper:bgp-rpki-status
+    |                 +-- community?            string
+    |                 +-- mpls-in?              string
+    |                 +-- mpls-out?             string
+    |                 +-- sr-profile-name?      string
+    |                 +-- sr-binding-sid?       uint32
+    |                 +-- sr-label-indx?        uint32
+    |                 +-- as4-path?             string
+    |                 +-- atomic-aggregate?     boolean
+    |                 +-- aggr-as-number?       uint32
+    |                 +-- aggr-as4-number?      uint32
+    |                 +-- aggr-address?         string
+    |                 +-- originator-id?        string
+    |                 +-- cluster-list?         string
+    |                 +-- extended-community?   string
+    |                 +-- ext-aigp-metric?      uint64
+    |                 +-- path-id?              uint32
+    +-- bgp-rd-route-neighbors
+       +-- bgp-rd-route-neighbor* [neighbor-id]
+          +-- neighbor-id?                     string
+          +-- bgp-rd-neighbor-route-filters
+             +-- bgp-rd-neighbor-route-filter* [neighbor-filter]
+                +-- neighbor-filter?                 bgp-route-ios-xe-oper:bgp-neighbor-route-filters
+                +-- bgp-rd-neighbor-route-entries
+                   +-- bgp-rd-neighbor-route-entry* [prefix]
+                      +-- prefix?                         string
+                      +-- version?                        uint32
+                      +-- available-paths?                uint32
+                      +-- advertised-to?                  string
+                      +-- bgp-rd-neighbor-path-entries
+                         +-- bgp-rd-neighbor-path-entry* [nexthop]
+                            +-- nexthop?              string
+                            +-- metric?               uint32
+                            +-- local-pref?           uint32
+                            +-- weight?               uint32
+                            +-- as-path?              string
+                            +-- origin?               bgp-route-ios-xe-oper:bgp-origin-code
+                            +-- path-status
+                            |  +-- suppressed?        empty
+                            |  +-- damped?            empty
+                            |  +-- history?           empty
+                            |  +-- valid?             empty
+                            |  +-- sourced?           empty
+                            |  +-- bestpath?          empty
+                            |  +-- internal?          empty
+                            |  +-- rib-fail?          empty
+                            |  +-- stale?             empty
+                            |  +-- multipath?         empty
+                            |  +-- backup-path?       empty
+                            |  +-- rt-filter?         empty
+                            |  +-- best-external?     empty
+                            |  +-- additional-path?   empty
+                            |  +-- rib-compressed?    empty
+                            +-- rpki-status?          bgp-route-ios-xe-oper:bgp-rpki-status
+                            +-- community?            string
+                            +-- mpls-in?              string
+                            +-- mpls-out?             string
+                            +-- sr-profile-name?      string
+                            +-- sr-binding-sid?       uint32
+                            +-- sr-label-indx?        uint32
+                            +-- as4-path?             string
+                            +-- atomic-aggregate?     boolean
+                            +-- aggr-as-number?       uint32
+                            +-- aggr-as4-number?      uint32
+                            +-- aggr-address?         string
+                            +-- originator-id?        string
+                            +-- cluster-list?         string
+                            +-- extended-community?   string
+                            +-- ext-aigp-metric?      uint64
+                            +-- path-id?              uint32
+  grouping bgp-rd-record
+    +-- rd-value?           string
+    +-- bgp-rd-route-afs
+       +-- bgp-rd-route-af* [afi-safi]
+          +-- afi-safi?                 bgp-common-ios-xe-oper:afi-safi
+          +-- bgp-rd-route-filters
+          |  +-- bgp-rd-route-filter* [route-filter]
+          |     +-- route-filter?           bgp-route-ios-xe-oper:bgp-route-filters
+          |     +-- bgp-rd-route-entries
+          |        +-- bgp-rd-route-entry* [prefix]
+          |           +-- prefix?                string
+          |           +-- version?               uint32
+          |           +-- available-paths?       uint32
+          |           +-- advertised-to?         string
+          |           +-- bgp-rd-path-entries
+          |              +-- bgp-rd-path-entry* [nexthop]
+          |                 +-- nexthop?              string
+          |                 +-- metric?               uint32
+          |                 +-- local-pref?           uint32
+          |                 +-- weight?               uint32
+          |                 +-- as-path?              string
+          |                 +-- origin?               bgp-route-ios-xe-oper:bgp-origin-code
+          |                 +-- path-status
+          |                 |  +-- suppressed?        empty
+          |                 |  +-- damped?            empty
+          |                 |  +-- history?           empty
+          |                 |  +-- valid?             empty
+          |                 |  +-- sourced?           empty
+          |                 |  +-- bestpath?          empty
+          |                 |  +-- internal?          empty
+          |                 |  +-- rib-fail?          empty
+          |                 |  +-- stale?             empty
+          |                 |  +-- multipath?         empty
+          |                 |  +-- backup-path?       empty
+          |                 |  +-- rt-filter?         empty
+          |                 |  +-- best-external?     empty
+          |                 |  +-- additional-path?   empty
+          |                 |  +-- rib-compressed?    empty
+          |                 +-- rpki-status?          bgp-route-ios-xe-oper:bgp-rpki-status
+          |                 +-- community?            string
+          |                 +-- mpls-in?              string
+          |                 +-- mpls-out?             string
+          |                 +-- sr-profile-name?      string
+          |                 +-- sr-binding-sid?       uint32
+          |                 +-- sr-label-indx?        uint32
+          |                 +-- as4-path?             string
+          |                 +-- atomic-aggregate?     boolean
+          |                 +-- aggr-as-number?       uint32
+          |                 +-- aggr-as4-number?      uint32
+          |                 +-- aggr-address?         string
+          |                 +-- originator-id?        string
+          |                 +-- cluster-list?         string
+          |                 +-- extended-community?   string
+          |                 +-- ext-aigp-metric?      uint64
+          |                 +-- path-id?              uint32
+          +-- bgp-rd-route-neighbors
+             +-- bgp-rd-route-neighbor* [neighbor-id]
+                +-- neighbor-id?                     string
+                +-- bgp-rd-neighbor-route-filters
+                   +-- bgp-rd-neighbor-route-filter* [neighbor-filter]
+                      +-- neighbor-filter?                 bgp-route-ios-xe-oper:bgp-neighbor-route-filters
+                      +-- bgp-rd-neighbor-route-entries
+                         +-- bgp-rd-neighbor-route-entry* [prefix]
+                            +-- prefix?                         string
+                            +-- version?                        uint32
+                            +-- available-paths?                uint32
+                            +-- advertised-to?                  string
+                            +-- bgp-rd-neighbor-path-entries
+                               +-- bgp-rd-neighbor-path-entry* [nexthop]
+                                  +-- nexthop?              string
+                                  +-- metric?               uint32
+                                  +-- local-pref?           uint32
+                                  +-- weight?               uint32
+                                  +-- as-path?              string
+                                  +-- origin?               bgp-route-ios-xe-oper:bgp-origin-code
+                                  +-- path-status
+                                  |  +-- suppressed?        empty
+                                  |  +-- damped?            empty
+                                  |  +-- history?           empty
+                                  |  +-- valid?             empty
+                                  |  +-- sourced?           empty
+                                  |  +-- bestpath?          empty
+                                  |  +-- internal?          empty
+                                  |  +-- rib-fail?          empty
+                                  |  +-- stale?             empty
+                                  |  +-- multipath?         empty
+                                  |  +-- backup-path?       empty
+                                  |  +-- rt-filter?         empty
+                                  |  +-- best-external?     empty
+                                  |  +-- additional-path?   empty
+                                  |  +-- rib-compressed?    empty
+                                  +-- rpki-status?          bgp-route-ios-xe-oper:bgp-rpki-status
+                                  +-- community?            string
+                                  +-- mpls-in?              string
+                                  +-- mpls-out?             string
+                                  +-- sr-profile-name?      string
+                                  +-- sr-binding-sid?       uint32
+                                  +-- sr-label-indx?        uint32
+                                  +-- as4-path?             string
+                                  +-- atomic-aggregate?     boolean
+                                  +-- aggr-as-number?       uint32
+                                  +-- aggr-as4-number?      uint32
+                                  +-- aggr-address?         string
+                                  +-- originator-id?        string
+                                  +-- cluster-list?         string
+                                  +-- extended-community?   string
+                                  +-- ext-aigp-metric?      uint64
+                                  +-- path-id?              uint32

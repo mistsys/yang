@@ -1,0 +1,76 @@
+module: Cisco-IOS-XE-utd-oper
+  +--ro utd-oper-data
+     +--ro utd-engine-status!
+     |  +--ro version?                      string
+     |  +--ro profile?                      string
+     |  +--ro status?                       utd-ios-xe-oper:utd-oper-status-val
+     |  +--ro reason?                       string
+     |  +--ro memory-usage?                 decimal64
+     |  +--ro memory-status?                utd-ios-xe-oper:utd-oper-status-val
+     |  +--ro utd-engine-instance-status* [id]
+     |     +--ro id         uint32
+     |     +--ro running?   boolean
+     |     +--ro status?    utd-ios-xe-oper:utd-oper-status-val
+     |     +--ro reason?    string
+     +--ro utd-ips-update-status!
+     |  +--ro ips-update-status
+     |     +--ro version?                       string
+     |     +--ro last-update-time?              yang:date-and-time
+     |     +--ro last-update-status?            utd-common-ios-xe-oper:utd-update-status-val
+     |     +--ro last-update-reason?            string
+     |     +--ro last-successful-update-time?   yang:date-and-time
+     +--ro utd-urlf-update-status!
+     |  +--ro urlf-update-status
+     |     +--ro version?                       string
+     |     +--ro last-update-time?              yang:date-and-time
+     |     +--ro last-update-status?            utd-common-ios-xe-oper:utd-update-status-val
+     |     +--ro last-update-reason?            string
+     |     +--ro last-successful-update-time?   yang:date-and-time
+     +--ro utd-version-status!
+        +--ro recommended-version?   string
+        +--ro supported-regex?       string
+        +--ro installed-version?     string
+        +--ro supported?             boolean
+
+  grouping utd-update-status
+    +-- version?                       string
+    +-- last-update-time?              yang:date-and-time
+    +-- last-update-status?            utd-common-ios-xe-oper:utd-update-status-val
+    +-- last-update-reason?            string
+    +-- last-successful-update-time?   yang:date-and-time
+  grouping utd-ips-update-status
+    +-- ips-update-status
+       +-- version?                       string
+       +-- last-update-time?              yang:date-and-time
+       +-- last-update-status?            utd-common-ios-xe-oper:utd-update-status-val
+       +-- last-update-reason?            string
+       +-- last-successful-update-time?   yang:date-and-time
+  grouping utd-urlf-update-status
+    +-- urlf-update-status
+       +-- version?                       string
+       +-- last-update-time?              yang:date-and-time
+       +-- last-update-status?            utd-common-ios-xe-oper:utd-update-status-val
+       +-- last-update-reason?            string
+       +-- last-successful-update-time?   yang:date-and-time
+  grouping utd-engine-instance-status
+    +-- id?        uint32
+    +-- running?   boolean
+    +-- status?    utd-ios-xe-oper:utd-oper-status-val
+    +-- reason?    string
+  grouping utd-engine-status
+    +-- version?                      string
+    +-- profile?                      string
+    +-- status?                       utd-ios-xe-oper:utd-oper-status-val
+    +-- reason?                       string
+    +-- memory-usage?                 decimal64
+    +-- memory-status?                utd-ios-xe-oper:utd-oper-status-val
+    +-- utd-engine-instance-status* [id]
+       +-- id?        uint32
+       +-- running?   boolean
+       +-- status?    utd-ios-xe-oper:utd-oper-status-val
+       +-- reason?    string
+  grouping utd-version-status
+    +-- recommended-version?   string
+    +-- supported-regex?       string
+    +-- installed-version?     string
+    +-- supported?             boolean

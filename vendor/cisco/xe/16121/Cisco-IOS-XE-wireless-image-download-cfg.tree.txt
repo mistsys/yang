@@ -1,0 +1,52 @@
+module: Cisco-IOS-XE-wireless-image-download-cfg
+  +--rw image-download-cfg-data
+     +--rw image-download-profiless
+        +--rw image-download-profiles* [image-download-profile-name]
+           +--rw image-download-profile-name    string
+           +--rw description?                   string
+           +--rw (image-download-mode-choice)?
+              +--:(image-download-mode-unconfigured)
+              |  +--rw unconfigure?             uint32
+              +--:(image-download-mode-tftp)
+              |  +--rw tftp-image-server?       inet:ip-address
+              |  +--rw tftp-image-path?         string
+              +--:(image-download-mode-sftp)
+              |  +--rw sftp-image-server?       inet:ip-address
+              |  +--rw sftp-image-path?         string
+              |  +--rw sftp-username?           string
+              |  +--rw sftp-password?           string
+              |  +--rw sftp-password-type?      wireless-enum-types:crypt-type
+              |  +--rw sftp-port?               uint32
+              +--:(image-download-mode-cco)
+              |  +--rw cco-username?            string
+              |  +--rw cco-password?            string
+              |  +--rw cco-password-type?       wireless-enum-types:crypt-type
+              |  +--rw cco-auto-check?          boolean
+              |  +--rw cco-version?             wireless-image-download-cfg:cco-version-type
+              +--:(image-download-mode-https)
+                 +--rw https-image-path?        string
+
+  grouping st-image-download-profile-config
+    +-- image-download-profile-name?   string
+    +-- description?                   string
+    +-- (image-download-mode-choice)?
+       +--:(image-download-mode-unconfigured)
+       |  +-- unconfigure?             uint32
+       +--:(image-download-mode-tftp)
+       |  +-- tftp-image-server?       inet:ip-address
+       |  +-- tftp-image-path?         string
+       +--:(image-download-mode-sftp)
+       |  +-- sftp-image-server?       inet:ip-address
+       |  +-- sftp-image-path?         string
+       |  +-- sftp-username?           string
+       |  +-- sftp-password?           string
+       |  +-- sftp-password-type?      wireless-enum-types:crypt-type
+       |  +-- sftp-port?               uint32
+       +--:(image-download-mode-cco)
+       |  +-- cco-username?            string
+       |  +-- cco-password?            string
+       |  +-- cco-password-type?       wireless-enum-types:crypt-type
+       |  +-- cco-auto-check?          boolean
+       |  +-- cco-version?             wireless-image-download-cfg:cco-version-type
+       +--:(image-download-mode-https)
+          +-- https-image-path?        string

@@ -1,0 +1,223 @@
+
+module: Cisco-IOS-XE-dapr
+  augment /ios:native:
+    +--rw dapr* [name]
+       +--rw name             string
+       +--rw border-router!
+       |  +--rw authentication
+       |  |  +--rw password
+       |  |     +--rw (auth-key)?
+       |  |        +--:(uncpwd)
+       |  |        |  +--rw unc-pwd?   string
+       |  |        +--:(key0)
+       |  |        |  +--rw key-0?     string
+       |  |        +--:(key4)
+       |  |           +--rw key-4?     string
+       |  +--rw route-manager
+       |  |  +--rw ipv4?   inet:ipv4-address
+       |  +--rw source-interface
+       |  |  +--rw Loopback?   uint32
+       |  +--rw shutdown?           empty
+       +--rw route-manager!
+          +--rw authentication
+          |  +--rw password
+          |     +--rw (auth-key)?
+          |        +--:(uncpwd)
+          |        |  +--rw unc-pwd?   string
+          |        +--:(key0)
+          |        |  +--rw key-0?     string
+          |        +--:(key4)
+          |           +--rw key-4?     string
+          +--rw border-routers
+          |  +--rw br-ip* [ipv4]
+          |     +--rw ipv4    inet:ipv4-address
+          +--rw class* [name]
+          |  +--rw name               string
+          |  +--rw seq?               uint16
+          |  +--rw match
+          |  |  +--rw access-list?   string
+          |  +--rw path-preference!
+          |     +--rw path-pref-list* [seq]
+          |        +--rw seq        uint16
+          |        +--rw lg-name?   string
+          +--rw link-thresholds
+          |  +--rw max-utilization?   uint8
+          |  +--rw min-bandwidth?     uint32
+          +--rw source-interface
+          |  +--rw Loopback?   uint32
+          +--rw shutdown?           empty
+  augment /ios:native/ios:interface/ios:Ethernet:
+    +--rw dapr
+       +--rw (mode)?
+          +--:(ingress)
+          |  +--rw ingress!
+          +--:(egress)
+             +--rw egress!
+                +--rw link-group?   string
+  augment /ios:native/ios:interface/ios:FastEthernet:
+    +--rw dapr
+       +--rw (mode)?
+          +--:(ingress)
+          |  +--rw ingress!
+          +--:(egress)
+             +--rw egress!
+                +--rw link-group?   string
+  augment /ios:native/ios:interface/ios:GigabitEthernet:
+    +--rw dapr
+       +--rw (mode)?
+          +--:(ingress)
+          |  +--rw ingress!
+          +--:(egress)
+             +--rw egress!
+                +--rw link-group?   string
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet:
+    +--rw dapr
+       +--rw (mode)?
+          +--:(ingress)
+          |  +--rw ingress!
+          +--:(egress)
+             +--rw egress!
+                +--rw link-group?   string
+  augment /ios:native/ios:interface/ios:FiveGigabitEthernet:
+    +--rw dapr
+       +--rw (mode)?
+          +--:(ingress)
+          |  +--rw ingress!
+          +--:(egress)
+             +--rw egress!
+                +--rw link-group?   string
+  augment /ios:native/ios:interface/ios:AppGigabitEthernet:
+    +--rw dapr
+       +--rw (mode)?
+          +--:(ingress)
+          |  +--rw ingress!
+          +--:(egress)
+             +--rw egress!
+                +--rw link-group?   string
+  augment /ios:native/ios:interface/ios:TwentyFiveGigE:
+    +--rw dapr
+       +--rw (mode)?
+          +--:(ingress)
+          |  +--rw ingress!
+          +--:(egress)
+             +--rw egress!
+                +--rw link-group?   string
+  augment /ios:native/ios:interface/ios:FortyGigabitEthernet:
+    +--rw dapr
+       +--rw (mode)?
+          +--:(ingress)
+          |  +--rw ingress!
+          +--:(egress)
+             +--rw egress!
+                +--rw link-group?   string
+  augment /ios:native/ios:interface/ios:HundredGigE:
+    +--rw dapr
+       +--rw (mode)?
+          +--:(ingress)
+          |  +--rw ingress!
+          +--:(egress)
+             +--rw egress!
+                +--rw link-group?   string
+  augment /ios:native/ios:interface/ios:TwoGigabitEthernet:
+    +--rw dapr
+       +--rw (mode)?
+          +--:(ingress)
+          |  +--rw ingress!
+          +--:(egress)
+             +--rw egress!
+                +--rw link-group?   string
+  augment /ios:native/ios:interface/ios:Serial:
+    +--rw dapr
+       +--rw (mode)?
+          +--:(ingress)
+          |  +--rw ingress!
+          +--:(egress)
+             +--rw egress!
+                +--rw link-group?   string
+  augment /ios:native/ios:interface/ios:Virtual-Template:
+    +--rw dapr
+       +--rw (mode)?
+          +--:(ingress)
+          |  +--rw ingress!
+          +--:(egress)
+             +--rw egress!
+                +--rw link-group?   string
+
+  grouping config-dapr-password-grouping
+    +-- password
+       +-- (auth-key)?
+          +--:(uncpwd)
+          |  +-- unc-pwd?   string
+          +--:(key0)
+          |  +-- key-0?     string
+          +--:(key4)
+             +-- key-4?     string
+  grouping config-dapr-border-router-grouping
+    +-- authentication
+    |  +-- password
+    |     +-- (auth-key)?
+    |        +--:(uncpwd)
+    |        |  +-- unc-pwd?   string
+    |        +--:(key0)
+    |        |  +-- key-0?     string
+    |        +--:(key4)
+    |           +-- key-4?     string
+    +-- route-manager
+    |  +-- ipv4?   inet:ipv4-address
+    +-- source-interface
+    |  +-- Loopback?   uint32
+    +-- shutdown?           empty
+  grouping config-dapr-grouping
+    +-- dapr* [name]
+       +-- name?            string
+       +-- border-router!
+       |  +-- authentication
+       |  |  +-- password
+       |  |     +-- (auth-key)?
+       |  |        +--:(uncpwd)
+       |  |        |  +-- unc-pwd?   string
+       |  |        +--:(key0)
+       |  |        |  +-- key-0?     string
+       |  |        +--:(key4)
+       |  |           +-- key-4?     string
+       |  +-- route-manager
+       |  |  +-- ipv4?   inet:ipv4-address
+       |  +-- source-interface
+       |  |  +-- Loopback?   uint32
+       |  +-- shutdown?           empty
+       +-- route-manager!
+          +-- authentication
+          |  +-- password
+          |     +-- (auth-key)?
+          |        +--:(uncpwd)
+          |        |  +-- unc-pwd?   string
+          |        +--:(key0)
+          |        |  +-- key-0?     string
+          |        +--:(key4)
+          |           +-- key-4?     string
+          +-- border-routers
+          |  +-- br-ip* [ipv4]
+          |     +-- ipv4?   inet:ipv4-address
+          +-- class* [name]
+          |  +-- name?              string
+          |  +-- seq?               uint16
+          |  +-- match
+          |  |  +-- access-list?   string
+          |  +-- path-preference!
+          |     +-- path-pref-list* [seq]
+          |        +-- seq?       uint16
+          |        +-- lg-name?   string
+          +-- link-thresholds
+          |  +-- max-utilization?   uint8
+          |  +-- min-bandwidth?     uint32
+          +-- source-interface
+          |  +-- Loopback?   uint32
+          +-- shutdown?           empty
+  grouping config-interface-dapr-grouping
+    +-- dapr
+       +-- (mode)?
+          +--:(ingress)
+          |  +-- ingress!
+          +--:(egress)
+             +-- egress!
+                +-- link-group?   string

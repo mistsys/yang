@@ -1,0 +1,1078 @@
+module: openconfig-system
+  +--rw system
+     +--rw config
+     |  +--rw hostname?       oc-inet:domain-name
+     |  +--rw domain-name?    oc-inet:domain-name
+     |  +--rw login-banner?   string
+     |  +--rw motd-banner?    string
+     +--ro state
+     |  +--ro hostname?           oc-inet:domain-name
+     |  +--ro domain-name?        oc-inet:domain-name
+     |  +--ro login-banner?       string
+     |  +--ro motd-banner?        string
+     |  +--ro current-datetime?   oc-yang:date-and-time
+     |  +--ro boot-time?          oc-types:timeticks64
+     +--rw clock
+     |  +--rw config
+     |  |  +--rw timezone-name?   timezone-name-type
+     |  +--ro state
+     |     +--ro timezone-name?   timezone-name-type
+     +--rw dns
+     |  +--rw config
+     |  |  +--rw search*   oc-inet:domain-name
+     |  +--ro state
+     |  |  +--ro search*   oc-inet:domain-name
+     |  +--rw servers
+     |  |  +--rw server* [address]
+     |  |     +--rw address    -> ../config/address
+     |  |     +--rw config
+     |  |     |  +--rw address?   oc-inet:ip-address
+     |  |     |  +--rw port?      oc-inet:port-number
+     |  |     +--ro state
+     |  |        +--ro address?   oc-inet:ip-address
+     |  |        +--ro port?      oc-inet:port-number
+     |  +--rw host-entries
+     |     +--rw host-entry* [hostname]
+     |        +--rw hostname    -> ../config/hostname
+     |        +--rw config
+     |        |  +--rw hostname?       string
+     |        |  +--rw alias*          string
+     |        |  +--rw ipv4-address*   oc-inet:ipv4-address
+     |        |  +--rw ipv6-address*   oc-inet:ipv6-address
+     |        +--ro state
+     |           +--ro hostname?       string
+     |           +--ro alias*          string
+     |           +--ro ipv4-address*   oc-inet:ipv4-address
+     |           +--ro ipv6-address*   oc-inet:ipv6-address
+     +--rw ntp
+     |  +--rw config
+     |  |  +--rw enabled?              boolean
+     |  |  +--rw ntp-source-address?   oc-inet:ip-address
+     |  |  +--rw enable-ntp-auth?      boolean
+     |  +--ro state
+     |  |  +--ro enabled?              boolean
+     |  |  +--ro ntp-source-address?   oc-inet:ip-address
+     |  |  +--ro enable-ntp-auth?      boolean
+     |  |  +--ro auth-mismatch?        oc-yang:counter64
+     |  +--rw ntp-keys
+     |  |  +--rw ntp-key* [key-id]
+     |  |     +--rw key-id    -> ../config/key-id
+     |  |     +--rw config
+     |  |     |  +--rw key-id?      uint16
+     |  |     |  +--rw key-type?    identityref
+     |  |     |  +--rw key-value?   string
+     |  |     +--ro state
+     |  |        +--ro key-id?      uint16
+     |  |        +--ro key-type?    identityref
+     |  |        +--ro key-value?   string
+     |  +--rw servers
+     |     +--rw server* [address]
+     |        +--rw address    -> ../config/address
+     |        +--rw config
+     |        |  +--rw address?            oc-inet:host
+     |        |  +--rw port?               oc-inet:port-number
+     |        |  +--rw version?            uint8
+     |        |  +--rw association-type?   enumeration
+     |        |  +--rw iburst?             boolean
+     |        |  +--rw prefer?             boolean
+     |        +--ro state
+     |           +--ro address?            oc-inet:host
+     |           +--ro port?               oc-inet:port-number
+     |           +--ro version?            uint8
+     |           +--ro association-type?   enumeration
+     |           +--ro iburst?             boolean
+     |           +--ro prefer?             boolean
+     |           +--ro stratum?            uint8
+     |           +--ro root-delay?         uint32
+     |           +--ro root-dispersion?    uint64
+     |           +--ro offset?             uint64
+     |           +--ro poll-interval?      uint32
+     +--rw grpc-server
+     |  +--rw config
+     |  |  +--rw enable?               boolean
+     |  |  +--rw port?                 oc-inet:port-number
+     |  |  +--rw transport-security?   boolean
+     |  |  +--rw certificate-id?       string
+     |  |  +--rw listen-addresses*     union
+     |  +--ro state
+     |     +--ro enable?               boolean
+     |     +--ro port?                 oc-inet:port-number
+     |     +--ro transport-security?   boolean
+     |     +--ro certificate-id?       string
+     |     +--ro listen-addresses*     union
+     +--rw ssh-server
+     |  +--rw config
+     |  |  +--rw enable?             boolean
+     |  |  +--rw protocol-version?   enumeration
+     |  |  +--rw timeout?            uint16
+     |  |  +--rw rate-limit?         uint16
+     |  |  +--rw session-limit?      uint16
+     |  +--ro state
+     |     +--ro enable?             boolean
+     |     +--ro protocol-version?   enumeration
+     |     +--ro timeout?            uint16
+     |     +--ro rate-limit?         uint16
+     |     +--ro session-limit?      uint16
+     +--rw telnet-server
+     |  +--rw config
+     |  |  +--rw enable?          boolean
+     |  |  +--rw timeout?         uint16
+     |  |  +--rw rate-limit?      uint16
+     |  |  +--rw session-limit?   uint16
+     |  +--ro state
+     |     +--ro enable?          boolean
+     |     +--ro timeout?         uint16
+     |     +--ro rate-limit?      uint16
+     |     +--ro session-limit?   uint16
+     +--rw logging
+     |  +--rw console
+     |  |  +--rw config
+     |  |  +--ro state
+     |  |  +--rw selectors
+     |  |     +--rw selector* [facility severity]
+     |  |        +--rw facility    -> ../config/facility
+     |  |        +--rw severity    -> ../config/severity
+     |  |        +--rw config
+     |  |        |  +--rw facility?   identityref
+     |  |        |  +--rw severity?   syslog-severity
+     |  |        +--ro state
+     |  |           +--ro facility?   identityref
+     |  |           +--ro severity?   syslog-severity
+     |  +--rw remote-servers
+     |     +--rw remote-server* [host]
+     |        +--rw host         -> ../config/host
+     |        +--rw config
+     |        |  +--rw host?             oc-inet:host
+     |        |  +--rw source-address?   oc-inet:ip-address
+     |        |  +--rw remote-port?      oc-inet:port-number
+     |        +--ro state
+     |        |  +--ro host?             oc-inet:host
+     |        |  +--ro source-address?   oc-inet:ip-address
+     |        |  +--ro remote-port?      oc-inet:port-number
+     |        +--rw selectors
+     |           +--rw selector* [facility severity]
+     |              +--rw facility    -> ../config/facility
+     |              +--rw severity    -> ../config/severity
+     |              +--rw config
+     |              |  +--rw facility?   identityref
+     |              |  +--rw severity?   syslog-severity
+     |              +--ro state
+     |                 +--ro facility?   identityref
+     |                 +--ro severity?   syslog-severity
+     +--rw aaa
+     |  +--rw config
+     |  +--ro state
+     |  +--rw authentication
+     |  |  +--rw config
+     |  |  |  +--rw authentication-method*   union
+     |  |  +--ro state
+     |  |  |  +--ro authentication-method*   union
+     |  |  +--rw admin-user
+     |  |  |  +--rw config
+     |  |  |  |  +--rw admin-password?          string
+     |  |  |  |  +--rw admin-password-hashed?   oc-aaa-types:crypt-password-type
+     |  |  |  +--ro state
+     |  |  |     +--ro admin-password?          string
+     |  |  |     +--ro admin-password-hashed?   oc-aaa-types:crypt-password-type
+     |  |  |     +--ro admin-username?          string
+     |  |  +--rw users
+     |  |     +--rw user* [username]
+     |  |        +--rw username    -> ../config/username
+     |  |        +--rw config
+     |  |        |  +--rw username?          string
+     |  |        |  +--rw password?          string
+     |  |        |  +--rw password-hashed?   oc-aaa-types:crypt-password-type
+     |  |        |  +--rw ssh-key?           string
+     |  |        |  +--rw role?              union
+     |  |        +--ro state
+     |  |           +--ro username?          string
+     |  |           +--ro password?          string
+     |  |           +--ro password-hashed?   oc-aaa-types:crypt-password-type
+     |  |           +--ro ssh-key?           string
+     |  |           +--ro role?              union
+     |  +--rw authorization
+     |  |  +--rw config
+     |  |  |  +--rw authorization-method*   union
+     |  |  +--ro state
+     |  |  |  +--ro authorization-method*   union
+     |  |  +--rw events
+     |  |     +--rw event* [event-type]
+     |  |        +--rw event-type    -> ../config/event-type
+     |  |        +--rw config
+     |  |        |  +--rw event-type?   identityref
+     |  |        +--ro state
+     |  |           +--ro event-type?   identityref
+     |  +--rw accounting
+     |  |  +--rw config
+     |  |  |  +--rw accounting-method*   union
+     |  |  +--ro state
+     |  |  |  +--ro accounting-method*   union
+     |  |  +--rw events
+     |  |     +--rw event* [event-type]
+     |  |        +--rw event-type    -> ../config/event-type
+     |  |        +--rw config
+     |  |        |  +--rw event-type?   identityref
+     |  |        |  +--rw record?       enumeration
+     |  |        +--ro state
+     |  |           +--ro event-type?   identityref
+     |  |           +--ro record?       enumeration
+     |  +--rw server-groups
+     |     +--rw server-group* [name]
+     |        +--rw name       -> ../config/name
+     |        +--rw config
+     |        |  +--rw name?   string
+     |        |  +--rw type?   identityref
+     |        +--ro state
+     |        |  +--ro name?   string
+     |        |  +--ro type?   identityref
+     |        +--rw servers
+     |           +--rw server* [address]
+     |              +--rw address    -> ../config/address
+     |              +--rw config
+     |              |  +--rw name?      string
+     |              |  +--rw address?   oc-inet:ip-address
+     |              |  +--rw timeout?   uint16
+     |              +--ro state
+     |              |  +--ro name?                  string
+     |              |  +--ro address?               oc-inet:ip-address
+     |              |  +--ro timeout?               uint16
+     |              |  +--ro connection-opens?      oc-yang:counter64
+     |              |  +--ro connection-closes?     oc-yang:counter64
+     |              |  +--ro connection-aborts?     oc-yang:counter64
+     |              |  +--ro connection-failures?   oc-yang:counter64
+     |              |  +--ro connection-timeouts?   oc-yang:counter64
+     |              |  +--ro messages-sent?         oc-yang:counter64
+     |              |  +--ro messages-received?     oc-yang:counter64
+     |              |  +--ro errors-received?       oc-yang:counter64
+     |              +--rw tacacs
+     |              |  +--rw config
+     |              |  |  +--rw port?             oc-inet:port-number
+     |              |  |  +--rw secret-key?       oc-types:routing-password
+     |              |  |  +--rw source-address?   oc-inet:ip-address
+     |              |  +--ro state
+     |              |     +--ro port?             oc-inet:port-number
+     |              |     +--ro secret-key?       oc-types:routing-password
+     |              |     +--ro source-address?   oc-inet:ip-address
+     |              +--rw radius
+     |                 +--rw config
+     |                 |  +--rw auth-port?             oc-inet:port-number
+     |                 |  +--rw acct-port?             oc-inet:port-number
+     |                 |  +--rw secret-key?            oc-types:routing-password
+     |                 |  +--rw source-address?        oc-inet:ip-address
+     |                 |  +--rw retransmit-attempts?   uint8
+     |                 +--ro state
+     |                    +--ro auth-port?             oc-inet:port-number
+     |                    +--ro acct-port?             oc-inet:port-number
+     |                    +--ro secret-key?            oc-types:routing-password
+     |                    +--ro source-address?        oc-inet:ip-address
+     |                    +--ro retransmit-attempts?   uint8
+     |                    +--ro counters
+     |                       +--ro retried-access-requests?   oc-yang:counter64
+     |                       +--ro access-accepts?            oc-yang:counter64
+     |                       +--ro access-rejects?            oc-yang:counter64
+     |                       +--ro timeout-access-requests?   oc-yang:counter64
+     +--rw memory
+     |  +--rw config
+     |  +--ro state
+     |     +--ro physical?   uint64
+     |     +--ro reserved?   uint64
+     +--ro cpus
+     |  +--ro cpu* [index]
+     |     +--ro index    -> ../state/index
+     |     +--ro state
+     |        +--ro index?                union
+     |        +--ro total
+     |        |  +--ro instant?    oc-types:percentage
+     |        |  +--ro avg?        oc-types:percentage
+     |        |  +--ro min?        oc-types:percentage
+     |        |  +--ro max?        oc-types:percentage
+     |        |  +--ro interval?   oc-types:stat-interval
+     |        |  +--ro min-time?   oc-types:timeticks64
+     |        |  +--ro max-time?   oc-types:timeticks64
+     |        +--ro user
+     |        |  +--ro instant?    oc-types:percentage
+     |        |  +--ro avg?        oc-types:percentage
+     |        |  +--ro min?        oc-types:percentage
+     |        |  +--ro max?        oc-types:percentage
+     |        |  +--ro interval?   oc-types:stat-interval
+     |        |  +--ro min-time?   oc-types:timeticks64
+     |        |  +--ro max-time?   oc-types:timeticks64
+     |        +--ro kernel
+     |        |  +--ro instant?    oc-types:percentage
+     |        |  +--ro avg?        oc-types:percentage
+     |        |  +--ro min?        oc-types:percentage
+     |        |  +--ro max?        oc-types:percentage
+     |        |  +--ro interval?   oc-types:stat-interval
+     |        |  +--ro min-time?   oc-types:timeticks64
+     |        |  +--ro max-time?   oc-types:timeticks64
+     |        +--ro nice
+     |        |  +--ro instant?    oc-types:percentage
+     |        |  +--ro avg?        oc-types:percentage
+     |        |  +--ro min?        oc-types:percentage
+     |        |  +--ro max?        oc-types:percentage
+     |        |  +--ro interval?   oc-types:stat-interval
+     |        |  +--ro min-time?   oc-types:timeticks64
+     |        |  +--ro max-time?   oc-types:timeticks64
+     |        +--ro idle
+     |        |  +--ro instant?    oc-types:percentage
+     |        |  +--ro avg?        oc-types:percentage
+     |        |  +--ro min?        oc-types:percentage
+     |        |  +--ro max?        oc-types:percentage
+     |        |  +--ro interval?   oc-types:stat-interval
+     |        |  +--ro min-time?   oc-types:timeticks64
+     |        |  +--ro max-time?   oc-types:timeticks64
+     |        +--ro wait
+     |        |  +--ro instant?    oc-types:percentage
+     |        |  +--ro avg?        oc-types:percentage
+     |        |  +--ro min?        oc-types:percentage
+     |        |  +--ro max?        oc-types:percentage
+     |        |  +--ro interval?   oc-types:stat-interval
+     |        |  +--ro min-time?   oc-types:timeticks64
+     |        |  +--ro max-time?   oc-types:timeticks64
+     |        +--ro hardware-interrupt
+     |        |  +--ro instant?    oc-types:percentage
+     |        |  +--ro avg?        oc-types:percentage
+     |        |  +--ro min?        oc-types:percentage
+     |        |  +--ro max?        oc-types:percentage
+     |        |  +--ro interval?   oc-types:stat-interval
+     |        |  +--ro min-time?   oc-types:timeticks64
+     |        |  +--ro max-time?   oc-types:timeticks64
+     |        +--ro software-interrupt
+     |           +--ro instant?    oc-types:percentage
+     |           +--ro avg?        oc-types:percentage
+     |           +--ro min?        oc-types:percentage
+     |           +--ro max?        oc-types:percentage
+     |           +--ro interval?   oc-types:stat-interval
+     |           +--ro min-time?   oc-types:timeticks64
+     |           +--ro max-time?   oc-types:timeticks64
+     +--rw processes
+     |  +--ro process* [pid]
+     |     +--ro pid      -> ../state/pid
+     |     +--ro state
+     |        +--ro pid?                  uint64
+     |        +--ro name?                 string
+     |        +--ro args*                 string
+     |        +--ro start-time?           uint64
+     |        +--ro uptime?               oc-types:timeticks64
+     |        +--ro cpu-usage-user?       oc-types:timeticks64
+     |        +--ro cpu-usage-system?     oc-types:timeticks64
+     |        +--ro cpu-utilization?      oc-types:percentage
+     |        +--ro memory-usage?         uint64
+     |        +--ro memory-utilization?   oc-types:percentage
+     +--rw alarms
+        +--rw alarm* [id]
+           +--rw id        -> ../config/id
+           +--rw config
+           |  +--rw id?   string
+           +--ro state
+              +--ro id?             string
+              +--ro resource?       string
+              +--ro text?           string
+              +--ro time-created?   oc-types:timeticks64
+              +--ro severity?       identityref
+              +--ro type-id?        union
+
+  grouping system-clock-config
+    +-- timezone-name?   timezone-name-type
+  grouping system-clock-state
+  grouping system-clock-top
+    +-- clock
+       +-- config
+       |  +-- timezone-name?   timezone-name-type
+       +--ro state
+          +--ro timezone-name?   timezone-name-type
+  grouping system-global-config
+    +-- hostname?       oc-inet:domain-name
+    +-- domain-name?    oc-inet:domain-name
+    +-- login-banner?   string
+    +-- motd-banner?    string
+  grouping system-global-state
+    +-- current-datetime?   oc-yang:date-and-time
+    +-- boot-time?          oc-types:timeticks64
+  grouping system-dns-config
+    +-- search*   oc-inet:domain-name
+  grouping system-dns-state
+  grouping system-dns-servers-config
+    +-- address?   oc-inet:ip-address
+    +-- port?      oc-inet:port-number
+  grouping system-dns-static-config
+    +-- hostname?       string
+    +-- alias*          string
+    +-- ipv4-address*   oc-inet:ipv4-address
+    +-- ipv6-address*   oc-inet:ipv6-address
+  grouping system-dns-static-state
+  grouping system-dns-static-top
+    +-- host-entries
+       +-- host-entry* [hostname]
+          +-- hostname?   -> ../config/hostname
+          +-- config
+          |  +-- hostname?       string
+          |  +-- alias*          string
+          |  +-- ipv4-address*   oc-inet:ipv4-address
+          |  +-- ipv6-address*   oc-inet:ipv6-address
+          +--ro state
+             +--ro hostname?       string
+             +--ro alias*          string
+             +--ro ipv4-address*   oc-inet:ipv4-address
+             +--ro ipv6-address*   oc-inet:ipv6-address
+  grouping system-dns-servers-state
+  grouping system-dns-servers-top
+    +-- servers
+       +-- server* [address]
+          +-- address?   -> ../config/address
+          +-- config
+          |  +-- address?   oc-inet:ip-address
+          |  +-- port?      oc-inet:port-number
+          +--ro state
+             +--ro address?   oc-inet:ip-address
+             +--ro port?      oc-inet:port-number
+  grouping system-dns-top
+    +-- dns
+       +-- config
+       |  +-- search*   oc-inet:domain-name
+       +--ro state
+       |  +--ro search*   oc-inet:domain-name
+       +-- servers
+       |  +-- server* [address]
+       |     +-- address?   -> ../config/address
+       |     +-- config
+       |     |  +-- address?   oc-inet:ip-address
+       |     |  +-- port?      oc-inet:port-number
+       |     +--ro state
+       |        +--ro address?   oc-inet:ip-address
+       |        +--ro port?      oc-inet:port-number
+       +-- host-entries
+          +-- host-entry* [hostname]
+             +-- hostname?   -> ../config/hostname
+             +-- config
+             |  +-- hostname?       string
+             |  +-- alias*          string
+             |  +-- ipv4-address*   oc-inet:ipv4-address
+             |  +-- ipv6-address*   oc-inet:ipv6-address
+             +--ro state
+                +--ro hostname?       string
+                +--ro alias*          string
+                +--ro ipv4-address*   oc-inet:ipv4-address
+                +--ro ipv6-address*   oc-inet:ipv6-address
+  grouping system-ntp-server-config
+    +-- address?            oc-inet:host
+    +-- port?               oc-inet:port-number
+    +-- version?            uint8
+    +-- association-type?   enumeration
+    +-- iburst?             boolean
+    +-- prefer?             boolean
+  grouping system-ntp-server-state
+    +-- stratum?           uint8
+    +-- root-delay?        uint32
+    +-- root-dispersion?   uint64
+    +-- offset?            uint64
+    +-- poll-interval?     uint32
+  grouping system-ntp-server-top
+    +-- servers
+       +-- server* [address]
+          +-- address?   -> ../config/address
+          +-- config
+          |  +-- address?            oc-inet:host
+          |  +-- port?               oc-inet:port-number
+          |  +-- version?            uint8
+          |  +-- association-type?   enumeration
+          |  +-- iburst?             boolean
+          |  +-- prefer?             boolean
+          +--ro state
+             +--ro address?            oc-inet:host
+             +--ro port?               oc-inet:port-number
+             +--ro version?            uint8
+             +--ro association-type?   enumeration
+             +--ro iburst?             boolean
+             +--ro prefer?             boolean
+             +--ro stratum?            uint8
+             +--ro root-delay?         uint32
+             +--ro root-dispersion?    uint64
+             +--ro offset?             uint64
+             +--ro poll-interval?      uint32
+  grouping system-ntp-auth-keys-config
+    +-- key-id?      uint16
+    +-- key-type?    identityref
+    +-- key-value?   string
+  grouping system-ntp-auth-keys-state
+  grouping system-ntp-auth-keys-top
+    +-- ntp-keys
+       +-- ntp-key* [key-id]
+          +-- key-id?   -> ../config/key-id
+          +-- config
+          |  +-- key-id?      uint16
+          |  +-- key-type?    identityref
+          |  +-- key-value?   string
+          +--ro state
+             +--ro key-id?      uint16
+             +--ro key-type?    identityref
+             +--ro key-value?   string
+  grouping system-ntp-config
+    +-- enabled?              boolean
+    +-- ntp-source-address?   oc-inet:ip-address
+    +-- enable-ntp-auth?      boolean
+  grouping system-ntp-state
+    +-- auth-mismatch?   oc-yang:counter64
+  grouping system-ntp-top
+    +-- ntp
+       +-- config
+       |  +-- enabled?              boolean
+       |  +-- ntp-source-address?   oc-inet:ip-address
+       |  +-- enable-ntp-auth?      boolean
+       +--ro state
+       |  +--ro enabled?              boolean
+       |  +--ro ntp-source-address?   oc-inet:ip-address
+       |  +--ro enable-ntp-auth?      boolean
+       |  +--ro auth-mismatch?        oc-yang:counter64
+       +-- ntp-keys
+       |  +-- ntp-key* [key-id]
+       |     +-- key-id?   -> ../config/key-id
+       |     +-- config
+       |     |  +-- key-id?      uint16
+       |     |  +-- key-type?    identityref
+       |     |  +-- key-value?   string
+       |     +--ro state
+       |        +--ro key-id?      uint16
+       |        +--ro key-type?    identityref
+       |        +--ro key-value?   string
+       +-- servers
+          +-- server* [address]
+             +-- address?   -> ../config/address
+             +-- config
+             |  +-- address?            oc-inet:host
+             |  +-- port?               oc-inet:port-number
+             |  +-- version?            uint8
+             |  +-- association-type?   enumeration
+             |  +-- iburst?             boolean
+             |  +-- prefer?             boolean
+             +--ro state
+                +--ro address?            oc-inet:host
+                +--ro port?               oc-inet:port-number
+                +--ro version?            uint8
+                +--ro association-type?   enumeration
+                +--ro iburst?             boolean
+                +--ro prefer?             boolean
+                +--ro stratum?            uint8
+                +--ro root-delay?         uint32
+                +--ro root-dispersion?    uint64
+                +--ro offset?             uint64
+                +--ro poll-interval?      uint32
+  grouping system-memory-config
+  grouping system-memory-state
+    +-- physical?   uint64
+    +-- reserved?   uint64
+  grouping system-memory-top
+    +-- memory
+       +-- config
+       +--ro state
+          +--ro physical?   uint64
+          +--ro reserved?   uint64
+  grouping system-cpu-state
+    +-- index?                union
+    +-- total
+    |  +-- instant?    oc-types:percentage
+    |  +-- avg?        oc-types:percentage
+    |  +-- min?        oc-types:percentage
+    |  +-- max?        oc-types:percentage
+    |  +-- interval?   oc-types:stat-interval
+    |  +-- min-time?   oc-types:timeticks64
+    |  +-- max-time?   oc-types:timeticks64
+    +-- user
+    |  +-- instant?    oc-types:percentage
+    |  +-- avg?        oc-types:percentage
+    |  +-- min?        oc-types:percentage
+    |  +-- max?        oc-types:percentage
+    |  +-- interval?   oc-types:stat-interval
+    |  +-- min-time?   oc-types:timeticks64
+    |  +-- max-time?   oc-types:timeticks64
+    +-- kernel
+    |  +-- instant?    oc-types:percentage
+    |  +-- avg?        oc-types:percentage
+    |  +-- min?        oc-types:percentage
+    |  +-- max?        oc-types:percentage
+    |  +-- interval?   oc-types:stat-interval
+    |  +-- min-time?   oc-types:timeticks64
+    |  +-- max-time?   oc-types:timeticks64
+    +-- nice
+    |  +-- instant?    oc-types:percentage
+    |  +-- avg?        oc-types:percentage
+    |  +-- min?        oc-types:percentage
+    |  +-- max?        oc-types:percentage
+    |  +-- interval?   oc-types:stat-interval
+    |  +-- min-time?   oc-types:timeticks64
+    |  +-- max-time?   oc-types:timeticks64
+    +-- idle
+    |  +-- instant?    oc-types:percentage
+    |  +-- avg?        oc-types:percentage
+    |  +-- min?        oc-types:percentage
+    |  +-- max?        oc-types:percentage
+    |  +-- interval?   oc-types:stat-interval
+    |  +-- min-time?   oc-types:timeticks64
+    |  +-- max-time?   oc-types:timeticks64
+    +-- wait
+    |  +-- instant?    oc-types:percentage
+    |  +-- avg?        oc-types:percentage
+    |  +-- min?        oc-types:percentage
+    |  +-- max?        oc-types:percentage
+    |  +-- interval?   oc-types:stat-interval
+    |  +-- min-time?   oc-types:timeticks64
+    |  +-- max-time?   oc-types:timeticks64
+    +-- hardware-interrupt
+    |  +-- instant?    oc-types:percentage
+    |  +-- avg?        oc-types:percentage
+    |  +-- min?        oc-types:percentage
+    |  +-- max?        oc-types:percentage
+    |  +-- interval?   oc-types:stat-interval
+    |  +-- min-time?   oc-types:timeticks64
+    |  +-- max-time?   oc-types:timeticks64
+    +-- software-interrupt
+       +-- instant?    oc-types:percentage
+       +-- avg?        oc-types:percentage
+       +-- min?        oc-types:percentage
+       +-- max?        oc-types:percentage
+       +-- interval?   oc-types:stat-interval
+       +-- min-time?   oc-types:timeticks64
+       +-- max-time?   oc-types:timeticks64
+  grouping system-cpu-top
+    +--ro cpus
+       +--ro cpu* [index]
+          +--ro index?   -> ../state/index
+          +--ro state
+             +--ro index?                union
+             +--ro total
+             |  +--ro instant?    oc-types:percentage
+             |  +--ro avg?        oc-types:percentage
+             |  +--ro min?        oc-types:percentage
+             |  +--ro max?        oc-types:percentage
+             |  +--ro interval?   oc-types:stat-interval
+             |  +--ro min-time?   oc-types:timeticks64
+             |  +--ro max-time?   oc-types:timeticks64
+             +--ro user
+             |  +--ro instant?    oc-types:percentage
+             |  +--ro avg?        oc-types:percentage
+             |  +--ro min?        oc-types:percentage
+             |  +--ro max?        oc-types:percentage
+             |  +--ro interval?   oc-types:stat-interval
+             |  +--ro min-time?   oc-types:timeticks64
+             |  +--ro max-time?   oc-types:timeticks64
+             +--ro kernel
+             |  +--ro instant?    oc-types:percentage
+             |  +--ro avg?        oc-types:percentage
+             |  +--ro min?        oc-types:percentage
+             |  +--ro max?        oc-types:percentage
+             |  +--ro interval?   oc-types:stat-interval
+             |  +--ro min-time?   oc-types:timeticks64
+             |  +--ro max-time?   oc-types:timeticks64
+             +--ro nice
+             |  +--ro instant?    oc-types:percentage
+             |  +--ro avg?        oc-types:percentage
+             |  +--ro min?        oc-types:percentage
+             |  +--ro max?        oc-types:percentage
+             |  +--ro interval?   oc-types:stat-interval
+             |  +--ro min-time?   oc-types:timeticks64
+             |  +--ro max-time?   oc-types:timeticks64
+             +--ro idle
+             |  +--ro instant?    oc-types:percentage
+             |  +--ro avg?        oc-types:percentage
+             |  +--ro min?        oc-types:percentage
+             |  +--ro max?        oc-types:percentage
+             |  +--ro interval?   oc-types:stat-interval
+             |  +--ro min-time?   oc-types:timeticks64
+             |  +--ro max-time?   oc-types:timeticks64
+             +--ro wait
+             |  +--ro instant?    oc-types:percentage
+             |  +--ro avg?        oc-types:percentage
+             |  +--ro min?        oc-types:percentage
+             |  +--ro max?        oc-types:percentage
+             |  +--ro interval?   oc-types:stat-interval
+             |  +--ro min-time?   oc-types:timeticks64
+             |  +--ro max-time?   oc-types:timeticks64
+             +--ro hardware-interrupt
+             |  +--ro instant?    oc-types:percentage
+             |  +--ro avg?        oc-types:percentage
+             |  +--ro min?        oc-types:percentage
+             |  +--ro max?        oc-types:percentage
+             |  +--ro interval?   oc-types:stat-interval
+             |  +--ro min-time?   oc-types:timeticks64
+             |  +--ro max-time?   oc-types:timeticks64
+             +--ro software-interrupt
+                +--ro instant?    oc-types:percentage
+                +--ro avg?        oc-types:percentage
+                +--ro min?        oc-types:percentage
+                +--ro max?        oc-types:percentage
+                +--ro interval?   oc-types:stat-interval
+                +--ro min-time?   oc-types:timeticks64
+                +--ro max-time?   oc-types:timeticks64
+  grouping system-top
+    +-- system
+       +-- config
+       |  +-- hostname?       oc-inet:domain-name
+       |  +-- domain-name?    oc-inet:domain-name
+       |  +-- login-banner?   string
+       |  +-- motd-banner?    string
+       +--ro state
+       |  +--ro hostname?           oc-inet:domain-name
+       |  +--ro domain-name?        oc-inet:domain-name
+       |  +--ro login-banner?       string
+       |  +--ro motd-banner?        string
+       |  +--ro current-datetime?   oc-yang:date-and-time
+       |  +--ro boot-time?          oc-types:timeticks64
+       +-- clock
+       |  +-- config
+       |  |  +-- timezone-name?   timezone-name-type
+       |  +--ro state
+       |     +--ro timezone-name?   timezone-name-type
+       +-- dns
+       |  +-- config
+       |  |  +-- search*   oc-inet:domain-name
+       |  +--ro state
+       |  |  +--ro search*   oc-inet:domain-name
+       |  +-- servers
+       |  |  +-- server* [address]
+       |  |     +-- address?   -> ../config/address
+       |  |     +-- config
+       |  |     |  +-- address?   oc-inet:ip-address
+       |  |     |  +-- port?      oc-inet:port-number
+       |  |     +--ro state
+       |  |        +--ro address?   oc-inet:ip-address
+       |  |        +--ro port?      oc-inet:port-number
+       |  +-- host-entries
+       |     +-- host-entry* [hostname]
+       |        +-- hostname?   -> ../config/hostname
+       |        +-- config
+       |        |  +-- hostname?       string
+       |        |  +-- alias*          string
+       |        |  +-- ipv4-address*   oc-inet:ipv4-address
+       |        |  +-- ipv6-address*   oc-inet:ipv6-address
+       |        +--ro state
+       |           +--ro hostname?       string
+       |           +--ro alias*          string
+       |           +--ro ipv4-address*   oc-inet:ipv4-address
+       |           +--ro ipv6-address*   oc-inet:ipv6-address
+       +-- ntp
+       |  +-- config
+       |  |  +-- enabled?              boolean
+       |  |  +-- ntp-source-address?   oc-inet:ip-address
+       |  |  +-- enable-ntp-auth?      boolean
+       |  +--ro state
+       |  |  +--ro enabled?              boolean
+       |  |  +--ro ntp-source-address?   oc-inet:ip-address
+       |  |  +--ro enable-ntp-auth?      boolean
+       |  |  +--ro auth-mismatch?        oc-yang:counter64
+       |  +-- ntp-keys
+       |  |  +-- ntp-key* [key-id]
+       |  |     +-- key-id?   -> ../config/key-id
+       |  |     +-- config
+       |  |     |  +-- key-id?      uint16
+       |  |     |  +-- key-type?    identityref
+       |  |     |  +-- key-value?   string
+       |  |     +--ro state
+       |  |        +--ro key-id?      uint16
+       |  |        +--ro key-type?    identityref
+       |  |        +--ro key-value?   string
+       |  +-- servers
+       |     +-- server* [address]
+       |        +-- address?   -> ../config/address
+       |        +-- config
+       |        |  +-- address?            oc-inet:host
+       |        |  +-- port?               oc-inet:port-number
+       |        |  +-- version?            uint8
+       |        |  +-- association-type?   enumeration
+       |        |  +-- iburst?             boolean
+       |        |  +-- prefer?             boolean
+       |        +--ro state
+       |           +--ro address?            oc-inet:host
+       |           +--ro port?               oc-inet:port-number
+       |           +--ro version?            uint8
+       |           +--ro association-type?   enumeration
+       |           +--ro iburst?             boolean
+       |           +--ro prefer?             boolean
+       |           +--ro stratum?            uint8
+       |           +--ro root-delay?         uint32
+       |           +--ro root-dispersion?    uint64
+       |           +--ro offset?             uint64
+       |           +--ro poll-interval?      uint32
+       +-- grpc-server
+       |  +-- config
+       |  |  +-- enable?               boolean
+       |  |  +-- port?                 oc-inet:port-number
+       |  |  +-- transport-security?   boolean
+       |  |  +-- certificate-id?       string
+       |  |  +-- listen-addresses*     union
+       |  +--ro state
+       |     +--ro enable?               boolean
+       |     +--ro port?                 oc-inet:port-number
+       |     +--ro transport-security?   boolean
+       |     +--ro certificate-id?       string
+       |     +--ro listen-addresses*     union
+       +-- ssh-server
+       |  +-- config
+       |  |  +-- enable?             boolean
+       |  |  +-- protocol-version?   enumeration
+       |  |  +-- timeout?            uint16
+       |  |  +-- rate-limit?         uint16
+       |  |  +-- session-limit?      uint16
+       |  +--ro state
+       |     +--ro enable?             boolean
+       |     +--ro protocol-version?   enumeration
+       |     +--ro timeout?            uint16
+       |     +--ro rate-limit?         uint16
+       |     +--ro session-limit?      uint16
+       +-- telnet-server
+       |  +-- config
+       |  |  +-- enable?          boolean
+       |  |  +-- timeout?         uint16
+       |  |  +-- rate-limit?      uint16
+       |  |  +-- session-limit?   uint16
+       |  +--ro state
+       |     +--ro enable?          boolean
+       |     +--ro timeout?         uint16
+       |     +--ro rate-limit?      uint16
+       |     +--ro session-limit?   uint16
+       +-- logging
+       |  +-- console
+       |  |  +-- config
+       |  |  +--ro state
+       |  |  +-- selectors
+       |  |     +-- selector* [facility severity]
+       |  |        +-- facility?   -> ../config/facility
+       |  |        +-- severity?   -> ../config/severity
+       |  |        +-- config
+       |  |        |  +-- facility?   identityref
+       |  |        |  +-- severity?   syslog-severity
+       |  |        +--ro state
+       |  |           +--ro facility?   identityref
+       |  |           +--ro severity?   syslog-severity
+       |  +-- remote-servers
+       |     +-- remote-server* [host]
+       |        +-- host?        -> ../config/host
+       |        +-- config
+       |        |  +-- host?             oc-inet:host
+       |        |  +-- source-address?   oc-inet:ip-address
+       |        |  +-- remote-port?      oc-inet:port-number
+       |        +--ro state
+       |        |  +--ro host?             oc-inet:host
+       |        |  +--ro source-address?   oc-inet:ip-address
+       |        |  +--ro remote-port?      oc-inet:port-number
+       |        +-- selectors
+       |           +-- selector* [facility severity]
+       |              +-- facility?   -> ../config/facility
+       |              +-- severity?   -> ../config/severity
+       |              +-- config
+       |              |  +-- facility?   identityref
+       |              |  +-- severity?   syslog-severity
+       |              +--ro state
+       |                 +--ro facility?   identityref
+       |                 +--ro severity?   syslog-severity
+       +-- aaa
+       |  +-- config
+       |  +--ro state
+       |  +-- authentication
+       |  |  +-- config
+       |  |  |  +-- authentication-method*   union
+       |  |  +--ro state
+       |  |  |  +--ro authentication-method*   union
+       |  |  +-- admin-user
+       |  |  |  +-- config
+       |  |  |  |  +-- admin-password?          string
+       |  |  |  |  +-- admin-password-hashed?   oc-aaa-types:crypt-password-type
+       |  |  |  +--ro state
+       |  |  |     +--ro admin-password?          string
+       |  |  |     +--ro admin-password-hashed?   oc-aaa-types:crypt-password-type
+       |  |  |     +--ro admin-username?          string
+       |  |  +-- users
+       |  |     +-- user* [username]
+       |  |        +-- username?   -> ../config/username
+       |  |        +-- config
+       |  |        |  +-- username?          string
+       |  |        |  +-- password?          string
+       |  |        |  +-- password-hashed?   oc-aaa-types:crypt-password-type
+       |  |        |  +-- ssh-key?           string
+       |  |        |  +-- role?              union
+       |  |        +--ro state
+       |  |           +--ro username?          string
+       |  |           +--ro password?          string
+       |  |           +--ro password-hashed?   oc-aaa-types:crypt-password-type
+       |  |           +--ro ssh-key?           string
+       |  |           +--ro role?              union
+       |  +-- authorization
+       |  |  +-- config
+       |  |  |  +-- authorization-method*   union
+       |  |  +--ro state
+       |  |  |  +--ro authorization-method*   union
+       |  |  +-- events
+       |  |     +-- event* [event-type]
+       |  |        +-- event-type?   -> ../config/event-type
+       |  |        +-- config
+       |  |        |  +-- event-type?   identityref
+       |  |        +--ro state
+       |  |           +--ro event-type?   identityref
+       |  +-- accounting
+       |  |  +-- config
+       |  |  |  +-- accounting-method*   union
+       |  |  +--ro state
+       |  |  |  +--ro accounting-method*   union
+       |  |  +-- events
+       |  |     +-- event* [event-type]
+       |  |        +-- event-type?   -> ../config/event-type
+       |  |        +-- config
+       |  |        |  +-- event-type?   identityref
+       |  |        |  +-- record?       enumeration
+       |  |        +--ro state
+       |  |           +--ro event-type?   identityref
+       |  |           +--ro record?       enumeration
+       |  +-- server-groups
+       |     +-- server-group* [name]
+       |        +-- name?      -> ../config/name
+       |        +-- config
+       |        |  +-- name?   string
+       |        |  +-- type?   identityref
+       |        +--ro state
+       |        |  +--ro name?   string
+       |        |  +--ro type?   identityref
+       |        +-- servers
+       |           +-- server* [address]
+       |              +-- address?   -> ../config/address
+       |              +-- config
+       |              |  +-- name?      string
+       |              |  +-- address?   oc-inet:ip-address
+       |              |  +-- timeout?   uint16
+       |              +--ro state
+       |              |  +--ro name?                  string
+       |              |  +--ro address?               oc-inet:ip-address
+       |              |  +--ro timeout?               uint16
+       |              |  +--ro connection-opens?      oc-yang:counter64
+       |              |  +--ro connection-closes?     oc-yang:counter64
+       |              |  +--ro connection-aborts?     oc-yang:counter64
+       |              |  +--ro connection-failures?   oc-yang:counter64
+       |              |  +--ro connection-timeouts?   oc-yang:counter64
+       |              |  +--ro messages-sent?         oc-yang:counter64
+       |              |  +--ro messages-received?     oc-yang:counter64
+       |              |  +--ro errors-received?       oc-yang:counter64
+       |              +-- tacacs
+       |              |  +-- config
+       |              |  |  +-- port?             oc-inet:port-number
+       |              |  |  +-- secret-key?       oc-types:routing-password
+       |              |  |  +-- source-address?   oc-inet:ip-address
+       |              |  +--ro state
+       |              |     +--ro port?             oc-inet:port-number
+       |              |     +--ro secret-key?       oc-types:routing-password
+       |              |     +--ro source-address?   oc-inet:ip-address
+       |              +-- radius
+       |                 +-- config
+       |                 |  +-- auth-port?             oc-inet:port-number
+       |                 |  +-- acct-port?             oc-inet:port-number
+       |                 |  +-- secret-key?            oc-types:routing-password
+       |                 |  +-- source-address?        oc-inet:ip-address
+       |                 |  +-- retransmit-attempts?   uint8
+       |                 +--ro state
+       |                    +--ro auth-port?             oc-inet:port-number
+       |                    +--ro acct-port?             oc-inet:port-number
+       |                    +--ro secret-key?            oc-types:routing-password
+       |                    +--ro source-address?        oc-inet:ip-address
+       |                    +--ro retransmit-attempts?   uint8
+       |                    +--ro counters
+       |                       +--ro retried-access-requests?   oc-yang:counter64
+       |                       +--ro access-accepts?            oc-yang:counter64
+       |                       +--ro access-rejects?            oc-yang:counter64
+       |                       +--ro timeout-access-requests?   oc-yang:counter64
+       +-- memory
+       |  +-- config
+       |  +--ro state
+       |     +--ro physical?   uint64
+       |     +--ro reserved?   uint64
+       +--ro cpus
+       |  +--ro cpu* [index]
+       |     +--ro index?   -> ../state/index
+       |     +--ro state
+       |        +--ro index?                union
+       |        +--ro total
+       |        |  +--ro instant?    oc-types:percentage
+       |        |  +--ro avg?        oc-types:percentage
+       |        |  +--ro min?        oc-types:percentage
+       |        |  +--ro max?        oc-types:percentage
+       |        |  +--ro interval?   oc-types:stat-interval
+       |        |  +--ro min-time?   oc-types:timeticks64
+       |        |  +--ro max-time?   oc-types:timeticks64
+       |        +--ro user
+       |        |  +--ro instant?    oc-types:percentage
+       |        |  +--ro avg?        oc-types:percentage
+       |        |  +--ro min?        oc-types:percentage
+       |        |  +--ro max?        oc-types:percentage
+       |        |  +--ro interval?   oc-types:stat-interval
+       |        |  +--ro min-time?   oc-types:timeticks64
+       |        |  +--ro max-time?   oc-types:timeticks64
+       |        +--ro kernel
+       |        |  +--ro instant?    oc-types:percentage
+       |        |  +--ro avg?        oc-types:percentage
+       |        |  +--ro min?        oc-types:percentage
+       |        |  +--ro max?        oc-types:percentage
+       |        |  +--ro interval?   oc-types:stat-interval
+       |        |  +--ro min-time?   oc-types:timeticks64
+       |        |  +--ro max-time?   oc-types:timeticks64
+       |        +--ro nice
+       |        |  +--ro instant?    oc-types:percentage
+       |        |  +--ro avg?        oc-types:percentage
+       |        |  +--ro min?        oc-types:percentage
+       |        |  +--ro max?        oc-types:percentage
+       |        |  +--ro interval?   oc-types:stat-interval
+       |        |  +--ro min-time?   oc-types:timeticks64
+       |        |  +--ro max-time?   oc-types:timeticks64
+       |        +--ro idle
+       |        |  +--ro instant?    oc-types:percentage
+       |        |  +--ro avg?        oc-types:percentage
+       |        |  +--ro min?        oc-types:percentage
+       |        |  +--ro max?        oc-types:percentage
+       |        |  +--ro interval?   oc-types:stat-interval
+       |        |  +--ro min-time?   oc-types:timeticks64
+       |        |  +--ro max-time?   oc-types:timeticks64
+       |        +--ro wait
+       |        |  +--ro instant?    oc-types:percentage
+       |        |  +--ro avg?        oc-types:percentage
+       |        |  +--ro min?        oc-types:percentage
+       |        |  +--ro max?        oc-types:percentage
+       |        |  +--ro interval?   oc-types:stat-interval
+       |        |  +--ro min-time?   oc-types:timeticks64
+       |        |  +--ro max-time?   oc-types:timeticks64
+       |        +--ro hardware-interrupt
+       |        |  +--ro instant?    oc-types:percentage
+       |        |  +--ro avg?        oc-types:percentage
+       |        |  +--ro min?        oc-types:percentage
+       |        |  +--ro max?        oc-types:percentage
+       |        |  +--ro interval?   oc-types:stat-interval
+       |        |  +--ro min-time?   oc-types:timeticks64
+       |        |  +--ro max-time?   oc-types:timeticks64
+       |        +--ro software-interrupt
+       |           +--ro instant?    oc-types:percentage
+       |           +--ro avg?        oc-types:percentage
+       |           +--ro min?        oc-types:percentage
+       |           +--ro max?        oc-types:percentage
+       |           +--ro interval?   oc-types:stat-interval
+       |           +--ro min-time?   oc-types:timeticks64
+       |           +--ro max-time?   oc-types:timeticks64
+       +-- processes
+       |  +--ro process* [pid]
+       |     +--ro pid?     -> ../state/pid
+       |     +--ro state
+       |        +--ro pid?                  uint64
+       |        +--ro name?                 string
+       |        +--ro args*                 string
+       |        +--ro start-time?           uint64
+       |        +--ro uptime?               oc-types:timeticks64
+       |        +--ro cpu-usage-user?       oc-types:timeticks64
+       |        +--ro cpu-usage-system?     oc-types:timeticks64
+       |        +--ro cpu-utilization?      oc-types:percentage
+       |        +--ro memory-usage?         uint64
+       |        +--ro memory-utilization?   oc-types:percentage
+       +-- alarms
+          +-- alarm* [id]
+             +-- id?       -> ../config/id
+             +-- config
+             |  +-- id?   string
+             +--ro state
+                +--ro id?             string
+                +--ro resource?       string
+                +--ro text?           string
+                +--ro time-created?   oc-types:timeticks64
+                +--ro severity?       identityref
+                +--ro type-id?        union

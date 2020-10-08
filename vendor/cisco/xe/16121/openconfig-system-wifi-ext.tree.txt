@@ -1,0 +1,40 @@
+
+module: openconfig-system-wifi-ext
+  augment /oc-sys:system:
+    +--rw assigned-controllers
+       +--rw controller* [id]
+          +--rw id        -> ../config/id
+          +--rw config
+          |  +--rw id?                        string
+          |  +--rw fqdn?                      oc-inet:domain-name
+          |  +--rw controller-ipv4-address?   oc-inet:ipv4-address
+          |  +--rw controller-ipv6-address*   oc-inet:ipv6-address
+          +--ro state
+             +--ro id?                        string
+             +--ro fqdn?                      oc-inet:domain-name
+             +--ro controller-ipv4-address?   oc-inet:ipv4-address
+             +--ro controller-ipv6-address*   oc-inet:ipv6-address
+             +--ro joined?                    boolean
+
+  grouping assigned-controllers-config
+    +-- id?                        string
+    +-- fqdn?                      oc-inet:domain-name
+    +-- controller-ipv4-address?   oc-inet:ipv4-address
+    +-- controller-ipv6-address*   oc-inet:ipv6-address
+  grouping assigned-controllers-state
+    +-- joined?   boolean
+  grouping controller-ap-parameters-top
+    +-- assigned-controllers
+       +-- controller* [id]
+          +-- id?       -> ../config/id
+          +-- config
+          |  +-- id?                        string
+          |  +-- fqdn?                      oc-inet:domain-name
+          |  +-- controller-ipv4-address?   oc-inet:ipv4-address
+          |  +-- controller-ipv6-address*   oc-inet:ipv6-address
+          +--ro state
+             +--ro id?                        string
+             +--ro fqdn?                      oc-inet:domain-name
+             +--ro controller-ipv4-address?   oc-inet:ipv4-address
+             +--ro controller-ipv6-address*   oc-inet:ipv6-address
+             +--ro joined?                    boolean

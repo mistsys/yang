@@ -1,0 +1,389 @@
+module: Cisco-IOS-XE-voice-oper
+  +--ro voice-oper-data
+     +--ro dspfarm-dsp* [bridge-id]
+     |  +--ro bridge-id       uint32
+     |  +--ro dsp-slot?       string
+     |  +--ro dsp-num?        uint32
+     |  +--ro dsp-version?    string
+     |  +--ro dsp-status?     voice-ios-xe-oper:dsp-status-type
+     |  +--ro chnl-id?        uint32
+     |  +--ro chnl-status?    voice-ios-xe-oper:chnl-status-type
+     |  +--ro service-type?   voice-ios-xe-oper:dsp-service-type
+     |  +--ro rsc-id?         uint32
+     |  +--ro pkts-txed?      uint32
+     |  +--ro pkts-rxed?      uint32
+     +--ro sccp-connection* [conn-id]
+     |  +--ro conn-id        uint32
+     |  +--ro sess-id?       uint32
+     |  +--ro stype?         voice-ios-xe-oper:sccp-sess-type
+     |  +--ro mode?          voice-ios-xe-oper:sccp-conn-mode
+     |  +--ro codec?         voice-ios-xe-oper:voip-codec-type
+     |  +--ro rmt-ipaddr?    inet:ip-address
+     |  +--ro rmt-port?      uint16
+     |  +--ro src-port?      uint16
+     |  +--ro dtmf-method?   voice-ios-xe-oper:dtmf-method-type
+     +--ro voice-recording-port* [port-dptag]
+     |  +--ro port-dptag      uint32
+     |  +--ro pa-bay?         uint32
+     |  +--ro port-type?      voice-ios-xe-oper:dsp-port-type
+     |  +--ro port-id?        string
+     |  +--ro server-dptag?   uint32
+     +--ro voice-recording-license!
+     |  +--ro configured?         uint32
+     |  +--ro allocated?          uint32
+     |  +--ro max-support-call?   uint32
+     |  +--ro call-use-license?   uint32
+     +--ro dspfarm-utlz-profile* [profile-id]
+     |  +--ro profile-id            uint32
+     |  +--ro type?                 string
+     |  +--ro profile-utlz?         uint32
+     |  +--ro profile-pvdm-entry* [pvdm-id]
+     |     +--ro pvdm-id      string
+     |     +--ro pvdm-utlz?   uint32
+     +--ro dspfarm-utlz-detail* [profile-id]
+     |  +--ro profile-id               uint32
+     |  +--ro type?                    string
+     |  +--ro profile-utlz?            uint32
+     |  +--ro dsp-utlz-detail-entry* [dsp-id]
+     |     +--ro dsp-id              string
+     |     +--ro dsp-alloc-ratio?    uint32
+     |     +--ro dsp-channel-utlz?   uint32
+     |     +--ro dsp-credit-utlz?    uint32
+     |     +--ro dsp-session-utlz?   uint32
+     +--ro dsapp-line-dev-sum!
+     |  +--ro total-dev?              uint32
+     |  +--ro dsapp-line-dev-entry* [key-id]
+     |     +--ro key-id       string
+     |     +--ro port-id
+     |     |  +--ro slot?      uint32
+     |     |  +--ro subslot?   uint32
+     |     |  +--ro port?      uint32
+     |     +--ro dev-name?    string
+     |     +--ro reg-state?   voice-ios-xe-oper:reg-state-type
+     |     +--ro dev-type?    voice-ios-xe-oper:device-type
+     |     +--ro dir-num?     string
+     +--ro dsapp-line-fac!
+     |  +--ro prefix?                string
+     |  +--ro call-forward-all?      string
+     |  +--ro call-forward-cancel?   string
+     |  +--ro pickup-local?          string
+     |  +--ro pickup-group?          string
+     |  +--ro pickup-direct?         string
+     |  +--ro cancel-call-waiting?   string
+     |  +--ro last-redial?           string
+     +--ro active-voice-call-sum!
+     |  +--ro total-entry?               uint32
+     |  +--ro active-voice-call-entry* [key-id]
+     |     +--ro key-id                  string
+     |     +--ro call-id?                uint64
+     |     +--ro voice-port-id?          string
+     |     +--ro codec-type?             voice-ios-xe-oper:voip-codec-type
+     |     +--ro vad?                    voice-ios-xe-oper:vad-configuration
+     |     +--ro dsp-id?                 string
+     |     +--ro dsp-type?               voice-ios-xe-oper:dsp-type-enum
+     |     +--ro dsp-version?            string
+     |     +--ro dsp-abort-packet-cnt?   uint32
+     |     +--ro dsp-tx-packet-cnt?      uint32
+     |     +--ro dsp-rx-packet-cnt?      uint32
+     +--ro active-voip-call-summary!
+     |  +--ro telephony-call-legs?        uint32
+     |  +--ro sip-call-legs?              uint32
+     |  +--ro total-call-legs?            uint32
+     |  +--ro active-voip-call-details* [call-index call-setuptime]
+     |     +--ro call-index           uint32
+     |     +--ro call-setuptime       yang:date-and-time
+     |     +--ro call-id?             uint32
+     |     +--ro call-type?           voice-ios-xe-oper:voice-call-type-enum
+     |     +--ro bridge-id?           uint32
+     |     +--ro peer-id?             int32
+     |     +--ro direction?           voice-ios-xe-oper:voice-call-direction-enum
+     |     +--ro directory-number?    string
+     |     +--ro call-state?          voice-ios-xe-oper:voice-call-state-enum
+     |     +--ro call-duration?       uint32
+     |     +--ro transmit-packets?    uint32
+     |     +--ro transmit-bytes?      uint32
+     |     +--ro receive-packets?     uint32
+     |     +--ro receive-bytes?       uint32
+     |     +--ro remote-ip-address?   inet:ip-address
+     |     +--ro remote-media-port?   uint16
+     |     +--ro codec?               voice-ios-xe-oper:voip-codec-type
+     +--ro sccp-ccm-group* [ccm-group-id]
+     |  +--ro ccm-group-id            uint32
+     |  +--ro description?            string
+     |  +--ro bound-intf?             string
+     |  +--ro ipv6-address?           inet:ip-address
+     |  +--ro ipv4-address?           inet:ip-address
+     |  +--ro registration-retries?   uint32
+     |  +--ro registration-timeout?   uint32
+     |  +--ro keepalive-retries?      uint32
+     |  +--ro keepalive-timeout?      uint32
+     |  +--ro connect-retries?        uint32
+     |  +--ro connect-interval?       uint32
+     |  +--ro switchover-method?      voice-ios-xe-oper:swo-method
+     |  +--ro switchback-method?      voice-ios-xe-oper:swb-method
+     |  +--ro switchback-interval?    uint32
+     |  +--ro switchback-timeout?     uint32
+     |  +--ro signaling-dscp?         uint8
+     |  +--ro audio-dscp?             uint8
+     |  +--ro asso-ccm-entry* [ccm-id]
+     |  |  +--ro ccm-id          uint32
+     |  |  +--ro ccm-priority?   uint32
+     |  +--ro asso-profile-entry* [profile-id]
+     |     +--ro profile-id    uint32
+     |     +--ro reg-name?     string
+     +--ro dspfp* [profile-id]
+     |  +--ro profile-id                uint32
+     |  +--ro service-id?               voice-ios-xe-oper:srvc-id
+     |  +--ro resource-id?              uint32
+     |  +--ro secure-mode?              voice-ios-xe-oper:secure-mode
+     |  +--ro prof-admin-state?         voice-ios-xe-oper:prof-admin-state
+     |  +--ro prof-oper-state?          voice-ios-xe-oper:prof-oper-state
+     |  +--ro app-id?                   voice-ios-xe-oper:app-id
+     |  +--ro app-assoc-status?         voice-ios-xe-oper:app-assoc
+     |  +--ro rsc-provider?             voice-ios-xe-oper:rscprv-id
+     |  +--ro rsc-status?               voice-ios-xe-oper:rscprv-state
+     |  +--ro total-rsc-cfg-count?      uint32
+     |  +--ro total-rsc-avail-count?    uint32
+     |  +--ro total-rsc-oos-count?      uint32
+     |  +--ro total-rsc-active-count?   uint32
+     |  +--ro total-codec-count?        uint32
+     |  +--ro dspfp-codec-entry* [codec-idx]
+     |     +--ro codec-idx         uint32
+     |     +--ro codec-type?       voice-ios-xe-oper:voip-codec-type
+     |     +--ro max-pkt-period?   uint32
+     +--ro voice-reg-phone-info* [pool-tag]
+        +--ro pool-tag               uint32
+        +--ro id-network?            inet:ip-address
+        +--ro reg-state?             voice-ios-xe-oper:reg-state-type
+        +--ro voice-reg-line-info* [dialpeer-tag]
+           +--ro dialpeer-tag    uint32
+           +--ro address?        inet:ip-address
+           +--ro dir-number?     string
+
+  grouping voice-recording-port
+    +-- port-dptag?     uint32
+    +-- pa-bay?         uint32
+    +-- port-type?      voice-ios-xe-oper:dsp-port-type
+    +-- port-id?        string
+    +-- server-dptag?   uint32
+  grouping voice-recording-license
+    +-- configured?         uint32
+    +-- allocated?          uint32
+    +-- max-support-call?   uint32
+    +-- call-use-license?   uint32
+  grouping profile-pvdm-entry
+    +-- pvdm-id?     string
+    +-- pvdm-utlz?   uint32
+  grouping dspfarm-utlz-profile
+    +-- profile-id?           uint32
+    +-- type?                 string
+    +-- profile-utlz?         uint32
+    +-- profile-pvdm-entry* [pvdm-id]
+       +-- pvdm-id?     string
+       +-- pvdm-utlz?   uint32
+  grouping dsp-utlz-detail-entry
+    +-- dsp-id?             string
+    +-- dsp-alloc-ratio?    uint32
+    +-- dsp-channel-utlz?   uint32
+    +-- dsp-credit-utlz?    uint32
+    +-- dsp-session-utlz?   uint32
+  grouping dspfarm-utlz-detail
+    +-- profile-id?              uint32
+    +-- type?                    string
+    +-- profile-utlz?            uint32
+    +-- dsp-utlz-detail-entry* [dsp-id]
+       +-- dsp-id?             string
+       +-- dsp-alloc-ratio?    uint32
+       +-- dsp-channel-utlz?   uint32
+       +-- dsp-credit-utlz?    uint32
+       +-- dsp-session-utlz?   uint32
+  grouping voice-port-num
+    +-- slot?      uint32
+    +-- subslot?   uint32
+    +-- port?      uint32
+  grouping dsapp-line-dev-entry
+    +-- key-id?      string
+    +-- port-id
+    |  +-- slot?      uint32
+    |  +-- subslot?   uint32
+    |  +-- port?      uint32
+    +-- dev-name?    string
+    +-- reg-state?   voice-ios-xe-oper:reg-state-type
+    +-- dev-type?    voice-ios-xe-oper:device-type
+    +-- dir-num?     string
+  grouping dsapp-line-dev-sum
+    +-- total-dev?              uint32
+    +-- dsapp-line-dev-entry* [key-id]
+       +-- key-id?      string
+       +-- port-id
+       |  +-- slot?      uint32
+       |  +-- subslot?   uint32
+       |  +-- port?      uint32
+       +-- dev-name?    string
+       +-- reg-state?   voice-ios-xe-oper:reg-state-type
+       +-- dev-type?    voice-ios-xe-oper:device-type
+       +-- dir-num?     string
+  grouping dsapp-line-fac
+    +-- prefix?                string
+    +-- call-forward-all?      string
+    +-- call-forward-cancel?   string
+    +-- pickup-local?          string
+    +-- pickup-group?          string
+    +-- pickup-direct?         string
+    +-- cancel-call-waiting?   string
+    +-- last-redial?           string
+  grouping active-voice-call-entry
+    +-- key-id?                 string
+    +-- call-id?                uint64
+    +-- voice-port-id?          string
+    +-- codec-type?             voice-ios-xe-oper:voip-codec-type
+    +-- vad?                    voice-ios-xe-oper:vad-configuration
+    +-- dsp-id?                 string
+    +-- dsp-type?               voice-ios-xe-oper:dsp-type-enum
+    +-- dsp-version?            string
+    +-- dsp-abort-packet-cnt?   uint32
+    +-- dsp-tx-packet-cnt?      uint32
+    +-- dsp-rx-packet-cnt?      uint32
+  grouping active-voice-call-sum
+    +-- total-entry?               uint32
+    +-- active-voice-call-entry* [key-id]
+       +-- key-id?                 string
+       +-- call-id?                uint64
+       +-- voice-port-id?          string
+       +-- codec-type?             voice-ios-xe-oper:voip-codec-type
+       +-- vad?                    voice-ios-xe-oper:vad-configuration
+       +-- dsp-id?                 string
+       +-- dsp-type?               voice-ios-xe-oper:dsp-type-enum
+       +-- dsp-version?            string
+       +-- dsp-abort-packet-cnt?   uint32
+       +-- dsp-tx-packet-cnt?      uint32
+       +-- dsp-rx-packet-cnt?      uint32
+  grouping asso-ccm-entry
+    +-- ccm-id?         uint32
+    +-- ccm-priority?   uint32
+  grouping asso-profile-entry
+    +-- profile-id?   uint32
+    +-- reg-name?     string
+  grouping sccp-ccm-group
+    +-- ccm-group-id?           uint32
+    +-- description?            string
+    +-- bound-intf?             string
+    +-- ipv6-address?           inet:ip-address
+    +-- ipv4-address?           inet:ip-address
+    +-- registration-retries?   uint32
+    +-- registration-timeout?   uint32
+    +-- keepalive-retries?      uint32
+    +-- keepalive-timeout?      uint32
+    +-- connect-retries?        uint32
+    +-- connect-interval?       uint32
+    +-- switchover-method?      voice-ios-xe-oper:swo-method
+    +-- switchback-method?      voice-ios-xe-oper:swb-method
+    +-- switchback-interval?    uint32
+    +-- switchback-timeout?     uint32
+    +-- signaling-dscp?         uint8
+    +-- audio-dscp?             uint8
+    +-- asso-ccm-entry* [ccm-id]
+    |  +-- ccm-id?         uint32
+    |  +-- ccm-priority?   uint32
+    +-- asso-profile-entry* [profile-id]
+       +-- profile-id?   uint32
+       +-- reg-name?     string
+  grouping sccp-connection
+    +-- conn-id?       uint32
+    +-- sess-id?       uint32
+    +-- stype?         voice-ios-xe-oper:sccp-sess-type
+    +-- mode?          voice-ios-xe-oper:sccp-conn-mode
+    +-- codec?         voice-ios-xe-oper:voip-codec-type
+    +-- rmt-ipaddr?    inet:ip-address
+    +-- rmt-port?      uint16
+    +-- src-port?      uint16
+    +-- dtmf-method?   voice-ios-xe-oper:dtmf-method-type
+  grouping dspfarm-dsp
+    +-- bridge-id?      uint32
+    +-- dsp-slot?       string
+    +-- dsp-num?        uint32
+    +-- dsp-version?    string
+    +-- dsp-status?     voice-ios-xe-oper:dsp-status-type
+    +-- chnl-id?        uint32
+    +-- chnl-status?    voice-ios-xe-oper:chnl-status-type
+    +-- service-type?   voice-ios-xe-oper:dsp-service-type
+    +-- rsc-id?         uint32
+    +-- pkts-txed?      uint32
+    +-- pkts-rxed?      uint32
+  grouping dspfp-codec-entry
+    +-- codec-idx?        uint32
+    +-- codec-type?       voice-ios-xe-oper:voip-codec-type
+    +-- max-pkt-period?   uint32
+  grouping dspfp
+    +-- profile-id?               uint32
+    +-- service-id?               voice-ios-xe-oper:srvc-id
+    +-- resource-id?              uint32
+    +-- secure-mode?              voice-ios-xe-oper:secure-mode
+    +-- prof-admin-state?         voice-ios-xe-oper:prof-admin-state
+    +-- prof-oper-state?          voice-ios-xe-oper:prof-oper-state
+    +-- app-id?                   voice-ios-xe-oper:app-id
+    +-- app-assoc-status?         voice-ios-xe-oper:app-assoc
+    +-- rsc-provider?             voice-ios-xe-oper:rscprv-id
+    +-- rsc-status?               voice-ios-xe-oper:rscprv-state
+    +-- total-rsc-cfg-count?      uint32
+    +-- total-rsc-avail-count?    uint32
+    +-- total-rsc-oos-count?      uint32
+    +-- total-rsc-active-count?   uint32
+    +-- total-codec-count?        uint32
+    +-- dspfp-codec-entry* [codec-idx]
+       +-- codec-idx?        uint32
+       +-- codec-type?       voice-ios-xe-oper:voip-codec-type
+       +-- max-pkt-period?   uint32
+  grouping voice-reg-line-info
+    +-- dialpeer-tag?   uint32
+    +-- address?        inet:ip-address
+    +-- dir-number?     string
+  grouping voice-reg-phone-info
+    +-- pool-tag?              uint32
+    +-- id-network?            inet:ip-address
+    +-- reg-state?             voice-ios-xe-oper:reg-state-type
+    +-- voice-reg-line-info* [dialpeer-tag]
+       +-- dialpeer-tag?   uint32
+       +-- address?        inet:ip-address
+       +-- dir-number?     string
+  grouping active-voip-call-key
+    +-- call-index?       uint32
+    +-- call-setuptime?   yang:date-and-time
+  grouping active-voip-call-details
+    +-- call-id?             uint32
+    +-- call-type?           voice-ios-xe-oper:voice-call-type-enum
+    +-- bridge-id?           uint32
+    +-- peer-id?             int32
+    +-- direction?           voice-ios-xe-oper:voice-call-direction-enum
+    +-- directory-number?    string
+    +-- call-state?          voice-ios-xe-oper:voice-call-state-enum
+    +-- call-duration?       uint32
+    +-- transmit-packets?    uint32
+    +-- transmit-bytes?      uint32
+    +-- receive-packets?     uint32
+    +-- receive-bytes?       uint32
+    +-- remote-ip-address?   inet:ip-address
+    +-- remote-media-port?   uint16
+    +-- codec?               voice-ios-xe-oper:voip-codec-type
+  grouping active-voip-call-summary
+    +-- telephony-call-legs?        uint32
+    +-- sip-call-legs?              uint32
+    +-- total-call-legs?            uint32
+    +-- active-voip-call-details* [call-index call-setuptime]
+       +-- call-index?          uint32
+       +-- call-setuptime?      yang:date-and-time
+       +-- call-id?             uint32
+       +-- call-type?           voice-ios-xe-oper:voice-call-type-enum
+       +-- bridge-id?           uint32
+       +-- peer-id?             int32
+       +-- direction?           voice-ios-xe-oper:voice-call-direction-enum
+       +-- directory-number?    string
+       +-- call-state?          voice-ios-xe-oper:voice-call-state-enum
+       +-- call-duration?       uint32
+       +-- transmit-packets?    uint32
+       +-- transmit-bytes?      uint32
+       +-- receive-packets?     uint32
+       +-- receive-bytes?       uint32
+       +-- remote-ip-address?   inet:ip-address
+       +-- remote-media-port?   uint16
+       +-- codec?               voice-ios-xe-oper:voip-codec-type

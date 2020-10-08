@@ -1,0 +1,263 @@
+module: Cisco-IOS-XE-wireless-flex-cfg
+  +--rw flex-cfg-data
+     +--rw flex-policy-entries
+     |  +--rw flex-policy-entry* [policy-name]
+     |     +--rw policy-name                    string
+     |     +--rw description?                   string
+     |     +--rw is-peap?                       boolean
+     |     +--rw is-leap?                       boolean
+     |     +--rw is-eap?                        boolean
+     |     +--rw is-tls?                        boolean
+     |     +--rw eap-fast-profile-name?         string
+     |     +--rw radius-server-group-name?      string
+     |     +--rw multicast-overriden-intf?      boolean
+     |     +--rw fallback-radio-shut?           boolean
+     |     +--rw arp-caching?                   boolean
+     |     +--rw cts-inline-tagging?            boolean
+     |     +--rw cts-rolebased-enforce?         boolean
+     |     +--rw cts-profile-name?              string
+     |     +--rw join-min-latency?              boolean
+     |     +--rw radius-enable?                 boolean
+     |     +--rw native-vlan-id?                uint32
+     |     +--rw vlan-enable?                   boolean
+     |     +--rw http-proxy-ip?                 inet:ip-address
+     |     +--rw http-proxy-port?               uint16
+     |     +--rw is-home-ap-enable?             boolean
+     |     +--rw is-radio-backhaul?             boolean
+     |     +--rw is-resilient-mode?             boolean
+     |     +--rw efficient-ap-upgrade-enable?   boolean
+     |     +--rw slave-max-retry-count?         uint32
+     |     +--rw vlan-acls
+     |     |  +--rw vlan-acl* [vlan-id]
+     |     |     +--rw vlan-id             uint32
+     |     |     +--rw ingress-acl-name?   string
+     |     |     +--rw egress-acl-name?    string
+     |     +--rw policy-acls
+     |     |  +--rw policy-acl* [acl-name]
+     |     |     +--rw acl-name              string
+     |     |     +--rw is-punt?              boolean
+     |     |     +--rw urlfilterlist-name?   string
+     |     +--rw local-auth-users
+     |     |  +--rw local-auth-user* [user-name]
+     |     |     +--rw user-name        string
+     |     |     +--rw password?        string
+     |     |     +--rw password-type?   wireless-enum-types:crypt-type
+     |     +--rw if-name-vlan-ids
+     |        +--rw if-name-vlan-id* [interface-name]
+     |           +--rw interface-name    string
+     |           +--rw vlan-id?          uint32
+     |           +--rw acl-name?         string
+     +--rw rlan-configs
+     |  +--rw rlan-config* [rlan-id]
+     |     +--rw rlan-id                        uint32
+     |     +--rw profile-name                   string
+     |     +--rw mac-filtering?                 string
+     |     +--rw auth-list?                     string
+     |     +--rw security-8021x-dot1x?          boolean
+     |     +--rw auth-list-dot1x?               string
+     |     +--rw security-web-auth?             boolean
+     |     +--rw local-auth-eap-profile-name?   string
+     |     +--rw local-eap-auth-enabled?        boolean
+     |     +--rw web-auth-parameter-map?        string
+     |     +--rw max-associated-clients?        uint32
+     |     +--rw status?                        boolean
+     |     +--rw web-pre-auth-acl
+     |        +--rw ipv4-acl?   string
+     |        +--rw ipv6-acl?   string
+     +--rw rlan-policy-profile-configs
+        +--rw rlan-policy-profile-config* [profile-name]
+           +--rw profile-name          string
+           +--rw status?               boolean
+           +--rw description?          string
+           +--rw ipv4-acl?             string
+           +--rw ipv6-acl?             string
+           +--rw aaa-override?         boolean
+           +--rw aaa-policy-name?      string
+           +--rw central-switching?    boolean
+           +--rw central-dhcp?         boolean
+           +--rw interface-name?       string
+           +--rw poe?                  boolean
+           +--rw host-mode?            wireless-types:enm-host-mode
+           +--rw host-mode-vlans
+           |  +--rw voice-vlan-id?   uint16
+           |  +--rw data-vlan-id?    uint16
+           +--rw violation-mode?       wireless-types:enm-violation-mode
+           +--rw blacklist
+           |  +--rw is-blacklist-enabled?   boolean
+           |  +--rw blacklist-timeout?      uint32
+           +--rw pre-auth?             boolean
+           +--rw profiling
+           |  +--rw radius-profiling?        boolean
+           |  +--rw radius-dhcp-profiling?   boolean
+           |  +--rw http-tlv-caching?        boolean
+           |  +--rw dhcp-tlv-caching?        boolean
+           +--rw session-timeout?      uint32
+           +--rw flow-monitor-ipv4
+           |  +--rw flow-monitor-ingress-name?   string
+           |  +--rw flow-monitor-egress-name?    string
+           |  +--rw ingress-enable?              boolean
+           |  +--rw egress-enable?               boolean
+           +--rw flow-monitor-ipv6
+           |  +--rw flow-monitor-ingress-name?   string
+           |  +--rw flow-monitor-egress-name?    string
+           |  +--rw ingress-enable?              boolean
+           |  +--rw egress-enable?               boolean
+           +--rw split-tunnel-param
+           |  +--rw split-tunnel-enabled?    boolean
+           |  +--rw acl-name?                string
+           |  +--rw split-tunnel-override?   boolean
+           |  +--rw split-tunnel-gateway?    inet:ip-address
+           |  +--rw split-tunnel-netmask?    inet:ip-address
+           +--rw dhcp-server?          inet:ip-address
+           +--rw is-dhcp-enabled?      boolean
+           +--rw accounting-list?      string
+
+  grouping vlan-acl-list
+    +-- vlan-id?            uint32
+    +-- ingress-acl-name?   string
+    +-- egress-acl-name?    string
+  grouping local-auth-user-list
+    +-- user-name?       string
+    +-- password?        string
+    +-- password-type?   wireless-enum-types:crypt-type
+  grouping policy-acl-list
+    +-- acl-name?             string
+    +-- is-punt?              boolean
+    +-- urlfilterlist-name?   string
+  grouping if-name-vlan-id-list
+    +-- interface-name?   string
+    +-- vlan-id?          uint32
+    +-- acl-name?         string
+  grouping flex-policy-config
+    +-- policy-name?                   string
+    +-- description?                   string
+    +-- is-peap?                       boolean
+    +-- is-leap?                       boolean
+    +-- is-eap?                        boolean
+    +-- is-tls?                        boolean
+    +-- eap-fast-profile-name?         string
+    +-- radius-server-group-name?      string
+    +-- multicast-overriden-intf?      boolean
+    +-- fallback-radio-shut?           boolean
+    +-- arp-caching?                   boolean
+    +-- cts-inline-tagging?            boolean
+    +-- cts-rolebased-enforce?         boolean
+    +-- cts-profile-name?              string
+    +-- join-min-latency?              boolean
+    +-- radius-enable?                 boolean
+    +-- native-vlan-id?                uint32
+    +-- vlan-enable?                   boolean
+    +-- http-proxy-ip?                 inet:ip-address
+    +-- http-proxy-port?               uint16
+    +-- is-home-ap-enable?             boolean
+    +-- is-radio-backhaul?             boolean
+    +-- is-resilient-mode?             boolean
+    +-- efficient-ap-upgrade-enable?   boolean
+    +-- slave-max-retry-count?         uint32
+    +-- vlan-acls
+    |  +-- vlan-acl* [vlan-id]
+    |     +-- vlan-id?            uint32
+    |     +-- ingress-acl-name?   string
+    |     +-- egress-acl-name?    string
+    +-- policy-acls
+    |  +-- policy-acl* [acl-name]
+    |     +-- acl-name?             string
+    |     +-- is-punt?              boolean
+    |     +-- urlfilterlist-name?   string
+    +-- local-auth-users
+    |  +-- local-auth-user* [user-name]
+    |     +-- user-name?       string
+    |     +-- password?        string
+    |     +-- password-type?   wireless-enum-types:crypt-type
+    +-- if-name-vlan-ids
+       +-- if-name-vlan-id* [interface-name]
+          +-- interface-name?   string
+          +-- vlan-id?          uint32
+          +-- acl-name?         string
+  grouping st-split-tunnel
+    +-- split-tunnel-enabled?    boolean
+    +-- acl-name?                string
+    +-- split-tunnel-override?   boolean
+    +-- split-tunnel-gateway?    inet:ip-address
+    +-- split-tunnel-netmask?    inet:ip-address
+  grouping st-multi-domain-vlans
+    +-- voice-vlan-id?   uint16
+    +-- data-vlan-id?    uint16
+  grouping st-rlan-profiling
+    +-- radius-profiling?        boolean
+    +-- radius-dhcp-profiling?   boolean
+    +-- http-tlv-caching?        boolean
+    +-- dhcp-tlv-caching?        boolean
+  grouping st-flow-monitor
+    +-- flow-monitor-ingress-name?   string
+    +-- flow-monitor-egress-name?    string
+    +-- ingress-enable?              boolean
+    +-- egress-enable?               boolean
+  grouping blacklist-params
+    +-- is-blacklist-enabled?   boolean
+    +-- blacklist-timeout?      uint32
+  grouping st-rlan-policy-profile-config
+    +-- profile-name?         string
+    +-- status?               boolean
+    +-- description?          string
+    +-- ipv4-acl?             string
+    +-- ipv6-acl?             string
+    +-- aaa-override?         boolean
+    +-- aaa-policy-name?      string
+    +-- central-switching?    boolean
+    +-- central-dhcp?         boolean
+    +-- interface-name?       string
+    +-- poe?                  boolean
+    +-- host-mode?            wireless-types:enm-host-mode
+    +-- host-mode-vlans
+    |  +-- voice-vlan-id?   uint16
+    |  +-- data-vlan-id?    uint16
+    +-- violation-mode?       wireless-types:enm-violation-mode
+    +-- blacklist
+    |  +-- is-blacklist-enabled?   boolean
+    |  +-- blacklist-timeout?      uint32
+    +-- pre-auth?             boolean
+    +-- profiling
+    |  +-- radius-profiling?        boolean
+    |  +-- radius-dhcp-profiling?   boolean
+    |  +-- http-tlv-caching?        boolean
+    |  +-- dhcp-tlv-caching?        boolean
+    +-- session-timeout?      uint32
+    +-- flow-monitor-ipv4
+    |  +-- flow-monitor-ingress-name?   string
+    |  +-- flow-monitor-egress-name?    string
+    |  +-- ingress-enable?              boolean
+    |  +-- egress-enable?               boolean
+    +-- flow-monitor-ipv6
+    |  +-- flow-monitor-ingress-name?   string
+    |  +-- flow-monitor-egress-name?    string
+    |  +-- ingress-enable?              boolean
+    |  +-- egress-enable?               boolean
+    +-- split-tunnel-param
+    |  +-- split-tunnel-enabled?    boolean
+    |  +-- acl-name?                string
+    |  +-- split-tunnel-override?   boolean
+    |  +-- split-tunnel-gateway?    inet:ip-address
+    |  +-- split-tunnel-netmask?    inet:ip-address
+    +-- dhcp-server?          inet:ip-address
+    +-- is-dhcp-enabled?      boolean
+    +-- accounting-list?      string
+  grouping st-rlan-web-pre-auth-acl
+    +-- ipv4-acl?   string
+    +-- ipv6-acl?   string
+  grouping st-rlan-config
+    +-- rlan-id?                       uint32
+    +-- profile-name?                  string
+    +-- mac-filtering?                 string
+    +-- auth-list?                     string
+    +-- security-8021x-dot1x?          boolean
+    +-- auth-list-dot1x?               string
+    +-- security-web-auth?             boolean
+    +-- local-auth-eap-profile-name?   string
+    +-- local-eap-auth-enabled?        boolean
+    +-- web-auth-parameter-map?        string
+    +-- max-associated-clients?        uint32
+    +-- status?                        boolean
+    +-- web-pre-auth-acl
+       +-- ipv4-acl?   string
+       +-- ipv6-acl?   string

@@ -1,0 +1,59 @@
+
+module: Cisco-IOS-XE-mdns-gateway
+  augment /ios:native:
+    +--rw mdns-sd
+       +--rw gateway!
+       |  +--rw active-query
+       |  |  +--rw timer?   uint16
+       |  +--rw transport?      enumeration
+       +--rw service-policy* [service-policy-name]
+       |  +--rw service-policy-name    string
+       |  +--rw location?              enumeration
+       |  +--rw service-list* [name]
+       |     +--rw name         -> /ios:native/ios-mdns:mdns-sd/service-list/service-list-name
+       |     +--rw direction?   enumeration
+       +--rw service-list* [service-list-name]
+       |  +--rw service-list-name    string
+       |  +--rw direction* [dir]
+       |     +--rw dir    enumeration
+       |     +--rw IN!
+       |     |  +--rw match* [name]
+       |     |     +--rw name            string
+       |     |     +--rw message-type?   enumeration
+       |     +--rw OUT!
+       |        +--rw match* [name]
+       |           +--rw name    string
+       +--rw service-definition* [name]
+          +--rw name            string
+          +--rw description?    string
+          +--rw service-type* [service-type-name]
+             +--rw service-type-name    string
+
+  grouping config-mdns-sd-grouping
+    +-- mdns-sd
+       +-- gateway!
+       |  +-- active-query
+       |  |  +-- timer?   uint16
+       |  +-- transport?      enumeration
+       +-- service-policy* [service-policy-name]
+       |  +-- service-policy-name?   string
+       |  +-- location?              enumeration
+       |  +-- service-list* [name]
+       |     +-- name?        -> /ios:native/ios-mdns:mdns-sd/service-list/service-list-name
+       |     +-- direction?   enumeration
+       +-- service-list* [service-list-name]
+       |  +-- service-list-name?   string
+       |  +-- direction* [dir]
+       |     +-- dir?   enumeration
+       |     +-- IN!
+       |     |  +-- match* [name]
+       |     |     +-- name?           string
+       |     |     +-- message-type?   enumeration
+       |     +-- OUT!
+       |        +-- match* [name]
+       |           +-- name?   string
+       +-- service-definition* [name]
+          +-- name?           string
+          +-- description?    string
+          +-- service-type* [service-type-name]
+             +-- service-type-name?   string

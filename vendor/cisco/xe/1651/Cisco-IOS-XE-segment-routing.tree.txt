@@ -1,0 +1,163 @@
+
+module: Cisco-IOS-XE-segment-routing
+  augment /ios:native/ios:segment-routing:
+    +--rw mpls!
+       +--rw connected-prefix-sid-map!
+       |  +--rw address-family
+       |     +--rw ipv4!
+       |     |  +--rw prefixes* [ipprefix]
+       |     |     +--rw ipprefix    inet:ipv4-prefix
+       |     |     +--rw index
+       |     |     |  +--rw range-start?   uint32
+       |     |     |  +--rw range?         uint32
+       |     |     |  +--rw attach?        empty
+       |     |     +--rw absolute
+       |     |        +--rw range-start?   uint32
+       |     |        +--rw range?         uint32
+       |     +--rw ipv4-strict-spf
+       |        +--rw ipv4
+       |           +--rw strict-spf!
+       |              +--rw prefixes* [ipprefix]
+       |                 +--rw ipprefix    inet:ipv4-prefix
+       |                 +--rw index
+       |                 |  +--rw range-start?   uint32
+       |                 |  +--rw range?         uint32
+       |                 |  +--rw attach?        empty
+       |                 +--rw absolute
+       |                    +--rw range-start?   uint32
+       |                    +--rw range?         uint32
+       +--rw global-block
+       |  +--rw range-start?   uint32
+       |  +--rw range-end?     uint32
+       +--rw mapping-server!
+       |  +--rw prefix-sid-map!
+       |     +--rw address-family
+       |        +--rw ipv4!
+       |        |  +--rw prefixes* [ipprefix]
+       |        |     +--rw ipprefix    inet:ipv4-prefix
+       |        |     +--rw index
+       |        |     |  +--rw range-start?   uint32
+       |        |     |  +--rw range?         uint32
+       |        |     |  +--rw attach?        empty
+       |        |     +--rw absolute
+       |        |        +--rw range-start?   uint32
+       |        |        +--rw range?         uint32
+       |        +--rw ipv4-strict-spf
+       |           +--rw ipv4
+       |              +--rw strict-spf!
+       |                 +--rw prefixes* [ipprefix]
+       |                    +--rw ipprefix    inet:ipv4-prefix
+       |                    +--rw index
+       |                    |  +--rw range-start?   uint32
+       |                    |  +--rw range?         uint32
+       |                    |  +--rw attach?        empty
+       |                    +--rw absolute
+       |                       +--rw range-start?   uint32
+       |                       +--rw range?         uint32
+       +--rw set-attributes!
+       |  +--rw address-family
+       |     +--rw ipv4!
+       |        +--rw explicit-null?        empty
+       |        +--rw sr-label-preferred?   empty
+       +--rw shutdown?                   empty
+
+  grouping mcfg-srmpls-sidmap
+    +-- address-family
+       +-- ipv4!
+       |  +-- prefixes* [ipprefix]
+       |     +-- ipprefix?   inet:ipv4-prefix
+       |     +-- index
+       |     |  +-- range-start?   uint32
+       |     |  +-- range?         uint32
+       |     |  +-- attach?        empty
+       |     +-- absolute
+       |        +-- range-start?   uint32
+       |        +-- range?         uint32
+       +-- ipv4-strict-spf
+          +-- ipv4
+             +-- strict-spf!
+                +-- prefixes* [ipprefix]
+                   +-- ipprefix?   inet:ipv4-prefix
+                   +-- index
+                   |  +-- range-start?   uint32
+                   |  +-- range?         uint32
+                   |  +-- attach?        empty
+                   +-- absolute
+                      +-- range-start?   uint32
+                      +-- range?         uint32
+  grouping srcfg-srmpls-attr-af
+    +-- explicit-null?        empty
+    +-- sr-label-preferred?   empty
+  grouping sr-range
+    +-- range-start?   uint32
+    +-- range?         uint32
+  grouping srcfg-srmpls-conn-af
+    +-- prefixes* [ipprefix]
+       +-- ipprefix?   inet:ipv4-prefix
+       +-- index
+       |  +-- range-start?   uint32
+       |  +-- range?         uint32
+       |  +-- attach?        empty
+       +-- absolute
+          +-- range-start?   uint32
+          +-- range?         uint32
+  grouping config-segment-routing-grouping
+    +-- mpls!
+       +-- connected-prefix-sid-map!
+       |  +-- address-family
+       |     +-- ipv4!
+       |     |  +-- prefixes* [ipprefix]
+       |     |     +-- ipprefix?   inet:ipv4-prefix
+       |     |     +-- index
+       |     |     |  +-- range-start?   uint32
+       |     |     |  +-- range?         uint32
+       |     |     |  +-- attach?        empty
+       |     |     +-- absolute
+       |     |        +-- range-start?   uint32
+       |     |        +-- range?         uint32
+       |     +-- ipv4-strict-spf
+       |        +-- ipv4
+       |           +-- strict-spf!
+       |              +-- prefixes* [ipprefix]
+       |                 +-- ipprefix?   inet:ipv4-prefix
+       |                 +-- index
+       |                 |  +-- range-start?   uint32
+       |                 |  +-- range?         uint32
+       |                 |  +-- attach?        empty
+       |                 +-- absolute
+       |                    +-- range-start?   uint32
+       |                    +-- range?         uint32
+       +-- global-block
+       |  +-- range-start?   uint32
+       |  +-- range-end?     uint32
+       +-- mapping-server!
+       |  +-- prefix-sid-map!
+       |     +-- address-family
+       |        +-- ipv4!
+       |        |  +-- prefixes* [ipprefix]
+       |        |     +-- ipprefix?   inet:ipv4-prefix
+       |        |     +-- index
+       |        |     |  +-- range-start?   uint32
+       |        |     |  +-- range?         uint32
+       |        |     |  +-- attach?        empty
+       |        |     +-- absolute
+       |        |        +-- range-start?   uint32
+       |        |        +-- range?         uint32
+       |        +-- ipv4-strict-spf
+       |           +-- ipv4
+       |              +-- strict-spf!
+       |                 +-- prefixes* [ipprefix]
+       |                    +-- ipprefix?   inet:ipv4-prefix
+       |                    +-- index
+       |                    |  +-- range-start?   uint32
+       |                    |  +-- range?         uint32
+       |                    |  +-- attach?        empty
+       |                    +-- absolute
+       |                       +-- range-start?   uint32
+       |                       +-- range?         uint32
+       +-- set-attributes!
+       |  +-- address-family
+       |     +-- ipv4!
+       |        +-- explicit-null?        empty
+       |        +-- sr-label-preferred?   empty
+       +-- shutdown?                   empty

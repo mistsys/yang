@@ -1,0 +1,504 @@
+
+module: Cisco-IOS-XE-tunnel
+  augment /ios:native/ios:interface/ios:Tunnel:
+    +--rw nhrp
+    |  +--rw event-publisher
+    |  |  +--rw max-event-timeout?   uint8
+    |  +--rw group?             string
+    |  +--rw map
+    |  |  +--rw group
+    |  |     +--rw nhrp-name* [nhrp-name]
+    |  |        +--rw nhrp-name         string
+    |  |        +--rw service-policy
+    |  |           +--rw output?   string
+    |  +--rw route-watch?       boolean
+    +--rw tunnel
+       +--rw tun-6rd
+       |  +--rw br?                  inet:ipv4-address
+       |  +--rw ipv4
+       |  |  +--rw prefix-len?   uint8
+       |  |  +--rw suffix-len?   uint8
+       |  +--rw prefix?              inet:ipv6-prefix
+       |  +--rw reverse-map-check?   empty
+       +--rw bandwidth
+       |  +--rw receive?    uint32
+       |  +--rw transmit?   uint32
+       +--rw checksum?               empty
+       +--rw source?                 string
+       +--rw destination?            inet:host
+       +--rw dst-port
+       |  +--rw (dst-port-choice)?
+       |     +--:(port-num-case)
+       |     |  +--rw port-num?   uint16
+       |     +--:(dynamic-case)
+       |        +--rw dynamic?    empty
+       +--rw endpoint
+       |  +--rw service-policy
+       |     +--rw output?   string
+       +--rw entropy?                empty
+       +--rw fixup
+       |  +--rw nat?   empty
+       +--rw flow
+       |  +--rw egress-records?   empty
+       +--rw key?                    uint64
+       +--rw mode
+       |  +--rw (mode-choice)?
+       |     +--:(ipsec)
+       |     |  +--rw ipsec
+       |     |     +--rw ipv4!
+       |     |     +--rw ipv6!
+       |     +--:(mpls)
+       |     |  +--rw mpls
+       |     |     +--rw traffic-eng!
+       |     |        +--rw gre-ip?   empty
+       |     +--:(ethernet)
+       |     |  +--rw ethernet
+       |     |     +--rw gre?   enumeration
+       |     +--:(gre)
+       |     |  +--rw gre
+       |     |     +--rw ip?           empty
+       |     |     +--rw ipv6?         empty
+       |     |     +--rw multipoint!
+       |     |        +--rw ipv6?   empty
+       |     +--:(ipip)
+       |     |  +--rw ipip!
+       |     |     +--rw decapsulate-any?   empty
+       |     +--:(ipv6)
+       |     |  +--rw ipv6?       empty
+       |     +--:(ipv6ip)
+       |     |  +--rw ipv6ip!
+       |     |     +--rw auto-6rd?    empty
+       |     |     +--rw auto-6to4?   empty
+       |     |     +--rw isatap?      empty
+       |     +--:(udp)
+       |        +--rw udp?        enumeration
+       +--rw network-id
+       |  +--rw id?        uint16
+       |  +--rw nexthop?   inet:ipv4-address
+       |  +--rw qos?       string
+       |  +--rw weight?    uint16
+       +--rw path-mtu-discovery!
+       +--rw protection
+       +--rw mpls
+       |  +--rw traffic-eng
+       |     +--rw affinity
+       |     |  +--rw attributes?   string
+       |     |  +--rw mask?         string
+       |     +--rw auto-bw
+       |     |  +--rw max-bw?   uint32
+       |     +--rw autoroute
+       |     |  +--rw announce?      empty
+       |     |  +--rw metric
+       |     |  |  +--rw range?      uint32
+       |     |  |  +--rw absolute?   uint32
+       |     |  |  +--rw relative?   int8
+       |     |  +--rw destination?   empty
+       |     +--rw priority
+       |     |  +--rw setup-priority?   uint8
+       |     |  +--rw hold-priority?    uint8
+       |     +--rw bandwidth?        uint32
+       |     +--rw path-option
+       |     |  +--rw working* [id]
+       |     |  |  +--rw id                uint32
+       |     |  |  +--rw (path-option-choice)?
+       |     |  |  |  +--:(dynamic)
+       |     |  |  |  |  +--rw dynamic!
+       |     |  |  |  |     +--rw pce!
+       |     |  |  |  |     |  +--rw address?           inet:ipv4-address
+       |     |  |  |  |     |  +--rw segment-routing?   empty
+       |     |  |  |  |     +--rw segment-routing!
+       |     |  |  |  |        +--rw pce!
+       |     |  |  |  |           +--rw address?   inet:ipv4-address
+       |     |  |  |  +--:(explicit)
+       |     |  |  |     +--rw explicit
+       |     |  |  |        +--rw (explicit-choice)?
+       |     |  |  |           +--:(name)
+       |     |  |  |           |  +--rw name
+       |     |  |  |           |     +--rw exp-name?          string
+       |     |  |  |           |     +--rw segment-routing?   empty
+       |     |  |  |           +--:(identifier)
+       |     |  |  |              +--rw identifier?   uint32
+       |     |  |  +--rw lockdown!
+       |     |  +--rw protect* [id]
+       |     |     +--rw id          -> ../../working/id
+       |     |     +--rw explicit
+       |     |     |  +--rw (explicit-choice)?
+       |     |     |     +--:(name)
+       |     |     |     |  +--rw name?         string
+       |     |     |     +--:(identifier)
+       |     |     |        +--rw identifier?   uint32
+       |     |     +--rw lockdown!
+       |     +--rw fast-reroute!
+       |     +--rw path-selection
+       |        +--rw metric?            enumeration
+       |        +--rw invalidation
+       |        |  +--rw value?   int32
+       |        |  +--rw drop?    empty
+       |        +--rw segment-routing
+       |           +--rw adjacency
+       |              +--rw (protection)?
+       |                 +--:(protected)
+       |                 |  +--rw protected?     empty
+       |                 +--:(unprotected)
+       |                    +--rw unprotected?   empty
+       +--rw raw-packet-interface?   string
+       +--rw rbscp
+       |  +--rw ack-split?      uint8
+       |  +--rw delay?          empty
+       |  +--rw input-drop?     uint8
+       |  +--rw long-drop?      empty
+       |  +--rw report?         empty
+       |  +--rw window-stuff?   uint8
+       +--rw snooping?               enumeration
+       +--rw src-port
+       |  +--rw (src-port-choice)?
+       |     +--:(port-num-case)
+       |     |  +--rw port-num?   uint16
+       |     +--:(dynamic-case)
+       |        +--rw dynamic?    empty
+       +--rw tos?                    uint8
+       +--rw ttl?                    uint8
+       +--rw udlr
+       |  +--rw address-resolution?   empty
+       |  +--rw receive-only?         string
+       |  +--rw send-only?            string
+       +--rw vlan
+       |  +--rw id1?      uint16
+       |  +--rw hyphen?   empty
+       |  +--rw id2?      uint16
+       +--rw vrf?                    string
+  augment /ios:native/ios:interface/ios:Virtual-Template:
+    +--rw nhrp {ios-features:virtual-template}?
+    |  +--rw event-publisher
+    |  |  +--rw max-event-timeout?   uint8
+    |  +--rw group?             string
+    |  +--rw map
+    |  |  +--rw group
+    |  |     +--rw nhrp-name* [nhrp-name]
+    |  |        +--rw nhrp-name         string
+    |  |        +--rw service-policy
+    |  |           +--rw output?   string
+    |  +--rw route-watch?       boolean
+    +--rw tunnel {ios-features:virtual-template}?
+       +--rw tun-6rd
+       |  +--rw br?                  inet:ipv4-address
+       |  +--rw ipv4
+       |  |  +--rw prefix-len?   uint8
+       |  |  +--rw suffix-len?   uint8
+       |  +--rw prefix?              inet:ipv6-prefix
+       |  +--rw reverse-map-check?   empty
+       +--rw bandwidth
+       |  +--rw receive?    uint32
+       |  +--rw transmit?   uint32
+       +--rw checksum?               empty
+       +--rw source?                 string
+       +--rw destination?            inet:host
+       +--rw dst-port
+       |  +--rw (dst-port-choice)?
+       |     +--:(port-num-case)
+       |     |  +--rw port-num?   uint16
+       |     +--:(dynamic-case)
+       |        +--rw dynamic?    empty
+       +--rw endpoint
+       |  +--rw service-policy
+       |     +--rw output?   string
+       +--rw entropy?                empty
+       +--rw fixup
+       |  +--rw nat?   empty
+       +--rw flow
+       |  +--rw egress-records?   empty
+       +--rw key?                    uint64
+       +--rw mode
+       |  +--rw (mode-choice)?
+       |     +--:(ipsec)
+       |     |  +--rw ipsec
+       |     |     +--rw ipv4!
+       |     |     +--rw ipv6!
+       |     +--:(mpls)
+       |     |  +--rw mpls
+       |     |     +--rw traffic-eng!
+       |     |        +--rw gre-ip?   empty
+       |     +--:(ethernet)
+       |     |  +--rw ethernet
+       |     |     +--rw gre?   enumeration
+       |     +--:(gre)
+       |     |  +--rw gre
+       |     |     +--rw ip?           empty
+       |     |     +--rw ipv6?         empty
+       |     |     +--rw multipoint!
+       |     |        +--rw ipv6?   empty
+       |     +--:(ipip)
+       |     |  +--rw ipip!
+       |     |     +--rw decapsulate-any?   empty
+       |     +--:(ipv6)
+       |     |  +--rw ipv6?       empty
+       |     +--:(ipv6ip)
+       |     |  +--rw ipv6ip!
+       |     |     +--rw auto-6rd?    empty
+       |     |     +--rw auto-6to4?   empty
+       |     |     +--rw isatap?      empty
+       |     +--:(udp)
+       |        +--rw udp?        enumeration
+       +--rw network-id
+       |  +--rw id?        uint16
+       |  +--rw nexthop?   inet:ipv4-address
+       |  +--rw qos?       string
+       |  +--rw weight?    uint16
+       +--rw path-mtu-discovery!
+       +--rw protection
+       +--rw mpls
+       |  +--rw traffic-eng
+       |     +--rw affinity
+       |     |  +--rw attributes?   string
+       |     |  +--rw mask?         string
+       |     +--rw auto-bw
+       |     |  +--rw max-bw?   uint32
+       |     +--rw autoroute
+       |     |  +--rw announce?      empty
+       |     |  +--rw metric
+       |     |  |  +--rw range?      uint32
+       |     |  |  +--rw absolute?   uint32
+       |     |  |  +--rw relative?   int8
+       |     |  +--rw destination?   empty
+       |     +--rw priority
+       |     |  +--rw setup-priority?   uint8
+       |     |  +--rw hold-priority?    uint8
+       |     +--rw bandwidth?        uint32
+       |     +--rw path-option
+       |     |  +--rw working* [id]
+       |     |  |  +--rw id                uint32
+       |     |  |  +--rw (path-option-choice)?
+       |     |  |  |  +--:(dynamic)
+       |     |  |  |  |  +--rw dynamic!
+       |     |  |  |  |     +--rw pce!
+       |     |  |  |  |     |  +--rw address?           inet:ipv4-address
+       |     |  |  |  |     |  +--rw segment-routing?   empty
+       |     |  |  |  |     +--rw segment-routing!
+       |     |  |  |  |        +--rw pce!
+       |     |  |  |  |           +--rw address?   inet:ipv4-address
+       |     |  |  |  +--:(explicit)
+       |     |  |  |     +--rw explicit
+       |     |  |  |        +--rw (explicit-choice)?
+       |     |  |  |           +--:(name)
+       |     |  |  |           |  +--rw name
+       |     |  |  |           |     +--rw exp-name?          string
+       |     |  |  |           |     +--rw segment-routing?   empty
+       |     |  |  |           +--:(identifier)
+       |     |  |  |              +--rw identifier?   uint32
+       |     |  |  +--rw lockdown!
+       |     |  +--rw protect* [id]
+       |     |     +--rw id          -> ../../working/id
+       |     |     +--rw explicit
+       |     |     |  +--rw (explicit-choice)?
+       |     |     |     +--:(name)
+       |     |     |     |  +--rw name?         string
+       |     |     |     +--:(identifier)
+       |     |     |        +--rw identifier?   uint32
+       |     |     +--rw lockdown!
+       |     +--rw fast-reroute!
+       |     +--rw path-selection
+       |        +--rw metric?            enumeration
+       |        +--rw invalidation
+       |        |  +--rw value?   int32
+       |        |  +--rw drop?    empty
+       |        +--rw segment-routing
+       |           +--rw adjacency
+       |              +--rw (protection)?
+       |                 +--:(protected)
+       |                 |  +--rw protected?     empty
+       |                 +--:(unprotected)
+       |                    +--rw unprotected?   empty
+       +--rw raw-packet-interface?   string
+       +--rw rbscp
+       |  +--rw ack-split?      uint8
+       |  +--rw delay?          empty
+       |  +--rw input-drop?     uint8
+       |  +--rw long-drop?      empty
+       |  +--rw report?         empty
+       |  +--rw window-stuff?   uint8
+       +--rw snooping?               enumeration
+       +--rw src-port
+       |  +--rw (src-port-choice)?
+       |     +--:(port-num-case)
+       |     |  +--rw port-num?   uint16
+       |     +--:(dynamic-case)
+       |        +--rw dynamic?    empty
+       +--rw tos?                    uint8
+       +--rw ttl?                    uint8
+       +--rw udlr
+       |  +--rw address-resolution?   empty
+       |  +--rw receive-only?         string
+       |  +--rw send-only?            string
+       +--rw vlan
+       |  +--rw id1?      uint16
+       |  +--rw hyphen?   empty
+       |  +--rw id2?      uint16
+       +--rw vrf?                    string
+
+  grouping config-interface-tunnel-grouping
+    +-- nhrp
+    |  +-- event-publisher
+    |  |  +-- max-event-timeout?   uint8
+    |  +-- group?             string
+    |  +-- map
+    |  |  +-- group
+    |  |     +-- nhrp-name* [nhrp-name]
+    |  |        +-- nhrp-name?        string
+    |  |        +-- service-policy
+    |  |           +-- output?   string
+    |  +-- route-watch?       boolean
+    +-- tunnel
+       +-- tun-6rd
+       |  +-- br?                  inet:ipv4-address
+       |  +-- ipv4
+       |  |  +-- prefix-len?   uint8
+       |  |  +-- suffix-len?   uint8
+       |  +-- prefix?              inet:ipv6-prefix
+       |  +-- reverse-map-check?   empty
+       +-- bandwidth
+       |  +-- receive?    uint32
+       |  +-- transmit?   uint32
+       +-- checksum?               empty
+       +-- source?                 string
+       +-- destination?            inet:host
+       +-- dst-port
+       |  +-- (dst-port-choice)?
+       |     +--:(port-num-case)
+       |     |  +-- port-num?   uint16
+       |     +--:(dynamic-case)
+       |        +-- dynamic?    empty
+       +-- endpoint
+       |  +-- service-policy
+       |     +-- output?   string
+       +-- entropy?                empty
+       +-- fixup
+       |  +-- nat?   empty
+       +-- flow
+       |  +-- egress-records?   empty
+       +-- key?                    uint64
+       +-- mode
+       |  +-- (mode-choice)?
+       |     +--:(ipsec)
+       |     |  +-- ipsec
+       |     |     +-- ipv4!
+       |     |     +-- ipv6!
+       |     +--:(mpls)
+       |     |  +-- mpls
+       |     |     +-- traffic-eng!
+       |     |        +-- gre-ip?   empty
+       |     +--:(ethernet)
+       |     |  +-- ethernet
+       |     |     +-- gre?   enumeration
+       |     +--:(gre)
+       |     |  +-- gre
+       |     |     +-- ip?           empty
+       |     |     +-- ipv6?         empty
+       |     |     +-- multipoint!
+       |     |        +-- ipv6?   empty
+       |     +--:(ipip)
+       |     |  +-- ipip!
+       |     |     +-- decapsulate-any?   empty
+       |     +--:(ipv6)
+       |     |  +-- ipv6?       empty
+       |     +--:(ipv6ip)
+       |     |  +-- ipv6ip!
+       |     |     +-- auto-6rd?    empty
+       |     |     +-- auto-6to4?   empty
+       |     |     +-- isatap?      empty
+       |     +--:(udp)
+       |        +-- udp?        enumeration
+       +-- network-id
+       |  +-- id?        uint16
+       |  +-- nexthop?   inet:ipv4-address
+       |  +-- qos?       string
+       |  +-- weight?    uint16
+       +-- path-mtu-discovery!
+       +-- protection
+       +-- mpls
+       |  +-- traffic-eng
+       |     +-- affinity
+       |     |  +-- attributes?   string
+       |     |  +-- mask?         string
+       |     +-- auto-bw
+       |     |  +-- max-bw?   uint32
+       |     +-- autoroute
+       |     |  +-- announce?      empty
+       |     |  +-- metric
+       |     |  |  +-- range?      uint32
+       |     |  |  +-- absolute?   uint32
+       |     |  |  +-- relative?   int8
+       |     |  +-- destination?   empty
+       |     +-- priority
+       |     |  +-- setup-priority?   uint8
+       |     |  +-- hold-priority?    uint8
+       |     +-- bandwidth?        uint32
+       |     +-- path-option
+       |     |  +-- working* [id]
+       |     |  |  +-- id?               uint32
+       |     |  |  +-- (path-option-choice)?
+       |     |  |  |  +--:(dynamic)
+       |     |  |  |  |  +-- dynamic!
+       |     |  |  |  |     +-- pce!
+       |     |  |  |  |     |  +-- address?           inet:ipv4-address
+       |     |  |  |  |     |  +-- segment-routing?   empty
+       |     |  |  |  |     +-- segment-routing!
+       |     |  |  |  |        +-- pce!
+       |     |  |  |  |           +-- address?   inet:ipv4-address
+       |     |  |  |  +--:(explicit)
+       |     |  |  |     +-- explicit
+       |     |  |  |        +-- (explicit-choice)?
+       |     |  |  |           +--:(name)
+       |     |  |  |           |  +-- name
+       |     |  |  |           |     +-- exp-name?          string
+       |     |  |  |           |     +-- segment-routing?   empty
+       |     |  |  |           +--:(identifier)
+       |     |  |  |              +-- identifier?   uint32
+       |     |  |  +-- lockdown!
+       |     |  +-- protect* [id]
+       |     |     +-- id?         -> ../../working/id
+       |     |     +-- explicit
+       |     |     |  +-- (explicit-choice)?
+       |     |     |     +--:(name)
+       |     |     |     |  +-- name?         string
+       |     |     |     +--:(identifier)
+       |     |     |        +-- identifier?   uint32
+       |     |     +-- lockdown!
+       |     +-- fast-reroute!
+       |     +-- path-selection
+       |        +-- metric?            enumeration
+       |        +-- invalidation
+       |        |  +-- value?   int32
+       |        |  +-- drop?    empty
+       |        +-- segment-routing
+       |           +-- adjacency
+       |              +-- (protection)?
+       |                 +--:(protected)
+       |                 |  +-- protected?     empty
+       |                 +--:(unprotected)
+       |                    +-- unprotected?   empty
+       +-- raw-packet-interface?   string
+       +-- rbscp
+       |  +-- ack-split?      uint8
+       |  +-- delay?          empty
+       |  +-- input-drop?     uint8
+       |  +-- long-drop?      empty
+       |  +-- report?         empty
+       |  +-- window-stuff?   uint8
+       +-- snooping?               enumeration
+       +-- src-port
+       |  +-- (src-port-choice)?
+       |     +--:(port-num-case)
+       |     |  +-- port-num?   uint16
+       |     +--:(dynamic-case)
+       |        +-- dynamic?    empty
+       +-- tos?                    uint8
+       +-- ttl?                    uint8
+       +-- udlr
+       |  +-- address-resolution?   empty
+       |  +-- receive-only?         string
+       |  +-- send-only?            string
+       +-- vlan
+       |  +-- id1?      uint16
+       |  +-- hyphen?   empty
+       |  +-- id2?      uint16
+       +-- vrf?                    string

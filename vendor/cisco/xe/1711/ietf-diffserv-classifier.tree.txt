@@ -1,0 +1,92 @@
+module: ietf-diffserv-classifier
+  +--rw classifiers
+     +--rw classifier-entry* [classifier-entry-name]
+        +--rw classifier-entry-name                string
+        +--rw classifier-entry-descr?              string
+        +--rw classifier-entry-filter-operation?   identityref
+        +--rw filter-entry* [filter-type filter-logical-not]
+           +--rw filter-type                         identityref
+           +--rw filter-logical-not                  boolean
+           +--rw (filter-param)?
+              +--:(dscp)
+              |  +--rw dscp-cfg* [dscp-min dscp-max]
+              |     +--rw dscp-min    inet:dscp
+              |     +--rw dscp-max    inet:dscp
+              +--:(source-ip-address)
+              |  +--rw source-ip-address-cfg* [source-ip-addr]
+              |     +--rw source-ip-addr    inet:ip-prefix
+              +--:(destination-ip-address)
+              |  +--rw destination-ip-address-cfg* [destination-ip-addr]
+              |     +--rw destination-ip-addr    inet:ip-prefix
+              +--:(source-port)
+              |  +--rw source-port-cfg* [source-port-min source-port-max]
+              |     +--rw source-port-min    inet:port-number
+              |     +--rw source-port-max    inet:port-number
+              +--:(destination-port)
+              |  +--rw destination-port-cfg* [destination-port-min destination-port-max]
+              |     +--rw destination-port-min    inet:port-number
+              |     +--rw destination-port-max    inet:port-number
+              +--:(protocol)
+                 +--rw protocol-cfg* [protocol-min protocol-max]
+                    +--rw protocol-min    uint8
+                    +--rw protocol-max    uint8
+
+  grouping filters
+    +-- filter-type?                        identityref
+    +-- filter-logical-not?                 boolean
+    +-- (filter-param)?
+       +--:(dscp)
+       |  +-- dscp-cfg* [dscp-min dscp-max]
+       |     +-- dscp-min?   inet:dscp
+       |     +-- dscp-max?   inet:dscp
+       +--:(source-ip-address)
+       |  +-- source-ip-address-cfg* [source-ip-addr]
+       |     +-- source-ip-addr?   inet:ip-prefix
+       +--:(destination-ip-address)
+       |  +-- destination-ip-address-cfg* [destination-ip-addr]
+       |     +-- destination-ip-addr?   inet:ip-prefix
+       +--:(source-port)
+       |  +-- source-port-cfg* [source-port-min source-port-max]
+       |     +-- source-port-min?   inet:port-number
+       |     +-- source-port-max?   inet:port-number
+       +--:(destination-port)
+       |  +-- destination-port-cfg* [destination-port-min destination-port-max]
+       |     +-- destination-port-min?   inet:port-number
+       |     +-- destination-port-max?   inet:port-number
+       +--:(protocol)
+          +-- protocol-cfg* [protocol-min protocol-max]
+             +-- protocol-min?   uint8
+             +-- protocol-max?   uint8
+  grouping classifier-entry-generic-attr
+    +-- classifier-entry-name?               string
+    +-- classifier-entry-descr?              string
+    +-- classifier-entry-filter-operation?   identityref
+  grouping classifier-entry-inline-attr
+    +-- classifier-entry-inline?        boolean
+    +-- classifier-entry-filter-oper?   identityref
+    +-- filter-entry* [filter-type filter-logical-not] {policy-inline-classifier-config}?
+       +-- filter-type?                        identityref
+       +-- filter-logical-not?                 boolean
+       +-- (filter-param)?
+          +--:(dscp)
+          |  +-- dscp-cfg* [dscp-min dscp-max]
+          |     +-- dscp-min?   inet:dscp
+          |     +-- dscp-max?   inet:dscp
+          +--:(source-ip-address)
+          |  +-- source-ip-address-cfg* [source-ip-addr]
+          |     +-- source-ip-addr?   inet:ip-prefix
+          +--:(destination-ip-address)
+          |  +-- destination-ip-address-cfg* [destination-ip-addr]
+          |     +-- destination-ip-addr?   inet:ip-prefix
+          +--:(source-port)
+          |  +-- source-port-cfg* [source-port-min source-port-max]
+          |     +-- source-port-min?   inet:port-number
+          |     +-- source-port-max?   inet:port-number
+          +--:(destination-port)
+          |  +-- destination-port-cfg* [destination-port-min destination-port-max]
+          |     +-- destination-port-min?   inet:port-number
+          |     +-- destination-port-max?   inet:port-number
+          +--:(protocol)
+             +-- protocol-cfg* [protocol-min protocol-max]
+                +-- protocol-min?   uint8
+                +-- protocol-max?   uint8

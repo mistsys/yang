@@ -1,0 +1,293 @@
+
+module: cisco-qos-action-marking-cfg
+  augment /policy:policies/policy:policy-entry/policy:classifier-entry/policy:classifier-action-entry-cfg/policy:action-cfg-params:
+    +--:(marking-dscp-tunnel)
+    |  +--rw marking-dscp-tunnel-cfg {set-dscp-tunnel-support}?
+    |     +--rw dscp-val?           qos:dscp
+    |     +--rw set-val-tablemap
+    |        +--rw to-type?         qos:match-type {table-map:table-map-template-support}?
+    |        +--rw tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+    +--:(marking-cos)
+    |  +--rw marking-cos-cfg {set-cos-support}?
+    |     +--rw cos-val?            c3pl:cos-type
+    |     +--rw set-val-tablemap
+    |        +--rw to-type?         qos:match-type {table-map:table-map-template-support}?
+    |        +--rw tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+    +--:(marking-cos-inner)
+    |  +--rw marking-cos-inner-cfg {set-cos-inner-suppport}?
+    |     +--rw cos-inner-val?      c3pl:cos-type
+    |     +--rw set-val-tablemap
+    |        +--rw to-type?         qos:match-type {table-map:table-map-template-support}?
+    |        +--rw tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+    +--:(marking-discard-class)
+    |  +--rw marking-discard-class-cfg {set-discard-class-support}?
+    |     +--rw disc-class-val?     c3pl:discard-class-type
+    |     +--rw set-val-tablemap
+    |        +--rw to-type?         qos:match-type {table-map:table-map-template-support}?
+    |        +--rw tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+    +--:(marking-qos-grp)
+    |  +--rw marking-qos-grp-cfg {set-qos-grp-support}?
+    |     +--rw qos-grp-val?        c3pl:qos-group-type
+    |     +--rw set-val-tablemap
+    |        +--rw to-type?         qos:match-type {table-map:table-map-template-support}?
+    |        +--rw tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+    +--:(marking-prec)
+    |  +--rw marking-prec-cfg {set-prec-support}?
+    |     +--rw prec-val?           c3pl:prec-val-type
+    |     +--rw set-val-tablemap
+    |        +--rw to-type?         qos:match-type {table-map:table-map-template-support}?
+    |        +--rw tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+    +--:(marking-prec-tunnel)
+    |  +--rw marking-prec-tunnel-cfg {set-prec-tunnel-support}?
+    |     +--rw prec-val?           c3pl:prec-val-type
+    |     +--rw set-val-tablemap
+    |        +--rw to-type?         qos:match-type {table-map:table-map-template-support}?
+    |        +--rw tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+    +--:(marking-mpls-exp-imp)
+    |  +--rw marking-mpls-exp-imp-cfg {set-mpls-exp-imp-support}?
+    |     +--rw mpls-exp-imp-val?   c3pl:mpls-exp-type
+    |     +--rw set-val-tablemap
+    |        +--rw to-type?         qos:match-type {table-map:table-map-template-support}?
+    |        +--rw tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+    +--:(marking-mpls-exp-top)
+    |  +--rw marking-mpls-exp-top-cfg {set-mpls-exp-top-support}?
+    |     +--rw mpls-exp-top-val?   c3pl:mpls-exp-type
+    |     +--rw set-val-tablemap
+    |        +--rw to-type?         qos:match-type {table-map:table-map-template-support}?
+    |        +--rw tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+    +--:(marking-fr-de)
+    |  +--rw marking-fr-de-cfg {set-fr-de-support}?
+    |     +--rw fr-de?              empty
+    |     +--rw set-val-tablemap
+    |        +--rw to-type?         qos:match-type {table-map:table-map-template-support}?
+    |        +--rw tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+    +--:(marking-fr-fecn-becn)
+    |  +--rw marking-fr-fecn-becn-cfg {set-fr-fecn-becn-support}?
+    |     +--rw fecn-becn-val?      qos:percent-value-1to100
+    |     +--rw set-val-tablemap
+    |        +--rw to-type?         qos:match-type {table-map:table-map-template-support}?
+    |        +--rw tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+    +--:(marking-atm-clp)
+    |  +--rw marking-atm-clp-cfg {set-atm-clp-support}?
+    |     +--rw atm-clp-val?        uint8
+    |     +--rw set-val-tablemap
+    |        +--rw to-type?         qos:match-type {table-map:table-map-template-support}?
+    |        +--rw tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+    +--:(marking-vlan-inner)
+    |  +--rw marking-vlan-inner-cfg {set-vlan-inner-support}?
+    |     +--rw vlan-inner-val?     c3pl:vlan-type
+    |     +--rw set-val-tablemap
+    |        +--rw to-type?         qos:match-type {table-map:table-map-template-support}?
+    |        +--rw tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+    +--:(marking-dei)
+    |  +--rw marking-dei-cfg {set-dei-support}?
+    |     +--rw dei-value?          c3pl:dei-type
+    |     +--rw set-val-tablemap
+    |        +--rw to-type?         qos:match-type {table-map:table-map-template-support}?
+    |        +--rw tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+    +--:(marking-dei-imp)
+    |  +--rw marking-dei-imp-cfg {set-dei-imp-support}?
+    |     +--rw dei-imp-value?      c3pl:dei-type
+    |     +--rw set-val-tablemap
+    |        +--rw to-type?         qos:match-type {table-map:table-map-template-support}?
+    |        +--rw tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+    +--:(marking-srp-priority)
+       +--rw marking-srp-priority {set-srp-priority-support}?
+          +--rw srp-priority-value?   uint8
+          +--rw set-val-tablemap
+             +--rw to-type?         qos:match-type {table-map:table-map-template-support}?
+             +--rw tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+
+  grouping SET-VAL-TABLEMAP
+    +-- set-val-tablemap
+       +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+       +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+  grouping MARKING
+    +-- marking
+       +-- marking-dscp-tunnel-cfg {set-dscp-tunnel-support}?
+       |  +-- dscp-val?           qos:dscp
+       |  +-- set-val-tablemap
+       |     +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+       |     +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+       +-- marking-cos-cfg {set-cos-support}?
+       |  +-- cos-val?            c3pl:cos-type
+       |  +-- set-val-tablemap
+       |     +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+       |     +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+       +-- marking-cos-inner-cfg {set-cos-inner-suppport}?
+       |  +-- cos-inner-val?      c3pl:cos-type
+       |  +-- set-val-tablemap
+       |     +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+       |     +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+       +-- marking-discard-class-cfg {set-discard-class-support}?
+       |  +-- disc-class-val?     c3pl:discard-class-type
+       |  +-- set-val-tablemap
+       |     +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+       |     +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+       +-- marking-qos-grp-cfg {set-qos-grp-support}?
+       |  +-- qos-grp-val?        c3pl:qos-group-type
+       |  +-- set-val-tablemap
+       |     +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+       |     +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+       +-- marking-prec-cfg {set-prec-support}?
+       |  +-- prec-val?           c3pl:prec-val-type
+       |  +-- set-val-tablemap
+       |     +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+       |     +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+       +-- marking-prec-tunnel-cfg {set-prec-tunnel-support}?
+       |  +-- prec-val?           c3pl:prec-val-type
+       |  +-- set-val-tablemap
+       |     +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+       |     +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+       +-- marking-mpls-exp-imp-cfg {set-mpls-exp-imp-support}?
+       |  +-- mpls-exp-imp-val?   c3pl:mpls-exp-type
+       |  +-- set-val-tablemap
+       |     +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+       |     +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+       +-- marking-mpls-exp-top-cfg {set-mpls-exp-top-support}?
+       |  +-- mpls-exp-top-val?   c3pl:mpls-exp-type
+       |  +-- set-val-tablemap
+       |     +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+       |     +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+       +-- marking-fr-de-cfg {set-fr-de-support}?
+       |  +-- fr-de?              empty
+       |  +-- set-val-tablemap
+       |     +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+       |     +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+       +-- marking-fr-fecn-becn-cfg {set-fr-fecn-becn-support}?
+       |  +-- fecn-becn-val?      qos:percent-value-1to100
+       |  +-- set-val-tablemap
+       |     +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+       |     +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+       +-- marking-atm-clp-cfg {set-atm-clp-support}?
+       |  +-- atm-clp-val?        uint8
+       |  +-- set-val-tablemap
+       |     +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+       |     +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+       +-- marking-vlan-inner-cfg {set-vlan-inner-support}?
+       |  +-- vlan-inner-val?     c3pl:vlan-type
+       |  +-- set-val-tablemap
+       |     +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+       |     +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+       +-- marking-dei-cfg {set-dei-support}?
+       |  +-- dei-value?          c3pl:dei-type
+       |  +-- set-val-tablemap
+       |     +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+       |     +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+       +-- marking-dei-imp-cfg {set-dei-imp-support}?
+       |  +-- dei-imp-value?      c3pl:dei-type
+       |  +-- set-val-tablemap
+       |     +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+       |     +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+       +-- marking-srp-priority {set-srp-priority-support}?
+       |  +-- srp-priority-value?   uint8
+       |  +-- set-val-tablemap
+       |     +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+       |     +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+       +-- marking-wlan-user-priority {set-wlan-user-priority-support}?
+          +-- wlan-user-priority-value?   uint8
+          +-- set-val-tablemap
+             +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+             +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+  grouping MARKING-DSCP-TUNNEL
+    +-- marking-dscp-tunnel-cfg {set-dscp-tunnel-support}?
+       +-- dscp-val?           qos:dscp
+       +-- set-val-tablemap
+          +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+          +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+  grouping MARKING-COS
+    +-- marking-cos-cfg {set-cos-support}?
+       +-- cos-val?            c3pl:cos-type
+       +-- set-val-tablemap
+          +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+          +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+  grouping MARKING-COS-INNER
+    +-- marking-cos-inner-cfg {set-cos-inner-suppport}?
+       +-- cos-inner-val?      c3pl:cos-type
+       +-- set-val-tablemap
+          +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+          +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+  grouping MARKING-DISCARD-CLASS
+    +-- marking-discard-class-cfg {set-discard-class-support}?
+       +-- disc-class-val?     c3pl:discard-class-type
+       +-- set-val-tablemap
+          +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+          +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+  grouping MARKING-QOS-GRP
+    +-- marking-qos-grp-cfg {set-qos-grp-support}?
+       +-- qos-grp-val?        c3pl:qos-group-type
+       +-- set-val-tablemap
+          +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+          +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+  grouping MARKING-PREC
+    +-- marking-prec-cfg {set-prec-support}?
+       +-- prec-val?           c3pl:prec-val-type
+       +-- set-val-tablemap
+          +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+          +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+  grouping MARKING-PREC-TUNNEL
+    +-- marking-prec-tunnel-cfg {set-prec-tunnel-support}?
+       +-- prec-val?           c3pl:prec-val-type
+       +-- set-val-tablemap
+          +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+          +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+  grouping MARKING-MPLS-EXP-IMP
+    +-- marking-mpls-exp-imp-cfg {set-mpls-exp-imp-support}?
+       +-- mpls-exp-imp-val?   c3pl:mpls-exp-type
+       +-- set-val-tablemap
+          +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+          +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+  grouping MARKING-MPLS-EXP-TOP
+    +-- marking-mpls-exp-top-cfg {set-mpls-exp-top-support}?
+       +-- mpls-exp-top-val?   c3pl:mpls-exp-type
+       +-- set-val-tablemap
+          +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+          +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+  grouping MARKING-FR-DE
+    +-- marking-fr-de-cfg {set-fr-de-support}?
+       +-- fr-de?              empty
+       +-- set-val-tablemap
+          +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+          +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+  grouping MARKING-FR-FECN-BECN
+    +-- marking-fr-fecn-becn-cfg {set-fr-fecn-becn-support}?
+       +-- fecn-becn-val?      qos:percent-value-1to100
+       +-- set-val-tablemap
+          +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+          +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+  grouping MARKING-ATM-CLP
+    +-- marking-atm-clp-cfg {set-atm-clp-support}?
+       +-- atm-clp-val?        uint8
+       +-- set-val-tablemap
+          +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+          +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+  grouping MARKING-VLAN-INNER
+    +-- marking-vlan-inner-cfg {set-vlan-inner-support}?
+       +-- vlan-inner-val?     c3pl:vlan-type
+       +-- set-val-tablemap
+          +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+          +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+  grouping MARKING-DEI
+    +-- marking-dei-cfg {set-dei-support}?
+       +-- dei-value?          c3pl:dei-type
+       +-- set-val-tablemap
+          +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+          +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+  grouping MARKING-DEI-IMP
+    +-- marking-dei-imp-cfg {set-dei-imp-support}?
+       +-- dei-imp-value?      c3pl:dei-type
+       +-- set-val-tablemap
+          +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+          +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+  grouping MARKING-SRP-PRIORITY
+    +-- marking-srp-priority {set-srp-priority-support}?
+       +-- srp-priority-value?   uint8
+       +-- set-val-tablemap
+          +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+          +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?
+  grouping MARKING-WLAN-USER-PRIORITY
+    +-- marking-wlan-user-priority {set-wlan-user-priority-support}?
+       +-- wlan-user-priority-value?   uint8
+       +-- set-val-tablemap
+          +-- to-type?         qos:match-type {table-map:table-map-template-support}?
+          +-- tablemap-name?   -> /table-map:table-maps/table-entry/table-name {table-map:table-map-template-support}?

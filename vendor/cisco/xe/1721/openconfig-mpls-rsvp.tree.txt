@@ -1,0 +1,321 @@
+module: openconfig-mpls-rsvp
+
+  grouping mpls-rsvp-soft-preemption_config
+    +-- enable?                    boolean
+    +-- soft-preemption-timeout?   uint16
+  grouping mpls-rsvp-soft-preemption
+    +-- soft-preemption
+       +-- config
+       |  +-- enable?                    boolean
+       |  +-- soft-preemption-timeout?   uint16
+       +--ro state
+          +--ro enable?                    boolean
+          +--ro soft-preemption-timeout?   uint16
+  grouping mpls-rsvp-hellos_config
+    +-- hello-interval?      uint16
+    +-- refresh-reduction?   boolean
+  grouping mpls-rsvp-hellos
+    +-- hellos
+       +-- config
+       |  +-- hello-interval?      uint16
+       |  +-- refresh-reduction?   boolean
+       +--ro state
+          +--ro hello-interval?      uint16
+          +--ro refresh-reduction?   boolean
+  grouping mpls-rsvp-subscription_config
+    +-- subscription?   oc-types:percentage
+  grouping mpls-rsvp-subscription
+    +-- subscription
+       +-- config
+       |  +-- subscription?   oc-types:percentage
+       +--ro state
+          +--ro subscription?   oc-types:percentage
+  grouping mpls-rsvp-graceful-restart_config
+    +-- enable?          boolean
+    +-- restart-time?    uint32
+    +-- recovery-time?   uint32
+  grouping mpls-rsvp-graceful-restart
+    +-- graceful-restart
+       +-- config
+       |  +-- enable?          boolean
+       |  +-- restart-time?    uint32
+       |  +-- recovery-time?   uint32
+       +--ro state
+          +--ro enable?          boolean
+          +--ro restart-time?    uint32
+          +--ro recovery-time?   uint32
+  grouping mpls-rsvp-authentication_config
+    +-- enable?               boolean
+    +-- authentication-key?   string
+  grouping mpls-rsvp-authentication
+    +-- authentication
+       +-- config
+       |  +-- enable?               boolean
+       |  +-- authentication-key?   string
+       +--ro state
+          +--ro enable?               boolean
+          +--ro authentication-key?   string
+  grouping mpls-rsvp-protection_config
+    +-- link-protection-style-requested?   identityref
+    +-- bypass-optimize-interval?          uint16
+  grouping mpls-rsvp-link-protection
+    +-- protection
+       +-- config
+       |  +-- link-protection-style-requested?   identityref
+       |  +-- bypass-optimize-interval?          uint16
+       +--ro state
+          +--ro link-protection-style-requested?   identityref
+          +--ro bypass-optimize-interval?          uint16
+  grouping mpls-rsvp-statistics
+    +-- in-path-messages?                 yang:counter64
+    +-- in-path-error-messages?           yang:counter64
+    +-- in-path-tear-messages?            yang:counter64
+    +-- in-reservation-messages?          yang:counter64
+    +-- in-reservation-error-messages?    yang:counter64
+    +-- in-reservation-tear-messages?     yang:counter64
+    +-- in-hello-messages?                yang:counter64
+    +-- in-srefresh-messages?             yang:counter64
+    +-- in-ack-messages?                  yang:counter64
+    +-- out-path-messages?                yang:counter64
+    +-- out-path-error-messages?          yang:counter64
+    +-- out-path-tear-messages?           yang:counter64
+    +-- out-reservation-messages?         yang:counter64
+    +-- out-reservation-error-messages?   yang:counter64
+    +-- out-reservation-tear-messages?    yang:counter64
+    +-- out-hello-messages?               yang:counter64
+    +-- out-srefresh-messages?            yang:counter64
+    +-- out-ack-messages?                 yang:counter64
+  grouping rsvp-global
+    +-- rsvp-te
+       +-- sessions
+       |  +--ro session* [local-index]
+       |     +--ro local-index?            -> ../state/local-index
+       |     +--ro record-route-objects
+       |     |  +--ro record-route-object* [index]
+       |     |     +--ro index?   -> ../state/index
+       |     |     +--ro state
+       |     |        +--ro index?            uint8
+       |     |        +--ro address?          inet:ip-address
+       |     |        +--ro reported-label?   oc-mplst:mpls-label
+       |     |        +--ro reported-flags?   uint8
+       |     +--ro state
+       |        +--ro local-index?           uint32
+       |        +--ro source-address?        inet:ip-address
+       |        +--ro destination-address?   inet:ip-address
+       |        +--ro tunnel-id?             uint16
+       |        +--ro lsp-id?                uint16
+       |        +--ro session-name?          string
+       |        +--ro status?                enumeration
+       |        +--ro type?                  identityref
+       |        +--ro label-in?              oc-mplst:mpls-label
+       |        +--ro label-out?             oc-mplst:mpls-label
+       +-- neighbors
+       |  +--ro neighbor* [address]
+       |     +--ro address?   -> ../state/address
+       |     +--ro state
+       |        +--ro address?              inet:ip-address
+       |        +--ro detected-interface?   string
+       |        +--ro neighbor-status?      enumeration
+       |        +--ro refresh-reduction?    boolean
+       +-- global
+       |  +-- graceful-restart
+       |  |  +-- config
+       |  |  |  +-- enable?          boolean
+       |  |  |  +-- restart-time?    uint32
+       |  |  |  +-- recovery-time?   uint32
+       |  |  +--ro state
+       |  |     +--ro enable?          boolean
+       |  |     +--ro restart-time?    uint32
+       |  |     +--ro recovery-time?   uint32
+       |  +-- soft-preemption
+       |  |  +-- config
+       |  |  |  +-- enable?                    boolean
+       |  |  |  +-- soft-preemption-timeout?   uint16
+       |  |  +--ro state
+       |  |     +--ro enable?                    boolean
+       |  |     +--ro soft-preemption-timeout?   uint16
+       |  +-- hellos
+       |  |  +-- config
+       |  |  |  +-- hello-interval?      uint16
+       |  |  |  +-- refresh-reduction?   boolean
+       |  |  +--ro state
+       |  |     +--ro hello-interval?      uint16
+       |  |     +--ro refresh-reduction?   boolean
+       |  +--ro state
+       |     +--ro counters
+       |        +--ro path-timeouts?                    yang:counter64
+       |        +--ro reservation-timeouts?             yang:counter64
+       |        +--ro rate-limited-messages?            yang:counter64
+       |        +--ro in-path-messages?                 yang:counter64
+       |        +--ro in-path-error-messages?           yang:counter64
+       |        +--ro in-path-tear-messages?            yang:counter64
+       |        +--ro in-reservation-messages?          yang:counter64
+       |        +--ro in-reservation-error-messages?    yang:counter64
+       |        +--ro in-reservation-tear-messages?     yang:counter64
+       |        +--ro in-hello-messages?                yang:counter64
+       |        +--ro in-srefresh-messages?             yang:counter64
+       |        +--ro in-ack-messages?                  yang:counter64
+       |        +--ro out-path-messages?                yang:counter64
+       |        +--ro out-path-error-messages?          yang:counter64
+       |        +--ro out-path-tear-messages?           yang:counter64
+       |        +--ro out-reservation-messages?         yang:counter64
+       |        +--ro out-reservation-error-messages?   yang:counter64
+       |        +--ro out-reservation-tear-messages?    yang:counter64
+       |        +--ro out-hello-messages?               yang:counter64
+       |        +--ro out-srefresh-messages?            yang:counter64
+       |        +--ro out-ack-messages?                 yang:counter64
+       +-- interface-attributes
+          +-- interface* [interface-id]
+             +-- interface-id?             -> ../config/interface-id
+             +-- config
+             |  +-- interface-id?   oc-if:interface-id
+             +--ro state
+             |  +--ro counters
+             |     +--ro in-path-messages?                 yang:counter64
+             |     +--ro in-path-error-messages?           yang:counter64
+             |     +--ro in-path-tear-messages?            yang:counter64
+             |     +--ro in-reservation-messages?          yang:counter64
+             |     +--ro in-reservation-error-messages?    yang:counter64
+             |     +--ro in-reservation-tear-messages?     yang:counter64
+             |     +--ro in-hello-messages?                yang:counter64
+             |     +--ro in-srefresh-messages?             yang:counter64
+             |     +--ro in-ack-messages?                  yang:counter64
+             |     +--ro out-path-messages?                yang:counter64
+             |     +--ro out-path-error-messages?          yang:counter64
+             |     +--ro out-path-tear-messages?           yang:counter64
+             |     +--ro out-reservation-messages?         yang:counter64
+             |     +--ro out-reservation-error-messages?   yang:counter64
+             |     +--ro out-reservation-tear-messages?    yang:counter64
+             |     +--ro out-hello-messages?               yang:counter64
+             |     +--ro out-srefresh-messages?            yang:counter64
+             |     +--ro out-ack-messages?                 yang:counter64
+             +-- interface-ref
+             |  +-- config
+             |  |  +-- interface?      -> /oc-if:interfaces/interface/name
+             |  |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+             |  +--ro state
+             |     +--ro interface?      -> /oc-if:interfaces/interface/name
+             |     +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+             +-- bandwidth-reservations
+             |  +--ro bandwidth-reservation* [priority]
+             |     +--ro priority?   -> ../state/priority
+             |     +--ro state
+             |        +--ro priority?                    union
+             |        +--ro available-bandwidth?         oc-mplst:bandwidth-mbps
+             |        +--ro reserved-bandwidth?          oc-mplst:bandwidth-mbps
+             |        +--ro active-reservations-count?   yang:gauge64
+             |        +--ro highwater-mark?              oc-mplst:bandwidth-mbps
+             +-- hellos
+             |  +-- config
+             |  |  +-- hello-interval?      uint16
+             |  |  +-- refresh-reduction?   boolean
+             |  +--ro state
+             |     +--ro hello-interval?      uint16
+             |     +--ro refresh-reduction?   boolean
+             +-- authentication
+             |  +-- config
+             |  |  +-- enable?               boolean
+             |  |  +-- authentication-key?   string
+             |  +--ro state
+             |     +--ro enable?               boolean
+             |     +--ro authentication-key?   string
+             +-- subscription
+             |  +-- config
+             |  |  +-- subscription?   oc-types:percentage
+             |  +--ro state
+             |     +--ro subscription?   oc-types:percentage
+             +-- protection
+                +-- config
+                |  +-- link-protection-style-requested?   identityref
+                |  +-- bypass-optimize-interval?          uint16
+                +--ro state
+                   +--ro link-protection-style-requested?   identityref
+                   +--ro bypass-optimize-interval?          uint16
+  grouping rsvp-p2p-tunnel-attributes_config
+    +-- source?            inet:ip-address
+    +-- soft-preemption?   boolean
+    +-- setup-priority?    uint8
+    +-- hold-priority?     uint8
+  grouping rsvp-priorities_config
+    +-- setup-priority?   uint8
+    +-- hold-priority?    uint8
+  grouping rsvp-p2p-path-attributes_config
+    +-- setup-priority?   uint8
+    +-- hold-priority?    uint8
+    +-- retry-timer?      uint16
+  grouping mpls-rsvp-neighbor-state
+    +-- address?              inet:ip-address
+    +-- detected-interface?   string
+    +-- neighbor-status?      enumeration
+    +-- refresh-reduction?    boolean
+  grouping mpls-rsvp-session-state
+    +-- sessions
+       +--ro session* [local-index]
+          +--ro local-index?            -> ../state/local-index
+          +--ro record-route-objects
+          |  +--ro record-route-object* [index]
+          |     +--ro index?   -> ../state/index
+          |     +--ro state
+          |        +--ro index?            uint8
+          |        +--ro address?          inet:ip-address
+          |        +--ro reported-label?   oc-mplst:mpls-label
+          |        +--ro reported-flags?   uint8
+          +--ro state
+             +--ro local-index?           uint32
+             +--ro source-address?        inet:ip-address
+             +--ro destination-address?   inet:ip-address
+             +--ro tunnel-id?             uint16
+             +--ro lsp-id?                uint16
+             +--ro session-name?          string
+             +--ro status?                enumeration
+             +--ro type?                  identityref
+             +--ro label-in?              oc-mplst:mpls-label
+             +--ro label-out?             oc-mplst:mpls-label
+  grouping mpls-rsvp-interfaces-state
+  grouping mpls-rsvp-interface-reservations
+    +-- bandwidth-reservations
+       +--ro bandwidth-reservation* [priority]
+          +--ro priority?   -> ../state/priority
+          +--ro state
+             +--ro priority?                    union
+             +--ro available-bandwidth?         oc-mplst:bandwidth-mbps
+             +--ro reserved-bandwidth?          oc-mplst:bandwidth-mbps
+             +--ro active-reservations-count?   yang:gauge64
+             +--ro highwater-mark?              oc-mplst:bandwidth-mbps
+  grouping mpls-rsvp-global-protocol-state
+    +-- path-timeouts?           yang:counter64
+    +-- reservation-timeouts?    yang:counter64
+    +-- rate-limited-messages?   yang:counter64
+  grouping mpls-rsvp-protocol-state
+    +-- in-path-messages?                 yang:counter64
+    +-- in-path-error-messages?           yang:counter64
+    +-- in-path-tear-messages?            yang:counter64
+    +-- in-reservation-messages?          yang:counter64
+    +-- in-reservation-error-messages?    yang:counter64
+    +-- in-reservation-tear-messages?     yang:counter64
+    +-- in-hello-messages?                yang:counter64
+    +-- in-srefresh-messages?             yang:counter64
+    +-- in-ack-messages?                  yang:counter64
+    +-- out-path-messages?                yang:counter64
+    +-- out-path-error-messages?          yang:counter64
+    +-- out-path-tear-messages?           yang:counter64
+    +-- out-reservation-messages?         yang:counter64
+    +-- out-reservation-error-messages?   yang:counter64
+    +-- out-reservation-tear-messages?    yang:counter64
+    +-- out-hello-messages?               yang:counter64
+    +-- out-srefresh-messages?            yang:counter64
+    +-- out-ack-messages?                 yang:counter64
+  grouping mpls-rsvp-record-route-object-top
+    +-- record-route-objects
+       +--ro record-route-object* [index]
+          +--ro index?   -> ../state/index
+          +--ro state
+             +--ro index?            uint8
+             +--ro address?          inet:ip-address
+             +--ro reported-label?   oc-mplst:mpls-label
+             +--ro reported-flags?   uint8
+  grouping mpls-rsvp-record-route-object-state
+    +-- index?            uint8
+    +-- address?          inet:ip-address
+    +-- reported-label?   oc-mplst:mpls-label
+    +-- reported-flags?   uint8

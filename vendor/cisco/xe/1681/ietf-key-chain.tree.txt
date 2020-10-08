@@ -1,0 +1,179 @@
+module: ietf-key-chain
+  +--rw key-chains* [name]
+     +--rw name                string
+     +--rw accept-tolerance {accept-tolerance}?
+     |  +--rw duration?   uint32
+     +--rw key* [key-id]
+        +--rw key-id              uint64
+        +--rw key-string
+        |  +--rw (key-string-style)?
+        |     +--:(keystring)
+        |     |  +--rw keystring?            string
+        |     +--:(hexadecimal) {hex-key-string}?
+        |        +--rw hexadecimal-string?   yang:hex-string
+        +--rw lifetime
+        |  +--rw (lifetime)?
+        |     +--:(send-and-accept-lifetime)
+        |     |  +--rw send-accept-lifetime
+        |     |     +--rw (lifetime)?
+        |     |        +--:(always)
+        |     |        |  +--rw always?                empty
+        |     |        +--:(start-end-time)
+        |     |           +--rw start-date-time?       yang:date-and-time
+        |     |           +--rw (end-time)?
+        |     |              +--:(infinite)
+        |     |              |  +--rw no-end-time?     empty
+        |     |              +--:(duration)
+        |     |              |  +--rw duration?        uint32
+        |     |              +--:(end-date-time)
+        |     |                 +--rw end-date-time?   yang:date-and-time
+        |     +--:(independent-send-accept-lifetime) {independent-send-accept-lifetime}?
+        |        +--rw send-lifetime
+        |        |  +--rw (lifetime)?
+        |        |     +--:(always)
+        |        |     |  +--rw always?                empty
+        |        |     +--:(start-end-time)
+        |        |        +--rw start-date-time?       yang:date-and-time
+        |        |        +--rw (end-time)?
+        |        |           +--:(infinite)
+        |        |           |  +--rw no-end-time?     empty
+        |        |           +--:(duration)
+        |        |           |  +--rw duration?        uint32
+        |        |           +--:(end-date-time)
+        |        |              +--rw end-date-time?   yang:date-and-time
+        |        +--rw accept-lifetime
+        |           +--rw (lifetime)?
+        |              +--:(always)
+        |              |  +--rw always?                empty
+        |              +--:(start-end-time)
+        |                 +--rw start-date-time?       yang:date-and-time
+        |                 +--rw (end-time)?
+        |                    +--:(infinite)
+        |                    |  +--rw no-end-time?     empty
+        |                    +--:(duration)
+        |                    |  +--rw duration?        uint32
+        |                    +--:(end-date-time)
+        |                       +--rw end-date-time?   yang:date-and-time
+        +--rw crypto-algorithm
+           +--rw (algorithm)?
+              +--:(hmac-sha1-12)
+              |  +--rw hmac-sha1-12?   empty
+              +--:(hmac-sha1-20)
+              |  +--rw hmac-sha1-20?   empty
+              +--:(md5)
+              |  +--rw md5?            empty
+              +--:(sha-1)
+              |  +--rw sha-1?          empty
+              +--:(hmac-sha-1)
+              |  +--rw hmac-sha-1?     empty
+              +--:(hmac-sha-256)
+              |  +--rw hmac-sha-256?   empty
+              +--:(hmac-sha-384)
+              |  +--rw hmac-sha-384?   empty
+              +--:(hmac-sha-512)
+                 +--rw hmac-sha-512?   empty
+
+  grouping lifetime
+    +-- (lifetime)?
+       +--:(always)
+       |  +-- always?                empty
+       +--:(start-end-time)
+          +-- start-date-time?       yang:date-and-time
+          +-- (end-time)?
+             +--:(infinite)
+             |  +-- no-end-time?     empty
+             +--:(duration)
+             |  +-- duration?        uint32
+             +--:(end-date-time)
+                +-- end-date-time?   yang:date-and-time
+  grouping crypto-algorithm-types
+    +-- (algorithm)?
+       +--:(hmac-sha1-12)
+       |  +-- hmac-sha1-12?   empty
+       +--:(hmac-sha1-20)
+       |  +-- hmac-sha1-20?   empty
+       +--:(md5)
+       |  +-- md5?            empty
+       +--:(sha-1)
+       |  +-- sha-1?          empty
+       +--:(hmac-sha-1)
+       |  +-- hmac-sha-1?     empty
+       +--:(hmac-sha-256)
+       |  +-- hmac-sha-256?   empty
+       +--:(hmac-sha-384)
+       |  +-- hmac-sha-384?   empty
+       +--:(hmac-sha-512)
+          +-- hmac-sha-512?   empty
+  grouping key-chain
+    +-- name?               string
+    +-- accept-tolerance {accept-tolerance}?
+    |  +-- duration?   uint32
+    +-- key* [key-id]
+       +-- key-id?             uint64
+       +-- key-string
+       |  +-- (key-string-style)?
+       |     +--:(keystring)
+       |     |  +-- keystring?            string
+       |     +--:(hexadecimal) {hex-key-string}?
+       |        +-- hexadecimal-string?   yang:hex-string
+       +-- lifetime
+       |  +-- (lifetime)?
+       |     +--:(send-and-accept-lifetime)
+       |     |  +-- send-accept-lifetime
+       |     |     +-- (lifetime)?
+       |     |        +--:(always)
+       |     |        |  +-- always?                empty
+       |     |        +--:(start-end-time)
+       |     |           +-- start-date-time?       yang:date-and-time
+       |     |           +-- (end-time)?
+       |     |              +--:(infinite)
+       |     |              |  +-- no-end-time?     empty
+       |     |              +--:(duration)
+       |     |              |  +-- duration?        uint32
+       |     |              +--:(end-date-time)
+       |     |                 +-- end-date-time?   yang:date-and-time
+       |     +--:(independent-send-accept-lifetime) {independent-send-accept-lifetime}?
+       |        +-- send-lifetime
+       |        |  +-- (lifetime)?
+       |        |     +--:(always)
+       |        |     |  +-- always?                empty
+       |        |     +--:(start-end-time)
+       |        |        +-- start-date-time?       yang:date-and-time
+       |        |        +-- (end-time)?
+       |        |           +--:(infinite)
+       |        |           |  +-- no-end-time?     empty
+       |        |           +--:(duration)
+       |        |           |  +-- duration?        uint32
+       |        |           +--:(end-date-time)
+       |        |              +-- end-date-time?   yang:date-and-time
+       |        +-- accept-lifetime
+       |           +-- (lifetime)?
+       |              +--:(always)
+       |              |  +-- always?                empty
+       |              +--:(start-end-time)
+       |                 +-- start-date-time?       yang:date-and-time
+       |                 +-- (end-time)?
+       |                    +--:(infinite)
+       |                    |  +-- no-end-time?     empty
+       |                    +--:(duration)
+       |                    |  +-- duration?        uint32
+       |                    +--:(end-date-time)
+       |                       +-- end-date-time?   yang:date-and-time
+       +-- crypto-algorithm
+          +-- (algorithm)?
+             +--:(hmac-sha1-12)
+             |  +-- hmac-sha1-12?   empty
+             +--:(hmac-sha1-20)
+             |  +-- hmac-sha1-20?   empty
+             +--:(md5)
+             |  +-- md5?            empty
+             +--:(sha-1)
+             |  +-- sha-1?          empty
+             +--:(hmac-sha-1)
+             |  +-- hmac-sha-1?     empty
+             +--:(hmac-sha-256)
+             |  +-- hmac-sha-256?   empty
+             +--:(hmac-sha-384)
+             |  +-- hmac-sha-384?   empty
+             +--:(hmac-sha-512)
+                +-- hmac-sha-512?   empty

@@ -1,0 +1,119 @@
+module: Cisco-IOS-XE-ppp-oper
+  +--ro ppp-data
+     +--ro ppp-interface* [phy-ifname]
+     |  +--ro phy-ifname    string
+     |  +--ro ppp-va* []
+     |     +--ro va-ifname?          string
+     |     +--ro vrf-name?           string
+     |     +--ro interface-ip?       inet:ip-address
+     |     +--ro gateway-ip?         inet:ip-address
+     |     +--ro primary-dns-ip?     inet:ip-address
+     |     +--ro secondary-dns-ip?   inet:ip-address
+     |     +--ro mtu?                uint32
+     |     +--ro auth-type?          ppp-ios-xe-oper:ppp-ios-auth-type
+     +--ro ppp-statistics!
+     |  +--ro ppp-lcp-pkts?    uint32
+     |  +--ro ppp-ipcp-pkts?   uint32
+     |  +--ro ppp-ccp-pkts?    uint32
+     +--ro pppoe!
+        +--ro role?                 ppp-ios-xe-oper:pppoe-operational-role
+        +--ro pppoe-session-list* [ifname]
+        |  +--ro ifname     string
+        |  +--ro session* []
+        |     +--ro session-id?              uint16
+        |     +--ro lmac?                    yang:mac-address
+        |     +--ro rmac?                    yang:mac-address
+        |     +--ro va-ifname?               string
+        |     +--ro vrf-name?                string
+        |     +--ro dot1q-qinq-outer-vlan?   uint16
+        |     +--ro dot1q-qinq-inner-vlan?   uint16
+        |     +--ro service-name?            string
+        |     +--ro in-packet?               uint32
+        |     +--ro out-packet?              uint32
+        |     +--ro in-bytes?                uint64
+        |     +--ro out-bytes?               uint64
+        +--ro pppoe-statistics!
+           +--ro pppoe-padi-pkts?   uint32
+           +--ro pppoe-pado-pkts?   uint32
+           +--ro pppoe-padr-pkts?   uint32
+           +--ro pppoe-pads-pkts?   uint32
+
+  grouping ppp-virtual-access-interface
+    +-- va-ifname?          string
+    +-- vrf-name?           string
+    +-- interface-ip?       inet:ip-address
+    +-- gateway-ip?         inet:ip-address
+    +-- primary-dns-ip?     inet:ip-address
+    +-- secondary-dns-ip?   inet:ip-address
+    +-- mtu?                uint32
+    +-- auth-type?          ppp-ios-xe-oper:ppp-ios-auth-type
+  grouping ppp-interface
+    +-- phy-ifname?   string
+    +-- ppp-va* []
+       +-- va-ifname?          string
+       +-- vrf-name?           string
+       +-- interface-ip?       inet:ip-address
+       +-- gateway-ip?         inet:ip-address
+       +-- primary-dns-ip?     inet:ip-address
+       +-- secondary-dns-ip?   inet:ip-address
+       +-- mtu?                uint32
+       +-- auth-type?          ppp-ios-xe-oper:ppp-ios-auth-type
+  grouping ppp-statistics
+    +-- ppp-lcp-pkts?    uint32
+    +-- ppp-ipcp-pkts?   uint32
+    +-- ppp-ccp-pkts?    uint32
+  grouping pppoe-session
+    +-- session-id?              uint16
+    +-- lmac?                    yang:mac-address
+    +-- rmac?                    yang:mac-address
+    +-- va-ifname?               string
+    +-- vrf-name?                string
+    +-- dot1q-qinq-outer-vlan?   uint16
+    +-- dot1q-qinq-inner-vlan?   uint16
+    +-- service-name?            string
+    +-- in-packet?               uint32
+    +-- out-packet?              uint32
+    +-- in-bytes?                uint64
+    +-- out-bytes?               uint64
+  grouping pppoe-session-list
+    +-- ifname?    string
+    +-- session* []
+       +-- session-id?              uint16
+       +-- lmac?                    yang:mac-address
+       +-- rmac?                    yang:mac-address
+       +-- va-ifname?               string
+       +-- vrf-name?                string
+       +-- dot1q-qinq-outer-vlan?   uint16
+       +-- dot1q-qinq-inner-vlan?   uint16
+       +-- service-name?            string
+       +-- in-packet?               uint32
+       +-- out-packet?              uint32
+       +-- in-bytes?                uint64
+       +-- out-bytes?               uint64
+  grouping pppoe-statistics
+    +-- pppoe-padi-pkts?   uint32
+    +-- pppoe-pado-pkts?   uint32
+    +-- pppoe-padr-pkts?   uint32
+    +-- pppoe-pads-pkts?   uint32
+  grouping pppoe
+    +-- role?                 ppp-ios-xe-oper:pppoe-operational-role
+    +-- pppoe-session-list* [ifname]
+    |  +-- ifname?    string
+    |  +-- session* []
+    |     +-- session-id?              uint16
+    |     +-- lmac?                    yang:mac-address
+    |     +-- rmac?                    yang:mac-address
+    |     +-- va-ifname?               string
+    |     +-- vrf-name?                string
+    |     +-- dot1q-qinq-outer-vlan?   uint16
+    |     +-- dot1q-qinq-inner-vlan?   uint16
+    |     +-- service-name?            string
+    |     +-- in-packet?               uint32
+    |     +-- out-packet?              uint32
+    |     +-- in-bytes?                uint64
+    |     +-- out-bytes?               uint64
+    +-- pppoe-statistics!
+       +-- pppoe-padi-pkts?   uint32
+       +-- pppoe-pado-pkts?   uint32
+       +-- pppoe-padr-pkts?   uint32
+       +-- pppoe-pads-pkts?   uint32

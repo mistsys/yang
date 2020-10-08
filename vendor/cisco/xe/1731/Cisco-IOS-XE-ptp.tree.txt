@@ -1,0 +1,155 @@
+
+module: Cisco-IOS-XE-ptp
+  augment /ios:native/ios:ptp:
+    +--rw domain?                                 uint8
+    +--rw profile
+    |  +--rw dot1as?   empty
+    +--rw neighbor-propagation-delay-threshold?   uint32
+    +--rw priority1?                              uint8
+    +--rw priority2?                              uint8
+    +--rw mode
+    |  +--rw boundary
+    |  |  +--rw delay-req?    empty
+    |  |  +--rw pdelay-req?   empty
+    |  +--rw e2etransparent?   empty
+    |  +--rw p2ptransparent?   empty
+    +--rw transport
+       +--rw ipv4
+          +--rw udp?   empty
+  augment /ios:native/ios:interface/ios:GigabitEthernet:
+    +--rw ptp
+       +--rw enable?       empty
+       +--rw announce
+       |  +--rw interval?   uint8
+       |  +--rw timeout?    uint8
+       +--rw sync
+       |  +--rw interval?   int8
+       +--rw pdelay-req
+       |  +--rw interval?   int8
+       +--rw delay-req
+       |  +--rw interval?   int8
+       +--rw vlan?         uint16
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet:
+    +--rw ptp
+       +--rw enable?       empty
+       +--rw announce
+       |  +--rw interval?   uint8
+       |  +--rw timeout?    uint8
+       +--rw sync
+       |  +--rw interval?   int8
+       +--rw pdelay-req
+       |  +--rw interval?   int8
+       +--rw delay-req
+       |  +--rw interval?   int8
+       +--rw vlan?         uint16
+  augment /ios:native/ios:interface/ios:FiveGigabitEthernet:
+    +--rw ptp
+       +--rw enable?       empty
+       +--rw announce
+       |  +--rw interval?   uint8
+       |  +--rw timeout?    uint8
+       +--rw sync
+       |  +--rw interval?   int8
+       +--rw pdelay-req
+       |  +--rw interval?   int8
+       +--rw delay-req
+       |  +--rw interval?   int8
+       +--rw vlan?         uint16
+  augment /ios:native/ios:interface/ios:TwentyFiveGigE:
+    +--rw ptp
+       +--rw enable?       empty
+       +--rw announce
+       |  +--rw interval?   uint8
+       |  +--rw timeout?    uint8
+       +--rw sync
+       |  +--rw interval?   int8
+       +--rw pdelay-req
+       |  +--rw interval?   int8
+       +--rw delay-req
+       |  +--rw interval?   int8
+       +--rw vlan?         uint16
+  augment /ios:native/ios:interface/ios:TwoGigabitEthernet:
+    +--rw ptp
+       +--rw enable?       empty
+       +--rw announce
+       |  +--rw interval?   uint8
+       |  +--rw timeout?    uint8
+       +--rw sync
+       |  +--rw interval?   int8
+       +--rw pdelay-req
+       |  +--rw interval?   int8
+       +--rw delay-req
+       |  +--rw interval?   int8
+       +--rw vlan?         uint16
+  augment /ios:native/ios:interface/ios:FortyGigabitEthernet:
+    +--rw ptp
+       +--rw enable?       empty
+       +--rw announce
+       |  +--rw interval?   uint8
+       |  +--rw timeout?    uint8
+       +--rw sync
+       |  +--rw interval?   int8
+       +--rw pdelay-req
+       |  +--rw interval?   int8
+       +--rw delay-req
+       |  +--rw interval?   int8
+       +--rw vlan?         uint16
+  augment /ios:native/ios:interface/ios:HundredGigE:
+    +--rw ptp
+       +--rw enable?       empty
+       +--rw announce
+       |  +--rw interval?   uint8
+       |  +--rw timeout?    uint8
+       +--rw sync
+       |  +--rw interval?   int8
+       +--rw pdelay-req
+       |  +--rw interval?   int8
+       +--rw delay-req
+       |  +--rw interval?   int8
+       +--rw vlan?         uint16
+
+  grouping config-ptp-grouping
+    +-- ptp
+       +-- clock
+          +-- ordinary
+          |  +-- domain?   int8
+          +-- clock-port
+             +-- name?        string
+             +-- slave?       empty
+             +-- master?      empty
+             +-- transport
+             |  +-- ipv4?      empty
+             |  +-- unicast
+             |     +-- interface?     string
+             |     +-- negotiation?   empty
+             +-- clock
+                +-- source?   inet:ipv4-address
+  grouping config-ptp-grouping2
+    +-- domain?                                 uint8
+    +-- profile
+    |  +-- dot1as?   empty
+    +-- neighbor-propagation-delay-threshold?   uint32
+    +-- priority1?                              uint8
+    +-- priority2?                              uint8
+    +-- mode
+    |  +-- boundary
+    |  |  +-- delay-req?    empty
+    |  |  +-- pdelay-req?   empty
+    |  +-- e2etransparent?   empty
+    |  +-- p2ptransparent?   empty
+    +-- transport
+       +-- ipv4
+          +-- udp?   empty
+  grouping config-interface-ptp-grouping
+    +-- ptp
+       +-- enable?       empty
+       +-- announce
+       |  +-- interval?   uint8
+       |  +-- timeout?    uint8
+       +-- sync
+       |  +-- interval?   int8
+       +-- pdelay-req
+       |  +-- interval?   int8
+       +-- delay-req
+       |  +-- interval?   int8
+       +-- vlan?         uint16

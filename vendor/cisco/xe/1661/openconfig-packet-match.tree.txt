@@ -1,0 +1,68 @@
+module: openconfig-packet-match
+
+  grouping ethernet-header-config
+    +-- source-mac?             yang:mac-address
+    +-- source-mac-mask?        yang:mac-address
+    +-- destination-mac?        yang:mac-address
+    +-- destination-mac-mask?   yang:mac-address
+    +-- ethertype?              oc-pkt-match-types:ethertype-type
+  grouping ethernet-header-state
+  grouping ethernet-header-top
+    +-- l2
+       +-- config
+       |  +-- source-mac?             yang:mac-address
+       |  +-- source-mac-mask?        yang:mac-address
+       |  +-- destination-mac?        yang:mac-address
+       |  +-- destination-mac-mask?   yang:mac-address
+       |  +-- ethertype?              oc-pkt-match-types:ethertype-type
+       +--ro state
+          +--ro source-mac?             yang:mac-address
+          +--ro source-mac-mask?        yang:mac-address
+          +--ro destination-mac?        yang:mac-address
+          +--ro destination-mac-mask?   yang:mac-address
+          +--ro ethertype?              oc-pkt-match-types:ethertype-type
+  grouping ip-protocol-fields-config
+    +-- ip-version?                  inet:ip-version
+    +-- source-ip-address?           inet:ip-prefix
+    +-- source-ip-flow-label?        inet:ipv6-flow-label
+    +-- destination-ip-address?      inet:ip-prefix
+    +-- destination-ip-flow-label?   inet:ipv6-flow-label
+    +-- dscp?                        inet:dscp
+    +-- protocol?                    oc-pkt-match-types:ip-protocol-type
+    +-- hop-limit?                   uint8
+  grouping ip-protocol-fields-state
+  grouping ip-protocol-fields-top
+    +-- ip
+       +-- config
+       |  +-- ip-version?                  inet:ip-version
+       |  +-- source-ip-address?           inet:ip-prefix
+       |  +-- source-ip-flow-label?        inet:ipv6-flow-label
+       |  +-- destination-ip-address?      inet:ip-prefix
+       |  +-- destination-ip-flow-label?   inet:ipv6-flow-label
+       |  +-- dscp?                        inet:dscp
+       |  +-- protocol?                    oc-pkt-match-types:ip-protocol-type
+       |  +-- hop-limit?                   uint8
+       +--ro state
+          +--ro ip-version?                  inet:ip-version
+          +--ro source-ip-address?           inet:ip-prefix
+          +--ro source-ip-flow-label?        inet:ipv6-flow-label
+          +--ro destination-ip-address?      inet:ip-prefix
+          +--ro destination-ip-flow-label?   inet:ipv6-flow-label
+          +--ro dscp?                        inet:dscp
+          +--ro protocol?                    oc-pkt-match-types:ip-protocol-type
+          +--ro hop-limit?                   uint8
+  grouping transport-fields-config
+    +-- source-port?        oc-pkt-match-types:port-num-range
+    +-- destination-port?   oc-pkt-match-types:port-num-range
+    +-- tcp-flags*          identityref
+  grouping transport-fields-state
+  grouping transport-fields-top
+    +-- transport
+       +-- config
+       |  +-- source-port?        oc-pkt-match-types:port-num-range
+       |  +-- destination-port?   oc-pkt-match-types:port-num-range
+       |  +-- tcp-flags*          identityref
+       +--ro state
+          +--ro source-port?        oc-pkt-match-types:port-num-range
+          +--ro destination-port?   oc-pkt-match-types:port-num-range
+          +--ro tcp-flags*          identityref

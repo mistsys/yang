@@ -1,0 +1,164 @@
+module: Cisco-IOS-XE-wireless-general-cfg
+  +--rw general-cfg-data
+     +--rw mewlc-config!
+     |  +--rw mewlc-platform?          boolean
+     |  +--rw mewlc-vrrp-vrid?         uint8
+     |  +--rw preferred-master-name?   string
+     +--rw cac-config!
+     |  +--rw iplearnq-high-threshold?             uint32
+     |  +--rw aaa-high-threshold?                  uint32
+     |  +--rw ipc-high-threshold?                  uint32
+     |  +--rw ipc-low-threshold?                   uint32
+     |  +--rw cpu-high-threshold?                  uint32
+     |  +--rw mobility-discovery-threshold-high?   uint32
+     +--rw mfp!
+     |  +--rw global-mfp-state?             boolean
+     |  +--rw ap-impersonation-detection?   boolean
+     |  +--rw mfp-key-refresh-interval?     uint8
+     +--rw fips-cfg!
+     |  +--rw dtls-version?       wireless-types:enm-dtls-version
+     |  +--rw dtls-ciphersuite?   wireless-types:enm-ciphersuite
+     +--rw exclusion-list-file-records
+     |  +--rw exclusion-list-file-record* [mac-addr]
+     |     +--rw mac-addr       yang:mac-address
+     |     +--rw description?   string
+     +--rw wsa-config
+     |  +--rw enable?                          boolean
+     |  +--rw url?                             string
+     |  +--rw token?                           string
+     |  +--rw enable-dataplane-statistics?     boolean
+     |  +--rw interval-dataplane-statistics?   uint16
+     |  +--rw icap-port?                       uint16
+     +--rw na-server-cert
+     |  +--rw protocol?        wireless-types:download-protocol
+     |  +--rw server-ip?       inet:ip-address
+     |  +--rw path?            string
+     |  +--rw filename?        string
+     |  +--rw encrypted?       boolean
+     |  +--rw username?        string
+     |  +--rw password?        string
+     |  +--rw password-type?   wireless-enum-types:crypt-type
+     |  +--rw vrf?             string
+     +--rw wsa-ap-client-event!
+     |  +--rw frequency?   uint32
+     +--rw ap-dna-global-config
+     |  +--rw token?         string
+     |  +--rw token-type?    wireless-enum-types:crypt-type
+     |  +--rw clear-token?   string
+     +--rw ipv6-cfg
+     |  +--rw disable-client-ipv6?   boolean
+     +--rw sim-l3-interface-cache-data!
+     |  +--rw interface-name?         string
+     |  +--rw nat-ip-address?         inet:ip-address
+     |  +--rw nat-enable?             boolean
+     |  +--rw private-ip-discovery?   boolean
+     |  +--rw public-ip-discovery?    boolean
+     +--rw wlc-management-data!
+     |  +--rw pki-trustpoint-name?   string
+     |  +--rw ssc-auth-token?        string
+     |  +--rw ssc-auth-token-type?   wireless-enum-types:crypt-type
+     |  +--rw ssc-trust-hash-list
+     |     +--rw ssc-trust-hash* [ssc-fingerprint]
+     |        +--rw ssc-fingerprint    string
+     +--rw laginfo!
+     |  +--rw enabled?   boolean
+     +--rw multicast-config!
+     |  +--rw multicast-over-multicast-ipv4-addr?   inet:ipv4-address
+     |  +--rw multicast-over-multicast-ipv6-addr?   inet:ipv6-address
+     |  +--rw is-mcast-enabled?                     boolean
+     |  +--rw is-non-ip-multicast-enabled?          boolean
+     |  +--rw is-mdns-enabled?                      boolean
+     |  +--rw multicast-mode?                       boolean
+     |  +--rw multicast-v6-mode?                    boolean
+     |  +--rw is-broadcast-enabled?                 boolean
+     +--rw multicast-non-ip-config
+     |  +--rw multicast-non-ip-vlan-config* [vlan-id]
+     |     +--rw vlan-id    uint32
+     +--rw broadcast-config
+     |  +--rw broadcast-vlan-config* [vlan-id]
+     |     +--rw vlan-id    uint32
+     +--rw ap-upgrade-config
+     |  +--rw percentage?   wireless-types:enum-ewlc-ap-upgrade-config
+     o--rw li-global-config!
+        +--rw li-host-ip-address?   inet:ip-address
+
+  grouping dtls-config
+    +-- dtls-version?       wireless-types:enm-dtls-version
+    +-- dtls-ciphersuite?   wireless-types:enm-ciphersuite
+  grouping na-server-cert
+    +-- protocol?        wireless-types:download-protocol
+    +-- server-ip?       inet:ip-address
+    +-- path?            string
+    +-- filename?        string
+    +-- encrypted?       boolean
+    +-- username?        string
+    +-- password?        string
+    +-- password-type?   wireless-enum-types:crypt-type
+    +-- vrf?             string
+  grouping wsa-config
+    +-- enable?                          boolean
+    +-- url?                             string
+    +-- token?                           string
+    +-- enable-dataplane-statistics?     boolean
+    +-- interval-dataplane-statistics?   uint16
+    +-- icap-port?                       uint16
+  grouping wsa-ap-client-event-cfg
+    +-- frequency?   uint32
+  grouping ap-dna-global-config
+    +-- token?         string
+    +-- token-type?    wireless-enum-types:crypt-type
+    +-- clear-token?   string
+  grouping li-host-addr
+    +-- li-host-ip-address?   inet:ip-address
+  grouping broadcast-vlan-config
+    +-- vlan-id?   uint32
+  grouping multicast-non-ip-vlan-config
+    +-- vlan-id?   uint32
+  grouping ipv6-cfg
+    +-- disable-client-ipv6?   boolean
+  grouping multicast-config
+    +-- multicast-over-multicast-ipv4-addr?   inet:ipv4-address
+    +-- multicast-over-multicast-ipv6-addr?   inet:ipv6-address
+    +-- is-mcast-enabled?                     boolean
+    +-- is-non-ip-multicast-enabled?          boolean
+    +-- is-mdns-enabled?                      boolean
+    +-- multicast-mode?                       boolean
+    +-- multicast-v6-mode?                    boolean
+    +-- is-broadcast-enabled?                 boolean
+  grouping exclusionlist-file-record
+    +-- mac-addr?      yang:mac-address
+    +-- description?   string
+  grouping sim-l3-interface-cache-data
+    +-- interface-name?         string
+    +-- nat-ip-address?         inet:ip-address
+    +-- nat-enable?             boolean
+    +-- private-ip-discovery?   boolean
+    +-- public-ip-discovery?    boolean
+  grouping capwap-global-lag-info
+    +-- enabled?   boolean
+  grouping st-global-mfp-cfg
+    +-- global-mfp-state?             boolean
+    +-- ap-impersonation-detection?   boolean
+    +-- mfp-key-refresh-interval?     uint8
+  grouping cac-config
+    +-- iplearnq-high-threshold?             uint32
+    +-- aaa-high-threshold?                  uint32
+    +-- ipc-high-threshold?                  uint32
+    +-- ipc-low-threshold?                   uint32
+    +-- cpu-high-threshold?                  uint32
+    +-- mobility-discovery-threshold-high?   uint32
+  grouping wlc-management-data
+    +-- pki-trustpoint-name?   string
+    +-- ssc-auth-token?        string
+    +-- ssc-auth-token-type?   wireless-enum-types:crypt-type
+    +-- ssc-trust-hash-list
+       +-- ssc-trust-hash* [ssc-fingerprint]
+          +-- ssc-fingerprint?   string
+  grouping ssc-trust-hash
+    +-- ssc-fingerprint?   string
+  grouping st-ap-upgrade-config
+    +-- percentage?   wireless-types:enum-ewlc-ap-upgrade-config
+  grouping mewlc-config
+    +-- mewlc-platform?          boolean
+    +-- mewlc-vrrp-vrid?         uint8
+    +-- preferred-master-name?   string

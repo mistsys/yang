@@ -1,0 +1,127 @@
+module: openconfig-vlan
+  +--rw vlans
+     +--rw vlan* [vlan-id]
+        +--rw vlan-id    -> ../config/vlan-id
+        +--rw config
+        |  +--rw vlan-id?   oc-vlan-types:vlan-id
+        |  +--rw name?      string
+        |  +--rw status?    enumeration
+        |  +--rw tpid?      identityref
+        +--ro state
+        |  +--ro vlan-id?   oc-vlan-types:vlan-id
+        |  +--ro name?      string
+        |  +--ro status?    enumeration
+        |  +--ro tpid?      identityref
+        +--rw members
+           +--ro member* []
+              +--ro interface-ref
+                 +--ro state
+                    +--ro interface?      -> /oc-if:interfaces/interface/name
+                    +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+
+  augment /oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface:
+    +--rw vlan
+       +--rw config
+       |  +--rw vlan-id?   union
+       +--ro state
+          +--ro vlan-id?   union
+  augment /oc-if:interfaces/oc-if:interface/oc-eth:ethernet:
+    +--rw switched-vlan
+       +--rw config
+       |  +--rw interface-mode?   oc-vlan-types:vlan-mode-type
+       |  +--rw native-vlan?      union
+       |  +--rw access-vlan?      union
+       |  +--rw trunk-vlans*      union
+       +--ro state
+          +--ro interface-mode?   oc-vlan-types:vlan-mode-type
+          +--ro native-vlan?      union
+          +--ro access-vlan?      union
+          +--ro trunk-vlans*      union
+  augment /oc-if:interfaces/oc-if:interface/oc-lag:aggregation:
+    +--rw switched-vlan
+       +--rw config
+       |  +--rw interface-mode?   oc-vlan-types:vlan-mode-type
+       |  +--rw native-vlan?      union
+       |  +--rw access-vlan?      union
+       |  +--rw trunk-vlans*      union
+       +--ro state
+          +--ro interface-mode?   oc-vlan-types:vlan-mode-type
+          +--ro native-vlan?      union
+          +--ro access-vlan?      union
+          +--ro trunk-vlans*      union
+  augment /oc-if:interfaces/oc-if:interface:
+    +--rw routed-vlan
+       +--rw config
+       |  +--rw vlan?   union
+       +--ro state
+          +--ro vlan?   union
+
+  grouping vlan-config
+    +-- vlan-id?   oc-vlan-types:vlan-id
+    +-- name?      string
+    +-- status?    enumeration
+    +-- tpid?      identityref
+  grouping vlan-state
+  grouping vlan-members-state
+    +-- members
+       +--ro member* []
+          +--ro interface-ref
+             +--ro state
+                +--ro interface?      -> /oc-if:interfaces/interface/name
+                +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+  grouping vlan-ethernet-config
+    +-- interface-mode?   oc-vlan-types:vlan-mode-type
+    +-- native-vlan?      union
+    +-- access-vlan?      union
+    +-- trunk-vlans*      union
+  grouping vlan-ethernet-state
+  grouping vlan-ethernet-top
+    +-- switched-vlan
+       +-- config
+       |  +-- interface-mode?   oc-vlan-types:vlan-mode-type
+       |  +-- native-vlan?      union
+       |  +-- access-vlan?      union
+       |  +-- trunk-vlans*      union
+       +--ro state
+          +--ro interface-mode?   oc-vlan-types:vlan-mode-type
+          +--ro native-vlan?      union
+          +--ro access-vlan?      union
+          +--ro trunk-vlans*      union
+  grouping vlan-logical-config
+    +-- vlan-id?   union
+  grouping vlan-logical-state
+  grouping vlan-top
+    +-- vlans
+       +-- vlan* [vlan-id]
+          +-- vlan-id?   -> ../config/vlan-id
+          +-- config
+          |  +-- vlan-id?   oc-vlan-types:vlan-id
+          |  +-- name?      string
+          |  +-- status?    enumeration
+          |  +-- tpid?      identityref
+          +--ro state
+          |  +--ro vlan-id?   oc-vlan-types:vlan-id
+          |  +--ro name?      string
+          |  +--ro status?    enumeration
+          |  +--ro tpid?      identityref
+          +-- members
+             +--ro member* []
+                +--ro interface-ref
+                   +--ro state
+                      +--ro interface?      -> /oc-if:interfaces/interface/name
+                      +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+  grouping vlan-logical-top
+    +-- vlan
+       +-- config
+       |  +-- vlan-id?   union
+       +--ro state
+          +--ro vlan-id?   union
+  grouping vlan-routed-config
+    +-- vlan?   union
+  grouping vlan-routed-state
+  grouping vlan-routed-top
+    +-- routed-vlan
+       +-- config
+       |  +-- vlan?   union
+       +--ro state
+          +--ro vlan?   union

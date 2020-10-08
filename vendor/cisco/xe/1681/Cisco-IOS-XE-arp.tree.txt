@@ -1,0 +1,32 @@
+
+module: Cisco-IOS-XE-arp
+  augment /ios:native:
+    +--rw arp
+       +--rw arp-entry* [ip]
+       |  +--rw ip                  inet:ip-address
+       |  +--rw hardware-address?   string
+       |  +--rw arp-type?           enumeration
+       +--rw vrf* [vrf-name]
+          +--rw vrf-name     string
+          +--rw arp-entry* [ip]
+             +--rw ip                  inet:ip-address
+             +--rw hardware-address?   string
+             +--rw arp-type?           enumeration
+
+  grouping arp-entry-grouping
+    +-- arp-entry* [ip]
+       +-- ip?                 inet:ip-address
+       +-- hardware-address?   string
+       +-- arp-type?           enumeration
+  grouping config-arp-grouping
+    +-- arp
+       +-- arp-entry* [ip]
+       |  +-- ip?                 inet:ip-address
+       |  +-- hardware-address?   string
+       |  +-- arp-type?           enumeration
+       +-- vrf* [vrf-name]
+          +-- vrf-name?    string
+          +-- arp-entry* [ip]
+             +-- ip?                 inet:ip-address
+             +-- hardware-address?   string
+             +-- arp-type?           enumeration

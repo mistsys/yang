@@ -1,0 +1,289 @@
+module: Cisco-IOS-XE-virtual-service-oper
+  +--ro virtual-services
+     +--ro virtual-service* [name]
+        +--ro name                  string
+        +--ro details
+        |  +--ro state?                    string
+        |  +--ro package-information
+        |  |  +--ro name?          string
+        |  |  +--ro path?          string
+        |  |  +--ro application
+        |  |  |  +--ro name?                string
+        |  |  |  +--ro installed-version?   string
+        |  |  |  +--ro description?         string
+        |  |  +--ro signing
+        |  |  |  +--ro key-type?   string
+        |  |  |  +--ro method?     string
+        |  |  +--ro licensing
+        |  |     +--ro name?      string
+        |  |     +--ro version?   string
+        |  +--ro detailed-guest-status
+        |  |  +--ro processes
+        |  |     +--ro name?     string
+        |  |     +--ro status?   string
+        |  |     +--ro pid?      string
+        |  |     +--ro uptime?   string
+        |  |     +--ro memory?   string
+        |  +--ro activated-profile-name?   string
+        |  +--ro resource-reservation
+        |  |  +--ro disk?     uint64
+        |  |  +--ro memory?   uint64
+        |  |  +--ro cpu?      uint64
+        |  +--ro guest-interface?          string
+        |  +--ro resource-admission
+        |     +--ro state?        string
+        |     +--ro disk-space?   string
+        |     +--ro memory?       string
+        |     +--ro cpu?          uint64
+        |     +--ro vcpus?        string
+        +--ro utilization
+        |  +--ro name?          string
+        |  +--ro cpu-util
+        |  |  +--ro requested-application-util?   uint64
+        |  |  +--ro actual-application-util?      uint64
+        |  |  +--ro cpu-state?                    string
+        |  +--ro memory-util
+        |     +--ro memory-allocation?   string
+        |     +--ro memory-used?         string
+        +--ro network-utils
+        |  +--ro network-util* [name alias]
+        |     +--ro name          string
+        |     +--ro alias         string
+        |     +--ro rx-packets?   uint64
+        |     +--ro rx-bytes?     uint64
+        |     +--ro rx-errors?    uint64
+        |     +--ro tx-packets?   uint64
+        |     +--ro tx-bytes?     uint64
+        |     +--ro tx-errors?    uint64
+        +--ro storage-utils
+        |  +--ro storage-util* [name alias]
+        |     +--ro name           string
+        |     +--ro alias          string
+        |     +--ro rd-bytes?      uint64
+        |     +--ro rd-requests?   uint64
+        |     +--ro errors?        uint64
+        |     +--ro wr-bytes?      uint64
+        |     +--ro wr-requests?   uint64
+        |     +--ro capacity?      uint64
+        |     +--ro available?     string
+        |     +--ro used?          uint64
+        |     +--ro usage?         string
+        +--ro attached-devices
+        |  +--ro attached-device* [name]
+        |     +--ro name     string
+        |     +--ro type?    string
+        |     +--ro alias?   string
+        +--ro network-interfaces
+        |  +--ro network-interface* [mac-address]
+        |     +--ro mac-address           yang:mac-address
+        |     +--ro attached-interface?   string
+        +--ro guest-routes
+           +--ro guest-route* [route]
+              +--ro route    string
+
+  grouping application
+    +-- name?                string
+    +-- installed-version?   string
+    +-- description?         string
+  grouping signing
+    +-- key-type?   string
+    +-- method?     string
+  grouping licensing
+    +-- name?      string
+    +-- version?   string
+  grouping package-information
+    +-- name?          string
+    +-- path?          string
+    +-- application
+    |  +-- name?                string
+    |  +-- installed-version?   string
+    |  +-- description?         string
+    +-- signing
+    |  +-- key-type?   string
+    |  +-- method?     string
+    +-- licensing
+       +-- name?      string
+       +-- version?   string
+  grouping vs-process
+    +-- name?     string
+    +-- status?   string
+    +-- pid?      string
+    +-- uptime?   string
+    +-- memory?   string
+  grouping detailed-guest-status
+    +-- processes
+       +-- name?     string
+       +-- status?   string
+       +-- pid?      string
+       +-- uptime?   string
+       +-- memory?   string
+  grouping resource-reservation
+    +-- disk?     uint64
+    +-- memory?   uint64
+    +-- cpu?      uint64
+  grouping attached-device
+    +-- name?    string
+    +-- type?    string
+    +-- alias?   string
+  grouping network-interface
+    +-- mac-address?          yang:mac-address
+    +-- attached-interface?   string
+  grouping guest-route
+    +-- route?   string
+  grouping resource-admission
+    +-- state?        string
+    +-- disk-space?   string
+    +-- memory?       string
+    +-- cpu?          uint64
+    +-- vcpus?        string
+  grouping details
+    +-- state?                    string
+    +-- package-information
+    |  +-- name?          string
+    |  +-- path?          string
+    |  +-- application
+    |  |  +-- name?                string
+    |  |  +-- installed-version?   string
+    |  |  +-- description?         string
+    |  +-- signing
+    |  |  +-- key-type?   string
+    |  |  +-- method?     string
+    |  +-- licensing
+    |     +-- name?      string
+    |     +-- version?   string
+    +-- detailed-guest-status
+    |  +-- processes
+    |     +-- name?     string
+    |     +-- status?   string
+    |     +-- pid?      string
+    |     +-- uptime?   string
+    |     +-- memory?   string
+    +-- activated-profile-name?   string
+    +-- resource-reservation
+    |  +-- disk?     uint64
+    |  +-- memory?   uint64
+    |  +-- cpu?      uint64
+    +-- guest-interface?          string
+    +-- resource-admission
+       +-- state?        string
+       +-- disk-space?   string
+       +-- memory?       string
+       +-- cpu?          uint64
+       +-- vcpus?        string
+  grouping cpu-util
+    +-- requested-application-util?   uint64
+    +-- actual-application-util?      uint64
+    +-- cpu-state?                    string
+  grouping memory-util
+    +-- memory-allocation?   string
+    +-- memory-used?         string
+  grouping network-util
+    +-- name?         string
+    +-- alias?        string
+    +-- rx-packets?   uint64
+    +-- rx-bytes?     uint64
+    +-- rx-errors?    uint64
+    +-- tx-packets?   uint64
+    +-- tx-bytes?     uint64
+    +-- tx-errors?    uint64
+  grouping storage-util
+    +-- name?          string
+    +-- alias?         string
+    +-- rd-bytes?      uint64
+    +-- rd-requests?   uint64
+    +-- errors?        uint64
+    +-- wr-bytes?      uint64
+    +-- wr-requests?   uint64
+    +-- capacity?      uint64
+    +-- available?     string
+    +-- used?          uint64
+    +-- usage?         string
+  grouping utilization
+    +-- name?          string
+    +-- cpu-util
+    |  +-- requested-application-util?   uint64
+    |  +-- actual-application-util?      uint64
+    |  +-- cpu-state?                    string
+    +-- memory-util
+       +-- memory-allocation?   string
+       +-- memory-used?         string
+  grouping virtual-service
+    +-- name?                 string
+    +-- details
+    |  +-- state?                    string
+    |  +-- package-information
+    |  |  +-- name?          string
+    |  |  +-- path?          string
+    |  |  +-- application
+    |  |  |  +-- name?                string
+    |  |  |  +-- installed-version?   string
+    |  |  |  +-- description?         string
+    |  |  +-- signing
+    |  |  |  +-- key-type?   string
+    |  |  |  +-- method?     string
+    |  |  +-- licensing
+    |  |     +-- name?      string
+    |  |     +-- version?   string
+    |  +-- detailed-guest-status
+    |  |  +-- processes
+    |  |     +-- name?     string
+    |  |     +-- status?   string
+    |  |     +-- pid?      string
+    |  |     +-- uptime?   string
+    |  |     +-- memory?   string
+    |  +-- activated-profile-name?   string
+    |  +-- resource-reservation
+    |  |  +-- disk?     uint64
+    |  |  +-- memory?   uint64
+    |  |  +-- cpu?      uint64
+    |  +-- guest-interface?          string
+    |  +-- resource-admission
+    |     +-- state?        string
+    |     +-- disk-space?   string
+    |     +-- memory?       string
+    |     +-- cpu?          uint64
+    |     +-- vcpus?        string
+    +-- utilization
+    |  +-- name?          string
+    |  +-- cpu-util
+    |  |  +-- requested-application-util?   uint64
+    |  |  +-- actual-application-util?      uint64
+    |  |  +-- cpu-state?                    string
+    |  +-- memory-util
+    |     +-- memory-allocation?   string
+    |     +-- memory-used?         string
+    +-- network-utils
+    |  +-- network-util* [name alias]
+    |     +-- name?         string
+    |     +-- alias?        string
+    |     +-- rx-packets?   uint64
+    |     +-- rx-bytes?     uint64
+    |     +-- rx-errors?    uint64
+    |     +-- tx-packets?   uint64
+    |     +-- tx-bytes?     uint64
+    |     +-- tx-errors?    uint64
+    +-- storage-utils
+    |  +-- storage-util* [name alias]
+    |     +-- name?          string
+    |     +-- alias?         string
+    |     +-- rd-bytes?      uint64
+    |     +-- rd-requests?   uint64
+    |     +-- errors?        uint64
+    |     +-- wr-bytes?      uint64
+    |     +-- wr-requests?   uint64
+    |     +-- capacity?      uint64
+    |     +-- available?     string
+    |     +-- used?          uint64
+    |     +-- usage?         string
+    +-- attached-devices
+    |  +-- attached-device* [name]
+    |     +-- name?    string
+    |     +-- type?    string
+    |     +-- alias?   string
+    +-- network-interfaces
+    |  +-- network-interface* [mac-address]
+    |     +-- mac-address?          yang:mac-address
+    |     +-- attached-interface?   string
+    +-- guest-routes
+       +-- guest-route* [route]
+          +-- route?   string

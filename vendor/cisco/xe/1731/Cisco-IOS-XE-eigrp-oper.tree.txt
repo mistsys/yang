@@ -1,0 +1,432 @@
+module: Cisco-IOS-XE-eigrp-oper
+  +--ro eigrp-oper-data
+  |  +--ro eigrp-instance* [afi vrf-name as-num]
+  |     +--ro afi                eigrp-ios-xe-oper:eigrp-ios-oper-afi
+  |     +--ro vrf-name           string
+  |     +--ro as-num             uint16
+  |     +--ro router-id?         uint32
+  |     +--ro named-mode?        empty
+  |     +--ro name?              string
+  |     +--ro eigrp-interface* [name]
+  |     |  +--ro name              string
+  |     |  +--ro passive?          empty
+  |     |  +--ro hello-interval?   uint16
+  |     |  +--ro hold-timer?       uint16
+  |     |  +--ro auth-val
+  |     |  |  +--ro auth-mode?   eigrp-ios-xe-oper:eigrp-ios-oper-authentication-mode
+  |     |  |  +--ro auth-key
+  |     |  |     +--ro key-chain?         string
+  |     |  |     +--ro sha256-password?   string
+  |     |  +--ro eigrp-nbr* [afi nbr-address]
+  |     |     +--ro afi                 eigrp-ios-xe-oper:eigrp-ios-oper-afi
+  |     |     +--ro nbr-address         inet:ip-address
+  |     |     +--ro nbr-sw-ver
+  |     |     |  +--ro os-majorver?    uint8
+  |     |     |  +--ro os-minorver?    uint8
+  |     |     |  +--ro tlv-majorrev?   uint8
+  |     |     |  +--ro tlv-minorrev?   uint8
+  |     |     +--ro nbr-stubinfo
+  |     |     |  +--ro stubbed?           empty
+  |     |     |  +--ro receive-only?      empty
+  |     |     |  +--ro allow-connected?   empty
+  |     |     |  +--ro allow-static?      empty
+  |     |     |  +--ro allow-summary?     empty
+  |     |     |  +--ro static-nbr?        empty
+  |     |     |  +--ro allow-redist?      empty
+  |     |     |  +--ro allow-leaking?     empty
+  |     |     +--ro retransmit-count?   uint32
+  |     |     +--ro retry-count?        uint16
+  |     |     +--ro last-seq-number?    uint32
+  |     |     +--ro srtt?               uint32
+  |     |     +--ro rto?                uint32
+  |     +--ro eigrp-topo* [topo-id]
+  |        +--ro topo-id          uint32
+  |        +--ro eigrp-network* [afi ip-prefix]
+  |           +--ro afi                eigrp-ios-xe-oper:eigrp-ios-oper-afi
+  |           +--ro ip-prefix          inet:ip-prefix
+  |           +--ro rd-metric?         uint64
+  |           +--ro rd-vecmetric
+  |           |  +--ro bandwidth?     uint64
+  |           |  +--ro delay?         uint64
+  |           |  +--ro tag?           uint32
+  |           |  +--ro routerid?      uint32
+  |           |  +--ro mtu?           uint16
+  |           |  +--ro hopcount?      uint8
+  |           |  +--ro reliability?   uint8
+  |           |  +--ro load?          uint8
+  |           +--ro fd-metric?         uint64
+  |           +--ro successor-count?   uint16
+  |           +--ro active?            empty
+  |           +--ro eigrp-route* [afi infosource]
+  |              +--ro afi                      eigrp-ios-xe-oper:eigrp-ios-oper-afi
+  |              +--ro infosource               inet:ip-address
+  |              +--ro nexthop?                 inet:ip-address
+  |              +--ro originating-interface?   string
+  |              +--ro metric?                  uint64
+  |              +--ro vecmetric
+  |              |  +--ro bandwidth?     uint64
+  |              |  +--ro delay?         uint64
+  |              |  +--ro tag?           uint32
+  |              |  +--ro routerid?      uint32
+  |              |  +--ro mtu?           uint16
+  |              |  +--ro hopcount?      uint8
+  |              |  +--ro reliability?   uint8
+  |              |  +--ro load?          uint8
+  |              +--ro succ-metric?             uint64
+  |              +--ro succ-vecmetric
+  |              |  +--ro bandwidth?     uint64
+  |              |  +--ro delay?         uint64
+  |              |  +--ro tag?           uint32
+  |              |  +--ro routerid?      uint32
+  |              |  +--ro mtu?           uint16
+  |              |  +--ro hopcount?      uint8
+  |              |  +--ro reliability?   uint8
+  |              |  +--ro load?          uint8
+  |              +--ro origin?                  eigrp-ios-xe-oper:eigrp-ios-oper-origin-type
+  |              +--ro omp-tag?                 uint32
+  |              +--ro in-rib?                  empty
+  |              +--ro external?                empty
+  |              +--ro ext-data
+  |                 +--ro routerid?     uint32
+  |                 +--ro asystem?      uint32
+  |                 +--ro tag?          uint32
+  |                 +--ro ext-metric?   uint32
+  |                 +--ro protocol?     uint8
+  |                 +--ro flag?         uint8
+  +--rw schema-metadata-Cisco-IOS-XE-eigrp-oper
+  |  +--rw json-metadata-leaf?   empty
+  +--rw gnmi-model-data
+
+  grouping eigrp-ios-oper-instance-key
+    +-- afi?        eigrp-ios-xe-oper:eigrp-ios-oper-afi
+    +-- vrf-name?   string
+    +-- as-num?     uint16
+  grouping eigrp-ios-oper-instance
+    +-- router-id?         uint32
+    +-- named-mode?        empty
+    +-- name?              string
+    +-- eigrp-interface* [name]
+    |  +-- name?             string
+    |  +-- passive?          empty
+    |  +-- hello-interval?   uint16
+    |  +-- hold-timer?       uint16
+    |  +-- auth-val
+    |  |  +-- auth-mode?   eigrp-ios-xe-oper:eigrp-ios-oper-authentication-mode
+    |  |  +-- auth-key
+    |  |     +-- key-chain?         string
+    |  |     +-- sha256-password?   string
+    |  +-- eigrp-nbr* [afi nbr-address]
+    |     +-- afi?                eigrp-ios-xe-oper:eigrp-ios-oper-afi
+    |     +-- nbr-address?        inet:ip-address
+    |     +-- nbr-sw-ver
+    |     |  +-- os-majorver?    uint8
+    |     |  +-- os-minorver?    uint8
+    |     |  +-- tlv-majorrev?   uint8
+    |     |  +-- tlv-minorrev?   uint8
+    |     +-- nbr-stubinfo
+    |     |  +-- stubbed?           empty
+    |     |  +-- receive-only?      empty
+    |     |  +-- allow-connected?   empty
+    |     |  +-- allow-static?      empty
+    |     |  +-- allow-summary?     empty
+    |     |  +-- static-nbr?        empty
+    |     |  +-- allow-redist?      empty
+    |     |  +-- allow-leaking?     empty
+    |     +-- retransmit-count?   uint32
+    |     +-- retry-count?        uint16
+    |     +-- last-seq-number?    uint32
+    |     +-- srtt?               uint32
+    |     +-- rto?                uint32
+    +-- eigrp-topo* [topo-id]
+       +-- topo-id?         uint32
+       +-- eigrp-network* [afi ip-prefix]
+          +-- afi?               eigrp-ios-xe-oper:eigrp-ios-oper-afi
+          +-- ip-prefix?         inet:ip-prefix
+          +-- rd-metric?         uint64
+          +-- rd-vecmetric
+          |  +-- bandwidth?     uint64
+          |  +-- delay?         uint64
+          |  +-- tag?           uint32
+          |  +-- routerid?      uint32
+          |  +-- mtu?           uint16
+          |  +-- hopcount?      uint8
+          |  +-- reliability?   uint8
+          |  +-- load?          uint8
+          +-- fd-metric?         uint64
+          +-- successor-count?   uint16
+          +-- active?            empty
+          +-- eigrp-route* [afi infosource]
+             +-- afi?                     eigrp-ios-xe-oper:eigrp-ios-oper-afi
+             +-- infosource?              inet:ip-address
+             +-- nexthop?                 inet:ip-address
+             +-- originating-interface?   string
+             +-- metric?                  uint64
+             +-- vecmetric
+             |  +-- bandwidth?     uint64
+             |  +-- delay?         uint64
+             |  +-- tag?           uint32
+             |  +-- routerid?      uint32
+             |  +-- mtu?           uint16
+             |  +-- hopcount?      uint8
+             |  +-- reliability?   uint8
+             |  +-- load?          uint8
+             +-- succ-metric?             uint64
+             +-- succ-vecmetric
+             |  +-- bandwidth?     uint64
+             |  +-- delay?         uint64
+             |  +-- tag?           uint32
+             |  +-- routerid?      uint32
+             |  +-- mtu?           uint16
+             |  +-- hopcount?      uint8
+             |  +-- reliability?   uint8
+             |  +-- load?          uint8
+             +-- origin?                  eigrp-ios-xe-oper:eigrp-ios-oper-origin-type
+             +-- omp-tag?                 uint32
+             +-- in-rib?                  empty
+             +-- external?                empty
+             +-- ext-data
+                +-- routerid?     uint32
+                +-- asystem?      uint32
+                +-- tag?          uint32
+                +-- ext-metric?   uint32
+                +-- protocol?     uint8
+                +-- flag?         uint8
+  grouping eigrp-ios-oper-auth-key
+    +-- key-chain?         string
+    +-- sha256-password?   string
+  grouping eigrp-ios-oper-auth
+    +-- auth-mode?   eigrp-ios-xe-oper:eigrp-ios-oper-authentication-mode
+    +-- auth-key
+       +-- key-chain?         string
+       +-- sha256-password?   string
+  grouping eigrp-ios-oper-intf
+    +-- name?             string
+    +-- passive?          empty
+    +-- hello-interval?   uint16
+    +-- hold-timer?       uint16
+    +-- auth-val
+    |  +-- auth-mode?   eigrp-ios-xe-oper:eigrp-ios-oper-authentication-mode
+    |  +-- auth-key
+    |     +-- key-chain?         string
+    |     +-- sha256-password?   string
+    +-- eigrp-nbr* [afi nbr-address]
+       +-- afi?                eigrp-ios-xe-oper:eigrp-ios-oper-afi
+       +-- nbr-address?        inet:ip-address
+       +-- nbr-sw-ver
+       |  +-- os-majorver?    uint8
+       |  +-- os-minorver?    uint8
+       |  +-- tlv-majorrev?   uint8
+       |  +-- tlv-minorrev?   uint8
+       +-- nbr-stubinfo
+       |  +-- stubbed?           empty
+       |  +-- receive-only?      empty
+       |  +-- allow-connected?   empty
+       |  +-- allow-static?      empty
+       |  +-- allow-summary?     empty
+       |  +-- static-nbr?        empty
+       |  +-- allow-redist?      empty
+       |  +-- allow-leaking?     empty
+       +-- retransmit-count?   uint32
+       +-- retry-count?        uint16
+       +-- last-seq-number?    uint32
+       +-- srtt?               uint32
+       +-- rto?                uint32
+  grouping eigrp-ios-oper-nbr-sw-version
+    +-- os-majorver?    uint8
+    +-- os-minorver?    uint8
+    +-- tlv-majorrev?   uint8
+    +-- tlv-minorrev?   uint8
+  grouping eigrp-ios-oper-nbr-stubinfo
+    +-- stubbed?           empty
+    +-- receive-only?      empty
+    +-- allow-connected?   empty
+    +-- allow-static?      empty
+    +-- allow-summary?     empty
+    +-- static-nbr?        empty
+    +-- allow-redist?      empty
+    +-- allow-leaking?     empty
+  grouping eigrp-ios-oper-nbr-key
+    +-- afi?           eigrp-ios-xe-oper:eigrp-ios-oper-afi
+    +-- nbr-address?   inet:ip-address
+  grouping eigrp-ios-oper-nbr
+    +-- nbr-sw-ver
+    |  +-- os-majorver?    uint8
+    |  +-- os-minorver?    uint8
+    |  +-- tlv-majorrev?   uint8
+    |  +-- tlv-minorrev?   uint8
+    +-- nbr-stubinfo
+    |  +-- stubbed?           empty
+    |  +-- receive-only?      empty
+    |  +-- allow-connected?   empty
+    |  +-- allow-static?      empty
+    |  +-- allow-summary?     empty
+    |  +-- static-nbr?        empty
+    |  +-- allow-redist?      empty
+    |  +-- allow-leaking?     empty
+    +-- retransmit-count?   uint32
+    +-- retry-count?        uint16
+    +-- last-seq-number?    uint32
+    +-- srtt?               uint32
+    +-- rto?                uint32
+  grouping eigrp-ios-oper-topo
+    +-- topo-id?         uint32
+    +-- eigrp-network* [afi ip-prefix]
+       +-- afi?               eigrp-ios-xe-oper:eigrp-ios-oper-afi
+       +-- ip-prefix?         inet:ip-prefix
+       +-- rd-metric?         uint64
+       +-- rd-vecmetric
+       |  +-- bandwidth?     uint64
+       |  +-- delay?         uint64
+       |  +-- tag?           uint32
+       |  +-- routerid?      uint32
+       |  +-- mtu?           uint16
+       |  +-- hopcount?      uint8
+       |  +-- reliability?   uint8
+       |  +-- load?          uint8
+       +-- fd-metric?         uint64
+       +-- successor-count?   uint16
+       +-- active?            empty
+       +-- eigrp-route* [afi infosource]
+          +-- afi?                     eigrp-ios-xe-oper:eigrp-ios-oper-afi
+          +-- infosource?              inet:ip-address
+          +-- nexthop?                 inet:ip-address
+          +-- originating-interface?   string
+          +-- metric?                  uint64
+          +-- vecmetric
+          |  +-- bandwidth?     uint64
+          |  +-- delay?         uint64
+          |  +-- tag?           uint32
+          |  +-- routerid?      uint32
+          |  +-- mtu?           uint16
+          |  +-- hopcount?      uint8
+          |  +-- reliability?   uint8
+          |  +-- load?          uint8
+          +-- succ-metric?             uint64
+          +-- succ-vecmetric
+          |  +-- bandwidth?     uint64
+          |  +-- delay?         uint64
+          |  +-- tag?           uint32
+          |  +-- routerid?      uint32
+          |  +-- mtu?           uint16
+          |  +-- hopcount?      uint8
+          |  +-- reliability?   uint8
+          |  +-- load?          uint8
+          +-- origin?                  eigrp-ios-xe-oper:eigrp-ios-oper-origin-type
+          +-- omp-tag?                 uint32
+          +-- in-rib?                  empty
+          +-- external?                empty
+          +-- ext-data
+             +-- routerid?     uint32
+             +-- asystem?      uint32
+             +-- tag?          uint32
+             +-- ext-metric?   uint32
+             +-- protocol?     uint8
+             +-- flag?         uint8
+  grouping eigrp-ios-oper-network-key
+    +-- afi?         eigrp-ios-xe-oper:eigrp-ios-oper-afi
+    +-- ip-prefix?   inet:ip-prefix
+  grouping eigrp-ios-oper-metric
+    +-- bandwidth?     uint64
+    +-- delay?         uint64
+    +-- tag?           uint32
+    +-- routerid?      uint32
+    +-- mtu?           uint16
+    +-- hopcount?      uint8
+    +-- reliability?   uint8
+    +-- load?          uint8
+  grouping eigrp-ios-oper-network
+    +-- rd-metric?         uint64
+    +-- rd-vecmetric
+    |  +-- bandwidth?     uint64
+    |  +-- delay?         uint64
+    |  +-- tag?           uint32
+    |  +-- routerid?      uint32
+    |  +-- mtu?           uint16
+    |  +-- hopcount?      uint8
+    |  +-- reliability?   uint8
+    |  +-- load?          uint8
+    +-- fd-metric?         uint64
+    +-- successor-count?   uint16
+    +-- active?            empty
+    +-- eigrp-route* [afi infosource]
+       +-- afi?                     eigrp-ios-xe-oper:eigrp-ios-oper-afi
+       +-- infosource?              inet:ip-address
+       +-- nexthop?                 inet:ip-address
+       +-- originating-interface?   string
+       +-- metric?                  uint64
+       +-- vecmetric
+       |  +-- bandwidth?     uint64
+       |  +-- delay?         uint64
+       |  +-- tag?           uint32
+       |  +-- routerid?      uint32
+       |  +-- mtu?           uint16
+       |  +-- hopcount?      uint8
+       |  +-- reliability?   uint8
+       |  +-- load?          uint8
+       +-- succ-metric?             uint64
+       +-- succ-vecmetric
+       |  +-- bandwidth?     uint64
+       |  +-- delay?         uint64
+       |  +-- tag?           uint32
+       |  +-- routerid?      uint32
+       |  +-- mtu?           uint16
+       |  +-- hopcount?      uint8
+       |  +-- reliability?   uint8
+       |  +-- load?          uint8
+       +-- origin?                  eigrp-ios-xe-oper:eigrp-ios-oper-origin-type
+       +-- omp-tag?                 uint32
+       +-- in-rib?                  empty
+       +-- external?                empty
+       +-- ext-data
+          +-- routerid?     uint32
+          +-- asystem?      uint32
+          +-- tag?          uint32
+          +-- ext-metric?   uint32
+          +-- protocol?     uint8
+          +-- flag?         uint8
+  grouping eigrp-ios-oper-extdatatype
+    +-- routerid?     uint32
+    +-- asystem?      uint32
+    +-- tag?          uint32
+    +-- ext-metric?   uint32
+    +-- protocol?     uint8
+    +-- flag?         uint8
+  grouping eigrp-ios-oper-route-key
+    +-- afi?          eigrp-ios-xe-oper:eigrp-ios-oper-afi
+    +-- infosource?   inet:ip-address
+  grouping eigrp-ios-oper-route
+    +-- nexthop?                 inet:ip-address
+    +-- originating-interface?   string
+    +-- metric?                  uint64
+    +-- vecmetric
+    |  +-- bandwidth?     uint64
+    |  +-- delay?         uint64
+    |  +-- tag?           uint32
+    |  +-- routerid?      uint32
+    |  +-- mtu?           uint16
+    |  +-- hopcount?      uint8
+    |  +-- reliability?   uint8
+    |  +-- load?          uint8
+    +-- succ-metric?             uint64
+    +-- succ-vecmetric
+    |  +-- bandwidth?     uint64
+    |  +-- delay?         uint64
+    |  +-- tag?           uint32
+    |  +-- routerid?      uint32
+    |  +-- mtu?           uint16
+    |  +-- hopcount?      uint8
+    |  +-- reliability?   uint8
+    |  +-- load?          uint8
+    +-- origin?                  eigrp-ios-xe-oper:eigrp-ios-oper-origin-type
+    +-- omp-tag?                 uint32
+    +-- in-rib?                  empty
+    +-- external?                empty
+    +-- ext-data
+       +-- routerid?     uint32
+       +-- asystem?      uint32
+       +-- tag?          uint32
+       +-- ext-metric?   uint32
+       +-- protocol?     uint8
+       +-- flag?         uint8
+  grouping __yangpp_metadata
+    +-- json-metadata-leaf?   empty

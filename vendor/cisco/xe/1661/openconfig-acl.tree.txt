@@ -1,0 +1,543 @@
+module: openconfig-acl
+  +--rw acl
+     +--rw config
+     +--ro state
+     |  +--ro counter-capability?   identityref
+     +--rw acl-sets
+     |  +--rw acl-set* [name]
+     |     +--rw name           -> ../config/name
+     |     +--rw config
+     |     |  +--rw acl-type       inet:ip-version
+     |     |  +--rw name?          string
+     |     |  +--rw description?   string
+     |     +--ro state
+     |     |  +--ro acl-type       inet:ip-version
+     |     |  +--ro name?          string
+     |     |  +--ro description?   string
+     |     +--rw acl-entries
+     |        +--rw acl-entry* [sequence-id]
+     |           +--rw sequence-id        -> ../config/sequence-id
+     |           +--rw config
+     |           |  +--rw sequence-id?   uint32
+     |           |  +--rw description?   string
+     |           +--ro state
+     |           |  +--ro sequence-id?       uint32
+     |           |  +--ro description?       string
+     |           |  +--ro matched-packets?   yang:counter64
+     |           |  +--ro matched-octets?    yang:counter64
+     |           +--rw l2
+     |           |  +--rw config
+     |           |  |  +--rw source-mac?             yang:mac-address
+     |           |  |  +--rw source-mac-mask?        yang:mac-address
+     |           |  |  +--rw destination-mac?        yang:mac-address
+     |           |  |  +--rw destination-mac-mask?   yang:mac-address
+     |           |  |  +--rw ethertype?              oc-pkt-match-types:ethertype-type
+     |           |  +--ro state
+     |           |     +--ro source-mac?             yang:mac-address
+     |           |     +--ro source-mac-mask?        yang:mac-address
+     |           |     +--ro destination-mac?        yang:mac-address
+     |           |     +--ro destination-mac-mask?   yang:mac-address
+     |           |     +--ro ethertype?              oc-pkt-match-types:ethertype-type
+     |           +--rw ip
+     |           |  +--rw config
+     |           |  |  +--rw ip-version?                  inet:ip-version
+     |           |  |  +--rw source-ip-address?           inet:ip-prefix
+     |           |  |  +--rw source-ip-flow-label?        inet:ipv6-flow-label
+     |           |  |  +--rw destination-ip-address?      inet:ip-prefix
+     |           |  |  +--rw destination-ip-flow-label?   inet:ipv6-flow-label
+     |           |  |  +--rw dscp?                        inet:dscp
+     |           |  |  +--rw protocol?                    oc-pkt-match-types:ip-protocol-type
+     |           |  |  +--rw hop-limit?                   uint8
+     |           |  +--ro state
+     |           |     +--ro ip-version?                  inet:ip-version
+     |           |     +--ro source-ip-address?           inet:ip-prefix
+     |           |     +--ro source-ip-flow-label?        inet:ipv6-flow-label
+     |           |     +--ro destination-ip-address?      inet:ip-prefix
+     |           |     +--ro destination-ip-flow-label?   inet:ipv6-flow-label
+     |           |     +--ro dscp?                        inet:dscp
+     |           |     +--ro protocol?                    oc-pkt-match-types:ip-protocol-type
+     |           |     +--ro hop-limit?                   uint8
+     |           +--rw transport
+     |           |  +--rw config
+     |           |  |  +--rw source-port?        oc-pkt-match-types:port-num-range
+     |           |  |  +--rw destination-port?   oc-pkt-match-types:port-num-range
+     |           |  |  +--rw tcp-flags*          identityref
+     |           |  +--ro state
+     |           |     +--ro source-port?        oc-pkt-match-types:port-num-range
+     |           |     +--ro destination-port?   oc-pkt-match-types:port-num-range
+     |           |     +--ro tcp-flags*          identityref
+     |           +--rw input-interface
+     |           |  +--rw config
+     |           |  +--ro state
+     |           |  +--rw interface-ref
+     |           |     +--rw config
+     |           |     |  +--rw interface?      -> /oc-if:interfaces/interface/name
+     |           |     |  +--rw subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+     |           |     +--ro state
+     |           |        +--ro interface?      -> /oc-if:interfaces/interface/name
+     |           |        +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+     |           +--rw actions
+     |              +--rw config
+     |              |  +--rw forwarding-action    identityref
+     |              |  +--rw log-action?          identityref
+     |              +--ro state
+     |                 +--ro forwarding-action    identityref
+     |                 +--ro log-action?          identityref
+     +--rw interfaces
+        +--rw interface* [id]
+           +--rw id                  -> ../config/id
+           +--rw config
+           |  +--rw id?   oc-if:interface-id
+           +--ro state
+           |  +--ro id?   oc-if:interface-id
+           +--rw interface-ref
+           |  +--rw config
+           |  |  +--rw interface?      -> /oc-if:interfaces/interface/name
+           |  |  +--rw subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+           |  +--ro state
+           |     +--ro interface?      -> /oc-if:interfaces/interface/name
+           |     +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+           +--rw ingress-acl-sets
+           |  +--rw ingress-acl-set* [set-name]
+           |     +--rw set-name       -> ../config/set-name
+           |     +--rw config
+           |     |  +--rw set-name?   -> /acl/acl-sets/acl-set/config/name
+           |     +--ro state
+           |     |  +--ro set-name?   -> /acl/acl-sets/acl-set/config/name
+           |     +--ro acl-entries
+           |        +--ro acl-entry* [sequence-id]
+           |           +--ro sequence-id    -> ../state/sequence-id
+           |           +--ro state
+           |              +--ro sequence-id?       -> /acl/acl-sets/acl-set[name=current()/../../../../set-name]/acl-entries/acl-entry/sequence-id
+           |              +--ro matched-packets?   yang:counter64
+           |              +--ro matched-octets?    yang:counter64
+           +--rw egress-acl-sets
+              +--rw egress-acl-set* [set-name]
+                 +--rw set-name       -> ../config/set-name
+                 +--rw config
+                 |  +--rw set-name?   -> /acl/acl-sets/acl-set/config/name
+                 +--ro state
+                 |  +--ro set-name?   -> /acl/acl-sets/acl-set/config/name
+                 +--ro acl-entries
+                    +--ro acl-entry* [sequence-id]
+                       +--ro sequence-id    -> ../state/sequence-id
+                       +--ro state
+                          +--ro sequence-id?       -> /acl/acl-sets/acl-set[name=current()/../../../../set-name]/acl-entries/acl-entry/sequence-id
+                          +--ro matched-packets?   yang:counter64
+                          +--ro matched-octets?    yang:counter64
+
+  grouping input-interface-config
+  grouping input-interface-state
+  grouping input-interface-top
+    +-- input-interface
+       +-- config
+       +--ro state
+       +-- interface-ref
+          +-- config
+          |  +-- interface?      -> /oc-if:interfaces/interface/name
+          |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+          +--ro state
+             +--ro interface?      -> /oc-if:interfaces/interface/name
+             +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+  grouping action-config
+    +-- forwarding-action    identityref
+    +-- log-action?          identityref
+  grouping action-state
+  grouping action-top
+    +-- actions
+       +-- config
+       |  +-- forwarding-action    identityref
+       |  +-- log-action?          identityref
+       +--ro state
+          +--ro forwarding-action    identityref
+          +--ro log-action?          identityref
+  grouping acl-counters-state
+    +-- matched-packets?   yang:counter64
+    +-- matched-octets?    yang:counter64
+  grouping access-list-entries-config
+    +-- sequence-id?   uint32
+    +-- description?   string
+  grouping access-list-entries-state
+    +-- matched-packets?   yang:counter64
+    +-- matched-octets?    yang:counter64
+  grouping access-list-entries-top
+    +-- acl-entries
+       +-- acl-entry* [sequence-id]
+          +-- sequence-id?       -> ../config/sequence-id
+          +-- config
+          |  +-- sequence-id?   uint32
+          |  +-- description?   string
+          +--ro state
+          |  +--ro sequence-id?       uint32
+          |  +--ro description?       string
+          |  +--ro matched-packets?   yang:counter64
+          |  +--ro matched-octets?    yang:counter64
+          +-- l2
+          |  +-- config
+          |  |  +-- source-mac?             yang:mac-address
+          |  |  +-- source-mac-mask?        yang:mac-address
+          |  |  +-- destination-mac?        yang:mac-address
+          |  |  +-- destination-mac-mask?   yang:mac-address
+          |  |  +-- ethertype?              oc-pkt-match-types:ethertype-type
+          |  +--ro state
+          |     +--ro source-mac?             yang:mac-address
+          |     +--ro source-mac-mask?        yang:mac-address
+          |     +--ro destination-mac?        yang:mac-address
+          |     +--ro destination-mac-mask?   yang:mac-address
+          |     +--ro ethertype?              oc-pkt-match-types:ethertype-type
+          +-- ip
+          |  +-- config
+          |  |  +-- ip-version?                  inet:ip-version
+          |  |  +-- source-ip-address?           inet:ip-prefix
+          |  |  +-- source-ip-flow-label?        inet:ipv6-flow-label
+          |  |  +-- destination-ip-address?      inet:ip-prefix
+          |  |  +-- destination-ip-flow-label?   inet:ipv6-flow-label
+          |  |  +-- dscp?                        inet:dscp
+          |  |  +-- protocol?                    oc-pkt-match-types:ip-protocol-type
+          |  |  +-- hop-limit?                   uint8
+          |  +--ro state
+          |     +--ro ip-version?                  inet:ip-version
+          |     +--ro source-ip-address?           inet:ip-prefix
+          |     +--ro source-ip-flow-label?        inet:ipv6-flow-label
+          |     +--ro destination-ip-address?      inet:ip-prefix
+          |     +--ro destination-ip-flow-label?   inet:ipv6-flow-label
+          |     +--ro dscp?                        inet:dscp
+          |     +--ro protocol?                    oc-pkt-match-types:ip-protocol-type
+          |     +--ro hop-limit?                   uint8
+          +-- transport
+          |  +-- config
+          |  |  +-- source-port?        oc-pkt-match-types:port-num-range
+          |  |  +-- destination-port?   oc-pkt-match-types:port-num-range
+          |  |  +-- tcp-flags*          identityref
+          |  +--ro state
+          |     +--ro source-port?        oc-pkt-match-types:port-num-range
+          |     +--ro destination-port?   oc-pkt-match-types:port-num-range
+          |     +--ro tcp-flags*          identityref
+          +-- input-interface
+          |  +-- config
+          |  +--ro state
+          |  +-- interface-ref
+          |     +-- config
+          |     |  +-- interface?      -> /oc-if:interfaces/interface/name
+          |     |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+          |     +--ro state
+          |        +--ro interface?      -> /oc-if:interfaces/interface/name
+          |        +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+          +-- actions
+             +-- config
+             |  +-- forwarding-action    identityref
+             |  +-- log-action?          identityref
+             +--ro state
+                +--ro forwarding-action    identityref
+                +--ro log-action?          identityref
+  grouping acl-set-config
+    +-- acl-type       inet:ip-version
+    +-- name?          string
+    +-- description?   string
+  grouping acl-set-state
+  grouping acl-set-top
+    +-- acl-sets
+       +-- acl-set* [name]
+          +-- name?          -> ../config/name
+          +-- config
+          |  +-- acl-type       inet:ip-version
+          |  +-- name?          string
+          |  +-- description?   string
+          +--ro state
+          |  +--ro acl-type       inet:ip-version
+          |  +--ro name?          string
+          |  +--ro description?   string
+          +-- acl-entries
+             +-- acl-entry* [sequence-id]
+                +-- sequence-id?       -> ../config/sequence-id
+                +-- config
+                |  +-- sequence-id?   uint32
+                |  +-- description?   string
+                +--ro state
+                |  +--ro sequence-id?       uint32
+                |  +--ro description?       string
+                |  +--ro matched-packets?   yang:counter64
+                |  +--ro matched-octets?    yang:counter64
+                +-- l2
+                |  +-- config
+                |  |  +-- source-mac?             yang:mac-address
+                |  |  +-- source-mac-mask?        yang:mac-address
+                |  |  +-- destination-mac?        yang:mac-address
+                |  |  +-- destination-mac-mask?   yang:mac-address
+                |  |  +-- ethertype?              oc-pkt-match-types:ethertype-type
+                |  +--ro state
+                |     +--ro source-mac?             yang:mac-address
+                |     +--ro source-mac-mask?        yang:mac-address
+                |     +--ro destination-mac?        yang:mac-address
+                |     +--ro destination-mac-mask?   yang:mac-address
+                |     +--ro ethertype?              oc-pkt-match-types:ethertype-type
+                +-- ip
+                |  +-- config
+                |  |  +-- ip-version?                  inet:ip-version
+                |  |  +-- source-ip-address?           inet:ip-prefix
+                |  |  +-- source-ip-flow-label?        inet:ipv6-flow-label
+                |  |  +-- destination-ip-address?      inet:ip-prefix
+                |  |  +-- destination-ip-flow-label?   inet:ipv6-flow-label
+                |  |  +-- dscp?                        inet:dscp
+                |  |  +-- protocol?                    oc-pkt-match-types:ip-protocol-type
+                |  |  +-- hop-limit?                   uint8
+                |  +--ro state
+                |     +--ro ip-version?                  inet:ip-version
+                |     +--ro source-ip-address?           inet:ip-prefix
+                |     +--ro source-ip-flow-label?        inet:ipv6-flow-label
+                |     +--ro destination-ip-address?      inet:ip-prefix
+                |     +--ro destination-ip-flow-label?   inet:ipv6-flow-label
+                |     +--ro dscp?                        inet:dscp
+                |     +--ro protocol?                    oc-pkt-match-types:ip-protocol-type
+                |     +--ro hop-limit?                   uint8
+                +-- transport
+                |  +-- config
+                |  |  +-- source-port?        oc-pkt-match-types:port-num-range
+                |  |  +-- destination-port?   oc-pkt-match-types:port-num-range
+                |  |  +-- tcp-flags*          identityref
+                |  +--ro state
+                |     +--ro source-port?        oc-pkt-match-types:port-num-range
+                |     +--ro destination-port?   oc-pkt-match-types:port-num-range
+                |     +--ro tcp-flags*          identityref
+                +-- input-interface
+                |  +-- config
+                |  +--ro state
+                |  +-- interface-ref
+                |     +-- config
+                |     |  +-- interface?      -> /oc-if:interfaces/interface/name
+                |     |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+                |     +--ro state
+                |        +--ro interface?      -> /oc-if:interfaces/interface/name
+                |        +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+                +-- actions
+                   +-- config
+                   |  +-- forwarding-action    identityref
+                   |  +-- log-action?          identityref
+                   +--ro state
+                      +--ro forwarding-action    identityref
+                      +--ro log-action?          identityref
+  grouping interface-acl-entries-config
+  grouping interface-acl-entries-state
+    +-- sequence-id?       -> /acl/acl-sets/acl-set[name=current()/../../../../set-name]/acl-entries/acl-entry/sequence-id
+    +-- matched-packets?   yang:counter64
+    +-- matched-octets?    yang:counter64
+  grouping interface-acl-entries-top
+    +--ro acl-entries
+       +--ro acl-entry* [sequence-id]
+          +--ro sequence-id?   -> ../state/sequence-id
+          +--ro state
+             +--ro sequence-id?       -> /acl/acl-sets/acl-set[name=current()/../../../../set-name]/acl-entries/acl-entry/sequence-id
+             +--ro matched-packets?   yang:counter64
+             +--ro matched-octets?    yang:counter64
+  grouping interface-ingress-acl-config
+    +-- set-name?   -> /acl/acl-sets/acl-set/config/name
+  grouping interface-ingress-acl-state
+  grouping interface-ingress-acl-top
+    +-- ingress-acl-sets
+       +-- ingress-acl-set* [set-name]
+          +-- set-name?      -> ../config/set-name
+          +-- config
+          |  +-- set-name?   -> /acl/acl-sets/acl-set/config/name
+          +--ro state
+          |  +--ro set-name?   -> /acl/acl-sets/acl-set/config/name
+          +--ro acl-entries
+             +--ro acl-entry* [sequence-id]
+                +--ro sequence-id?   -> ../state/sequence-id
+                +--ro state
+                   +--ro sequence-id?       -> /acl/acl-sets/acl-set[name=current()/../../../../set-name]/acl-entries/acl-entry/sequence-id
+                   +--ro matched-packets?   yang:counter64
+                   +--ro matched-octets?    yang:counter64
+  grouping interface-egress-acl-config
+    +-- set-name?   -> /acl/acl-sets/acl-set/config/name
+  grouping interface-egress-acl-state
+  grouping interface-egress-acl-top
+    +-- egress-acl-sets
+       +-- egress-acl-set* [set-name]
+          +-- set-name?      -> ../config/set-name
+          +-- config
+          |  +-- set-name?   -> /acl/acl-sets/acl-set/config/name
+          +--ro state
+          |  +--ro set-name?   -> /acl/acl-sets/acl-set/config/name
+          +--ro acl-entries
+             +--ro acl-entry* [sequence-id]
+                +--ro sequence-id?   -> ../state/sequence-id
+                +--ro state
+                   +--ro sequence-id?       -> /acl/acl-sets/acl-set[name=current()/../../../../set-name]/acl-entries/acl-entry/sequence-id
+                   +--ro matched-packets?   yang:counter64
+                   +--ro matched-octets?    yang:counter64
+  grouping acl-interfaces-config
+    +-- id?   oc-if:interface-id
+  grouping acl-interfaces-state
+  grouping acl-interfaces-top
+    +-- interfaces
+       +-- interface* [id]
+          +-- id?                 -> ../config/id
+          +-- config
+          |  +-- id?   oc-if:interface-id
+          +--ro state
+          |  +--ro id?   oc-if:interface-id
+          +-- interface-ref
+          |  +-- config
+          |  |  +-- interface?      -> /oc-if:interfaces/interface/name
+          |  |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+          |  +--ro state
+          |     +--ro interface?      -> /oc-if:interfaces/interface/name
+          |     +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+          +-- ingress-acl-sets
+          |  +-- ingress-acl-set* [set-name]
+          |     +-- set-name?      -> ../config/set-name
+          |     +-- config
+          |     |  +-- set-name?   -> /acl/acl-sets/acl-set/config/name
+          |     +--ro state
+          |     |  +--ro set-name?   -> /acl/acl-sets/acl-set/config/name
+          |     +--ro acl-entries
+          |        +--ro acl-entry* [sequence-id]
+          |           +--ro sequence-id?   -> ../state/sequence-id
+          |           +--ro state
+          |              +--ro sequence-id?       -> /acl/acl-sets/acl-set[name=current()/../../../../set-name]/acl-entries/acl-entry/sequence-id
+          |              +--ro matched-packets?   yang:counter64
+          |              +--ro matched-octets?    yang:counter64
+          +-- egress-acl-sets
+             +-- egress-acl-set* [set-name]
+                +-- set-name?      -> ../config/set-name
+                +-- config
+                |  +-- set-name?   -> /acl/acl-sets/acl-set/config/name
+                +--ro state
+                |  +--ro set-name?   -> /acl/acl-sets/acl-set/config/name
+                +--ro acl-entries
+                   +--ro acl-entry* [sequence-id]
+                      +--ro sequence-id?   -> ../state/sequence-id
+                      +--ro state
+                         +--ro sequence-id?       -> /acl/acl-sets/acl-set[name=current()/../../../../set-name]/acl-entries/acl-entry/sequence-id
+                         +--ro matched-packets?   yang:counter64
+                         +--ro matched-octets?    yang:counter64
+  grouping acl-config
+  grouping acl-state
+    +-- counter-capability?   identityref
+  grouping acl-top
+    +-- acl
+       +-- config
+       +--ro state
+       |  +--ro counter-capability?   identityref
+       +-- acl-sets
+       |  +-- acl-set* [name]
+       |     +-- name?          -> ../config/name
+       |     +-- config
+       |     |  +-- acl-type       inet:ip-version
+       |     |  +-- name?          string
+       |     |  +-- description?   string
+       |     +--ro state
+       |     |  +--ro acl-type       inet:ip-version
+       |     |  +--ro name?          string
+       |     |  +--ro description?   string
+       |     +-- acl-entries
+       |        +-- acl-entry* [sequence-id]
+       |           +-- sequence-id?       -> ../config/sequence-id
+       |           +-- config
+       |           |  +-- sequence-id?   uint32
+       |           |  +-- description?   string
+       |           +--ro state
+       |           |  +--ro sequence-id?       uint32
+       |           |  +--ro description?       string
+       |           |  +--ro matched-packets?   yang:counter64
+       |           |  +--ro matched-octets?    yang:counter64
+       |           +-- l2
+       |           |  +-- config
+       |           |  |  +-- source-mac?             yang:mac-address
+       |           |  |  +-- source-mac-mask?        yang:mac-address
+       |           |  |  +-- destination-mac?        yang:mac-address
+       |           |  |  +-- destination-mac-mask?   yang:mac-address
+       |           |  |  +-- ethertype?              oc-pkt-match-types:ethertype-type
+       |           |  +--ro state
+       |           |     +--ro source-mac?             yang:mac-address
+       |           |     +--ro source-mac-mask?        yang:mac-address
+       |           |     +--ro destination-mac?        yang:mac-address
+       |           |     +--ro destination-mac-mask?   yang:mac-address
+       |           |     +--ro ethertype?              oc-pkt-match-types:ethertype-type
+       |           +-- ip
+       |           |  +-- config
+       |           |  |  +-- ip-version?                  inet:ip-version
+       |           |  |  +-- source-ip-address?           inet:ip-prefix
+       |           |  |  +-- source-ip-flow-label?        inet:ipv6-flow-label
+       |           |  |  +-- destination-ip-address?      inet:ip-prefix
+       |           |  |  +-- destination-ip-flow-label?   inet:ipv6-flow-label
+       |           |  |  +-- dscp?                        inet:dscp
+       |           |  |  +-- protocol?                    oc-pkt-match-types:ip-protocol-type
+       |           |  |  +-- hop-limit?                   uint8
+       |           |  +--ro state
+       |           |     +--ro ip-version?                  inet:ip-version
+       |           |     +--ro source-ip-address?           inet:ip-prefix
+       |           |     +--ro source-ip-flow-label?        inet:ipv6-flow-label
+       |           |     +--ro destination-ip-address?      inet:ip-prefix
+       |           |     +--ro destination-ip-flow-label?   inet:ipv6-flow-label
+       |           |     +--ro dscp?                        inet:dscp
+       |           |     +--ro protocol?                    oc-pkt-match-types:ip-protocol-type
+       |           |     +--ro hop-limit?                   uint8
+       |           +-- transport
+       |           |  +-- config
+       |           |  |  +-- source-port?        oc-pkt-match-types:port-num-range
+       |           |  |  +-- destination-port?   oc-pkt-match-types:port-num-range
+       |           |  |  +-- tcp-flags*          identityref
+       |           |  +--ro state
+       |           |     +--ro source-port?        oc-pkt-match-types:port-num-range
+       |           |     +--ro destination-port?   oc-pkt-match-types:port-num-range
+       |           |     +--ro tcp-flags*          identityref
+       |           +-- input-interface
+       |           |  +-- config
+       |           |  +--ro state
+       |           |  +-- interface-ref
+       |           |     +-- config
+       |           |     |  +-- interface?      -> /oc-if:interfaces/interface/name
+       |           |     |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+       |           |     +--ro state
+       |           |        +--ro interface?      -> /oc-if:interfaces/interface/name
+       |           |        +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+       |           +-- actions
+       |              +-- config
+       |              |  +-- forwarding-action    identityref
+       |              |  +-- log-action?          identityref
+       |              +--ro state
+       |                 +--ro forwarding-action    identityref
+       |                 +--ro log-action?          identityref
+       +-- interfaces
+          +-- interface* [id]
+             +-- id?                 -> ../config/id
+             +-- config
+             |  +-- id?   oc-if:interface-id
+             +--ro state
+             |  +--ro id?   oc-if:interface-id
+             +-- interface-ref
+             |  +-- config
+             |  |  +-- interface?      -> /oc-if:interfaces/interface/name
+             |  |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+             |  +--ro state
+             |     +--ro interface?      -> /oc-if:interfaces/interface/name
+             |     +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+             +-- ingress-acl-sets
+             |  +-- ingress-acl-set* [set-name]
+             |     +-- set-name?      -> ../config/set-name
+             |     +-- config
+             |     |  +-- set-name?   -> /acl/acl-sets/acl-set/config/name
+             |     +--ro state
+             |     |  +--ro set-name?   -> /acl/acl-sets/acl-set/config/name
+             |     +--ro acl-entries
+             |        +--ro acl-entry* [sequence-id]
+             |           +--ro sequence-id?   -> ../state/sequence-id
+             |           +--ro state
+             |              +--ro sequence-id?       -> /acl/acl-sets/acl-set[name=current()/../../../../set-name]/acl-entries/acl-entry/sequence-id
+             |              +--ro matched-packets?   yang:counter64
+             |              +--ro matched-octets?    yang:counter64
+             +-- egress-acl-sets
+                +-- egress-acl-set* [set-name]
+                   +-- set-name?      -> ../config/set-name
+                   +-- config
+                   |  +-- set-name?   -> /acl/acl-sets/acl-set/config/name
+                   +--ro state
+                   |  +--ro set-name?   -> /acl/acl-sets/acl-set/config/name
+                   +--ro acl-entries
+                      +--ro acl-entry* [sequence-id]
+                         +--ro sequence-id?   -> ../state/sequence-id
+                         +--ro state
+                            +--ro sequence-id?       -> /acl/acl-sets/acl-set[name=current()/../../../../set-name]/acl-entries/acl-entry/sequence-id
+                            +--ro matched-packets?   yang:counter64
+                            +--ro matched-octets?    yang:counter64

@@ -1,0 +1,73 @@
+module: Cisco-IOS-XE-wireless-tunnel-cfg
+  +--rw wireless-tunnel-cfg
+     +--rw tunnel-profiles
+     |  +--rw tunnel-profile* [name]
+     |     +--rw name                string
+     |     +--rw cfg
+     |     |  +--rw status?                 boolean
+     |     |  +--rw aaa-override?           boolean
+     |     |  +--rw aaa-proxy?              boolean
+     |     |  +--rw aaa-accounting-proxy?   boolean
+     |     |  +--rw opt82-enable?           boolean
+     |     |  +--rw opt82-ascii?            boolean
+     |     |  +--rw opt82-delimiter?        string
+     |     +--rw opt82-circuit-id?   string
+     |     +--rw opt82-remote-id?    string
+     |     +--rw rules
+     |        +--rw rule* [priority]
+     |           +--rw priority    uint32
+     |           +--rw cfg
+     |              +--rw realm?         string
+     |              +--rw vlan-id?       uint32
+     |              +--rw domain-name?   string
+     +--rw tunnel-domain-cfgs
+     |  +--rw tunnel-domain-cfg* [name type]
+     |     +--rw name                     string
+     |     +--rw type                     tunnel-types:tunnel-domain-mode
+     |     +--rw primary-tunnel-name?     string
+     |     +--rw secondary-tunnel-name?   string
+     |     +--rw redundancy-model?        tunnel-types:tunnel-redundancy-model
+     |     +--rw enable?                  boolean
+     +--rw eogre-global-cfg
+     |  +--rw heartbeat-interval?         uint32
+     |  +--rw heartbeat-max-skip-count?   uint32
+     |  +--rw interface-name?             string
+     +--rw eogre-tunnel-aaa-proxy-keys
+        +--rw eogre-tunnel-aaa-proxy-key* [interface-name]
+           +--rw interface-name    string
+           +--rw aaa-key           string
+           +--rw aaa-key-type?     wireless-enum-types:crypt-type
+
+  grouping st-tunnel-rule
+    +-- priority?   uint32
+    +-- cfg
+       +-- realm?         string
+       +-- vlan-id?       uint32
+       +-- domain-name?   string
+  grouping st-tunnel-profile
+    +-- name?               string
+    +-- cfg
+    |  +-- status?                 boolean
+    |  +-- aaa-override?           boolean
+    |  +-- aaa-proxy?              boolean
+    |  +-- aaa-accounting-proxy?   boolean
+    |  +-- opt82-enable?           boolean
+    |  +-- opt82-ascii?            boolean
+    |  +-- opt82-delimiter?        string
+    +-- opt82-circuit-id?   string
+    +-- opt82-remote-id?    string
+    +-- rules
+       +-- rule* [priority]
+          +-- priority?   uint32
+          +-- cfg
+             +-- realm?         string
+             +-- vlan-id?       uint32
+             +-- domain-name?   string
+  grouping eogre-global-cfg
+    +-- heartbeat-interval?         uint32
+    +-- heartbeat-max-skip-count?   uint32
+    +-- interface-name?             string
+  grouping eogre-tunnel-aaa-proxy-key
+    +-- interface-name?   string
+    +-- aaa-key           string
+    +-- aaa-key-type?     wireless-enum-types:crypt-type

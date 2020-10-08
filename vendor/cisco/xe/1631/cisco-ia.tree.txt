@@ -1,0 +1,75 @@
+
+module: cisco-ia
+  augment /cisco-sfm:netconf-yang:
+    +--rw cisco-ia
+       +--rw auto-sync?                 cia-sync-type
+       +--rw init-sync?                 cia-sync-type
+       +--rw intelligent-sync?          boolean
+       +--rw snmp-trap-control
+       |  +--rw global-forwarding?   boolean
+       |  +--rw trap-list* [trap-oid]
+       |     +--rw trap-oid       yang:object-identifier-128
+       |     +--rw description?   string
+       |     +--rw forward?       boolean
+       +--rw message-diag-level?        int16
+       +--rw max-diag-messages-saved?   int16
+       +--rw post-sync-acl-process?     boolean
+       +--rw config-change-delay?       int16
+       +--rw process-missing-prc?       boolean
+       +--ro parser-msg-ignore* [message]
+       |  +--ro message    string
+       +--rw conf-parser-msg-ignore* [message]
+       |  +--rw message    string
+       +--ro nes-ttynum?                int16
+       +--rw restored?                  boolean
+       +--rw logging
+       |  +--rw confd-log-level?      syslog-severity
+       |  +--rw ciaauthd-log-level?   cia-log-level
+       |  +--rw nes-log-level?        cia-log-level
+       |  +--rw onep-log-level?       onep-log-level
+       |  +--rw odm-log-level?        cia-log-level
+       |  +--rw sync-log-level?       cia-log-level
+       +--rw blocking
+          +--rw cli-blocking-enabled?         boolean
+          +--rw network-element-command* [command]
+          |  +--rw command    string
+          +--rw confd-cfg-blocking-enabled?   boolean
+          +--rw confd-cfg-command* [command]
+             +--rw command    string
+
+  rpcs:
+    +---x sync-from
+    |  +---w input
+    |  |  +---w sync-defaults?   empty
+    |  +--ro output
+    |     +--ro result?   string
+    +---x save-config
+    |  +--ro output
+    |     +--ro result?   string
+    +---x checkpoint
+    |  +--ro output
+    |     +--ro result?   string
+    +---x revert
+    |  +---w input
+    |  |  +---w now?     empty
+    |  |  +---w timer?   int16
+    |  |  +---w idle?    int16
+    |  +--ro output
+    |     +--ro result?   string
+    +---x rollback
+    |  +---w input
+    |  |  +---w target-url         string
+    |  |  +---w verbose?           boolean
+    |  |  +---w nolock?            boolean
+    |  |  +---w revert-on-error?   empty
+    |  |  +---w revert-timer?      int16
+    |  +--ro output
+    |     +--ro result?   string
+    +---x reset
+       +---w input
+       |  +---w reinitialize?   boolean
+       +--ro output
+          +--ro result?   string
+
+  grouping cisco-ia-output
+    +-- result?   string

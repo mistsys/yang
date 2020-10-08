@@ -1,0 +1,568 @@
+module: Cisco-IOS-XE-wireless-site-cfg
+  +--rw site-cfg-data
+     +--rw ap-cfg-profiles
+     |  +--rw ap-cfg-profile* [profile-name]
+     |     +--rw profile-name                                            string
+     |     +--rw description?                                            string
+     |     +--rw ble-beacon-interval?                                    uint8
+     |     +--rw ble-beacon-advpwr?                                      uint8
+     |     +--rw data-encryption-flag?                                   boolean
+     |     +--rw ap-packet-capture-profile?                              string
+     |     +--rw ap-trace-profile?                                       string
+     |     +--rw stats-timer
+     |     |  +--rw stats-timer?   uint16
+     |     +--rw led-state
+     |     |  +--rw led-state?   boolean
+     |     +--rw link-latency
+     |     |  +--rw link-latency-flag?   wireless-ap-types:enm-link-latency-type
+     |     +--rw jumbo-mtu
+     |     |  +--rw jumbo-mtu?   boolean
+     |     +--rw ap-mode
+     |     |  +--rw ap-sub-mode?    wireless-ap-types:ap-sub-mode-type
+     |     |  +--rw fast-channel?   uint32
+     |     +--rw poe
+     |     |  +--rw pre-standard8023af-switch-flag?   boolean
+     |     |  +--rw power-injector-state?             boolean
+     |     |  +--rw power-injector-selection?         wireless-ap-types:power-injector-sel-type
+     |     |  +--rw injector-switch-mac?              yang:mac-address
+     |     +--rw device-mgmt
+     |     |  +--rw telnet?   boolean
+     |     |  +--rw ssh?      boolean
+     |     +--rw user-mgmt
+     |     |  +--rw username?        string
+     |     |  +--rw password?        string
+     |     |  +--rw password-type?   wireless-enum-types:crypt-type
+     |     |  +--rw secret?          string
+     |     |  +--rw secret-type?     wireless-enum-types:crypt-type
+     |     +--rw tcp-mss
+     |     |  +--rw adjust-mss?       boolean
+     |     |  +--rw tcp-adjust-mss?   uint16
+     |     +--rw tunnel
+     |     |  +--rw preferred-mode?   wireless-enum-types:preferred-mode-type
+     |     |  +--rw udp-lite?         wireless-enum-types:ipv6-capwap-checksum-type
+     |     +--rw capwap-timer
+     |     |  +--rw heart-beat-timeout?          uint8
+     |     |  +--rw discovery-timeout?           uint8
+     |     |  +--rw fast-heart-beat-timeout?     uint8
+     |     |  +--rw primary-discovery-timeout?   uint16
+     |     |  +--rw primed-join-timeout?         uint16
+     |     +--rw retransmit-timer
+     |     |  +--rw count?      uint8
+     |     |  +--rw interval?   uint8
+     |     +--rw login-credentials
+     |     |  +--rw dot1x-username?        string
+     |     |  +--rw dot1x-password?        string
+     |     |  +--rw dot1x-password-type?   wireless-enum-types:crypt-type
+     |     +--rw dot1x-eap-type-info
+     |     |  +--rw dot1x-eap-type?   wireless-ap-types:enm-ap-dot1x-eap-type
+     |     +--rw lsc-ap-auth-type-info
+     |     |  +--rw lsc-ap-auth-type?   wireless-ap-types:enm-lsc-ap-auth-state-type
+     |     +--rw coredump
+     |     |  +--rw coredump-flag?         wireless-enum-types:memory-core-dump-flag
+     |     |  +--rw tftp-server-address?   inet:ip-address
+     |     |  +--rw corefile-name?         string
+     |     +--rw syslog
+     |     |  +--rw facility-value?   wireless-ap-types:syslog-facility-value
+     |     |  +--rw log-level?        wireless-types:syslog-trap-level
+     |     |  +--rw host?             inet:ip-address
+     |     |  +--rw tls-mode?         boolean
+     |     +--rw backup-controllers
+     |     |  +--rw fallback-enabled?            boolean
+     |     |  +--rw primary-controller-name?     string
+     |     |  +--rw secondary-controller-name?   string
+     |     |  +--rw primary-controller-ip?       inet:ip-address
+     |     |  +--rw secondary-controller-ip?     inet:ip-address
+     |     +--rw hyperlocation
+     |     |  +--rw hyperlocation-enable?           boolean
+     |     |  +--rw pak-rssi-threshold-detection?   int32
+     |     |  +--rw pak-rssi-threshold-trigger?     uint8
+     |     |  +--rw pak-rssi-threshold-reset?       uint8
+     |     +--rw rogue-detection
+     |     |  +--rw profile-name?                                   string
+     |     |  +--rw rogue-detection-monitor-mode-report-interval?   uint32
+     |     |  +--rw ap-rogue-detection-min-rssi?                    int32
+     |     |  +--rw ap-rogue-detection-transient-interval?          uint32
+     |     |  +--rw rogue-containment-flexconnect?                  boolean
+     |     |  +--rw rogue-containment-autorate?                     boolean
+     |     |  +--rw ap-rogue-detection?                             boolean
+     |     +--rw lag-info
+     |     |  +--rw ap-lag-enabled?   boolean
+     |     +--rw tftp-down-grade
+     |     |  +--rw tftp-downgrade-ip-address?   inet:ip-address
+     |     |  +--rw tftp-downgrade-filename?     string
+     |     +--rw traffic-limit
+     |     |  +--rw max1x-session-limit-per-ap?   uint8
+     |     +--rw cdp
+     |     |  +--rw cdp-enable?   boolean
+     |     o--rw ntp-server?                                             inet:ip-address
+     |     +--rw capwap-window
+     |     |  +--rw window-size?   uint8
+     |     +--rw mesh
+     |     |  +--rw mesh-profile-name?   string
+     |     +--rw reporting-interval
+     |     |  +--rw radio-24ghz?   uint8
+     |     |  +--rw radio-5ghz?    uint8
+     |     +--rw ext-module
+     |     |  +--rw enable?   boolean
+     |     +--rw icap
+     |     |  +--rw full-trace-enabled?                boolean
+     |     |  +--rw partial-trace-enabled?             boolean
+     |     |  +--rw partial-trace-proto-all?           boolean
+     |     |  +--rw partial-trace-proto-mgmt-all?      boolean
+     |     |  +--rw partial-trace-proto-mgmt-assoc?    boolean
+     |     |  +--rw partial-trace-proto-mgmt-auth?     boolean
+     |     |  +--rw partial-trace-proto-mgmt-probe?    boolean
+     |     |  +--rw partial-trace-proto-data-all?      boolean
+     |     |  +--rw partial-trace-proto-data-arp?      boolean
+     |     |  +--rw partial-trace-proto-data-dhcp?     boolean
+     |     |  +--rw partial-trace-proto-data-dhcpv6?   boolean
+     |     |  +--rw partial-trace-proto-data-dns?      boolean
+     |     |  +--rw partial-trace-proto-data-eap?      boolean
+     |     |  +--rw partial-trace-proto-data-icmp?     boolean
+     |     |  +--rw partial-trace-proto-data-icmpv6?   boolean
+     |     |  +--rw partial-trace-proto-cisco-all?     boolean
+     |     |  +--rw partial-trace-proto-cisco-ndp?     boolean
+     |     |  +--rw anomaly-det-enabled?               boolean
+     |     |  +--rw anomaly-det-trigger-trace-ap?      boolean
+     |     |  +--rw anomaly-det-dhcp-timeout?          uint8
+     |     |  +--rw client-stats-enabled?              boolean
+     |     |  +--rw client-stats-freq?                 uint16
+     |     |  +--rw ap-stats-system-enabled?           boolean
+     |     |  +--rw ap-stats-system-freq?              uint16
+     |     |  +--rw ap-stats-memory-enabled?           boolean
+     |     |  +--rw ap-stats-memory-freq?              uint16
+     |     |  +--rw ap-stats-interface-enabled?        boolean
+     |     |  +--rw ap-stats-interface-freq?           uint16
+     |     |  +--rw ap-stats-routing-enabled?          boolean
+     |     |  +--rw ap-stats-routing-freq?             uint16
+     |     |  +--rw ap-stats-radio-enabled?            boolean
+     |     |  +--rw ap-stats-radio-freq?               uint16
+     |     |  +--rw ap-stats-wlan-enabled?             boolean
+     |     |  +--rw ap-stats-wlan-freq?                uint16
+     |     |  +--rw ap-stats-dns-enabled?              boolean
+     |     |  +--rw ap-stats-dns-freq?                 uint16
+     |     |  +--rw rf-spectrum-enabled?               boolean
+     |     |  +--rw rf-spectrum-slot0-enabled?         boolean
+     |     |  +--rw rf-spectrum-slot1-enabled?         boolean
+     |     |  +--rw rf-spectrum-slot2-enabled?         boolean
+     |     |  +--rw adr-individual-enable?             boolean
+     |     |  +--rw adr-individual-throttle?           uint32
+     |     |  +--rw adr-summary-enable?                boolean
+     |     |  +--rw adr-summary-frequency?             uint32
+     |     |  +--rw client-filter-stats-freq?          uint32
+     |     |  +--rw client-filter-stats-enabled?       boolean
+     |     o--rw lawful-interception
+     |     |  +--rw enable?           boolean
+     |     |  +--rw timer-interval?   uint16
+     |     +--rw persistent-ssid-broadcast
+     |     |  +--rw enable?   boolean
+     |     +--rw dhcp-server
+     |     |  +--rw enable?   boolean
+     |     +--rw usb-module-status
+     |     |  +--rw enable?   boolean
+     |     x--rw halo-ble-entries
+     |     |  +--rw halo-ble-entry* [beacon-id]
+     |     |     +--rw beacon-id    uint8
+     |     |     +--rw txpower?     uint8
+     |     |     +--rw enabled?     boolean
+     |     |     +--rw uuid?        string
+     |     +--rw icap-full-packet-trace-client-mac-address-entries
+     |     |  +--rw icap-full-packet-trace-client-mac-address-entry* [addr]
+     |     |     +--rw addr    yang:mac-address
+     |     +--rw icap-partial-packet-trace-client-mac-address-entries
+     |     |  +--rw icap-partial-packet-trace-client-mac-address-entry* [addr]
+     |     |     +--rw addr    yang:mac-address
+     |     +--rw icap-anomaly-detection-client-mac-address-entries
+     |     |  +--rw icap-anomaly-detection-client-mac-address-entry* [addr]
+     |     |     +--rw addr    yang:mac-address
+     |     +--rw icap-client-statistics-client-mac-address-entries
+     |     |  +--rw icap-client-statistics-client-mac-address-entry* [addr]
+     |     |     +--rw addr    yang:mac-address
+     |     +--rw gas-rate-limit
+     |     |  +--rw enable?                 boolean
+     |     |  +--rw num-req-per-interval?   uint8
+     |     |  +--rw interval-msec?          uint16
+     |     +--rw qosmap
+     |     |  +--rw ap-trusts-upstream-dscp?   boolean
+     |     |  +--rw qosmap-action-frame?       boolean
+     |     +--rw qosmap-dscp-to-ups
+     |     |  +--rw qosmap-dscp-to-up* [up]
+     |     |     +--rw dscp-low?     uint8
+     |     |     +--rw dscp-high?    uint8
+     |     |     +--rw up            uint8
+     |     |     +--rw up-to-dscp?   uint8
+     |     +--rw qosmap-dscp-to-up-exceptions
+     |     |  +--rw qosmap-dscp-to-up-exception* [dscp]
+     |     |     +--rw dscp    uint8
+     |     |     +--rw up?     uint8
+     |     +--rw client-rssi
+     |     |  +--rw client-rssi-stats?            boolean
+     |     |  +--rw client-rssi-stats-interval?   uint16
+     |     +--rw ntp-server-info
+     |     |  +--rw ntp-address?   inet:ip-address
+     |     +--rw awips-enabled?                                          boolean
+     |     +--rw accounting
+     |     |  +--rw method-list?   string
+     |     +--rw apphost
+     |     |  +--rw enable?   boolean
+     |     +--rw aux-client-interface
+     |     |  +--rw vlan-id?   uint16
+     |     +--rw proxy
+     |     |  +--rw hostname?        string
+     |     |  +--rw port?            uint16
+     |     |  +--rw no-proxy-list?   string
+     |     +--rw grpc-enable?                                            boolean
+     |     +--rw bssid-enable-stats?                                     boolean
+     |     +--rw bssid-stats-frequency?                                  uint32
+     |     +--rw private-ip-discovery?                                   boolean
+     |     +--rw public-ip-discovery?                                    boolean
+     |     o--rw led-flash
+     |     |  +--rw flash-sec?        uint16
+     |     |  +--rw led-flash-mode?   wireless-ap-types:enm-ap-led-flash-mode
+     |     +--rw bssid-neighbor-stats-enable?                            boolean
+     |     +--rw bssid-neighbor-stats-frequency?                         uint32
+     |     +--rw traffic-distribution
+     |     |  +--rw status?     boolean
+     |     |  +--rw interval?   uint16
+     |     +--rw dhcp-fallback
+     |        +--rw dhcp-fallback?   boolean
+     +--rw ap-packet-capture-profiles
+     |  +--rw ap-packet-capture-profile* [profile-name]
+     |     +--rw profile-name             string
+     |     +--rw description?             string
+     |     +--rw buffer-size?             uint16
+     |     +--rw duration?                uint16
+     |     +--rw truncate-len?            uint16
+     |     +--rw ftp-server-ip?           inet:ip-address
+     |     +--rw ftp-path?                string
+     |     +--rw ftp-username?            string
+     |     +--rw ftp-password?            string
+     |     +--rw ftp-password-type?       wireless-enum-types:crypt-type
+     |     +--rw classifier-control?      boolean
+     |     +--rw classifier-management?   boolean
+     |     +--rw classifier-data?         boolean
+     |     +--rw classifier-dot1x?        boolean
+     |     +--rw classifier-arp?          boolean
+     |     +--rw classifier-iapp?         boolean
+     |     +--rw classifier-ip?           boolean
+     |     +--rw classifier-tcp?          boolean
+     |     +--rw classifier-tcp-port?     uint16
+     |     +--rw classifier-udp?          boolean
+     |     +--rw classifier-udp-port?     uint16
+     |     +--rw classifier-broadcast?    boolean
+     |     +--rw classifier-multicast?    boolean
+     +--rw ap-trace-profiles
+     |  +--rw ap-trace-profile* [profile-name]
+     |     +--rw profile-name                    string
+     |     +--rw description?                    string
+     |     +--rw ap-trace-client-console-log?    boolean
+     |     +--rw ap-trace-client-filter-arp?     boolean
+     |     +--rw ap-trace-client-filter-assoc?   boolean
+     |     +--rw ap-trace-client-filter-auth?    boolean
+     |     +--rw ap-trace-client-filter-dhcp?    boolean
+     |     +--rw ap-trace-client-filter-eap?     boolean
+     |     +--rw ap-trace-client-filter-icmp?    boolean
+     |     +--rw ap-trace-client-filter-ndp?     boolean
+     |     +--rw ap-trace-client-filter-probe?   boolean
+     +--rw site-tag-configs
+        +--rw site-tag-config* [site-tag-name]
+           +--rw site-tag-name                  string
+           +--rw description?                   string
+           +--rw flex-profile?                  string
+           +--rw ap-join-profile?               string
+           +--rw is-local-site?                 boolean
+           +--rw fabric-control-plane-name?     string
+           +--rw image-download-profile-name?   string
+           +--rw arp-caching?                   boolean
+
+  grouping site-tag-config
+    +-- site-tag-name?                 string
+    +-- description?                   string
+    +-- flex-profile?                  string
+    +-- ap-join-profile?               string
+    +-- is-local-site?                 boolean
+    +-- fabric-control-plane-name?     string
+    +-- image-download-profile-name?   string
+    +-- arp-caching?                   boolean
+  grouping halo-ble
+    +-- beacon-id?   uint8
+    +-- txpower?     uint8
+    +-- enabled?     boolean
+    +-- uuid?        string
+  grouping st-icap-full-trace-client
+    +-- addr?   yang:mac-address
+  grouping st-icap-partial-trace-client
+    +-- addr?   yang:mac-address
+  grouping st-icap-anomaly-det-client
+    +-- addr?   yang:mac-address
+  grouping st-icap-client-stats-client
+    +-- addr?   yang:mac-address
+  grouping st-qosmap-dscp-to-up
+    +-- dscp-low?     uint8
+    +-- dscp-high?    uint8
+    +-- up?           uint8
+    +-- up-to-dscp?   uint8
+  grouping st-qosmap-dscp-to-up-exception
+    +-- dscp?   uint8
+    +-- up?     uint8
+  grouping ap-cfg-profile
+    +-- profile-name?                                           string
+    +-- description?                                            string
+    +-- ble-beacon-interval?                                    uint8
+    +-- ble-beacon-advpwr?                                      uint8
+    +-- data-encryption-flag?                                   boolean
+    +-- ap-packet-capture-profile?                              string
+    +-- ap-trace-profile?                                       string
+    +-- stats-timer
+    |  +-- stats-timer?   uint16
+    +-- led-state
+    |  +-- led-state?   boolean
+    +-- link-latency
+    |  +-- link-latency-flag?   wireless-ap-types:enm-link-latency-type
+    +-- jumbo-mtu
+    |  +-- jumbo-mtu?   boolean
+    +-- ap-mode
+    |  +-- ap-sub-mode?    wireless-ap-types:ap-sub-mode-type
+    |  +-- fast-channel?   uint32
+    +-- poe
+    |  +-- pre-standard8023af-switch-flag?   boolean
+    |  +-- power-injector-state?             boolean
+    |  +-- power-injector-selection?         wireless-ap-types:power-injector-sel-type
+    |  +-- injector-switch-mac?              yang:mac-address
+    +-- device-mgmt
+    |  +-- telnet?   boolean
+    |  +-- ssh?      boolean
+    +-- user-mgmt
+    |  +-- username?        string
+    |  +-- password?        string
+    |  +-- password-type?   wireless-enum-types:crypt-type
+    |  +-- secret?          string
+    |  +-- secret-type?     wireless-enum-types:crypt-type
+    +-- tcp-mss
+    |  +-- adjust-mss?       boolean
+    |  +-- tcp-adjust-mss?   uint16
+    +-- tunnel
+    |  +-- preferred-mode?   wireless-enum-types:preferred-mode-type
+    |  +-- udp-lite?         wireless-enum-types:ipv6-capwap-checksum-type
+    +-- capwap-timer
+    |  +-- heart-beat-timeout?          uint8
+    |  +-- discovery-timeout?           uint8
+    |  +-- fast-heart-beat-timeout?     uint8
+    |  +-- primary-discovery-timeout?   uint16
+    |  +-- primed-join-timeout?         uint16
+    +-- retransmit-timer
+    |  +-- count?      uint8
+    |  +-- interval?   uint8
+    +-- login-credentials
+    |  +-- dot1x-username?        string
+    |  +-- dot1x-password?        string
+    |  +-- dot1x-password-type?   wireless-enum-types:crypt-type
+    +-- dot1x-eap-type-info
+    |  +-- dot1x-eap-type?   wireless-ap-types:enm-ap-dot1x-eap-type
+    +-- lsc-ap-auth-type-info
+    |  +-- lsc-ap-auth-type?   wireless-ap-types:enm-lsc-ap-auth-state-type
+    +-- coredump
+    |  +-- coredump-flag?         wireless-enum-types:memory-core-dump-flag
+    |  +-- tftp-server-address?   inet:ip-address
+    |  +-- corefile-name?         string
+    +-- syslog
+    |  +-- facility-value?   wireless-ap-types:syslog-facility-value
+    |  +-- log-level?        wireless-types:syslog-trap-level
+    |  +-- host?             inet:ip-address
+    |  +-- tls-mode?         boolean
+    +-- backup-controllers
+    |  +-- fallback-enabled?            boolean
+    |  +-- primary-controller-name?     string
+    |  +-- secondary-controller-name?   string
+    |  +-- primary-controller-ip?       inet:ip-address
+    |  +-- secondary-controller-ip?     inet:ip-address
+    +-- hyperlocation
+    |  +-- hyperlocation-enable?           boolean
+    |  +-- pak-rssi-threshold-detection?   int32
+    |  +-- pak-rssi-threshold-trigger?     uint8
+    |  +-- pak-rssi-threshold-reset?       uint8
+    +-- rogue-detection
+    |  +-- profile-name?                                   string
+    |  +-- rogue-detection-monitor-mode-report-interval?   uint32
+    |  +-- ap-rogue-detection-min-rssi?                    int32
+    |  +-- ap-rogue-detection-transient-interval?          uint32
+    |  +-- rogue-containment-flexconnect?                  boolean
+    |  +-- rogue-containment-autorate?                     boolean
+    |  +-- ap-rogue-detection?                             boolean
+    +-- lag-info
+    |  +-- ap-lag-enabled?   boolean
+    +-- tftp-down-grade
+    |  +-- tftp-downgrade-ip-address?   inet:ip-address
+    |  +-- tftp-downgrade-filename?     string
+    +-- traffic-limit
+    |  +-- max1x-session-limit-per-ap?   uint8
+    +-- cdp
+    |  +-- cdp-enable?   boolean
+    o-- ntp-server?                                             inet:ip-address
+    +-- capwap-window
+    |  +-- window-size?   uint8
+    +-- mesh
+    |  +-- mesh-profile-name?   string
+    +-- reporting-interval
+    |  +-- radio-24ghz?   uint8
+    |  +-- radio-5ghz?    uint8
+    +-- ext-module
+    |  +-- enable?   boolean
+    +-- icap
+    |  +-- full-trace-enabled?                boolean
+    |  +-- partial-trace-enabled?             boolean
+    |  +-- partial-trace-proto-all?           boolean
+    |  +-- partial-trace-proto-mgmt-all?      boolean
+    |  +-- partial-trace-proto-mgmt-assoc?    boolean
+    |  +-- partial-trace-proto-mgmt-auth?     boolean
+    |  +-- partial-trace-proto-mgmt-probe?    boolean
+    |  +-- partial-trace-proto-data-all?      boolean
+    |  +-- partial-trace-proto-data-arp?      boolean
+    |  +-- partial-trace-proto-data-dhcp?     boolean
+    |  +-- partial-trace-proto-data-dhcpv6?   boolean
+    |  +-- partial-trace-proto-data-dns?      boolean
+    |  +-- partial-trace-proto-data-eap?      boolean
+    |  +-- partial-trace-proto-data-icmp?     boolean
+    |  +-- partial-trace-proto-data-icmpv6?   boolean
+    |  +-- partial-trace-proto-cisco-all?     boolean
+    |  +-- partial-trace-proto-cisco-ndp?     boolean
+    |  +-- anomaly-det-enabled?               boolean
+    |  +-- anomaly-det-trigger-trace-ap?      boolean
+    |  +-- anomaly-det-dhcp-timeout?          uint8
+    |  +-- client-stats-enabled?              boolean
+    |  +-- client-stats-freq?                 uint16
+    |  +-- ap-stats-system-enabled?           boolean
+    |  +-- ap-stats-system-freq?              uint16
+    |  +-- ap-stats-memory-enabled?           boolean
+    |  +-- ap-stats-memory-freq?              uint16
+    |  +-- ap-stats-interface-enabled?        boolean
+    |  +-- ap-stats-interface-freq?           uint16
+    |  +-- ap-stats-routing-enabled?          boolean
+    |  +-- ap-stats-routing-freq?             uint16
+    |  +-- ap-stats-radio-enabled?            boolean
+    |  +-- ap-stats-radio-freq?               uint16
+    |  +-- ap-stats-wlan-enabled?             boolean
+    |  +-- ap-stats-wlan-freq?                uint16
+    |  +-- ap-stats-dns-enabled?              boolean
+    |  +-- ap-stats-dns-freq?                 uint16
+    |  +-- rf-spectrum-enabled?               boolean
+    |  +-- rf-spectrum-slot0-enabled?         boolean
+    |  +-- rf-spectrum-slot1-enabled?         boolean
+    |  +-- rf-spectrum-slot2-enabled?         boolean
+    |  +-- adr-individual-enable?             boolean
+    |  +-- adr-individual-throttle?           uint32
+    |  +-- adr-summary-enable?                boolean
+    |  +-- adr-summary-frequency?             uint32
+    |  +-- client-filter-stats-freq?          uint32
+    |  +-- client-filter-stats-enabled?       boolean
+    o-- lawful-interception
+    |  +-- enable?           boolean
+    |  +-- timer-interval?   uint16
+    +-- persistent-ssid-broadcast
+    |  +-- enable?   boolean
+    +-- dhcp-server
+    |  +-- enable?   boolean
+    +-- usb-module-status
+    |  +-- enable?   boolean
+    x-- halo-ble-entries
+    |  +-- halo-ble-entry* [beacon-id]
+    |     +-- beacon-id?   uint8
+    |     +-- txpower?     uint8
+    |     +-- enabled?     boolean
+    |     +-- uuid?        string
+    +-- icap-full-packet-trace-client-mac-address-entries
+    |  +-- icap-full-packet-trace-client-mac-address-entry* [addr]
+    |     +-- addr?   yang:mac-address
+    +-- icap-partial-packet-trace-client-mac-address-entries
+    |  +-- icap-partial-packet-trace-client-mac-address-entry* [addr]
+    |     +-- addr?   yang:mac-address
+    +-- icap-anomaly-detection-client-mac-address-entries
+    |  +-- icap-anomaly-detection-client-mac-address-entry* [addr]
+    |     +-- addr?   yang:mac-address
+    +-- icap-client-statistics-client-mac-address-entries
+    |  +-- icap-client-statistics-client-mac-address-entry* [addr]
+    |     +-- addr?   yang:mac-address
+    +-- gas-rate-limit
+    |  +-- enable?                 boolean
+    |  +-- num-req-per-interval?   uint8
+    |  +-- interval-msec?          uint16
+    +-- qosmap
+    |  +-- ap-trusts-upstream-dscp?   boolean
+    |  +-- qosmap-action-frame?       boolean
+    +-- qosmap-dscp-to-ups
+    |  +-- qosmap-dscp-to-up* [up]
+    |     +-- dscp-low?     uint8
+    |     +-- dscp-high?    uint8
+    |     +-- up?           uint8
+    |     +-- up-to-dscp?   uint8
+    +-- qosmap-dscp-to-up-exceptions
+    |  +-- qosmap-dscp-to-up-exception* [dscp]
+    |     +-- dscp?   uint8
+    |     +-- up?     uint8
+    +-- client-rssi
+    |  +-- client-rssi-stats?            boolean
+    |  +-- client-rssi-stats-interval?   uint16
+    +-- ntp-server-info
+    |  +-- ntp-address?   inet:ip-address
+    +-- awips-enabled?                                          boolean
+    +-- accounting
+    |  +-- method-list?   string
+    +-- apphost
+    |  +-- enable?   boolean
+    +-- aux-client-interface
+    |  +-- vlan-id?   uint16
+    +-- proxy
+    |  +-- hostname?        string
+    |  +-- port?            uint16
+    |  +-- no-proxy-list?   string
+    +-- grpc-enable?                                            boolean
+    +-- bssid-enable-stats?                                     boolean
+    +-- bssid-stats-frequency?                                  uint32
+    +-- private-ip-discovery?                                   boolean
+    +-- public-ip-discovery?                                    boolean
+    o-- led-flash
+    |  +-- flash-sec?        uint16
+    |  +-- led-flash-mode?   wireless-ap-types:enm-ap-led-flash-mode
+    +-- bssid-neighbor-stats-enable?                            boolean
+    +-- bssid-neighbor-stats-frequency?                         uint32
+    +-- traffic-distribution
+    |  +-- status?     boolean
+    |  +-- interval?   uint16
+    +-- dhcp-fallback
+       +-- dhcp-fallback?   boolean
+  grouping ap-packet-capture-profile
+    +-- profile-name?            string
+    +-- description?             string
+    +-- buffer-size?             uint16
+    +-- duration?                uint16
+    +-- truncate-len?            uint16
+    +-- ftp-server-ip?           inet:ip-address
+    +-- ftp-path?                string
+    +-- ftp-username?            string
+    +-- ftp-password?            string
+    +-- ftp-password-type?       wireless-enum-types:crypt-type
+    +-- classifier-control?      boolean
+    +-- classifier-management?   boolean
+    +-- classifier-data?         boolean
+    +-- classifier-dot1x?        boolean
+    +-- classifier-arp?          boolean
+    +-- classifier-iapp?         boolean
+    +-- classifier-ip?           boolean
+    +-- classifier-tcp?          boolean
+    +-- classifier-tcp-port?     uint16
+    +-- classifier-udp?          boolean
+    +-- classifier-udp-port?     uint16
+    +-- classifier-broadcast?    boolean
+    +-- classifier-multicast?    boolean
+  grouping ap-trace-profile
+    +-- profile-name?                   string
+    +-- description?                    string
+    +-- ap-trace-client-console-log?    boolean
+    +-- ap-trace-client-filter-arp?     boolean
+    +-- ap-trace-client-filter-assoc?   boolean
+    +-- ap-trace-client-filter-auth?    boolean
+    +-- ap-trace-client-filter-dhcp?    boolean
+    +-- ap-trace-client-filter-eap?     boolean
+    +-- ap-trace-client-filter-icmp?    boolean
+    +-- ap-trace-client-filter-ndp?     boolean
+    +-- ap-trace-client-filter-probe?   boolean

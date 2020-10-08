@@ -1,0 +1,50 @@
+module: cisco-bridge-common
+
+  grouping mac-learning-config
+    +-- learning-enabled?   boolean
+    +-- limit
+       +-- maximum?        uint32 {configurable-bd-mac-limit-max}?
+       +-- action?         mac-limit-action {configurable-bd-mac-limit-actions}?
+       +-- notification?   identityref {configurable-bd-mac-limit-notif}?
+  grouping mac-flooding-config
+    +-- flooding
+       +-- disabled?                   empty
+       +-- disabled-unknown-unicast?   empty
+  grouping mac-flooding-state
+    +-- flooding
+       +-- status* [traffic-class]
+          +-- traffic-class?   eth-traffic-class
+          +-- enabled?         boolean
+  grouping mac-aging-config
+    +-- aging
+       +-- time?   uint32
+       +-- type?   mac-aging-type {configurable-bd-mac-aging-types}?
+  grouping mac-event-action-config
+    +-- port-down
+       +-- flush?   boolean
+  grouping mac-secure-config
+    +-- secure
+       +-- action?    mac-secure-action
+       +-- logging?   boolean
+  grouping static-mac-list-config
+    +-- static
+       +-- mac-addresses* [mac-addr]
+          +-- mac-addr?   yang:mac-address
+          +-- drop        boolean
+  grouping dynamic-arp-inspection-config
+    +-- dynamic-arp-inspection
+       +-- address-validation!
+       |  +-- dst-mac?   empty
+       |  +-- src-mac?   empty
+       |  +-- ipv4?      empty
+       +-- logging?              boolean
+  grouping ip-source-guard-config
+    +-- ip-source-guard
+       +-- logging?   boolean
+  grouping snooping-profile-config
+    +-- igmp-snooping
+    |  +-- profile-name    string
+    +-- mld-snooping
+    |  +-- profile-name    string
+    +-- dhcp-ipv4-snooping
+       +-- profile-name    string

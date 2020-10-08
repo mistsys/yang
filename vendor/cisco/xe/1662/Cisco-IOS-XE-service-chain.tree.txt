@@ -1,0 +1,83 @@
+
+module: Cisco-IOS-XE-service-chain
+  augment /ios:native/ios:service-chain:
+    +--rw service-function* [name]
+    |  +--rw name                            string
+    |  +--rw config-service-chain-sf-mode
+    |     +--rw description?     string
+    |     +--rw encapsulation
+    |     |  +--rw (mode-choice)?
+    |     |     +--:(gre)
+    |     |     |  +--rw gre!
+    |     |     |     +--rw enhanced?   enumeration
+    |     |     +--:(none)
+    |     |        +--rw none?   empty
+    |     +--rw ip
+    |        +--rw address?   inet:ipv4-address
+    +--rw service-function-forwarder
+    |  +--rw service-ff-name* [name]
+    |  |  +--rw name           string
+    |  |  +--rw description?   string
+    |  |  +--rw ip
+    |  |     +--rw address?   inet:ipv4-address
+    |  +--rw local!
+    |     +--rw description?   string
+    |     +--rw ip
+    |        +--rw address?   inet:ipv4-address
+    +--rw service-path* [service-path-id]
+       +--rw service-path-id                   uint32
+       +--rw config-service-chain-path-mode
+          +--rw description?     string
+          +--rw service-index
+             +--rw services* [service-index-id]
+                +--rw service-index-id                    uint8
+                +--rw (service-type-choice)?
+                   +--:(service-function)
+                   |  +--rw service-function?             string
+                   +--:(service-function-forwarder)
+                   |  +--rw service-function-forwarder?   string
+                   +--:(terminate)
+                      +--rw terminate?                    empty
+
+  grouping service-chain-grouping
+    +-- description?   string
+    +-- ip
+       +-- address?   inet:ipv4-address
+  grouping config-service-chain-grouping
+    +-- service-function* [name]
+    |  +-- name?                           string
+    |  +-- config-service-chain-sf-mode
+    |     +-- description?     string
+    |     +-- encapsulation
+    |     |  +-- (mode-choice)?
+    |     |     +--:(gre)
+    |     |     |  +-- gre!
+    |     |     |     +-- enhanced?   enumeration
+    |     |     +--:(none)
+    |     |        +-- none?   empty
+    |     +-- ip
+    |        +-- address?   inet:ipv4-address
+    +-- service-function-forwarder
+    |  +-- service-ff-name* [name]
+    |  |  +-- name?          string
+    |  |  +-- description?   string
+    |  |  +-- ip
+    |  |     +-- address?   inet:ipv4-address
+    |  +-- local!
+    |     +-- description?   string
+    |     +-- ip
+    |        +-- address?   inet:ipv4-address
+    +-- service-path* [service-path-id]
+       +-- service-path-id?                  uint32
+       +-- config-service-chain-path-mode
+          +-- description?     string
+          +-- service-index
+             +-- services* [service-index-id]
+                +-- service-index-id?                   uint8
+                +-- (service-type-choice)?
+                   +--:(service-function)
+                   |  +-- service-function?             string
+                   +--:(service-function-forwarder)
+                   |  +-- service-function-forwarder?   string
+                   +--:(terminate)
+                      +-- terminate?                    empty

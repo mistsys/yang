@@ -1,0 +1,393 @@
+module: Cisco-IOS-XE-ip-sla-oper
+  +--ro ip-sla-stats
+     +--ro sla-oper-entry* [oper-id]
+        +--ro oper-id                   uint32
+        +--ro oper-type?                ip-sla-ios-xe-oper:sla-oper-type
+        +--ro latest-return-code?       ip-sla-ios-xe-oper:sla-return-code
+        +--ro success-count?            uint32
+        +--ro failure-count?            uint32
+        +--ro latest-oper-start-time?   yang:date-and-time
+        +--ro rtt-info
+        |  +--ro latest-rtt
+        |  |  +--ro (latestrtt-choice)?
+        |  |     +--:(known-rtt-value)
+        |  |     |  +--ro rtt?              uint64
+        |  |     +--:(unknown-rtt)
+        |  |     |  +--ro unknown?          empty
+        |  |     +--:(could-not-find-rtt)
+        |  |        +--ro could-not-find?   empty
+        |  +--ro time-to-live
+        |     +--ro (timetolive-choice)?
+        |        +--:(finite-ttl)
+        |        |  +--ro ttl?       uint64
+        |        +--:(forever-ttl)
+        |           +--ro forever?   empty
+        +--ro measure-stats
+        |  +--ro intv-start-time?   yang:date-and-time
+        |  +--ro init-count?        uint32
+        |  +--ro complete-count?    uint32
+        |  +--ro valid?             boolean
+        +--ro stats
+           +--ro rtt
+           |  +--ro rtt-count?         uint32
+           |  +--ro sla-time-values
+           |     +--ro min?        uint32
+           |     +--ro avg?        uint32
+           |     +--ro max?        uint32
+           |     +--ro accuracy?   accuracy-type
+           +--ro oneway-latency
+           |  +--ro sample-count?   uint32
+           |  +--ro sd
+           |  |  +--ro min?        uint32
+           |  |  +--ro avg?        uint32
+           |  |  +--ro max?        uint32
+           |  |  +--ro accuracy?   accuracy-type
+           |  +--ro ds
+           |     +--ro min?        uint32
+           |     +--ro avg?        uint32
+           |     +--ro max?        uint32
+           |     +--ro accuracy?   accuracy-type
+           +--ro jitter
+           |  +--ro sd-sample-count?   uint32
+           |  +--ro ds-sample-count?   uint32
+           |  +--ro sd
+           |  |  +--ro min?        uint32
+           |  |  +--ro avg?        uint32
+           |  |  +--ro max?        uint32
+           |  |  +--ro accuracy?   accuracy-type
+           |  +--ro ds
+           |     +--ro min?        uint32
+           |     +--ro avg?        uint32
+           |     +--ro max?        uint32
+           |     +--ro accuracy?   accuracy-type
+           +--ro over-threshold
+           |  +--ro rtt-count?   uint32
+           |  +--ro percent?     uint8
+           +--ro packet-loss
+           |  +--ro unprocessed-packets?   uint32
+           |  +--ro sd-count?              uint32
+           |  +--ro sd-loss
+           |  |  +--ro loss-period-count?           uint32
+           |  |  +--ro loss-period-len-min?         uint32
+           |  |  +--ro loss-period-len-max?         uint32
+           |  |  +--ro inter-loss-period-len-min?   uint32
+           |  |  +--ro inter-loss-period-len-max?   uint32
+           |  +--ro ds-count?              uint32
+           |  +--ro ds-loss
+           |  |  +--ro loss-period-count?           uint32
+           |  |  +--ro loss-period-len-min?         uint32
+           |  |  +--ro loss-period-len-max?         uint32
+           |  |  +--ro inter-loss-period-len-min?   uint32
+           |  |  +--ro inter-loss-period-len-max?   uint32
+           |  +--ro out-of-sequence?       uint32
+           |  +--ro drops?                 uint32
+           |  +--ro late-arrivals?         uint32
+           |  +--ro skipped-packets?       uint32
+           +--ro icmp-packet-loss
+           |  +--ro late-arrivals?               uint32
+           |  +--ro out-of-sequence?             uint32
+           |  +--ro out-of-sequence-sd?          uint32
+           |  +--ro ds-out-of-sequence-ds?       uint32
+           |  +--ro out-of-sequence-both?        uint32
+           |  +--ro skipped-packets?             uint32
+           |  +--ro unprocessed-packets?         uint32
+           |  +--ro packet-loss?                 uint32
+           |  +--ro loss-period-count?           uint32
+           |  +--ro loss-period-len-min?         uint32
+           |  +--ro loss-period-len-max?         uint32
+           |  +--ro inter-loss-period-len-min?   uint32
+           |  +--ro inter-loss-period-len-max?   uint32
+           +--ro voice-score
+              +--ro icpif?   uint32
+              +--ro mos?     uint32
+
+  grouping sla-time-values
+    +-- min?        uint32
+    +-- avg?        uint32
+    +-- max?        uint32
+    +-- accuracy?   accuracy-type
+  grouping sla-packet-loss-info
+    +-- loss-period-count?           uint32
+    +-- loss-period-len-min?         uint32
+    +-- loss-period-len-max?         uint32
+    +-- inter-loss-period-len-min?   uint32
+    +-- inter-loss-period-len-max?   uint32
+  grouping voice-score
+    +-- icpif?   uint32
+    +-- mos?     uint32
+  grouping latest-rtt-type
+    +-- (latestrtt-choice)?
+       +--:(known-rtt-value)
+       |  +-- rtt?              uint64
+       +--:(unknown-rtt)
+       |  +-- unknown?          empty
+       +--:(could-not-find-rtt)
+          +-- could-not-find?   empty
+  grouping time-to-live-type
+    +-- (timetolive-choice)?
+       +--:(finite-ttl)
+       |  +-- ttl?       uint64
+       +--:(forever-ttl)
+          +-- forever?   empty
+  grouping rtt-info
+    +-- latest-rtt
+    |  +-- (latestrtt-choice)?
+    |     +--:(known-rtt-value)
+    |     |  +-- rtt?              uint64
+    |     +--:(unknown-rtt)
+    |     |  +-- unknown?          empty
+    |     +--:(could-not-find-rtt)
+    |        +-- could-not-find?   empty
+    +-- time-to-live
+       +-- (timetolive-choice)?
+          +--:(finite-ttl)
+          |  +-- ttl?       uint64
+          +--:(forever-ttl)
+             +-- forever?   empty
+  grouping y1731-interval-stats
+    +-- intv-start-time?   yang:date-and-time
+    +-- init-count?        uint32
+    +-- complete-count?    uint32
+    +-- valid?             boolean
+  grouping rtt
+    +-- rtt-count?         uint32
+    +-- sla-time-values
+       +-- min?        uint32
+       +-- avg?        uint32
+       +-- max?        uint32
+       +-- accuracy?   accuracy-type
+  grouping oneway-latency
+    +-- sample-count?   uint32
+    +-- sd
+    |  +-- min?        uint32
+    |  +-- avg?        uint32
+    |  +-- max?        uint32
+    |  +-- accuracy?   accuracy-type
+    +-- ds
+       +-- min?        uint32
+       +-- avg?        uint32
+       +-- max?        uint32
+       +-- accuracy?   accuracy-type
+  grouping jitter
+    +-- sd-sample-count?   uint32
+    +-- ds-sample-count?   uint32
+    +-- sd
+    |  +-- min?        uint32
+    |  +-- avg?        uint32
+    |  +-- max?        uint32
+    |  +-- accuracy?   accuracy-type
+    +-- ds
+       +-- min?        uint32
+       +-- avg?        uint32
+       +-- max?        uint32
+       +-- accuracy?   accuracy-type
+  grouping over-threshold
+    +-- rtt-count?   uint32
+    +-- percent?     uint8
+  grouping packet-loss
+    +-- unprocessed-packets?   uint32
+    +-- sd-count?              uint32
+    +-- sd-loss
+    |  +-- loss-period-count?           uint32
+    |  +-- loss-period-len-min?         uint32
+    |  +-- loss-period-len-max?         uint32
+    |  +-- inter-loss-period-len-min?   uint32
+    |  +-- inter-loss-period-len-max?   uint32
+    +-- ds-count?              uint32
+    +-- ds-loss
+    |  +-- loss-period-count?           uint32
+    |  +-- loss-period-len-min?         uint32
+    |  +-- loss-period-len-max?         uint32
+    |  +-- inter-loss-period-len-min?   uint32
+    |  +-- inter-loss-period-len-max?   uint32
+    +-- out-of-sequence?       uint32
+    +-- drops?                 uint32
+    +-- late-arrivals?         uint32
+    +-- skipped-packets?       uint32
+  grouping icmp-packet-loss
+    +-- late-arrivals?               uint32
+    +-- out-of-sequence?             uint32
+    +-- out-of-sequence-sd?          uint32
+    +-- ds-out-of-sequence-ds?       uint32
+    +-- out-of-sequence-both?        uint32
+    +-- skipped-packets?             uint32
+    +-- unprocessed-packets?         uint32
+    +-- packet-loss?                 uint32
+    +-- loss-period-count?           uint32
+    +-- loss-period-len-min?         uint32
+    +-- loss-period-len-max?         uint32
+    +-- inter-loss-period-len-min?   uint32
+    +-- inter-loss-period-len-max?   uint32
+  grouping stats
+    +-- rtt
+    |  +-- rtt-count?         uint32
+    |  +-- sla-time-values
+    |     +-- min?        uint32
+    |     +-- avg?        uint32
+    |     +-- max?        uint32
+    |     +-- accuracy?   accuracy-type
+    +-- oneway-latency
+    |  +-- sample-count?   uint32
+    |  +-- sd
+    |  |  +-- min?        uint32
+    |  |  +-- avg?        uint32
+    |  |  +-- max?        uint32
+    |  |  +-- accuracy?   accuracy-type
+    |  +-- ds
+    |     +-- min?        uint32
+    |     +-- avg?        uint32
+    |     +-- max?        uint32
+    |     +-- accuracy?   accuracy-type
+    +-- jitter
+    |  +-- sd-sample-count?   uint32
+    |  +-- ds-sample-count?   uint32
+    |  +-- sd
+    |  |  +-- min?        uint32
+    |  |  +-- avg?        uint32
+    |  |  +-- max?        uint32
+    |  |  +-- accuracy?   accuracy-type
+    |  +-- ds
+    |     +-- min?        uint32
+    |     +-- avg?        uint32
+    |     +-- max?        uint32
+    |     +-- accuracy?   accuracy-type
+    +-- over-threshold
+    |  +-- rtt-count?   uint32
+    |  +-- percent?     uint8
+    +-- packet-loss
+    |  +-- unprocessed-packets?   uint32
+    |  +-- sd-count?              uint32
+    |  +-- sd-loss
+    |  |  +-- loss-period-count?           uint32
+    |  |  +-- loss-period-len-min?         uint32
+    |  |  +-- loss-period-len-max?         uint32
+    |  |  +-- inter-loss-period-len-min?   uint32
+    |  |  +-- inter-loss-period-len-max?   uint32
+    |  +-- ds-count?              uint32
+    |  +-- ds-loss
+    |  |  +-- loss-period-count?           uint32
+    |  |  +-- loss-period-len-min?         uint32
+    |  |  +-- loss-period-len-max?         uint32
+    |  |  +-- inter-loss-period-len-min?   uint32
+    |  |  +-- inter-loss-period-len-max?   uint32
+    |  +-- out-of-sequence?       uint32
+    |  +-- drops?                 uint32
+    |  +-- late-arrivals?         uint32
+    |  +-- skipped-packets?       uint32
+    +-- icmp-packet-loss
+    |  +-- late-arrivals?               uint32
+    |  +-- out-of-sequence?             uint32
+    |  +-- out-of-sequence-sd?          uint32
+    |  +-- ds-out-of-sequence-ds?       uint32
+    |  +-- out-of-sequence-both?        uint32
+    |  +-- skipped-packets?             uint32
+    |  +-- unprocessed-packets?         uint32
+    |  +-- packet-loss?                 uint32
+    |  +-- loss-period-count?           uint32
+    |  +-- loss-period-len-min?         uint32
+    |  +-- loss-period-len-max?         uint32
+    |  +-- inter-loss-period-len-min?   uint32
+    |  +-- inter-loss-period-len-max?   uint32
+    +-- voice-score
+       +-- icpif?   uint32
+       +-- mos?     uint32
+  grouping sla-oper-entry
+    +-- oper-id?                  uint32
+    +-- oper-type?                ip-sla-ios-xe-oper:sla-oper-type
+    +-- latest-return-code?       ip-sla-ios-xe-oper:sla-return-code
+    +-- success-count?            uint32
+    +-- failure-count?            uint32
+    +-- latest-oper-start-time?   yang:date-and-time
+    +-- rtt-info
+    |  +-- latest-rtt
+    |  |  +-- (latestrtt-choice)?
+    |  |     +--:(known-rtt-value)
+    |  |     |  +-- rtt?              uint64
+    |  |     +--:(unknown-rtt)
+    |  |     |  +-- unknown?          empty
+    |  |     +--:(could-not-find-rtt)
+    |  |        +-- could-not-find?   empty
+    |  +-- time-to-live
+    |     +-- (timetolive-choice)?
+    |        +--:(finite-ttl)
+    |        |  +-- ttl?       uint64
+    |        +--:(forever-ttl)
+    |           +-- forever?   empty
+    +-- measure-stats
+    |  +-- intv-start-time?   yang:date-and-time
+    |  +-- init-count?        uint32
+    |  +-- complete-count?    uint32
+    |  +-- valid?             boolean
+    +-- stats
+       +-- rtt
+       |  +-- rtt-count?         uint32
+       |  +-- sla-time-values
+       |     +-- min?        uint32
+       |     +-- avg?        uint32
+       |     +-- max?        uint32
+       |     +-- accuracy?   accuracy-type
+       +-- oneway-latency
+       |  +-- sample-count?   uint32
+       |  +-- sd
+       |  |  +-- min?        uint32
+       |  |  +-- avg?        uint32
+       |  |  +-- max?        uint32
+       |  |  +-- accuracy?   accuracy-type
+       |  +-- ds
+       |     +-- min?        uint32
+       |     +-- avg?        uint32
+       |     +-- max?        uint32
+       |     +-- accuracy?   accuracy-type
+       +-- jitter
+       |  +-- sd-sample-count?   uint32
+       |  +-- ds-sample-count?   uint32
+       |  +-- sd
+       |  |  +-- min?        uint32
+       |  |  +-- avg?        uint32
+       |  |  +-- max?        uint32
+       |  |  +-- accuracy?   accuracy-type
+       |  +-- ds
+       |     +-- min?        uint32
+       |     +-- avg?        uint32
+       |     +-- max?        uint32
+       |     +-- accuracy?   accuracy-type
+       +-- over-threshold
+       |  +-- rtt-count?   uint32
+       |  +-- percent?     uint8
+       +-- packet-loss
+       |  +-- unprocessed-packets?   uint32
+       |  +-- sd-count?              uint32
+       |  +-- sd-loss
+       |  |  +-- loss-period-count?           uint32
+       |  |  +-- loss-period-len-min?         uint32
+       |  |  +-- loss-period-len-max?         uint32
+       |  |  +-- inter-loss-period-len-min?   uint32
+       |  |  +-- inter-loss-period-len-max?   uint32
+       |  +-- ds-count?              uint32
+       |  +-- ds-loss
+       |  |  +-- loss-period-count?           uint32
+       |  |  +-- loss-period-len-min?         uint32
+       |  |  +-- loss-period-len-max?         uint32
+       |  |  +-- inter-loss-period-len-min?   uint32
+       |  |  +-- inter-loss-period-len-max?   uint32
+       |  +-- out-of-sequence?       uint32
+       |  +-- drops?                 uint32
+       |  +-- late-arrivals?         uint32
+       |  +-- skipped-packets?       uint32
+       +-- icmp-packet-loss
+       |  +-- late-arrivals?               uint32
+       |  +-- out-of-sequence?             uint32
+       |  +-- out-of-sequence-sd?          uint32
+       |  +-- ds-out-of-sequence-ds?       uint32
+       |  +-- out-of-sequence-both?        uint32
+       |  +-- skipped-packets?             uint32
+       |  +-- unprocessed-packets?         uint32
+       |  +-- packet-loss?                 uint32
+       |  +-- loss-period-count?           uint32
+       |  +-- loss-period-len-min?         uint32
+       |  +-- loss-period-len-max?         uint32
+       |  +-- inter-loss-period-len-min?   uint32
+       |  +-- inter-loss-period-len-max?   uint32
+       +-- voice-score
+          +-- icpif?   uint32
+          +-- mos?     uint32

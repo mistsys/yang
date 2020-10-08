@@ -1,0 +1,23 @@
+
+module: Cisco-IOS-XE-pnp
+  augment /ios:native:
+    +--rw pnp
+       +--rw startup-vlan?   uint16
+       +--rw profile* [name]
+          +--rw name         string
+          +--rw transport
+             +--rw https
+                +--rw ipv4
+                   +--rw ipv4-address?   inet:ipv4-address
+                   +--rw port?           uint16
+
+  grouping config-pnp-grouping
+    +-- pnp
+       +-- startup-vlan?   uint16
+       +-- profile* [name]
+          +-- name?        string
+          +-- transport
+             +-- https
+                +-- ipv4
+                   +-- ipv4-address?   inet:ipv4-address
+                   +-- port?           uint16

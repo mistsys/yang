@@ -1,0 +1,78 @@
+module: Cisco-IOS-XE-wireless-file-transfer-cfg
+  +--rw file-transfer-cfg-data
+     +--rw trace-export-profiles
+     |  +--rw trace-export-profile* [trace-export-profile-name]
+     |     +--rw trace-export-profile-name    string
+     |     +--rw decoded-export?              boolean
+     |     +--rw trace-export-enable?         boolean
+     |     +--rw threshold?                   uint32
+     |     +--rw xfer-params
+     |        +--rw (transfer-mode-choice)?
+     |           +--:(transfer-mode-unconfigured)
+     |           |  +--rw xfer-disabled?        empty
+     |           +--:(transfer-mode-tftp)
+     |           |  +--rw tftp-server?          inet:ip-address
+     |           |  +--rw tftp-path?            string
+     |           +--:(transfer-mode-ftp)
+     |           |  +--rw ftp-server?           inet:ip-address
+     |           |  +--rw ftp-path?             string
+     |           |  +--rw ftp-username?         string
+     |           |  +--rw ftp-password?         string
+     |           |  +--rw ftp-password-type?    wireless-enum-types:crypt-type
+     |           +--:(transfer-mode-sftp)
+     |              +--rw sftp-server?          inet:ip-address
+     |              +--rw sftp-path?            string
+     |              +--rw sftp-username?        string
+     |              +--rw sftp-password?        string
+     |              +--rw sftp-password-type?   wireless-enum-types:crypt-type
+     |              +--rw sftp-port?            uint32
+     +--rw xfer-mgmt-config!
+        +--rw trace-export-profile-name?   string
+
+  grouping file-xfer-params
+    +-- (transfer-mode-choice)?
+       +--:(transfer-mode-unconfigured)
+       |  +-- xfer-disabled?        empty
+       +--:(transfer-mode-tftp)
+       |  +-- tftp-server?          inet:ip-address
+       |  +-- tftp-path?            string
+       +--:(transfer-mode-ftp)
+       |  +-- ftp-server?           inet:ip-address
+       |  +-- ftp-path?             string
+       |  +-- ftp-username?         string
+       |  +-- ftp-password?         string
+       |  +-- ftp-password-type?    wireless-enum-types:crypt-type
+       +--:(transfer-mode-sftp)
+          +-- sftp-server?          inet:ip-address
+          +-- sftp-path?            string
+          +-- sftp-username?        string
+          +-- sftp-password?        string
+          +-- sftp-password-type?   wireless-enum-types:crypt-type
+          +-- sftp-port?            uint32
+  grouping st-trace-export-profile-config
+    +-- trace-export-profile-name?   string
+    +-- decoded-export?              boolean
+    +-- trace-export-enable?         boolean
+    +-- threshold?                   uint32
+    +-- xfer-params
+       +-- (transfer-mode-choice)?
+          +--:(transfer-mode-unconfigured)
+          |  +-- xfer-disabled?        empty
+          +--:(transfer-mode-tftp)
+          |  +-- tftp-server?          inet:ip-address
+          |  +-- tftp-path?            string
+          +--:(transfer-mode-ftp)
+          |  +-- ftp-server?           inet:ip-address
+          |  +-- ftp-path?             string
+          |  +-- ftp-username?         string
+          |  +-- ftp-password?         string
+          |  +-- ftp-password-type?    wireless-enum-types:crypt-type
+          +--:(transfer-mode-sftp)
+             +-- sftp-server?          inet:ip-address
+             +-- sftp-path?            string
+             +-- sftp-username?        string
+             +-- sftp-password?        string
+             +-- sftp-password-type?   wireless-enum-types:crypt-type
+             +-- sftp-port?            uint32
+  grouping st-wireless-management-transfer-config
+    +-- trace-export-profile-name?   string

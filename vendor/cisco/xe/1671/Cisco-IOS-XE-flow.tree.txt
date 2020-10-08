@@ -1,0 +1,5042 @@
+
+module: Cisco-IOS-XE-flow
+  augment /ios:native/ios:flow:
+    +--rw record* [name]
+    |  +--rw name           string
+    |  +--rw type?          enumeration
+    |  +--rw collect
+    |  |  +--rw application
+    |  |  |  +--rw dns
+    |  |  |  |  +--rw domain-name?   empty
+    |  |  |  +--rw http
+    |  |  |  |  +--rw host?         empty
+    |  |  |  |  +--rw referer?      empty
+    |  |  |  |  +--rw uri
+    |  |  |  |  |  +--rw statistics?   empty
+    |  |  |  |  +--rw url?          empty
+    |  |  |  |  +--rw user-agent?   empty
+    |  |  |  +--rw media
+    |  |  |  |  +--rw bytes
+    |  |  |  |  |  +--rw counter!
+    |  |  |  |  |  |  +--rw long?   empty
+    |  |  |  |  |  +--rw rate!
+    |  |  |  |  |     +--rw per-flow!
+    |  |  |  |  |        +--rw max?   empty
+    |  |  |  |  |        +--rw min?   empty
+    |  |  |  |  +--rw event?     empty
+    |  |  |  |  +--rw packets
+    |  |  |  |     +--rw counter!
+    |  |  |  |     |  +--rw long?   empty
+    |  |  |  |     +--rw rate!
+    |  |  |  |        +--rw variation!
+    |  |  |  |           +--rw max?   empty
+    |  |  |  |           +--rw min?   empty
+    |  |  |  |           +--rw sum?   empty
+    |  |  |  +--rw name!
+    |  |  |  |  +--rw account-on-resolution?   empty
+    |  |  |  +--rw nntp
+    |  |  |  |  +--rw group-name?   empty
+    |  |  |  +--rw pop3
+    |  |  |  |  +--rw server?   empty
+    |  |  |  +--rw rtmp
+    |  |  |  |  +--rw pageUrl?   empty
+    |  |  |  +--rw rtsp
+    |  |  |  |  +--rw host?   empty
+    |  |  |  +--rw sip
+    |  |  |  |  +--rw destination?   empty
+    |  |  |  |  +--rw source?        empty
+    |  |  |  +--rw smtp
+    |  |  |  |  +--rw sender?   empty
+    |  |  |  |  +--rw server?   empty
+    |  |  |  +--rw ssl
+    |  |  |  |  +--rw common-name?   empty
+    |  |  |  +--rw vendor?    empty
+    |  |  |  +--rw version?   empty
+    |  |  +--rw connection
+    |  |  |  +--rw client
+    |  |  |  |  +--rw all?         empty
+    |  |  |  |  +--rw counter
+    |  |  |  |  |  +--rw bytes
+    |  |  |  |  |  |  +--rw long?            empty
+    |  |  |  |  |  |  +--rw network
+    |  |  |  |  |  |  |  +--rw long?   empty
+    |  |  |  |  |  |  +--rw retransmitted?   empty
+    |  |  |  |  |  |  +--rw transport
+    |  |  |  |  |  |     +--rw long?   empty
+    |  |  |  |  |  +--rw packets
+    |  |  |  |  |     +--rw long?            empty
+    |  |  |  |  |     +--rw retransmitted?   empty
+    |  |  |  |  +--rw ipv4
+    |  |  |  |  |  +--rw address?   empty
+    |  |  |  |  +--rw ipv6
+    |  |  |  |  |  +--rw address?   empty
+    |  |  |  |  +--rw transport
+    |  |  |  |     +--rw port?   empty
+    |  |  |  +--rw delay
+    |  |  |  |  +--rw all?           empty
+    |  |  |  |  +--rw application
+    |  |  |  |  |  +--rw max?   empty
+    |  |  |  |  |  +--rw min?   empty
+    |  |  |  |  |  +--rw sum?   empty
+    |  |  |  |  +--rw network
+    |  |  |  |  |  +--rw client-to-server
+    |  |  |  |  |  |  +--rw max?           empty
+    |  |  |  |  |  |  +--rw min?           empty
+    |  |  |  |  |  |  +--rw num-samples?   empty
+    |  |  |  |  |  |  +--rw sum?           empty
+    |  |  |  |  |  +--rw long-lived
+    |  |  |  |  |  |  +--rw client-to-serve
+    |  |  |  |  |  |  |  +--rw sum?   empty
+    |  |  |  |  |  |  +--rw to-client
+    |  |  |  |  |  |  |  +--rw sum?   empty
+    |  |  |  |  |  |  +--rw to-serve
+    |  |  |  |  |  |     +--rw sum?   empty
+    |  |  |  |  |  +--rw to-client
+    |  |  |  |  |  |  +--rw max?           empty
+    |  |  |  |  |  |  +--rw min?           empty
+    |  |  |  |  |  |  +--rw num-samples?   empty
+    |  |  |  |  |  |  +--rw sum?           empty
+    |  |  |  |  |  +--rw to-server
+    |  |  |  |  |     +--rw max?           empty
+    |  |  |  |  |     +--rw min?           empty
+    |  |  |  |  |     +--rw num-samples?   empty
+    |  |  |  |  |     +--rw sum?           empty
+    |  |  |  |  +--rw response
+    |  |  |  |     +--rw client-to-server
+    |  |  |  |     |  +--rw max?   empty
+    |  |  |  |     |  +--rw min?   empty
+    |  |  |  |     |  +--rw sum?   empty
+    |  |  |  |     +--rw to-server
+    |  |  |  |        +--rw histogram?   enumeration
+    |  |  |  |        +--rw max?         empty
+    |  |  |  |        +--rw min?         empty
+    |  |  |  |        +--rw sum?         empty
+    |  |  |  +--rw id?                empty
+    |  |  |  +--rw initiator?         empty
+    |  |  |  +--rw new-connections?   empty
+    |  |  |  +--rw server
+    |  |  |  |  +--rw all?         empty
+    |  |  |  |  +--rw counter
+    |  |  |  |  |  +--rw bytes
+    |  |  |  |  |  |  +--rw long?            empty
+    |  |  |  |  |  |  +--rw network
+    |  |  |  |  |  |  |  +--rw long?   empty
+    |  |  |  |  |  |  +--rw retransmitted?   empty
+    |  |  |  |  |  |  +--rw transport
+    |  |  |  |  |  |     +--rw long?   empty
+    |  |  |  |  |  +--rw packets
+    |  |  |  |  |  |  +--rw long?            empty
+    |  |  |  |  |  |  +--rw retransmitted?   empty
+    |  |  |  |  |  +--rw responses?   empty
+    |  |  |  |  +--rw ipv4
+    |  |  |  |  |  +--rw address?   empty
+    |  |  |  |  +--rw ipv6
+    |  |  |  |  |  +--rw address?   empty
+    |  |  |  |  +--rw transport
+    |  |  |  |     +--rw port?   empty
+    |  |  |  +--rw sum-duration?      empty
+    |  |  |  +--rw transaction
+    |  |  |  |  +--rw all?        empty
+    |  |  |  |  +--rw counter
+    |  |  |  |  |  +--rw complete?   empty
+    |  |  |  |  +--rw duration
+    |  |  |  |     +--rw max?   empty
+    |  |  |  |     +--rw min?   empty
+    |  |  |  |     +--rw sum?   empty
+    |  |  |  +--rw transaction-id?    empty
+    |  |  +--rw counter
+    |  |  |  +--rw bytes!
+    |  |  |  |  +--rw long?      empty
+    |  |  |  |  +--rw rate!
+    |  |  |  |  |  +--rw per-flow!
+    |  |  |  |  |     +--rw max?   empty
+    |  |  |  |  |     +--rw min?   empty
+    |  |  |  |  +--rw squared
+    |  |  |  |     +--rw long?   empty
+    |  |  |  +--rw flows?     empty
+    |  |  |  +--rw packets!
+    |  |  |     +--rw dropped?   empty
+    |  |  |     +--rw long?      empty
+    |  |  |     +--rw rate!
+    |  |  |        +--rw per-flow!
+    |  |  |           +--rw max?   empty
+    |  |  |           +--rw min?   empty
+    |  |  +--rw datalink
+    |  |  |  +--rw destination-vlan-id?   empty
+    |  |  |  +--rw dot1q
+    |  |  |  |  +--rw priority?   empty
+    |  |  |  |  +--rw vlan
+    |  |  |  |     +--rw input?    empty
+    |  |  |  |     +--rw output?   empty
+    |  |  |  +--rw ethertype?             empty
+    |  |  |  +--rw vlan?                  enumeration
+    |  |  |  +--rw mac
+    |  |  |  |  +--rw destination
+    |  |  |  |  |  +--rw address
+    |  |  |  |  |     +--rw input?    empty
+    |  |  |  |  |     +--rw output?   empty
+    |  |  |  |  +--rw source
+    |  |  |  |     +--rw address
+    |  |  |  |        +--rw input?    empty
+    |  |  |  |        +--rw output?   empty
+    |  |  |  +--rw source-vlan-id?        empty
+    |  |  +--rw flow
+    |  |  |  +--rw cts
+    |  |  |  |  +--rw destination
+    |  |  |  |  |  +--rw group-tag?   empty
+    |  |  |  |  +--rw source
+    |  |  |  |     +--rw group-tag?   empty
+    |  |  |  +--rw direction?     empty
+    |  |  |  +--rw observation
+    |  |  |  |  +--rw point?   empty
+    |  |  |  +--rw sampler?       empty
+    |  |  |  +--rw end-reason?    empty
+    |  |  +--rw interface
+    |  |  |  +--rw input!
+    |  |  |  |  +--rw snmp?   empty
+    |  |  |  +--rw output!
+    |  |  |     +--rw snmp?   empty
+    |  |  +--rw ipv4
+    |  |  |  +--rw destination
+    |  |  |  |  +--rw address?   empty
+    |  |  |  |  +--rw mask!
+    |  |  |  |  |  +--rw minimum-mask?   uint8
+    |  |  |  |  +--rw prefix!
+    |  |  |  |     +--rw minimum-mask?   uint8
+    |  |  |  +--rw dscp?            empty
+    |  |  |  +--rw fragmentation
+    |  |  |  |  +--rw flags?    empty
+    |  |  |  |  +--rw offset?   empty
+    |  |  |  +--rw header-length?   empty
+    |  |  |  +--rw id?              empty
+    |  |  |  +--rw length
+    |  |  |  |  +--rw header?    empty
+    |  |  |  |  +--rw payload?   empty
+    |  |  |  |  +--rw total!
+    |  |  |  |     +--rw maximum?   empty
+    |  |  |  |     +--rw minimum?   empty
+    |  |  |  +--rw option
+    |  |  |  |  +--rw map?   empty
+    |  |  |  +--rw precedence?      empty
+    |  |  |  +--rw protocol?        empty
+    |  |  |  +--rw section
+    |  |  |  |  +--rw header
+    |  |  |  |  |  +--rw size?   uint16
+    |  |  |  |  +--rw payload
+    |  |  |  |     +--rw size?   uint16
+    |  |  |  +--rw source
+    |  |  |  |  +--rw address?   empty
+    |  |  |  |  +--rw mask!
+    |  |  |  |  |  +--rw minimum-mask?   uint8
+    |  |  |  |  +--rw prefix!
+    |  |  |  |     +--rw minimum-mask?   uint8
+    |  |  |  +--rw tos?             empty
+    |  |  |  +--rw total-length!
+    |  |  |  |  +--rw maximum?   empty
+    |  |  |  |  +--rw minimum?   empty
+    |  |  |  +--rw ttl!
+    |  |  |  |  +--rw maximum?   empty
+    |  |  |  |  +--rw minimum?   empty
+    |  |  |  +--rw version?         empty
+    |  |  +--rw ipv6
+    |  |  |  +--rw destination
+    |  |  |  |  +--rw address?   empty
+    |  |  |  |  +--rw mask!
+    |  |  |  |  |  +--rw minimum-mask?   uint8
+    |  |  |  |  +--rw prefix!
+    |  |  |  |     +--rw minimum-mask?   uint8
+    |  |  |  +--rw dscp?             empty
+    |  |  |  +--rw extension
+    |  |  |  |  +--rw map?   empty
+    |  |  |  +--rw flow-label?       empty
+    |  |  |  +--rw fragmentation
+    |  |  |  |  +--rw flags?    empty
+    |  |  |  |  +--rw id?       empty
+    |  |  |  |  +--rw offset?   empty
+    |  |  |  +--rw hop-limit!
+    |  |  |  |  +--rw maximum?   empty
+    |  |  |  |  +--rw minimum?   empty
+    |  |  |  +--rw length
+    |  |  |  |  +--rw header?    empty
+    |  |  |  |  +--rw payload?   empty
+    |  |  |  |  +--rw total!
+    |  |  |  |     +--rw maximum?   empty
+    |  |  |  |     +--rw minimum?   empty
+    |  |  |  +--rw next-header?      empty
+    |  |  |  +--rw payload-length?   empty
+    |  |  |  +--rw precedence?       empty
+    |  |  |  +--rw protocol?         empty
+    |  |  |  +--rw section
+    |  |  |  |  +--rw header
+    |  |  |  |  |  +--rw size?   uint16
+    |  |  |  |  +--rw payload
+    |  |  |  |     +--rw size?   uint16
+    |  |  |  +--rw source
+    |  |  |  |  +--rw address?   empty
+    |  |  |  |  +--rw mask!
+    |  |  |  |  |  +--rw minimum-mask?   uint8
+    |  |  |  |  +--rw prefix!
+    |  |  |  |     +--rw minimum-mask?   uint8
+    |  |  |  +--rw traffic-class?    empty
+    |  |  |  +--rw version?          empty
+    |  |  +--rw metadata
+    |  |  |  +--rw clock-rate?               empty
+    |  |  |  +--rw global-session-id?        empty
+    |  |  |  +--rw multi-party-session-id?   empty
+    |  |  +--rw monitor
+    |  |  |  +--rw event?   empty
+    |  |  +--rw mpls
+    |  |  |  +--rw label
+    |  |  |     +--rw one
+    |  |  |     |  +--rw details?   empty
+    |  |  |     |  +--rw exp?       empty
+    |  |  |     |  +--rw ttl?       empty
+    |  |  |     |  +--rw type?      empty
+    |  |  |     +--rw two
+    |  |  |     |  +--rw details?   empty
+    |  |  |     +--rw three
+    |  |  |     |  +--rw details?   empty
+    |  |  |     +--rw four
+    |  |  |     |  +--rw details?   empty
+    |  |  |     +--rw five
+    |  |  |     |  +--rw details?   empty
+    |  |  |     +--rw six
+    |  |  |        +--rw details?   empty
+    |  |  +--rw network
+    |  |  |  +--rw delay
+    |  |  |     +--rw sample?   empty
+    |  |  |     +--rw sum?      empty
+    |  |  +--rw pfr
+    |  |  |  +--rw label
+    |  |  |  |  +--rw identifier?   empty
+    |  |  |  +--rw one-way-delay
+    |  |  |  |  +--rw samples?   empty
+    |  |  |  |  +--rw sum?       empty
+    |  |  |  +--rw service
+    |  |  |  |  +--rw provider?     empty
+    |  |  |  |  +--rw tag?          empty
+    |  |  |  |  +--rw identifier?   empty
+    |  |  |  +--rw site
+    |  |  |     +--rw destination
+    |  |  |     |  +--rw id
+    |  |  |     |  |  +--rw ipv4?   empty
+    |  |  |     |  +--rw prefix
+    |  |  |     |     +--rw ipv4?   empty
+    |  |  |     |     +--rw mask
+    |  |  |     |        +--rw ipv4?   empty
+    |  |  |     +--rw source
+    |  |  |        +--rw id
+    |  |  |        |  +--rw ipv4?   empty
+    |  |  |        +--rw prefix
+    |  |  |           +--rw ipv4?   empty
+    |  |  |           +--rw mask
+    |  |  |              +--rw ipv4?   empty
+    |  |  +--rw policy
+    |  |  |  +--rw performance-monitor
+    |  |  |  |  +--rw classification
+    |  |  |  |     +--rw hierarchy?   empty
+    |  |  |  +--rw qos
+    |  |  |     +--rw classification
+    |  |  |     |  +--rw hierarchy?   empty
+    |  |  |     +--rw queue
+    |  |  |        +--rw drops?   empty
+    |  |  |        +--rw index?   empty
+    |  |  +--rw routing
+    |  |  |  +--rw destination
+    |  |  |  |  +--rw as!
+    |  |  |  |  |  +--rw as4-octet?   empty
+    |  |  |  |  |  +--rw peer!
+    |  |  |  |  |     +--rw peer4-octet?   empty
+    |  |  |  |  +--rw traffic-index?   empty
+    |  |  |  +--rw forwarding-status!
+    |  |  |  |  +--rw reason?   empty
+    |  |  |  +--rw is-multicast?        empty
+    |  |  |  +--rw next-hop
+    |  |  |  |  +--rw address
+    |  |  |  |     +--rw ipv4!
+    |  |  |  |     |  +--rw bgp?   empty
+    |  |  |  |     +--rw ipv6!
+    |  |  |  |        +--rw bgp?   empty
+    |  |  |  +--rw pw
+    |  |  |  |  +--rw destination
+    |  |  |  |     +--rw address?   empty
+    |  |  |  +--rw source
+    |  |  |  |  +--rw as!
+    |  |  |  |  |  +--rw as4-octet?   empty
+    |  |  |  |  |  +--rw peer!
+    |  |  |  |  |     +--rw peer4-octet?   empty
+    |  |  |  |  +--rw traffic-index?   empty
+    |  |  |  +--rw vrf
+    |  |  |     +--rw input?    empty
+    |  |  |     +--rw output?   empty
+    |  |  +--rw services
+    |  |  |  +--rw waas
+    |  |  |     +--rw passthrough-reason?   empty
+    |  |  |     +--rw segment!
+    |  |  |        +--rw account-on-resolution?   empty
+    |  |  +--rw timestamp
+    |  |  |  +--rw absolute
+    |  |  |  |  +--rw first?                 empty
+    |  |  |  |  +--rw last?                  empty
+    |  |  |  |  +--rw monitoring-interval
+    |  |  |  |     +--rw end?     empty
+    |  |  |  |     +--rw start?   empty
+    |  |  |  +--rw interval?     empty
+    |  |  |  +--rw sys-uptime
+    |  |  |     +--rw first?   empty
+    |  |  |     +--rw last?    empty
+    |  |  +--rw transport
+    |  |     +--rw bytes
+    |  |     |  +--rw expected?       empty
+    |  |     |  +--rw lost!
+    |  |     |  |  +--rw rate?   empty
+    |  |     |  +--rw out-of-order?   empty
+    |  |     +--rw destination-port?   empty
+    |  |     +--rw icmp
+    |  |     |  +--rw ipv4
+    |  |     |  |  +--rw code?   empty
+    |  |     |  |  +--rw type?   empty
+    |  |     |  +--rw ipv6
+    |  |     |     +--rw code?   empty
+    |  |     |     +--rw type?   empty
+    |  |     +--rw igmp
+    |  |     |  +--rw type?   empty
+    |  |     +--rw source-port?        empty
+    |  |     +--rw tcp
+    |  |     |  +--rw acknowledgement-number?   empty
+    |  |     |  +--rw destination-port?         empty
+    |  |     |  +--rw flags!
+    |  |     |  |  +--rw ack?   empty
+    |  |     |  |  +--rw cwr?   empty
+    |  |     |  |  +--rw ece?   empty
+    |  |     |  |  +--rw fin?   empty
+    |  |     |  |  +--rw psh?   empty
+    |  |     |  |  +--rw rst?   empty
+    |  |     |  |  +--rw syn?   empty
+    |  |     |  |  +--rw urg?   empty
+    |  |     |  +--rw flow
+    |  |     |  |  +--rw count?   empty
+    |  |     |  +--rw header-length?            empty
+    |  |     |  +--rw maximum-segment-size?     empty
+    |  |     |  +--rw option
+    |  |     |  |  +--rw map!
+    |  |     |  |     +--rw long?   empty
+    |  |     |  +--rw sequence-number?          empty
+    |  |     |  +--rw source-port?              empty
+    |  |     |  +--rw urgent-pointer?           empty
+    |  |     |  +--rw window-size!
+    |  |     |     +--rw average!
+    |  |     |     |  +--rw sum?   empty
+    |  |     |     +--rw maximum?   empty
+    |  |     |     +--rw minimum?   empty
+    |  |     |     +--rw sum?       empty
+    |  |     +--rw udp
+    |  |     |  +--rw destination-port?   empty
+    |  |     |  +--rw message-length?     empty
+    |  |     |  +--rw source-port?        empty
+    |  |     +--rw event
+    |  |     |  +--rw packet-loss
+    |  |     |     +--rw counter!
+    |  |     |        +--rw max?   empty
+    |  |     |        +--rw min?   empty
+    |  |     +--rw packets
+    |  |     |  +--rw expected
+    |  |     |  |  +--rw counter?   empty
+    |  |     |  +--rw lost
+    |  |     |  |  +--rw counter!
+    |  |     |  |  |  +--rw max?   empty
+    |  |     |  |  |  +--rw min?   empty
+    |  |     |  |  +--rw rate!
+    |  |     |  |     +--rw max?   empty
+    |  |     |  |     +--rw min?   empty
+    |  |     |  +--rw out-of-order?   empty
+    |  |     +--rw round-trip-time!
+    |  |     |  +--rw max?       empty
+    |  |     |  +--rw min?       empty
+    |  |     |  +--rw samples?   empty
+    |  |     |  +--rw sum?       empty
+    |  |     +--rw rtp
+    |  |        +--rw flow
+    |  |        |  +--rw count?   empty
+    |  |        +--rw jitter
+    |  |        |  +--rw maximum?   empty
+    |  |        |  +--rw mean!
+    |  |        |  |  +--rw sum?   empty
+    |  |        |  +--rw minimum?   empty
+    |  |        +--rw payload-type?   empty
+    |  |        +--rw ssrc?           empty
+    |  +--rw default
+    |  |  +--rw collect
+    |  |  |  +--rw application
+    |  |  |  |  +--rw dns
+    |  |  |  |  |  +--rw domain-name?   empty
+    |  |  |  |  +--rw http
+    |  |  |  |  |  +--rw host?         empty
+    |  |  |  |  |  +--rw referer?      empty
+    |  |  |  |  |  +--rw uri
+    |  |  |  |  |  |  +--rw statistics?   empty
+    |  |  |  |  |  +--rw url?          empty
+    |  |  |  |  |  +--rw user-agent?   empty
+    |  |  |  |  +--rw media
+    |  |  |  |  |  +--rw bytes
+    |  |  |  |  |  |  +--rw counter!
+    |  |  |  |  |  |  |  +--rw long?   empty
+    |  |  |  |  |  |  +--rw rate!
+    |  |  |  |  |  |     +--rw per-flow!
+    |  |  |  |  |  |        +--rw max?   empty
+    |  |  |  |  |  |        +--rw min?   empty
+    |  |  |  |  |  +--rw event?     empty
+    |  |  |  |  |  +--rw packets
+    |  |  |  |  |     +--rw counter!
+    |  |  |  |  |     |  +--rw long?   empty
+    |  |  |  |  |     +--rw rate!
+    |  |  |  |  |        +--rw variation!
+    |  |  |  |  |           +--rw max?   empty
+    |  |  |  |  |           +--rw min?   empty
+    |  |  |  |  |           +--rw sum?   empty
+    |  |  |  |  +--rw name!
+    |  |  |  |  |  +--rw account-on-resolution?   empty
+    |  |  |  |  +--rw nntp
+    |  |  |  |  |  +--rw group-name?   empty
+    |  |  |  |  +--rw pop3
+    |  |  |  |  |  +--rw server?   empty
+    |  |  |  |  +--rw rtmp
+    |  |  |  |  |  +--rw pageUrl?   empty
+    |  |  |  |  +--rw rtsp
+    |  |  |  |  |  +--rw host?   empty
+    |  |  |  |  +--rw sip
+    |  |  |  |  |  +--rw destination?   empty
+    |  |  |  |  |  +--rw source?        empty
+    |  |  |  |  +--rw smtp
+    |  |  |  |  |  +--rw sender?   empty
+    |  |  |  |  |  +--rw server?   empty
+    |  |  |  |  +--rw ssl
+    |  |  |  |  |  +--rw common-name?   empty
+    |  |  |  |  +--rw vendor?    empty
+    |  |  |  |  +--rw version?   empty
+    |  |  |  +--rw connection
+    |  |  |  |  +--rw client
+    |  |  |  |  |  +--rw all?         empty
+    |  |  |  |  |  +--rw counter
+    |  |  |  |  |  |  +--rw bytes
+    |  |  |  |  |  |  |  +--rw long?            empty
+    |  |  |  |  |  |  |  +--rw network
+    |  |  |  |  |  |  |  |  +--rw long?   empty
+    |  |  |  |  |  |  |  +--rw retransmitted?   empty
+    |  |  |  |  |  |  |  +--rw transport
+    |  |  |  |  |  |  |     +--rw long?   empty
+    |  |  |  |  |  |  +--rw packets
+    |  |  |  |  |  |     +--rw long?            empty
+    |  |  |  |  |  |     +--rw retransmitted?   empty
+    |  |  |  |  |  +--rw ipv4
+    |  |  |  |  |  |  +--rw address?   empty
+    |  |  |  |  |  +--rw ipv6
+    |  |  |  |  |  |  +--rw address?   empty
+    |  |  |  |  |  +--rw transport
+    |  |  |  |  |     +--rw port?   empty
+    |  |  |  |  +--rw delay
+    |  |  |  |  |  +--rw all?           empty
+    |  |  |  |  |  +--rw application
+    |  |  |  |  |  |  +--rw max?   empty
+    |  |  |  |  |  |  +--rw min?   empty
+    |  |  |  |  |  |  +--rw sum?   empty
+    |  |  |  |  |  +--rw network
+    |  |  |  |  |  |  +--rw client-to-server
+    |  |  |  |  |  |  |  +--rw max?           empty
+    |  |  |  |  |  |  |  +--rw min?           empty
+    |  |  |  |  |  |  |  +--rw num-samples?   empty
+    |  |  |  |  |  |  |  +--rw sum?           empty
+    |  |  |  |  |  |  +--rw long-lived
+    |  |  |  |  |  |  |  +--rw client-to-serve
+    |  |  |  |  |  |  |  |  +--rw sum?   empty
+    |  |  |  |  |  |  |  +--rw to-client
+    |  |  |  |  |  |  |  |  +--rw sum?   empty
+    |  |  |  |  |  |  |  +--rw to-serve
+    |  |  |  |  |  |  |     +--rw sum?   empty
+    |  |  |  |  |  |  +--rw to-client
+    |  |  |  |  |  |  |  +--rw max?           empty
+    |  |  |  |  |  |  |  +--rw min?           empty
+    |  |  |  |  |  |  |  +--rw num-samples?   empty
+    |  |  |  |  |  |  |  +--rw sum?           empty
+    |  |  |  |  |  |  +--rw to-server
+    |  |  |  |  |  |     +--rw max?           empty
+    |  |  |  |  |  |     +--rw min?           empty
+    |  |  |  |  |  |     +--rw num-samples?   empty
+    |  |  |  |  |  |     +--rw sum?           empty
+    |  |  |  |  |  +--rw response
+    |  |  |  |  |     +--rw client-to-server
+    |  |  |  |  |     |  +--rw max?   empty
+    |  |  |  |  |     |  +--rw min?   empty
+    |  |  |  |  |     |  +--rw sum?   empty
+    |  |  |  |  |     +--rw to-server
+    |  |  |  |  |        +--rw histogram?   enumeration
+    |  |  |  |  |        +--rw max?         empty
+    |  |  |  |  |        +--rw min?         empty
+    |  |  |  |  |        +--rw sum?         empty
+    |  |  |  |  +--rw id?                empty
+    |  |  |  |  +--rw initiator?         empty
+    |  |  |  |  +--rw new-connections?   empty
+    |  |  |  |  +--rw server
+    |  |  |  |  |  +--rw all?         empty
+    |  |  |  |  |  +--rw counter
+    |  |  |  |  |  |  +--rw bytes
+    |  |  |  |  |  |  |  +--rw long?            empty
+    |  |  |  |  |  |  |  +--rw network
+    |  |  |  |  |  |  |  |  +--rw long?   empty
+    |  |  |  |  |  |  |  +--rw retransmitted?   empty
+    |  |  |  |  |  |  |  +--rw transport
+    |  |  |  |  |  |  |     +--rw long?   empty
+    |  |  |  |  |  |  +--rw packets
+    |  |  |  |  |  |  |  +--rw long?            empty
+    |  |  |  |  |  |  |  +--rw retransmitted?   empty
+    |  |  |  |  |  |  +--rw responses?   empty
+    |  |  |  |  |  +--rw ipv4
+    |  |  |  |  |  |  +--rw address?   empty
+    |  |  |  |  |  +--rw ipv6
+    |  |  |  |  |  |  +--rw address?   empty
+    |  |  |  |  |  +--rw transport
+    |  |  |  |  |     +--rw port?   empty
+    |  |  |  |  +--rw sum-duration?      empty
+    |  |  |  |  +--rw transaction
+    |  |  |  |  |  +--rw all?        empty
+    |  |  |  |  |  +--rw counter
+    |  |  |  |  |  |  +--rw complete?   empty
+    |  |  |  |  |  +--rw duration
+    |  |  |  |  |     +--rw max?   empty
+    |  |  |  |  |     +--rw min?   empty
+    |  |  |  |  |     +--rw sum?   empty
+    |  |  |  |  +--rw transaction-id?    empty
+    |  |  |  +--rw counter
+    |  |  |  |  +--rw bytes!
+    |  |  |  |  |  +--rw long?      empty
+    |  |  |  |  |  +--rw rate!
+    |  |  |  |  |  |  +--rw per-flow!
+    |  |  |  |  |  |     +--rw max?   empty
+    |  |  |  |  |  |     +--rw min?   empty
+    |  |  |  |  |  +--rw squared
+    |  |  |  |  |     +--rw long?   empty
+    |  |  |  |  +--rw flows?     empty
+    |  |  |  |  +--rw packets!
+    |  |  |  |     +--rw dropped?   empty
+    |  |  |  |     +--rw long?      empty
+    |  |  |  |     +--rw rate!
+    |  |  |  |        +--rw per-flow!
+    |  |  |  |           +--rw max?   empty
+    |  |  |  |           +--rw min?   empty
+    |  |  |  +--rw datalink
+    |  |  |  |  +--rw destination-vlan-id?   empty
+    |  |  |  |  +--rw dot1q
+    |  |  |  |  |  +--rw priority?   empty
+    |  |  |  |  |  +--rw vlan
+    |  |  |  |  |     +--rw input?    empty
+    |  |  |  |  |     +--rw output?   empty
+    |  |  |  |  +--rw ethertype?             empty
+    |  |  |  |  +--rw vlan?                  enumeration
+    |  |  |  |  +--rw mac
+    |  |  |  |  |  +--rw destination
+    |  |  |  |  |  |  +--rw address
+    |  |  |  |  |  |     +--rw input?    empty
+    |  |  |  |  |  |     +--rw output?   empty
+    |  |  |  |  |  +--rw source
+    |  |  |  |  |     +--rw address
+    |  |  |  |  |        +--rw input?    empty
+    |  |  |  |  |        +--rw output?   empty
+    |  |  |  |  +--rw source-vlan-id?        empty
+    |  |  |  +--rw flow
+    |  |  |  |  +--rw cts
+    |  |  |  |  |  +--rw destination
+    |  |  |  |  |  |  +--rw group-tag?   empty
+    |  |  |  |  |  +--rw source
+    |  |  |  |  |     +--rw group-tag?   empty
+    |  |  |  |  +--rw direction?     empty
+    |  |  |  |  +--rw observation
+    |  |  |  |  |  +--rw point?   empty
+    |  |  |  |  +--rw sampler?       empty
+    |  |  |  |  +--rw end-reason?    empty
+    |  |  |  +--rw interface
+    |  |  |  |  +--rw input!
+    |  |  |  |  |  +--rw snmp?   empty
+    |  |  |  |  +--rw output!
+    |  |  |  |     +--rw snmp?   empty
+    |  |  |  +--rw ipv4
+    |  |  |  |  +--rw destination
+    |  |  |  |  |  +--rw address?   empty
+    |  |  |  |  |  +--rw mask!
+    |  |  |  |  |  |  +--rw minimum-mask?   uint8
+    |  |  |  |  |  +--rw prefix!
+    |  |  |  |  |     +--rw minimum-mask?   uint8
+    |  |  |  |  +--rw dscp?            empty
+    |  |  |  |  +--rw fragmentation
+    |  |  |  |  |  +--rw flags?    empty
+    |  |  |  |  |  +--rw offset?   empty
+    |  |  |  |  +--rw header-length?   empty
+    |  |  |  |  +--rw id?              empty
+    |  |  |  |  +--rw length
+    |  |  |  |  |  +--rw header?    empty
+    |  |  |  |  |  +--rw payload?   empty
+    |  |  |  |  |  +--rw total!
+    |  |  |  |  |     +--rw maximum?   empty
+    |  |  |  |  |     +--rw minimum?   empty
+    |  |  |  |  +--rw option
+    |  |  |  |  |  +--rw map?   empty
+    |  |  |  |  +--rw precedence?      empty
+    |  |  |  |  +--rw protocol?        empty
+    |  |  |  |  +--rw section
+    |  |  |  |  |  +--rw header
+    |  |  |  |  |  |  +--rw size?   uint16
+    |  |  |  |  |  +--rw payload
+    |  |  |  |  |     +--rw size?   uint16
+    |  |  |  |  +--rw source
+    |  |  |  |  |  +--rw address?   empty
+    |  |  |  |  |  +--rw mask!
+    |  |  |  |  |  |  +--rw minimum-mask?   uint8
+    |  |  |  |  |  +--rw prefix!
+    |  |  |  |  |     +--rw minimum-mask?   uint8
+    |  |  |  |  +--rw tos?             empty
+    |  |  |  |  +--rw total-length!
+    |  |  |  |  |  +--rw maximum?   empty
+    |  |  |  |  |  +--rw minimum?   empty
+    |  |  |  |  +--rw ttl!
+    |  |  |  |  |  +--rw maximum?   empty
+    |  |  |  |  |  +--rw minimum?   empty
+    |  |  |  |  +--rw version?         empty
+    |  |  |  +--rw ipv6
+    |  |  |  |  +--rw destination
+    |  |  |  |  |  +--rw address?   empty
+    |  |  |  |  |  +--rw mask!
+    |  |  |  |  |  |  +--rw minimum-mask?   uint8
+    |  |  |  |  |  +--rw prefix!
+    |  |  |  |  |     +--rw minimum-mask?   uint8
+    |  |  |  |  +--rw dscp?             empty
+    |  |  |  |  +--rw extension
+    |  |  |  |  |  +--rw map?   empty
+    |  |  |  |  +--rw flow-label?       empty
+    |  |  |  |  +--rw fragmentation
+    |  |  |  |  |  +--rw flags?    empty
+    |  |  |  |  |  +--rw id?       empty
+    |  |  |  |  |  +--rw offset?   empty
+    |  |  |  |  +--rw hop-limit!
+    |  |  |  |  |  +--rw maximum?   empty
+    |  |  |  |  |  +--rw minimum?   empty
+    |  |  |  |  +--rw length
+    |  |  |  |  |  +--rw header?    empty
+    |  |  |  |  |  +--rw payload?   empty
+    |  |  |  |  |  +--rw total!
+    |  |  |  |  |     +--rw maximum?   empty
+    |  |  |  |  |     +--rw minimum?   empty
+    |  |  |  |  +--rw next-header?      empty
+    |  |  |  |  +--rw payload-length?   empty
+    |  |  |  |  +--rw precedence?       empty
+    |  |  |  |  +--rw protocol?         empty
+    |  |  |  |  +--rw section
+    |  |  |  |  |  +--rw header
+    |  |  |  |  |  |  +--rw size?   uint16
+    |  |  |  |  |  +--rw payload
+    |  |  |  |  |     +--rw size?   uint16
+    |  |  |  |  +--rw source
+    |  |  |  |  |  +--rw address?   empty
+    |  |  |  |  |  +--rw mask!
+    |  |  |  |  |  |  +--rw minimum-mask?   uint8
+    |  |  |  |  |  +--rw prefix!
+    |  |  |  |  |     +--rw minimum-mask?   uint8
+    |  |  |  |  +--rw traffic-class?    empty
+    |  |  |  |  +--rw version?          empty
+    |  |  |  +--rw metadata
+    |  |  |  |  +--rw clock-rate?               empty
+    |  |  |  |  +--rw global-session-id?        empty
+    |  |  |  |  +--rw multi-party-session-id?   empty
+    |  |  |  +--rw monitor
+    |  |  |  |  +--rw event?   empty
+    |  |  |  +--rw mpls
+    |  |  |  |  +--rw label
+    |  |  |  |     +--rw one
+    |  |  |  |     |  +--rw details?   empty
+    |  |  |  |     |  +--rw exp?       empty
+    |  |  |  |     |  +--rw ttl?       empty
+    |  |  |  |     |  +--rw type?      empty
+    |  |  |  |     +--rw two
+    |  |  |  |     |  +--rw details?   empty
+    |  |  |  |     +--rw three
+    |  |  |  |     |  +--rw details?   empty
+    |  |  |  |     +--rw four
+    |  |  |  |     |  +--rw details?   empty
+    |  |  |  |     +--rw five
+    |  |  |  |     |  +--rw details?   empty
+    |  |  |  |     +--rw six
+    |  |  |  |        +--rw details?   empty
+    |  |  |  +--rw network
+    |  |  |  |  +--rw delay
+    |  |  |  |     +--rw sample?   empty
+    |  |  |  |     +--rw sum?      empty
+    |  |  |  +--rw pfr
+    |  |  |  |  +--rw label
+    |  |  |  |  |  +--rw identifier?   empty
+    |  |  |  |  +--rw one-way-delay
+    |  |  |  |  |  +--rw samples?   empty
+    |  |  |  |  |  +--rw sum?       empty
+    |  |  |  |  +--rw service
+    |  |  |  |  |  +--rw provider?     empty
+    |  |  |  |  |  +--rw tag?          empty
+    |  |  |  |  |  +--rw identifier?   empty
+    |  |  |  |  +--rw site
+    |  |  |  |     +--rw destination
+    |  |  |  |     |  +--rw id
+    |  |  |  |     |  |  +--rw ipv4?   empty
+    |  |  |  |     |  +--rw prefix
+    |  |  |  |     |     +--rw ipv4?   empty
+    |  |  |  |     |     +--rw mask
+    |  |  |  |     |        +--rw ipv4?   empty
+    |  |  |  |     +--rw source
+    |  |  |  |        +--rw id
+    |  |  |  |        |  +--rw ipv4?   empty
+    |  |  |  |        +--rw prefix
+    |  |  |  |           +--rw ipv4?   empty
+    |  |  |  |           +--rw mask
+    |  |  |  |              +--rw ipv4?   empty
+    |  |  |  +--rw policy
+    |  |  |  |  +--rw performance-monitor
+    |  |  |  |  |  +--rw classification
+    |  |  |  |  |     +--rw hierarchy?   empty
+    |  |  |  |  +--rw qos
+    |  |  |  |     +--rw classification
+    |  |  |  |     |  +--rw hierarchy?   empty
+    |  |  |  |     +--rw queue
+    |  |  |  |        +--rw drops?   empty
+    |  |  |  |        +--rw index?   empty
+    |  |  |  +--rw routing
+    |  |  |  |  +--rw destination
+    |  |  |  |  |  +--rw as!
+    |  |  |  |  |  |  +--rw as4-octet?   empty
+    |  |  |  |  |  |  +--rw peer!
+    |  |  |  |  |  |     +--rw peer4-octet?   empty
+    |  |  |  |  |  +--rw traffic-index?   empty
+    |  |  |  |  +--rw forwarding-status!
+    |  |  |  |  |  +--rw reason?   empty
+    |  |  |  |  +--rw is-multicast?        empty
+    |  |  |  |  +--rw next-hop
+    |  |  |  |  |  +--rw address
+    |  |  |  |  |     +--rw ipv4!
+    |  |  |  |  |     |  +--rw bgp?   empty
+    |  |  |  |  |     +--rw ipv6!
+    |  |  |  |  |        +--rw bgp?   empty
+    |  |  |  |  +--rw pw
+    |  |  |  |  |  +--rw destination
+    |  |  |  |  |     +--rw address?   empty
+    |  |  |  |  +--rw source
+    |  |  |  |  |  +--rw as!
+    |  |  |  |  |  |  +--rw as4-octet?   empty
+    |  |  |  |  |  |  +--rw peer!
+    |  |  |  |  |  |     +--rw peer4-octet?   empty
+    |  |  |  |  |  +--rw traffic-index?   empty
+    |  |  |  |  +--rw vrf
+    |  |  |  |     +--rw input?    empty
+    |  |  |  |     +--rw output?   empty
+    |  |  |  +--rw services
+    |  |  |  |  +--rw waas
+    |  |  |  |     +--rw passthrough-reason?   empty
+    |  |  |  |     +--rw segment!
+    |  |  |  |        +--rw account-on-resolution?   empty
+    |  |  |  +--rw timestamp
+    |  |  |  |  +--rw absolute
+    |  |  |  |  |  +--rw first?                 empty
+    |  |  |  |  |  +--rw last?                  empty
+    |  |  |  |  |  +--rw monitoring-interval
+    |  |  |  |  |     +--rw end?     empty
+    |  |  |  |  |     +--rw start?   empty
+    |  |  |  |  +--rw interval?     empty
+    |  |  |  |  +--rw sys-uptime
+    |  |  |  |     +--rw first?   empty
+    |  |  |  |     +--rw last?    empty
+    |  |  |  +--rw transport
+    |  |  |     +--rw bytes
+    |  |  |     |  +--rw expected?       empty
+    |  |  |     |  +--rw lost!
+    |  |  |     |  |  +--rw rate?   empty
+    |  |  |     |  +--rw out-of-order?   empty
+    |  |  |     +--rw destination-port?   empty
+    |  |  |     +--rw icmp
+    |  |  |     |  +--rw ipv4
+    |  |  |     |  |  +--rw code?   empty
+    |  |  |     |  |  +--rw type?   empty
+    |  |  |     |  +--rw ipv6
+    |  |  |     |     +--rw code?   empty
+    |  |  |     |     +--rw type?   empty
+    |  |  |     +--rw igmp
+    |  |  |     |  +--rw type?   empty
+    |  |  |     +--rw source-port?        empty
+    |  |  |     +--rw tcp
+    |  |  |     |  +--rw acknowledgement-number?   empty
+    |  |  |     |  +--rw destination-port?         empty
+    |  |  |     |  +--rw flags!
+    |  |  |     |  |  +--rw ack?   empty
+    |  |  |     |  |  +--rw cwr?   empty
+    |  |  |     |  |  +--rw ece?   empty
+    |  |  |     |  |  +--rw fin?   empty
+    |  |  |     |  |  +--rw psh?   empty
+    |  |  |     |  |  +--rw rst?   empty
+    |  |  |     |  |  +--rw syn?   empty
+    |  |  |     |  |  +--rw urg?   empty
+    |  |  |     |  +--rw flow
+    |  |  |     |  |  +--rw count?   empty
+    |  |  |     |  +--rw header-length?            empty
+    |  |  |     |  +--rw maximum-segment-size?     empty
+    |  |  |     |  +--rw option
+    |  |  |     |  |  +--rw map!
+    |  |  |     |  |     +--rw long?   empty
+    |  |  |     |  +--rw sequence-number?          empty
+    |  |  |     |  +--rw source-port?              empty
+    |  |  |     |  +--rw urgent-pointer?           empty
+    |  |  |     |  +--rw window-size!
+    |  |  |     |     +--rw average!
+    |  |  |     |     |  +--rw sum?   empty
+    |  |  |     |     +--rw maximum?   empty
+    |  |  |     |     +--rw minimum?   empty
+    |  |  |     |     +--rw sum?       empty
+    |  |  |     +--rw udp
+    |  |  |     |  +--rw destination-port?   empty
+    |  |  |     |  +--rw message-length?     empty
+    |  |  |     |  +--rw source-port?        empty
+    |  |  |     +--rw event
+    |  |  |     |  +--rw packet-loss
+    |  |  |     |     +--rw counter!
+    |  |  |     |        +--rw max?   empty
+    |  |  |     |        +--rw min?   empty
+    |  |  |     +--rw packets
+    |  |  |     |  +--rw expected
+    |  |  |     |  |  +--rw counter?   empty
+    |  |  |     |  +--rw lost
+    |  |  |     |  |  +--rw counter!
+    |  |  |     |  |  |  +--rw max?   empty
+    |  |  |     |  |  |  +--rw min?   empty
+    |  |  |     |  |  +--rw rate!
+    |  |  |     |  |     +--rw max?   empty
+    |  |  |     |  |     +--rw min?   empty
+    |  |  |     |  +--rw out-of-order?   empty
+    |  |  |     +--rw round-trip-time!
+    |  |  |     |  +--rw max?       empty
+    |  |  |     |  +--rw min?       empty
+    |  |  |     |  +--rw samples?   empty
+    |  |  |     |  +--rw sum?       empty
+    |  |  |     +--rw rtp
+    |  |  |        +--rw flow
+    |  |  |        |  +--rw count?   empty
+    |  |  |        +--rw jitter
+    |  |  |        |  +--rw maximum?   empty
+    |  |  |        |  +--rw mean!
+    |  |  |        |  |  +--rw sum?   empty
+    |  |  |        |  +--rw minimum?   empty
+    |  |  |        +--rw payload-type?   empty
+    |  |  |        +--rw ssrc?           empty
+    |  |  +--rw description?   string
+    |  |  +--rw match
+    |  |     +--rw application
+    |  |     |  +--rw name!
+    |  |     |  |  +--rw account-on-resolution?   empty
+    |  |     |  +--rw vendor?    empty
+    |  |     |  +--rw version?   empty
+    |  |     +--rw connection
+    |  |     |  +--rw client
+    |  |     |  |  +--rw ipv4
+    |  |     |  |  |  +--rw address?   empty
+    |  |     |  |  +--rw ipv6
+    |  |     |  |  |  +--rw address?   empty
+    |  |     |  |  +--rw transport
+    |  |     |  |     +--rw port?   empty
+    |  |     |  +--rw id?               empty
+    |  |     |  +--rw initiator?        empty
+    |  |     |  +--rw server
+    |  |     |  |  +--rw ipv4
+    |  |     |  |  |  +--rw address?   empty
+    |  |     |  |  +--rw ipv6
+    |  |     |  |  |  +--rw address?   empty
+    |  |     |  |  +--rw transport
+    |  |     |  |     +--rw port?   empty
+    |  |     |  +--rw transaction-id?   empty
+    |  |     +--rw datalink
+    |  |     |  +--rw destination-vlan-id?   empty
+    |  |     |  +--rw dot1q
+    |  |     |  |  +--rw priority?   empty
+    |  |     |  |  +--rw vlan
+    |  |     |  |     +--rw input?    empty
+    |  |     |  |     +--rw output?   empty
+    |  |     |  +--rw ethertype?             empty
+    |  |     |  +--rw vlan?                  enumeration
+    |  |     |  +--rw mac
+    |  |     |  |  +--rw destination
+    |  |     |  |  |  +--rw address
+    |  |     |  |  |     +--rw input?    empty
+    |  |     |  |  |     +--rw output?   empty
+    |  |     |  |  +--rw source
+    |  |     |  |     +--rw address
+    |  |     |  |        +--rw input?    empty
+    |  |     |  |        +--rw output?   empty
+    |  |     |  +--rw source-vlan-id?        empty
+    |  |     +--rw flow
+    |  |     |  +--rw cts
+    |  |     |  |  +--rw destination
+    |  |     |  |  |  +--rw group-tag?   empty
+    |  |     |  |  +--rw source
+    |  |     |  |     +--rw group-tag?   empty
+    |  |     |  +--rw direction?     empty
+    |  |     |  +--rw observation
+    |  |     |  |  +--rw point?   empty
+    |  |     |  +--rw sampler?       empty
+    |  |     +--rw interface
+    |  |     |  +--rw input!
+    |  |     |  |  +--rw snmp?   empty
+    |  |     |  +--rw output!
+    |  |     |     +--rw snmp?   empty
+    |  |     +--rw ipv4
+    |  |     |  +--rw destination
+    |  |     |  |  +--rw address?   empty
+    |  |     |  |  +--rw mask!
+    |  |     |  |  |  +--rw minimum-mask?   uint8
+    |  |     |  |  +--rw prefix!
+    |  |     |  |     +--rw minimum-mask?   uint8
+    |  |     |  +--rw dscp?            empty
+    |  |     |  +--rw fragmentation
+    |  |     |  |  +--rw flags?    empty
+    |  |     |  |  +--rw offset?   empty
+    |  |     |  +--rw header-length?   empty
+    |  |     |  +--rw id?              empty
+    |  |     |  +--rw length
+    |  |     |  |  +--rw header?    empty
+    |  |     |  |  +--rw payload?   empty
+    |  |     |  |  +--rw total!
+    |  |     |  |     +--rw maximum?   empty
+    |  |     |  |     +--rw minimum?   empty
+    |  |     |  +--rw option
+    |  |     |  |  +--rw map?   empty
+    |  |     |  +--rw precedence?      empty
+    |  |     |  +--rw protocol?        empty
+    |  |     |  +--rw section
+    |  |     |  |  +--rw header
+    |  |     |  |  |  +--rw size?   uint16
+    |  |     |  |  +--rw payload
+    |  |     |  |     +--rw size?   uint16
+    |  |     |  +--rw source
+    |  |     |  |  +--rw address?   empty
+    |  |     |  |  +--rw mask!
+    |  |     |  |  |  +--rw minimum-mask?   uint8
+    |  |     |  |  +--rw prefix!
+    |  |     |  |     +--rw minimum-mask?   uint8
+    |  |     |  +--rw tos?             empty
+    |  |     |  +--rw total-length!
+    |  |     |  |  +--rw maximum?   empty
+    |  |     |  |  +--rw minimum?   empty
+    |  |     |  +--rw ttl!
+    |  |     |  |  +--rw maximum?   empty
+    |  |     |  |  +--rw minimum?   empty
+    |  |     |  +--rw version?         empty
+    |  |     +--rw ipv6
+    |  |     |  +--rw destination
+    |  |     |  |  +--rw address?   empty
+    |  |     |  |  +--rw mask!
+    |  |     |  |  |  +--rw minimum-mask?   uint8
+    |  |     |  |  +--rw prefix!
+    |  |     |  |     +--rw minimum-mask?   uint8
+    |  |     |  +--rw dscp?             empty
+    |  |     |  +--rw extension
+    |  |     |  |  +--rw map?   empty
+    |  |     |  +--rw flow-label?       empty
+    |  |     |  +--rw fragmentation
+    |  |     |  |  +--rw flags?    empty
+    |  |     |  |  +--rw id?       empty
+    |  |     |  |  +--rw offset?   empty
+    |  |     |  +--rw hop-limit!
+    |  |     |  |  +--rw maximum?   empty
+    |  |     |  |  +--rw minimum?   empty
+    |  |     |  +--rw length
+    |  |     |  |  +--rw header?    empty
+    |  |     |  |  +--rw payload?   empty
+    |  |     |  |  +--rw total!
+    |  |     |  |     +--rw maximum?   empty
+    |  |     |  |     +--rw minimum?   empty
+    |  |     |  +--rw next-header?      empty
+    |  |     |  +--rw payload-length?   empty
+    |  |     |  +--rw precedence?       empty
+    |  |     |  +--rw protocol?         empty
+    |  |     |  +--rw section
+    |  |     |  |  +--rw header
+    |  |     |  |  |  +--rw size?   uint16
+    |  |     |  |  +--rw payload
+    |  |     |  |     +--rw size?   uint16
+    |  |     |  +--rw source
+    |  |     |  |  +--rw address?   empty
+    |  |     |  |  +--rw mask!
+    |  |     |  |  |  +--rw minimum-mask?   uint8
+    |  |     |  |  +--rw prefix!
+    |  |     |  |     +--rw minimum-mask?   uint8
+    |  |     |  +--rw traffic-class?    empty
+    |  |     |  +--rw version?          empty
+    |  |     +--rw metadata
+    |  |     |  +--rw global-session-id?        empty
+    |  |     |  +--rw multi-party-session-id?   empty
+    |  |     +--rw mpls
+    |  |     |  +--rw label
+    |  |     |     +--rw one
+    |  |     |     |  +--rw details?   empty
+    |  |     |     |  +--rw exp?       empty
+    |  |     |     |  +--rw ttl?       empty
+    |  |     |     |  +--rw type?      empty
+    |  |     |     +--rw two
+    |  |     |     |  +--rw details?   empty
+    |  |     |     +--rw three
+    |  |     |     |  +--rw details?   empty
+    |  |     |     +--rw four
+    |  |     |     |  +--rw details?   empty
+    |  |     |     +--rw five
+    |  |     |     |  +--rw details?   empty
+    |  |     |     +--rw six
+    |  |     |        +--rw details?   empty
+    |  |     +--rw network
+    |  |     |  +--rw delay
+    |  |     |     +--rw sample?   empty
+    |  |     |     +--rw sum?      empty
+    |  |     +--rw pfr
+    |  |     |  +--rw label
+    |  |     |  |  +--rw identifier?   empty
+    |  |     |  +--rw one-way-delay
+    |  |     |  |  +--rw samples?   empty
+    |  |     |  |  +--rw sum?       empty
+    |  |     |  +--rw service
+    |  |     |  |  +--rw provider?     empty
+    |  |     |  |  +--rw tag?          empty
+    |  |     |  |  +--rw identifier?   empty
+    |  |     |  +--rw site
+    |  |     |     +--rw destination
+    |  |     |     |  +--rw id
+    |  |     |     |  |  +--rw ipv4?   empty
+    |  |     |     |  +--rw prefix
+    |  |     |     |     +--rw ipv4?   empty
+    |  |     |     |     +--rw mask
+    |  |     |     |        +--rw ipv4?   empty
+    |  |     |     +--rw source
+    |  |     |        +--rw id
+    |  |     |        |  +--rw ipv4?   empty
+    |  |     |        +--rw prefix
+    |  |     |           +--rw ipv4?   empty
+    |  |     |           +--rw mask
+    |  |     |              +--rw ipv4?   empty
+    |  |     +--rw policy
+    |  |     |  +--rw performance-monitor
+    |  |     |  |  +--rw classification
+    |  |     |  |     +--rw hierarchy?   empty
+    |  |     |  +--rw qos
+    |  |     |     +--rw classification
+    |  |     |     |  +--rw hierarchy?   empty
+    |  |     |     +--rw queue
+    |  |     |        +--rw drops?   empty
+    |  |     |        +--rw index?   empty
+    |  |     +--rw routing
+    |  |     |  +--rw destination
+    |  |     |  |  +--rw as!
+    |  |     |  |  |  +--rw as4-octet?   empty
+    |  |     |  |  |  +--rw peer!
+    |  |     |  |  |     +--rw peer4-octet?   empty
+    |  |     |  |  +--rw traffic-index?   empty
+    |  |     |  +--rw forwarding-status!
+    |  |     |  |  +--rw reason?   empty
+    |  |     |  +--rw is-multicast?        empty
+    |  |     |  +--rw next-hop
+    |  |     |  |  +--rw address
+    |  |     |  |     +--rw ipv4!
+    |  |     |  |     |  +--rw bgp?   empty
+    |  |     |  |     +--rw ipv6!
+    |  |     |  |        +--rw bgp?   empty
+    |  |     |  +--rw pw
+    |  |     |  |  +--rw destination
+    |  |     |  |     +--rw address?   empty
+    |  |     |  +--rw source
+    |  |     |  |  +--rw as!
+    |  |     |  |  |  +--rw as4-octet?   empty
+    |  |     |  |  |  +--rw peer!
+    |  |     |  |  |     +--rw peer4-octet?   empty
+    |  |     |  |  +--rw traffic-index?   empty
+    |  |     |  +--rw vrf
+    |  |     |     +--rw input?    empty
+    |  |     |     +--rw output?   empty
+    |  |     +--rw services
+    |  |     |  +--rw waas
+    |  |     |     +--rw passthrough-reason?   empty
+    |  |     |     +--rw segment!
+    |  |     |        +--rw account-on-resolution?   empty
+    |  |     +--rw timestamp
+    |  |     |  +--rw absolute
+    |  |     |     +--rw monitoring-interval
+    |  |     |        +--rw start?   empty
+    |  |     +--rw transport
+    |  |        +--rw bytes
+    |  |        |  +--rw expected?   empty
+    |  |        |  +--rw lost!
+    |  |        |     +--rw rate?   empty
+    |  |        +--rw rtp
+    |  |        |  +--rw ssrc?   empty
+    |  |        +--rw destination-port?   empty
+    |  |        +--rw icmp
+    |  |        |  +--rw ipv4
+    |  |        |  |  +--rw code?   empty
+    |  |        |  |  +--rw type?   empty
+    |  |        |  +--rw ipv6
+    |  |        |     +--rw code?   empty
+    |  |        |     +--rw type?   empty
+    |  |        +--rw igmp
+    |  |        |  +--rw type?   empty
+    |  |        +--rw source-port?        empty
+    |  |        +--rw tcp
+    |  |        |  +--rw acknowledgement-number?   empty
+    |  |        |  +--rw destination-port?         empty
+    |  |        |  +--rw flags!
+    |  |        |  |  +--rw ack?   empty
+    |  |        |  |  +--rw cwr?   empty
+    |  |        |  |  +--rw ece?   empty
+    |  |        |  |  +--rw fin?   empty
+    |  |        |  |  +--rw psh?   empty
+    |  |        |  |  +--rw rst?   empty
+    |  |        |  |  +--rw syn?   empty
+    |  |        |  |  +--rw urg?   empty
+    |  |        |  +--rw flow
+    |  |        |  |  +--rw count?   empty
+    |  |        |  +--rw header-length?            empty
+    |  |        |  +--rw maximum-segment-size?     empty
+    |  |        |  +--rw option
+    |  |        |  |  +--rw map!
+    |  |        |  |     +--rw long?   empty
+    |  |        |  +--rw sequence-number?          empty
+    |  |        |  +--rw source-port?              empty
+    |  |        |  +--rw urgent-pointer?           empty
+    |  |        |  +--rw window-size!
+    |  |        |     +--rw average!
+    |  |        |     |  +--rw sum?   empty
+    |  |        |     +--rw maximum?   empty
+    |  |        |     +--rw minimum?   empty
+    |  |        |     +--rw sum?       empty
+    |  |        +--rw udp
+    |  |           +--rw destination-port?   empty
+    |  |           +--rw message-length?     empty
+    |  |           +--rw source-port?        empty
+    |  +--rw description?   string
+    |  +--rw match
+    |     +--rw application
+    |     |  +--rw name!
+    |     |  |  +--rw account-on-resolution?   empty
+    |     |  +--rw vendor?    empty
+    |     |  +--rw version?   empty
+    |     +--rw connection
+    |     |  +--rw client
+    |     |  |  +--rw ipv4
+    |     |  |  |  +--rw address?   empty
+    |     |  |  +--rw ipv6
+    |     |  |  |  +--rw address?   empty
+    |     |  |  +--rw transport
+    |     |  |     +--rw port?   empty
+    |     |  +--rw id?               empty
+    |     |  +--rw initiator?        empty
+    |     |  +--rw server
+    |     |  |  +--rw ipv4
+    |     |  |  |  +--rw address?   empty
+    |     |  |  +--rw ipv6
+    |     |  |  |  +--rw address?   empty
+    |     |  |  +--rw transport
+    |     |  |     +--rw port?   empty
+    |     |  +--rw transaction-id?   empty
+    |     +--rw datalink
+    |     |  +--rw destination-vlan-id?   empty
+    |     |  +--rw dot1q
+    |     |  |  +--rw priority?   empty
+    |     |  |  +--rw vlan
+    |     |  |     +--rw input?    empty
+    |     |  |     +--rw output?   empty
+    |     |  +--rw ethertype?             empty
+    |     |  +--rw vlan?                  enumeration
+    |     |  +--rw mac
+    |     |  |  +--rw destination
+    |     |  |  |  +--rw address
+    |     |  |  |     +--rw input?    empty
+    |     |  |  |     +--rw output?   empty
+    |     |  |  +--rw source
+    |     |  |     +--rw address
+    |     |  |        +--rw input?    empty
+    |     |  |        +--rw output?   empty
+    |     |  +--rw source-vlan-id?        empty
+    |     +--rw flow
+    |     |  +--rw cts
+    |     |  |  +--rw destination
+    |     |  |  |  +--rw group-tag?   empty
+    |     |  |  +--rw source
+    |     |  |     +--rw group-tag?   empty
+    |     |  +--rw direction?     empty
+    |     |  +--rw observation
+    |     |  |  +--rw point?   empty
+    |     |  +--rw sampler?       empty
+    |     +--rw interface
+    |     |  +--rw input!
+    |     |  |  +--rw snmp?   empty
+    |     |  +--rw output!
+    |     |     +--rw snmp?   empty
+    |     +--rw ipv4
+    |     |  +--rw destination
+    |     |  |  +--rw address?   empty
+    |     |  |  +--rw mask!
+    |     |  |  |  +--rw minimum-mask?   uint8
+    |     |  |  +--rw prefix!
+    |     |  |     +--rw minimum-mask?   uint8
+    |     |  +--rw dscp?            empty
+    |     |  +--rw fragmentation
+    |     |  |  +--rw flags?    empty
+    |     |  |  +--rw offset?   empty
+    |     |  +--rw header-length?   empty
+    |     |  +--rw id?              empty
+    |     |  +--rw length
+    |     |  |  +--rw header?    empty
+    |     |  |  +--rw payload?   empty
+    |     |  |  +--rw total!
+    |     |  |     +--rw maximum?   empty
+    |     |  |     +--rw minimum?   empty
+    |     |  +--rw option
+    |     |  |  +--rw map?   empty
+    |     |  +--rw precedence?      empty
+    |     |  +--rw protocol?        empty
+    |     |  +--rw section
+    |     |  |  +--rw header
+    |     |  |  |  +--rw size?   uint16
+    |     |  |  +--rw payload
+    |     |  |     +--rw size?   uint16
+    |     |  +--rw source
+    |     |  |  +--rw address?   empty
+    |     |  |  +--rw mask!
+    |     |  |  |  +--rw minimum-mask?   uint8
+    |     |  |  +--rw prefix!
+    |     |  |     +--rw minimum-mask?   uint8
+    |     |  +--rw tos?             empty
+    |     |  +--rw total-length!
+    |     |  |  +--rw maximum?   empty
+    |     |  |  +--rw minimum?   empty
+    |     |  +--rw ttl!
+    |     |  |  +--rw maximum?   empty
+    |     |  |  +--rw minimum?   empty
+    |     |  +--rw version?         empty
+    |     +--rw ipv6
+    |     |  +--rw destination
+    |     |  |  +--rw address?   empty
+    |     |  |  +--rw mask!
+    |     |  |  |  +--rw minimum-mask?   uint8
+    |     |  |  +--rw prefix!
+    |     |  |     +--rw minimum-mask?   uint8
+    |     |  +--rw dscp?             empty
+    |     |  +--rw extension
+    |     |  |  +--rw map?   empty
+    |     |  +--rw flow-label?       empty
+    |     |  +--rw fragmentation
+    |     |  |  +--rw flags?    empty
+    |     |  |  +--rw id?       empty
+    |     |  |  +--rw offset?   empty
+    |     |  +--rw hop-limit!
+    |     |  |  +--rw maximum?   empty
+    |     |  |  +--rw minimum?   empty
+    |     |  +--rw length
+    |     |  |  +--rw header?    empty
+    |     |  |  +--rw payload?   empty
+    |     |  |  +--rw total!
+    |     |  |     +--rw maximum?   empty
+    |     |  |     +--rw minimum?   empty
+    |     |  +--rw next-header?      empty
+    |     |  +--rw payload-length?   empty
+    |     |  +--rw precedence?       empty
+    |     |  +--rw protocol?         empty
+    |     |  +--rw section
+    |     |  |  +--rw header
+    |     |  |  |  +--rw size?   uint16
+    |     |  |  +--rw payload
+    |     |  |     +--rw size?   uint16
+    |     |  +--rw source
+    |     |  |  +--rw address?   empty
+    |     |  |  +--rw mask!
+    |     |  |  |  +--rw minimum-mask?   uint8
+    |     |  |  +--rw prefix!
+    |     |  |     +--rw minimum-mask?   uint8
+    |     |  +--rw traffic-class?    empty
+    |     |  +--rw version?          empty
+    |     +--rw metadata
+    |     |  +--rw global-session-id?        empty
+    |     |  +--rw multi-party-session-id?   empty
+    |     +--rw mpls
+    |     |  +--rw label
+    |     |     +--rw one
+    |     |     |  +--rw details?   empty
+    |     |     |  +--rw exp?       empty
+    |     |     |  +--rw ttl?       empty
+    |     |     |  +--rw type?      empty
+    |     |     +--rw two
+    |     |     |  +--rw details?   empty
+    |     |     +--rw three
+    |     |     |  +--rw details?   empty
+    |     |     +--rw four
+    |     |     |  +--rw details?   empty
+    |     |     +--rw five
+    |     |     |  +--rw details?   empty
+    |     |     +--rw six
+    |     |        +--rw details?   empty
+    |     +--rw network
+    |     |  +--rw delay
+    |     |     +--rw sample?   empty
+    |     |     +--rw sum?      empty
+    |     +--rw pfr
+    |     |  +--rw label
+    |     |  |  +--rw identifier?   empty
+    |     |  +--rw one-way-delay
+    |     |  |  +--rw samples?   empty
+    |     |  |  +--rw sum?       empty
+    |     |  +--rw service
+    |     |  |  +--rw provider?     empty
+    |     |  |  +--rw tag?          empty
+    |     |  |  +--rw identifier?   empty
+    |     |  +--rw site
+    |     |     +--rw destination
+    |     |     |  +--rw id
+    |     |     |  |  +--rw ipv4?   empty
+    |     |     |  +--rw prefix
+    |     |     |     +--rw ipv4?   empty
+    |     |     |     +--rw mask
+    |     |     |        +--rw ipv4?   empty
+    |     |     +--rw source
+    |     |        +--rw id
+    |     |        |  +--rw ipv4?   empty
+    |     |        +--rw prefix
+    |     |           +--rw ipv4?   empty
+    |     |           +--rw mask
+    |     |              +--rw ipv4?   empty
+    |     +--rw policy
+    |     |  +--rw performance-monitor
+    |     |  |  +--rw classification
+    |     |  |     +--rw hierarchy?   empty
+    |     |  +--rw qos
+    |     |     +--rw classification
+    |     |     |  +--rw hierarchy?   empty
+    |     |     +--rw queue
+    |     |        +--rw drops?   empty
+    |     |        +--rw index?   empty
+    |     +--rw routing
+    |     |  +--rw destination
+    |     |  |  +--rw as!
+    |     |  |  |  +--rw as4-octet?   empty
+    |     |  |  |  +--rw peer!
+    |     |  |  |     +--rw peer4-octet?   empty
+    |     |  |  +--rw traffic-index?   empty
+    |     |  +--rw forwarding-status!
+    |     |  |  +--rw reason?   empty
+    |     |  +--rw is-multicast?        empty
+    |     |  +--rw next-hop
+    |     |  |  +--rw address
+    |     |  |     +--rw ipv4!
+    |     |  |     |  +--rw bgp?   empty
+    |     |  |     +--rw ipv6!
+    |     |  |        +--rw bgp?   empty
+    |     |  +--rw pw
+    |     |  |  +--rw destination
+    |     |  |     +--rw address?   empty
+    |     |  +--rw source
+    |     |  |  +--rw as!
+    |     |  |  |  +--rw as4-octet?   empty
+    |     |  |  |  +--rw peer!
+    |     |  |  |     +--rw peer4-octet?   empty
+    |     |  |  +--rw traffic-index?   empty
+    |     |  +--rw vrf
+    |     |     +--rw input?    empty
+    |     |     +--rw output?   empty
+    |     +--rw services
+    |     |  +--rw waas
+    |     |     +--rw passthrough-reason?   empty
+    |     |     +--rw segment!
+    |     |        +--rw account-on-resolution?   empty
+    |     +--rw timestamp
+    |     |  +--rw absolute
+    |     |     +--rw monitoring-interval
+    |     |        +--rw start?   empty
+    |     +--rw transport
+    |        +--rw bytes
+    |        |  +--rw expected?   empty
+    |        |  +--rw lost!
+    |        |     +--rw rate?   empty
+    |        +--rw rtp
+    |        |  +--rw ssrc?   empty
+    |        +--rw destination-port?   empty
+    |        +--rw icmp
+    |        |  +--rw ipv4
+    |        |  |  +--rw code?   empty
+    |        |  |  +--rw type?   empty
+    |        |  +--rw ipv6
+    |        |     +--rw code?   empty
+    |        |     +--rw type?   empty
+    |        +--rw igmp
+    |        |  +--rw type?   empty
+    |        +--rw source-port?        empty
+    |        +--rw tcp
+    |        |  +--rw acknowledgement-number?   empty
+    |        |  +--rw destination-port?         empty
+    |        |  +--rw flags!
+    |        |  |  +--rw ack?   empty
+    |        |  |  +--rw cwr?   empty
+    |        |  |  +--rw ece?   empty
+    |        |  |  +--rw fin?   empty
+    |        |  |  +--rw psh?   empty
+    |        |  |  +--rw rst?   empty
+    |        |  |  +--rw syn?   empty
+    |        |  |  +--rw urg?   empty
+    |        |  +--rw flow
+    |        |  |  +--rw count?   empty
+    |        |  +--rw header-length?            empty
+    |        |  +--rw maximum-segment-size?     empty
+    |        |  +--rw option
+    |        |  |  +--rw map!
+    |        |  |     +--rw long?   empty
+    |        |  +--rw sequence-number?          empty
+    |        |  +--rw source-port?              empty
+    |        |  +--rw urgent-pointer?           empty
+    |        |  +--rw window-size!
+    |        |     +--rw average!
+    |        |     |  +--rw sum?   empty
+    |        |     +--rw maximum?   empty
+    |        |     +--rw minimum?   empty
+    |        |     +--rw sum?       empty
+    |        +--rw udp
+    |           +--rw destination-port?   empty
+    |           +--rw message-length?     empty
+    |           +--rw source-port?        empty
+    +--rw exporter* [name]
+    |  +--rw name               string
+    |  +--rw description?       string
+    |  +--rw destination
+    |  |  +--rw ip?    inet:ip-address
+    |  |  +--rw vrf?   string
+    |  +--rw dscp?              uint8
+    |  +--rw export-protocol?   enumeration
+    |  +--rw option
+    |  |  +--rw application-attributes!
+    |  |  |  +--rw timeout?   uint32
+    |  |  +--rw application-table!
+    |  |  |  +--rw timeout?   uint32
+    |  |  +--rw c3pl-class-table!
+    |  |  |  +--rw timeout?   uint32
+    |  |  +--rw c3pl-policy-table!
+    |  |  |  +--rw timeout?   uint32
+    |  |  +--rw exporter-stats!
+    |  |  |  +--rw timeout?   uint32
+    |  |  +--rw interface-table!
+    |  |  |  +--rw timeout?   uint32
+    |  |  +--rw metadata-version-table!
+    |  |  |  +--rw timeout?   uint32
+    |  |  +--rw sampler-table!
+    |  |  |  +--rw timeout?   uint32
+    |  |  +--rw sub-application-table!
+    |  |  |  +--rw timeout?   uint32
+    |  |  +--rw vrf-table!
+    |  |     +--rw timeout?   uint32
+    |  +--rw output-features!
+    |  +--rw source
+    |  |  +--rw (interface-choice)?
+    |  |     +--:(AppNav-Compress)
+    |  |     |  +--rw AppNav-Compress?             uint16
+    |  |     +--:(AppNav-UnCompress)
+    |  |     |  +--rw AppNav-UnCompress?           uint16
+    |  |     +--:(ATM)
+    |  |     |  +--rw ATM?                         string
+    |  |     +--:(ATM-subinterface)
+    |  |     |  +--rw ATM-subinterface
+    |  |     |     +--rw ATM?   string
+    |  |     +--:(ATM-ACR)
+    |  |     |  +--rw ATM-ACR?                     string
+    |  |     +--:(ATM-ACRsubinterface)
+    |  |     |  +--rw ATM-ACRsubinterface
+    |  |     |     +--rw ATM-ACR?   string
+    |  |     +--:(BDI)
+    |  |     |  +--rw BDI?                         string
+    |  |     +--:(CEM)
+    |  |     |  +--rw CEM?                         string
+    |  |     +--:(CEM-ACR)
+    |  |     |  +--rw CEM-ACR?                     uint8
+    |  |     +--:(Embedded-Service-Engine)
+    |  |     |  +--rw Embedded-Service-Engine?     string
+    |  |     +--:(FastEthernet)
+    |  |     |  +--rw FastEthernet?                string
+    |  |     +--:(GigabitEthernet)
+    |  |     |  +--rw GigabitEthernet?             string
+    |  |     +--:(FiveGigabitEthernet)
+    |  |     |  +--rw FiveGigabitEthernet?         string
+    |  |     +--:(TwentyFiveGigabitEthernet)
+    |  |     |  +--rw TwentyFiveGigabitEthernet?   string
+    |  |     +--:(LISP)
+    |  |     |  +--rw LISP?                        string
+    |  |     +--:(LISP-subinterface)
+    |  |     |  +--rw LISP-subinterface
+    |  |     |     +--rw LISP?   string
+    |  |     +--:(Loopback)
+    |  |     |  +--rw Loopback?                    uint32
+    |  |     +--:(Multilink)
+    |  |     |  +--rw Multilink?                   uint16
+    |  |     +--:(nve)
+    |  |     |  +--rw nve?                         uint16
+    |  |     +--:(overlay)
+    |  |     |  +--rw overlay?                     uint16
+    |  |     +--:(Port-channel)
+    |  |     |  +--rw Port-channel?                uint32
+    |  |     +--:(Port-channel-subinterface)
+    |  |     |  +--rw Port-channel-subinterface
+    |  |     |     +--rw Port-channel?   string
+    |  |     +--:(pseudowire)
+    |  |     |  +--rw pseudowire?                  uint32
+    |  |     +--:(SM)
+    |  |     |  +--rw SM?                          string
+    |  |     +--:(Cellular)
+    |  |     |  +--rw Cellular?                    string
+    |  |     +--:(Serial)
+    |  |     |  +--rw Serial?                      string
+    |  |     +--:(TenGigabitEthernet)
+    |  |     |  +--rw TenGigabitEthernet?          string
+    |  |     +--:(Tunnel)
+    |  |     |  +--rw Tunnel?                      uint32
+    |  |     +--:(Virtual-Template)
+    |  |     |  +--rw Virtual-Template?            uint16
+    |  |     +--:(Vlan)
+    |  |     |  +--rw Vlan?                        uint16
+    |  |     +--:(VirtualPortGroup)
+    |  |     |  +--rw VirtualPortGroup?            uint16
+    |  |     +--:(vasileft)
+    |  |     |  +--rw vasileft?                    uint16
+    |  |     +--:(vasiright)
+    |  |        +--rw vasiright?                   uint16
+    |  +--rw template
+    |  |  +--rw data
+    |  |     +--rw timeout?   uint32
+    |  +--rw transport
+    |  |  +--rw udp?   uint16
+    |  +--rw ttl?               uint8
+    |  +--rw default
+    |     +--rw description?       empty
+    |     +--rw dscp?              empty
+    |     +--rw export-protocol?   empty
+    |     +--rw option
+    |     |  +--rw application-attributes!
+    |     |  +--rw c3pl-class-table!
+    |     |  +--rw c3pl-policy-table!
+    |     |  +--rw exporter-stats!
+    |     |  +--rw interface-table!
+    |     |  +--rw metadata-version-table!
+    |     |  +--rw sampler-table!
+    |     |  +--rw sub-application-table!
+    |     |  +--rw vrf-table!
+    |     +--rw template
+    |     |  +--rw data
+    |     |     +--rw timeout?   empty
+    |     +--rw transport?         empty
+    |     +--rw ttl?               empty
+    +--rw monitor* [name]
+       +--rw name           string
+       +--rw type?          enumeration
+       +--rw cache
+       |  +--rw entries?   uint32
+       |  +--rw timeout
+       |  |  +--rw active?         uint32
+       |  |  +--rw event
+       |  |  |  +--rw transaction-end?   empty
+       |  |  +--rw inactive?       uint32
+       |  |  +--rw synchronized?   uint16
+       |  |  +--rw update?         uint32
+       |  +--rw type?      enumeration
+       +--rw description?   string
+       +--rw exporter* [name]
+       |  +--rw name    string
+       +--rw history
+       |  +--rw size?      uint8
+       |  +--rw timeout?   uint8
+       +--rw record
+       |  +--rw type?      union
+       |  +--rw netflow
+       |     +--rw ipv4
+       |     |  +--rw as!
+       |     |  |  +--rw peer?   empty
+       |     |  +--rw destination-prefix!
+       |     |  |  +--rw peer?   empty
+       |     |  +--rw original-input!
+       |     |  |  +--rw peer?   empty
+       |     |  +--rw original-output!
+       |     |  |  +--rw peer?   empty
+       |     |  +--rw prefix!
+       |     |  |  +--rw peer?   empty
+       |     |  +--rw protocol-port?            empty
+       |     |  +--rw source-prefix!
+       |     |  |  +--rw peer?   empty
+       |     |  +--rw as-tos!
+       |     |  |  +--rw peer?   empty
+       |     |  +--rw bgp-nexthop-tos!
+       |     |  |  +--rw peer?   empty
+       |     |  +--rw destination-prefix-tos!
+       |     |  |  +--rw peer?   empty
+       |     |  +--rw prefix-port?              empty
+       |     |  +--rw prefix-tos!
+       |     |  |  +--rw peer?   empty
+       |     |  +--rw protocol-port-tos?        empty
+       |     |  +--rw source-prefix-tos!
+       |     |     +--rw peer?   empty
+       |     +--rw ipv6
+       |        +--rw as!
+       |        |  +--rw peer?   empty
+       |        +--rw destination-prefix!
+       |        |  +--rw peer?   empty
+       |        +--rw original-input!
+       |        |  +--rw peer?   empty
+       |        +--rw original-output!
+       |        |  +--rw peer?   empty
+       |        +--rw prefix!
+       |        |  +--rw peer?   empty
+       |        +--rw protocol-port?        empty
+       |        +--rw source-prefix!
+       |        |  +--rw peer?   empty
+       |        +--rw bgp-nexthop!
+       |           +--rw peer?   empty
+       +--rw statistics
+       |  +--rw packet
+       |     +--rw protocol?   empty
+       |     +--rw size?       empty
+       +--rw default
+          +--rw cache
+          |  +--rw entries?   empty
+          |  +--rw timeout
+          |  |  +--rw active?         empty
+          |  |  +--rw event
+          |  |  |  +--rw transaction-end?   empty
+          |  |  +--rw inactive?       empty
+          |  |  +--rw synchronized?   empty
+          |  |  +--rw update?         empty
+          |  +--rw type?      empty
+          +--rw description?   empty
+          +--rw exporter?      empty
+          +--rw record?        empty
+          +--rw statistics
+             +--rw packet
+                +--rw protocol?   empty
+                +--rw size?       empty
+  augment /ios:native/ios:sampler:
+    +--rw description?   string
+    +--rw mode
+    |  +--rw deterministic
+    |  |  +--rw number?   uint8
+    |  |  +--rw out-of?   uint16
+    |  +--rw hash
+    |  |  +--rw number?   uint8
+    |  |  +--rw out-of?   uint16
+    |  +--rw random
+    |     +--rw number?   uint8
+    |     +--rw out-of?   uint16
+    +--rw granularity
+       +--rw connection?   empty
+       +--rw packet?       empty
+  augment /ios:native/ios:interface/ios:FastEthernet/ios:ip:
+    +--rw flow
+       +--rw ingress?   empty
+       +--rw egress?    empty
+       +--rw monitor* [name]
+          +--rw name         string
+          +--rw sampler* [direction]
+          |  +--rw direction    enumeration
+          |  +--rw name?        string
+          +--rw input?       empty
+          +--rw output?      empty
+          +--rw multicast?   empty
+          +--rw unicast?     empty
+  augment /ios:native/ios:interface/ios:GigabitEthernet/ios:ip:
+    +--rw flow
+       +--rw ingress?   empty
+       +--rw egress?    empty
+       +--rw monitor* [name]
+          +--rw name         string
+          +--rw sampler* [direction]
+          |  +--rw direction    enumeration
+          |  +--rw name?        string
+          +--rw input?       empty
+          +--rw output?      empty
+          +--rw multicast?   empty
+          +--rw unicast?     empty
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet/ios:ip:
+    +--rw flow
+       +--rw ingress?   empty
+       +--rw egress?    empty
+       +--rw monitor* [name]
+          +--rw name         string
+          +--rw sampler* [direction]
+          |  +--rw direction    enumeration
+          |  +--rw name?        string
+          +--rw input?       empty
+          +--rw output?      empty
+          +--rw multicast?   empty
+          +--rw unicast?     empty
+  augment /ios:native/ios:interface/ios:FiveGigabitEthernet/ios:ip:
+    +--rw flow
+       +--rw ingress?   empty
+       +--rw egress?    empty
+       +--rw monitor* [name]
+          +--rw name         string
+          +--rw sampler* [direction]
+          |  +--rw direction    enumeration
+          |  +--rw name?        string
+          +--rw input?       empty
+          +--rw output?      empty
+          +--rw multicast?   empty
+          +--rw unicast?     empty
+  augment /ios:native/ios:interface/ios:TwentyFiveGigabitEthernet/ios:ip:
+    +--rw flow
+       +--rw ingress?   empty
+       +--rw egress?    empty
+       +--rw monitor* [name]
+          +--rw name         string
+          +--rw sampler* [direction]
+          |  +--rw direction    enumeration
+          |  +--rw name?        string
+          +--rw input?       empty
+          +--rw output?      empty
+          +--rw multicast?   empty
+          +--rw unicast?     empty
+  augment /ios:native/ios:interface/ios:Port-channel/ios:ip:
+    +--rw flow
+       +--rw ingress?   empty
+       +--rw egress?    empty
+       +--rw monitor* [name]
+          +--rw name         string
+          +--rw sampler* [direction]
+          |  +--rw direction    enumeration
+          |  +--rw name?        string
+          +--rw input?       empty
+          +--rw output?      empty
+          +--rw multicast?   empty
+          +--rw unicast?     empty
+  augment /ios:native/ios:interface/ios:Loopback/ios:ip:
+    +--rw flow
+       +--rw ingress?   empty
+       +--rw egress?    empty
+       +--rw monitor* [name]
+          +--rw name         string
+          +--rw sampler* [direction]
+          |  +--rw direction    enumeration
+          |  +--rw name?        string
+          +--rw input?       empty
+          +--rw output?      empty
+          +--rw multicast?   empty
+          +--rw unicast?     empty
+  augment /ios:native/ios:interface/ios:Tunnel/ios:ip:
+    +--rw flow
+       +--rw ingress?   empty
+       +--rw egress?    empty
+       +--rw monitor* [name]
+          +--rw name         string
+          +--rw sampler* [direction]
+          |  +--rw direction    enumeration
+          |  +--rw name?        string
+          +--rw input?       empty
+          +--rw output?      empty
+          +--rw multicast?   empty
+          +--rw unicast?     empty
+  augment /ios:native/ios:interface/ios:FastEthernet/ios:ipv6:
+    +--rw flow
+       +--rw ingress?   empty
+       +--rw egress?    empty
+       +--rw monitor* [name]
+          +--rw name         string
+          +--rw sampler* [direction]
+          |  +--rw direction    enumeration
+          |  +--rw name?        string
+          +--rw input?       empty
+          +--rw output?      empty
+          +--rw multicast?   empty
+          +--rw unicast?     empty
+  augment /ios:native/ios:interface/ios:GigabitEthernet/ios:ipv6:
+    +--rw flow
+       +--rw ingress?   empty
+       +--rw egress?    empty
+       +--rw monitor* [name]
+          +--rw name         string
+          +--rw sampler* [direction]
+          |  +--rw direction    enumeration
+          |  +--rw name?        string
+          +--rw input?       empty
+          +--rw output?      empty
+          +--rw multicast?   empty
+          +--rw unicast?     empty
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet/ios:ipv6:
+    +--rw flow
+       +--rw ingress?   empty
+       +--rw egress?    empty
+       +--rw monitor* [name]
+          +--rw name         string
+          +--rw sampler* [direction]
+          |  +--rw direction    enumeration
+          |  +--rw name?        string
+          +--rw input?       empty
+          +--rw output?      empty
+          +--rw multicast?   empty
+          +--rw unicast?     empty
+  augment /ios:native/ios:interface/ios:FiveGigabitEthernet/ios:ipv6:
+    +--rw flow
+       +--rw ingress?   empty
+       +--rw egress?    empty
+       +--rw monitor* [name]
+          +--rw name         string
+          +--rw sampler* [direction]
+          |  +--rw direction    enumeration
+          |  +--rw name?        string
+          +--rw input?       empty
+          +--rw output?      empty
+          +--rw multicast?   empty
+          +--rw unicast?     empty
+  augment /ios:native/ios:interface/ios:TwentyFiveGigabitEthernet/ios:ipv6:
+    +--rw flow
+       +--rw ingress?   empty
+       +--rw egress?    empty
+       +--rw monitor* [name]
+          +--rw name         string
+          +--rw sampler* [direction]
+          |  +--rw direction    enumeration
+          |  +--rw name?        string
+          +--rw input?       empty
+          +--rw output?      empty
+          +--rw multicast?   empty
+          +--rw unicast?     empty
+  augment /ios:native/ios:interface/ios:Port-channel/ios:ipv6:
+    +--rw flow
+       +--rw ingress?   empty
+       +--rw egress?    empty
+       +--rw monitor* [name]
+          +--rw name         string
+          +--rw sampler* [direction]
+          |  +--rw direction    enumeration
+          |  +--rw name?        string
+          +--rw input?       empty
+          +--rw output?      empty
+          +--rw multicast?   empty
+          +--rw unicast?     empty
+  augment /ios:native/ios:interface/ios:Loopback/ios:ipv6:
+    +--rw flow
+       +--rw ingress?   empty
+       +--rw egress?    empty
+       +--rw monitor* [name]
+          +--rw name         string
+          +--rw sampler* [direction]
+          |  +--rw direction    enumeration
+          |  +--rw name?        string
+          +--rw input?       empty
+          +--rw output?      empty
+          +--rw multicast?   empty
+          +--rw unicast?     empty
+  augment /ios:native/ios:interface/ios:Tunnel/ios:ipv6:
+    +--rw flow
+       +--rw ingress?   empty
+       +--rw egress?    empty
+       +--rw monitor* [name]
+          +--rw name         string
+          +--rw sampler* [direction]
+          |  +--rw direction    enumeration
+          |  +--rw name?        string
+          +--rw input?       empty
+          +--rw output?      empty
+          +--rw multicast?   empty
+          +--rw unicast?     empty
+
+  grouping flow-name-grouping
+    +-- name!
+       +-- account-on-resolution?   empty
+  grouping flow-vendor-version-grouping
+    +-- vendor?    empty
+    +-- version?   empty
+  grouping flow-client-ipv4-ipv6-transport-grouping
+    +-- ipv4
+    |  +-- address?   empty
+    +-- ipv6
+    |  +-- address?   empty
+    +-- transport
+       +-- port?   empty
+  grouping flow-server-ipv4-ipv6-transport-grouping
+    +-- ipv4
+    |  +-- address?   empty
+    +-- ipv6
+    |  +-- address?   empty
+    +-- transport
+       +-- port?   empty
+  grouping flow-transaction-id-grouping
+    +-- transaction-id?   empty
+  grouping flow-id-initiator-grouping
+    +-- id?          empty
+    +-- initiator?   empty
+  grouping flow-datalink-grouping
+    +-- destination-vlan-id?   empty
+    +-- dot1q
+    |  +-- priority?   empty
+    |  +-- vlan
+    |     +-- input?    empty
+    |     +-- output?   empty
+    +-- ethertype?             empty
+    +-- vlan?                  enumeration
+    +-- mac
+    |  +-- destination
+    |  |  +-- address
+    |  |     +-- input?    empty
+    |  |     +-- output?   empty
+    |  +-- source
+    |     +-- address
+    |        +-- input?    empty
+    |        +-- output?   empty
+    +-- source-vlan-id?        empty
+  grouping flow-flow-common-grouping
+    +-- cts
+    |  +-- destination
+    |  |  +-- group-tag?   empty
+    |  +-- source
+    |     +-- group-tag?   empty
+    +-- direction?     empty
+    +-- observation
+    |  +-- point?   empty
+    +-- sampler?       empty
+  grouping flow-interface-grouping
+    +-- input!
+    |  +-- snmp?   empty
+    +-- output!
+       +-- snmp?   empty
+  grouping flow-ipv4-grouping
+    +-- destination
+    |  +-- address?   empty
+    |  +-- mask!
+    |  |  +-- minimum-mask?   uint8
+    |  +-- prefix!
+    |     +-- minimum-mask?   uint8
+    +-- dscp?            empty
+    +-- fragmentation
+    |  +-- flags?    empty
+    |  +-- offset?   empty
+    +-- header-length?   empty
+    +-- id?              empty
+    +-- length
+    |  +-- header?    empty
+    |  +-- payload?   empty
+    |  +-- total!
+    |     +-- maximum?   empty
+    |     +-- minimum?   empty
+    +-- option
+    |  +-- map?   empty
+    +-- precedence?      empty
+    +-- protocol?        empty
+    +-- section
+    |  +-- header
+    |  |  +-- size?   uint16
+    |  +-- payload
+    |     +-- size?   uint16
+    +-- source
+    |  +-- address?   empty
+    |  +-- mask!
+    |  |  +-- minimum-mask?   uint8
+    |  +-- prefix!
+    |     +-- minimum-mask?   uint8
+    +-- tos?             empty
+    +-- total-length!
+    |  +-- maximum?   empty
+    |  +-- minimum?   empty
+    +-- ttl!
+    |  +-- maximum?   empty
+    |  +-- minimum?   empty
+    +-- version?         empty
+  grouping flow-ipv6-grouping
+    +-- destination
+    |  +-- address?   empty
+    |  +-- mask!
+    |  |  +-- minimum-mask?   uint8
+    |  +-- prefix!
+    |     +-- minimum-mask?   uint8
+    +-- dscp?             empty
+    +-- extension
+    |  +-- map?   empty
+    +-- flow-label?       empty
+    +-- fragmentation
+    |  +-- flags?    empty
+    |  +-- id?       empty
+    |  +-- offset?   empty
+    +-- hop-limit!
+    |  +-- maximum?   empty
+    |  +-- minimum?   empty
+    +-- length
+    |  +-- header?    empty
+    |  +-- payload?   empty
+    |  +-- total!
+    |     +-- maximum?   empty
+    |     +-- minimum?   empty
+    +-- next-header?      empty
+    +-- payload-length?   empty
+    +-- precedence?       empty
+    +-- protocol?         empty
+    +-- section
+    |  +-- header
+    |  |  +-- size?   uint16
+    |  +-- payload
+    |     +-- size?   uint16
+    +-- source
+    |  +-- address?   empty
+    |  +-- mask!
+    |  |  +-- minimum-mask?   uint8
+    |  +-- prefix!
+    |     +-- minimum-mask?   uint8
+    +-- traffic-class?    empty
+    +-- version?          empty
+  grouping flow-mpls-grouping
+    +-- label
+       +-- one
+       |  +-- details?   empty
+       |  +-- exp?       empty
+       |  +-- ttl?       empty
+       |  +-- type?      empty
+       +-- two
+       |  +-- details?   empty
+       +-- three
+       |  +-- details?   empty
+       +-- four
+       |  +-- details?   empty
+       +-- five
+       |  +-- details?   empty
+       +-- six
+          +-- details?   empty
+  grouping flow-network-grouping
+    +-- delay
+       +-- sample?   empty
+       +-- sum?      empty
+  grouping flow-pfr-grouping
+    +-- label
+    |  +-- identifier?   empty
+    +-- one-way-delay
+    |  +-- samples?   empty
+    |  +-- sum?       empty
+    +-- service
+    |  +-- provider?     empty
+    |  +-- tag?          empty
+    |  +-- identifier?   empty
+    +-- site
+       +-- destination
+       |  +-- id
+       |  |  +-- ipv4?   empty
+       |  +-- prefix
+       |     +-- ipv4?   empty
+       |     +-- mask
+       |        +-- ipv4?   empty
+       +-- source
+          +-- id
+          |  +-- ipv4?   empty
+          +-- prefix
+             +-- ipv4?   empty
+             +-- mask
+                +-- ipv4?   empty
+  grouping flow-policy-grouping
+    +-- performance-monitor
+    |  +-- classification
+    |     +-- hierarchy?   empty
+    +-- qos
+       +-- classification
+       |  +-- hierarchy?   empty
+       +-- queue
+          +-- drops?   empty
+          +-- index?   empty
+  grouping flow-routing-grouping
+    +-- destination
+    |  +-- as!
+    |  |  +-- as4-octet?   empty
+    |  |  +-- peer!
+    |  |     +-- peer4-octet?   empty
+    |  +-- traffic-index?   empty
+    +-- forwarding-status!
+    |  +-- reason?   empty
+    +-- is-multicast?        empty
+    +-- next-hop
+    |  +-- address
+    |     +-- ipv4!
+    |     |  +-- bgp?   empty
+    |     +-- ipv6!
+    |        +-- bgp?   empty
+    +-- pw
+    |  +-- destination
+    |     +-- address?   empty
+    +-- source
+    |  +-- as!
+    |  |  +-- as4-octet?   empty
+    |  |  +-- peer!
+    |  |     +-- peer4-octet?   empty
+    |  +-- traffic-index?   empty
+    +-- vrf
+       +-- input?    empty
+       +-- output?   empty
+  grouping flow-services-grouping
+    +-- waas
+       +-- passthrough-reason?   empty
+       +-- segment!
+          +-- account-on-resolution?   empty
+  grouping flow-transport-common-grouping
+    +-- destination-port?   empty
+    +-- icmp
+    |  +-- ipv4
+    |  |  +-- code?   empty
+    |  |  +-- type?   empty
+    |  +-- ipv6
+    |     +-- code?   empty
+    |     +-- type?   empty
+    +-- igmp
+    |  +-- type?   empty
+    +-- source-port?        empty
+    +-- tcp
+    |  +-- acknowledgement-number?   empty
+    |  +-- destination-port?         empty
+    |  +-- flags!
+    |  |  +-- ack?   empty
+    |  |  +-- cwr?   empty
+    |  |  +-- ece?   empty
+    |  |  +-- fin?   empty
+    |  |  +-- psh?   empty
+    |  |  +-- rst?   empty
+    |  |  +-- syn?   empty
+    |  |  +-- urg?   empty
+    |  +-- flow
+    |  |  +-- count?   empty
+    |  +-- header-length?            empty
+    |  +-- maximum-segment-size?     empty
+    |  +-- option
+    |  |  +-- map!
+    |  |     +-- long?   empty
+    |  +-- sequence-number?          empty
+    |  +-- source-port?              empty
+    |  +-- urgent-pointer?           empty
+    |  +-- window-size!
+    |     +-- average!
+    |     |  +-- sum?   empty
+    |     +-- maximum?   empty
+    |     +-- minimum?   empty
+    |     +-- sum?       empty
+    +-- udp
+       +-- destination-port?   empty
+       +-- message-length?     empty
+       +-- source-port?        empty
+  grouping flow-record-collect-grouping
+    +-- collect
+       +-- application
+       |  +-- dns
+       |  |  +-- domain-name?   empty
+       |  +-- http
+       |  |  +-- host?         empty
+       |  |  +-- referer?      empty
+       |  |  +-- uri
+       |  |  |  +-- statistics?   empty
+       |  |  +-- url?          empty
+       |  |  +-- user-agent?   empty
+       |  +-- media
+       |  |  +-- bytes
+       |  |  |  +-- counter!
+       |  |  |  |  +-- long?   empty
+       |  |  |  +-- rate!
+       |  |  |     +-- per-flow!
+       |  |  |        +-- max?   empty
+       |  |  |        +-- min?   empty
+       |  |  +-- event?     empty
+       |  |  +-- packets
+       |  |     +-- counter!
+       |  |     |  +-- long?   empty
+       |  |     +-- rate!
+       |  |        +-- variation!
+       |  |           +-- max?   empty
+       |  |           +-- min?   empty
+       |  |           +-- sum?   empty
+       |  +-- name!
+       |  |  +-- account-on-resolution?   empty
+       |  +-- nntp
+       |  |  +-- group-name?   empty
+       |  +-- pop3
+       |  |  +-- server?   empty
+       |  +-- rtmp
+       |  |  +-- pageUrl?   empty
+       |  +-- rtsp
+       |  |  +-- host?   empty
+       |  +-- sip
+       |  |  +-- destination?   empty
+       |  |  +-- source?        empty
+       |  +-- smtp
+       |  |  +-- sender?   empty
+       |  |  +-- server?   empty
+       |  +-- ssl
+       |  |  +-- common-name?   empty
+       |  +-- vendor?    empty
+       |  +-- version?   empty
+       +-- connection
+       |  +-- client
+       |  |  +-- all?         empty
+       |  |  +-- counter
+       |  |  |  +-- bytes
+       |  |  |  |  +-- long?            empty
+       |  |  |  |  +-- network
+       |  |  |  |  |  +-- long?   empty
+       |  |  |  |  +-- retransmitted?   empty
+       |  |  |  |  +-- transport
+       |  |  |  |     +-- long?   empty
+       |  |  |  +-- packets
+       |  |  |     +-- long?            empty
+       |  |  |     +-- retransmitted?   empty
+       |  |  +-- ipv4
+       |  |  |  +-- address?   empty
+       |  |  +-- ipv6
+       |  |  |  +-- address?   empty
+       |  |  +-- transport
+       |  |     +-- port?   empty
+       |  +-- delay
+       |  |  +-- all?           empty
+       |  |  +-- application
+       |  |  |  +-- max?   empty
+       |  |  |  +-- min?   empty
+       |  |  |  +-- sum?   empty
+       |  |  +-- network
+       |  |  |  +-- client-to-server
+       |  |  |  |  +-- max?           empty
+       |  |  |  |  +-- min?           empty
+       |  |  |  |  +-- num-samples?   empty
+       |  |  |  |  +-- sum?           empty
+       |  |  |  +-- long-lived
+       |  |  |  |  +-- client-to-serve
+       |  |  |  |  |  +-- sum?   empty
+       |  |  |  |  +-- to-client
+       |  |  |  |  |  +-- sum?   empty
+       |  |  |  |  +-- to-serve
+       |  |  |  |     +-- sum?   empty
+       |  |  |  +-- to-client
+       |  |  |  |  +-- max?           empty
+       |  |  |  |  +-- min?           empty
+       |  |  |  |  +-- num-samples?   empty
+       |  |  |  |  +-- sum?           empty
+       |  |  |  +-- to-server
+       |  |  |     +-- max?           empty
+       |  |  |     +-- min?           empty
+       |  |  |     +-- num-samples?   empty
+       |  |  |     +-- sum?           empty
+       |  |  +-- response
+       |  |     +-- client-to-server
+       |  |     |  +-- max?   empty
+       |  |     |  +-- min?   empty
+       |  |     |  +-- sum?   empty
+       |  |     +-- to-server
+       |  |        +-- histogram?   enumeration
+       |  |        +-- max?         empty
+       |  |        +-- min?         empty
+       |  |        +-- sum?         empty
+       |  +-- id?                empty
+       |  +-- initiator?         empty
+       |  +-- new-connections?   empty
+       |  +-- server
+       |  |  +-- all?         empty
+       |  |  +-- counter
+       |  |  |  +-- bytes
+       |  |  |  |  +-- long?            empty
+       |  |  |  |  +-- network
+       |  |  |  |  |  +-- long?   empty
+       |  |  |  |  +-- retransmitted?   empty
+       |  |  |  |  +-- transport
+       |  |  |  |     +-- long?   empty
+       |  |  |  +-- packets
+       |  |  |  |  +-- long?            empty
+       |  |  |  |  +-- retransmitted?   empty
+       |  |  |  +-- responses?   empty
+       |  |  +-- ipv4
+       |  |  |  +-- address?   empty
+       |  |  +-- ipv6
+       |  |  |  +-- address?   empty
+       |  |  +-- transport
+       |  |     +-- port?   empty
+       |  +-- sum-duration?      empty
+       |  +-- transaction
+       |  |  +-- all?        empty
+       |  |  +-- counter
+       |  |  |  +-- complete?   empty
+       |  |  +-- duration
+       |  |     +-- max?   empty
+       |  |     +-- min?   empty
+       |  |     +-- sum?   empty
+       |  +-- transaction-id?    empty
+       +-- counter
+       |  +-- bytes!
+       |  |  +-- long?      empty
+       |  |  +-- rate!
+       |  |  |  +-- per-flow!
+       |  |  |     +-- max?   empty
+       |  |  |     +-- min?   empty
+       |  |  +-- squared
+       |  |     +-- long?   empty
+       |  +-- flows?     empty
+       |  +-- packets!
+       |     +-- dropped?   empty
+       |     +-- long?      empty
+       |     +-- rate!
+       |        +-- per-flow!
+       |           +-- max?   empty
+       |           +-- min?   empty
+       +-- datalink
+       |  +-- destination-vlan-id?   empty
+       |  +-- dot1q
+       |  |  +-- priority?   empty
+       |  |  +-- vlan
+       |  |     +-- input?    empty
+       |  |     +-- output?   empty
+       |  +-- ethertype?             empty
+       |  +-- vlan?                  enumeration
+       |  +-- mac
+       |  |  +-- destination
+       |  |  |  +-- address
+       |  |  |     +-- input?    empty
+       |  |  |     +-- output?   empty
+       |  |  +-- source
+       |  |     +-- address
+       |  |        +-- input?    empty
+       |  |        +-- output?   empty
+       |  +-- source-vlan-id?        empty
+       +-- flow
+       |  +-- cts
+       |  |  +-- destination
+       |  |  |  +-- group-tag?   empty
+       |  |  +-- source
+       |  |     +-- group-tag?   empty
+       |  +-- direction?     empty
+       |  +-- observation
+       |  |  +-- point?   empty
+       |  +-- sampler?       empty
+       |  +-- end-reason?    empty
+       +-- interface
+       |  +-- input!
+       |  |  +-- snmp?   empty
+       |  +-- output!
+       |     +-- snmp?   empty
+       +-- ipv4
+       |  +-- destination
+       |  |  +-- address?   empty
+       |  |  +-- mask!
+       |  |  |  +-- minimum-mask?   uint8
+       |  |  +-- prefix!
+       |  |     +-- minimum-mask?   uint8
+       |  +-- dscp?            empty
+       |  +-- fragmentation
+       |  |  +-- flags?    empty
+       |  |  +-- offset?   empty
+       |  +-- header-length?   empty
+       |  +-- id?              empty
+       |  +-- length
+       |  |  +-- header?    empty
+       |  |  +-- payload?   empty
+       |  |  +-- total!
+       |  |     +-- maximum?   empty
+       |  |     +-- minimum?   empty
+       |  +-- option
+       |  |  +-- map?   empty
+       |  +-- precedence?      empty
+       |  +-- protocol?        empty
+       |  +-- section
+       |  |  +-- header
+       |  |  |  +-- size?   uint16
+       |  |  +-- payload
+       |  |     +-- size?   uint16
+       |  +-- source
+       |  |  +-- address?   empty
+       |  |  +-- mask!
+       |  |  |  +-- minimum-mask?   uint8
+       |  |  +-- prefix!
+       |  |     +-- minimum-mask?   uint8
+       |  +-- tos?             empty
+       |  +-- total-length!
+       |  |  +-- maximum?   empty
+       |  |  +-- minimum?   empty
+       |  +-- ttl!
+       |  |  +-- maximum?   empty
+       |  |  +-- minimum?   empty
+       |  +-- version?         empty
+       +-- ipv6
+       |  +-- destination
+       |  |  +-- address?   empty
+       |  |  +-- mask!
+       |  |  |  +-- minimum-mask?   uint8
+       |  |  +-- prefix!
+       |  |     +-- minimum-mask?   uint8
+       |  +-- dscp?             empty
+       |  +-- extension
+       |  |  +-- map?   empty
+       |  +-- flow-label?       empty
+       |  +-- fragmentation
+       |  |  +-- flags?    empty
+       |  |  +-- id?       empty
+       |  |  +-- offset?   empty
+       |  +-- hop-limit!
+       |  |  +-- maximum?   empty
+       |  |  +-- minimum?   empty
+       |  +-- length
+       |  |  +-- header?    empty
+       |  |  +-- payload?   empty
+       |  |  +-- total!
+       |  |     +-- maximum?   empty
+       |  |     +-- minimum?   empty
+       |  +-- next-header?      empty
+       |  +-- payload-length?   empty
+       |  +-- precedence?       empty
+       |  +-- protocol?         empty
+       |  +-- section
+       |  |  +-- header
+       |  |  |  +-- size?   uint16
+       |  |  +-- payload
+       |  |     +-- size?   uint16
+       |  +-- source
+       |  |  +-- address?   empty
+       |  |  +-- mask!
+       |  |  |  +-- minimum-mask?   uint8
+       |  |  +-- prefix!
+       |  |     +-- minimum-mask?   uint8
+       |  +-- traffic-class?    empty
+       |  +-- version?          empty
+       +-- metadata
+       |  +-- clock-rate?               empty
+       |  +-- global-session-id?        empty
+       |  +-- multi-party-session-id?   empty
+       +-- monitor
+       |  +-- event?   empty
+       +-- mpls
+       |  +-- label
+       |     +-- one
+       |     |  +-- details?   empty
+       |     |  +-- exp?       empty
+       |     |  +-- ttl?       empty
+       |     |  +-- type?      empty
+       |     +-- two
+       |     |  +-- details?   empty
+       |     +-- three
+       |     |  +-- details?   empty
+       |     +-- four
+       |     |  +-- details?   empty
+       |     +-- five
+       |     |  +-- details?   empty
+       |     +-- six
+       |        +-- details?   empty
+       +-- network
+       |  +-- delay
+       |     +-- sample?   empty
+       |     +-- sum?      empty
+       +-- pfr
+       |  +-- label
+       |  |  +-- identifier?   empty
+       |  +-- one-way-delay
+       |  |  +-- samples?   empty
+       |  |  +-- sum?       empty
+       |  +-- service
+       |  |  +-- provider?     empty
+       |  |  +-- tag?          empty
+       |  |  +-- identifier?   empty
+       |  +-- site
+       |     +-- destination
+       |     |  +-- id
+       |     |  |  +-- ipv4?   empty
+       |     |  +-- prefix
+       |     |     +-- ipv4?   empty
+       |     |     +-- mask
+       |     |        +-- ipv4?   empty
+       |     +-- source
+       |        +-- id
+       |        |  +-- ipv4?   empty
+       |        +-- prefix
+       |           +-- ipv4?   empty
+       |           +-- mask
+       |              +-- ipv4?   empty
+       +-- policy
+       |  +-- performance-monitor
+       |  |  +-- classification
+       |  |     +-- hierarchy?   empty
+       |  +-- qos
+       |     +-- classification
+       |     |  +-- hierarchy?   empty
+       |     +-- queue
+       |        +-- drops?   empty
+       |        +-- index?   empty
+       +-- routing
+       |  +-- destination
+       |  |  +-- as!
+       |  |  |  +-- as4-octet?   empty
+       |  |  |  +-- peer!
+       |  |  |     +-- peer4-octet?   empty
+       |  |  +-- traffic-index?   empty
+       |  +-- forwarding-status!
+       |  |  +-- reason?   empty
+       |  +-- is-multicast?        empty
+       |  +-- next-hop
+       |  |  +-- address
+       |  |     +-- ipv4!
+       |  |     |  +-- bgp?   empty
+       |  |     +-- ipv6!
+       |  |        +-- bgp?   empty
+       |  +-- pw
+       |  |  +-- destination
+       |  |     +-- address?   empty
+       |  +-- source
+       |  |  +-- as!
+       |  |  |  +-- as4-octet?   empty
+       |  |  |  +-- peer!
+       |  |  |     +-- peer4-octet?   empty
+       |  |  +-- traffic-index?   empty
+       |  +-- vrf
+       |     +-- input?    empty
+       |     +-- output?   empty
+       +-- services
+       |  +-- waas
+       |     +-- passthrough-reason?   empty
+       |     +-- segment!
+       |        +-- account-on-resolution?   empty
+       +-- timestamp
+       |  +-- absolute
+       |  |  +-- first?                 empty
+       |  |  +-- last?                  empty
+       |  |  +-- monitoring-interval
+       |  |     +-- end?     empty
+       |  |     +-- start?   empty
+       |  +-- interval?     empty
+       |  +-- sys-uptime
+       |     +-- first?   empty
+       |     +-- last?    empty
+       +-- transport
+          +-- bytes
+          |  +-- expected?       empty
+          |  +-- lost!
+          |  |  +-- rate?   empty
+          |  +-- out-of-order?   empty
+          +-- destination-port?   empty
+          +-- icmp
+          |  +-- ipv4
+          |  |  +-- code?   empty
+          |  |  +-- type?   empty
+          |  +-- ipv6
+          |     +-- code?   empty
+          |     +-- type?   empty
+          +-- igmp
+          |  +-- type?   empty
+          +-- source-port?        empty
+          +-- tcp
+          |  +-- acknowledgement-number?   empty
+          |  +-- destination-port?         empty
+          |  +-- flags!
+          |  |  +-- ack?   empty
+          |  |  +-- cwr?   empty
+          |  |  +-- ece?   empty
+          |  |  +-- fin?   empty
+          |  |  +-- psh?   empty
+          |  |  +-- rst?   empty
+          |  |  +-- syn?   empty
+          |  |  +-- urg?   empty
+          |  +-- flow
+          |  |  +-- count?   empty
+          |  +-- header-length?            empty
+          |  +-- maximum-segment-size?     empty
+          |  +-- option
+          |  |  +-- map!
+          |  |     +-- long?   empty
+          |  +-- sequence-number?          empty
+          |  +-- source-port?              empty
+          |  +-- urgent-pointer?           empty
+          |  +-- window-size!
+          |     +-- average!
+          |     |  +-- sum?   empty
+          |     +-- maximum?   empty
+          |     +-- minimum?   empty
+          |     +-- sum?       empty
+          +-- udp
+          |  +-- destination-port?   empty
+          |  +-- message-length?     empty
+          |  +-- source-port?        empty
+          +-- event
+          |  +-- packet-loss
+          |     +-- counter!
+          |        +-- max?   empty
+          |        +-- min?   empty
+          +-- packets
+          |  +-- expected
+          |  |  +-- counter?   empty
+          |  +-- lost
+          |  |  +-- counter!
+          |  |  |  +-- max?   empty
+          |  |  |  +-- min?   empty
+          |  |  +-- rate!
+          |  |     +-- max?   empty
+          |  |     +-- min?   empty
+          |  +-- out-of-order?   empty
+          +-- round-trip-time!
+          |  +-- max?       empty
+          |  +-- min?       empty
+          |  +-- samples?   empty
+          |  +-- sum?       empty
+          +-- rtp
+             +-- flow
+             |  +-- count?   empty
+             +-- jitter
+             |  +-- maximum?   empty
+             |  +-- mean!
+             |  |  +-- sum?   empty
+             |  +-- minimum?   empty
+             +-- payload-type?   empty
+             +-- ssrc?           empty
+  grouping flow-record-match-grouping
+    +-- match
+       +-- application
+       |  +-- name!
+       |  |  +-- account-on-resolution?   empty
+       |  +-- vendor?    empty
+       |  +-- version?   empty
+       +-- connection
+       |  +-- client
+       |  |  +-- ipv4
+       |  |  |  +-- address?   empty
+       |  |  +-- ipv6
+       |  |  |  +-- address?   empty
+       |  |  +-- transport
+       |  |     +-- port?   empty
+       |  +-- id?               empty
+       |  +-- initiator?        empty
+       |  +-- server
+       |  |  +-- ipv4
+       |  |  |  +-- address?   empty
+       |  |  +-- ipv6
+       |  |  |  +-- address?   empty
+       |  |  +-- transport
+       |  |     +-- port?   empty
+       |  +-- transaction-id?   empty
+       +-- datalink
+       |  +-- destination-vlan-id?   empty
+       |  +-- dot1q
+       |  |  +-- priority?   empty
+       |  |  +-- vlan
+       |  |     +-- input?    empty
+       |  |     +-- output?   empty
+       |  +-- ethertype?             empty
+       |  +-- vlan?                  enumeration
+       |  +-- mac
+       |  |  +-- destination
+       |  |  |  +-- address
+       |  |  |     +-- input?    empty
+       |  |  |     +-- output?   empty
+       |  |  +-- source
+       |  |     +-- address
+       |  |        +-- input?    empty
+       |  |        +-- output?   empty
+       |  +-- source-vlan-id?        empty
+       +-- flow
+       |  +-- cts
+       |  |  +-- destination
+       |  |  |  +-- group-tag?   empty
+       |  |  +-- source
+       |  |     +-- group-tag?   empty
+       |  +-- direction?     empty
+       |  +-- observation
+       |  |  +-- point?   empty
+       |  +-- sampler?       empty
+       +-- interface
+       |  +-- input!
+       |  |  +-- snmp?   empty
+       |  +-- output!
+       |     +-- snmp?   empty
+       +-- ipv4
+       |  +-- destination
+       |  |  +-- address?   empty
+       |  |  +-- mask!
+       |  |  |  +-- minimum-mask?   uint8
+       |  |  +-- prefix!
+       |  |     +-- minimum-mask?   uint8
+       |  +-- dscp?            empty
+       |  +-- fragmentation
+       |  |  +-- flags?    empty
+       |  |  +-- offset?   empty
+       |  +-- header-length?   empty
+       |  +-- id?              empty
+       |  +-- length
+       |  |  +-- header?    empty
+       |  |  +-- payload?   empty
+       |  |  +-- total!
+       |  |     +-- maximum?   empty
+       |  |     +-- minimum?   empty
+       |  +-- option
+       |  |  +-- map?   empty
+       |  +-- precedence?      empty
+       |  +-- protocol?        empty
+       |  +-- section
+       |  |  +-- header
+       |  |  |  +-- size?   uint16
+       |  |  +-- payload
+       |  |     +-- size?   uint16
+       |  +-- source
+       |  |  +-- address?   empty
+       |  |  +-- mask!
+       |  |  |  +-- minimum-mask?   uint8
+       |  |  +-- prefix!
+       |  |     +-- minimum-mask?   uint8
+       |  +-- tos?             empty
+       |  +-- total-length!
+       |  |  +-- maximum?   empty
+       |  |  +-- minimum?   empty
+       |  +-- ttl!
+       |  |  +-- maximum?   empty
+       |  |  +-- minimum?   empty
+       |  +-- version?         empty
+       +-- ipv6
+       |  +-- destination
+       |  |  +-- address?   empty
+       |  |  +-- mask!
+       |  |  |  +-- minimum-mask?   uint8
+       |  |  +-- prefix!
+       |  |     +-- minimum-mask?   uint8
+       |  +-- dscp?             empty
+       |  +-- extension
+       |  |  +-- map?   empty
+       |  +-- flow-label?       empty
+       |  +-- fragmentation
+       |  |  +-- flags?    empty
+       |  |  +-- id?       empty
+       |  |  +-- offset?   empty
+       |  +-- hop-limit!
+       |  |  +-- maximum?   empty
+       |  |  +-- minimum?   empty
+       |  +-- length
+       |  |  +-- header?    empty
+       |  |  +-- payload?   empty
+       |  |  +-- total!
+       |  |     +-- maximum?   empty
+       |  |     +-- minimum?   empty
+       |  +-- next-header?      empty
+       |  +-- payload-length?   empty
+       |  +-- precedence?       empty
+       |  +-- protocol?         empty
+       |  +-- section
+       |  |  +-- header
+       |  |  |  +-- size?   uint16
+       |  |  +-- payload
+       |  |     +-- size?   uint16
+       |  +-- source
+       |  |  +-- address?   empty
+       |  |  +-- mask!
+       |  |  |  +-- minimum-mask?   uint8
+       |  |  +-- prefix!
+       |  |     +-- minimum-mask?   uint8
+       |  +-- traffic-class?    empty
+       |  +-- version?          empty
+       +-- metadata
+       |  +-- global-session-id?        empty
+       |  +-- multi-party-session-id?   empty
+       +-- mpls
+       |  +-- label
+       |     +-- one
+       |     |  +-- details?   empty
+       |     |  +-- exp?       empty
+       |     |  +-- ttl?       empty
+       |     |  +-- type?      empty
+       |     +-- two
+       |     |  +-- details?   empty
+       |     +-- three
+       |     |  +-- details?   empty
+       |     +-- four
+       |     |  +-- details?   empty
+       |     +-- five
+       |     |  +-- details?   empty
+       |     +-- six
+       |        +-- details?   empty
+       +-- network
+       |  +-- delay
+       |     +-- sample?   empty
+       |     +-- sum?      empty
+       +-- pfr
+       |  +-- label
+       |  |  +-- identifier?   empty
+       |  +-- one-way-delay
+       |  |  +-- samples?   empty
+       |  |  +-- sum?       empty
+       |  +-- service
+       |  |  +-- provider?     empty
+       |  |  +-- tag?          empty
+       |  |  +-- identifier?   empty
+       |  +-- site
+       |     +-- destination
+       |     |  +-- id
+       |     |  |  +-- ipv4?   empty
+       |     |  +-- prefix
+       |     |     +-- ipv4?   empty
+       |     |     +-- mask
+       |     |        +-- ipv4?   empty
+       |     +-- source
+       |        +-- id
+       |        |  +-- ipv4?   empty
+       |        +-- prefix
+       |           +-- ipv4?   empty
+       |           +-- mask
+       |              +-- ipv4?   empty
+       +-- policy
+       |  +-- performance-monitor
+       |  |  +-- classification
+       |  |     +-- hierarchy?   empty
+       |  +-- qos
+       |     +-- classification
+       |     |  +-- hierarchy?   empty
+       |     +-- queue
+       |        +-- drops?   empty
+       |        +-- index?   empty
+       +-- routing
+       |  +-- destination
+       |  |  +-- as!
+       |  |  |  +-- as4-octet?   empty
+       |  |  |  +-- peer!
+       |  |  |     +-- peer4-octet?   empty
+       |  |  +-- traffic-index?   empty
+       |  +-- forwarding-status!
+       |  |  +-- reason?   empty
+       |  +-- is-multicast?        empty
+       |  +-- next-hop
+       |  |  +-- address
+       |  |     +-- ipv4!
+       |  |     |  +-- bgp?   empty
+       |  |     +-- ipv6!
+       |  |        +-- bgp?   empty
+       |  +-- pw
+       |  |  +-- destination
+       |  |     +-- address?   empty
+       |  +-- source
+       |  |  +-- as!
+       |  |  |  +-- as4-octet?   empty
+       |  |  |  +-- peer!
+       |  |  |     +-- peer4-octet?   empty
+       |  |  +-- traffic-index?   empty
+       |  +-- vrf
+       |     +-- input?    empty
+       |     +-- output?   empty
+       +-- services
+       |  +-- waas
+       |     +-- passthrough-reason?   empty
+       |     +-- segment!
+       |        +-- account-on-resolution?   empty
+       +-- timestamp
+       |  +-- absolute
+       |     +-- monitoring-interval
+       |        +-- start?   empty
+       +-- transport
+          +-- bytes
+          |  +-- expected?   empty
+          |  +-- lost!
+          |     +-- rate?   empty
+          +-- rtp
+          |  +-- ssrc?   empty
+          +-- destination-port?   empty
+          +-- icmp
+          |  +-- ipv4
+          |  |  +-- code?   empty
+          |  |  +-- type?   empty
+          |  +-- ipv6
+          |     +-- code?   empty
+          |     +-- type?   empty
+          +-- igmp
+          |  +-- type?   empty
+          +-- source-port?        empty
+          +-- tcp
+          |  +-- acknowledgement-number?   empty
+          |  +-- destination-port?         empty
+          |  +-- flags!
+          |  |  +-- ack?   empty
+          |  |  +-- cwr?   empty
+          |  |  +-- ece?   empty
+          |  |  +-- fin?   empty
+          |  |  +-- psh?   empty
+          |  |  +-- rst?   empty
+          |  |  +-- syn?   empty
+          |  |  +-- urg?   empty
+          |  +-- flow
+          |  |  +-- count?   empty
+          |  +-- header-length?            empty
+          |  +-- maximum-segment-size?     empty
+          |  +-- option
+          |  |  +-- map!
+          |  |     +-- long?   empty
+          |  +-- sequence-number?          empty
+          |  +-- source-port?              empty
+          |  +-- urgent-pointer?           empty
+          |  +-- window-size!
+          |     +-- average!
+          |     |  +-- sum?   empty
+          |     +-- maximum?   empty
+          |     +-- minimum?   empty
+          |     +-- sum?       empty
+          +-- udp
+             +-- destination-port?   empty
+             +-- message-length?     empty
+             +-- source-port?        empty
+  grouping flow-monitor-record-netflow-grouping
+    +-- as!
+    |  +-- peer?   empty
+    +-- destination-prefix!
+    |  +-- peer?   empty
+    +-- original-input!
+    |  +-- peer?   empty
+    +-- original-output!
+    |  +-- peer?   empty
+    +-- prefix!
+    |  +-- peer?   empty
+    +-- protocol-port?        empty
+    +-- source-prefix!
+       +-- peer?   empty
+  grouping flow-monitor-grouping
+    +-- cache
+    |  +-- entries?   uint32
+    |  +-- timeout
+    |  |  +-- active?         uint32
+    |  |  +-- event
+    |  |  |  +-- transaction-end?   empty
+    |  |  +-- inactive?       uint32
+    |  |  +-- synchronized?   uint16
+    |  |  +-- update?         uint32
+    |  +-- type?      enumeration
+    +-- description?   string
+    +-- exporter* [name]
+    |  +-- name?   string
+    +-- history
+    |  +-- size?      uint8
+    |  +-- timeout?   uint8
+    +-- record
+    |  +-- type?      union
+    |  +-- netflow
+    |     +-- ipv4
+    |     |  +-- as!
+    |     |  |  +-- peer?   empty
+    |     |  +-- destination-prefix!
+    |     |  |  +-- peer?   empty
+    |     |  +-- original-input!
+    |     |  |  +-- peer?   empty
+    |     |  +-- original-output!
+    |     |  |  +-- peer?   empty
+    |     |  +-- prefix!
+    |     |  |  +-- peer?   empty
+    |     |  +-- protocol-port?            empty
+    |     |  +-- source-prefix!
+    |     |  |  +-- peer?   empty
+    |     |  +-- as-tos!
+    |     |  |  +-- peer?   empty
+    |     |  +-- bgp-nexthop-tos!
+    |     |  |  +-- peer?   empty
+    |     |  +-- destination-prefix-tos!
+    |     |  |  +-- peer?   empty
+    |     |  +-- prefix-port?              empty
+    |     |  +-- prefix-tos!
+    |     |  |  +-- peer?   empty
+    |     |  +-- protocol-port-tos?        empty
+    |     |  +-- source-prefix-tos!
+    |     |     +-- peer?   empty
+    |     +-- ipv6
+    |        +-- as!
+    |        |  +-- peer?   empty
+    |        +-- destination-prefix!
+    |        |  +-- peer?   empty
+    |        +-- original-input!
+    |        |  +-- peer?   empty
+    |        +-- original-output!
+    |        |  +-- peer?   empty
+    |        +-- prefix!
+    |        |  +-- peer?   empty
+    |        +-- protocol-port?        empty
+    |        +-- source-prefix!
+    |        |  +-- peer?   empty
+    |        +-- bgp-nexthop!
+    |           +-- peer?   empty
+    +-- statistics
+       +-- packet
+          +-- protocol?   empty
+          +-- size?       empty
+  grouping flow-default-monitor-grouping
+    +-- cache
+    |  +-- entries?   empty
+    |  +-- timeout
+    |  |  +-- active?         empty
+    |  |  +-- event
+    |  |  |  +-- transaction-end?   empty
+    |  |  +-- inactive?       empty
+    |  |  +-- synchronized?   empty
+    |  |  +-- update?         empty
+    |  +-- type?      empty
+    +-- description?   empty
+    +-- exporter?      empty
+    +-- record?        empty
+    +-- statistics
+       +-- packet
+          +-- protocol?   empty
+          +-- size?       empty
+  grouping flow-exporter-option-timeout-grouping
+    +-- timeout?   uint32
+  grouping flow-exporter-grouping
+    +-- description?       string
+    +-- destination
+    |  +-- ip?    inet:ip-address
+    |  +-- vrf?   string
+    +-- dscp?              uint8
+    +-- export-protocol?   enumeration
+    +-- option
+    |  +-- application-attributes!
+    |  |  +-- timeout?   uint32
+    |  +-- application-table!
+    |  |  +-- timeout?   uint32
+    |  +-- c3pl-class-table!
+    |  |  +-- timeout?   uint32
+    |  +-- c3pl-policy-table!
+    |  |  +-- timeout?   uint32
+    |  +-- exporter-stats!
+    |  |  +-- timeout?   uint32
+    |  +-- interface-table!
+    |  |  +-- timeout?   uint32
+    |  +-- metadata-version-table!
+    |  |  +-- timeout?   uint32
+    |  +-- sampler-table!
+    |  |  +-- timeout?   uint32
+    |  +-- sub-application-table!
+    |  |  +-- timeout?   uint32
+    |  +-- vrf-table!
+    |     +-- timeout?   uint32
+    +-- output-features!
+    +-- source
+    |  +-- (interface-choice)?
+    |     +--:(AppNav-Compress)
+    |     |  +-- AppNav-Compress?             uint16
+    |     +--:(AppNav-UnCompress)
+    |     |  +-- AppNav-UnCompress?           uint16
+    |     +--:(ATM)
+    |     |  +-- ATM?                         string
+    |     +--:(ATM-subinterface)
+    |     |  +-- ATM-subinterface
+    |     |     +-- ATM?   string
+    |     +--:(ATM-ACR)
+    |     |  +-- ATM-ACR?                     string
+    |     +--:(ATM-ACRsubinterface)
+    |     |  +-- ATM-ACRsubinterface
+    |     |     +-- ATM-ACR?   string
+    |     +--:(BDI)
+    |     |  +-- BDI?                         string
+    |     +--:(CEM)
+    |     |  +-- CEM?                         string
+    |     +--:(CEM-ACR)
+    |     |  +-- CEM-ACR?                     uint8
+    |     +--:(Embedded-Service-Engine)
+    |     |  +-- Embedded-Service-Engine?     string
+    |     +--:(FastEthernet)
+    |     |  +-- FastEthernet?                string
+    |     +--:(GigabitEthernet)
+    |     |  +-- GigabitEthernet?             string
+    |     +--:(FiveGigabitEthernet)
+    |     |  +-- FiveGigabitEthernet?         string
+    |     +--:(TwentyFiveGigabitEthernet)
+    |     |  +-- TwentyFiveGigabitEthernet?   string
+    |     +--:(LISP)
+    |     |  +-- LISP?                        string
+    |     +--:(LISP-subinterface)
+    |     |  +-- LISP-subinterface
+    |     |     +-- LISP?   string
+    |     +--:(Loopback)
+    |     |  +-- Loopback?                    uint32
+    |     +--:(Multilink)
+    |     |  +-- Multilink?                   uint16
+    |     +--:(nve)
+    |     |  +-- nve?                         uint16
+    |     +--:(overlay)
+    |     |  +-- overlay?                     uint16
+    |     +--:(Port-channel)
+    |     |  +-- Port-channel?                uint32
+    |     +--:(Port-channel-subinterface)
+    |     |  +-- Port-channel-subinterface
+    |     |     +-- Port-channel?   string
+    |     +--:(pseudowire)
+    |     |  +-- pseudowire?                  uint32
+    |     +--:(SM)
+    |     |  +-- SM?                          string
+    |     +--:(Cellular)
+    |     |  +-- Cellular?                    string
+    |     +--:(Serial)
+    |     |  +-- Serial?                      string
+    |     +--:(TenGigabitEthernet)
+    |     |  +-- TenGigabitEthernet?          string
+    |     +--:(Tunnel)
+    |     |  +-- Tunnel?                      uint32
+    |     +--:(Virtual-Template)
+    |     |  +-- Virtual-Template?            uint16
+    |     +--:(Vlan)
+    |     |  +-- Vlan?                        uint16
+    |     +--:(VirtualPortGroup)
+    |     |  +-- VirtualPortGroup?            uint16
+    |     +--:(vasileft)
+    |     |  +-- vasileft?                    uint16
+    |     +--:(vasiright)
+    |        +-- vasiright?                   uint16
+    +-- template
+    |  +-- data
+    |     +-- timeout?   uint32
+    +-- transport
+    |  +-- udp?   uint16
+    +-- ttl?               uint8
+  grouping flow-default-exporter-grouping
+    +-- description?       empty
+    +-- dscp?              empty
+    +-- export-protocol?   empty
+    +-- option
+    |  +-- application-attributes!
+    |  +-- c3pl-class-table!
+    |  +-- c3pl-policy-table!
+    |  +-- exporter-stats!
+    |  +-- interface-table!
+    |  +-- metadata-version-table!
+    |  +-- sampler-table!
+    |  +-- sub-application-table!
+    |  +-- vrf-table!
+    +-- template
+    |  +-- data
+    |     +-- timeout?   empty
+    +-- transport?         empty
+    +-- ttl?               empty
+  grouping config-flow-grouping
+    +-- record* [name]
+    |  +-- name?          string
+    |  +-- type?          enumeration
+    |  +-- collect
+    |  |  +-- application
+    |  |  |  +-- dns
+    |  |  |  |  +-- domain-name?   empty
+    |  |  |  +-- http
+    |  |  |  |  +-- host?         empty
+    |  |  |  |  +-- referer?      empty
+    |  |  |  |  +-- uri
+    |  |  |  |  |  +-- statistics?   empty
+    |  |  |  |  +-- url?          empty
+    |  |  |  |  +-- user-agent?   empty
+    |  |  |  +-- media
+    |  |  |  |  +-- bytes
+    |  |  |  |  |  +-- counter!
+    |  |  |  |  |  |  +-- long?   empty
+    |  |  |  |  |  +-- rate!
+    |  |  |  |  |     +-- per-flow!
+    |  |  |  |  |        +-- max?   empty
+    |  |  |  |  |        +-- min?   empty
+    |  |  |  |  +-- event?     empty
+    |  |  |  |  +-- packets
+    |  |  |  |     +-- counter!
+    |  |  |  |     |  +-- long?   empty
+    |  |  |  |     +-- rate!
+    |  |  |  |        +-- variation!
+    |  |  |  |           +-- max?   empty
+    |  |  |  |           +-- min?   empty
+    |  |  |  |           +-- sum?   empty
+    |  |  |  +-- name!
+    |  |  |  |  +-- account-on-resolution?   empty
+    |  |  |  +-- nntp
+    |  |  |  |  +-- group-name?   empty
+    |  |  |  +-- pop3
+    |  |  |  |  +-- server?   empty
+    |  |  |  +-- rtmp
+    |  |  |  |  +-- pageUrl?   empty
+    |  |  |  +-- rtsp
+    |  |  |  |  +-- host?   empty
+    |  |  |  +-- sip
+    |  |  |  |  +-- destination?   empty
+    |  |  |  |  +-- source?        empty
+    |  |  |  +-- smtp
+    |  |  |  |  +-- sender?   empty
+    |  |  |  |  +-- server?   empty
+    |  |  |  +-- ssl
+    |  |  |  |  +-- common-name?   empty
+    |  |  |  +-- vendor?    empty
+    |  |  |  +-- version?   empty
+    |  |  +-- connection
+    |  |  |  +-- client
+    |  |  |  |  +-- all?         empty
+    |  |  |  |  +-- counter
+    |  |  |  |  |  +-- bytes
+    |  |  |  |  |  |  +-- long?            empty
+    |  |  |  |  |  |  +-- network
+    |  |  |  |  |  |  |  +-- long?   empty
+    |  |  |  |  |  |  +-- retransmitted?   empty
+    |  |  |  |  |  |  +-- transport
+    |  |  |  |  |  |     +-- long?   empty
+    |  |  |  |  |  +-- packets
+    |  |  |  |  |     +-- long?            empty
+    |  |  |  |  |     +-- retransmitted?   empty
+    |  |  |  |  +-- ipv4
+    |  |  |  |  |  +-- address?   empty
+    |  |  |  |  +-- ipv6
+    |  |  |  |  |  +-- address?   empty
+    |  |  |  |  +-- transport
+    |  |  |  |     +-- port?   empty
+    |  |  |  +-- delay
+    |  |  |  |  +-- all?           empty
+    |  |  |  |  +-- application
+    |  |  |  |  |  +-- max?   empty
+    |  |  |  |  |  +-- min?   empty
+    |  |  |  |  |  +-- sum?   empty
+    |  |  |  |  +-- network
+    |  |  |  |  |  +-- client-to-server
+    |  |  |  |  |  |  +-- max?           empty
+    |  |  |  |  |  |  +-- min?           empty
+    |  |  |  |  |  |  +-- num-samples?   empty
+    |  |  |  |  |  |  +-- sum?           empty
+    |  |  |  |  |  +-- long-lived
+    |  |  |  |  |  |  +-- client-to-serve
+    |  |  |  |  |  |  |  +-- sum?   empty
+    |  |  |  |  |  |  +-- to-client
+    |  |  |  |  |  |  |  +-- sum?   empty
+    |  |  |  |  |  |  +-- to-serve
+    |  |  |  |  |  |     +-- sum?   empty
+    |  |  |  |  |  +-- to-client
+    |  |  |  |  |  |  +-- max?           empty
+    |  |  |  |  |  |  +-- min?           empty
+    |  |  |  |  |  |  +-- num-samples?   empty
+    |  |  |  |  |  |  +-- sum?           empty
+    |  |  |  |  |  +-- to-server
+    |  |  |  |  |     +-- max?           empty
+    |  |  |  |  |     +-- min?           empty
+    |  |  |  |  |     +-- num-samples?   empty
+    |  |  |  |  |     +-- sum?           empty
+    |  |  |  |  +-- response
+    |  |  |  |     +-- client-to-server
+    |  |  |  |     |  +-- max?   empty
+    |  |  |  |     |  +-- min?   empty
+    |  |  |  |     |  +-- sum?   empty
+    |  |  |  |     +-- to-server
+    |  |  |  |        +-- histogram?   enumeration
+    |  |  |  |        +-- max?         empty
+    |  |  |  |        +-- min?         empty
+    |  |  |  |        +-- sum?         empty
+    |  |  |  +-- id?                empty
+    |  |  |  +-- initiator?         empty
+    |  |  |  +-- new-connections?   empty
+    |  |  |  +-- server
+    |  |  |  |  +-- all?         empty
+    |  |  |  |  +-- counter
+    |  |  |  |  |  +-- bytes
+    |  |  |  |  |  |  +-- long?            empty
+    |  |  |  |  |  |  +-- network
+    |  |  |  |  |  |  |  +-- long?   empty
+    |  |  |  |  |  |  +-- retransmitted?   empty
+    |  |  |  |  |  |  +-- transport
+    |  |  |  |  |  |     +-- long?   empty
+    |  |  |  |  |  +-- packets
+    |  |  |  |  |  |  +-- long?            empty
+    |  |  |  |  |  |  +-- retransmitted?   empty
+    |  |  |  |  |  +-- responses?   empty
+    |  |  |  |  +-- ipv4
+    |  |  |  |  |  +-- address?   empty
+    |  |  |  |  +-- ipv6
+    |  |  |  |  |  +-- address?   empty
+    |  |  |  |  +-- transport
+    |  |  |  |     +-- port?   empty
+    |  |  |  +-- sum-duration?      empty
+    |  |  |  +-- transaction
+    |  |  |  |  +-- all?        empty
+    |  |  |  |  +-- counter
+    |  |  |  |  |  +-- complete?   empty
+    |  |  |  |  +-- duration
+    |  |  |  |     +-- max?   empty
+    |  |  |  |     +-- min?   empty
+    |  |  |  |     +-- sum?   empty
+    |  |  |  +-- transaction-id?    empty
+    |  |  +-- counter
+    |  |  |  +-- bytes!
+    |  |  |  |  +-- long?      empty
+    |  |  |  |  +-- rate!
+    |  |  |  |  |  +-- per-flow!
+    |  |  |  |  |     +-- max?   empty
+    |  |  |  |  |     +-- min?   empty
+    |  |  |  |  +-- squared
+    |  |  |  |     +-- long?   empty
+    |  |  |  +-- flows?     empty
+    |  |  |  +-- packets!
+    |  |  |     +-- dropped?   empty
+    |  |  |     +-- long?      empty
+    |  |  |     +-- rate!
+    |  |  |        +-- per-flow!
+    |  |  |           +-- max?   empty
+    |  |  |           +-- min?   empty
+    |  |  +-- datalink
+    |  |  |  +-- destination-vlan-id?   empty
+    |  |  |  +-- dot1q
+    |  |  |  |  +-- priority?   empty
+    |  |  |  |  +-- vlan
+    |  |  |  |     +-- input?    empty
+    |  |  |  |     +-- output?   empty
+    |  |  |  +-- ethertype?             empty
+    |  |  |  +-- vlan?                  enumeration
+    |  |  |  +-- mac
+    |  |  |  |  +-- destination
+    |  |  |  |  |  +-- address
+    |  |  |  |  |     +-- input?    empty
+    |  |  |  |  |     +-- output?   empty
+    |  |  |  |  +-- source
+    |  |  |  |     +-- address
+    |  |  |  |        +-- input?    empty
+    |  |  |  |        +-- output?   empty
+    |  |  |  +-- source-vlan-id?        empty
+    |  |  +-- flow
+    |  |  |  +-- cts
+    |  |  |  |  +-- destination
+    |  |  |  |  |  +-- group-tag?   empty
+    |  |  |  |  +-- source
+    |  |  |  |     +-- group-tag?   empty
+    |  |  |  +-- direction?     empty
+    |  |  |  +-- observation
+    |  |  |  |  +-- point?   empty
+    |  |  |  +-- sampler?       empty
+    |  |  |  +-- end-reason?    empty
+    |  |  +-- interface
+    |  |  |  +-- input!
+    |  |  |  |  +-- snmp?   empty
+    |  |  |  +-- output!
+    |  |  |     +-- snmp?   empty
+    |  |  +-- ipv4
+    |  |  |  +-- destination
+    |  |  |  |  +-- address?   empty
+    |  |  |  |  +-- mask!
+    |  |  |  |  |  +-- minimum-mask?   uint8
+    |  |  |  |  +-- prefix!
+    |  |  |  |     +-- minimum-mask?   uint8
+    |  |  |  +-- dscp?            empty
+    |  |  |  +-- fragmentation
+    |  |  |  |  +-- flags?    empty
+    |  |  |  |  +-- offset?   empty
+    |  |  |  +-- header-length?   empty
+    |  |  |  +-- id?              empty
+    |  |  |  +-- length
+    |  |  |  |  +-- header?    empty
+    |  |  |  |  +-- payload?   empty
+    |  |  |  |  +-- total!
+    |  |  |  |     +-- maximum?   empty
+    |  |  |  |     +-- minimum?   empty
+    |  |  |  +-- option
+    |  |  |  |  +-- map?   empty
+    |  |  |  +-- precedence?      empty
+    |  |  |  +-- protocol?        empty
+    |  |  |  +-- section
+    |  |  |  |  +-- header
+    |  |  |  |  |  +-- size?   uint16
+    |  |  |  |  +-- payload
+    |  |  |  |     +-- size?   uint16
+    |  |  |  +-- source
+    |  |  |  |  +-- address?   empty
+    |  |  |  |  +-- mask!
+    |  |  |  |  |  +-- minimum-mask?   uint8
+    |  |  |  |  +-- prefix!
+    |  |  |  |     +-- minimum-mask?   uint8
+    |  |  |  +-- tos?             empty
+    |  |  |  +-- total-length!
+    |  |  |  |  +-- maximum?   empty
+    |  |  |  |  +-- minimum?   empty
+    |  |  |  +-- ttl!
+    |  |  |  |  +-- maximum?   empty
+    |  |  |  |  +-- minimum?   empty
+    |  |  |  +-- version?         empty
+    |  |  +-- ipv6
+    |  |  |  +-- destination
+    |  |  |  |  +-- address?   empty
+    |  |  |  |  +-- mask!
+    |  |  |  |  |  +-- minimum-mask?   uint8
+    |  |  |  |  +-- prefix!
+    |  |  |  |     +-- minimum-mask?   uint8
+    |  |  |  +-- dscp?             empty
+    |  |  |  +-- extension
+    |  |  |  |  +-- map?   empty
+    |  |  |  +-- flow-label?       empty
+    |  |  |  +-- fragmentation
+    |  |  |  |  +-- flags?    empty
+    |  |  |  |  +-- id?       empty
+    |  |  |  |  +-- offset?   empty
+    |  |  |  +-- hop-limit!
+    |  |  |  |  +-- maximum?   empty
+    |  |  |  |  +-- minimum?   empty
+    |  |  |  +-- length
+    |  |  |  |  +-- header?    empty
+    |  |  |  |  +-- payload?   empty
+    |  |  |  |  +-- total!
+    |  |  |  |     +-- maximum?   empty
+    |  |  |  |     +-- minimum?   empty
+    |  |  |  +-- next-header?      empty
+    |  |  |  +-- payload-length?   empty
+    |  |  |  +-- precedence?       empty
+    |  |  |  +-- protocol?         empty
+    |  |  |  +-- section
+    |  |  |  |  +-- header
+    |  |  |  |  |  +-- size?   uint16
+    |  |  |  |  +-- payload
+    |  |  |  |     +-- size?   uint16
+    |  |  |  +-- source
+    |  |  |  |  +-- address?   empty
+    |  |  |  |  +-- mask!
+    |  |  |  |  |  +-- minimum-mask?   uint8
+    |  |  |  |  +-- prefix!
+    |  |  |  |     +-- minimum-mask?   uint8
+    |  |  |  +-- traffic-class?    empty
+    |  |  |  +-- version?          empty
+    |  |  +-- metadata
+    |  |  |  +-- clock-rate?               empty
+    |  |  |  +-- global-session-id?        empty
+    |  |  |  +-- multi-party-session-id?   empty
+    |  |  +-- monitor
+    |  |  |  +-- event?   empty
+    |  |  +-- mpls
+    |  |  |  +-- label
+    |  |  |     +-- one
+    |  |  |     |  +-- details?   empty
+    |  |  |     |  +-- exp?       empty
+    |  |  |     |  +-- ttl?       empty
+    |  |  |     |  +-- type?      empty
+    |  |  |     +-- two
+    |  |  |     |  +-- details?   empty
+    |  |  |     +-- three
+    |  |  |     |  +-- details?   empty
+    |  |  |     +-- four
+    |  |  |     |  +-- details?   empty
+    |  |  |     +-- five
+    |  |  |     |  +-- details?   empty
+    |  |  |     +-- six
+    |  |  |        +-- details?   empty
+    |  |  +-- network
+    |  |  |  +-- delay
+    |  |  |     +-- sample?   empty
+    |  |  |     +-- sum?      empty
+    |  |  +-- pfr
+    |  |  |  +-- label
+    |  |  |  |  +-- identifier?   empty
+    |  |  |  +-- one-way-delay
+    |  |  |  |  +-- samples?   empty
+    |  |  |  |  +-- sum?       empty
+    |  |  |  +-- service
+    |  |  |  |  +-- provider?     empty
+    |  |  |  |  +-- tag?          empty
+    |  |  |  |  +-- identifier?   empty
+    |  |  |  +-- site
+    |  |  |     +-- destination
+    |  |  |     |  +-- id
+    |  |  |     |  |  +-- ipv4?   empty
+    |  |  |     |  +-- prefix
+    |  |  |     |     +-- ipv4?   empty
+    |  |  |     |     +-- mask
+    |  |  |     |        +-- ipv4?   empty
+    |  |  |     +-- source
+    |  |  |        +-- id
+    |  |  |        |  +-- ipv4?   empty
+    |  |  |        +-- prefix
+    |  |  |           +-- ipv4?   empty
+    |  |  |           +-- mask
+    |  |  |              +-- ipv4?   empty
+    |  |  +-- policy
+    |  |  |  +-- performance-monitor
+    |  |  |  |  +-- classification
+    |  |  |  |     +-- hierarchy?   empty
+    |  |  |  +-- qos
+    |  |  |     +-- classification
+    |  |  |     |  +-- hierarchy?   empty
+    |  |  |     +-- queue
+    |  |  |        +-- drops?   empty
+    |  |  |        +-- index?   empty
+    |  |  +-- routing
+    |  |  |  +-- destination
+    |  |  |  |  +-- as!
+    |  |  |  |  |  +-- as4-octet?   empty
+    |  |  |  |  |  +-- peer!
+    |  |  |  |  |     +-- peer4-octet?   empty
+    |  |  |  |  +-- traffic-index?   empty
+    |  |  |  +-- forwarding-status!
+    |  |  |  |  +-- reason?   empty
+    |  |  |  +-- is-multicast?        empty
+    |  |  |  +-- next-hop
+    |  |  |  |  +-- address
+    |  |  |  |     +-- ipv4!
+    |  |  |  |     |  +-- bgp?   empty
+    |  |  |  |     +-- ipv6!
+    |  |  |  |        +-- bgp?   empty
+    |  |  |  +-- pw
+    |  |  |  |  +-- destination
+    |  |  |  |     +-- address?   empty
+    |  |  |  +-- source
+    |  |  |  |  +-- as!
+    |  |  |  |  |  +-- as4-octet?   empty
+    |  |  |  |  |  +-- peer!
+    |  |  |  |  |     +-- peer4-octet?   empty
+    |  |  |  |  +-- traffic-index?   empty
+    |  |  |  +-- vrf
+    |  |  |     +-- input?    empty
+    |  |  |     +-- output?   empty
+    |  |  +-- services
+    |  |  |  +-- waas
+    |  |  |     +-- passthrough-reason?   empty
+    |  |  |     +-- segment!
+    |  |  |        +-- account-on-resolution?   empty
+    |  |  +-- timestamp
+    |  |  |  +-- absolute
+    |  |  |  |  +-- first?                 empty
+    |  |  |  |  +-- last?                  empty
+    |  |  |  |  +-- monitoring-interval
+    |  |  |  |     +-- end?     empty
+    |  |  |  |     +-- start?   empty
+    |  |  |  +-- interval?     empty
+    |  |  |  +-- sys-uptime
+    |  |  |     +-- first?   empty
+    |  |  |     +-- last?    empty
+    |  |  +-- transport
+    |  |     +-- bytes
+    |  |     |  +-- expected?       empty
+    |  |     |  +-- lost!
+    |  |     |  |  +-- rate?   empty
+    |  |     |  +-- out-of-order?   empty
+    |  |     +-- destination-port?   empty
+    |  |     +-- icmp
+    |  |     |  +-- ipv4
+    |  |     |  |  +-- code?   empty
+    |  |     |  |  +-- type?   empty
+    |  |     |  +-- ipv6
+    |  |     |     +-- code?   empty
+    |  |     |     +-- type?   empty
+    |  |     +-- igmp
+    |  |     |  +-- type?   empty
+    |  |     +-- source-port?        empty
+    |  |     +-- tcp
+    |  |     |  +-- acknowledgement-number?   empty
+    |  |     |  +-- destination-port?         empty
+    |  |     |  +-- flags!
+    |  |     |  |  +-- ack?   empty
+    |  |     |  |  +-- cwr?   empty
+    |  |     |  |  +-- ece?   empty
+    |  |     |  |  +-- fin?   empty
+    |  |     |  |  +-- psh?   empty
+    |  |     |  |  +-- rst?   empty
+    |  |     |  |  +-- syn?   empty
+    |  |     |  |  +-- urg?   empty
+    |  |     |  +-- flow
+    |  |     |  |  +-- count?   empty
+    |  |     |  +-- header-length?            empty
+    |  |     |  +-- maximum-segment-size?     empty
+    |  |     |  +-- option
+    |  |     |  |  +-- map!
+    |  |     |  |     +-- long?   empty
+    |  |     |  +-- sequence-number?          empty
+    |  |     |  +-- source-port?              empty
+    |  |     |  +-- urgent-pointer?           empty
+    |  |     |  +-- window-size!
+    |  |     |     +-- average!
+    |  |     |     |  +-- sum?   empty
+    |  |     |     +-- maximum?   empty
+    |  |     |     +-- minimum?   empty
+    |  |     |     +-- sum?       empty
+    |  |     +-- udp
+    |  |     |  +-- destination-port?   empty
+    |  |     |  +-- message-length?     empty
+    |  |     |  +-- source-port?        empty
+    |  |     +-- event
+    |  |     |  +-- packet-loss
+    |  |     |     +-- counter!
+    |  |     |        +-- max?   empty
+    |  |     |        +-- min?   empty
+    |  |     +-- packets
+    |  |     |  +-- expected
+    |  |     |  |  +-- counter?   empty
+    |  |     |  +-- lost
+    |  |     |  |  +-- counter!
+    |  |     |  |  |  +-- max?   empty
+    |  |     |  |  |  +-- min?   empty
+    |  |     |  |  +-- rate!
+    |  |     |  |     +-- max?   empty
+    |  |     |  |     +-- min?   empty
+    |  |     |  +-- out-of-order?   empty
+    |  |     +-- round-trip-time!
+    |  |     |  +-- max?       empty
+    |  |     |  +-- min?       empty
+    |  |     |  +-- samples?   empty
+    |  |     |  +-- sum?       empty
+    |  |     +-- rtp
+    |  |        +-- flow
+    |  |        |  +-- count?   empty
+    |  |        +-- jitter
+    |  |        |  +-- maximum?   empty
+    |  |        |  +-- mean!
+    |  |        |  |  +-- sum?   empty
+    |  |        |  +-- minimum?   empty
+    |  |        +-- payload-type?   empty
+    |  |        +-- ssrc?           empty
+    |  +-- default
+    |  |  +-- collect
+    |  |  |  +-- application
+    |  |  |  |  +-- dns
+    |  |  |  |  |  +-- domain-name?   empty
+    |  |  |  |  +-- http
+    |  |  |  |  |  +-- host?         empty
+    |  |  |  |  |  +-- referer?      empty
+    |  |  |  |  |  +-- uri
+    |  |  |  |  |  |  +-- statistics?   empty
+    |  |  |  |  |  +-- url?          empty
+    |  |  |  |  |  +-- user-agent?   empty
+    |  |  |  |  +-- media
+    |  |  |  |  |  +-- bytes
+    |  |  |  |  |  |  +-- counter!
+    |  |  |  |  |  |  |  +-- long?   empty
+    |  |  |  |  |  |  +-- rate!
+    |  |  |  |  |  |     +-- per-flow!
+    |  |  |  |  |  |        +-- max?   empty
+    |  |  |  |  |  |        +-- min?   empty
+    |  |  |  |  |  +-- event?     empty
+    |  |  |  |  |  +-- packets
+    |  |  |  |  |     +-- counter!
+    |  |  |  |  |     |  +-- long?   empty
+    |  |  |  |  |     +-- rate!
+    |  |  |  |  |        +-- variation!
+    |  |  |  |  |           +-- max?   empty
+    |  |  |  |  |           +-- min?   empty
+    |  |  |  |  |           +-- sum?   empty
+    |  |  |  |  +-- name!
+    |  |  |  |  |  +-- account-on-resolution?   empty
+    |  |  |  |  +-- nntp
+    |  |  |  |  |  +-- group-name?   empty
+    |  |  |  |  +-- pop3
+    |  |  |  |  |  +-- server?   empty
+    |  |  |  |  +-- rtmp
+    |  |  |  |  |  +-- pageUrl?   empty
+    |  |  |  |  +-- rtsp
+    |  |  |  |  |  +-- host?   empty
+    |  |  |  |  +-- sip
+    |  |  |  |  |  +-- destination?   empty
+    |  |  |  |  |  +-- source?        empty
+    |  |  |  |  +-- smtp
+    |  |  |  |  |  +-- sender?   empty
+    |  |  |  |  |  +-- server?   empty
+    |  |  |  |  +-- ssl
+    |  |  |  |  |  +-- common-name?   empty
+    |  |  |  |  +-- vendor?    empty
+    |  |  |  |  +-- version?   empty
+    |  |  |  +-- connection
+    |  |  |  |  +-- client
+    |  |  |  |  |  +-- all?         empty
+    |  |  |  |  |  +-- counter
+    |  |  |  |  |  |  +-- bytes
+    |  |  |  |  |  |  |  +-- long?            empty
+    |  |  |  |  |  |  |  +-- network
+    |  |  |  |  |  |  |  |  +-- long?   empty
+    |  |  |  |  |  |  |  +-- retransmitted?   empty
+    |  |  |  |  |  |  |  +-- transport
+    |  |  |  |  |  |  |     +-- long?   empty
+    |  |  |  |  |  |  +-- packets
+    |  |  |  |  |  |     +-- long?            empty
+    |  |  |  |  |  |     +-- retransmitted?   empty
+    |  |  |  |  |  +-- ipv4
+    |  |  |  |  |  |  +-- address?   empty
+    |  |  |  |  |  +-- ipv6
+    |  |  |  |  |  |  +-- address?   empty
+    |  |  |  |  |  +-- transport
+    |  |  |  |  |     +-- port?   empty
+    |  |  |  |  +-- delay
+    |  |  |  |  |  +-- all?           empty
+    |  |  |  |  |  +-- application
+    |  |  |  |  |  |  +-- max?   empty
+    |  |  |  |  |  |  +-- min?   empty
+    |  |  |  |  |  |  +-- sum?   empty
+    |  |  |  |  |  +-- network
+    |  |  |  |  |  |  +-- client-to-server
+    |  |  |  |  |  |  |  +-- max?           empty
+    |  |  |  |  |  |  |  +-- min?           empty
+    |  |  |  |  |  |  |  +-- num-samples?   empty
+    |  |  |  |  |  |  |  +-- sum?           empty
+    |  |  |  |  |  |  +-- long-lived
+    |  |  |  |  |  |  |  +-- client-to-serve
+    |  |  |  |  |  |  |  |  +-- sum?   empty
+    |  |  |  |  |  |  |  +-- to-client
+    |  |  |  |  |  |  |  |  +-- sum?   empty
+    |  |  |  |  |  |  |  +-- to-serve
+    |  |  |  |  |  |  |     +-- sum?   empty
+    |  |  |  |  |  |  +-- to-client
+    |  |  |  |  |  |  |  +-- max?           empty
+    |  |  |  |  |  |  |  +-- min?           empty
+    |  |  |  |  |  |  |  +-- num-samples?   empty
+    |  |  |  |  |  |  |  +-- sum?           empty
+    |  |  |  |  |  |  +-- to-server
+    |  |  |  |  |  |     +-- max?           empty
+    |  |  |  |  |  |     +-- min?           empty
+    |  |  |  |  |  |     +-- num-samples?   empty
+    |  |  |  |  |  |     +-- sum?           empty
+    |  |  |  |  |  +-- response
+    |  |  |  |  |     +-- client-to-server
+    |  |  |  |  |     |  +-- max?   empty
+    |  |  |  |  |     |  +-- min?   empty
+    |  |  |  |  |     |  +-- sum?   empty
+    |  |  |  |  |     +-- to-server
+    |  |  |  |  |        +-- histogram?   enumeration
+    |  |  |  |  |        +-- max?         empty
+    |  |  |  |  |        +-- min?         empty
+    |  |  |  |  |        +-- sum?         empty
+    |  |  |  |  +-- id?                empty
+    |  |  |  |  +-- initiator?         empty
+    |  |  |  |  +-- new-connections?   empty
+    |  |  |  |  +-- server
+    |  |  |  |  |  +-- all?         empty
+    |  |  |  |  |  +-- counter
+    |  |  |  |  |  |  +-- bytes
+    |  |  |  |  |  |  |  +-- long?            empty
+    |  |  |  |  |  |  |  +-- network
+    |  |  |  |  |  |  |  |  +-- long?   empty
+    |  |  |  |  |  |  |  +-- retransmitted?   empty
+    |  |  |  |  |  |  |  +-- transport
+    |  |  |  |  |  |  |     +-- long?   empty
+    |  |  |  |  |  |  +-- packets
+    |  |  |  |  |  |  |  +-- long?            empty
+    |  |  |  |  |  |  |  +-- retransmitted?   empty
+    |  |  |  |  |  |  +-- responses?   empty
+    |  |  |  |  |  +-- ipv4
+    |  |  |  |  |  |  +-- address?   empty
+    |  |  |  |  |  +-- ipv6
+    |  |  |  |  |  |  +-- address?   empty
+    |  |  |  |  |  +-- transport
+    |  |  |  |  |     +-- port?   empty
+    |  |  |  |  +-- sum-duration?      empty
+    |  |  |  |  +-- transaction
+    |  |  |  |  |  +-- all?        empty
+    |  |  |  |  |  +-- counter
+    |  |  |  |  |  |  +-- complete?   empty
+    |  |  |  |  |  +-- duration
+    |  |  |  |  |     +-- max?   empty
+    |  |  |  |  |     +-- min?   empty
+    |  |  |  |  |     +-- sum?   empty
+    |  |  |  |  +-- transaction-id?    empty
+    |  |  |  +-- counter
+    |  |  |  |  +-- bytes!
+    |  |  |  |  |  +-- long?      empty
+    |  |  |  |  |  +-- rate!
+    |  |  |  |  |  |  +-- per-flow!
+    |  |  |  |  |  |     +-- max?   empty
+    |  |  |  |  |  |     +-- min?   empty
+    |  |  |  |  |  +-- squared
+    |  |  |  |  |     +-- long?   empty
+    |  |  |  |  +-- flows?     empty
+    |  |  |  |  +-- packets!
+    |  |  |  |     +-- dropped?   empty
+    |  |  |  |     +-- long?      empty
+    |  |  |  |     +-- rate!
+    |  |  |  |        +-- per-flow!
+    |  |  |  |           +-- max?   empty
+    |  |  |  |           +-- min?   empty
+    |  |  |  +-- datalink
+    |  |  |  |  +-- destination-vlan-id?   empty
+    |  |  |  |  +-- dot1q
+    |  |  |  |  |  +-- priority?   empty
+    |  |  |  |  |  +-- vlan
+    |  |  |  |  |     +-- input?    empty
+    |  |  |  |  |     +-- output?   empty
+    |  |  |  |  +-- ethertype?             empty
+    |  |  |  |  +-- vlan?                  enumeration
+    |  |  |  |  +-- mac
+    |  |  |  |  |  +-- destination
+    |  |  |  |  |  |  +-- address
+    |  |  |  |  |  |     +-- input?    empty
+    |  |  |  |  |  |     +-- output?   empty
+    |  |  |  |  |  +-- source
+    |  |  |  |  |     +-- address
+    |  |  |  |  |        +-- input?    empty
+    |  |  |  |  |        +-- output?   empty
+    |  |  |  |  +-- source-vlan-id?        empty
+    |  |  |  +-- flow
+    |  |  |  |  +-- cts
+    |  |  |  |  |  +-- destination
+    |  |  |  |  |  |  +-- group-tag?   empty
+    |  |  |  |  |  +-- source
+    |  |  |  |  |     +-- group-tag?   empty
+    |  |  |  |  +-- direction?     empty
+    |  |  |  |  +-- observation
+    |  |  |  |  |  +-- point?   empty
+    |  |  |  |  +-- sampler?       empty
+    |  |  |  |  +-- end-reason?    empty
+    |  |  |  +-- interface
+    |  |  |  |  +-- input!
+    |  |  |  |  |  +-- snmp?   empty
+    |  |  |  |  +-- output!
+    |  |  |  |     +-- snmp?   empty
+    |  |  |  +-- ipv4
+    |  |  |  |  +-- destination
+    |  |  |  |  |  +-- address?   empty
+    |  |  |  |  |  +-- mask!
+    |  |  |  |  |  |  +-- minimum-mask?   uint8
+    |  |  |  |  |  +-- prefix!
+    |  |  |  |  |     +-- minimum-mask?   uint8
+    |  |  |  |  +-- dscp?            empty
+    |  |  |  |  +-- fragmentation
+    |  |  |  |  |  +-- flags?    empty
+    |  |  |  |  |  +-- offset?   empty
+    |  |  |  |  +-- header-length?   empty
+    |  |  |  |  +-- id?              empty
+    |  |  |  |  +-- length
+    |  |  |  |  |  +-- header?    empty
+    |  |  |  |  |  +-- payload?   empty
+    |  |  |  |  |  +-- total!
+    |  |  |  |  |     +-- maximum?   empty
+    |  |  |  |  |     +-- minimum?   empty
+    |  |  |  |  +-- option
+    |  |  |  |  |  +-- map?   empty
+    |  |  |  |  +-- precedence?      empty
+    |  |  |  |  +-- protocol?        empty
+    |  |  |  |  +-- section
+    |  |  |  |  |  +-- header
+    |  |  |  |  |  |  +-- size?   uint16
+    |  |  |  |  |  +-- payload
+    |  |  |  |  |     +-- size?   uint16
+    |  |  |  |  +-- source
+    |  |  |  |  |  +-- address?   empty
+    |  |  |  |  |  +-- mask!
+    |  |  |  |  |  |  +-- minimum-mask?   uint8
+    |  |  |  |  |  +-- prefix!
+    |  |  |  |  |     +-- minimum-mask?   uint8
+    |  |  |  |  +-- tos?             empty
+    |  |  |  |  +-- total-length!
+    |  |  |  |  |  +-- maximum?   empty
+    |  |  |  |  |  +-- minimum?   empty
+    |  |  |  |  +-- ttl!
+    |  |  |  |  |  +-- maximum?   empty
+    |  |  |  |  |  +-- minimum?   empty
+    |  |  |  |  +-- version?         empty
+    |  |  |  +-- ipv6
+    |  |  |  |  +-- destination
+    |  |  |  |  |  +-- address?   empty
+    |  |  |  |  |  +-- mask!
+    |  |  |  |  |  |  +-- minimum-mask?   uint8
+    |  |  |  |  |  +-- prefix!
+    |  |  |  |  |     +-- minimum-mask?   uint8
+    |  |  |  |  +-- dscp?             empty
+    |  |  |  |  +-- extension
+    |  |  |  |  |  +-- map?   empty
+    |  |  |  |  +-- flow-label?       empty
+    |  |  |  |  +-- fragmentation
+    |  |  |  |  |  +-- flags?    empty
+    |  |  |  |  |  +-- id?       empty
+    |  |  |  |  |  +-- offset?   empty
+    |  |  |  |  +-- hop-limit!
+    |  |  |  |  |  +-- maximum?   empty
+    |  |  |  |  |  +-- minimum?   empty
+    |  |  |  |  +-- length
+    |  |  |  |  |  +-- header?    empty
+    |  |  |  |  |  +-- payload?   empty
+    |  |  |  |  |  +-- total!
+    |  |  |  |  |     +-- maximum?   empty
+    |  |  |  |  |     +-- minimum?   empty
+    |  |  |  |  +-- next-header?      empty
+    |  |  |  |  +-- payload-length?   empty
+    |  |  |  |  +-- precedence?       empty
+    |  |  |  |  +-- protocol?         empty
+    |  |  |  |  +-- section
+    |  |  |  |  |  +-- header
+    |  |  |  |  |  |  +-- size?   uint16
+    |  |  |  |  |  +-- payload
+    |  |  |  |  |     +-- size?   uint16
+    |  |  |  |  +-- source
+    |  |  |  |  |  +-- address?   empty
+    |  |  |  |  |  +-- mask!
+    |  |  |  |  |  |  +-- minimum-mask?   uint8
+    |  |  |  |  |  +-- prefix!
+    |  |  |  |  |     +-- minimum-mask?   uint8
+    |  |  |  |  +-- traffic-class?    empty
+    |  |  |  |  +-- version?          empty
+    |  |  |  +-- metadata
+    |  |  |  |  +-- clock-rate?               empty
+    |  |  |  |  +-- global-session-id?        empty
+    |  |  |  |  +-- multi-party-session-id?   empty
+    |  |  |  +-- monitor
+    |  |  |  |  +-- event?   empty
+    |  |  |  +-- mpls
+    |  |  |  |  +-- label
+    |  |  |  |     +-- one
+    |  |  |  |     |  +-- details?   empty
+    |  |  |  |     |  +-- exp?       empty
+    |  |  |  |     |  +-- ttl?       empty
+    |  |  |  |     |  +-- type?      empty
+    |  |  |  |     +-- two
+    |  |  |  |     |  +-- details?   empty
+    |  |  |  |     +-- three
+    |  |  |  |     |  +-- details?   empty
+    |  |  |  |     +-- four
+    |  |  |  |     |  +-- details?   empty
+    |  |  |  |     +-- five
+    |  |  |  |     |  +-- details?   empty
+    |  |  |  |     +-- six
+    |  |  |  |        +-- details?   empty
+    |  |  |  +-- network
+    |  |  |  |  +-- delay
+    |  |  |  |     +-- sample?   empty
+    |  |  |  |     +-- sum?      empty
+    |  |  |  +-- pfr
+    |  |  |  |  +-- label
+    |  |  |  |  |  +-- identifier?   empty
+    |  |  |  |  +-- one-way-delay
+    |  |  |  |  |  +-- samples?   empty
+    |  |  |  |  |  +-- sum?       empty
+    |  |  |  |  +-- service
+    |  |  |  |  |  +-- provider?     empty
+    |  |  |  |  |  +-- tag?          empty
+    |  |  |  |  |  +-- identifier?   empty
+    |  |  |  |  +-- site
+    |  |  |  |     +-- destination
+    |  |  |  |     |  +-- id
+    |  |  |  |     |  |  +-- ipv4?   empty
+    |  |  |  |     |  +-- prefix
+    |  |  |  |     |     +-- ipv4?   empty
+    |  |  |  |     |     +-- mask
+    |  |  |  |     |        +-- ipv4?   empty
+    |  |  |  |     +-- source
+    |  |  |  |        +-- id
+    |  |  |  |        |  +-- ipv4?   empty
+    |  |  |  |        +-- prefix
+    |  |  |  |           +-- ipv4?   empty
+    |  |  |  |           +-- mask
+    |  |  |  |              +-- ipv4?   empty
+    |  |  |  +-- policy
+    |  |  |  |  +-- performance-monitor
+    |  |  |  |  |  +-- classification
+    |  |  |  |  |     +-- hierarchy?   empty
+    |  |  |  |  +-- qos
+    |  |  |  |     +-- classification
+    |  |  |  |     |  +-- hierarchy?   empty
+    |  |  |  |     +-- queue
+    |  |  |  |        +-- drops?   empty
+    |  |  |  |        +-- index?   empty
+    |  |  |  +-- routing
+    |  |  |  |  +-- destination
+    |  |  |  |  |  +-- as!
+    |  |  |  |  |  |  +-- as4-octet?   empty
+    |  |  |  |  |  |  +-- peer!
+    |  |  |  |  |  |     +-- peer4-octet?   empty
+    |  |  |  |  |  +-- traffic-index?   empty
+    |  |  |  |  +-- forwarding-status!
+    |  |  |  |  |  +-- reason?   empty
+    |  |  |  |  +-- is-multicast?        empty
+    |  |  |  |  +-- next-hop
+    |  |  |  |  |  +-- address
+    |  |  |  |  |     +-- ipv4!
+    |  |  |  |  |     |  +-- bgp?   empty
+    |  |  |  |  |     +-- ipv6!
+    |  |  |  |  |        +-- bgp?   empty
+    |  |  |  |  +-- pw
+    |  |  |  |  |  +-- destination
+    |  |  |  |  |     +-- address?   empty
+    |  |  |  |  +-- source
+    |  |  |  |  |  +-- as!
+    |  |  |  |  |  |  +-- as4-octet?   empty
+    |  |  |  |  |  |  +-- peer!
+    |  |  |  |  |  |     +-- peer4-octet?   empty
+    |  |  |  |  |  +-- traffic-index?   empty
+    |  |  |  |  +-- vrf
+    |  |  |  |     +-- input?    empty
+    |  |  |  |     +-- output?   empty
+    |  |  |  +-- services
+    |  |  |  |  +-- waas
+    |  |  |  |     +-- passthrough-reason?   empty
+    |  |  |  |     +-- segment!
+    |  |  |  |        +-- account-on-resolution?   empty
+    |  |  |  +-- timestamp
+    |  |  |  |  +-- absolute
+    |  |  |  |  |  +-- first?                 empty
+    |  |  |  |  |  +-- last?                  empty
+    |  |  |  |  |  +-- monitoring-interval
+    |  |  |  |  |     +-- end?     empty
+    |  |  |  |  |     +-- start?   empty
+    |  |  |  |  +-- interval?     empty
+    |  |  |  |  +-- sys-uptime
+    |  |  |  |     +-- first?   empty
+    |  |  |  |     +-- last?    empty
+    |  |  |  +-- transport
+    |  |  |     +-- bytes
+    |  |  |     |  +-- expected?       empty
+    |  |  |     |  +-- lost!
+    |  |  |     |  |  +-- rate?   empty
+    |  |  |     |  +-- out-of-order?   empty
+    |  |  |     +-- destination-port?   empty
+    |  |  |     +-- icmp
+    |  |  |     |  +-- ipv4
+    |  |  |     |  |  +-- code?   empty
+    |  |  |     |  |  +-- type?   empty
+    |  |  |     |  +-- ipv6
+    |  |  |     |     +-- code?   empty
+    |  |  |     |     +-- type?   empty
+    |  |  |     +-- igmp
+    |  |  |     |  +-- type?   empty
+    |  |  |     +-- source-port?        empty
+    |  |  |     +-- tcp
+    |  |  |     |  +-- acknowledgement-number?   empty
+    |  |  |     |  +-- destination-port?         empty
+    |  |  |     |  +-- flags!
+    |  |  |     |  |  +-- ack?   empty
+    |  |  |     |  |  +-- cwr?   empty
+    |  |  |     |  |  +-- ece?   empty
+    |  |  |     |  |  +-- fin?   empty
+    |  |  |     |  |  +-- psh?   empty
+    |  |  |     |  |  +-- rst?   empty
+    |  |  |     |  |  +-- syn?   empty
+    |  |  |     |  |  +-- urg?   empty
+    |  |  |     |  +-- flow
+    |  |  |     |  |  +-- count?   empty
+    |  |  |     |  +-- header-length?            empty
+    |  |  |     |  +-- maximum-segment-size?     empty
+    |  |  |     |  +-- option
+    |  |  |     |  |  +-- map!
+    |  |  |     |  |     +-- long?   empty
+    |  |  |     |  +-- sequence-number?          empty
+    |  |  |     |  +-- source-port?              empty
+    |  |  |     |  +-- urgent-pointer?           empty
+    |  |  |     |  +-- window-size!
+    |  |  |     |     +-- average!
+    |  |  |     |     |  +-- sum?   empty
+    |  |  |     |     +-- maximum?   empty
+    |  |  |     |     +-- minimum?   empty
+    |  |  |     |     +-- sum?       empty
+    |  |  |     +-- udp
+    |  |  |     |  +-- destination-port?   empty
+    |  |  |     |  +-- message-length?     empty
+    |  |  |     |  +-- source-port?        empty
+    |  |  |     +-- event
+    |  |  |     |  +-- packet-loss
+    |  |  |     |     +-- counter!
+    |  |  |     |        +-- max?   empty
+    |  |  |     |        +-- min?   empty
+    |  |  |     +-- packets
+    |  |  |     |  +-- expected
+    |  |  |     |  |  +-- counter?   empty
+    |  |  |     |  +-- lost
+    |  |  |     |  |  +-- counter!
+    |  |  |     |  |  |  +-- max?   empty
+    |  |  |     |  |  |  +-- min?   empty
+    |  |  |     |  |  +-- rate!
+    |  |  |     |  |     +-- max?   empty
+    |  |  |     |  |     +-- min?   empty
+    |  |  |     |  +-- out-of-order?   empty
+    |  |  |     +-- round-trip-time!
+    |  |  |     |  +-- max?       empty
+    |  |  |     |  +-- min?       empty
+    |  |  |     |  +-- samples?   empty
+    |  |  |     |  +-- sum?       empty
+    |  |  |     +-- rtp
+    |  |  |        +-- flow
+    |  |  |        |  +-- count?   empty
+    |  |  |        +-- jitter
+    |  |  |        |  +-- maximum?   empty
+    |  |  |        |  +-- mean!
+    |  |  |        |  |  +-- sum?   empty
+    |  |  |        |  +-- minimum?   empty
+    |  |  |        +-- payload-type?   empty
+    |  |  |        +-- ssrc?           empty
+    |  |  +-- description?   string
+    |  |  +-- match
+    |  |     +-- application
+    |  |     |  +-- name!
+    |  |     |  |  +-- account-on-resolution?   empty
+    |  |     |  +-- vendor?    empty
+    |  |     |  +-- version?   empty
+    |  |     +-- connection
+    |  |     |  +-- client
+    |  |     |  |  +-- ipv4
+    |  |     |  |  |  +-- address?   empty
+    |  |     |  |  +-- ipv6
+    |  |     |  |  |  +-- address?   empty
+    |  |     |  |  +-- transport
+    |  |     |  |     +-- port?   empty
+    |  |     |  +-- id?               empty
+    |  |     |  +-- initiator?        empty
+    |  |     |  +-- server
+    |  |     |  |  +-- ipv4
+    |  |     |  |  |  +-- address?   empty
+    |  |     |  |  +-- ipv6
+    |  |     |  |  |  +-- address?   empty
+    |  |     |  |  +-- transport
+    |  |     |  |     +-- port?   empty
+    |  |     |  +-- transaction-id?   empty
+    |  |     +-- datalink
+    |  |     |  +-- destination-vlan-id?   empty
+    |  |     |  +-- dot1q
+    |  |     |  |  +-- priority?   empty
+    |  |     |  |  +-- vlan
+    |  |     |  |     +-- input?    empty
+    |  |     |  |     +-- output?   empty
+    |  |     |  +-- ethertype?             empty
+    |  |     |  +-- vlan?                  enumeration
+    |  |     |  +-- mac
+    |  |     |  |  +-- destination
+    |  |     |  |  |  +-- address
+    |  |     |  |  |     +-- input?    empty
+    |  |     |  |  |     +-- output?   empty
+    |  |     |  |  +-- source
+    |  |     |  |     +-- address
+    |  |     |  |        +-- input?    empty
+    |  |     |  |        +-- output?   empty
+    |  |     |  +-- source-vlan-id?        empty
+    |  |     +-- flow
+    |  |     |  +-- cts
+    |  |     |  |  +-- destination
+    |  |     |  |  |  +-- group-tag?   empty
+    |  |     |  |  +-- source
+    |  |     |  |     +-- group-tag?   empty
+    |  |     |  +-- direction?     empty
+    |  |     |  +-- observation
+    |  |     |  |  +-- point?   empty
+    |  |     |  +-- sampler?       empty
+    |  |     +-- interface
+    |  |     |  +-- input!
+    |  |     |  |  +-- snmp?   empty
+    |  |     |  +-- output!
+    |  |     |     +-- snmp?   empty
+    |  |     +-- ipv4
+    |  |     |  +-- destination
+    |  |     |  |  +-- address?   empty
+    |  |     |  |  +-- mask!
+    |  |     |  |  |  +-- minimum-mask?   uint8
+    |  |     |  |  +-- prefix!
+    |  |     |  |     +-- minimum-mask?   uint8
+    |  |     |  +-- dscp?            empty
+    |  |     |  +-- fragmentation
+    |  |     |  |  +-- flags?    empty
+    |  |     |  |  +-- offset?   empty
+    |  |     |  +-- header-length?   empty
+    |  |     |  +-- id?              empty
+    |  |     |  +-- length
+    |  |     |  |  +-- header?    empty
+    |  |     |  |  +-- payload?   empty
+    |  |     |  |  +-- total!
+    |  |     |  |     +-- maximum?   empty
+    |  |     |  |     +-- minimum?   empty
+    |  |     |  +-- option
+    |  |     |  |  +-- map?   empty
+    |  |     |  +-- precedence?      empty
+    |  |     |  +-- protocol?        empty
+    |  |     |  +-- section
+    |  |     |  |  +-- header
+    |  |     |  |  |  +-- size?   uint16
+    |  |     |  |  +-- payload
+    |  |     |  |     +-- size?   uint16
+    |  |     |  +-- source
+    |  |     |  |  +-- address?   empty
+    |  |     |  |  +-- mask!
+    |  |     |  |  |  +-- minimum-mask?   uint8
+    |  |     |  |  +-- prefix!
+    |  |     |  |     +-- minimum-mask?   uint8
+    |  |     |  +-- tos?             empty
+    |  |     |  +-- total-length!
+    |  |     |  |  +-- maximum?   empty
+    |  |     |  |  +-- minimum?   empty
+    |  |     |  +-- ttl!
+    |  |     |  |  +-- maximum?   empty
+    |  |     |  |  +-- minimum?   empty
+    |  |     |  +-- version?         empty
+    |  |     +-- ipv6
+    |  |     |  +-- destination
+    |  |     |  |  +-- address?   empty
+    |  |     |  |  +-- mask!
+    |  |     |  |  |  +-- minimum-mask?   uint8
+    |  |     |  |  +-- prefix!
+    |  |     |  |     +-- minimum-mask?   uint8
+    |  |     |  +-- dscp?             empty
+    |  |     |  +-- extension
+    |  |     |  |  +-- map?   empty
+    |  |     |  +-- flow-label?       empty
+    |  |     |  +-- fragmentation
+    |  |     |  |  +-- flags?    empty
+    |  |     |  |  +-- id?       empty
+    |  |     |  |  +-- offset?   empty
+    |  |     |  +-- hop-limit!
+    |  |     |  |  +-- maximum?   empty
+    |  |     |  |  +-- minimum?   empty
+    |  |     |  +-- length
+    |  |     |  |  +-- header?    empty
+    |  |     |  |  +-- payload?   empty
+    |  |     |  |  +-- total!
+    |  |     |  |     +-- maximum?   empty
+    |  |     |  |     +-- minimum?   empty
+    |  |     |  +-- next-header?      empty
+    |  |     |  +-- payload-length?   empty
+    |  |     |  +-- precedence?       empty
+    |  |     |  +-- protocol?         empty
+    |  |     |  +-- section
+    |  |     |  |  +-- header
+    |  |     |  |  |  +-- size?   uint16
+    |  |     |  |  +-- payload
+    |  |     |  |     +-- size?   uint16
+    |  |     |  +-- source
+    |  |     |  |  +-- address?   empty
+    |  |     |  |  +-- mask!
+    |  |     |  |  |  +-- minimum-mask?   uint8
+    |  |     |  |  +-- prefix!
+    |  |     |  |     +-- minimum-mask?   uint8
+    |  |     |  +-- traffic-class?    empty
+    |  |     |  +-- version?          empty
+    |  |     +-- metadata
+    |  |     |  +-- global-session-id?        empty
+    |  |     |  +-- multi-party-session-id?   empty
+    |  |     +-- mpls
+    |  |     |  +-- label
+    |  |     |     +-- one
+    |  |     |     |  +-- details?   empty
+    |  |     |     |  +-- exp?       empty
+    |  |     |     |  +-- ttl?       empty
+    |  |     |     |  +-- type?      empty
+    |  |     |     +-- two
+    |  |     |     |  +-- details?   empty
+    |  |     |     +-- three
+    |  |     |     |  +-- details?   empty
+    |  |     |     +-- four
+    |  |     |     |  +-- details?   empty
+    |  |     |     +-- five
+    |  |     |     |  +-- details?   empty
+    |  |     |     +-- six
+    |  |     |        +-- details?   empty
+    |  |     +-- network
+    |  |     |  +-- delay
+    |  |     |     +-- sample?   empty
+    |  |     |     +-- sum?      empty
+    |  |     +-- pfr
+    |  |     |  +-- label
+    |  |     |  |  +-- identifier?   empty
+    |  |     |  +-- one-way-delay
+    |  |     |  |  +-- samples?   empty
+    |  |     |  |  +-- sum?       empty
+    |  |     |  +-- service
+    |  |     |  |  +-- provider?     empty
+    |  |     |  |  +-- tag?          empty
+    |  |     |  |  +-- identifier?   empty
+    |  |     |  +-- site
+    |  |     |     +-- destination
+    |  |     |     |  +-- id
+    |  |     |     |  |  +-- ipv4?   empty
+    |  |     |     |  +-- prefix
+    |  |     |     |     +-- ipv4?   empty
+    |  |     |     |     +-- mask
+    |  |     |     |        +-- ipv4?   empty
+    |  |     |     +-- source
+    |  |     |        +-- id
+    |  |     |        |  +-- ipv4?   empty
+    |  |     |        +-- prefix
+    |  |     |           +-- ipv4?   empty
+    |  |     |           +-- mask
+    |  |     |              +-- ipv4?   empty
+    |  |     +-- policy
+    |  |     |  +-- performance-monitor
+    |  |     |  |  +-- classification
+    |  |     |  |     +-- hierarchy?   empty
+    |  |     |  +-- qos
+    |  |     |     +-- classification
+    |  |     |     |  +-- hierarchy?   empty
+    |  |     |     +-- queue
+    |  |     |        +-- drops?   empty
+    |  |     |        +-- index?   empty
+    |  |     +-- routing
+    |  |     |  +-- destination
+    |  |     |  |  +-- as!
+    |  |     |  |  |  +-- as4-octet?   empty
+    |  |     |  |  |  +-- peer!
+    |  |     |  |  |     +-- peer4-octet?   empty
+    |  |     |  |  +-- traffic-index?   empty
+    |  |     |  +-- forwarding-status!
+    |  |     |  |  +-- reason?   empty
+    |  |     |  +-- is-multicast?        empty
+    |  |     |  +-- next-hop
+    |  |     |  |  +-- address
+    |  |     |  |     +-- ipv4!
+    |  |     |  |     |  +-- bgp?   empty
+    |  |     |  |     +-- ipv6!
+    |  |     |  |        +-- bgp?   empty
+    |  |     |  +-- pw
+    |  |     |  |  +-- destination
+    |  |     |  |     +-- address?   empty
+    |  |     |  +-- source
+    |  |     |  |  +-- as!
+    |  |     |  |  |  +-- as4-octet?   empty
+    |  |     |  |  |  +-- peer!
+    |  |     |  |  |     +-- peer4-octet?   empty
+    |  |     |  |  +-- traffic-index?   empty
+    |  |     |  +-- vrf
+    |  |     |     +-- input?    empty
+    |  |     |     +-- output?   empty
+    |  |     +-- services
+    |  |     |  +-- waas
+    |  |     |     +-- passthrough-reason?   empty
+    |  |     |     +-- segment!
+    |  |     |        +-- account-on-resolution?   empty
+    |  |     +-- timestamp
+    |  |     |  +-- absolute
+    |  |     |     +-- monitoring-interval
+    |  |     |        +-- start?   empty
+    |  |     +-- transport
+    |  |        +-- bytes
+    |  |        |  +-- expected?   empty
+    |  |        |  +-- lost!
+    |  |        |     +-- rate?   empty
+    |  |        +-- rtp
+    |  |        |  +-- ssrc?   empty
+    |  |        +-- destination-port?   empty
+    |  |        +-- icmp
+    |  |        |  +-- ipv4
+    |  |        |  |  +-- code?   empty
+    |  |        |  |  +-- type?   empty
+    |  |        |  +-- ipv6
+    |  |        |     +-- code?   empty
+    |  |        |     +-- type?   empty
+    |  |        +-- igmp
+    |  |        |  +-- type?   empty
+    |  |        +-- source-port?        empty
+    |  |        +-- tcp
+    |  |        |  +-- acknowledgement-number?   empty
+    |  |        |  +-- destination-port?         empty
+    |  |        |  +-- flags!
+    |  |        |  |  +-- ack?   empty
+    |  |        |  |  +-- cwr?   empty
+    |  |        |  |  +-- ece?   empty
+    |  |        |  |  +-- fin?   empty
+    |  |        |  |  +-- psh?   empty
+    |  |        |  |  +-- rst?   empty
+    |  |        |  |  +-- syn?   empty
+    |  |        |  |  +-- urg?   empty
+    |  |        |  +-- flow
+    |  |        |  |  +-- count?   empty
+    |  |        |  +-- header-length?            empty
+    |  |        |  +-- maximum-segment-size?     empty
+    |  |        |  +-- option
+    |  |        |  |  +-- map!
+    |  |        |  |     +-- long?   empty
+    |  |        |  +-- sequence-number?          empty
+    |  |        |  +-- source-port?              empty
+    |  |        |  +-- urgent-pointer?           empty
+    |  |        |  +-- window-size!
+    |  |        |     +-- average!
+    |  |        |     |  +-- sum?   empty
+    |  |        |     +-- maximum?   empty
+    |  |        |     +-- minimum?   empty
+    |  |        |     +-- sum?       empty
+    |  |        +-- udp
+    |  |           +-- destination-port?   empty
+    |  |           +-- message-length?     empty
+    |  |           +-- source-port?        empty
+    |  +-- description?   string
+    |  +-- match
+    |     +-- application
+    |     |  +-- name!
+    |     |  |  +-- account-on-resolution?   empty
+    |     |  +-- vendor?    empty
+    |     |  +-- version?   empty
+    |     +-- connection
+    |     |  +-- client
+    |     |  |  +-- ipv4
+    |     |  |  |  +-- address?   empty
+    |     |  |  +-- ipv6
+    |     |  |  |  +-- address?   empty
+    |     |  |  +-- transport
+    |     |  |     +-- port?   empty
+    |     |  +-- id?               empty
+    |     |  +-- initiator?        empty
+    |     |  +-- server
+    |     |  |  +-- ipv4
+    |     |  |  |  +-- address?   empty
+    |     |  |  +-- ipv6
+    |     |  |  |  +-- address?   empty
+    |     |  |  +-- transport
+    |     |  |     +-- port?   empty
+    |     |  +-- transaction-id?   empty
+    |     +-- datalink
+    |     |  +-- destination-vlan-id?   empty
+    |     |  +-- dot1q
+    |     |  |  +-- priority?   empty
+    |     |  |  +-- vlan
+    |     |  |     +-- input?    empty
+    |     |  |     +-- output?   empty
+    |     |  +-- ethertype?             empty
+    |     |  +-- vlan?                  enumeration
+    |     |  +-- mac
+    |     |  |  +-- destination
+    |     |  |  |  +-- address
+    |     |  |  |     +-- input?    empty
+    |     |  |  |     +-- output?   empty
+    |     |  |  +-- source
+    |     |  |     +-- address
+    |     |  |        +-- input?    empty
+    |     |  |        +-- output?   empty
+    |     |  +-- source-vlan-id?        empty
+    |     +-- flow
+    |     |  +-- cts
+    |     |  |  +-- destination
+    |     |  |  |  +-- group-tag?   empty
+    |     |  |  +-- source
+    |     |  |     +-- group-tag?   empty
+    |     |  +-- direction?     empty
+    |     |  +-- observation
+    |     |  |  +-- point?   empty
+    |     |  +-- sampler?       empty
+    |     +-- interface
+    |     |  +-- input!
+    |     |  |  +-- snmp?   empty
+    |     |  +-- output!
+    |     |     +-- snmp?   empty
+    |     +-- ipv4
+    |     |  +-- destination
+    |     |  |  +-- address?   empty
+    |     |  |  +-- mask!
+    |     |  |  |  +-- minimum-mask?   uint8
+    |     |  |  +-- prefix!
+    |     |  |     +-- minimum-mask?   uint8
+    |     |  +-- dscp?            empty
+    |     |  +-- fragmentation
+    |     |  |  +-- flags?    empty
+    |     |  |  +-- offset?   empty
+    |     |  +-- header-length?   empty
+    |     |  +-- id?              empty
+    |     |  +-- length
+    |     |  |  +-- header?    empty
+    |     |  |  +-- payload?   empty
+    |     |  |  +-- total!
+    |     |  |     +-- maximum?   empty
+    |     |  |     +-- minimum?   empty
+    |     |  +-- option
+    |     |  |  +-- map?   empty
+    |     |  +-- precedence?      empty
+    |     |  +-- protocol?        empty
+    |     |  +-- section
+    |     |  |  +-- header
+    |     |  |  |  +-- size?   uint16
+    |     |  |  +-- payload
+    |     |  |     +-- size?   uint16
+    |     |  +-- source
+    |     |  |  +-- address?   empty
+    |     |  |  +-- mask!
+    |     |  |  |  +-- minimum-mask?   uint8
+    |     |  |  +-- prefix!
+    |     |  |     +-- minimum-mask?   uint8
+    |     |  +-- tos?             empty
+    |     |  +-- total-length!
+    |     |  |  +-- maximum?   empty
+    |     |  |  +-- minimum?   empty
+    |     |  +-- ttl!
+    |     |  |  +-- maximum?   empty
+    |     |  |  +-- minimum?   empty
+    |     |  +-- version?         empty
+    |     +-- ipv6
+    |     |  +-- destination
+    |     |  |  +-- address?   empty
+    |     |  |  +-- mask!
+    |     |  |  |  +-- minimum-mask?   uint8
+    |     |  |  +-- prefix!
+    |     |  |     +-- minimum-mask?   uint8
+    |     |  +-- dscp?             empty
+    |     |  +-- extension
+    |     |  |  +-- map?   empty
+    |     |  +-- flow-label?       empty
+    |     |  +-- fragmentation
+    |     |  |  +-- flags?    empty
+    |     |  |  +-- id?       empty
+    |     |  |  +-- offset?   empty
+    |     |  +-- hop-limit!
+    |     |  |  +-- maximum?   empty
+    |     |  |  +-- minimum?   empty
+    |     |  +-- length
+    |     |  |  +-- header?    empty
+    |     |  |  +-- payload?   empty
+    |     |  |  +-- total!
+    |     |  |     +-- maximum?   empty
+    |     |  |     +-- minimum?   empty
+    |     |  +-- next-header?      empty
+    |     |  +-- payload-length?   empty
+    |     |  +-- precedence?       empty
+    |     |  +-- protocol?         empty
+    |     |  +-- section
+    |     |  |  +-- header
+    |     |  |  |  +-- size?   uint16
+    |     |  |  +-- payload
+    |     |  |     +-- size?   uint16
+    |     |  +-- source
+    |     |  |  +-- address?   empty
+    |     |  |  +-- mask!
+    |     |  |  |  +-- minimum-mask?   uint8
+    |     |  |  +-- prefix!
+    |     |  |     +-- minimum-mask?   uint8
+    |     |  +-- traffic-class?    empty
+    |     |  +-- version?          empty
+    |     +-- metadata
+    |     |  +-- global-session-id?        empty
+    |     |  +-- multi-party-session-id?   empty
+    |     +-- mpls
+    |     |  +-- label
+    |     |     +-- one
+    |     |     |  +-- details?   empty
+    |     |     |  +-- exp?       empty
+    |     |     |  +-- ttl?       empty
+    |     |     |  +-- type?      empty
+    |     |     +-- two
+    |     |     |  +-- details?   empty
+    |     |     +-- three
+    |     |     |  +-- details?   empty
+    |     |     +-- four
+    |     |     |  +-- details?   empty
+    |     |     +-- five
+    |     |     |  +-- details?   empty
+    |     |     +-- six
+    |     |        +-- details?   empty
+    |     +-- network
+    |     |  +-- delay
+    |     |     +-- sample?   empty
+    |     |     +-- sum?      empty
+    |     +-- pfr
+    |     |  +-- label
+    |     |  |  +-- identifier?   empty
+    |     |  +-- one-way-delay
+    |     |  |  +-- samples?   empty
+    |     |  |  +-- sum?       empty
+    |     |  +-- service
+    |     |  |  +-- provider?     empty
+    |     |  |  +-- tag?          empty
+    |     |  |  +-- identifier?   empty
+    |     |  +-- site
+    |     |     +-- destination
+    |     |     |  +-- id
+    |     |     |  |  +-- ipv4?   empty
+    |     |     |  +-- prefix
+    |     |     |     +-- ipv4?   empty
+    |     |     |     +-- mask
+    |     |     |        +-- ipv4?   empty
+    |     |     +-- source
+    |     |        +-- id
+    |     |        |  +-- ipv4?   empty
+    |     |        +-- prefix
+    |     |           +-- ipv4?   empty
+    |     |           +-- mask
+    |     |              +-- ipv4?   empty
+    |     +-- policy
+    |     |  +-- performance-monitor
+    |     |  |  +-- classification
+    |     |  |     +-- hierarchy?   empty
+    |     |  +-- qos
+    |     |     +-- classification
+    |     |     |  +-- hierarchy?   empty
+    |     |     +-- queue
+    |     |        +-- drops?   empty
+    |     |        +-- index?   empty
+    |     +-- routing
+    |     |  +-- destination
+    |     |  |  +-- as!
+    |     |  |  |  +-- as4-octet?   empty
+    |     |  |  |  +-- peer!
+    |     |  |  |     +-- peer4-octet?   empty
+    |     |  |  +-- traffic-index?   empty
+    |     |  +-- forwarding-status!
+    |     |  |  +-- reason?   empty
+    |     |  +-- is-multicast?        empty
+    |     |  +-- next-hop
+    |     |  |  +-- address
+    |     |  |     +-- ipv4!
+    |     |  |     |  +-- bgp?   empty
+    |     |  |     +-- ipv6!
+    |     |  |        +-- bgp?   empty
+    |     |  +-- pw
+    |     |  |  +-- destination
+    |     |  |     +-- address?   empty
+    |     |  +-- source
+    |     |  |  +-- as!
+    |     |  |  |  +-- as4-octet?   empty
+    |     |  |  |  +-- peer!
+    |     |  |  |     +-- peer4-octet?   empty
+    |     |  |  +-- traffic-index?   empty
+    |     |  +-- vrf
+    |     |     +-- input?    empty
+    |     |     +-- output?   empty
+    |     +-- services
+    |     |  +-- waas
+    |     |     +-- passthrough-reason?   empty
+    |     |     +-- segment!
+    |     |        +-- account-on-resolution?   empty
+    |     +-- timestamp
+    |     |  +-- absolute
+    |     |     +-- monitoring-interval
+    |     |        +-- start?   empty
+    |     +-- transport
+    |        +-- bytes
+    |        |  +-- expected?   empty
+    |        |  +-- lost!
+    |        |     +-- rate?   empty
+    |        +-- rtp
+    |        |  +-- ssrc?   empty
+    |        +-- destination-port?   empty
+    |        +-- icmp
+    |        |  +-- ipv4
+    |        |  |  +-- code?   empty
+    |        |  |  +-- type?   empty
+    |        |  +-- ipv6
+    |        |     +-- code?   empty
+    |        |     +-- type?   empty
+    |        +-- igmp
+    |        |  +-- type?   empty
+    |        +-- source-port?        empty
+    |        +-- tcp
+    |        |  +-- acknowledgement-number?   empty
+    |        |  +-- destination-port?         empty
+    |        |  +-- flags!
+    |        |  |  +-- ack?   empty
+    |        |  |  +-- cwr?   empty
+    |        |  |  +-- ece?   empty
+    |        |  |  +-- fin?   empty
+    |        |  |  +-- psh?   empty
+    |        |  |  +-- rst?   empty
+    |        |  |  +-- syn?   empty
+    |        |  |  +-- urg?   empty
+    |        |  +-- flow
+    |        |  |  +-- count?   empty
+    |        |  +-- header-length?            empty
+    |        |  +-- maximum-segment-size?     empty
+    |        |  +-- option
+    |        |  |  +-- map!
+    |        |  |     +-- long?   empty
+    |        |  +-- sequence-number?          empty
+    |        |  +-- source-port?              empty
+    |        |  +-- urgent-pointer?           empty
+    |        |  +-- window-size!
+    |        |     +-- average!
+    |        |     |  +-- sum?   empty
+    |        |     +-- maximum?   empty
+    |        |     +-- minimum?   empty
+    |        |     +-- sum?       empty
+    |        +-- udp
+    |           +-- destination-port?   empty
+    |           +-- message-length?     empty
+    |           +-- source-port?        empty
+    +-- exporter* [name]
+    |  +-- name?              string
+    |  +-- description?       string
+    |  +-- destination
+    |  |  +-- ip?    inet:ip-address
+    |  |  +-- vrf?   string
+    |  +-- dscp?              uint8
+    |  +-- export-protocol?   enumeration
+    |  +-- option
+    |  |  +-- application-attributes!
+    |  |  |  +-- timeout?   uint32
+    |  |  +-- application-table!
+    |  |  |  +-- timeout?   uint32
+    |  |  +-- c3pl-class-table!
+    |  |  |  +-- timeout?   uint32
+    |  |  +-- c3pl-policy-table!
+    |  |  |  +-- timeout?   uint32
+    |  |  +-- exporter-stats!
+    |  |  |  +-- timeout?   uint32
+    |  |  +-- interface-table!
+    |  |  |  +-- timeout?   uint32
+    |  |  +-- metadata-version-table!
+    |  |  |  +-- timeout?   uint32
+    |  |  +-- sampler-table!
+    |  |  |  +-- timeout?   uint32
+    |  |  +-- sub-application-table!
+    |  |  |  +-- timeout?   uint32
+    |  |  +-- vrf-table!
+    |  |     +-- timeout?   uint32
+    |  +-- output-features!
+    |  +-- source
+    |  |  +-- (interface-choice)?
+    |  |     +--:(AppNav-Compress)
+    |  |     |  +-- AppNav-Compress?             uint16
+    |  |     +--:(AppNav-UnCompress)
+    |  |     |  +-- AppNav-UnCompress?           uint16
+    |  |     +--:(ATM)
+    |  |     |  +-- ATM?                         string
+    |  |     +--:(ATM-subinterface)
+    |  |     |  +-- ATM-subinterface
+    |  |     |     +-- ATM?   string
+    |  |     +--:(ATM-ACR)
+    |  |     |  +-- ATM-ACR?                     string
+    |  |     +--:(ATM-ACRsubinterface)
+    |  |     |  +-- ATM-ACRsubinterface
+    |  |     |     +-- ATM-ACR?   string
+    |  |     +--:(BDI)
+    |  |     |  +-- BDI?                         string
+    |  |     +--:(CEM)
+    |  |     |  +-- CEM?                         string
+    |  |     +--:(CEM-ACR)
+    |  |     |  +-- CEM-ACR?                     uint8
+    |  |     +--:(Embedded-Service-Engine)
+    |  |     |  +-- Embedded-Service-Engine?     string
+    |  |     +--:(FastEthernet)
+    |  |     |  +-- FastEthernet?                string
+    |  |     +--:(GigabitEthernet)
+    |  |     |  +-- GigabitEthernet?             string
+    |  |     +--:(FiveGigabitEthernet)
+    |  |     |  +-- FiveGigabitEthernet?         string
+    |  |     +--:(TwentyFiveGigabitEthernet)
+    |  |     |  +-- TwentyFiveGigabitEthernet?   string
+    |  |     +--:(LISP)
+    |  |     |  +-- LISP?                        string
+    |  |     +--:(LISP-subinterface)
+    |  |     |  +-- LISP-subinterface
+    |  |     |     +-- LISP?   string
+    |  |     +--:(Loopback)
+    |  |     |  +-- Loopback?                    uint32
+    |  |     +--:(Multilink)
+    |  |     |  +-- Multilink?                   uint16
+    |  |     +--:(nve)
+    |  |     |  +-- nve?                         uint16
+    |  |     +--:(overlay)
+    |  |     |  +-- overlay?                     uint16
+    |  |     +--:(Port-channel)
+    |  |     |  +-- Port-channel?                uint32
+    |  |     +--:(Port-channel-subinterface)
+    |  |     |  +-- Port-channel-subinterface
+    |  |     |     +-- Port-channel?   string
+    |  |     +--:(pseudowire)
+    |  |     |  +-- pseudowire?                  uint32
+    |  |     +--:(SM)
+    |  |     |  +-- SM?                          string
+    |  |     +--:(Cellular)
+    |  |     |  +-- Cellular?                    string
+    |  |     +--:(Serial)
+    |  |     |  +-- Serial?                      string
+    |  |     +--:(TenGigabitEthernet)
+    |  |     |  +-- TenGigabitEthernet?          string
+    |  |     +--:(Tunnel)
+    |  |     |  +-- Tunnel?                      uint32
+    |  |     +--:(Virtual-Template)
+    |  |     |  +-- Virtual-Template?            uint16
+    |  |     +--:(Vlan)
+    |  |     |  +-- Vlan?                        uint16
+    |  |     +--:(VirtualPortGroup)
+    |  |     |  +-- VirtualPortGroup?            uint16
+    |  |     +--:(vasileft)
+    |  |     |  +-- vasileft?                    uint16
+    |  |     +--:(vasiright)
+    |  |        +-- vasiright?                   uint16
+    |  +-- template
+    |  |  +-- data
+    |  |     +-- timeout?   uint32
+    |  +-- transport
+    |  |  +-- udp?   uint16
+    |  +-- ttl?               uint8
+    |  +-- default
+    |     +-- description?       empty
+    |     +-- dscp?              empty
+    |     +-- export-protocol?   empty
+    |     +-- option
+    |     |  +-- application-attributes!
+    |     |  +-- c3pl-class-table!
+    |     |  +-- c3pl-policy-table!
+    |     |  +-- exporter-stats!
+    |     |  +-- interface-table!
+    |     |  +-- metadata-version-table!
+    |     |  +-- sampler-table!
+    |     |  +-- sub-application-table!
+    |     |  +-- vrf-table!
+    |     +-- template
+    |     |  +-- data
+    |     |     +-- timeout?   empty
+    |     +-- transport?         empty
+    |     +-- ttl?               empty
+    +-- monitor* [name]
+       +-- name?          string
+       +-- type?          enumeration
+       +-- cache
+       |  +-- entries?   uint32
+       |  +-- timeout
+       |  |  +-- active?         uint32
+       |  |  +-- event
+       |  |  |  +-- transaction-end?   empty
+       |  |  +-- inactive?       uint32
+       |  |  +-- synchronized?   uint16
+       |  |  +-- update?         uint32
+       |  +-- type?      enumeration
+       +-- description?   string
+       +-- exporter* [name]
+       |  +-- name?   string
+       +-- history
+       |  +-- size?      uint8
+       |  +-- timeout?   uint8
+       +-- record
+       |  +-- type?      union
+       |  +-- netflow
+       |     +-- ipv4
+       |     |  +-- as!
+       |     |  |  +-- peer?   empty
+       |     |  +-- destination-prefix!
+       |     |  |  +-- peer?   empty
+       |     |  +-- original-input!
+       |     |  |  +-- peer?   empty
+       |     |  +-- original-output!
+       |     |  |  +-- peer?   empty
+       |     |  +-- prefix!
+       |     |  |  +-- peer?   empty
+       |     |  +-- protocol-port?            empty
+       |     |  +-- source-prefix!
+       |     |  |  +-- peer?   empty
+       |     |  +-- as-tos!
+       |     |  |  +-- peer?   empty
+       |     |  +-- bgp-nexthop-tos!
+       |     |  |  +-- peer?   empty
+       |     |  +-- destination-prefix-tos!
+       |     |  |  +-- peer?   empty
+       |     |  +-- prefix-port?              empty
+       |     |  +-- prefix-tos!
+       |     |  |  +-- peer?   empty
+       |     |  +-- protocol-port-tos?        empty
+       |     |  +-- source-prefix-tos!
+       |     |     +-- peer?   empty
+       |     +-- ipv6
+       |        +-- as!
+       |        |  +-- peer?   empty
+       |        +-- destination-prefix!
+       |        |  +-- peer?   empty
+       |        +-- original-input!
+       |        |  +-- peer?   empty
+       |        +-- original-output!
+       |        |  +-- peer?   empty
+       |        +-- prefix!
+       |        |  +-- peer?   empty
+       |        +-- protocol-port?        empty
+       |        +-- source-prefix!
+       |        |  +-- peer?   empty
+       |        +-- bgp-nexthop!
+       |           +-- peer?   empty
+       +-- statistics
+       |  +-- packet
+       |     +-- protocol?   empty
+       |     +-- size?       empty
+       +-- default
+          +-- cache
+          |  +-- entries?   empty
+          |  +-- timeout
+          |  |  +-- active?         empty
+          |  |  +-- event
+          |  |  |  +-- transaction-end?   empty
+          |  |  +-- inactive?       empty
+          |  |  +-- synchronized?   empty
+          |  |  +-- update?         empty
+          |  +-- type?      empty
+          +-- description?   empty
+          +-- exporter?      empty
+          +-- record?        empty
+          +-- statistics
+             +-- packet
+                +-- protocol?   empty
+                +-- size?       empty
+  grouping config-ip-flow-export-grouping
+    +-- flow-export
+       +-- destination
+       |  +-- ip?     ios-types:host-type
+       |  +-- port?   uint16
+       +-- source
+       |  +-- (interface-choice)?
+       |     +--:(AppNav-Compress)
+       |     |  +-- AppNav-Compress?             uint16
+       |     +--:(AppNav-UnCompress)
+       |     |  +-- AppNav-UnCompress?           uint16
+       |     +--:(ATM)
+       |     |  +-- ATM?                         string
+       |     +--:(ATM-subinterface)
+       |     |  +-- ATM-subinterface
+       |     |     +-- ATM?   string
+       |     +--:(ATM-ACR)
+       |     |  +-- ATM-ACR?                     string
+       |     +--:(ATM-ACRsubinterface)
+       |     |  +-- ATM-ACRsubinterface
+       |     |     +-- ATM-ACR?   string
+       |     +--:(BDI)
+       |     |  +-- BDI?                         string
+       |     +--:(CEM)
+       |     |  +-- CEM?                         string
+       |     +--:(CEM-ACR)
+       |     |  +-- CEM-ACR?                     uint8
+       |     +--:(Embedded-Service-Engine)
+       |     |  +-- Embedded-Service-Engine?     string
+       |     +--:(FastEthernet)
+       |     |  +-- FastEthernet?                string
+       |     +--:(GigabitEthernet)
+       |     |  +-- GigabitEthernet?             string
+       |     +--:(FiveGigabitEthernet)
+       |     |  +-- FiveGigabitEthernet?         string
+       |     +--:(TwentyFiveGigabitEthernet)
+       |     |  +-- TwentyFiveGigabitEthernet?   string
+       |     +--:(LISP)
+       |     |  +-- LISP?                        string
+       |     +--:(LISP-subinterface)
+       |     |  +-- LISP-subinterface
+       |     |     +-- LISP?   string
+       |     +--:(Loopback)
+       |     |  +-- Loopback?                    uint32
+       |     +--:(Multilink)
+       |     |  +-- Multilink?                   uint16
+       |     +--:(nve)
+       |     |  +-- nve?                         uint16
+       |     +--:(overlay)
+       |     |  +-- overlay?                     uint16
+       |     +--:(Port-channel)
+       |     |  +-- Port-channel?                uint32
+       |     +--:(Port-channel-subinterface)
+       |     |  +-- Port-channel-subinterface
+       |     |     +-- Port-channel?   string
+       |     +--:(pseudowire)
+       |     |  +-- pseudowire?                  uint32
+       |     +--:(SM)
+       |     |  +-- SM?                          string
+       |     +--:(Cellular)
+       |     |  +-- Cellular?                    string
+       |     +--:(Serial)
+       |     |  +-- Serial?                      string
+       |     +--:(TenGigabitEthernet)
+       |     |  +-- TenGigabitEthernet?          string
+       |     +--:(Tunnel)
+       |     |  +-- Tunnel?                      uint32
+       |     +--:(Virtual-Template)
+       |     |  +-- Virtual-Template?            uint16
+       |     +--:(Vlan)
+       |     |  +-- Vlan?                        uint16
+       |     +--:(VirtualPortGroup)
+       |     |  +-- VirtualPortGroup?            uint16
+       |     +--:(vasileft)
+       |     |  +-- vasileft?                    uint16
+       |     +--:(vasiright)
+       |        +-- vasiright?                   uint16
+       +-- version?       enumeration
+  grouping config-ip-flow-cache-grouping
+    +-- flow-cache
+       +-- timeout
+          +-- active?   uint16
+  grouping config-sampler-grouping
+    +-- description?   string
+    +-- mode
+    |  +-- deterministic
+    |  |  +-- number?   uint8
+    |  |  +-- out-of?   uint16
+    |  +-- hash
+    |  |  +-- number?   uint8
+    |  |  +-- out-of?   uint16
+    |  +-- random
+    |     +-- number?   uint8
+    |     +-- out-of?   uint16
+    +-- granularity
+       +-- connection?   empty
+       +-- packet?       empty
+  grouping interface-ip-monitor-grouping
+    +-- monitor* [name]
+       +-- name?        string
+       +-- sampler* [direction]
+       |  +-- direction?   enumeration
+       |  +-- name?        string
+       +-- input?       empty
+       +-- output?      empty
+       +-- multicast?   empty
+       +-- unicast?     empty
+  grouping config-interface-ip-flow-grouping
+    +-- flow
+       +-- ingress?   empty
+       +-- egress?    empty
+       +-- monitor* [name]
+          +-- name?        string
+          +-- sampler* [direction]
+          |  +-- direction?   enumeration
+          |  +-- name?        string
+          +-- input?       empty
+          +-- output?      empty
+          +-- multicast?   empty
+          +-- unicast?     empty
+  grouping config-interface-ipv6-flow-grouping
+    +-- flow
+       +-- ingress?   empty
+       +-- egress?    empty
+       +-- monitor* [name]
+          +-- name?        string
+          +-- sampler* [direction]
+          |  +-- direction?   enumeration
+          |  +-- name?        string
+          +-- input?       empty
+          +-- output?      empty
+          +-- multicast?   empty
+          +-- unicast?     empty

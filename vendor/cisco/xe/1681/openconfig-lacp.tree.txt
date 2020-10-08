@@ -1,0 +1,179 @@
+module: openconfig-lacp
+  +--rw lacp
+     +--rw config
+     |  +--rw system-priority?   uint16
+     +--ro state
+     |  +--ro system-priority?   uint16
+     +--rw interfaces
+        +--rw interface* [name]
+           +--rw name       -> ../config/name
+           +--rw config
+           |  +--rw name?              oc-if:base-interface-ref
+           |  +--rw interval?          lacp-period-type
+           |  +--rw lacp-mode?         lacp-activity-type
+           |  +--rw system-id-mac?     yang:mac-address
+           |  +--rw system-priority?   uint16
+           +--ro state
+           |  +--ro name?              oc-if:base-interface-ref
+           |  +--ro interval?          lacp-period-type
+           |  +--ro lacp-mode?         lacp-activity-type
+           |  +--ro system-id-mac?     yang:mac-address
+           |  +--ro system-priority?   uint16
+           +--ro members
+              +--ro member* [interface]
+                 +--ro interface    -> ../state/interface
+                 +--ro state
+                    +--ro interface?         oc-if:base-interface-ref
+                    +--ro activity?          lacp-activity-type
+                    +--ro timeout?           lacp-timeout-type
+                    +--ro synchronization?   lacp-synchronization-type
+                    +--ro aggregatable?      boolean
+                    +--ro collecting?        boolean
+                    +--ro distributing?      boolean
+                    +--ro system-id?         yang:mac-address
+                    +--ro oper-key?          uint16
+                    +--ro partner-id?        yang:mac-address
+                    +--ro partner-key?       uint16
+                    +--ro counters
+                       +--ro lacp-in-pkts?          yang:counter64
+                       +--ro lacp-out-pkts?         yang:counter64
+                       +--ro lacp-rx-errors?        yang:counter64
+                       +--ro lacp-tx-errors?        yang:counter64
+                       +--ro lacp-unknown-errors?   yang:counter64
+                       +--ro lacp-errors?           yang:counter64
+
+  grouping aggregation-lacp-members-config
+  grouping aggregation-lacp-members-state
+    +-- interface?         oc-if:base-interface-ref
+    +-- activity?          lacp-activity-type
+    +-- timeout?           lacp-timeout-type
+    +-- synchronization?   lacp-synchronization-type
+    +-- aggregatable?      boolean
+    +-- collecting?        boolean
+    +-- distributing?      boolean
+    +-- system-id?         yang:mac-address
+    +-- oper-key?          uint16
+    +-- partner-id?        yang:mac-address
+    +-- partner-key?       uint16
+  grouping aggregation-lacp-members-statistics
+    +-- counters
+       +-- lacp-in-pkts?          yang:counter64
+       +-- lacp-out-pkts?         yang:counter64
+       +-- lacp-rx-errors?        yang:counter64
+       +-- lacp-tx-errors?        yang:counter64
+       +-- lacp-unknown-errors?   yang:counter64
+       +-- lacp-errors?           yang:counter64
+  grouping aggregation-lacp-members-top
+    +--ro members
+       +--ro member* [interface]
+          +--ro interface?   -> ../state/interface
+          +--ro state
+             +--ro interface?         oc-if:base-interface-ref
+             +--ro activity?          lacp-activity-type
+             +--ro timeout?           lacp-timeout-type
+             +--ro synchronization?   lacp-synchronization-type
+             +--ro aggregatable?      boolean
+             +--ro collecting?        boolean
+             +--ro distributing?      boolean
+             +--ro system-id?         yang:mac-address
+             +--ro oper-key?          uint16
+             +--ro partner-id?        yang:mac-address
+             +--ro partner-key?       uint16
+             +--ro counters
+                +--ro lacp-in-pkts?          yang:counter64
+                +--ro lacp-out-pkts?         yang:counter64
+                +--ro lacp-rx-errors?        yang:counter64
+                +--ro lacp-tx-errors?        yang:counter64
+                +--ro lacp-unknown-errors?   yang:counter64
+                +--ro lacp-errors?           yang:counter64
+  grouping lacp-interfaces-config
+    +-- name?              oc-if:base-interface-ref
+    +-- interval?          lacp-period-type
+    +-- lacp-mode?         lacp-activity-type
+    +-- system-id-mac?     yang:mac-address
+    +-- system-priority?   uint16
+  grouping lacp-interfaces-state
+  grouping lacp-interfaces-top
+    +-- interfaces
+       +-- interface* [name]
+          +-- name?      -> ../config/name
+          +-- config
+          |  +-- name?              oc-if:base-interface-ref
+          |  +-- interval?          lacp-period-type
+          |  +-- lacp-mode?         lacp-activity-type
+          |  +-- system-id-mac?     yang:mac-address
+          |  +-- system-priority?   uint16
+          +--ro state
+          |  +--ro name?              oc-if:base-interface-ref
+          |  +--ro interval?          lacp-period-type
+          |  +--ro lacp-mode?         lacp-activity-type
+          |  +--ro system-id-mac?     yang:mac-address
+          |  +--ro system-priority?   uint16
+          +--ro members
+             +--ro member* [interface]
+                +--ro interface?   -> ../state/interface
+                +--ro state
+                   +--ro interface?         oc-if:base-interface-ref
+                   +--ro activity?          lacp-activity-type
+                   +--ro timeout?           lacp-timeout-type
+                   +--ro synchronization?   lacp-synchronization-type
+                   +--ro aggregatable?      boolean
+                   +--ro collecting?        boolean
+                   +--ro distributing?      boolean
+                   +--ro system-id?         yang:mac-address
+                   +--ro oper-key?          uint16
+                   +--ro partner-id?        yang:mac-address
+                   +--ro partner-key?       uint16
+                   +--ro counters
+                      +--ro lacp-in-pkts?          yang:counter64
+                      +--ro lacp-out-pkts?         yang:counter64
+                      +--ro lacp-rx-errors?        yang:counter64
+                      +--ro lacp-tx-errors?        yang:counter64
+                      +--ro lacp-unknown-errors?   yang:counter64
+                      +--ro lacp-errors?           yang:counter64
+  grouping aggregation-lacp-global-config
+    +-- system-priority?   uint16
+  grouping aggregation-lacp-global-state
+  grouping aggregation-lacp-top
+    +-- lacp
+       +-- config
+       |  +-- system-priority?   uint16
+       +--ro state
+       |  +--ro system-priority?   uint16
+       +-- interfaces
+          +-- interface* [name]
+             +-- name?      -> ../config/name
+             +-- config
+             |  +-- name?              oc-if:base-interface-ref
+             |  +-- interval?          lacp-period-type
+             |  +-- lacp-mode?         lacp-activity-type
+             |  +-- system-id-mac?     yang:mac-address
+             |  +-- system-priority?   uint16
+             +--ro state
+             |  +--ro name?              oc-if:base-interface-ref
+             |  +--ro interval?          lacp-period-type
+             |  +--ro lacp-mode?         lacp-activity-type
+             |  +--ro system-id-mac?     yang:mac-address
+             |  +--ro system-priority?   uint16
+             +--ro members
+                +--ro member* [interface]
+                   +--ro interface?   -> ../state/interface
+                   +--ro state
+                      +--ro interface?         oc-if:base-interface-ref
+                      +--ro activity?          lacp-activity-type
+                      +--ro timeout?           lacp-timeout-type
+                      +--ro synchronization?   lacp-synchronization-type
+                      +--ro aggregatable?      boolean
+                      +--ro collecting?        boolean
+                      +--ro distributing?      boolean
+                      +--ro system-id?         yang:mac-address
+                      +--ro oper-key?          uint16
+                      +--ro partner-id?        yang:mac-address
+                      +--ro partner-key?       uint16
+                      +--ro counters
+                         +--ro lacp-in-pkts?          yang:counter64
+                         +--ro lacp-out-pkts?         yang:counter64
+                         +--ro lacp-rx-errors?        yang:counter64
+                         +--ro lacp-tx-errors?        yang:counter64
+                         +--ro lacp-unknown-errors?   yang:counter64
+                         +--ro lacp-errors?           yang:counter64

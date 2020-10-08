@@ -1,0 +1,255 @@
+submodule: Cisco-IOS-XE-ethernet-cfm-efp (belongs-to Cisco-IOS-XE-ethernet)
+
+  grouping config-interface-efp-l2protocol-grouping
+    +-- protocol*   enumeration
+  grouping config-ethernet-cfm-alarm-grouping
+    +-- delay?          uint16
+    +-- notification
+    |  +-- all?                     empty
+    |  +-- error-xcon?              empty
+    |  +-- mac-remote-error-xcon?   empty
+    |  +-- none?                    empty
+    |  +-- remote-error-xcon?       empty
+    |  +-- xcon?                    empty
+    +-- reset?          uint16
+  grouping config-interface-ethernet-cfm-efp-grouping
+    +-- service
+       +-- instance* [id]
+          +-- id?                   uint32
+          +-- trunk?                empty
+          +-- GigabitEthernet?      empty
+          +-- ethernet?             empty
+          +-- ethernet-evc-name?    string
+          +-- description?          string
+          +-- evc-name?             string
+          +-- encapsulation
+          |  +-- default?           empty
+          |  +-- dot1ad
+          |  |  +-- id*      union
+          |  |  +-- cos*     uint8
+          |  |  +-- dot1q*   union
+          |  |  +-- cos2
+          |  |  |  +-- cos*   uint8
+          |  |  +-- etype*   enumeration
+          |  |  +-- exact?   empty
+          |  +-- dot1q
+          |  |  +-- id*             union
+          |  |  +-- cos*            uint8
+          |  |  +-- second-dot1q*   union
+          |  |  +-- cos2
+          |  |  |  +-- cos*   uint8
+          |  |  +-- etype*          enumeration
+          |  |  +-- exact?          empty
+          |  |  +-- vlan-type?      enumeration
+          |  +-- priority-tagged!
+          |  |  +-- cos*     uint8
+          |  |  +-- etype*   enumeration
+          |  +-- untagged!
+          +-- ip
+          |  +-- acl
+          |  |  +-- access-group?   ios-types:exp-acl-type
+          |  |  +-- in?             empty
+          |  |  +-- out?            empty
+          |  +-- dhcp
+          |  |  +-- relay
+          |  |     +-- information
+          |  |        +-- option
+          |  |           +-- subscriber-id?   string
+          |  +-- verify
+          |     +-- source?          empty
+          |     +-- vlan?            empty
+          |     +-- dhcp-snooping?   empty
+          |     +-- port-security?   empty
+          +-- ipv6
+          |  +-- traffic-filter?   string
+          |  +-- in?               empty
+          |  +-- out?              empty
+          +-- rewrite
+          |  +-- ingress
+          |     +-- tag
+          |        +-- pop
+          |        |  +-- way?    enumeration
+          |        |  +-- mode?   enumeration
+          |        +-- push
+          |        |  +-- dot1q?   uint16
+          |        |  +-- mode?    enumeration
+          |        +-- translate
+          |           +-- t1-to-1
+          |           |  +-- dot1q?   uint16
+          |           |  +-- mode?    enumeration
+          |           +-- t1-to-2
+          |           |  +-- dot1q?          uint16
+          |           |  +-- second-dot1q?   uint16
+          |           |  +-- mode?           enumeration
+          |           +-- t2-to-1
+          |           |  +-- dot1q?   uint16
+          |           |  +-- mode?    enumeration
+          |           +-- t2-to-2
+          |              +-- dot1q?          uint16
+          |              +-- second-dot1q?   uint16
+          |              +-- mode?           enumeration
+          +-- group?                uint32
+          +-- errdisable
+          |  +-- recovery
+          |     +-- cause
+          |        +-- mac-security?   uint32
+          +-- ethernet-container
+          |  +-- ethernet
+          |     +-- lmi
+          |     |  +-- ce-vlan
+          |     |     +-- map
+          |     |        +-- (map-choice)?
+          |     |           +--:(any)
+          |     |           |  +-- any?          empty
+          |     |           +--:(default)
+          |     |           |  +-- default?      empty
+          |     |           +--:(untagged)
+          |     |           |  +-- untagged?     empty
+          |     |           +--:(vlan-range)
+          |     |              +-- vlan-range?   string
+          |     +-- loopback
+          |        +-- permit
+          |           +-- external?   empty
+          |           +-- internal?   empty
+          +-- snmp
+          |  +-- trap
+          |  |  +-- link-status?   empty
+          |  +-- ifindex
+          |     +-- persist?   empty
+          +-- bridge-domain
+          |  +-- bridge-id?            uint16
+          |  +-- split-horizon
+          |  |  +-- group?   uint8
+          |  +-- from-encapsulation?   empty
+          +-- mac
+          |  +-- security!
+          |  |  +-- maximum
+          |  |  |  +-- addresses?   uint16
+          |  |  +-- violation?   enumeration
+          |  +-- access-group* [acl-name]
+          |     +-- acl-name?   string
+          |     +-- in?         empty
+          |     +-- out?        empty
+          +-- service-policy
+          |  +-- input* [name]
+          |  |  +-- name?   string
+          |  +-- output* [name]
+          |     +-- name?   string
+          +-- shutdown?             empty
+          +-- cfm
+          |  +-- encapsulation
+          |  |  +-- dot1ad
+          |  |  |  +-- vlan-id?   uint16
+          |  |  |  +-- cos?       uint8
+          |  |  |  +-- dot1q?     uint16
+          |  |  +-- dot1q
+          |  |     +-- vlan-id?        uint16
+          |  |     +-- cos?            uint8
+          |  |     +-- second-dot1q?   uint16
+          |  +-- mep
+          |  |  +-- domain?             string
+          |  |  +-- mpid?               uint16
+          |  |  +-- alarm
+          |  |  |  +-- delay?          uint16
+          |  |  |  +-- notification
+          |  |  |  |  +-- all?                     empty
+          |  |  |  |  +-- error-xcon?              empty
+          |  |  |  |  +-- mac-remote-error-xcon?   empty
+          |  |  |  |  +-- none?                    empty
+          |  |  |  |  +-- remote-error-xcon?       empty
+          |  |  |  |  +-- xcon?                    empty
+          |  |  |  +-- reset?          uint16
+          |  |  +-- cos?                uint16
+          |  |  +-- continuity-check
+          |  |  |  +-- static
+          |  |  |     +-- rmep?   empty
+          |  |  +-- rmep
+          |  |     +-- mpid?   uint16
+          |  +-- mip
+          |     +-- level?   uint8
+          +-- l2protocol
+             +-- discard!
+             |  +-- protocol*   enumeration
+             +-- peer!
+             |  +-- protocol*   enumeration
+             +-- forward!
+             |  +-- protocol*   enumeration
+             +-- tunnel!
+                +-- protocol*   enumeration
+  grouping config-ethernet-cfm-efp-grouping
+    +-- evc* [name] {ios-features:eth-evc}?
+    |  +-- name?   string
+    +-- cfm
+       +-- ais
+       |  +-- link-status
+       |     +-- global!
+       |        +-- cfm-Mode__config-ais-link-cfm
+       |           +-- disable?   empty
+       |           +-- level?     uint8
+       |           +-- period
+       |              +-- tp-1?    empty
+       |              +-- tp-60?   empty
+       +-- alarm
+       |  +-- delay?          uint16
+       |  +-- notification
+       |  |  +-- all?                     empty
+       |  |  +-- error-xcon?              empty
+       |  |  +-- mac-remote-error-xcon?   empty
+       |  |  +-- none?                    empty
+       |  |  +-- remote-error-xcon?       empty
+       |  |  +-- xcon?                    empty
+       |  +-- reset?          uint16
+       |  +-- packet?         uint16
+       +-- ieee?         empty
+       +-- global?       empty
+       +-- domain* [name]
+       |  +-- name?      string
+       |  +-- level?     uint8
+       |  +-- service* [name]
+       |     +-- name?               string
+       |     +-- evc?                string {ios-features:eth-evc}?
+       |     +-- vlan?               uint16
+       |     +-- ais
+       |     |  +-- expiry-threshold?   uint8
+       |     |  +-- level?              uint8
+       |     |  +-- period?             enumeration
+       |     |  +-- suppress-alarms?    empty
+       |     +-- continuity-check!
+       |     +-- lck
+       |     |  +-- expiry-threshold?   uint8
+       |     |  +-- level?              uint8
+       |     |  +-- period?             enumeration
+       |     +-- maximum
+       |     |  +-- meps?   uint16
+       |     +-- mep
+       |     |  +-- mpid?   uint16
+       |     +-- mip
+       |     |  +-- auto-create!
+       |     |     +-- (mip-case)?
+       |     |        +--:(lower-mep-case)
+       |     |        |  +-- lower-mep-only?   empty
+       |     |        +--:(none-case)
+       |     |           +-- none?             empty
+       |     +-- offload
+       |     |  +-- sampling?   uint16
+       |     +-- sender-id?          enumeration
+       +-- logging!
+       |  +-- ais?     empty
+       |  +-- alarm
+       |     +-- cisco?   empty
+       |     +-- ieee?    empty
+       +-- mep
+       |  +-- crosscheck
+       |     +-- start-delay?   uint16
+       +-- mip
+       |  +-- auto-create
+       |  |  +-- level
+       |  |     +-- mef-num* [mef-num]
+       |  |        +-- mef-num?   uint8
+       |  |        +-- evc?       string
+       |  |        +-- vlan?      uint16
+       |  +-- filter?        empty
+       +-- traceroute
+          +-- cache!
+             +-- hold-time?   uint16
+             +-- size?        uint16

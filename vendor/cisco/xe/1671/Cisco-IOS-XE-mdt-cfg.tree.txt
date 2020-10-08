@@ -1,0 +1,55 @@
+module: Cisco-IOS-XE-mdt-cfg
+  +--rw mdt-subscriptions
+     +--rw mdt-subscription* [subscription-id]
+        +--rw subscription-id    uint32
+        +--rw base
+        |  +--rw stream?                    string
+        |  +--rw encoding?                  string
+        |  +--rw source-vrf?                string
+        |  +--rw source-address?            inet:ip-address
+        |  +--rw (update-trigger-choice)?
+        |  |  +--:(sub-upd-trig-none)
+        |  |  |  +--rw no-trigger?          uint32
+        |  |  +--:(sub-upd-trig-periodic)
+        |  |  |  +--rw period               uint32
+        |  |  +--:(sub-upd-trig-on-change)
+        |  |     +--rw no-synch-on-start?   boolean
+        |  +--rw (filter-type-choice)?
+        |     +--:(sub-filter-type-none)
+        |     |  +--rw no-filter?           uint32
+        |     +--:(sub-filter-type-xpath)
+        |     |  +--rw xpath?               string
+        |     +--:(sub-filter-type-tdl-uri)
+        |        +--rw tdl-uri?             string
+        +--rw mdt-receivers* [address port]
+           +--rw protocol?   string
+           +--rw address     inet:ip-address
+           +--rw port        uint16
+
+  grouping mdt-subscription-cnfg
+    +-- subscription-id?   uint32
+    +-- base
+    |  +-- stream?                    string
+    |  +-- encoding?                  string
+    |  +-- source-vrf?                string
+    |  +-- source-address?            inet:ip-address
+    |  +-- (update-trigger-choice)?
+    |  |  +--:(sub-upd-trig-none)
+    |  |  |  +-- no-trigger?          uint32
+    |  |  +--:(sub-upd-trig-periodic)
+    |  |  |  +-- period               uint32
+    |  |  +--:(sub-upd-trig-on-change)
+    |  |     +-- no-synch-on-start?   boolean
+    |  +-- (filter-type-choice)?
+    |     +--:(sub-filter-type-none)
+    |     |  +-- no-filter?           uint32
+    |     +--:(sub-filter-type-xpath)
+    |     |  +-- xpath?               string
+    |     +--:(sub-filter-type-tdl-uri)
+    |        +-- tdl-uri?             string
+    +-- mdt-receivers* [address port]
+       +-- protocol?   string
+       +-- address     inet:ip-address
+       +-- port        uint16
+  grouping mdt-receiver-cnfg
+    +-- protocol?   string

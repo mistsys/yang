@@ -1,0 +1,53 @@
+module: Cisco-IOS-XE-cfm-oper
+  +--ro cfm-statistics
+  |  +--ro cfm-meps
+  |     +--ro cfm-mep* [domain-name ma-name mpid]
+  |        +--ro domain-name         string
+  |        +--ro ma-name             string
+  |        +--ro mpid                uint32
+  |        +--ro last-cleared
+  |        |  +--ro cleared?       cfm-stats-ios-xe-oper:cfm-last-cleared-type
+  |        |  +--ro (cleared-choice)?
+  |        |     +--:(never-cleared)
+  |        |     |  +--ro never?   empty
+  |        |     +--:(cleared-before)
+  |        |        +--ro time?    yang:date-and-time
+  |        +--ro ccm-transmitted?    yang:counter64
+  |        +--ro ccm-seq-errors?     yang:counter64
+  |        +--ro ltr-unexpected?     yang:counter64
+  |        +--ro lbr-transmitted?    yang:counter64
+  |        +--ro lbr-seq-errors?     yang:counter64
+  |        +--ro lbr-received-ok?    yang:counter64
+  |        +--ro lbr-received-bad?   yang:counter64
+  +--rw schema-metadata-Cisco-IOS-XE-cfm-oper
+  |  +--rw json-metadata-leaf?   empty
+  +--rw gnmi-model-data
+
+  grouping mep-key
+    +-- domain-name?   string
+    +-- ma-name?       string
+    +-- mpid?          uint32
+  grouping cfm-cleared-type
+    +--ro cleared?       cfm-stats-ios-xe-oper:cfm-last-cleared-type
+    +-- (cleared-choice)?
+       +--:(never-cleared)
+       |  +-- never?   empty
+       +--:(cleared-before)
+          +-- time?    yang:date-and-time
+  grouping mep-params
+    +-- last-cleared
+    |  +--ro cleared?       cfm-stats-ios-xe-oper:cfm-last-cleared-type
+    |  +-- (cleared-choice)?
+    |     +--:(never-cleared)
+    |     |  +-- never?   empty
+    |     +--:(cleared-before)
+    |        +-- time?    yang:date-and-time
+    +-- ccm-transmitted?    yang:counter64
+    +-- ccm-seq-errors?     yang:counter64
+    +-- ltr-unexpected?     yang:counter64
+    +-- lbr-transmitted?    yang:counter64
+    +-- lbr-seq-errors?     yang:counter64
+    +-- lbr-received-ok?    yang:counter64
+    +-- lbr-received-bad?   yang:counter64
+  grouping __yangpp_metadata
+    +-- json-metadata-leaf?   empty

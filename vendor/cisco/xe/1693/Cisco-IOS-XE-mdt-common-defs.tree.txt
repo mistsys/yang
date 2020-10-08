@@ -1,0 +1,26 @@
+module: Cisco-IOS-XE-mdt-common-defs
+
+  grouping mdt-subscription-base
+    +-- stream?                    string
+    +-- encoding?                  string
+    +-- source-vrf?                string
+    +-- source-address?            inet:ip-address
+    +-- (update-trigger-choice)?
+    |  +--:(sub-upd-trig-none)
+    |  |  +-- no-trigger?          uint32
+    |  +--:(sub-upd-trig-periodic)
+    |  |  +-- period               uint32
+    |  +--:(sub-upd-trig-on-change)
+    |     +-- no-synch-on-start?   boolean
+    +-- (filter-type-choice)?
+       +--:(sub-filter-type-none)
+       |  +-- no-filter?           uint32
+       +--:(sub-filter-type-xpath)
+       |  +-- xpath?               string
+       +--:(sub-filter-type-tdl-uri)
+       |  +-- tdl-uri?             string
+       +--:(sub-filter-type-tdl-transform)
+          +-- transform-name?      string
+  grouping mdt-receiver-id
+    +-- address    inet:ip-address
+    +-- port       uint16

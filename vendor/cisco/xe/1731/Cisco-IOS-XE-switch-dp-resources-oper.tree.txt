@@ -1,0 +1,107 @@
+module: Cisco-IOS-XE-switch-dp-resources-oper
+  +--ro switch-dp-resources-oper-data
+  |  +--ro location* [fru slot bay chassis node]
+  |     +--ro fru                    common-types-ios-xe:fru-type
+  |     +--ro slot                   int16
+  |     +--ro bay                    int16
+  |     +--ro chassis                int16
+  |     +--ro node                   uint16
+  |     +--ro dp-feature-resource* [feature protocol direction]
+  |        +--ro max-tcam-percentage-used?      decimal64
+  |        +--ro max-em-percentage-used?        decimal64
+  |        +--ro max-acl-ids-percentage-used?   decimal64
+  |        +--ro max-lpm-percentage-used?       decimal64
+  |        +--ro instance-list* []
+  |        |  +--ro id?                  uint32
+  |        |  +--ro physical-location
+  |        |  |  +--ro asic?            uint8
+  |        |  |  +--ro pipeline-list* []
+  |        |  |     +--ro pipeline?   uint8
+  |        |  +--ro table-data* []
+  |        |     +--ro table?            dp-resources-oper:dp-table
+  |        |     +--ro resource-usage
+  |        |        +--ro max-entries?          uint32
+  |        |        +--ro entries-used?         uint32
+  |        |        +--ro total-entries-free?   uint32
+  |        |        +--ro percentage-used?      decimal64
+  |        +--ro shared-ftr-list* []
+  |        |  +--ro ftr-info
+  |        |     +--ro feature?     dp-resources-oper:dp-feature
+  |        |     +--ro protocol?    dp-resources-oper:dp-proto
+  |        |     +--ro direction?   dp-resources-oper:dp-direction
+  |        +--ro feature                        dp-resources-oper:dp-feature
+  |        +--ro protocol                       dp-resources-oper:dp-proto
+  |        +--ro direction                      dp-resources-oper:dp-direction
+  +--rw schema-metadata-Cisco-IOS-XE-switch-dp-resources-oper
+  |  +--rw json-metadata-leaf?          empty
+  |  +--rw Cisco-IOS-XE-common-types
+  |     +--rw json-metadata-leaf?   empty
+  +--rw gnmi-model-data
+
+  grouping dp-oper-feature-key
+    +-- feature?     dp-resources-oper:dp-feature
+    +-- protocol?    dp-resources-oper:dp-proto
+    +-- direction?   dp-resources-oper:dp-direction
+  grouping dp-shared-ftr
+    +-- ftr-info
+       +-- feature?     dp-resources-oper:dp-feature
+       +-- protocol?    dp-resources-oper:dp-proto
+       +-- direction?   dp-resources-oper:dp-direction
+  grouping dp-resource-usage
+    +-- max-entries?          uint32
+    +-- entries-used?         uint32
+    +-- total-entries-free?   uint32
+    +-- percentage-used?      decimal64
+  grouping dp-pipes
+    +-- pipeline?   uint8
+  grouping dp-phy-location
+    +-- asic?            uint8
+    +-- pipeline-list* []
+       +-- pipeline?   uint8
+  grouping dp-table-data
+    +-- table?            dp-resources-oper:dp-table
+    +-- resource-usage
+       +-- max-entries?          uint32
+       +-- entries-used?         uint32
+       +-- total-entries-free?   uint32
+       +-- percentage-used?      decimal64
+  grouping dp-feature-resource-instance
+    +-- id?                  uint32
+    +-- physical-location
+    |  +-- asic?            uint8
+    |  +-- pipeline-list* []
+    |     +-- pipeline?   uint8
+    +-- table-data* []
+       +-- table?            dp-resources-oper:dp-table
+       +-- resource-usage
+          +-- max-entries?          uint32
+          +-- entries-used?         uint32
+          +-- total-entries-free?   uint32
+          +-- percentage-used?      decimal64
+  grouping dp-feature-resource
+    +-- max-tcam-percentage-used?      decimal64
+    +-- max-em-percentage-used?        decimal64
+    +-- max-acl-ids-percentage-used?   decimal64
+    +-- max-lpm-percentage-used?       decimal64
+    +-- instance-list* []
+    |  +-- id?                  uint32
+    |  +-- physical-location
+    |  |  +-- asic?            uint8
+    |  |  +-- pipeline-list* []
+    |  |     +-- pipeline?   uint8
+    |  +-- table-data* []
+    |     +-- table?            dp-resources-oper:dp-table
+    |     +-- resource-usage
+    |        +-- max-entries?          uint32
+    |        +-- entries-used?         uint32
+    |        +-- total-entries-free?   uint32
+    |        +-- percentage-used?      decimal64
+    +-- shared-ftr-list* []
+       +-- ftr-info
+          +-- feature?     dp-resources-oper:dp-feature
+          +-- protocol?    dp-resources-oper:dp-proto
+          +-- direction?   dp-resources-oper:dp-direction
+  grouping __yangpp_metadata
+    +-- json-metadata-leaf?          empty
+    +-- Cisco-IOS-XE-common-types
+       +-- json-metadata-leaf?   empty

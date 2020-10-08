@@ -1,0 +1,75 @@
+
+module: Cisco-IOS-XE-vservice
+  augment /ios:native/ios:virtual-service:
+    +--rw ip
+    |  +--rw shared
+    |     +--rw host-interface
+    |        +--rw FastEthernet?          string
+    |        +--rw TenGigabitEthernet?    string
+    |        +--rw GigabitEthernet?       string
+    |        +--rw FiveGigabitEthernet?   string
+    |        +--rw TwentyFiveGigE?        string
+    |        +--rw TwoGigabitEthernet?    string
+    |        +--rw Loopback?              uint64
+    |        +--rw Vlan?                  uint16
+    +--rw activate?   empty
+    +--rw profile?    string
+    +--rw vnic
+       +--rw gateway
+       |  +--rw VirtualPortGroup* [number]
+       |     +--rw number    uint16
+       |     +--rw guest
+       |        +--rw (ip-address)?
+       |           +--:(ipv4-case)
+       |           |  +--rw ip
+       |           |     +--rw address?   inet:ipv4-address
+       |           +--:(ipv6-case)
+       |              +--rw ipv6
+       |                 +--rw address?   inet:ipv6-address
+       +--rw management
+          +--rw GigabitEthernet0?   empty
+          +--rw guest
+             +--rw (ip-address)?
+                +--:(ipv4-case)
+                |  +--rw ip
+                |     +--rw address?   inet:ipv4-address
+                +--:(ipv6-case)
+                   +--rw ipv6
+                      +--rw address?   inet:ipv6-address
+
+  grouping config-vservice-grouping
+    +-- ip
+    |  +-- shared
+    |     +-- host-interface
+    |        +-- FastEthernet?          string
+    |        +-- TenGigabitEthernet?    string
+    |        +-- GigabitEthernet?       string
+    |        +-- FiveGigabitEthernet?   string
+    |        +-- TwentyFiveGigE?        string
+    |        +-- TwoGigabitEthernet?    string
+    |        +-- Loopback?              uint64
+    |        +-- Vlan?                  uint16
+    +-- activate?   empty
+    +-- profile?    string
+    +-- vnic
+       +-- gateway
+       |  +-- VirtualPortGroup* [number]
+       |     +-- number?   uint16
+       |     +-- guest
+       |        +-- (ip-address)?
+       |           +--:(ipv4-case)
+       |           |  +-- ip
+       |           |     +-- address?   inet:ipv4-address
+       |           +--:(ipv6-case)
+       |              +-- ipv6
+       |                 +-- address?   inet:ipv6-address
+       +-- management
+          +-- GigabitEthernet0?   empty
+          +-- guest
+             +-- (ip-address)?
+                +--:(ipv4-case)
+                |  +-- ip
+                |     +-- address?   inet:ipv4-address
+                +--:(ipv6-case)
+                   +-- ipv6
+                      +-- address?   inet:ipv6-address

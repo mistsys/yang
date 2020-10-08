@@ -1,0 +1,554 @@
+module: openconfig-network-instance
+  +--rw network-instances
+     +--rw network-instance* [name]
+        +--rw name                       -> ../config/name
+        +--rw fdb
+        |  +--rw config
+        |  |  +--rw mac-learning?      boolean
+        |  |  +--rw mac-aging-time?    uint16
+        |  |  +--rw maximum-entries?   uint16
+        |  +--ro state
+        |  |  +--ro mac-learning?      boolean
+        |  |  +--ro mac-aging-time?    uint16
+        |  |  +--ro maximum-entries?   uint16
+        |  +--rw mac-table
+        |     +--rw entries
+        |        +--rw entry* [mac-address]
+        |           +--rw mac-address    -> ../config/mac-address
+        |           +--rw config
+        |           |  +--rw mac-address?   yang:mac-address
+        |           |  +--rw vlan?          -> ../../../../../../vlans/vlan/config/vlan-id
+        |           +--ro state
+        |           |  +--ro mac-address?   yang:mac-address
+        |           |  +--ro vlan?          -> ../../../../../../vlans/vlan/config/vlan-id
+        |           |  +--ro age?           uint64
+        |           |  +--ro entry-type?    enumeration
+        |           +--rw interface
+        |              +--rw interface-ref
+        |                 +--rw config
+        |                 |  +--rw interface?      -> /oc-if:interfaces/interface/name
+        |                 |  +--rw subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+        |                 +--ro state
+        |                    +--ro interface?      -> /oc-if:interfaces/interface/name
+        |                    +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+        +--rw config
+        |  +--rw name?                       string
+        |  +--rw type?                       identityref
+        |  +--rw enabled?                    boolean
+        |  +--rw description?                string
+        |  +--rw router-id?                  yang:dotted-quad
+        |  +--rw route-distinguisher?        oc-ni-types:route-distinguisher
+        |  +--rw enabled-address-families*   identityref
+        |  +--rw mtu?                        uint16
+        +--ro state
+        |  +--ro name?                       string
+        |  +--ro type?                       identityref
+        |  +--ro enabled?                    boolean
+        |  +--ro description?                string
+        |  +--ro router-id?                  yang:dotted-quad
+        |  +--ro route-distinguisher?        oc-ni-types:route-distinguisher
+        |  +--ro enabled-address-families*   identityref
+        |  +--ro mtu?                        uint16
+        +--rw encapsulation
+        |  +--rw config
+        |  |  +--rw encapsulation-type?      identityref
+        |  |  +--rw label-allocation-mode?   identityref
+        |  |  +--rw control-word?            boolean
+        |  +--ro state
+        |     +--ro encapsulation-type?      identityref
+        |     +--ro label-allocation-mode?   identityref
+        |     +--ro control-word?            boolean
+        +--rw inter-instance-policies
+        |  +--rw apply-policy
+        |     +--rw config
+        |     |  +--rw import-policy*           -> /oc-rpol:routing-policy/policy-definitions/policy-definition/name
+        |     |  +--rw default-import-policy?   default-policy-type
+        |     |  +--rw export-policy*           -> /oc-rpol:routing-policy/policy-definitions/policy-definition/name
+        |     |  +--rw default-export-policy?   default-policy-type
+        |     +--ro state
+        |        +--ro import-policy*           -> /oc-rpol:routing-policy/policy-definitions/policy-definition/name
+        |        +--ro default-import-policy?   default-policy-type
+        |        +--ro export-policy*           -> /oc-rpol:routing-policy/policy-definitions/policy-definition/name
+        |        +--ro default-export-policy?   default-policy-type
+        +--rw table-connections
+        |  +--rw table-connection* [src-protocol dst-protocol address-family]
+        |     +--rw src-protocol      -> ../config/src-protocol
+        |     +--rw dst-protocol      -> ../config/dst-protocol
+        |     +--rw address-family    -> ../config/address-family
+        |     +--rw config
+        |     |  +--rw src-protocol?            -> ../../../../tables/table/config/protocol
+        |     |  +--rw address-family?          -> ../../../../tables/table[protocol=current()/../src-protocol]/config/address-family
+        |     |  +--rw dst-protocol?            -> ../../../../tables/table/config/protocol
+        |     |  +--rw import-policy*           -> /oc-rpol:routing-policy/policy-definitions/policy-definition/name
+        |     |  +--rw default-import-policy?   default-policy-type
+        |     +--ro state
+        |        +--ro src-protocol?            -> ../../../../tables/table/config/protocol
+        |        +--ro address-family?          -> ../../../../tables/table[protocol=current()/../src-protocol]/config/address-family
+        |        +--ro dst-protocol?            -> ../../../../tables/table/config/protocol
+        |        +--ro import-policy*           -> /oc-rpol:routing-policy/policy-definitions/policy-definition/name
+        |        +--ro default-import-policy?   default-policy-type
+        +--rw interfaces
+        |  +--rw interface* [id]
+        |     +--rw id        -> ../config/id
+        |     +--rw config
+        |     |  +--rw id?                            string
+        |     |  +--rw interface?                     -> /oc-if:interfaces/interface/name
+        |     |  +--rw subinterface?                  -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+        |     |  +--rw associated-address-families*   identityref
+        |     +--ro state
+        |        +--ro id?                            string
+        |        +--ro interface?                     -> /oc-if:interfaces/interface/name
+        |        +--ro subinterface?                  -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+        |        +--ro associated-address-families*   identityref
+        +--rw tables
+        |  +--rw table* [protocol address-family]
+        |     +--rw protocol          -> ../config/protocol
+        |     +--rw address-family    -> ../config/address-family
+        |     +--rw config
+        |     |  +--rw protocol?         -> ../../../../protocols/protocol/config/identifier
+        |     |  +--rw address-family?   identityref
+        |     +--ro state
+        |        +--ro protocol?         -> ../../../../protocols/protocol/config/identifier
+        |        +--ro address-family?   identityref
+        +--rw connection-points
+        |  +--rw connection-point* [connection-point-id]
+        |     +--rw connection-point-id    -> ../config/connection-point-id
+        |     +--rw config
+        |     |  +--rw connection-point-id?   string
+        |     +--ro state
+        |     |  +--ro connection-point-id?   string
+        |     +--rw endpoints
+        |        +--rw endpoint* [endpoint-id]
+        |           +--rw endpoint-id    -> ../config/endpoint-id
+        |           +--rw config
+        |           |  +--rw endpoint-id?   string
+        |           |  +--rw precedence?    uint16
+        |           |  +--rw type?          identityref
+        |           +--ro state
+        |           |  +--ro endpoint-id?   string
+        |           |  +--ro precedence?    uint16
+        |           |  +--ro type?          identityref
+        |           |  +--ro active?        boolean
+        |           +--rw local
+        |           |  +--rw config
+        |           |  |  +--rw interface?      -> /oc-if:interfaces/interface/name
+        |           |  |  +--rw subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+        |           |  +--ro state
+        |           |     +--ro interface?      -> /oc-if:interfaces/interface/name
+        |           |     +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+        |           +--rw remote
+        |              +--rw config
+        |              |  +--rw remote-system?                inet:ip-address
+        |              |  +--rw virtual-circuit-identifier?   uint32
+        |              +--ro state
+        |                 +--ro remote-system?                inet:ip-address
+        |                 +--ro virtual-circuit-identifier?   uint32
+        +--rw vlans
+        |  +--rw vlan* [vlan-id]
+        |     +--rw vlan-id    -> ../config/vlan-id
+        |     +--rw config
+        |     |  +--rw vlan-id?   oc-vlan-types:vlan-id
+        |     |  +--rw name?      string
+        |     |  +--rw status?    enumeration
+        |     |  +--rw tpid?      identityref
+        |     +--ro state
+        |     |  +--ro vlan-id?   oc-vlan-types:vlan-id
+        |     |  +--ro name?      string
+        |     |  +--ro status?    enumeration
+        |     |  +--ro tpid?      identityref
+        |     +--rw members
+        |        +--ro member* []
+        |           +--ro interface-ref
+        |              +--ro state
+        |                 +--ro interface?      -> /oc-if:interfaces/interface/name
+        |                 +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+        +--rw protocols
+           +--rw protocol* [identifier name]
+              +--rw identifier          -> ../config/identifier
+              +--rw name                -> ../config/name
+              +--rw config
+              |  +--rw identifier?       identityref
+              |  +--rw name?             string
+              |  +--rw enabled?          boolean
+              |  +--rw default-metric?   uint32
+              +--ro state
+              |  +--ro identifier?       identityref
+              |  +--ro name?             string
+              |  +--ro enabled?          boolean
+              |  +--ro default-metric?   uint32
+              +--rw static-routes
+              |  +--rw static* [prefix]
+              |     +--rw prefix       -> ../config/prefix
+              |     +--rw config
+              |     |  +--rw prefix?    inet:ip-prefix
+              |     |  +--rw set-tag?   oc-pt:tag-type
+              |     +--ro state
+              |     |  +--ro prefix?    inet:ip-prefix
+              |     |  +--ro set-tag?   oc-pt:tag-type
+              |     +--rw next-hops
+              |        +--rw next-hop* [index]
+              |           +--rw index            -> ../config/index
+              |           +--rw config
+              |           |  +--rw index?      string
+              |           |  +--rw next-hop?   union
+              |           |  +--rw metric?     uint32
+              |           |  +--rw recurse?    boolean
+              |           +--ro state
+              |           |  +--ro index?      string
+              |           |  +--ro next-hop?   union
+              |           |  +--ro metric?     uint32
+              |           |  +--ro recurse?    boolean
+              |           +--rw interface-ref
+              |              +--rw config
+              |              |  +--rw interface?      -> /oc-if:interfaces/interface/name
+              |              |  +--rw subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+              |              +--ro state
+              |                 +--ro interface?      -> /oc-if:interfaces/interface/name
+              |                 +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+              +--rw local-aggregates
+                 +--rw aggregate* [prefix]
+                    +--rw prefix    -> ../config/prefix
+                    +--rw config
+                    |  +--rw prefix?    inet:ip-prefix
+                    |  +--rw discard?   boolean
+                    |  +--rw set-tag?   oc-pt:tag-type
+                    +--ro state
+                       +--ro prefix?    inet:ip-prefix
+                       +--ro discard?   boolean
+                       +--ro set-tag?   oc-pt:tag-type
+
+  grouping network-instance-top
+    +-- network-instances
+       +-- network-instance* [name]
+          +-- name?                      -> ../config/name
+          +-- fdb
+          |  +-- config
+          |  |  +-- mac-learning?      boolean
+          |  |  +-- mac-aging-time?    uint16
+          |  |  +-- maximum-entries?   uint16
+          |  +--ro state
+          |  |  +--ro mac-learning?      boolean
+          |  |  +--ro mac-aging-time?    uint16
+          |  |  +--ro maximum-entries?   uint16
+          |  +-- mac-table
+          |     +-- entries
+          |        +-- entry* [mac-address]
+          |           +-- mac-address?   -> ../config/mac-address
+          |           +-- config
+          |           |  +-- mac-address?   yang:mac-address
+          |           |  +-- vlan?          -> ../../../../../../vlans/vlan/config/vlan-id
+          |           +--ro state
+          |           |  +--ro mac-address?   yang:mac-address
+          |           |  +--ro vlan?          -> ../../../../../../vlans/vlan/config/vlan-id
+          |           |  +--ro age?           uint64
+          |           |  +--ro entry-type?    enumeration
+          |           +-- interface
+          |              +-- interface-ref
+          |                 +-- config
+          |                 |  +-- interface?      -> /oc-if:interfaces/interface/name
+          |                 |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+          |                 +--ro state
+          |                    +--ro interface?      -> /oc-if:interfaces/interface/name
+          |                    +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+          +-- config
+          |  +-- name?                       string
+          |  +-- type?                       identityref
+          |  +-- enabled?                    boolean
+          |  +-- description?                string
+          |  +-- router-id?                  yang:dotted-quad
+          |  +-- route-distinguisher?        oc-ni-types:route-distinguisher
+          |  +-- enabled-address-families*   identityref
+          |  +-- mtu?                        uint16
+          +--ro state
+          |  +--ro name?                       string
+          |  +--ro type?                       identityref
+          |  +--ro enabled?                    boolean
+          |  +--ro description?                string
+          |  +--ro router-id?                  yang:dotted-quad
+          |  +--ro route-distinguisher?        oc-ni-types:route-distinguisher
+          |  +--ro enabled-address-families*   identityref
+          |  +--ro mtu?                        uint16
+          +-- encapsulation
+          |  +-- config
+          |  |  +-- encapsulation-type?      identityref
+          |  |  +-- label-allocation-mode?   identityref
+          |  |  +-- control-word?            boolean
+          |  +--ro state
+          |     +--ro encapsulation-type?      identityref
+          |     +--ro label-allocation-mode?   identityref
+          |     +--ro control-word?            boolean
+          +-- inter-instance-policies
+          |  +-- apply-policy
+          |     +-- config
+          |     |  +-- import-policy*           -> /oc-rpol:routing-policy/policy-definitions/policy-definition/name
+          |     |  +-- default-import-policy?   default-policy-type
+          |     |  +-- export-policy*           -> /oc-rpol:routing-policy/policy-definitions/policy-definition/name
+          |     |  +-- default-export-policy?   default-policy-type
+          |     +--ro state
+          |        +--ro import-policy*           -> /oc-rpol:routing-policy/policy-definitions/policy-definition/name
+          |        +--ro default-import-policy?   default-policy-type
+          |        +--ro export-policy*           -> /oc-rpol:routing-policy/policy-definitions/policy-definition/name
+          |        +--ro default-export-policy?   default-policy-type
+          +-- table-connections
+          |  +-- table-connection* [src-protocol dst-protocol address-family]
+          |     +-- src-protocol?     -> ../config/src-protocol
+          |     +-- dst-protocol?     -> ../config/dst-protocol
+          |     +-- address-family?   -> ../config/address-family
+          |     +-- config
+          |     |  +-- src-protocol?            -> ../../../../tables/table/config/protocol
+          |     |  +-- address-family?          -> ../../../../tables/table[protocol=current()/../src-protocol]/config/address-family
+          |     |  +-- dst-protocol?            -> ../../../../tables/table/config/protocol
+          |     |  +-- import-policy*           -> /oc-rpol:routing-policy/policy-definitions/policy-definition/name
+          |     |  +-- default-import-policy?   default-policy-type
+          |     +--ro state
+          |        +--ro src-protocol?            -> ../../../../tables/table/config/protocol
+          |        +--ro address-family?          -> ../../../../tables/table[protocol=current()/../src-protocol]/config/address-family
+          |        +--ro dst-protocol?            -> ../../../../tables/table/config/protocol
+          |        +--ro import-policy*           -> /oc-rpol:routing-policy/policy-definitions/policy-definition/name
+          |        +--ro default-import-policy?   default-policy-type
+          +-- interfaces
+          |  +-- interface* [id]
+          |     +-- id?       -> ../config/id
+          |     +-- config
+          |     |  +-- id?                            string
+          |     |  +-- interface?                     -> /oc-if:interfaces/interface/name
+          |     |  +-- subinterface?                  -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+          |     |  +-- associated-address-families*   identityref
+          |     +--ro state
+          |        +--ro id?                            string
+          |        +--ro interface?                     -> /oc-if:interfaces/interface/name
+          |        +--ro subinterface?                  -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+          |        +--ro associated-address-families*   identityref
+          +-- tables
+          |  +-- table* [protocol address-family]
+          |     +-- protocol?         -> ../config/protocol
+          |     +-- address-family?   -> ../config/address-family
+          |     +-- config
+          |     |  +-- protocol?         -> ../../../../protocols/protocol/config/identifier
+          |     |  +-- address-family?   identityref
+          |     +--ro state
+          |        +--ro protocol?         -> ../../../../protocols/protocol/config/identifier
+          |        +--ro address-family?   identityref
+          +-- connection-points
+          |  +-- connection-point* [connection-point-id]
+          |     +-- connection-point-id?   -> ../config/connection-point-id
+          |     +-- config
+          |     |  +-- connection-point-id?   string
+          |     +--ro state
+          |     |  +--ro connection-point-id?   string
+          |     +-- endpoints
+          |        +-- endpoint* [endpoint-id]
+          |           +-- endpoint-id?   -> ../config/endpoint-id
+          |           +-- config
+          |           |  +-- endpoint-id?   string
+          |           |  +-- precedence?    uint16
+          |           |  +-- type?          identityref
+          |           +--ro state
+          |           |  +--ro endpoint-id?   string
+          |           |  +--ro precedence?    uint16
+          |           |  +--ro type?          identityref
+          |           |  +--ro active?        boolean
+          |           +-- local
+          |           |  +-- config
+          |           |  |  +-- interface?      -> /oc-if:interfaces/interface/name
+          |           |  |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+          |           |  +--ro state
+          |           |     +--ro interface?      -> /oc-if:interfaces/interface/name
+          |           |     +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+          |           +-- remote
+          |              +-- config
+          |              |  +-- remote-system?                inet:ip-address
+          |              |  +-- virtual-circuit-identifier?   uint32
+          |              +--ro state
+          |                 +--ro remote-system?                inet:ip-address
+          |                 +--ro virtual-circuit-identifier?   uint32
+          +-- vlans
+          |  +-- vlan* [vlan-id]
+          |     +-- vlan-id?   -> ../config/vlan-id
+          |     +-- config
+          |     |  +-- vlan-id?   oc-vlan-types:vlan-id
+          |     |  +-- name?      string
+          |     |  +-- status?    enumeration
+          |     |  +-- tpid?      identityref
+          |     +--ro state
+          |     |  +--ro vlan-id?   oc-vlan-types:vlan-id
+          |     |  +--ro name?      string
+          |     |  +--ro status?    enumeration
+          |     |  +--ro tpid?      identityref
+          |     +-- members
+          |        +--ro member* []
+          |           +--ro interface-ref
+          |              +--ro state
+          |                 +--ro interface?      -> /oc-if:interfaces/interface/name
+          |                 +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+          +-- protocols
+             +-- protocol* [identifier name]
+                +-- identifier?         -> ../config/identifier
+                +-- name?               -> ../config/name
+                +-- config
+                |  +-- identifier?       identityref
+                |  +-- name?             string
+                |  +-- enabled?          boolean
+                |  +-- default-metric?   uint32
+                +--ro state
+                |  +--ro identifier?       identityref
+                |  +--ro name?             string
+                |  +--ro enabled?          boolean
+                |  +--ro default-metric?   uint32
+                +-- static-routes
+                |  +-- static* [prefix]
+                |     +-- prefix?      -> ../config/prefix
+                |     +-- config
+                |     |  +-- prefix?    inet:ip-prefix
+                |     |  +-- set-tag?   oc-pt:tag-type
+                |     +--ro state
+                |     |  +--ro prefix?    inet:ip-prefix
+                |     |  +--ro set-tag?   oc-pt:tag-type
+                |     +-- next-hops
+                |        +-- next-hop* [index]
+                |           +-- index?           -> ../config/index
+                |           +-- config
+                |           |  +-- index?      string
+                |           |  +-- next-hop?   union
+                |           |  +-- metric?     uint32
+                |           |  +-- recurse?    boolean
+                |           +--ro state
+                |           |  +--ro index?      string
+                |           |  +--ro next-hop?   union
+                |           |  +--ro metric?     uint32
+                |           |  +--ro recurse?    boolean
+                |           +-- interface-ref
+                |              +-- config
+                |              |  +-- interface?      -> /oc-if:interfaces/interface/name
+                |              |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+                |              +--ro state
+                |                 +--ro interface?      -> /oc-if:interfaces/interface/name
+                |                 +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+                +-- local-aggregates
+                   +-- aggregate* [prefix]
+                      +-- prefix?   -> ../config/prefix
+                      +-- config
+                      |  +-- prefix?    inet:ip-prefix
+                      |  +-- discard?   boolean
+                      |  +-- set-tag?   oc-pt:tag-type
+                      +--ro state
+                         +--ro prefix?    inet:ip-prefix
+                         +--ro discard?   boolean
+                         +--ro set-tag?   oc-pt:tag-type
+  grouping network-instance-type-dependent-config
+    +-- enabled-address-families*   identityref
+    +-- mtu?                        uint16
+  grouping instance-endpoint-config
+    +-- endpoint-id?   string
+    +-- precedence?    uint16
+    +-- type?          identityref
+  grouping instance-endpoint-local-config
+    +-- interface?      -> /oc-if:interfaces/interface/name
+    +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+  grouping instance-endpoint-remote-config
+    +-- remote-system?                inet:ip-address
+    +-- virtual-circuit-identifier?   uint32
+  grouping instance-endpoint-state
+    +-- active?   boolean
+  grouping instance-connection-point-config
+    +-- connection-point-id?   string
+  grouping instance-connection-point-state
+  grouping table-config
+    +-- protocol?         -> ../../../../protocols/protocol/config/identifier
+    +-- address-family?   identityref
+  grouping instance-interfaces-config
+    +-- id?                            string
+    +-- interface?                     -> /oc-if:interfaces/interface/name
+    +-- subinterface?                  -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+    +-- associated-address-families*   identityref
+  grouping instance-interfaces-state
+  grouping inter-table-policies-config
+    +-- src-protocol?            -> ../../../../tables/table/config/protocol
+    +-- address-family?          -> ../../../../tables/table[protocol=current()/../src-protocol]/config/address-family
+    +-- dst-protocol?            -> ../../../../tables/table/config/protocol
+    +-- import-policy*           -> /oc-rpol:routing-policy/policy-definitions/policy-definition/name
+    +-- default-import-policy?   default-policy-type
+  grouping network-instance-config
+    +-- name?                  string
+    +-- type?                  identityref
+    +-- enabled?               boolean
+    +-- description?           string
+    +-- router-id?             yang:dotted-quad
+    +-- route-distinguisher?   oc-ni-types:route-distinguisher
+  grouping network-instance-state
+  grouping protocols-config
+    +-- identifier?       identityref
+    +-- name?             string
+    +-- enabled?          boolean
+    +-- default-metric?   uint32
+  grouping protocols-state
+  grouping instance-interface-association-config
+    +-- network-instance?   -> /network-instances/network-instance/name
+  grouping encapsulation-config
+    +-- encapsulation-type?      identityref
+    +-- label-allocation-mode?   identityref
+  grouping l2ni-instance
+    +-- fdb
+       +-- config
+       |  +-- mac-learning?      boolean
+       |  +-- mac-aging-time?    uint16
+       |  +-- maximum-entries?   uint16
+       +--ro state
+       |  +--ro mac-learning?      boolean
+       |  +--ro mac-aging-time?    uint16
+       |  +--ro maximum-entries?   uint16
+       +-- mac-table
+          +-- entries
+             +-- entry* [mac-address]
+                +-- mac-address?   -> ../config/mac-address
+                +-- config
+                |  +-- mac-address?   yang:mac-address
+                |  +-- vlan?          -> ../../../../../../vlans/vlan/config/vlan-id
+                +--ro state
+                |  +--ro mac-address?   yang:mac-address
+                |  +--ro vlan?          -> ../../../../../../vlans/vlan/config/vlan-id
+                |  +--ro age?           uint64
+                |  +--ro entry-type?    enumeration
+                +-- interface
+                   +-- interface-ref
+                      +-- config
+                      |  +-- interface?      -> /oc-if:interfaces/interface/name
+                      |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+                      +--ro state
+                         +--ro interface?      -> /oc-if:interfaces/interface/name
+                         +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+  grouping l2ni-instance-common-config
+    +-- mtu?   uint16
+  grouping l2ni-fdb-mac-config
+    +-- mac-learning?      boolean
+    +-- mac-aging-time?    uint16
+    +-- maximum-entries?   uint16
+  grouping l2ni-encapsulation-config
+    +-- control-word?   boolean
+  grouping l2ni-mac-table-config
+    +-- mac-address?   yang:mac-address
+    +-- vlan?          -> ../../../../../../vlans/vlan/config/vlan-id
+  grouping l2ni-mac-table-state
+    +-- age?          uint64
+    +-- entry-type?   enumeration
+  grouping l2ni-mac-table-top
+    +-- mac-table
+       +-- entries
+          +-- entry* [mac-address]
+             +-- mac-address?   -> ../config/mac-address
+             +-- config
+             |  +-- mac-address?   yang:mac-address
+             |  +-- vlan?          -> ../../../../../../vlans/vlan/config/vlan-id
+             +--ro state
+             |  +--ro mac-address?   yang:mac-address
+             |  +--ro vlan?          -> ../../../../../../vlans/vlan/config/vlan-id
+             |  +--ro age?           uint64
+             |  +--ro entry-type?    enumeration
+             +-- interface
+                +-- interface-ref
+                   +-- config
+                   |  +-- interface?      -> /oc-if:interfaces/interface/name
+                   |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+                   +--ro state
+                      +--ro interface?      -> /oc-if:interfaces/interface/name
+                      +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index

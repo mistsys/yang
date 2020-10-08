@@ -1,0 +1,55 @@
+
+module: Cisco-IOS-XE-cef
+  augment /ios:native:
+    +--rw cef
+       +--rw table
+          +--rw output-chain
+             +--rw build
+                +--rw favor
+                   +--rw convergence-speed?    empty
+                   +--rw memory-utilization?   empty
+  augment /ios:native/ios:ip/ios:cef:
+    +--rw distributed?    empty
+    +--rw load-sharing
+       +--rw algorithm
+          +--rw include-ports
+             +--rw destination!
+             |  +--rw dest-range?   string
+             +--rw source!
+                +--rw source-range?   string
+                +--rw destination!
+                   +--rw dest-range?   string
+                   +--rw gtp!
+                      +--rw gtp-range?   string
+  augment /ios:native/ios:ipv6/ios:cef:
+    +--rw accounting
+    |  +--rw per-prefix?      empty
+    |  +--rw prefix-length?   empty
+    +--rw distributed?   empty
+
+  grouping config-ip-cef-grouping
+    +-- distributed?    empty
+    +-- load-sharing
+       +-- algorithm
+          +-- include-ports
+             +-- destination!
+             |  +-- dest-range?   string
+             +-- source!
+                +-- source-range?   string
+                +-- destination!
+                   +-- dest-range?   string
+                   +-- gtp!
+                      +-- gtp-range?   string
+  grouping config-ipv6-cef-grouping
+    +-- accounting
+    |  +-- per-prefix?      empty
+    |  +-- prefix-length?   empty
+    +-- distributed?   empty
+  grouping config-cef-grouping
+    +-- cef
+       +-- table
+          +-- output-chain
+             +-- build
+                +-- favor
+                   +-- convergence-speed?    empty
+                   +-- memory-utilization?   empty

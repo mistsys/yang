@@ -1,0 +1,439 @@
+
+module: Cisco-IOS-XE-utd
+  augment /ios:native:
+    +--rw utd!
+    |  +--rw all-interfaces?   empty
+    |  +--rw redirect
+    |  |  +--rw interface
+    |  |     +--rw (redirect-choice)?
+    |  |        +--:(BDI)
+    |  |        |  +--rw BDI?                string
+    |  |        +--:(VirtualPortGroup)
+    |  |           +--rw VirtualPortGroup?   uint16
+    |  +--rw engine!
+    |     +--rw mode?   enumeration
+    |     +--rw fail
+    |        +--rw close?   empty
+    +--rw utd-st
+       +--rw utd
+          +--rw web-filter
+          |  +--rw block
+          |  |  +--rw local-server
+          |  |  |  +--rw profile* [id]
+          |  |  |     +--rw id                      string
+          |  |  |     +--rw block-page-interface
+          |  |  |     |  +--rw Loopback?   uint32
+          |  |  |     +--rw content
+          |  |  |     |  +--rw (content-choice)?
+          |  |  |     |     +--:(text)
+          |  |  |     |     |  +--rw text?   string
+          |  |  |     |     +--:(file)
+          |  |  |     |        +--rw file?   string
+          |  |  |     +--rw http-ports?             string
+          |  |  +--rw page
+          |  |     +--rw profile* [id]
+          |  |        +--rw id                    string
+          |  |        +--rw (page-choice)?
+          |  |           +--:(file)
+          |  |           |  +--rw file?           string
+          |  |           +--:(redirect-url)
+          |  |           |  +--rw redirect-url?   string
+          |  |           +--:(text)
+          |  |              +--rw text?           string
+          |  +--rw domain
+          |  |  +--rw profile* [id]
+          |  |     +--rw id                 string
+          |  |     +--rw alert?             enumeration
+          |  |     +--rw blacklist!
+          |  |     |  +--rw parameter-map
+          |  |     |     +--rw regex?   union
+          |  |     +--rw redirect-server
+          |  |     |  +--rw (id-choice)?
+          |  |     |     +--:(external)
+          |  |     |     |  +--rw external?             inet:ipv4-address
+          |  |     |     +--:(local-block-server)
+          |  |     |        +--rw local-block-server?   string
+          |  |     +--rw whitelist!
+          |  |        +--rw parameter-map
+          |  |           +--rw regex?   union
+          |  +--rw sourcedb* [id]
+          |  |  +--rw id         string
+          |  |  +--rw logging
+          |  |     +--rw level?   enumeration
+          |  +--rw url
+          |     +--rw profile* [id]
+          |        +--rw id            string
+          |        +--rw alert*        enumeration
+          |        +--rw blacklist!
+          |        |  +--rw parameter-map
+          |        |     +--rw regex?   union
+          |        +--rw categories
+          |        |  +--rw allow!
+          |        |  |  +--rw category* [name]
+          |        |  |     +--rw name    utd-category-type
+          |        |  +--rw block!
+          |        |     +--rw category* [name]
+          |        |        +--rw name    utd-category-type
+          |        +--rw block
+          |        |  +--rw local-server?   string
+          |        |  +--rw page-profile?   string
+          |        +--rw log
+          |        |  +--rw level?   enumeration
+          |        +--rw reputation!
+          |        |  +--rw block-threshold?   enumeration
+          |        +--rw sourcedb
+          |        |  +--rw fail
+          |        |     +--rw close?   empty
+          |        +--rw whitelist!
+          |           +--rw parameter-map
+          |              +--rw regex?   union
+          +--rw engine
+          |  +--rw advanced
+          |  |  +--rw threat!
+          |  |     +--rw detection?   empty
+          |  +--rw standard!
+          |     +--rw logging
+          |     |  +--rw host* [name]
+          |     |  |  +--rw name    string
+          |     |  +--rw syslog?   empty
+          |     +--rw threat-inspection!
+          |     |  +--rw signature
+          |     |  |  +--rw update
+          |     |  |     +--rw occur-at
+          |     |  |     |  +--rw (occur-at-choice)?
+          |     |  |     |  |  +--:(daily)
+          |     |  |     |  |  |  +--rw daily?     empty
+          |     |  |     |  |  +--:(monthly)
+          |     |  |     |  |  |  +--rw monthly?   string
+          |     |  |     |  |  +--:(weekly)
+          |     |  |     |  |     +--rw weekly?    string
+          |     |  |     |  +--rw hours?           uint8
+          |     |  |     |  +--rw minutes?         uint8
+          |     |  |     +--rw server
+          |     |  |        +--rw cisco
+          |     |  |        |  +--rw username?   string
+          |     |  |        |  +--rw password?   string
+          |     |  |        +--rw url
+          |     |  |           +--rw (url-uname-passwd)?
+          |     |  |              +--:(all-case)
+          |     |  |              |  +--rw all
+          |     |  |              |     +--rw name?       string
+          |     |  |              |     +--rw username?   string
+          |     |  |              |     +--rw password?   string
+          |     |  |              +--:(name-only)
+          |     |  |                 +--rw name?   string
+          |     |  +--rw threat?      enumeration
+          |     |  +--rw policy?      enumeration
+          |     |  +--rw logging
+          |     |  |  +--rw level?   enumeration
+          |     |  +--rw whitelist?   empty
+          |     +--rw web-filter!
+          |        +--rw domain-profile?   string
+          |        +--rw sourcedb?         string
+          |        +--rw url-profile?      string
+          +--rw threat-inspection
+             +--rw whitelist!
+                +--rw signature* [id]
+                   +--rw id         uint32
+                   +--rw comment?   string
+  augment /ios:native/ios:interface/ios:FastEthernet:
+    +--rw utd
+       +--rw enable?   empty
+  augment /ios:native/ios:interface/ios:GigabitEthernet:
+    +--rw utd
+       +--rw enable?   empty
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet:
+    +--rw utd
+       +--rw enable?   empty
+  augment /ios:native/ios:interface/ios:FiveGigabitEthernet:
+    +--rw utd
+       +--rw enable?   empty
+  augment /ios:native/ios:interface/ios:TwentyFiveGigabitEthernet:
+    +--rw utd
+       +--rw enable?   empty
+  augment /ios:native/ios:interface/ios:FortyGigabitEthernet:
+    +--rw utd
+       +--rw enable?   empty
+  augment /ios:native/ios:interface/ios:HundredGigE:
+    +--rw utd
+       +--rw enable?   empty
+  augment /ios:native/ios:interface/ios:LISP:
+    +--rw utd
+       +--rw enable?   empty
+  augment /ios:native/ios:interface/ios:Loopback:
+    +--rw utd
+       +--rw enable?   empty
+  augment /ios:native/ios:interface/ios:Tunnel:
+    +--rw utd
+       +--rw enable?   empty
+  augment /ios:native/ios:interface/ios:Virtual-Template:
+    +--rw utd
+       +--rw enable?   empty
+  augment /ios:native/ios:interface/ios:Vlan:
+    +--rw utd
+       +--rw enable?   empty
+  augment /ios:native/ios:interface/ios:vasileft:
+    +--rw utd
+       +--rw enable?   empty
+  augment /ios:native/ios:interface/ios:vasiright:
+    +--rw utd
+       +--rw enable?   empty
+
+  grouping utd-web-filter-grouping
+    +-- web-filter
+       +-- block
+       |  +-- local-server
+       |  |  +-- profile* [id]
+       |  |     +-- id?                     string
+       |  |     +-- block-page-interface
+       |  |     |  +-- Loopback?   uint32
+       |  |     +-- content
+       |  |     |  +-- (content-choice)?
+       |  |     |     +--:(text)
+       |  |     |     |  +-- text?   string
+       |  |     |     +--:(file)
+       |  |     |        +-- file?   string
+       |  |     +-- http-ports?             string
+       |  +-- page
+       |     +-- profile* [id]
+       |        +-- id?                   string
+       |        +-- (page-choice)?
+       |           +--:(file)
+       |           |  +-- file?           string
+       |           +--:(redirect-url)
+       |           |  +-- redirect-url?   string
+       |           +--:(text)
+       |              +-- text?           string
+       +-- domain
+       |  +-- profile* [id]
+       |     +-- id?                string
+       |     +-- alert?             enumeration
+       |     +-- blacklist!
+       |     |  +-- parameter-map
+       |     |     +-- regex?   union
+       |     +-- redirect-server
+       |     |  +-- (id-choice)?
+       |     |     +--:(external)
+       |     |     |  +-- external?             inet:ipv4-address
+       |     |     +--:(local-block-server)
+       |     |        +-- local-block-server?   string
+       |     +-- whitelist!
+       |        +-- parameter-map
+       |           +-- regex?   union
+       +-- sourcedb* [id]
+       |  +-- id?        string
+       |  +-- logging
+       |     +-- level?   enumeration
+       +-- url
+          +-- profile* [id]
+             +-- id?           string
+             +-- alert*        enumeration
+             +-- blacklist!
+             |  +-- parameter-map
+             |     +-- regex?   union
+             +-- categories
+             |  +-- allow!
+             |  |  +-- category* [name]
+             |  |     +-- name?   utd-category-type
+             |  +-- block!
+             |     +-- category* [name]
+             |        +-- name?   utd-category-type
+             +-- block
+             |  +-- local-server?   string
+             |  +-- page-profile?   string
+             +-- log
+             |  +-- level?   enumeration
+             +-- reputation!
+             |  +-- block-threshold?   enumeration
+             +-- sourcedb
+             |  +-- fail
+             |     +-- close?   empty
+             +-- whitelist!
+                +-- parameter-map
+                   +-- regex?   union
+  grouping hour-minute-grouping
+    +-- hours?     uint8
+    +-- minutes?   uint8
+  grouping username-password-grouping
+    +-- username?   string
+    +-- password?   string
+  grouping utd-engine-standard-grouping
+    +-- logging
+    |  +-- host* [name]
+    |  |  +-- name?   string
+    |  +-- syslog?   empty
+    +-- threat-inspection!
+    |  +-- signature
+    |     +-- update
+    |        +-- occur-at
+    |        |  +-- (occur-at-choice)?
+    |        |  |  +--:(daily)
+    |        |  |  |  +-- daily?     empty
+    |        |  |  +--:(monthly)
+    |        |  |  |  +-- monthly?   string
+    |        |  |  +--:(weekly)
+    |        |  |     +-- weekly?    string
+    |        |  +-- hours?           uint8
+    |        |  +-- minutes?         uint8
+    |        +-- server
+    |           +-- cisco
+    |           |  +-- username?   string
+    |           |  +-- password?   string
+    |           +-- url
+    |              +-- (url-uname-passwd)?
+    |                 +--:(all-case)
+    |                 |  +-- all
+    |                 |     +-- name?       string
+    |                 |     +-- username?   string
+    |                 |     +-- password?   string
+    |                 +--:(name-only)
+    |                    +-- name?   string
+    +-- web-filter!
+       +-- domain-profile?   string
+       +-- sourcedb?         string
+       +-- url-profile?      string
+  grouping utd-engine-threat-inspection-grouping
+    +-- threat?    enumeration
+    +-- policy?    enumeration
+    +-- logging
+       +-- level?   enumeration
+  grouping config-utd-st-grouping
+    +-- utd-st
+       +-- utd
+          +-- web-filter
+          |  +-- block
+          |  |  +-- local-server
+          |  |  |  +-- profile* [id]
+          |  |  |     +-- id?                     string
+          |  |  |     +-- block-page-interface
+          |  |  |     |  +-- Loopback?   uint32
+          |  |  |     +-- content
+          |  |  |     |  +-- (content-choice)?
+          |  |  |     |     +--:(text)
+          |  |  |     |     |  +-- text?   string
+          |  |  |     |     +--:(file)
+          |  |  |     |        +-- file?   string
+          |  |  |     +-- http-ports?             string
+          |  |  +-- page
+          |  |     +-- profile* [id]
+          |  |        +-- id?                   string
+          |  |        +-- (page-choice)?
+          |  |           +--:(file)
+          |  |           |  +-- file?           string
+          |  |           +--:(redirect-url)
+          |  |           |  +-- redirect-url?   string
+          |  |           +--:(text)
+          |  |              +-- text?           string
+          |  +-- domain
+          |  |  +-- profile* [id]
+          |  |     +-- id?                string
+          |  |     +-- alert?             enumeration
+          |  |     +-- blacklist!
+          |  |     |  +-- parameter-map
+          |  |     |     +-- regex?   union
+          |  |     +-- redirect-server
+          |  |     |  +-- (id-choice)?
+          |  |     |     +--:(external)
+          |  |     |     |  +-- external?             inet:ipv4-address
+          |  |     |     +--:(local-block-server)
+          |  |     |        +-- local-block-server?   string
+          |  |     +-- whitelist!
+          |  |        +-- parameter-map
+          |  |           +-- regex?   union
+          |  +-- sourcedb* [id]
+          |  |  +-- id?        string
+          |  |  +-- logging
+          |  |     +-- level?   enumeration
+          |  +-- url
+          |     +-- profile* [id]
+          |        +-- id?           string
+          |        +-- alert*        enumeration
+          |        +-- blacklist!
+          |        |  +-- parameter-map
+          |        |     +-- regex?   union
+          |        +-- categories
+          |        |  +-- allow!
+          |        |  |  +-- category* [name]
+          |        |  |     +-- name?   utd-category-type
+          |        |  +-- block!
+          |        |     +-- category* [name]
+          |        |        +-- name?   utd-category-type
+          |        +-- block
+          |        |  +-- local-server?   string
+          |        |  +-- page-profile?   string
+          |        +-- log
+          |        |  +-- level?   enumeration
+          |        +-- reputation!
+          |        |  +-- block-threshold?   enumeration
+          |        +-- sourcedb
+          |        |  +-- fail
+          |        |     +-- close?   empty
+          |        +-- whitelist!
+          |           +-- parameter-map
+          |              +-- regex?   union
+          +-- engine
+          |  +-- advanced
+          |  |  +-- threat!
+          |  |     +-- detection?   empty
+          |  +-- standard!
+          |     +-- logging
+          |     |  +-- host* [name]
+          |     |  |  +-- name?   string
+          |     |  +-- syslog?   empty
+          |     +-- threat-inspection!
+          |     |  +-- signature
+          |     |  |  +-- update
+          |     |  |     +-- occur-at
+          |     |  |     |  +-- (occur-at-choice)?
+          |     |  |     |  |  +--:(daily)
+          |     |  |     |  |  |  +-- daily?     empty
+          |     |  |     |  |  +--:(monthly)
+          |     |  |     |  |  |  +-- monthly?   string
+          |     |  |     |  |  +--:(weekly)
+          |     |  |     |  |     +-- weekly?    string
+          |     |  |     |  +-- hours?           uint8
+          |     |  |     |  +-- minutes?         uint8
+          |     |  |     +-- server
+          |     |  |        +-- cisco
+          |     |  |        |  +-- username?   string
+          |     |  |        |  +-- password?   string
+          |     |  |        +-- url
+          |     |  |           +-- (url-uname-passwd)?
+          |     |  |              +--:(all-case)
+          |     |  |              |  +-- all
+          |     |  |              |     +-- name?       string
+          |     |  |              |     +-- username?   string
+          |     |  |              |     +-- password?   string
+          |     |  |              +--:(name-only)
+          |     |  |                 +-- name?   string
+          |     |  +-- threat?      enumeration
+          |     |  +-- policy?      enumeration
+          |     |  +-- logging
+          |     |  |  +-- level?   enumeration
+          |     |  +-- whitelist?   empty
+          |     +-- web-filter!
+          |        +-- domain-profile?   string
+          |        +-- sourcedb?         string
+          |        +-- url-profile?      string
+          +-- threat-inspection
+             +-- whitelist!
+                +-- signature* [id]
+                   +-- id?        uint32
+                   +-- comment?   string
+  grouping config-utd-grouping
+    +-- utd!
+       +-- all-interfaces?   empty
+       +-- redirect
+       |  +-- interface
+       |     +-- (redirect-choice)?
+       |        +--:(BDI)
+       |        |  +-- BDI?                string
+       |        +--:(VirtualPortGroup)
+       |           +-- VirtualPortGroup?   uint16
+       +-- engine!
+          +-- mode?   enumeration
+          +-- fail
+             +-- close?   empty
+  grouping config-interface-utd-grouping
+    +-- utd
+       +-- enable?   empty

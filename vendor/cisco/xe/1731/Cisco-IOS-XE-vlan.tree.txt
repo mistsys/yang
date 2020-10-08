@@ -1,0 +1,227 @@
+
+module: Cisco-IOS-XE-vlan
+  augment /ios:native/ios:vlan:
+    +--rw access-map* [name value]
+    |  +--rw name      string
+    |  +--rw value     uint16
+    |  +--rw match
+    |  |  +--rw ipv6
+    |  |  |  +--rw address*   string
+    |  |  +--rw ip
+    |  |     +--rw address*   string
+    |  +--rw action?   enumeration
+    +--rw configuration* [vlan-id]
+    |  +--rw vlan-id            uint16
+    |  +--rw ip
+    |  |  +--rw flow
+    |  |     +--rw monitor* [flow-monitor]
+    |  |        +--rw flow-monitor    string
+    |  |        +--rw input?          empty
+    |  |        +--rw output?         empty
+    |  +--rw device-tracking!
+    |  |  +--rw attach-policy?   string
+    |  +--rw ipv6
+    |  |  +--rw nd
+    |  |  |  +--rw suppress!
+    |  |  |  |  +--rw attach-policy?   string
+    |  |  |  +--rw raguard
+    |  |  |     +--rw raguard?         empty
+    |  |  |     +--rw attach-policy?   string
+    |  |  +--rw dhcp
+    |  |     +--rw guard!
+    |  |        +--rw attach-policy?   string
+    |  +--rw member
+    |     +--rw evpn-instance
+    |     |  +--rw evpn-instance?   uint16
+    |     |  +--rw vni?             uint32
+    |     +--rw vni?             uint32
+    |     +--rw access-vfi?      string
+    +--rw filter* [word]
+    |  +--rw word          string
+    |  +--rw vlan-lists*   uint16
+    |  x--rw vlan-list?    union
+    +--rw accounting!
+    |  +--rw input?    empty
+    |  +--rw output?   empty
+    +--rw internal
+    |  +--rw allocation
+    |     +--rw policy?   enumeration
+    +--rw dot1q
+    |  +--rw tag
+    |     +--rw native?   empty
+    +--rw access-log
+    |  +--rw maxflow?     uint16
+    |  +--rw ratelimit?   uint16
+    |  +--rw threshold?   uint32
+    +--rw group* [name]
+    |  +--rw name          string
+    |  +--rw vlan-lists*   uint16
+    |  x--rw vlan-list* [vlan-id]
+    |     x--rw vlan-id    union
+    +--rw vlan-list* [id]
+    |  +--rw id              uint16
+    |  +--rw remote-span?    empty
+    |  +--rw private-vlan {ios-features:private-vlan}?
+    |  |  +--rw primary?       empty
+    |  |  +--rw association?   string
+    |  |  +--rw community?     empty
+    |  |  +--rw isolated?      empty
+    |  +--rw name?           string
+    |  +--rw state?          enumeration
+    |  +--rw lldp
+    |  |  +--rw run?   empty
+    |  +--rw uni-vlan?       enumeration
+    o--rw device-tracking!
+       o--rw attach-policy?   string
+  augment /ios:native/ios:interface/ios:Vlan:
+    +--rw private-vlan {ios-features:private-vlan,ios-features:vlan}?
+    |  +--rw mapping?   string
+    +--rw service-routing {ios-features:vlan}?
+    |  +--rw mdns-sd!
+    |     +--rw service-policy* [dir]
+    |     |  +--rw dir     enumeration
+    |     |  +--rw name?   string
+    |     +--rw redistribute
+    |        +--rw mdns-sd?         empty
+    |        +--rw withdraw-only?   empty
+    +--rw glbp {ios-features:vlan}?
+       +--rw range* [range]
+          +--rw range        uint16
+          +--rw forwarder
+          |  +--rw preempt!
+          |     +--rw delay
+          |        +--rw minimum?   uint16
+          +--rw ip!
+          |  +--rw ipv4* [ipv4]
+          |     +--rw ipv4    inet:ipv4-address
+          +--rw preempt!
+          |  +--rw delay
+          |     +--rw minimum?   uint16
+          +--rw priority?    uint8
+          +--rw weighting
+          |  +--rw value* [value]
+          |  |  +--rw value    int8
+          |  |  +--rw upper?   int8
+          |  |  +--rw lower?   int8
+          |  +--rw track
+          |     +--rw range* [range]
+          |        +--rw range        uint16
+          |        +--rw decrement?   uint8
+          +--rw timers
+          |  +--rw msec
+          |     +--rw range* [range]
+          |        +--rw range     uint16
+          |        +--rw range0?   uint8
+          +--rw name?        string
+
+  grouping config-interface-vlan-grouping
+    +-- private-vlan {ios-features:private-vlan}?
+    |  +-- mapping?   string
+    +-- service-routing
+    |  +-- mdns-sd!
+    |     +-- service-policy* [dir]
+    |     |  +-- dir?    enumeration
+    |     |  +-- name?   string
+    |     +-- redistribute
+    |        +-- mdns-sd?         empty
+    |        +-- withdraw-only?   empty
+    +-- glbp
+       +-- range* [range]
+          +-- range?       uint16
+          +-- forwarder
+          |  +-- preempt!
+          |     +-- delay
+          |        +-- minimum?   uint16
+          +-- ip!
+          |  +-- ipv4* [ipv4]
+          |     +-- ipv4?   inet:ipv4-address
+          +-- preempt!
+          |  +-- delay
+          |     +-- minimum?   uint16
+          +-- priority?    uint8
+          +-- weighting
+          |  +-- value* [value]
+          |  |  +-- value?   int8
+          |  |  +-- upper?   int8
+          |  |  +-- lower?   int8
+          |  +-- track
+          |     +-- range* [range]
+          |        +-- range?       uint16
+          |        +-- decrement?   uint8
+          +-- timers
+          |  +-- msec
+          |     +-- range* [range]
+          |        +-- range?    uint16
+          |        +-- range0?   uint8
+          +-- name?        string
+  grouping config-vlan-grouping
+    +-- access-map* [name value]
+    |  +-- name?     string
+    |  +-- value?    uint16
+    |  +-- match
+    |  |  +-- ipv6
+    |  |  |  +-- address*   string
+    |  |  +-- ip
+    |  |     +-- address*   string
+    |  +-- action?   enumeration
+    +-- configuration* [vlan-id]
+    |  +-- vlan-id?           uint16
+    |  +-- ip
+    |  |  +-- flow
+    |  |     +-- monitor* [flow-monitor]
+    |  |        +-- flow-monitor?   string
+    |  |        +-- input?          empty
+    |  |        +-- output?         empty
+    |  +-- device-tracking!
+    |  |  +-- attach-policy?   string
+    |  +-- ipv6
+    |  |  +-- nd
+    |  |  |  +-- suppress!
+    |  |  |  |  +-- attach-policy?   string
+    |  |  |  +-- raguard
+    |  |  |     +-- raguard?         empty
+    |  |  |     +-- attach-policy?   string
+    |  |  +-- dhcp
+    |  |     +-- guard!
+    |  |        +-- attach-policy?   string
+    |  +-- member
+    |     +-- evpn-instance
+    |     |  +-- evpn-instance?   uint16
+    |     |  +-- vni?             uint32
+    |     +-- vni?             uint32
+    |     +-- access-vfi?      string
+    +-- filter* [word]
+    |  +-- word?         string
+    |  +-- vlan-lists*   uint16
+    |  x-- vlan-list?    union
+    +-- accounting!
+    |  +-- input?    empty
+    |  +-- output?   empty
+    +-- internal
+    |  +-- allocation
+    |     +-- policy?   enumeration
+    +-- dot1q
+    |  +-- tag
+    |     +-- native?   empty
+    +-- access-log
+    |  +-- maxflow?     uint16
+    |  +-- ratelimit?   uint16
+    |  +-- threshold?   uint32
+    +-- group* [name]
+    |  +-- name?         string
+    |  +-- vlan-lists*   uint16
+    |  x-- vlan-list* [vlan-id]
+    |     x-- vlan-id?   union
+    +-- vlan-list* [id]
+       +-- id?             uint16
+       +-- remote-span?    empty
+       +-- private-vlan {ios-features:private-vlan}?
+       |  +-- primary?       empty
+       |  +-- association?   string
+       |  +-- community?     empty
+       |  +-- isolated?      empty
+       +-- name?           string
+       +-- state?          enumeration
+       +-- lldp
+       |  +-- run?   empty
+       +-- uni-vlan?       enumeration

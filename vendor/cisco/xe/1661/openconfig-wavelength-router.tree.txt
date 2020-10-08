@@ -1,0 +1,143 @@
+module: openconfig-wavelength-router
+  +--rw wavelength-router
+     +--rw media-channels
+        +--rw channel* [index]
+           +--rw index               -> ../config/index
+           +--rw config
+           |  +--rw index?             uint32
+           |  +--rw lower-frequency?   oc-opt-types:frequency-type
+           |  +--rw upper-frequency?   oc-opt-types:frequency-type
+           +--ro state
+           |  +--ro index?             uint32
+           |  +--ro lower-frequency?   oc-opt-types:frequency-type
+           |  +--ro upper-frequency?   oc-opt-types:frequency-type
+           +--rw source
+           |  +--rw config
+           |  |  +--rw port-name?   oc-if:base-interface-ref
+           |  +--ro state
+           |     +--ro port-name?   oc-if:base-interface-ref
+           +--rw dest
+           |  +--rw config
+           |  |  +--rw port-name?   oc-if:base-interface-ref
+           |  +--ro state
+           |     +--ro port-name?   oc-if:base-interface-ref
+           +--rw psd-distribution
+              +--rw psd-value* [lower-frequency upper-frequency]
+                 +--rw lower-frequency    -> ../config/lower-frequency
+                 +--rw upper-frequency    -> ../config/upper-frequency
+                 +--rw config
+                 |  +--rw lower-frequency?   oc-opt-types:frequency-type
+                 |  +--rw upper-frequency?   oc-opt-types:frequency-type
+                 |  +--rw psd?               decimal64
+                 +--ro state
+                    +--ro lower-frequency?   oc-opt-types:frequency-type
+                    +--ro upper-frequency?   oc-opt-types:frequency-type
+                    +--ro psd?               decimal64
+
+  grouping media-channel-port-config
+    +-- port-name?   oc-if:base-interface-ref
+  grouping media-channel-port-state
+  grouping media-channel-source-port-top
+    +-- source
+       +-- config
+       |  +-- port-name?   oc-if:base-interface-ref
+       +--ro state
+          +--ro port-name?   oc-if:base-interface-ref
+  grouping media-channel-dest-port-top
+    +-- dest
+       +-- config
+       |  +-- port-name?   oc-if:base-interface-ref
+       +--ro state
+          +--ro port-name?   oc-if:base-interface-ref
+  grouping media-channel-psd-config
+    +-- lower-frequency?   oc-opt-types:frequency-type
+    +-- upper-frequency?   oc-opt-types:frequency-type
+    +-- psd?               decimal64
+  grouping media-channel-psd-state
+  grouping media-channel-psd-top
+    +-- psd-distribution
+       +-- psd-value* [lower-frequency upper-frequency]
+          +-- lower-frequency?   -> ../config/lower-frequency
+          +-- upper-frequency?   -> ../config/upper-frequency
+          +-- config
+          |  +-- lower-frequency?   oc-opt-types:frequency-type
+          |  +-- upper-frequency?   oc-opt-types:frequency-type
+          |  +-- psd?               decimal64
+          +--ro state
+             +--ro lower-frequency?   oc-opt-types:frequency-type
+             +--ro upper-frequency?   oc-opt-types:frequency-type
+             +--ro psd?               decimal64
+  grouping media-channel-config
+    +-- index?             uint32
+    +-- lower-frequency?   oc-opt-types:frequency-type
+    +-- upper-frequency?   oc-opt-types:frequency-type
+  grouping media-channel-state
+  grouping media-channel-top
+    +-- media-channels
+       +-- channel* [index]
+          +-- index?              -> ../config/index
+          +-- config
+          |  +-- index?             uint32
+          |  +-- lower-frequency?   oc-opt-types:frequency-type
+          |  +-- upper-frequency?   oc-opt-types:frequency-type
+          +--ro state
+          |  +--ro index?             uint32
+          |  +--ro lower-frequency?   oc-opt-types:frequency-type
+          |  +--ro upper-frequency?   oc-opt-types:frequency-type
+          +-- source
+          |  +-- config
+          |  |  +-- port-name?   oc-if:base-interface-ref
+          |  +--ro state
+          |     +--ro port-name?   oc-if:base-interface-ref
+          +-- dest
+          |  +-- config
+          |  |  +-- port-name?   oc-if:base-interface-ref
+          |  +--ro state
+          |     +--ro port-name?   oc-if:base-interface-ref
+          +-- psd-distribution
+             +-- psd-value* [lower-frequency upper-frequency]
+                +-- lower-frequency?   -> ../config/lower-frequency
+                +-- upper-frequency?   -> ../config/upper-frequency
+                +-- config
+                |  +-- lower-frequency?   oc-opt-types:frequency-type
+                |  +-- upper-frequency?   oc-opt-types:frequency-type
+                |  +-- psd?               decimal64
+                +--ro state
+                   +--ro lower-frequency?   oc-opt-types:frequency-type
+                   +--ro upper-frequency?   oc-opt-types:frequency-type
+                   +--ro psd?               decimal64
+  grouping wavelength-router-top
+    +-- wavelength-router
+       +-- media-channels
+          +-- channel* [index]
+             +-- index?              -> ../config/index
+             +-- config
+             |  +-- index?             uint32
+             |  +-- lower-frequency?   oc-opt-types:frequency-type
+             |  +-- upper-frequency?   oc-opt-types:frequency-type
+             +--ro state
+             |  +--ro index?             uint32
+             |  +--ro lower-frequency?   oc-opt-types:frequency-type
+             |  +--ro upper-frequency?   oc-opt-types:frequency-type
+             +-- source
+             |  +-- config
+             |  |  +-- port-name?   oc-if:base-interface-ref
+             |  +--ro state
+             |     +--ro port-name?   oc-if:base-interface-ref
+             +-- dest
+             |  +-- config
+             |  |  +-- port-name?   oc-if:base-interface-ref
+             |  +--ro state
+             |     +--ro port-name?   oc-if:base-interface-ref
+             +-- psd-distribution
+                +-- psd-value* [lower-frequency upper-frequency]
+                   +-- lower-frequency?   -> ../config/lower-frequency
+                   +-- upper-frequency?   -> ../config/upper-frequency
+                   +-- config
+                   |  +-- lower-frequency?   oc-opt-types:frequency-type
+                   |  +-- upper-frequency?   oc-opt-types:frequency-type
+                   |  +-- psd?               decimal64
+                   +--ro state
+                      +--ro lower-frequency?   oc-opt-types:frequency-type
+                      +--ro upper-frequency?   oc-opt-types:frequency-type
+                      +--ro psd?               decimal64

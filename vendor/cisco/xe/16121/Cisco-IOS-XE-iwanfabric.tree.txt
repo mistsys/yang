@@ -1,0 +1,274 @@
+
+module: Cisco-IOS-XE-iwanfabric
+  augment /ios:native:
+    +--rw fabric-group
+       +--rw fabric
+          +--rw auto!
+             +--rw config-fabric-auto
+                +--rw domain
+                   +--rw iwan-fabric!
+                      +--rw config-fabric-iwan
+                         +--rw border
+                         |  +--rw self?   empty
+                         +--rw control-plane
+                         |  +--rw destination-address
+                         |  |  +--rw ipv4* [ipv4]
+                         |  |     +--rw ipv4        inet:ipv4-address
+                         |  |     +--rw auth-key
+                         |  |        +--rw range* [range]
+                         |  |           +--rw range    uint16
+                         |  |           +--rw word?    string
+                         |  +--rw source-address
+                         |     +--rw interface?   string
+                         +--rw device-role
+                         |  +--rw border?                 empty
+                         |  +--rw edge?                   empty
+                         |  +--rw nat-traversal-router?   empty
+                         |  +--rw transit-router?         empty
+                         +--rw fabric-device-id?   uint16
+                         +--rw region
+                         |  +--rw id
+                         |     +--rw range* [range]
+                         |        +--rw range    uint16
+                         |        +--rw name?    string
+                         +--rw shutdown?           empty
+                         +--rw site
+                         |  +--rw id
+                         |     +--rw range* [range]
+                         |        +--rw range    uint16
+                         |        +--rw name?    string
+                         +--rw tenant
+                         |  +--rw id
+                         |     +--rw range* [range]
+                         |        +--rw range    uint32
+                         |        +--rw name?    string
+                         +--rw virtual-network
+                            +--rw name
+                               +--rw word* [word]
+                                  +--rw word    string
+                                  +--rw id* [range]
+                                     +--rw range                                 uint32
+                                     +--rw config-fabric-iwan-virtual-network
+                                        +--rw enterprise-prefix
+                                        |  +--rw ipv4
+                                        |  |  +--rw prefix-list?   string
+                                        |  +--rw ipv6
+                                        |     +--rw prefix-list?   string
+                                        +--rw prefix-group
+                                           +--rw word* [word]
+                                              +--rw word    string
+                                              +--rw vrf* [word]
+                                                 +--rw word                                               string
+                                                 +--rw config-fabric-iwan-virtual-network-prefix-group
+                                                    +--rw prefix
+                                                       +--rw import
+                                                       |  +--rw bgp
+                                                       |  |  +--rw word* [word]
+                                                       |  |     +--rw word         string
+                                                       |  |     +--rw route-map?   string
+                                                       |  +--rw eigrp
+                                                       |  |  +--rw word* [word]
+                                                       |  |     +--rw word         string
+                                                       |  |     +--rw route-map?   string
+                                                       |  +--rw isis
+                                                       |  |  +--rw word* [word]
+                                                       |  |     +--rw word         string
+                                                       |  |     +--rw route-map?   string
+                                                       |  +--rw lan-fabric
+                                                       |  |  +--rw route-map?   string
+                                                       |  +--rw ospf
+                                                       |  |  +--rw word* [word]
+                                                       |  |     +--rw word         string
+                                                       |  |     +--rw route-map?   string
+                                                       |  +--rw rip
+                                                       |  |  +--rw word* [word]
+                                                       |  |     +--rw word         string
+                                                       |  |     +--rw route-map?   string
+                                                       |  +--rw wan-fabric
+                                                       |     +--rw route-map?   string
+                                                       +--rw ipv4
+                                                       |  +--rw prefix-list?   string
+                                                       +--rw ipv6
+                                                          +--rw prefix-list?   string
+  augment /ios:native/ios:interface/ios:FastEthernet:
+    +--rw fabric-domain
+       +--rw iwan-fabric
+          +--rw word* [word]
+             +--rw word            string
+             +--rw interface-id?   uint8
+  augment /ios:native/ios:interface/ios:GigabitEthernet:
+    +--rw fabric-domain
+       +--rw iwan-fabric
+          +--rw word* [word]
+             +--rw word            string
+             +--rw interface-id?   uint8
+  augment /ios:native/ios:interface/ios:TwoGigabitEthernet:
+    +--rw fabric-domain
+       +--rw iwan-fabric
+          +--rw word* [word]
+             +--rw word            string
+             +--rw interface-id?   uint8
+  augment /ios:native/ios:interface/ios:FiveGigabitEthernet:
+    +--rw fabric-domain
+       +--rw iwan-fabric
+          +--rw word* [word]
+             +--rw word            string
+             +--rw interface-id?   uint8
+  augment /ios:native/ios:interface/ios:AppGigabitEthernet:
+    +--rw fabric-domain
+       +--rw iwan-fabric
+          +--rw word* [word]
+             +--rw word            string
+             +--rw interface-id?   uint8
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet:
+    +--rw fabric-domain
+       +--rw iwan-fabric
+          +--rw word* [word]
+             +--rw word            string
+             +--rw interface-id?   uint8
+  augment /ios:native/ios:interface/ios:TwentyFiveGigE:
+    +--rw fabric-domain
+       +--rw iwan-fabric
+          +--rw word* [word]
+             +--rw word            string
+             +--rw interface-id?   uint8
+  augment /ios:native/ios:interface/ios:FortyGigabitEthernet:
+    +--rw fabric-domain
+       +--rw iwan-fabric
+          +--rw word* [word]
+             +--rw word            string
+             +--rw interface-id?   uint8
+  augment /ios:native/ios:interface/ios:HundredGigE:
+    +--rw fabric-domain
+       +--rw iwan-fabric
+          +--rw word* [word]
+             +--rw word            string
+             +--rw interface-id?   uint8
+
+  grouping config-fabric-iwan-virtual-network-prefix-group
+    +-- prefix
+       +-- import
+       |  +-- bgp
+       |  |  +-- word* [word]
+       |  |     +-- word?        string
+       |  |     +-- route-map?   string
+       |  +-- eigrp
+       |  |  +-- word* [word]
+       |  |     +-- word?        string
+       |  |     +-- route-map?   string
+       |  +-- isis
+       |  |  +-- word* [word]
+       |  |     +-- word?        string
+       |  |     +-- route-map?   string
+       |  +-- lan-fabric
+       |  |  +-- route-map?   string
+       |  +-- ospf
+       |  |  +-- word* [word]
+       |  |     +-- word?        string
+       |  |     +-- route-map?   string
+       |  +-- rip
+       |  |  +-- word* [word]
+       |  |     +-- word?        string
+       |  |     +-- route-map?   string
+       |  +-- wan-fabric
+       |     +-- route-map?   string
+       +-- ipv4
+       |  +-- prefix-list?   string
+       +-- ipv6
+          +-- prefix-list?   string
+  grouping config-iwanfabric-instance-grouping
+    +-- fabric-group
+       +-- fabric
+          +-- auto!
+             +-- config-fabric-auto
+                +-- domain
+                   +-- iwan-fabric!
+                      +-- config-fabric-iwan
+                         +-- border
+                         |  +-- self?   empty
+                         +-- control-plane
+                         |  +-- destination-address
+                         |  |  +-- ipv4* [ipv4]
+                         |  |     +-- ipv4?       inet:ipv4-address
+                         |  |     +-- auth-key
+                         |  |        +-- range* [range]
+                         |  |           +-- range?   uint16
+                         |  |           +-- word?    string
+                         |  +-- source-address
+                         |     +-- interface?   string
+                         +-- device-role
+                         |  +-- border?                 empty
+                         |  +-- edge?                   empty
+                         |  +-- nat-traversal-router?   empty
+                         |  +-- transit-router?         empty
+                         +-- fabric-device-id?   uint16
+                         +-- region
+                         |  +-- id
+                         |     +-- range* [range]
+                         |        +-- range?   uint16
+                         |        +-- name?    string
+                         +-- shutdown?           empty
+                         +-- site
+                         |  +-- id
+                         |     +-- range* [range]
+                         |        +-- range?   uint16
+                         |        +-- name?    string
+                         +-- tenant
+                         |  +-- id
+                         |     +-- range* [range]
+                         |        +-- range?   uint32
+                         |        +-- name?    string
+                         +-- virtual-network
+                            +-- name
+                               +-- word* [word]
+                                  +-- word?   string
+                                  +-- id* [range]
+                                     +-- range?                                uint32
+                                     +-- config-fabric-iwan-virtual-network
+                                        +-- enterprise-prefix
+                                        |  +-- ipv4
+                                        |  |  +-- prefix-list?   string
+                                        |  +-- ipv6
+                                        |     +-- prefix-list?   string
+                                        +-- prefix-group
+                                           +-- word* [word]
+                                              +-- word?   string
+                                              +-- vrf* [word]
+                                                 +-- word?                                              string
+                                                 +-- config-fabric-iwan-virtual-network-prefix-group
+                                                    +-- prefix
+                                                       +-- import
+                                                       |  +-- bgp
+                                                       |  |  +-- word* [word]
+                                                       |  |     +-- word?        string
+                                                       |  |     +-- route-map?   string
+                                                       |  +-- eigrp
+                                                       |  |  +-- word* [word]
+                                                       |  |     +-- word?        string
+                                                       |  |     +-- route-map?   string
+                                                       |  +-- isis
+                                                       |  |  +-- word* [word]
+                                                       |  |     +-- word?        string
+                                                       |  |     +-- route-map?   string
+                                                       |  +-- lan-fabric
+                                                       |  |  +-- route-map?   string
+                                                       |  +-- ospf
+                                                       |  |  +-- word* [word]
+                                                       |  |     +-- word?        string
+                                                       |  |     +-- route-map?   string
+                                                       |  +-- rip
+                                                       |  |  +-- word* [word]
+                                                       |  |     +-- word?        string
+                                                       |  |     +-- route-map?   string
+                                                       |  +-- wan-fabric
+                                                       |     +-- route-map?   string
+                                                       +-- ipv4
+                                                       |  +-- prefix-list?   string
+                                                       +-- ipv6
+                                                          +-- prefix-list?   string
+  grouping config-iwanfabric-interface-grouping
+    +-- fabric-domain
+       +-- iwan-fabric
+          +-- word* [word]
+             +-- word?           string
+             +-- interface-id?   uint8

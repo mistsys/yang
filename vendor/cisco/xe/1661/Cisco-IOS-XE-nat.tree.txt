@@ -1,0 +1,782 @@
+
+module: Cisco-IOS-XE-nat
+  augment /ios:native/ios:ip:
+    +--rw nat
+       +--rw pool* [id]
+       |  +--rw id                     string
+       |  +--rw start-address?         inet:ipv4-address
+       |  +--rw end-address?           inet:ipv4-address
+       |  +--rw (prefix-choice)?
+       |  |  +--:(netmask)
+       |  |  |  +--rw netmask?         inet:ipv4-address
+       |  |  +--:(prefix-length)
+       |  |     +--rw prefix-length?   uint8
+       |  +--rw accounting?            string
+       |  +--rw (nat-choice)?
+       |     +--:(arp-ping)
+       |     |  +--rw arp-ping?        empty
+       |     +--:(type)
+       |     |  +--rw type?            enumeration
+       |     +--:(add-route)
+       |        +--rw add-route?       empty
+       +--rw inside
+       |  +--rw source
+       |  |  +--rw list* [id]
+       |  |  |  +--rw id                  union
+       |  |  |  +--rw (pool-or-interface)?
+       |  |  |  |  +--:(pool-choice)
+       |  |  |  |  |  +--rw pool?         string
+       |  |  |  |  |  +--rw redundancy?   uint8
+       |  |  |  |  |  +--rw mapping-id?   uint32
+       |  |  |  |  +--:(interface-choice)
+       |  |  |  |     +--rw interface
+       |  |  |  |        +--rw (interface-choice)?
+       |  |  |  |           +--:(AppNav-Compress)
+       |  |  |  |           |  +--rw AppNav-Compress?             uint16
+       |  |  |  |           +--:(AppNav-UnCompress)
+       |  |  |  |           |  +--rw AppNav-UnCompress?           uint16
+       |  |  |  |           +--:(ATM)
+       |  |  |  |           |  +--rw ATM?                         string
+       |  |  |  |           +--:(ATM-subinterface)
+       |  |  |  |           |  +--rw ATM-subinterface
+       |  |  |  |           |     +--rw ATM?   string
+       |  |  |  |           +--:(ATM-ACR)
+       |  |  |  |           |  +--rw ATM-ACR?                     string
+       |  |  |  |           +--:(ATM-ACRsubinterface)
+       |  |  |  |           |  +--rw ATM-ACRsubinterface
+       |  |  |  |           |     +--rw ATM-ACR?   string
+       |  |  |  |           +--:(BDI)
+       |  |  |  |           |  +--rw BDI?                         string
+       |  |  |  |           +--:(CEM)
+       |  |  |  |           |  +--rw CEM?                         string
+       |  |  |  |           +--:(CEM-ACR)
+       |  |  |  |           |  +--rw CEM-ACR?                     uint8
+       |  |  |  |           +--:(Embedded-Service-Engine)
+       |  |  |  |           |  +--rw Embedded-Service-Engine?     string
+       |  |  |  |           +--:(FastEthernet)
+       |  |  |  |           |  +--rw FastEthernet?                string
+       |  |  |  |           +--:(GigabitEthernet)
+       |  |  |  |           |  +--rw GigabitEthernet?             string
+       |  |  |  |           +--:(LISP)
+       |  |  |  |           |  +--rw LISP?                        string
+       |  |  |  |           +--:(LISP-subinterface)
+       |  |  |  |           |  +--rw LISP-subinterface
+       |  |  |  |           |     +--rw LISP?   string
+       |  |  |  |           +--:(Loopback)
+       |  |  |  |           |  +--rw Loopback?                    uint32
+       |  |  |  |           +--:(Multilink)
+       |  |  |  |           |  +--rw Multilink?                   uint16
+       |  |  |  |           +--:(nve)
+       |  |  |  |           |  +--rw nve?                         uint16
+       |  |  |  |           +--:(overlay)
+       |  |  |  |           |  +--rw overlay?                     uint16
+       |  |  |  |           +--:(Port-channel)
+       |  |  |  |           |  +--rw Port-channel?                uint32
+       |  |  |  |           +--:(Port-channel-subinterface)
+       |  |  |  |           |  +--rw Port-channel-subinterface
+       |  |  |  |           |     +--rw Port-channel?   string
+       |  |  |  |           +--:(pseudowire)
+       |  |  |  |           |  +--rw pseudowire?                  uint32
+       |  |  |  |           +--:(SM)
+       |  |  |  |           |  +--rw SM?                          string
+       |  |  |  |           +--:(Cellular)
+       |  |  |  |           |  +--rw Cellular?                    string
+       |  |  |  |           +--:(Serial)
+       |  |  |  |           |  +--rw Serial?                      string
+       |  |  |  |           +--:(TenGigabitEthernet)
+       |  |  |  |           |  +--rw TenGigabitEthernet?          string
+       |  |  |  |           +--:(Tunnel)
+       |  |  |  |           |  +--rw Tunnel?                      uint32
+       |  |  |  |           +--:(Virtual-Template)
+       |  |  |  |           |  +--rw Virtual-Template?            uint16
+       |  |  |  |           +--:(Vlan)
+       |  |  |  |           |  +--rw Vlan?                        uint16
+       |  |  |  |           +--:(VirtualPortGroup)
+       |  |  |  |           |  +--rw VirtualPortGroup?            uint16
+       |  |  |  |           +--:(vasileft)
+       |  |  |  |           |  +--rw vasileft?                    uint16
+       |  |  |  |           +--:(vasiright)
+       |  |  |  |              +--rw vasiright?                   uint16
+       |  |  |  +--rw no-payload?         empty
+       |  |  |  +--rw reversible?         empty
+       |  |  |  +--rw vrf?                string
+       |  |  |  +--rw match-in-vrf?       empty
+       |  |  |  +--rw overload?           empty
+       |  |  |  +--rw oer?                empty
+       |  |  +--rw route-map* [route-map-name]
+       |  |  |  +--rw route-map-name    string
+       |  |  |  +--rw pool
+       |  |  |  |  +--rw pool-name?      string
+       |  |  |  |  +--rw vrf?            string
+       |  |  |  |  +--rw match-in-vrf?   empty
+       |  |  |  +--rw interface
+       |  |  |  |  +--rw (interface-choice)?
+       |  |  |  |     +--:(AppNav-Compress)
+       |  |  |  |     |  +--rw AppNav-Compress?             uint16
+       |  |  |  |     +--:(AppNav-UnCompress)
+       |  |  |  |     |  +--rw AppNav-UnCompress?           uint16
+       |  |  |  |     +--:(ATM)
+       |  |  |  |     |  +--rw ATM?                         string
+       |  |  |  |     +--:(ATM-subinterface)
+       |  |  |  |     |  +--rw ATM-subinterface
+       |  |  |  |     |     +--rw ATM?   string
+       |  |  |  |     +--:(ATM-ACR)
+       |  |  |  |     |  +--rw ATM-ACR?                     string
+       |  |  |  |     +--:(ATM-ACRsubinterface)
+       |  |  |  |     |  +--rw ATM-ACRsubinterface
+       |  |  |  |     |     +--rw ATM-ACR?   string
+       |  |  |  |     +--:(BDI)
+       |  |  |  |     |  +--rw BDI?                         string
+       |  |  |  |     +--:(CEM)
+       |  |  |  |     |  +--rw CEM?                         string
+       |  |  |  |     +--:(CEM-ACR)
+       |  |  |  |     |  +--rw CEM-ACR?                     uint8
+       |  |  |  |     +--:(Embedded-Service-Engine)
+       |  |  |  |     |  +--rw Embedded-Service-Engine?     string
+       |  |  |  |     +--:(FastEthernet)
+       |  |  |  |     |  +--rw FastEthernet?                string
+       |  |  |  |     +--:(GigabitEthernet)
+       |  |  |  |     |  +--rw GigabitEthernet?             string
+       |  |  |  |     +--:(LISP)
+       |  |  |  |     |  +--rw LISP?                        string
+       |  |  |  |     +--:(LISP-subinterface)
+       |  |  |  |     |  +--rw LISP-subinterface
+       |  |  |  |     |     +--rw LISP?   string
+       |  |  |  |     +--:(Loopback)
+       |  |  |  |     |  +--rw Loopback?                    uint32
+       |  |  |  |     +--:(Multilink)
+       |  |  |  |     |  +--rw Multilink?                   uint16
+       |  |  |  |     +--:(nve)
+       |  |  |  |     |  +--rw nve?                         uint16
+       |  |  |  |     +--:(overlay)
+       |  |  |  |     |  +--rw overlay?                     uint16
+       |  |  |  |     +--:(Port-channel)
+       |  |  |  |     |  +--rw Port-channel?                uint32
+       |  |  |  |     +--:(Port-channel-subinterface)
+       |  |  |  |     |  +--rw Port-channel-subinterface
+       |  |  |  |     |     +--rw Port-channel?   string
+       |  |  |  |     +--:(pseudowire)
+       |  |  |  |     |  +--rw pseudowire?                  uint32
+       |  |  |  |     +--:(SM)
+       |  |  |  |     |  +--rw SM?                          string
+       |  |  |  |     +--:(Cellular)
+       |  |  |  |     |  +--rw Cellular?                    string
+       |  |  |  |     +--:(Serial)
+       |  |  |  |     |  +--rw Serial?                      string
+       |  |  |  |     +--:(TenGigabitEthernet)
+       |  |  |  |     |  +--rw TenGigabitEthernet?          string
+       |  |  |  |     +--:(Tunnel)
+       |  |  |  |     |  +--rw Tunnel?                      uint32
+       |  |  |  |     +--:(Virtual-Template)
+       |  |  |  |     |  +--rw Virtual-Template?            uint16
+       |  |  |  |     +--:(Vlan)
+       |  |  |  |     |  +--rw Vlan?                        uint16
+       |  |  |  |     +--:(VirtualPortGroup)
+       |  |  |  |     |  +--rw VirtualPortGroup?            uint16
+       |  |  |  |     +--:(vasileft)
+       |  |  |  |     |  +--rw vasileft?                    uint16
+       |  |  |  |     +--:(vasiright)
+       |  |  |  |        +--rw vasiright?                   uint16
+       |  |  |  +--rw oer
+       |  |  |  |  +--rw overload?   empty
+       |  |  |  |  +--rw extended?   empty
+       |  |  |  +--rw overload
+       |  |  |  |  +--rw extended?   empty
+       |  |  |  |  +--rw oer?        empty
+       |  |  |  +--rw vrf* [vrf-name]
+       |  |  |     +--rw vrf-name    string
+       |  |  |     +--rw oer!
+       |  |  |     |  +--rw overload?   empty
+       |  |  |     +--rw overload!
+       |  |  |        +--rw oer?   empty
+       |  |  +--rw static
+       |  |     +--rw nat-static-transport-list* [local-ip global-ip]
+       |  |     |  +--rw local-ip        inet:ipv4-address
+       |  |     |  +--rw global-ip       inet:ipv4-address
+       |  |     |  +--rw proto?          enumeration
+       |  |     |  +--rw network?        empty
+       |  |     |  +--rw local-port?     uint16
+       |  |     |  +--rw mask?           union
+       |  |     |  +--rw global-port?    uint16
+       |  |     |  +--rw extendable?     empty
+       |  |     |  +--rw no-alias?       empty
+       |  |     |  +--rw no-payload?     empty
+       |  |     |  +--rw route-map?      string
+       |  |     |  +--rw reversible?     empty
+       |  |     |  +--rw redundancy?     union
+       |  |     |  +--rw mapping-id?     uint32
+       |  |     |  +--rw vrf?            string
+       |  |     |  +--rw match-in-vrf?   empty
+       |  |     |  +--rw forced?         empty
+       |  |     |  +--rw overload?       empty
+       |  |     +--rw nat-static-transport-interface-list* [proto local-ip local-port]
+       |  |        +--rw proto          enumeration
+       |  |        +--rw local-ip       inet:ipv4-address
+       |  |        +--rw local-port     uint16
+       |  |        +--rw interface
+       |  |        |  +--rw (interface-choice)?
+       |  |        |     +--:(AppNav-Compress)
+       |  |        |     |  +--rw AppNav-Compress?             uint16
+       |  |        |     +--:(AppNav-UnCompress)
+       |  |        |     |  +--rw AppNav-UnCompress?           uint16
+       |  |        |     +--:(ATM)
+       |  |        |     |  +--rw ATM?                         string
+       |  |        |     +--:(ATM-subinterface)
+       |  |        |     |  +--rw ATM-subinterface
+       |  |        |     |     +--rw ATM?   string
+       |  |        |     +--:(ATM-ACR)
+       |  |        |     |  +--rw ATM-ACR?                     string
+       |  |        |     +--:(ATM-ACRsubinterface)
+       |  |        |     |  +--rw ATM-ACRsubinterface
+       |  |        |     |     +--rw ATM-ACR?   string
+       |  |        |     +--:(BDI)
+       |  |        |     |  +--rw BDI?                         string
+       |  |        |     +--:(CEM)
+       |  |        |     |  +--rw CEM?                         string
+       |  |        |     +--:(CEM-ACR)
+       |  |        |     |  +--rw CEM-ACR?                     uint8
+       |  |        |     +--:(Embedded-Service-Engine)
+       |  |        |     |  +--rw Embedded-Service-Engine?     string
+       |  |        |     +--:(FastEthernet)
+       |  |        |     |  +--rw FastEthernet?                string
+       |  |        |     +--:(GigabitEthernet)
+       |  |        |     |  +--rw GigabitEthernet?             string
+       |  |        |     +--:(LISP)
+       |  |        |     |  +--rw LISP?                        string
+       |  |        |     +--:(LISP-subinterface)
+       |  |        |     |  +--rw LISP-subinterface
+       |  |        |     |     +--rw LISP?   string
+       |  |        |     +--:(Loopback)
+       |  |        |     |  +--rw Loopback?                    uint32
+       |  |        |     +--:(Multilink)
+       |  |        |     |  +--rw Multilink?                   uint16
+       |  |        |     +--:(nve)
+       |  |        |     |  +--rw nve?                         uint16
+       |  |        |     +--:(overlay)
+       |  |        |     |  +--rw overlay?                     uint16
+       |  |        |     +--:(Port-channel)
+       |  |        |     |  +--rw Port-channel?                uint32
+       |  |        |     +--:(Port-channel-subinterface)
+       |  |        |     |  +--rw Port-channel-subinterface
+       |  |        |     |     +--rw Port-channel?   string
+       |  |        |     +--:(pseudowire)
+       |  |        |     |  +--rw pseudowire?                  uint32
+       |  |        |     +--:(SM)
+       |  |        |     |  +--rw SM?                          string
+       |  |        |     +--:(Cellular)
+       |  |        |     |  +--rw Cellular?                    string
+       |  |        |     +--:(Serial)
+       |  |        |     |  +--rw Serial?                      string
+       |  |        |     +--:(TenGigabitEthernet)
+       |  |        |     |  +--rw TenGigabitEthernet?          string
+       |  |        |     +--:(Tunnel)
+       |  |        |     |  +--rw Tunnel?                      uint32
+       |  |        |     +--:(Virtual-Template)
+       |  |        |     |  +--rw Virtual-Template?            uint16
+       |  |        |     +--:(Vlan)
+       |  |        |     |  +--rw Vlan?                        uint16
+       |  |        |     +--:(VirtualPortGroup)
+       |  |        |     |  +--rw VirtualPortGroup?            uint16
+       |  |        |     +--:(vasileft)
+       |  |        |     |  +--rw vasileft?                    uint16
+       |  |        |     +--:(vasiright)
+       |  |        |        +--rw vasiright?                   uint16
+       |  |        +--rw global-port?   uint16
+       |  +--rw destination
+       |     +--rw list* [id]
+       |        +--rw id            union
+       |        +--rw pool?         string
+       |        +--rw redundancy?   uint8
+       |        +--rw mapping-id?   uint32
+       +--rw outside
+          +--rw source
+          |  +--rw static
+          |     +--rw nat-static-transport-list* [global-ip local-ip]
+          |        +--rw global-ip     inet:ipv4-address
+          |        +--rw local-ip      inet:ipv4-address
+          |        +--rw vrf?          string
+          |        +--rw extendable?   empty
+          |        +--rw no-payload?   empty
+          +--rw list* [id]
+          |  +--rw id            union
+          |  +--rw pool?         string
+          |  +--rw mapping-id?   uint32
+          |  +--rw vrf?          string
+          |  +--rw add-route?    empty
+          +--rw route-map* [id]
+             +--rw id            string
+             +--rw pool?         string
+             +--rw mapping-id?   uint32
+             +--rw vrf?          string
+             +--rw add-route?    empty
+  augment /ios:native/ios:interface/ios:FastEthernet/ios:ip:
+    +--rw nat
+       +--rw allow-static-host?   empty
+       +--rw enable?              empty
+       +--rw (nat-choice)?
+          +--:(inside)
+          |  +--rw inside?        empty
+          +--:(outside)
+             +--rw outside?       empty
+  augment /ios:native/ios:interface/ios:GigabitEthernet/ios:ip:
+    +--rw nat
+       +--rw allow-static-host?   empty
+       +--rw enable?              empty
+       +--rw (nat-choice)?
+          +--:(inside)
+          |  +--rw inside?        empty
+          +--:(outside)
+             +--rw outside?       empty
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet/ios:ip:
+    +--rw nat
+       +--rw allow-static-host?   empty
+       +--rw enable?              empty
+       +--rw (nat-choice)?
+          +--:(inside)
+          |  +--rw inside?        empty
+          +--:(outside)
+             +--rw outside?       empty
+  augment /ios:native/ios:interface/ios:Port-channel/ios:ip:
+    +--rw nat
+       +--rw allow-static-host?   empty
+       +--rw enable?              empty
+       +--rw (nat-choice)?
+          +--:(inside)
+          |  +--rw inside?        empty
+          +--:(outside)
+             +--rw outside?       empty
+  augment /ios:native/ios:interface/ios:Loopback/ios:ip:
+    +--rw nat
+       +--rw allow-static-host?   empty
+       +--rw enable?              empty
+       +--rw (nat-choice)?
+          +--:(inside)
+          |  +--rw inside?        empty
+          +--:(outside)
+             +--rw outside?       empty
+  augment /ios:native:
+    +--rw nat66
+       +--rw prefix
+          +--rw inside* [inside-pfx]
+             +--rw inside-pfx    ios-types:ipv6-prefix
+             +--rw outside?      ios-types:ipv6-prefix
+  augment /ios:native/ios:interface/ios:FastEthernet:
+    +--rw nat66?   enumeration
+  augment /ios:native/ios:interface/ios:GigabitEthernet:
+    +--rw nat66?   enumeration
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet:
+    +--rw nat66?   enumeration
+  augment /ios:native/ios:interface/ios:Port-channel:
+    +--rw nat66?   enumeration
+  augment /ios:native/ios:interface/ios:Loopback:
+    +--rw nat66?   enumeration
+  augment /ios:native/ios:interface/ios:Tunnel:
+    +--rw nat66?   enumeration
+
+  grouping config-interface-ip-nat-grouping
+    +-- nat
+       +-- allow-static-host?   empty
+       +-- enable?              empty
+       +-- (nat-choice)?
+          +--:(inside)
+          |  +-- inside?        empty
+          +--:(outside)
+             +-- outside?       empty
+  grouping config-ip-nat-pool-interface-grouping
+    +-- (pool-or-interface)?
+    |  +--:(pool-choice)
+    |  |  +-- pool?         string
+    |  |  +-- redundancy?   uint8
+    |  |  +-- mapping-id?   uint32
+    |  +--:(interface-choice)
+    |     +-- interface
+    |        +-- (interface-choice)?
+    |           +--:(AppNav-Compress)
+    |           |  +-- AppNav-Compress?             uint16
+    |           +--:(AppNav-UnCompress)
+    |           |  +-- AppNav-UnCompress?           uint16
+    |           +--:(ATM)
+    |           |  +-- ATM?                         string
+    |           +--:(ATM-subinterface)
+    |           |  +-- ATM-subinterface
+    |           |     +-- ATM?   string
+    |           +--:(ATM-ACR)
+    |           |  +-- ATM-ACR?                     string
+    |           +--:(ATM-ACRsubinterface)
+    |           |  +-- ATM-ACRsubinterface
+    |           |     +-- ATM-ACR?   string
+    |           +--:(BDI)
+    |           |  +-- BDI?                         string
+    |           +--:(CEM)
+    |           |  +-- CEM?                         string
+    |           +--:(CEM-ACR)
+    |           |  +-- CEM-ACR?                     uint8
+    |           +--:(Embedded-Service-Engine)
+    |           |  +-- Embedded-Service-Engine?     string
+    |           +--:(FastEthernet)
+    |           |  +-- FastEthernet?                string
+    |           +--:(GigabitEthernet)
+    |           |  +-- GigabitEthernet?             string
+    |           +--:(LISP)
+    |           |  +-- LISP?                        string
+    |           +--:(LISP-subinterface)
+    |           |  +-- LISP-subinterface
+    |           |     +-- LISP?   string
+    |           +--:(Loopback)
+    |           |  +-- Loopback?                    uint32
+    |           +--:(Multilink)
+    |           |  +-- Multilink?                   uint16
+    |           +--:(nve)
+    |           |  +-- nve?                         uint16
+    |           +--:(overlay)
+    |           |  +-- overlay?                     uint16
+    |           +--:(Port-channel)
+    |           |  +-- Port-channel?                uint32
+    |           +--:(Port-channel-subinterface)
+    |           |  +-- Port-channel-subinterface
+    |           |     +-- Port-channel?   string
+    |           +--:(pseudowire)
+    |           |  +-- pseudowire?                  uint32
+    |           +--:(SM)
+    |           |  +-- SM?                          string
+    |           +--:(Cellular)
+    |           |  +-- Cellular?                    string
+    |           +--:(Serial)
+    |           |  +-- Serial?                      string
+    |           +--:(TenGigabitEthernet)
+    |           |  +-- TenGigabitEthernet?          string
+    |           +--:(Tunnel)
+    |           |  +-- Tunnel?                      uint32
+    |           +--:(Virtual-Template)
+    |           |  +-- Virtual-Template?            uint16
+    |           +--:(Vlan)
+    |           |  +-- Vlan?                        uint16
+    |           +--:(VirtualPortGroup)
+    |           |  +-- VirtualPortGroup?            uint16
+    |           +--:(vasileft)
+    |           |  +-- vasileft?                    uint16
+    |           +--:(vasiright)
+    |              +-- vasiright?                   uint16
+    +-- no-payload?         empty
+    +-- reversible?         empty
+    +-- vrf?                string
+    +-- match-in-vrf?       empty
+    +-- overload?           empty
+    +-- oer?                empty
+  grouping config-ip-nat-grouping
+    +-- nat
+       +-- pool* [id]
+       |  +-- id?                    string
+       |  +-- start-address?         inet:ipv4-address
+       |  +-- end-address?           inet:ipv4-address
+       |  +-- (prefix-choice)?
+       |  |  +--:(netmask)
+       |  |  |  +-- netmask?         inet:ipv4-address
+       |  |  +--:(prefix-length)
+       |  |     +-- prefix-length?   uint8
+       |  +-- accounting?            string
+       |  +-- (nat-choice)?
+       |     +--:(arp-ping)
+       |     |  +-- arp-ping?        empty
+       |     +--:(type)
+       |     |  +-- type?            enumeration
+       |     +--:(add-route)
+       |        +-- add-route?       empty
+       +-- inside
+       |  +-- source
+       |  |  +-- list* [id]
+       |  |  |  +-- id?                 union
+       |  |  |  +-- (pool-or-interface)?
+       |  |  |  |  +--:(pool-choice)
+       |  |  |  |  |  +-- pool?         string
+       |  |  |  |  |  +-- redundancy?   uint8
+       |  |  |  |  |  +-- mapping-id?   uint32
+       |  |  |  |  +--:(interface-choice)
+       |  |  |  |     +-- interface
+       |  |  |  |        +-- (interface-choice)?
+       |  |  |  |           +--:(AppNav-Compress)
+       |  |  |  |           |  +-- AppNav-Compress?             uint16
+       |  |  |  |           +--:(AppNav-UnCompress)
+       |  |  |  |           |  +-- AppNav-UnCompress?           uint16
+       |  |  |  |           +--:(ATM)
+       |  |  |  |           |  +-- ATM?                         string
+       |  |  |  |           +--:(ATM-subinterface)
+       |  |  |  |           |  +-- ATM-subinterface
+       |  |  |  |           |     +-- ATM?   string
+       |  |  |  |           +--:(ATM-ACR)
+       |  |  |  |           |  +-- ATM-ACR?                     string
+       |  |  |  |           +--:(ATM-ACRsubinterface)
+       |  |  |  |           |  +-- ATM-ACRsubinterface
+       |  |  |  |           |     +-- ATM-ACR?   string
+       |  |  |  |           +--:(BDI)
+       |  |  |  |           |  +-- BDI?                         string
+       |  |  |  |           +--:(CEM)
+       |  |  |  |           |  +-- CEM?                         string
+       |  |  |  |           +--:(CEM-ACR)
+       |  |  |  |           |  +-- CEM-ACR?                     uint8
+       |  |  |  |           +--:(Embedded-Service-Engine)
+       |  |  |  |           |  +-- Embedded-Service-Engine?     string
+       |  |  |  |           +--:(FastEthernet)
+       |  |  |  |           |  +-- FastEthernet?                string
+       |  |  |  |           +--:(GigabitEthernet)
+       |  |  |  |           |  +-- GigabitEthernet?             string
+       |  |  |  |           +--:(LISP)
+       |  |  |  |           |  +-- LISP?                        string
+       |  |  |  |           +--:(LISP-subinterface)
+       |  |  |  |           |  +-- LISP-subinterface
+       |  |  |  |           |     +-- LISP?   string
+       |  |  |  |           +--:(Loopback)
+       |  |  |  |           |  +-- Loopback?                    uint32
+       |  |  |  |           +--:(Multilink)
+       |  |  |  |           |  +-- Multilink?                   uint16
+       |  |  |  |           +--:(nve)
+       |  |  |  |           |  +-- nve?                         uint16
+       |  |  |  |           +--:(overlay)
+       |  |  |  |           |  +-- overlay?                     uint16
+       |  |  |  |           +--:(Port-channel)
+       |  |  |  |           |  +-- Port-channel?                uint32
+       |  |  |  |           +--:(Port-channel-subinterface)
+       |  |  |  |           |  +-- Port-channel-subinterface
+       |  |  |  |           |     +-- Port-channel?   string
+       |  |  |  |           +--:(pseudowire)
+       |  |  |  |           |  +-- pseudowire?                  uint32
+       |  |  |  |           +--:(SM)
+       |  |  |  |           |  +-- SM?                          string
+       |  |  |  |           +--:(Cellular)
+       |  |  |  |           |  +-- Cellular?                    string
+       |  |  |  |           +--:(Serial)
+       |  |  |  |           |  +-- Serial?                      string
+       |  |  |  |           +--:(TenGigabitEthernet)
+       |  |  |  |           |  +-- TenGigabitEthernet?          string
+       |  |  |  |           +--:(Tunnel)
+       |  |  |  |           |  +-- Tunnel?                      uint32
+       |  |  |  |           +--:(Virtual-Template)
+       |  |  |  |           |  +-- Virtual-Template?            uint16
+       |  |  |  |           +--:(Vlan)
+       |  |  |  |           |  +-- Vlan?                        uint16
+       |  |  |  |           +--:(VirtualPortGroup)
+       |  |  |  |           |  +-- VirtualPortGroup?            uint16
+       |  |  |  |           +--:(vasileft)
+       |  |  |  |           |  +-- vasileft?                    uint16
+       |  |  |  |           +--:(vasiright)
+       |  |  |  |              +-- vasiright?                   uint16
+       |  |  |  +-- no-payload?         empty
+       |  |  |  +-- reversible?         empty
+       |  |  |  +-- vrf?                string
+       |  |  |  +-- match-in-vrf?       empty
+       |  |  |  +-- overload?           empty
+       |  |  |  +-- oer?                empty
+       |  |  +-- route-map* [route-map-name]
+       |  |  |  +-- route-map-name?   string
+       |  |  |  +-- pool
+       |  |  |  |  +-- pool-name?      string
+       |  |  |  |  +-- vrf?            string
+       |  |  |  |  +-- match-in-vrf?   empty
+       |  |  |  +-- interface
+       |  |  |  |  +-- (interface-choice)?
+       |  |  |  |     +--:(AppNav-Compress)
+       |  |  |  |     |  +-- AppNav-Compress?             uint16
+       |  |  |  |     +--:(AppNav-UnCompress)
+       |  |  |  |     |  +-- AppNav-UnCompress?           uint16
+       |  |  |  |     +--:(ATM)
+       |  |  |  |     |  +-- ATM?                         string
+       |  |  |  |     +--:(ATM-subinterface)
+       |  |  |  |     |  +-- ATM-subinterface
+       |  |  |  |     |     +-- ATM?   string
+       |  |  |  |     +--:(ATM-ACR)
+       |  |  |  |     |  +-- ATM-ACR?                     string
+       |  |  |  |     +--:(ATM-ACRsubinterface)
+       |  |  |  |     |  +-- ATM-ACRsubinterface
+       |  |  |  |     |     +-- ATM-ACR?   string
+       |  |  |  |     +--:(BDI)
+       |  |  |  |     |  +-- BDI?                         string
+       |  |  |  |     +--:(CEM)
+       |  |  |  |     |  +-- CEM?                         string
+       |  |  |  |     +--:(CEM-ACR)
+       |  |  |  |     |  +-- CEM-ACR?                     uint8
+       |  |  |  |     +--:(Embedded-Service-Engine)
+       |  |  |  |     |  +-- Embedded-Service-Engine?     string
+       |  |  |  |     +--:(FastEthernet)
+       |  |  |  |     |  +-- FastEthernet?                string
+       |  |  |  |     +--:(GigabitEthernet)
+       |  |  |  |     |  +-- GigabitEthernet?             string
+       |  |  |  |     +--:(LISP)
+       |  |  |  |     |  +-- LISP?                        string
+       |  |  |  |     +--:(LISP-subinterface)
+       |  |  |  |     |  +-- LISP-subinterface
+       |  |  |  |     |     +-- LISP?   string
+       |  |  |  |     +--:(Loopback)
+       |  |  |  |     |  +-- Loopback?                    uint32
+       |  |  |  |     +--:(Multilink)
+       |  |  |  |     |  +-- Multilink?                   uint16
+       |  |  |  |     +--:(nve)
+       |  |  |  |     |  +-- nve?                         uint16
+       |  |  |  |     +--:(overlay)
+       |  |  |  |     |  +-- overlay?                     uint16
+       |  |  |  |     +--:(Port-channel)
+       |  |  |  |     |  +-- Port-channel?                uint32
+       |  |  |  |     +--:(Port-channel-subinterface)
+       |  |  |  |     |  +-- Port-channel-subinterface
+       |  |  |  |     |     +-- Port-channel?   string
+       |  |  |  |     +--:(pseudowire)
+       |  |  |  |     |  +-- pseudowire?                  uint32
+       |  |  |  |     +--:(SM)
+       |  |  |  |     |  +-- SM?                          string
+       |  |  |  |     +--:(Cellular)
+       |  |  |  |     |  +-- Cellular?                    string
+       |  |  |  |     +--:(Serial)
+       |  |  |  |     |  +-- Serial?                      string
+       |  |  |  |     +--:(TenGigabitEthernet)
+       |  |  |  |     |  +-- TenGigabitEthernet?          string
+       |  |  |  |     +--:(Tunnel)
+       |  |  |  |     |  +-- Tunnel?                      uint32
+       |  |  |  |     +--:(Virtual-Template)
+       |  |  |  |     |  +-- Virtual-Template?            uint16
+       |  |  |  |     +--:(Vlan)
+       |  |  |  |     |  +-- Vlan?                        uint16
+       |  |  |  |     +--:(VirtualPortGroup)
+       |  |  |  |     |  +-- VirtualPortGroup?            uint16
+       |  |  |  |     +--:(vasileft)
+       |  |  |  |     |  +-- vasileft?                    uint16
+       |  |  |  |     +--:(vasiright)
+       |  |  |  |        +-- vasiright?                   uint16
+       |  |  |  +-- oer
+       |  |  |  |  +-- overload?   empty
+       |  |  |  |  +-- extended?   empty
+       |  |  |  +-- overload
+       |  |  |  |  +-- extended?   empty
+       |  |  |  |  +-- oer?        empty
+       |  |  |  +-- vrf* [vrf-name]
+       |  |  |     +-- vrf-name?   string
+       |  |  |     +-- oer!
+       |  |  |     |  +-- overload?   empty
+       |  |  |     +-- overload!
+       |  |  |        +-- oer?   empty
+       |  |  +-- static
+       |  |     +-- nat-static-transport-list* [local-ip global-ip]
+       |  |     |  +-- local-ip?       inet:ipv4-address
+       |  |     |  +-- global-ip?      inet:ipv4-address
+       |  |     |  +-- proto?          enumeration
+       |  |     |  +-- network?        empty
+       |  |     |  +-- local-port?     uint16
+       |  |     |  +-- mask?           union
+       |  |     |  +-- global-port?    uint16
+       |  |     |  +-- extendable?     empty
+       |  |     |  +-- no-alias?       empty
+       |  |     |  +-- no-payload?     empty
+       |  |     |  +-- route-map?      string
+       |  |     |  +-- reversible?     empty
+       |  |     |  +-- redundancy?     union
+       |  |     |  +-- mapping-id?     uint32
+       |  |     |  +-- vrf?            string
+       |  |     |  +-- match-in-vrf?   empty
+       |  |     |  +-- forced?         empty
+       |  |     |  +-- overload?       empty
+       |  |     +-- nat-static-transport-interface-list* [proto local-ip local-port]
+       |  |        +-- proto?         enumeration
+       |  |        +-- local-ip?      inet:ipv4-address
+       |  |        +-- local-port?    uint16
+       |  |        +-- interface
+       |  |        |  +-- (interface-choice)?
+       |  |        |     +--:(AppNav-Compress)
+       |  |        |     |  +-- AppNav-Compress?             uint16
+       |  |        |     +--:(AppNav-UnCompress)
+       |  |        |     |  +-- AppNav-UnCompress?           uint16
+       |  |        |     +--:(ATM)
+       |  |        |     |  +-- ATM?                         string
+       |  |        |     +--:(ATM-subinterface)
+       |  |        |     |  +-- ATM-subinterface
+       |  |        |     |     +-- ATM?   string
+       |  |        |     +--:(ATM-ACR)
+       |  |        |     |  +-- ATM-ACR?                     string
+       |  |        |     +--:(ATM-ACRsubinterface)
+       |  |        |     |  +-- ATM-ACRsubinterface
+       |  |        |     |     +-- ATM-ACR?   string
+       |  |        |     +--:(BDI)
+       |  |        |     |  +-- BDI?                         string
+       |  |        |     +--:(CEM)
+       |  |        |     |  +-- CEM?                         string
+       |  |        |     +--:(CEM-ACR)
+       |  |        |     |  +-- CEM-ACR?                     uint8
+       |  |        |     +--:(Embedded-Service-Engine)
+       |  |        |     |  +-- Embedded-Service-Engine?     string
+       |  |        |     +--:(FastEthernet)
+       |  |        |     |  +-- FastEthernet?                string
+       |  |        |     +--:(GigabitEthernet)
+       |  |        |     |  +-- GigabitEthernet?             string
+       |  |        |     +--:(LISP)
+       |  |        |     |  +-- LISP?                        string
+       |  |        |     +--:(LISP-subinterface)
+       |  |        |     |  +-- LISP-subinterface
+       |  |        |     |     +-- LISP?   string
+       |  |        |     +--:(Loopback)
+       |  |        |     |  +-- Loopback?                    uint32
+       |  |        |     +--:(Multilink)
+       |  |        |     |  +-- Multilink?                   uint16
+       |  |        |     +--:(nve)
+       |  |        |     |  +-- nve?                         uint16
+       |  |        |     +--:(overlay)
+       |  |        |     |  +-- overlay?                     uint16
+       |  |        |     +--:(Port-channel)
+       |  |        |     |  +-- Port-channel?                uint32
+       |  |        |     +--:(Port-channel-subinterface)
+       |  |        |     |  +-- Port-channel-subinterface
+       |  |        |     |     +-- Port-channel?   string
+       |  |        |     +--:(pseudowire)
+       |  |        |     |  +-- pseudowire?                  uint32
+       |  |        |     +--:(SM)
+       |  |        |     |  +-- SM?                          string
+       |  |        |     +--:(Cellular)
+       |  |        |     |  +-- Cellular?                    string
+       |  |        |     +--:(Serial)
+       |  |        |     |  +-- Serial?                      string
+       |  |        |     +--:(TenGigabitEthernet)
+       |  |        |     |  +-- TenGigabitEthernet?          string
+       |  |        |     +--:(Tunnel)
+       |  |        |     |  +-- Tunnel?                      uint32
+       |  |        |     +--:(Virtual-Template)
+       |  |        |     |  +-- Virtual-Template?            uint16
+       |  |        |     +--:(Vlan)
+       |  |        |     |  +-- Vlan?                        uint16
+       |  |        |     +--:(VirtualPortGroup)
+       |  |        |     |  +-- VirtualPortGroup?            uint16
+       |  |        |     +--:(vasileft)
+       |  |        |     |  +-- vasileft?                    uint16
+       |  |        |     +--:(vasiright)
+       |  |        |        +-- vasiright?                   uint16
+       |  |        +-- global-port?   uint16
+       |  +-- destination
+       |     +-- list* [id]
+       |        +-- id?           union
+       |        +-- pool?         string
+       |        +-- redundancy?   uint8
+       |        +-- mapping-id?   uint32
+       +-- outside
+          +-- source
+          |  +-- static
+          |     +-- nat-static-transport-list* [global-ip local-ip]
+          |        +-- global-ip?    inet:ipv4-address
+          |        +-- local-ip?     inet:ipv4-address
+          |        +-- vrf?          string
+          |        +-- extendable?   empty
+          |        +-- no-payload?   empty
+          +-- list* [id]
+          |  +-- id?           union
+          |  +-- pool?         string
+          |  +-- mapping-id?   uint32
+          |  +-- vrf?          string
+          |  +-- add-route?    empty
+          +-- route-map* [id]
+             +-- id?           string
+             +-- pool?         string
+             +-- mapping-id?   uint32
+             +-- vrf?          string
+             +-- add-route?    empty
+  grouping config-nat66-grouping
+    +-- nat66
+       +-- prefix
+          +-- inside* [inside-pfx]
+             +-- inside-pfx?   ios-types:ipv6-prefix
+             +-- outside?      ios-types:ipv6-prefix
+  grouping config-interface-nat66-grouping
+    +-- nat66?   enumeration

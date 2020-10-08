@@ -1,0 +1,287 @@
+module: Cisco-IOS-XE-wireless-hotspot-cfg
+  +--rw hotspot-cfg-data
+     +--rw hotspot-anqp-server-configs
+     |  +--rw hotspot-anqp-server-config* [server-name]
+     |     +--rw server-name                       string
+     |     +--rw description?                      string
+     |     +--rw server-settings
+     |     |  +--rw gas-request-timeout?       uint16
+     |     |  +--rw fragmentation-threshold?   uint16
+     |     +--rw beacon-params
+     |     |  +--rw internet-enabled?         wireless-hotspot-cfg:enum-hotspot-network-access
+     |     |  +--rw network-type?             wireless-hotspot-cfg:enum-hotspot-network-type
+     |     |  +--rw group-type?               wireless-hotspot-cfg:enum-hotspot-venue-group-type
+     |     |  +--rw hessid?                   yang:mac-address
+     |     |  +--rw anqp-domain-id?           uint16
+     |     |  +--rw anqp-domain-id-present?   empty
+     |     +--rw ipv4-type?                        wireless-hotspot-cfg:enum-hotspot-ipv4-addr-type
+     |     +--rw ipv6-type?                        wireless-hotspot-cfg:enum-hotspot-ipv6-addr-type
+     |     +--rw wan-metrics
+     |     |  +--rw downlink-speed?              uint32
+     |     |  +--rw uplink-speed?                uint32
+     |     |  +--rw downlink-load?               uint8
+     |     |  +--rw uplink-load?                 uint8
+     |     |  +--rw load-measurement-duration?   uint16
+     |     |  +--rw link-status?                 wireless-hotspot-cfg:enum-hotspot-link-status
+     |     |  +--rw full-capacity-link?          boolean
+     |     +--rw osu-ssid?                         string
+     |     +--rw roaming-elements
+     |     |  +--rw roaming-element* [roaming-element]
+     |     |     +--rw is-beacon?         boolean
+     |     |     +--rw roaming-element    string
+     |     +--rw network-auth-types
+     |     |  +--rw network-auth-type* [type]
+     |     |     +--rw type    wireless-hotspot-cfg:enum-hotspot-network-authentication-type
+     |     |     +--rw url?    string
+     |     +--rw domain-names
+     |     |  +--rw domain-name* [name]
+     |     |     +--rw name    string
+     |     +--rw venue-names
+     |     |  +--rw venue-name* [language]
+     |     |     +--rw language    string
+     |     |     +--rw name        string
+     |     |     +--rw url?        string
+     |     +--rw nai-realms
+     |     |  +--rw nai-realm* [nai-realm]
+     |     |     +--rw nai-realm      string
+     |     |     +--rw eap-methods
+     |     |        +--rw eap-method* [eap-method]
+     |     |           +--rw eap-method     wireless-hotspot-cfg:enum-hotspot-eap-method-type
+     |     |           +--rw auth-params
+     |     |              +--rw auth-param* [eap-auth-type-key]
+     |     |                 +--rw eap-auth-type-key         wireless-hotspot-cfg:enum-hotspot-authentication-param-type
+     |     |                 +--rw non-eap-inner-value?      wireless-hotspot-cfg:enum-hotspot-non-eap-inner-auth-type
+     |     |                 +--rw inner-eap-method-value?   wireless-hotspot-cfg:enum-hotspot-eap-method-type
+     |     |                 +--rw credential-value?         wireless-hotspot-cfg:enum-hotspot-credential-type
+     |     |                 +--rw tunnel-value?             wireless-hotspot-cfg:enum-hotspot-tunneled-eap-credential-type
+     |     +--rw hotspot-3gpp-cellular-networks
+     |     |  +--rw hotspot-3gpp-cellular-network* [mcc mnc]
+     |     |     +--rw mcc    string
+     |     |     +--rw mnc    string
+     |     +--rw operator-friendly-names
+     |     |  +--rw operator-friendly-name* [language]
+     |     |     +--rw language    string
+     |     |     +--rw name        string
+     |     +--rw operating-classes
+     |     |  +--rw operating-class* [class-id]
+     |     |     +--rw class-id    uint8
+     |     +--rw osu-providers
+     |     |  +--rw osu-provider* [osu-provider-name]
+     |     |     +--rw osu-methods
+     |     |     |  +--rw primary-method-type?     wireless-hotspot-cfg:enum-osu-method-type
+     |     |     |  +--rw secondary-method-type?   wireless-hotspot-cfg:enum-osu-method-type
+     |     |     +--rw osu-provider-name     string
+     |     |     +--rw osu-server-uri?       string
+     |     |     +--rw osu-nai?              string
+     |     |     +--rw osu-friendly-names
+     |     |     |  +--rw osu-friendly-name* [language]
+     |     |     |     +--rw language       string
+     |     |     |     +--rw name           string
+     |     |     |     +--rw description?   string
+     |     |     +--rw osu-icons
+     |     |        +--rw osu-icon* [filename]
+     |     |           +--rw filename    string
+     |     +--rw connection-capabilities
+     |        +--rw connection-capability* [port-number ip-protocol]
+     |           +--rw status?        wireless-hotspot-cfg:enum-hotspot-connection-status-type
+     |           +--rw port-number    uint16
+     |           +--rw ip-protocol    uint8
+     +--rw hotspot-icons
+     |  +--rw hotspot-icon* [filename]
+     |     +--rw width        uint16
+     |     +--rw height       uint16
+     |     +--rw filename     string
+     |     +--rw path         string
+     |     +--rw language     string
+     |     +--rw icon-type    string
+     +--rw hotspot-global-config!
+        +--rw max-gas-req-per-sec?   uint16
+
+  grouping st-hotspot-venue-name
+    +-- language?   string
+    +-- name        string
+    +-- url?        string
+  grouping st-hotspot-roaming-element
+    +-- is-beacon?         boolean
+    +-- roaming-element?   string
+  grouping st-hotspot-network-auth-type
+    +-- type?   wireless-hotspot-cfg:enum-hotspot-network-authentication-type
+    +-- url?    string
+  grouping st-hotspot-domain-name
+    +-- name?   string
+  grouping st-hotspot-osu-friendly-name
+    +-- language?      string
+    +-- name           string
+    +-- description?   string
+  grouping st-hotspot-osu-method
+    +-- primary-method-type?     wireless-hotspot-cfg:enum-osu-method-type
+    +-- secondary-method-type?   wireless-hotspot-cfg:enum-osu-method-type
+  grouping st-hotspot-osu-icon
+    +-- filename?   string
+  grouping st-hotspot-osu-provider
+    +-- osu-methods
+    |  +-- primary-method-type?     wireless-hotspot-cfg:enum-osu-method-type
+    |  +-- secondary-method-type?   wireless-hotspot-cfg:enum-osu-method-type
+    +-- osu-provider-name?    string
+    +-- osu-server-uri?       string
+    +-- osu-nai?              string
+    +-- osu-friendly-names
+    |  +-- osu-friendly-name* [language]
+    |     +-- language?      string
+    |     +-- name           string
+    |     +-- description?   string
+    +-- osu-icons
+       +-- osu-icon* [filename]
+          +-- filename?   string
+  grouping st-hotspot-icon
+    +-- width        uint16
+    +-- height       uint16
+    +-- filename?    string
+    +-- path         string
+    +-- language     string
+    +-- icon-type    string
+  grouping st-hotspot-operator-friendly-name
+    +-- language?   string
+    +-- name        string
+  grouping st-hotspot-operating-class
+    +-- class-id?   uint8
+  grouping st-hotspot-mcc-mnc
+    +-- mcc?   string
+    +-- mnc?   string
+  grouping st-hotspot-wan-metrics
+    +-- downlink-speed?              uint32
+    +-- uplink-speed?                uint32
+    +-- downlink-load?               uint8
+    +-- uplink-load?                 uint8
+    +-- load-measurement-duration?   uint16
+    +-- link-status?                 wireless-hotspot-cfg:enum-hotspot-link-status
+    +-- full-capacity-link?          boolean
+  grouping st-hotspot-protocol-port
+    +-- port-number?   uint16
+    +-- ip-protocol?   uint8
+  grouping st-hotspot-connection-capability
+    +-- status?   wireless-hotspot-cfg:enum-hotspot-connection-status-type
+  grouping st-hotspot-beacon-params
+    +-- internet-enabled?         wireless-hotspot-cfg:enum-hotspot-network-access
+    +-- network-type?             wireless-hotspot-cfg:enum-hotspot-network-type
+    +-- group-type?               wireless-hotspot-cfg:enum-hotspot-venue-group-type
+    +-- hessid?                   yang:mac-address
+    +-- anqp-domain-id?           uint16
+    +-- anqp-domain-id-present?   empty
+  grouping st-anqp-server-settings
+    +-- gas-request-timeout?       uint16
+    +-- fragmentation-threshold?   uint16
+  grouping st-hotspot-nai-realm
+    +-- nai-realm?     string
+    +-- eap-methods
+       +-- eap-method* [eap-method]
+          +-- eap-method?    wireless-hotspot-cfg:enum-hotspot-eap-method-type
+          +-- auth-params
+             +-- auth-param* [eap-auth-type-key]
+                +-- eap-auth-type-key?        wireless-hotspot-cfg:enum-hotspot-authentication-param-type
+                +-- non-eap-inner-value?      wireless-hotspot-cfg:enum-hotspot-non-eap-inner-auth-type
+                +-- inner-eap-method-value?   wireless-hotspot-cfg:enum-hotspot-eap-method-type
+                +-- credential-value?         wireless-hotspot-cfg:enum-hotspot-credential-type
+                +-- tunnel-value?             wireless-hotspot-cfg:enum-hotspot-tunneled-eap-credential-type
+  grouping st-hotspot-eap-method
+    +-- eap-method?    wireless-hotspot-cfg:enum-hotspot-eap-method-type
+    +-- auth-params
+       +-- auth-param* [eap-auth-type-key]
+          +-- eap-auth-type-key?        wireless-hotspot-cfg:enum-hotspot-authentication-param-type
+          +-- non-eap-inner-value?      wireless-hotspot-cfg:enum-hotspot-non-eap-inner-auth-type
+          +-- inner-eap-method-value?   wireless-hotspot-cfg:enum-hotspot-eap-method-type
+          +-- credential-value?         wireless-hotspot-cfg:enum-hotspot-credential-type
+          +-- tunnel-value?             wireless-hotspot-cfg:enum-hotspot-tunneled-eap-credential-type
+  grouping st-hotspot-eap-auth-param
+    +-- eap-auth-type-key?        wireless-hotspot-cfg:enum-hotspot-authentication-param-type
+    +-- non-eap-inner-value?      wireless-hotspot-cfg:enum-hotspot-non-eap-inner-auth-type
+    +-- inner-eap-method-value?   wireless-hotspot-cfg:enum-hotspot-eap-method-type
+    +-- credential-value?         wireless-hotspot-cfg:enum-hotspot-credential-type
+    +-- tunnel-value?             wireless-hotspot-cfg:enum-hotspot-tunneled-eap-credential-type
+  grouping st-hotspot-anqp-server
+    +-- server-name?                      string
+    +-- description?                      string
+    +-- server-settings
+    |  +-- gas-request-timeout?       uint16
+    |  +-- fragmentation-threshold?   uint16
+    +-- beacon-params
+    |  +-- internet-enabled?         wireless-hotspot-cfg:enum-hotspot-network-access
+    |  +-- network-type?             wireless-hotspot-cfg:enum-hotspot-network-type
+    |  +-- group-type?               wireless-hotspot-cfg:enum-hotspot-venue-group-type
+    |  +-- hessid?                   yang:mac-address
+    |  +-- anqp-domain-id?           uint16
+    |  +-- anqp-domain-id-present?   empty
+    +-- ipv4-type?                        wireless-hotspot-cfg:enum-hotspot-ipv4-addr-type
+    +-- ipv6-type?                        wireless-hotspot-cfg:enum-hotspot-ipv6-addr-type
+    +-- wan-metrics
+    |  +-- downlink-speed?              uint32
+    |  +-- uplink-speed?                uint32
+    |  +-- downlink-load?               uint8
+    |  +-- uplink-load?                 uint8
+    |  +-- load-measurement-duration?   uint16
+    |  +-- link-status?                 wireless-hotspot-cfg:enum-hotspot-link-status
+    |  +-- full-capacity-link?          boolean
+    +-- osu-ssid?                         string
+    +-- roaming-elements
+    |  +-- roaming-element* [roaming-element]
+    |     +-- is-beacon?         boolean
+    |     +-- roaming-element?   string
+    +-- network-auth-types
+    |  +-- network-auth-type* [type]
+    |     +-- type?   wireless-hotspot-cfg:enum-hotspot-network-authentication-type
+    |     +-- url?    string
+    +-- domain-names
+    |  +-- domain-name* [name]
+    |     +-- name?   string
+    +-- venue-names
+    |  +-- venue-name* [language]
+    |     +-- language?   string
+    |     +-- name        string
+    |     +-- url?        string
+    +-- nai-realms
+    |  +-- nai-realm* [nai-realm]
+    |     +-- nai-realm?     string
+    |     +-- eap-methods
+    |        +-- eap-method* [eap-method]
+    |           +-- eap-method?    wireless-hotspot-cfg:enum-hotspot-eap-method-type
+    |           +-- auth-params
+    |              +-- auth-param* [eap-auth-type-key]
+    |                 +-- eap-auth-type-key?        wireless-hotspot-cfg:enum-hotspot-authentication-param-type
+    |                 +-- non-eap-inner-value?      wireless-hotspot-cfg:enum-hotspot-non-eap-inner-auth-type
+    |                 +-- inner-eap-method-value?   wireless-hotspot-cfg:enum-hotspot-eap-method-type
+    |                 +-- credential-value?         wireless-hotspot-cfg:enum-hotspot-credential-type
+    |                 +-- tunnel-value?             wireless-hotspot-cfg:enum-hotspot-tunneled-eap-credential-type
+    +-- hotspot-3gpp-cellular-networks
+    |  +-- hotspot-3gpp-cellular-network* [mcc mnc]
+    |     +-- mcc?   string
+    |     +-- mnc?   string
+    +-- operator-friendly-names
+    |  +-- operator-friendly-name* [language]
+    |     +-- language?   string
+    |     +-- name        string
+    +-- operating-classes
+    |  +-- operating-class* [class-id]
+    |     +-- class-id?   uint8
+    +-- osu-providers
+    |  +-- osu-provider* [osu-provider-name]
+    |     +-- osu-methods
+    |     |  +-- primary-method-type?     wireless-hotspot-cfg:enum-osu-method-type
+    |     |  +-- secondary-method-type?   wireless-hotspot-cfg:enum-osu-method-type
+    |     +-- osu-provider-name?    string
+    |     +-- osu-server-uri?       string
+    |     +-- osu-nai?              string
+    |     +-- osu-friendly-names
+    |     |  +-- osu-friendly-name* [language]
+    |     |     +-- language?      string
+    |     |     +-- name           string
+    |     |     +-- description?   string
+    |     +-- osu-icons
+    |        +-- osu-icon* [filename]
+    |           +-- filename?   string
+    +-- connection-capabilities
+       +-- connection-capability* [port-number ip-protocol]
+          +-- status?        wireless-hotspot-cfg:enum-hotspot-connection-status-type
+          +-- port-number?   uint16
+          +-- ip-protocol?   uint8
+  grouping st-hotspot-global-config
+    +-- max-gas-req-per-sec?   uint16

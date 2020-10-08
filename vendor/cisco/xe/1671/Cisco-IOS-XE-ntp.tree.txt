@@ -1,0 +1,587 @@
+
+module: Cisco-IOS-XE-ntp
+  augment /ios:native/ios:ntp:
+    +--rw access-group
+    |  +--rw ipv4
+    |  |  +--rw peer
+    |  |  |  +--rw acl?   ios-types:std-acl-type
+    |  |  |  +--rw kod?   empty
+    |  |  +--rw query-only
+    |  |  |  +--rw acl?   ios-types:std-acl-type
+    |  |  |  +--rw kod?   empty
+    |  |  +--rw serve
+    |  |  |  +--rw acl?   ios-types:std-acl-type
+    |  |  |  +--rw kod?   empty
+    |  |  +--rw serve-only
+    |  |     +--rw acl?   ios-types:std-acl-type
+    |  |     +--rw kod?   empty
+    |  +--rw ipv6
+    |  |  +--rw peer
+    |  |  |  +--rw acl?   ios-types:std-acl-type
+    |  |  |  +--rw kod?   empty
+    |  |  +--rw query-only
+    |  |  |  +--rw acl?   ios-types:std-acl-type
+    |  |  |  +--rw kod?   empty
+    |  |  +--rw serve
+    |  |  |  +--rw acl?   ios-types:std-acl-type
+    |  |  |  +--rw kod?   empty
+    |  |  +--rw serve-only
+    |  |     +--rw acl?   ios-types:std-acl-type
+    |  |     +--rw kod?   empty
+    |  +--rw peer
+    |  |  +--rw acl?   ios-types:std-acl-type
+    |  |  +--rw kod?   empty
+    |  +--rw query-only
+    |  |  +--rw acl?   ios-types:std-acl-type
+    |  |  +--rw kod?   empty
+    |  +--rw serve
+    |  |  +--rw acl?   ios-types:std-acl-type
+    |  |  +--rw kod?   empty
+    |  +--rw serve-only
+    |     +--rw acl?   ios-types:std-acl-type
+    |     +--rw kod?   empty
+    +--rw allow
+    |  +--rw mode
+    |     +--rw control!
+    |     |  +--rw delay?   uint8
+    |     +--rw private?   empty
+    +--rw authenticate?         empty
+    +--rw authentication-key* [number]
+    |  +--rw number             uint32
+    |  +--rw md5?               string
+    |  +--rw encryption-type?   uint32
+    +--rw broadcastdelay?       uint32
+    +--rw clock-period?         uint32
+    +--rw logging?              empty
+    +--rw master!
+    |  +--rw stratum-number?   uint8
+    +--rw max-associations?     uint32
+    +--rw maxdistance?          uint8
+    +--rw mindistance?          uint16
+    +--rw orphan?               uint8
+    +--rw panic
+    |  +--rw update?   empty
+    +--rw passive?              empty
+    +--rw peer
+    |  +--rw server-list* [ip-address]
+    |  |  +--rw ip-address    union
+    |  |  +--rw burst?        empty
+    |  |  +--rw iburst?       empty
+    |  |  +--rw key?          uint32
+    |  |  +--rw maxpoll?      uint8
+    |  |  +--rw minpoll?      uint8
+    |  |  +--rw prefer?       empty
+    |  |  +--rw source?       string
+    |  |  +--rw version?      uint8
+    |  +--rw ip* [host-name]
+    |  |  +--rw host-name    string
+    |  |  +--rw burst?       empty
+    |  |  +--rw iburst?      empty
+    |  |  +--rw key?         uint32
+    |  |  +--rw maxpoll?     uint8
+    |  |  +--rw minpoll?     uint8
+    |  |  +--rw prefer?      empty
+    |  |  +--rw source?      string
+    |  |  +--rw version?     uint8
+    |  +--rw ipv6* [host-name]
+    |  |  +--rw host-name    string
+    |  |  +--rw burst?       empty
+    |  |  +--rw iburst?      empty
+    |  |  +--rw key?         uint32
+    |  |  +--rw maxpoll?     uint8
+    |  |  +--rw minpoll?     uint8
+    |  |  +--rw prefer?      empty
+    |  |  +--rw source?      string
+    |  |  +--rw version?     uint8
+    |  +--rw vrf* [name]
+    |     +--rw name           string
+    |     +--rw server-list* [ip-address]
+    |     |  +--rw ip-address    union
+    |     |  +--rw burst?        empty
+    |     |  +--rw iburst?       empty
+    |     |  +--rw key?          uint32
+    |     |  +--rw maxpoll?      uint8
+    |     |  +--rw minpoll?      uint8
+    |     |  +--rw prefer?       empty
+    |     |  +--rw source?       string
+    |     |  +--rw version?      uint8
+    |     +--rw ip* [host-name]
+    |     |  +--rw host-name    string
+    |     |  +--rw burst?       empty
+    |     |  +--rw iburst?      empty
+    |     |  +--rw key?         uint32
+    |     |  +--rw maxpoll?     uint8
+    |     |  +--rw minpoll?     uint8
+    |     |  +--rw prefer?      empty
+    |     |  +--rw source?      string
+    |     |  +--rw version?     uint8
+    |     +--rw ipv6* [host-name]
+    |        +--rw host-name    string
+    |        +--rw burst?       empty
+    |        +--rw iburst?      empty
+    |        +--rw key?         uint32
+    |        +--rw maxpoll?     uint8
+    |        +--rw minpoll?     uint8
+    |        +--rw prefer?      empty
+    |        +--rw source?      string
+    |        +--rw version?     uint8
+    +--rw server
+    |  +--rw server-list* [ip-address]
+    |  |  +--rw ip-address    union
+    |  |  +--rw burst?        empty
+    |  |  +--rw iburst?       empty
+    |  |  +--rw key?          uint32
+    |  |  +--rw maxpoll?      uint8
+    |  |  +--rw minpoll?      uint8
+    |  |  +--rw prefer?       empty
+    |  |  +--rw source?       string
+    |  |  +--rw version?      uint8
+    |  +--rw ip* [host-name]
+    |  |  +--rw host-name    string
+    |  |  +--rw burst?       empty
+    |  |  +--rw iburst?      empty
+    |  |  +--rw key?         uint32
+    |  |  +--rw maxpoll?     uint8
+    |  |  +--rw minpoll?     uint8
+    |  |  +--rw prefer?      empty
+    |  |  +--rw source?      string
+    |  |  +--rw version?     uint8
+    |  +--rw ipv6* [host-name]
+    |  |  +--rw host-name    string
+    |  |  +--rw burst?       empty
+    |  |  +--rw iburst?      empty
+    |  |  +--rw key?         uint32
+    |  |  +--rw maxpoll?     uint8
+    |  |  +--rw minpoll?     uint8
+    |  |  +--rw prefer?      empty
+    |  |  +--rw source?      string
+    |  |  +--rw version?     uint8
+    |  +--rw vrf* [name]
+    |     +--rw name           string
+    |     +--rw server-list* [ip-address]
+    |     |  +--rw ip-address    union
+    |     |  +--rw burst?        empty
+    |     |  +--rw iburst?       empty
+    |     |  +--rw key?          uint32
+    |     |  +--rw maxpoll?      uint8
+    |     |  +--rw minpoll?      uint8
+    |     |  +--rw prefer?       empty
+    |     |  +--rw source?       string
+    |     |  +--rw version?      uint8
+    |     +--rw ip* [host-name]
+    |     |  +--rw host-name    string
+    |     |  +--rw burst?       empty
+    |     |  +--rw iburst?      empty
+    |     |  +--rw key?         uint32
+    |     |  +--rw maxpoll?     uint8
+    |     |  +--rw minpoll?     uint8
+    |     |  +--rw prefer?      empty
+    |     |  +--rw source?      string
+    |     |  +--rw version?     uint8
+    |     +--rw ipv6* [host-name]
+    |        +--rw host-name    string
+    |        +--rw burst?       empty
+    |        +--rw iburst?      empty
+    |        +--rw key?         uint32
+    |        +--rw maxpoll?     uint8
+    |        +--rw minpoll?     uint8
+    |        +--rw prefer?      empty
+    |        +--rw source?      string
+    |        +--rw version?     uint8
+    +--rw source
+    |  +--rw (interface-choice)?
+    |     +--:(AppNav-Compress)
+    |     |  +--rw AppNav-Compress?             uint16
+    |     +--:(AppNav-UnCompress)
+    |     |  +--rw AppNav-UnCompress?           uint16
+    |     +--:(ATM)
+    |     |  +--rw ATM?                         string
+    |     +--:(ATM-subinterface)
+    |     |  +--rw ATM-subinterface
+    |     |     +--rw ATM?   string
+    |     +--:(ATM-ACR)
+    |     |  +--rw ATM-ACR?                     string
+    |     +--:(ATM-ACRsubinterface)
+    |     |  +--rw ATM-ACRsubinterface
+    |     |     +--rw ATM-ACR?   string
+    |     +--:(BDI)
+    |     |  +--rw BDI?                         string
+    |     +--:(CEM)
+    |     |  +--rw CEM?                         string
+    |     +--:(CEM-ACR)
+    |     |  +--rw CEM-ACR?                     uint8
+    |     +--:(Embedded-Service-Engine)
+    |     |  +--rw Embedded-Service-Engine?     string
+    |     +--:(FastEthernet)
+    |     |  +--rw FastEthernet?                string
+    |     +--:(GigabitEthernet)
+    |     |  +--rw GigabitEthernet?             string
+    |     +--:(FiveGigabitEthernet)
+    |     |  +--rw FiveGigabitEthernet?         string
+    |     +--:(TwentyFiveGigabitEthernet)
+    |     |  +--rw TwentyFiveGigabitEthernet?   string
+    |     +--:(LISP)
+    |     |  +--rw LISP?                        string
+    |     +--:(LISP-subinterface)
+    |     |  +--rw LISP-subinterface
+    |     |     +--rw LISP?   string
+    |     +--:(Loopback)
+    |     |  +--rw Loopback?                    uint32
+    |     +--:(Multilink)
+    |     |  +--rw Multilink?                   uint16
+    |     +--:(nve)
+    |     |  +--rw nve?                         uint16
+    |     +--:(overlay)
+    |     |  +--rw overlay?                     uint16
+    |     +--:(Port-channel)
+    |     |  +--rw Port-channel?                uint32
+    |     +--:(Port-channel-subinterface)
+    |     |  +--rw Port-channel-subinterface
+    |     |     +--rw Port-channel?   string
+    |     +--:(pseudowire)
+    |     |  +--rw pseudowire?                  uint32
+    |     +--:(SM)
+    |     |  +--rw SM?                          string
+    |     +--:(Cellular)
+    |     |  +--rw Cellular?                    string
+    |     +--:(Serial)
+    |     |  +--rw Serial?                      string
+    |     +--:(TenGigabitEthernet)
+    |     |  +--rw TenGigabitEthernet?          string
+    |     +--:(Tunnel)
+    |     |  +--rw Tunnel?                      uint32
+    |     +--:(Virtual-Template)
+    |     |  +--rw Virtual-Template?            uint16
+    |     +--:(Vlan)
+    |     |  +--rw Vlan?                        uint16
+    |     +--:(VirtualPortGroup)
+    |     |  +--rw VirtualPortGroup?            uint16
+    |     +--:(vasileft)
+    |     |  +--rw vasileft?                    uint16
+    |     +--:(vasiright)
+    |        +--rw vasiright?                   uint16
+    +--rw trusted-key* [number]
+    |  +--rw number     uint16
+    |  +--rw end-key?   uint16
+    +--rw update-calendar?      empty
+
+  grouping ntp-access-group-kod-grouping
+    +-- acl?   ios-types:std-acl-type
+    +-- kod?   empty
+  grouping ntp-access-group-grouping
+    +-- peer
+    |  +-- acl?   ios-types:std-acl-type
+    |  +-- kod?   empty
+    +-- query-only
+    |  +-- acl?   ios-types:std-acl-type
+    |  +-- kod?   empty
+    +-- serve
+    |  +-- acl?   ios-types:std-acl-type
+    |  +-- kod?   empty
+    +-- serve-only
+       +-- acl?   ios-types:std-acl-type
+       +-- kod?   empty
+  grouping ntp-peer-server-attr-grouping
+    +-- burst?     empty
+    +-- iburst?    empty
+    +-- key?       uint32
+    +-- maxpoll?   uint8
+    +-- minpoll?   uint8
+    +-- prefer?    empty
+    +-- source?    string
+    +-- version?   uint8
+  grouping ntp-peer-server-grouping
+    +-- server-list* [ip-address]
+    |  +-- ip-address?   union
+    |  +-- burst?        empty
+    |  +-- iburst?       empty
+    |  +-- key?          uint32
+    |  +-- maxpoll?      uint8
+    |  +-- minpoll?      uint8
+    |  +-- prefer?       empty
+    |  +-- source?       string
+    |  +-- version?      uint8
+    +-- ip* [host-name]
+    |  +-- host-name?   string
+    |  +-- burst?       empty
+    |  +-- iburst?      empty
+    |  +-- key?         uint32
+    |  +-- maxpoll?     uint8
+    |  +-- minpoll?     uint8
+    |  +-- prefer?      empty
+    |  +-- source?      string
+    |  +-- version?     uint8
+    +-- ipv6* [host-name]
+       +-- host-name?   string
+       +-- burst?       empty
+       +-- iburst?      empty
+       +-- key?         uint32
+       +-- maxpoll?     uint8
+       +-- minpoll?     uint8
+       +-- prefer?      empty
+       +-- source?      string
+       +-- version?     uint8
+  grouping config-ntp-grouping
+    +-- access-group
+    |  +-- ipv4
+    |  |  +-- peer
+    |  |  |  +-- acl?   ios-types:std-acl-type
+    |  |  |  +-- kod?   empty
+    |  |  +-- query-only
+    |  |  |  +-- acl?   ios-types:std-acl-type
+    |  |  |  +-- kod?   empty
+    |  |  +-- serve
+    |  |  |  +-- acl?   ios-types:std-acl-type
+    |  |  |  +-- kod?   empty
+    |  |  +-- serve-only
+    |  |     +-- acl?   ios-types:std-acl-type
+    |  |     +-- kod?   empty
+    |  +-- ipv6
+    |  |  +-- peer
+    |  |  |  +-- acl?   ios-types:std-acl-type
+    |  |  |  +-- kod?   empty
+    |  |  +-- query-only
+    |  |  |  +-- acl?   ios-types:std-acl-type
+    |  |  |  +-- kod?   empty
+    |  |  +-- serve
+    |  |  |  +-- acl?   ios-types:std-acl-type
+    |  |  |  +-- kod?   empty
+    |  |  +-- serve-only
+    |  |     +-- acl?   ios-types:std-acl-type
+    |  |     +-- kod?   empty
+    |  +-- peer
+    |  |  +-- acl?   ios-types:std-acl-type
+    |  |  +-- kod?   empty
+    |  +-- query-only
+    |  |  +-- acl?   ios-types:std-acl-type
+    |  |  +-- kod?   empty
+    |  +-- serve
+    |  |  +-- acl?   ios-types:std-acl-type
+    |  |  +-- kod?   empty
+    |  +-- serve-only
+    |     +-- acl?   ios-types:std-acl-type
+    |     +-- kod?   empty
+    +-- allow
+    |  +-- mode
+    |     +-- control!
+    |     |  +-- delay?   uint8
+    |     +-- private?   empty
+    +-- authenticate?         empty
+    +-- authentication-key* [number]
+    |  +-- number?            uint32
+    |  +-- md5?               string
+    |  +-- encryption-type?   uint32
+    +-- broadcastdelay?       uint32
+    +-- clock-period?         uint32
+    +-- logging?              empty
+    +-- master!
+    |  +-- stratum-number?   uint8
+    +-- max-associations?     uint32
+    +-- maxdistance?          uint8
+    +-- mindistance?          uint16
+    +-- orphan?               uint8
+    +-- panic
+    |  +-- update?   empty
+    +-- passive?              empty
+    +-- peer
+    |  +-- server-list* [ip-address]
+    |  |  +-- ip-address?   union
+    |  |  +-- burst?        empty
+    |  |  +-- iburst?       empty
+    |  |  +-- key?          uint32
+    |  |  +-- maxpoll?      uint8
+    |  |  +-- minpoll?      uint8
+    |  |  +-- prefer?       empty
+    |  |  +-- source?       string
+    |  |  +-- version?      uint8
+    |  +-- ip* [host-name]
+    |  |  +-- host-name?   string
+    |  |  +-- burst?       empty
+    |  |  +-- iburst?      empty
+    |  |  +-- key?         uint32
+    |  |  +-- maxpoll?     uint8
+    |  |  +-- minpoll?     uint8
+    |  |  +-- prefer?      empty
+    |  |  +-- source?      string
+    |  |  +-- version?     uint8
+    |  +-- ipv6* [host-name]
+    |  |  +-- host-name?   string
+    |  |  +-- burst?       empty
+    |  |  +-- iburst?      empty
+    |  |  +-- key?         uint32
+    |  |  +-- maxpoll?     uint8
+    |  |  +-- minpoll?     uint8
+    |  |  +-- prefer?      empty
+    |  |  +-- source?      string
+    |  |  +-- version?     uint8
+    |  +-- vrf* [name]
+    |     +-- name?          string
+    |     +-- server-list* [ip-address]
+    |     |  +-- ip-address?   union
+    |     |  +-- burst?        empty
+    |     |  +-- iburst?       empty
+    |     |  +-- key?          uint32
+    |     |  +-- maxpoll?      uint8
+    |     |  +-- minpoll?      uint8
+    |     |  +-- prefer?       empty
+    |     |  +-- source?       string
+    |     |  +-- version?      uint8
+    |     +-- ip* [host-name]
+    |     |  +-- host-name?   string
+    |     |  +-- burst?       empty
+    |     |  +-- iburst?      empty
+    |     |  +-- key?         uint32
+    |     |  +-- maxpoll?     uint8
+    |     |  +-- minpoll?     uint8
+    |     |  +-- prefer?      empty
+    |     |  +-- source?      string
+    |     |  +-- version?     uint8
+    |     +-- ipv6* [host-name]
+    |        +-- host-name?   string
+    |        +-- burst?       empty
+    |        +-- iburst?      empty
+    |        +-- key?         uint32
+    |        +-- maxpoll?     uint8
+    |        +-- minpoll?     uint8
+    |        +-- prefer?      empty
+    |        +-- source?      string
+    |        +-- version?     uint8
+    +-- server
+    |  +-- server-list* [ip-address]
+    |  |  +-- ip-address?   union
+    |  |  +-- burst?        empty
+    |  |  +-- iburst?       empty
+    |  |  +-- key?          uint32
+    |  |  +-- maxpoll?      uint8
+    |  |  +-- minpoll?      uint8
+    |  |  +-- prefer?       empty
+    |  |  +-- source?       string
+    |  |  +-- version?      uint8
+    |  +-- ip* [host-name]
+    |  |  +-- host-name?   string
+    |  |  +-- burst?       empty
+    |  |  +-- iburst?      empty
+    |  |  +-- key?         uint32
+    |  |  +-- maxpoll?     uint8
+    |  |  +-- minpoll?     uint8
+    |  |  +-- prefer?      empty
+    |  |  +-- source?      string
+    |  |  +-- version?     uint8
+    |  +-- ipv6* [host-name]
+    |  |  +-- host-name?   string
+    |  |  +-- burst?       empty
+    |  |  +-- iburst?      empty
+    |  |  +-- key?         uint32
+    |  |  +-- maxpoll?     uint8
+    |  |  +-- minpoll?     uint8
+    |  |  +-- prefer?      empty
+    |  |  +-- source?      string
+    |  |  +-- version?     uint8
+    |  +-- vrf* [name]
+    |     +-- name?          string
+    |     +-- server-list* [ip-address]
+    |     |  +-- ip-address?   union
+    |     |  +-- burst?        empty
+    |     |  +-- iburst?       empty
+    |     |  +-- key?          uint32
+    |     |  +-- maxpoll?      uint8
+    |     |  +-- minpoll?      uint8
+    |     |  +-- prefer?       empty
+    |     |  +-- source?       string
+    |     |  +-- version?      uint8
+    |     +-- ip* [host-name]
+    |     |  +-- host-name?   string
+    |     |  +-- burst?       empty
+    |     |  +-- iburst?      empty
+    |     |  +-- key?         uint32
+    |     |  +-- maxpoll?     uint8
+    |     |  +-- minpoll?     uint8
+    |     |  +-- prefer?      empty
+    |     |  +-- source?      string
+    |     |  +-- version?     uint8
+    |     +-- ipv6* [host-name]
+    |        +-- host-name?   string
+    |        +-- burst?       empty
+    |        +-- iburst?      empty
+    |        +-- key?         uint32
+    |        +-- maxpoll?     uint8
+    |        +-- minpoll?     uint8
+    |        +-- prefer?      empty
+    |        +-- source?      string
+    |        +-- version?     uint8
+    +-- source
+    |  +-- (interface-choice)?
+    |     +--:(AppNav-Compress)
+    |     |  +-- AppNav-Compress?             uint16
+    |     +--:(AppNav-UnCompress)
+    |     |  +-- AppNav-UnCompress?           uint16
+    |     +--:(ATM)
+    |     |  +-- ATM?                         string
+    |     +--:(ATM-subinterface)
+    |     |  +-- ATM-subinterface
+    |     |     +-- ATM?   string
+    |     +--:(ATM-ACR)
+    |     |  +-- ATM-ACR?                     string
+    |     +--:(ATM-ACRsubinterface)
+    |     |  +-- ATM-ACRsubinterface
+    |     |     +-- ATM-ACR?   string
+    |     +--:(BDI)
+    |     |  +-- BDI?                         string
+    |     +--:(CEM)
+    |     |  +-- CEM?                         string
+    |     +--:(CEM-ACR)
+    |     |  +-- CEM-ACR?                     uint8
+    |     +--:(Embedded-Service-Engine)
+    |     |  +-- Embedded-Service-Engine?     string
+    |     +--:(FastEthernet)
+    |     |  +-- FastEthernet?                string
+    |     +--:(GigabitEthernet)
+    |     |  +-- GigabitEthernet?             string
+    |     +--:(FiveGigabitEthernet)
+    |     |  +-- FiveGigabitEthernet?         string
+    |     +--:(TwentyFiveGigabitEthernet)
+    |     |  +-- TwentyFiveGigabitEthernet?   string
+    |     +--:(LISP)
+    |     |  +-- LISP?                        string
+    |     +--:(LISP-subinterface)
+    |     |  +-- LISP-subinterface
+    |     |     +-- LISP?   string
+    |     +--:(Loopback)
+    |     |  +-- Loopback?                    uint32
+    |     +--:(Multilink)
+    |     |  +-- Multilink?                   uint16
+    |     +--:(nve)
+    |     |  +-- nve?                         uint16
+    |     +--:(overlay)
+    |     |  +-- overlay?                     uint16
+    |     +--:(Port-channel)
+    |     |  +-- Port-channel?                uint32
+    |     +--:(Port-channel-subinterface)
+    |     |  +-- Port-channel-subinterface
+    |     |     +-- Port-channel?   string
+    |     +--:(pseudowire)
+    |     |  +-- pseudowire?                  uint32
+    |     +--:(SM)
+    |     |  +-- SM?                          string
+    |     +--:(Cellular)
+    |     |  +-- Cellular?                    string
+    |     +--:(Serial)
+    |     |  +-- Serial?                      string
+    |     +--:(TenGigabitEthernet)
+    |     |  +-- TenGigabitEthernet?          string
+    |     +--:(Tunnel)
+    |     |  +-- Tunnel?                      uint32
+    |     +--:(Virtual-Template)
+    |     |  +-- Virtual-Template?            uint16
+    |     +--:(Vlan)
+    |     |  +-- Vlan?                        uint16
+    |     +--:(VirtualPortGroup)
+    |     |  +-- VirtualPortGroup?            uint16
+    |     +--:(vasileft)
+    |     |  +-- vasileft?                    uint16
+    |     +--:(vasiright)
+    |        +-- vasiright?                   uint16
+    +-- trusted-key* [number]
+    |  +-- number?    uint16
+    |  +-- end-key?   uint16
+    +-- update-calendar?      empty

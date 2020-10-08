@@ -1,0 +1,44 @@
+module: Cisco-IOS-XE-rpc
+
+  rpcs:
+    +---x switch
+    |  +---w input
+    |  |  +---w switch-number     uint8
+    |  |  +---w (pri-renum-stack)
+    |  |     +--:(priority-case)
+    |  |     |  +---w priority?   uint8
+    |  |     +--:(renumver-case)
+    |  |     |  +---w renumber?   uint8
+    |  |     +--:(stack-case)
+    |  |        +---w statck
+    |  |           +---w port?   uint8
+    |  +--ro output
+    |     +--ro result?   string
+    +---x default
+    |  +---w input
+    |  |  +---w (default-choice)
+    |  |     +--:(interface-case)
+    |  |        +---w interface?   string
+    |  +--ro output
+    |     +--ro result?   string
+    +---x reload
+    |  +--ro output
+    |     +--ro result?   string
+    +---x license
+       +---w input
+       |  +---w smart
+       |     +---w (smart-choice)
+       |        +--:(register-case)
+       |        |  +---w register
+       |        |     +---w idtoken?   empty
+       |        +--:(deregister-case)
+       |        |  +---w deregister?   empty
+       |        +--:(renew-case)
+       |           +---w renew
+       |              +---w id?     empty
+       |              +---w auth?   empty
+       +--ro output
+          +--ro result?   string
+
+  grouping cisco-xe-rpc-output
+    +-- result?   string

@@ -1,0 +1,133 @@
+module: Cisco-IOS-XE-pim-oper
+  +--ro pim-oper-data
+  |  +--ro pim-rp-mapping-entry* [vrf]
+  |  |  +--ro vrf                      string
+  |  |  +--ro if-name?                 string
+  |  |  +--ro pim-rp-mapping-caps?     pim-ios-xe-oper:pim-rp-mapping-capability
+  |  |  +--ro auto-rp-mapping-count?   uint64
+  |  |  +--ro auto-rp-mapping-limit?   uint64
+  |  |  +--ro bsr-mapping-count?       uint64
+  |  |  +--ro bsr-mapping-limit?       uint64
+  |  |  +--ro pim-rp-mapping-state* [acl]
+  |  |     +--ro acl      string
+  |  |     +--ro state* []
+  |  |        +--ro rp?                      inet:ip-address
+  |  |        +--ro info-source?             inet:ip-address
+  |  |        +--ro pim-per-rp-caps?         pim-ios-xe-oper:pim-per-rp-capability
+  |  |        +--ro rp-uptime?               yang:date-and-time
+  |  |        +--ro will-expire?             empty
+  |  |        +--ro expires?                 yang:date-and-time
+  |  |        +--ro candidate-rp-priority?   uint32
+  |  |        +--ro holdtime?                uint32
+  |  +--ro pim-neighbor-entry* [af vrf if-name]
+  |     +--ro af                    pim-ios-xe-oper:multicast-addr-family
+  |     +--ro vrf                   string
+  |     +--ro if-name               string
+  |     +--ro pim-neighbor-state* [pim-neighbor-address]
+  |        +--ro pim-neighbor-address    inet:ip-address
+  |        +--ro state
+  |           +--ro version?             uint8
+  |           +--ro dr-priority?         uint32
+  |           +--ro gen-id?              uint32
+  |           +--ro neighbor-uptime?     yang:date-and-time
+  |           +--ro expires?             yang:date-and-time
+  |           +--ro pim-neighbor-caps?   pim-ios-xe-oper:pim-neighbor-capability
+  |           +--ro pim-dr?              inet:ip-address
+  |           +--ro pim-if-addr?         inet:ip-address
+  |           +--ro neighbor-count?      uint32
+  |           +--ro query-interval?      uint32
+  |           +--ro jp-interval?         uint32
+  |           +--ro pim-mode?            pim-ios-xe-oper:pim-modes
+  +--rw schema-metadata-Cisco-IOS-XE-pim-oper
+  |  +--rw json-metadata-leaf?   empty
+  +--rw gnmi-model-data
+
+  grouping pim-rp-mapping-state-type
+    +-- rp?                      inet:ip-address
+    +-- info-source?             inet:ip-address
+    +-- pim-per-rp-caps?         pim-ios-xe-oper:pim-per-rp-capability
+    +-- rp-uptime?               yang:date-and-time
+    +-- will-expire?             empty
+    +-- expires?                 yang:date-and-time
+    +-- candidate-rp-priority?   uint32
+    +-- holdtime?                uint32
+  grouping pim-rp-mapping-state
+    +-- acl?     string
+    +-- state* []
+       +-- rp?                      inet:ip-address
+       +-- info-source?             inet:ip-address
+       +-- pim-per-rp-caps?         pim-ios-xe-oper:pim-per-rp-capability
+       +-- rp-uptime?               yang:date-and-time
+       +-- will-expire?             empty
+       +-- expires?                 yang:date-and-time
+       +-- candidate-rp-priority?   uint32
+       +-- holdtime?                uint32
+  grouping pim-rp-mapping-entry
+    +-- vrf?                     string
+    +-- if-name?                 string
+    +-- pim-rp-mapping-caps?     pim-ios-xe-oper:pim-rp-mapping-capability
+    +-- auto-rp-mapping-count?   uint64
+    +-- auto-rp-mapping-limit?   uint64
+    +-- bsr-mapping-count?       uint64
+    +-- bsr-mapping-limit?       uint64
+    +-- pim-rp-mapping-state* [acl]
+       +-- acl?     string
+       +-- state* []
+          +-- rp?                      inet:ip-address
+          +-- info-source?             inet:ip-address
+          +-- pim-per-rp-caps?         pim-ios-xe-oper:pim-per-rp-capability
+          +-- rp-uptime?               yang:date-and-time
+          +-- will-expire?             empty
+          +-- expires?                 yang:date-and-time
+          +-- candidate-rp-priority?   uint32
+          +-- holdtime?                uint32
+  grouping pim-neighbor-state-type
+    +-- version?             uint8
+    +-- dr-priority?         uint32
+    +-- gen-id?              uint32
+    +-- neighbor-uptime?     yang:date-and-time
+    +-- expires?             yang:date-and-time
+    +-- pim-neighbor-caps?   pim-ios-xe-oper:pim-neighbor-capability
+    +-- pim-dr?              inet:ip-address
+    +-- pim-if-addr?         inet:ip-address
+    +-- neighbor-count?      uint32
+    +-- query-interval?      uint32
+    +-- jp-interval?         uint32
+    +-- pim-mode?            pim-ios-xe-oper:pim-modes
+  grouping pim-neighbor-state
+    +-- pim-neighbor-address?   inet:ip-address
+    +-- state
+       +-- version?             uint8
+       +-- dr-priority?         uint32
+       +-- gen-id?              uint32
+       +-- neighbor-uptime?     yang:date-and-time
+       +-- expires?             yang:date-and-time
+       +-- pim-neighbor-caps?   pim-ios-xe-oper:pim-neighbor-capability
+       +-- pim-dr?              inet:ip-address
+       +-- pim-if-addr?         inet:ip-address
+       +-- neighbor-count?      uint32
+       +-- query-interval?      uint32
+       +-- jp-interval?         uint32
+       +-- pim-mode?            pim-ios-xe-oper:pim-modes
+  grouping pim-neighbor-entry
+    +-- pim-neighbor-state* [pim-neighbor-address]
+       +-- pim-neighbor-address?   inet:ip-address
+       +-- state
+          +-- version?             uint8
+          +-- dr-priority?         uint32
+          +-- gen-id?              uint32
+          +-- neighbor-uptime?     yang:date-and-time
+          +-- expires?             yang:date-and-time
+          +-- pim-neighbor-caps?   pim-ios-xe-oper:pim-neighbor-capability
+          +-- pim-dr?              inet:ip-address
+          +-- pim-if-addr?         inet:ip-address
+          +-- neighbor-count?      uint32
+          +-- query-interval?      uint32
+          +-- jp-interval?         uint32
+          +-- pim-mode?            pim-ios-xe-oper:pim-modes
+  grouping pim-neighbor-table-key
+    +-- af?        pim-ios-xe-oper:multicast-addr-family
+    +-- vrf?       string
+    +-- if-name?   string
+  grouping __yangpp_metadata
+    +-- json-metadata-leaf?   empty

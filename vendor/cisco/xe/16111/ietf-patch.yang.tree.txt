@@ -1,0 +1,43 @@
+module: ietf-yang-patch
+
+  grouping yang-patch
+    +-- yang-patch
+       +-- patch-id    string
+       +-- comment?    string
+       +-- edit* [edit-id]
+          +-- edit-id?     string
+          +-- operation    enumeration
+          +-- target       target-resource-offset
+          +-- point?       target-resource-offset
+          +-- where?       enumeration
+          +-- value?       <anydata>
+  grouping yang-patch-status
+    +-- yang-patch-status
+       +-- patch-id        string
+       +-- (global-status)?
+       |  +--:(global-errors)
+       |  |  +-- errors
+       |  |     +-- error* []
+       |  |        +-- error-type       enumeration
+       |  |        +-- error-tag        string
+       |  |        +-- error-app-tag?   string
+       |  |        +-- error-path?      instance-identifier
+       |  |        +-- error-message?   string
+       |  |        +-- error-info?      <anydata>
+       |  +--:(ok)
+       |     +-- ok?       empty
+       +-- edit-status
+          +-- edit* [edit-id]
+             +-- edit-id?        string
+             +-- (edit-status-choice)?
+                +--:(ok)
+                |  +-- ok?       empty
+                +--:(errors)
+                   +-- errors
+                      +-- error* []
+                         +-- error-type       enumeration
+                         +-- error-tag        string
+                         +-- error-app-tag?   string
+                         +-- error-path?      instance-identifier
+                         +-- error-message?   string
+                         +-- error-info?      <anydata>

@@ -1,0 +1,130 @@
+module: openconfig-aft
+
+  grouping aft-entry-config
+    +-- index?   uint64
+  grouping aft-entry-state
+    +-- packets-forwarded?   yang:counter64
+    +-- octets-forwarded?    yang:counter64
+  grouping aft-entry-match-state
+    +-- ip-prefix?     inet:ip-prefix
+    +-- mac-address?   yang:mac-address
+    +-- mpls-label?    oc-mplst:mpls-label
+    +-- mpls-tc?       uint8
+    +-- ip-dscp?       inet:dscp
+    +-- ip-protocol?   oc-pkt-match-types:ip-protocol-type
+    +-- l4-src-port?   inet:port-number
+    +-- l4-dst-port?   inet:port-number
+  grouping aft-entry-nexthop-config
+    +-- index?   uint64
+  grouping aft-entry-nexthop-state
+    +-- weight?                    uint32
+    +-- ip-address?                inet:ip-address-no-zone
+    +-- mac-address?               yang:mac-address
+    +-- popped-mpls-label-stack*   oc-mplst:mpls-label
+    +-- pushed-mpls-label-stack*   oc-mplst:mpls-label
+    +-- decapsulate-header?        oc-aftt:encapsulation-header-type
+    +-- encapsulate-header?        oc-aftt:encapsulation-header-type
+    +-- origin-protocol?           identityref
+  grouping aft-config
+    +-- address-family?   identityref
+  grouping aft-proto-top
+    +-- entries
+       +-- entry* [index]
+          +-- index?       -> ../config/index
+          +-- config
+          |  +-- index?   uint64
+          +--ro state
+          |  +--ro index?               uint64
+          |  +--ro packets-forwarded?   yang:counter64
+          |  +--ro octets-forwarded?    yang:counter64
+          +-- match
+          |  +-- config
+          |  +--ro state
+          |  |  +--ro ip-prefix?     inet:ip-prefix
+          |  |  +--ro mac-address?   yang:mac-address
+          |  |  +--ro mpls-label?    oc-mplst:mpls-label
+          |  |  +--ro mpls-tc?       uint8
+          |  |  +--ro ip-dscp?       inet:dscp
+          |  |  +--ro ip-protocol?   oc-pkt-match-types:ip-protocol-type
+          |  |  +--ro l4-src-port?   inet:port-number
+          |  |  +--ro l4-dst-port?   inet:port-number
+          |  +-- interface-ref
+          |     +--ro state
+          |        +--ro interface?      -> /oc-if:interfaces/interface/name
+          |        +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+          +-- next-hops
+             +-- next-hop* [index]
+                +-- index?           -> ../config/index
+                +-- config
+                |  +-- index?   uint64
+                +--ro state
+                |  +--ro index?                     uint64
+                |  +--ro weight?                    uint32
+                |  +--ro ip-address?                inet:ip-address-no-zone
+                |  +--ro mac-address?               yang:mac-address
+                |  +--ro popped-mpls-label-stack*   oc-mplst:mpls-label
+                |  +--ro pushed-mpls-label-stack*   oc-mplst:mpls-label
+                |  +--ro decapsulate-header?        oc-aftt:encapsulation-header-type
+                |  +--ro encapsulate-header?        oc-aftt:encapsulation-header-type
+                |  +--ro origin-protocol?           identityref
+                +-- interface-ref
+                   +-- config
+                   |  +-- interface?      -> /oc-if:interfaces/interface/name
+                   |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+                   +--ro state
+                      +--ro interface?      -> /oc-if:interfaces/interface/name
+                      +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+  grouping aft-top
+    +-- afts
+       +-- aft* [address-family]
+          +-- address-family?   -> ../config/address-family
+          +-- config
+          |  +-- address-family?   identityref
+          +--ro state
+          |  +--ro address-family?   identityref
+          +-- entries
+             +-- entry* [index]
+                +-- index?       -> ../config/index
+                +-- config
+                |  +-- index?   uint64
+                +--ro state
+                |  +--ro index?               uint64
+                |  +--ro packets-forwarded?   yang:counter64
+                |  +--ro octets-forwarded?    yang:counter64
+                +-- match
+                |  +-- config
+                |  +--ro state
+                |  |  +--ro ip-prefix?     inet:ip-prefix
+                |  |  +--ro mac-address?   yang:mac-address
+                |  |  +--ro mpls-label?    oc-mplst:mpls-label
+                |  |  +--ro mpls-tc?       uint8
+                |  |  +--ro ip-dscp?       inet:dscp
+                |  |  +--ro ip-protocol?   oc-pkt-match-types:ip-protocol-type
+                |  |  +--ro l4-src-port?   inet:port-number
+                |  |  +--ro l4-dst-port?   inet:port-number
+                |  +-- interface-ref
+                |     +--ro state
+                |        +--ro interface?      -> /oc-if:interfaces/interface/name
+                |        +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+                +-- next-hops
+                   +-- next-hop* [index]
+                      +-- index?           -> ../config/index
+                      +-- config
+                      |  +-- index?   uint64
+                      +--ro state
+                      |  +--ro index?                     uint64
+                      |  +--ro weight?                    uint32
+                      |  +--ro ip-address?                inet:ip-address-no-zone
+                      |  +--ro mac-address?               yang:mac-address
+                      |  +--ro popped-mpls-label-stack*   oc-mplst:mpls-label
+                      |  +--ro pushed-mpls-label-stack*   oc-mplst:mpls-label
+                      |  +--ro decapsulate-header?        oc-aftt:encapsulation-header-type
+                      |  +--ro encapsulate-header?        oc-aftt:encapsulation-header-type
+                      |  +--ro origin-protocol?           identityref
+                      +-- interface-ref
+                         +-- config
+                         |  +-- interface?      -> /oc-if:interfaces/interface/name
+                         |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+                         +--ro state
+                            +--ro interface?      -> /oc-if:interfaces/interface/name
+                            +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index

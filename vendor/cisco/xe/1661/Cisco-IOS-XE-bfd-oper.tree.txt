@@ -1,0 +1,105 @@
+module: Cisco-IOS-XE-bfd-oper
+  +--ro bfd-state
+     +--ro sessions
+        +--ro session* [type]
+           +--ro type                 bfd-ios-xe-oper:bfd-oper-session-type
+           +--ro bfd-tunnel-paths
+           |  +--ro bfd-tunnel-path* [interface lsp-type]
+           |     +--ro interface       string
+           |     +--ro lsp-type        bfd-ios-xe-oper:bfd-lsp-type
+           |     +--ro ld?             uint32
+           |     +--ro rd?             uint32
+           |     +--ro remote-state?   bfd-ios-xe-oper:bfd-remote-state-type
+           |     +--ro state?          bfd-ios-xe-oper:bfd-state-type
+           +--ro bfd-circuits
+           |  +--ro bfd-circuit* [interface vcid]
+           |     +--ro interface       string
+           |     +--ro vcid            uint32
+           |     +--ro ld?             uint32
+           |     +--ro rd?             uint32
+           |     +--ro remote-state?   bfd-ios-xe-oper:bfd-remote-state-type
+           |     +--ro state?          bfd-ios-xe-oper:bfd-state-type
+           +--ro bfd-nbrs
+           |  +--ro bfd-nbr* [ip interface]
+           |     +--ro ip              inet:ip-address
+           |     +--ro interface       string
+           |     +--ro ld?             uint32
+           |     +--ro rd?             uint32
+           |     +--ro remote-state?   bfd-ios-xe-oper:bfd-remote-state-type
+           |     +--ro state?          bfd-ios-xe-oper:bfd-state-type
+           +--ro bfd-mhop-nbrs
+           |  +--ro bfd-mhop-nbr* [ip]
+           |     +--ro ip              inet:ip-address
+           |     +--ro ld?             uint32
+           |     +--ro rd?             uint32
+           |     +--ro remote-state?   bfd-ios-xe-oper:bfd-remote-state-type
+           |     +--ro state?          bfd-ios-xe-oper:bfd-state-type
+           +--ro bfd-mhop-vrf-nbrs
+              +--ro bfd-mhop-vrf-nbr* [ip vrf]
+                 +--ro ip              inet:ip-address
+                 +--ro vrf             string
+                 +--ro ld?             uint32
+                 +--ro rd?             uint32
+                 +--ro remote-state?   bfd-ios-xe-oper:bfd-remote-state-type
+                 +--ro state?          bfd-ios-xe-oper:bfd-state-type
+
+  grouping bfd-neighbor-params
+    +-- ld?             uint32
+    +-- rd?             uint32
+    +-- remote-state?   bfd-ios-xe-oper:bfd-remote-state-type
+    +-- state?          bfd-ios-xe-oper:bfd-state-type
+  grouping bfd-tunnel-path-key
+    +-- interface?   string
+    +-- lsp-type?    bfd-ios-xe-oper:bfd-lsp-type
+  grouping bfd-circuit-key
+    +-- interface?   string
+    +-- vcid?        uint32
+  grouping bfd-nbr-key
+    +-- ip?          inet:ip-address
+    +-- interface?   string
+  grouping mhop-nbr-key
+    +-- ip?   inet:ip-address
+  grouping mhop-vrf-nbr-key
+    +-- ip?    inet:ip-address
+    +-- vrf?   string
+  grouping bfd-session
+    +-- type?                bfd-ios-xe-oper:bfd-oper-session-type
+    +-- bfd-tunnel-paths
+    |  +-- bfd-tunnel-path* [interface lsp-type]
+    |     +-- interface?      string
+    |     +-- lsp-type?       bfd-ios-xe-oper:bfd-lsp-type
+    |     +-- ld?             uint32
+    |     +-- rd?             uint32
+    |     +-- remote-state?   bfd-ios-xe-oper:bfd-remote-state-type
+    |     +-- state?          bfd-ios-xe-oper:bfd-state-type
+    +-- bfd-circuits
+    |  +-- bfd-circuit* [interface vcid]
+    |     +-- interface?      string
+    |     +-- vcid?           uint32
+    |     +-- ld?             uint32
+    |     +-- rd?             uint32
+    |     +-- remote-state?   bfd-ios-xe-oper:bfd-remote-state-type
+    |     +-- state?          bfd-ios-xe-oper:bfd-state-type
+    +-- bfd-nbrs
+    |  +-- bfd-nbr* [ip interface]
+    |     +-- ip?             inet:ip-address
+    |     +-- interface?      string
+    |     +-- ld?             uint32
+    |     +-- rd?             uint32
+    |     +-- remote-state?   bfd-ios-xe-oper:bfd-remote-state-type
+    |     +-- state?          bfd-ios-xe-oper:bfd-state-type
+    +-- bfd-mhop-nbrs
+    |  +-- bfd-mhop-nbr* [ip]
+    |     +-- ip?             inet:ip-address
+    |     +-- ld?             uint32
+    |     +-- rd?             uint32
+    |     +-- remote-state?   bfd-ios-xe-oper:bfd-remote-state-type
+    |     +-- state?          bfd-ios-xe-oper:bfd-state-type
+    +-- bfd-mhop-vrf-nbrs
+       +-- bfd-mhop-vrf-nbr* [ip vrf]
+          +-- ip?             inet:ip-address
+          +-- vrf?            string
+          +-- ld?             uint32
+          +-- rd?             uint32
+          +-- remote-state?   bfd-ios-xe-oper:bfd-remote-state-type
+          +-- state?          bfd-ios-xe-oper:bfd-state-type

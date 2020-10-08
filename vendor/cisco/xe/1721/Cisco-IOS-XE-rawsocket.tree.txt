@@ -1,0 +1,52 @@
+
+module: Cisco-IOS-XE-rawsocket
+  augment /ios:native/ios:line/ios:async-line:
+    +--rw raw-socket
+       +--rw packet-length
+       |  +--rw packet-length-value?   uint16
+       |  +--rw fragment-off?          empty
+       +--rw packet-timer?    uint16
+       +--rw special-char?    uint8
+       +--rw tcp
+       |  +--rw tcp-session?    uint8
+       |  +--rw client* [destination-ip destination-port]
+       |  |  +--rw destination-ip         inet:ipv4-address
+       |  |  +--rw destination-port       uint16
+       |  |  +--rw optional-local-ip?     inet:ipv4-address
+       |  |  +--rw optional-local-port?   uint16
+       |  +--rw idle-timeout?   uint8
+       |  +--rw dscp?           union
+       |  +--rw server
+       |     +--rw local-port?   uint16
+       |     +--rw local-ip?     inet:ipv4-address
+       +--rw udp
+          +--rw connection* [destination-ip destination-port]
+             +--rw destination-ip       inet:ipv4-address
+             +--rw destination-port     uint16
+             +--rw local-port?          uint16
+             +--rw optional-local-ip?   inet:ipv4-address
+
+  grouping config-rawsocket-grouping
+    +-- packet-length
+    |  +-- packet-length-value?   uint16
+    |  +-- fragment-off?          empty
+    +-- packet-timer?    uint16
+    +-- special-char?    uint8
+    +-- tcp
+    |  +-- tcp-session?    uint8
+    |  +-- client* [destination-ip destination-port]
+    |  |  +-- destination-ip?        inet:ipv4-address
+    |  |  +-- destination-port?      uint16
+    |  |  +-- optional-local-ip?     inet:ipv4-address
+    |  |  +-- optional-local-port?   uint16
+    |  +-- idle-timeout?   uint8
+    |  +-- dscp?           union
+    |  +-- server
+    |     +-- local-port?   uint16
+    |     +-- local-ip?     inet:ipv4-address
+    +-- udp
+       +-- connection* [destination-ip destination-port]
+          +-- destination-ip?      inet:ipv4-address
+          +-- destination-port?    uint16
+          +-- local-port?          uint16
+          +-- optional-local-ip?   inet:ipv4-address

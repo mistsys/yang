@@ -1,0 +1,345 @@
+
+module: Cisco-IOS-XE-nhrp
+  augment /ios:native/ios:interface/ios:Tunnel/ios:ip:
+    +--rw nhrp
+       +--rw attribute
+       |  +--rw set
+       |     +--rw attr-type* [attr-type]
+       |        +--rw attr-type    string
+       |        +--rw attr-val?    string
+       +--rw authentication?   string
+       +--rw cache
+       |  +--rw non-authoritative?   empty
+       +--rw connect?          uint16
+       +--rw group?            string
+       +--rw holdtime?         uint16
+       +--rw interest
+       |  +--rw acl-range?   uint8
+       |  +--rw none?        empty
+       +--rw map
+       |  +--rw dest-ipv4* [dest-ipv4]
+       |  |  +--rw dest-ipv4    inet:ipv4-address
+       |  |  +--rw nbma-ipv4* [nbma-ipv4]
+       |  |  |  +--rw nbma-ipv4    inet:ipv4-address
+       |  |  |  +--rw ipv4?        inet:ipv4-address
+       |  |  |  +--rw ipv6?        inet:ipv6-address
+       |  |  +--rw dest-mask* [dest-mask]
+       |  |  |  +--rw dest-mask    inet:ipv4-address
+       |  |  |  +--rw ipv4?        inet:ipv4-address
+       |  |  |  +--rw ipv6?        inet:ipv6-address
+       |  |  +--rw nbma-ipv6?   inet:ipv6-address
+       |  +--rw multicast
+       |  |  +--rw nbma_ipv4*   inet:ipv4-address
+       |  |  +--rw nbma_ipv6*   inet:ipv6-address
+       |  |  +--rw dynamic?     empty
+       |  +--rw group* [name]
+       |     +--rw name              string
+       |     +--rw service-policy
+       |        +--rw output?   string
+       +--rw max-send
+       |  +--rw pkt-count* [pkt-count]
+       |     +--rw pkt-count    uint16
+       |     +--rw every?       uint16
+       +--rw network-id?       uint32
+       +--rw nhs
+       |  +--rw ipv4* [ipv4]
+       |  |  +--rw ipv4        inet:ipv4-address
+       |  |  +--rw cluster?    uint8
+       |  |  +--rw nbma
+       |  |  |  +--rw ipv4* [ipv4]
+       |  |  |  |  +--rw ipv4         inet:ipv4-address
+       |  |  |  |  +--rw cluster?     uint8
+       |  |  |  |  +--rw multicast!
+       |  |  |  |  |  +--rw cluster?    uint8
+       |  |  |  |  |  +--rw priority
+       |  |  |  |  |     +--rw prior* [prior]
+       |  |  |  |  |        +--rw prior      uint8
+       |  |  |  |  |        +--rw cluster?   uint8
+       |  |  |  |  +--rw priority
+       |  |  |  |     +--rw pri* [pri]
+       |  |  |  |        +--rw pri        uint8
+       |  |  |  |        +--rw cluster?   uint8
+       |  |  |  +--rw nhs-fqdn* [nhs-fqdn]
+       |  |  |  |  +--rw nhs-fqdn     string
+       |  |  |  |  +--rw cluster?     uint8
+       |  |  |  |  +--rw multicast!
+       |  |  |  |  |  +--rw cluster?    uint8
+       |  |  |  |  |  +--rw priority
+       |  |  |  |  |     +--rw mc-pri* [mc-pri]
+       |  |  |  |  |        +--rw mc-pri     uint8
+       |  |  |  |  |        +--rw cluster?   uint8
+       |  |  |  |  +--rw priority
+       |  |  |  |     +--rw nhs-pri* [nhs-pri]
+       |  |  |  |        +--rw nhs-pri    uint8
+       |  |  |  |        +--rw cluster?   uint8
+       |  |  |  +--rw ipv6* [ipv6]
+       |  |  |     +--rw ipv6         inet:ipv6-address
+       |  |  |     +--rw cluster?     uint8
+       |  |  |     +--rw multicast!
+       |  |  |     |  +--rw cluster?    uint8
+       |  |  |     |  +--rw priority
+       |  |  |     |     +--rw mc-pri* [mc-pri]
+       |  |  |     |        +--rw mc-pri     uint8
+       |  |  |     |        +--rw cluster?   uint8
+       |  |  |     +--rw priority
+       |  |  |        +--rw mc-prior* [mc-prior]
+       |  |  |           +--rw mc-prior    uint8
+       |  |  |           +--rw cluster?    uint8
+       |  |  +--rw priority
+       |  |     +--rw pri-range* [pri-range]
+       |  |        +--rw pri-range    uint8
+       |  |        +--rw cluster?     uint8
+       |  +--rw cluster
+       |  |  +--rw clus-num* [clus-num]
+       |  |     +--rw clus-num           uint8
+       |  |     +--rw max-connections?   uint8
+       |  +--rw dynamic
+       |  |  +--rw nbma
+       |  |     +--rw ipv4* [ipv4]
+       |  |     |  +--rw ipv4         inet:ipv4-address
+       |  |     |  +--rw cluster?     uint8
+       |  |     |  +--rw multicast!
+       |  |     |  |  +--rw cluster?    uint8
+       |  |     |  |  +--rw priority
+       |  |     |  |     +--rw dyn-pri* [dyn-pri]
+       |  |     |  |        +--rw dyn-pri    uint8
+       |  |     |  |        +--rw cluster?   uint8
+       |  |     |  +--rw priority
+       |  |     |     +--rw n-prior* [n-prior]
+       |  |     |        +--rw n-prior    uint8
+       |  |     |        +--rw cluster?   uint8
+       |  |     +--rw dyn-fqdn* [dyn-fqdn]
+       |  |     |  +--rw dyn-fqdn     string
+       |  |     |  +--rw cluster?     uint8
+       |  |     |  +--rw multicast!
+       |  |     |  |  +--rw cluster?    uint8
+       |  |     |  |  +--rw priority
+       |  |     |  |     +--rw dyn-mc-pri* [dyn-mc-pri]
+       |  |     |  |        +--rw dyn-mc-pri    uint8
+       |  |     |  |        +--rw cluster?      uint8
+       |  |     |  +--rw priority
+       |  |     |     +--rw dp* [dp]
+       |  |     |        +--rw dp         uint8
+       |  |     |        +--rw cluster?   uint8
+       |  |     +--rw ipv6* [ipv6]
+       |  |        +--rw ipv6         inet:ipv6-address
+       |  |        +--rw cluster?     uint8
+       |  |        +--rw multicast!
+       |  |        |  +--rw cluster?    uint8
+       |  |        |  +--rw priority
+       |  |        |     +--rw v6-pri* [v6-pri]
+       |  |        |        +--rw v6-pri     uint8
+       |  |        |        +--rw cluster?   uint8
+       |  |        +--rw priority
+       |  |           +--rw v6-pri2* [v6-pri2]
+       |  |              +--rw v6-pri2    uint8
+       |  |              +--rw cluster?   uint8
+       |  +--rw fallback?   uint8
+       +--rw record?           empty
+       +--rw redirect!
+       |  +--rw timeout?   uint8
+       +--rw registration
+       |  +--rw no-unique?   empty
+       |  +--rw timeout?     uint16
+       +--rw reject
+       |  +--rw reqid* [reqid]
+       |     +--rw reqid       uint16
+       |     +--rw rej-secs?   uint16
+       +--rw responder
+       |  +--rw res-int?             string
+       |  +--rw Analysis-Module?     uint8
+       |  +--rw Fcpa?                uint8
+       |  +--rw SBC?                 uint32
+       |  +--rw SONET_ACR?           uint8
+       |  +--rw TB-controller?       string
+       |  +--rw Service-Engine?      uint8
+       |  +--rw Tunnel?              uint32
+       |  +--rw Tunnel-tp?           uint16
+       |  +--rw VPN?                 uint32
+       |  +--rw Virtual-TokenRing?   uint32
+       |  +--rw VirtualPortGroup?    uint8
+       |  +--rw Vlan?                uint16
+       |  +--rw ucse?                uint8
+       |  +--rw vasileft?            uint16
+       |  +--rw vasiright?           uint16
+       +--rw server-only!
+       |  +--rw non-caching?   empty
+       +--rw shortcut!
+       |  +--rw virtual-template?   uint16
+       +--rw trigger-svc
+       |  +--rw kbps* [kbps]
+       |     +--rw kbps         uint32
+       |     +--rw tear-kbps?   uint32
+       +--rw use?              uint16
+
+  grouping config-interface-nhrp-grouping
+    +-- nhrp
+       +-- attribute
+       |  +-- set
+       |     +-- attr-type* [attr-type]
+       |        +-- attr-type?   string
+       |        +-- attr-val?    string
+       +-- authentication?   string
+       +-- cache
+       |  +-- non-authoritative?   empty
+       +-- connect?          uint16
+       +-- group?            string
+       +-- holdtime?         uint16
+       +-- interest
+       |  +-- acl-range?   uint8
+       |  +-- none?        empty
+       +-- map
+       |  +-- dest-ipv4* [dest-ipv4]
+       |  |  +-- dest-ipv4?   inet:ipv4-address
+       |  |  +-- nbma-ipv4* [nbma-ipv4]
+       |  |  |  +-- nbma-ipv4?   inet:ipv4-address
+       |  |  |  +-- ipv4?        inet:ipv4-address
+       |  |  |  +-- ipv6?        inet:ipv6-address
+       |  |  +-- dest-mask* [dest-mask]
+       |  |  |  +-- dest-mask?   inet:ipv4-address
+       |  |  |  +-- ipv4?        inet:ipv4-address
+       |  |  |  +-- ipv6?        inet:ipv6-address
+       |  |  +-- nbma-ipv6?   inet:ipv6-address
+       |  +-- multicast
+       |  |  +-- nbma_ipv4*   inet:ipv4-address
+       |  |  +-- nbma_ipv6*   inet:ipv6-address
+       |  |  +-- dynamic?     empty
+       |  +-- group* [name]
+       |     +-- name?             string
+       |     +-- service-policy
+       |        +-- output?   string
+       +-- max-send
+       |  +-- pkt-count* [pkt-count]
+       |     +-- pkt-count?   uint16
+       |     +-- every?       uint16
+       +-- network-id?       uint32
+       +-- nhs
+       |  +-- ipv4* [ipv4]
+       |  |  +-- ipv4?       inet:ipv4-address
+       |  |  +-- cluster?    uint8
+       |  |  +-- nbma
+       |  |  |  +-- ipv4* [ipv4]
+       |  |  |  |  +-- ipv4?        inet:ipv4-address
+       |  |  |  |  +-- cluster?     uint8
+       |  |  |  |  +-- multicast!
+       |  |  |  |  |  +-- cluster?    uint8
+       |  |  |  |  |  +-- priority
+       |  |  |  |  |     +-- prior* [prior]
+       |  |  |  |  |        +-- prior?     uint8
+       |  |  |  |  |        +-- cluster?   uint8
+       |  |  |  |  +-- priority
+       |  |  |  |     +-- pri* [pri]
+       |  |  |  |        +-- pri?       uint8
+       |  |  |  |        +-- cluster?   uint8
+       |  |  |  +-- nhs-fqdn* [nhs-fqdn]
+       |  |  |  |  +-- nhs-fqdn?    string
+       |  |  |  |  +-- cluster?     uint8
+       |  |  |  |  +-- multicast!
+       |  |  |  |  |  +-- cluster?    uint8
+       |  |  |  |  |  +-- priority
+       |  |  |  |  |     +-- mc-pri* [mc-pri]
+       |  |  |  |  |        +-- mc-pri?    uint8
+       |  |  |  |  |        +-- cluster?   uint8
+       |  |  |  |  +-- priority
+       |  |  |  |     +-- nhs-pri* [nhs-pri]
+       |  |  |  |        +-- nhs-pri?   uint8
+       |  |  |  |        +-- cluster?   uint8
+       |  |  |  +-- ipv6* [ipv6]
+       |  |  |     +-- ipv6?        inet:ipv6-address
+       |  |  |     +-- cluster?     uint8
+       |  |  |     +-- multicast!
+       |  |  |     |  +-- cluster?    uint8
+       |  |  |     |  +-- priority
+       |  |  |     |     +-- mc-pri* [mc-pri]
+       |  |  |     |        +-- mc-pri?    uint8
+       |  |  |     |        +-- cluster?   uint8
+       |  |  |     +-- priority
+       |  |  |        +-- mc-prior* [mc-prior]
+       |  |  |           +-- mc-prior?   uint8
+       |  |  |           +-- cluster?    uint8
+       |  |  +-- priority
+       |  |     +-- pri-range* [pri-range]
+       |  |        +-- pri-range?   uint8
+       |  |        +-- cluster?     uint8
+       |  +-- cluster
+       |  |  +-- clus-num* [clus-num]
+       |  |     +-- clus-num?          uint8
+       |  |     +-- max-connections?   uint8
+       |  +-- dynamic
+       |  |  +-- nbma
+       |  |     +-- ipv4* [ipv4]
+       |  |     |  +-- ipv4?        inet:ipv4-address
+       |  |     |  +-- cluster?     uint8
+       |  |     |  +-- multicast!
+       |  |     |  |  +-- cluster?    uint8
+       |  |     |  |  +-- priority
+       |  |     |  |     +-- dyn-pri* [dyn-pri]
+       |  |     |  |        +-- dyn-pri?   uint8
+       |  |     |  |        +-- cluster?   uint8
+       |  |     |  +-- priority
+       |  |     |     +-- n-prior* [n-prior]
+       |  |     |        +-- n-prior?   uint8
+       |  |     |        +-- cluster?   uint8
+       |  |     +-- dyn-fqdn* [dyn-fqdn]
+       |  |     |  +-- dyn-fqdn?    string
+       |  |     |  +-- cluster?     uint8
+       |  |     |  +-- multicast!
+       |  |     |  |  +-- cluster?    uint8
+       |  |     |  |  +-- priority
+       |  |     |  |     +-- dyn-mc-pri* [dyn-mc-pri]
+       |  |     |  |        +-- dyn-mc-pri?   uint8
+       |  |     |  |        +-- cluster?      uint8
+       |  |     |  +-- priority
+       |  |     |     +-- dp* [dp]
+       |  |     |        +-- dp?        uint8
+       |  |     |        +-- cluster?   uint8
+       |  |     +-- ipv6* [ipv6]
+       |  |        +-- ipv6?        inet:ipv6-address
+       |  |        +-- cluster?     uint8
+       |  |        +-- multicast!
+       |  |        |  +-- cluster?    uint8
+       |  |        |  +-- priority
+       |  |        |     +-- v6-pri* [v6-pri]
+       |  |        |        +-- v6-pri?    uint8
+       |  |        |        +-- cluster?   uint8
+       |  |        +-- priority
+       |  |           +-- v6-pri2* [v6-pri2]
+       |  |              +-- v6-pri2?   uint8
+       |  |              +-- cluster?   uint8
+       |  +-- fallback?   uint8
+       +-- record?           empty
+       +-- redirect!
+       |  +-- timeout?   uint8
+       +-- registration
+       |  +-- no-unique?   empty
+       |  +-- timeout?     uint16
+       +-- reject
+       |  +-- reqid* [reqid]
+       |     +-- reqid?      uint16
+       |     +-- rej-secs?   uint16
+       +-- responder
+       |  +-- res-int?             string
+       |  +-- Analysis-Module?     uint8
+       |  +-- Fcpa?                uint8
+       |  +-- SBC?                 uint32
+       |  +-- SONET_ACR?           uint8
+       |  +-- TB-controller?       string
+       |  +-- Service-Engine?      uint8
+       |  +-- Tunnel?              uint32
+       |  +-- Tunnel-tp?           uint16
+       |  +-- VPN?                 uint32
+       |  +-- Virtual-TokenRing?   uint32
+       |  +-- VirtualPortGroup?    uint8
+       |  +-- Vlan?                uint16
+       |  +-- ucse?                uint8
+       |  +-- vasileft?            uint16
+       |  +-- vasiright?           uint16
+       +-- server-only!
+       |  +-- non-caching?   empty
+       +-- shortcut!
+       |  +-- virtual-template?   uint16
+       +-- trigger-svc
+       |  +-- kbps* [kbps]
+       |     +-- kbps?        uint32
+       |     +-- tear-kbps?   uint32
+       +-- use?              uint16

@@ -1,0 +1,563 @@
+
+module: Cisco-IOS-XE-cts
+  augment /ios:native/ios:cts:
+    +--rw cache
+    |  +--rw enable?       empty
+    |  +--rw nv-storage
+    |     +--rw nv-storage?   enumeration
+    +--rw critical-authentication-conf?   empty
+    +--rw critical-authentication!
+    |  +--rw default
+    |  |  +--rw peer-sgt
+    |  |  |  +--rw range* [range]
+    |  |  |     +--rw range      uint16
+    |  |  |     +--rw trusted?   empty
+    |  |  +--rw pmk
+    |  |     +--rw type?     enumeration
+    |  |     +--rw secret?   string
+    |  +--rw fallback
+    |     +--rw Cached?    empty
+    |     +--rw default?   empty
+    +--rw authorization
+    |  +--rw list?   string
+    +--rw dot1x-server-timeout?           uint16
+    +--rw dot1x-supp-timeout?             uint16
+    +--rw logging?                        enumeration
+    +--rw role-based
+    |  +--rw sgt-caching?         empty
+    |  +--rw permissions
+    |  |  +--rw default
+    |  |  |  +--rw name?   string
+    |  |  +--rw from
+    |  |     +--rw range* [range]
+    |  |        +--rw range    uint16
+    |  |        +--rw to
+    |  |           +--rw range* [range]
+    |  |              +--rw range    uint16
+    |  |              +--rw name?    string
+    |  +--rw enforcement!
+    |  |  +--rw logging-interval?   uint32
+    |  |  +--rw vlan-list* [id]
+    |  |     +--rw id    union
+    |  +--rw sgt-map* [ip sgt]
+    |  |  +--rw ip      union
+    |  |  +--rw sgt     uint16
+    |  |  +--rw vrf?    string
+    |  |  +--rw host?   empty
+    |  +--rw sgt-map-vlan-list
+    |     +--rw sgt-map* [vlan-list]
+    |        +--rw vlan-list    union
+    |        +--rw sgt?         int16
+    +--rw server
+    |  +--rw deadtime?       uint32
+    |  +--rw key-wrap
+    |  |  +--rw enable?   empty
+    |  +--rw load-balance
+    |  |  +--rw method
+    |  |     +--rw least-outstanding!
+    |  |        +--rw batch-size?                uint32
+    |  |        +--rw ignore-preferred-server?   empty
+    |  +--rw test
+    |     +--rw server* [ip]
+    |     |  +--rw ip           inet:ipv4-address
+    |     |  +--rw deadtime?    uint32
+    |     |  +--rw enable?      boolean
+    |     |  +--rw idle-time?   uint32
+    |     +--rw all
+    |        +--rw deadtime?    uint32
+    |        +--rw enable?      boolean
+    |        +--rw idle-time?   uint32
+    +--rw sgt?                            uint16
+    +--rw sxp
+       +--rw default
+       |  +--rw password
+       |  |  +--rw type?     enumeration
+       |  |  +--rw secret?   string
+       |  +--rw source-ip?   inet:ipv4-address
+       +--rw connection
+       |  +--rw peer
+       |     +--rw ipv4* [ipv4]
+       |        +--rw ipv4        inet:ipv4-address
+       |        +--rw source
+       |        |  +--rw ipv4* [ipv4]
+       |        |     +--rw ipv4        inet:ipv4-address
+       |        |     +--rw password* [password-type]
+       |        |        +--rw password-type    enumeration
+       |        |        +--rw mode
+       |        |           +--rw local!
+       |        |           |  +--rw both!
+       |        |           |  |  +--rw vrf?   string
+       |        |           |  +--rw listener!
+       |        |           |  |  +--rw hold-time
+       |        |           |  |  |  +--rw min-time?   uint16
+       |        |           |  |  |  +--rw max-time?   uint16
+       |        |           |  |  |  +--rw vrf?        string
+       |        |           |  |  +--rw vrf?         string
+       |        |           |  +--rw speaker!
+       |        |           |     +--rw hold-time
+       |        |           |     |  +--rw min-time?   uint16
+       |        |           |     |  +--rw vrf?        string
+       |        |           |     +--rw vrf?         string
+       |        |           +--rw peer!
+       |        |              +--rw both!
+       |        |              |  +--rw vrf?   string
+       |        |              +--rw listener!
+       |        |              |  +--rw hold-time
+       |        |              |  |  +--rw min-time?   uint16
+       |        |              |  |  +--rw vrf?        string
+       |        |              |  +--rw vrf?         string
+       |        |              +--rw speaker!
+       |        |                 +--rw hold-time
+       |        |                 |  +--rw min-time?   uint16
+       |        |                 |  +--rw max-time?   uint16
+       |        |                 |  +--rw vrf?        string
+       |        |                 +--rw vrf?         string
+       |        +--rw password* [password-type]
+       |           +--rw password-type    enumeration
+       |           +--rw mode
+       |              +--rw local!
+       |              |  +--rw both!
+       |              |  |  +--rw vrf?   string
+       |              |  +--rw listener!
+       |              |  |  +--rw hold-time
+       |              |  |  |  +--rw min-time?   uint16
+       |              |  |  |  +--rw max-time?   uint16
+       |              |  |  |  +--rw vrf?        string
+       |              |  |  +--rw vrf?         string
+       |              |  +--rw speaker!
+       |              |     +--rw hold-time
+       |              |     |  +--rw min-time?   uint16
+       |              |     |  +--rw vrf?        string
+       |              |     +--rw vrf?         string
+       |              +--rw peer!
+       |                 +--rw both!
+       |                 |  +--rw vrf?   string
+       |                 +--rw listener!
+       |                 |  +--rw hold-time
+       |                 |  |  +--rw min-time?   uint16
+       |                 |  |  +--rw vrf?        string
+       |                 |  +--rw vrf?         string
+       |                 +--rw speaker!
+       |                    +--rw hold-time
+       |                    |  +--rw min-time?   uint16
+       |                    |  +--rw max-time?   uint16
+       |                    |  +--rw vrf?        string
+       |                    +--rw vrf?         string
+       +--rw enable?       empty
+  augment /ios:native/ios:interface/ios:FastEthernet:
+    +--rw cts
+       +--rw manual!
+          +--rw policy
+          |  +--rw static
+          |     +--rw sgt?       uint16
+          |     +--rw trusted?   empty
+          +--rw sap
+          |  +--rw pmk* [word]
+          |     +--rw word         string
+          |     +--rw mode-list
+          |        +--rw gcm-encrypt!
+          |        |  +--rw gmac!
+          |        |     +--rw null?   empty
+          |        +--rw no-encap!
+          |           +--rw gmac!
+          |              +--rw gcm-encrypt?   empty
+          +--rw propagate
+             +--rw sgt?   boolean
+  augment /ios:native/ios:interface/ios:GigabitEthernet:
+    +--rw cts
+       +--rw manual!
+          +--rw policy
+          |  +--rw static
+          |     +--rw sgt?       uint16
+          |     +--rw trusted?   empty
+          +--rw sap
+          |  +--rw pmk* [word]
+          |     +--rw word         string
+          |     +--rw mode-list
+          |        +--rw gcm-encrypt!
+          |        |  +--rw gmac!
+          |        |     +--rw null?   empty
+          |        +--rw no-encap!
+          |           +--rw gmac!
+          |              +--rw gcm-encrypt?   empty
+          +--rw propagate
+             +--rw sgt?   boolean
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet:
+    +--rw cts
+       +--rw manual!
+          +--rw policy
+          |  +--rw static
+          |     +--rw sgt?       uint16
+          |     +--rw trusted?   empty
+          +--rw sap
+          |  +--rw pmk* [word]
+          |     +--rw word         string
+          |     +--rw mode-list
+          |        +--rw gcm-encrypt!
+          |        |  +--rw gmac!
+          |        |     +--rw null?   empty
+          |        +--rw no-encap!
+          |           +--rw gmac!
+          |              +--rw gcm-encrypt?   empty
+          +--rw propagate
+             +--rw sgt?   boolean
+  augment /ios:native/ios:interface/ios:Loopback:
+    +--rw cts
+       +--rw manual!
+          +--rw policy
+          |  +--rw static
+          |     +--rw sgt?       uint16
+          |     +--rw trusted?   empty
+          +--rw sap
+          |  +--rw pmk* [word]
+          |     +--rw word         string
+          |     +--rw mode-list
+          |        +--rw gcm-encrypt!
+          |        |  +--rw gmac!
+          |        |     +--rw null?   empty
+          |        +--rw no-encap!
+          |           +--rw gmac!
+          |              +--rw gcm-encrypt?   empty
+          +--rw propagate
+             +--rw sgt?   boolean
+  augment /ios:native/ios:interface/ios:Tunnel:
+    +--rw cts
+       +--rw manual!
+          +--rw policy
+          |  +--rw static
+          |     +--rw sgt?       uint16
+          |     +--rw trusted?   empty
+          +--rw sap
+          |  +--rw pmk* [word]
+          |     +--rw word         string
+          |     +--rw mode-list
+          |        +--rw gcm-encrypt!
+          |        |  +--rw gmac!
+          |        |     +--rw null?   empty
+          |        +--rw no-encap!
+          |           +--rw gmac!
+          |              +--rw gcm-encrypt?   empty
+          +--rw propagate
+             +--rw sgt?   boolean
+  augment /ios:native/ios:interface/ios:Port-channel:
+    +--rw cts
+       +--rw manual!
+          +--rw policy
+          |  +--rw static
+          |     +--rw sgt?       uint16
+          |     +--rw trusted?   empty
+          +--rw sap
+          |  +--rw pmk* [word]
+          |     +--rw word         string
+          |     +--rw mode-list
+          |        +--rw gcm-encrypt!
+          |        |  +--rw gmac!
+          |        |     +--rw null?   empty
+          |        +--rw no-encap!
+          |           +--rw gmac!
+          |              +--rw gcm-encrypt?   empty
+          +--rw propagate
+             +--rw sgt?   boolean
+  augment /ios:native/ios:interface/ios:Virtual-Template:
+    +--rw cts
+       +--rw manual!
+          +--rw policy
+          |  +--rw static
+          |     +--rw sgt?       uint16
+          |     +--rw trusted?   empty
+          +--rw sap
+          |  +--rw pmk* [word]
+          |     +--rw word         string
+          |     +--rw mode-list
+          |        +--rw gcm-encrypt!
+          |        |  +--rw gmac!
+          |        |     +--rw null?   empty
+          |        +--rw no-encap!
+          |           +--rw gmac!
+          |              +--rw gcm-encrypt?   empty
+          +--rw propagate
+             +--rw sgt?   boolean
+  augment /ios:native/ios:interface/ios:VirtualPortGroup:
+    +--rw cts
+       +--rw manual!
+          +--rw policy
+          |  +--rw static
+          |     +--rw sgt?       uint16
+          |     +--rw trusted?   empty
+          +--rw sap
+          |  +--rw pmk* [word]
+          |     +--rw word         string
+          |     +--rw mode-list
+          |        +--rw gcm-encrypt!
+          |        |  +--rw gmac!
+          |        |     +--rw null?   empty
+          |        +--rw no-encap!
+          |           +--rw gmac!
+          |              +--rw gcm-encrypt?   empty
+          +--rw propagate
+             +--rw sgt?   boolean
+  augment /ios:native/ios:interface/ios:Vlan:
+    +--rw cts
+       +--rw manual!
+          +--rw policy
+          |  +--rw static
+          |     +--rw sgt?       uint16
+          |     +--rw trusted?   empty
+          +--rw sap
+          |  +--rw pmk* [word]
+          |     +--rw word         string
+          |     +--rw mode-list
+          |        +--rw gcm-encrypt!
+          |        |  +--rw gmac!
+          |        |     +--rw null?   empty
+          |        +--rw no-encap!
+          |           +--rw gmac!
+          |              +--rw gcm-encrypt?   empty
+          +--rw propagate
+             +--rw sgt?   boolean
+
+  grouping cts-server-grouping
+    +-- deadtime?    uint32
+    +-- enable?      boolean
+    +-- idle-time?   uint32
+  grouping connection-vrf-grouping
+    +-- vrf?   string
+  grouping cts-sxp-connection-mode-both-grouping
+    +-- both!
+       +-- vrf?   string
+  grouping cts-sxp-connection-holdtime-min-grouping
+    +-- hold-time
+    |  +-- min-time?   uint16
+    |  +-- vrf?        string
+    +-- vrf?         string
+  grouping cts-sxp-connection-holdtime-min-max-grouping
+    +-- hold-time
+    |  +-- min-time?   uint16
+    |  +-- max-time?   uint16
+    |  +-- vrf?        string
+    +-- vrf?         string
+  grouping cts-sxp-connection-mode-local-grouping
+    +-- local!
+       +-- both!
+       |  +-- vrf?   string
+       +-- listener!
+       |  +-- hold-time
+       |  |  +-- min-time?   uint16
+       |  |  +-- max-time?   uint16
+       |  |  +-- vrf?        string
+       |  +-- vrf?         string
+       +-- speaker!
+          +-- hold-time
+          |  +-- min-time?   uint16
+          |  +-- vrf?        string
+          +-- vrf?         string
+  grouping cts-sxp-connection-mode-peer-grouping
+    +-- peer!
+       +-- both!
+       |  +-- vrf?   string
+       +-- listener!
+       |  +-- hold-time
+       |  |  +-- min-time?   uint16
+       |  |  +-- vrf?        string
+       |  +-- vrf?         string
+       +-- speaker!
+          +-- hold-time
+          |  +-- min-time?   uint16
+          |  +-- max-time?   uint16
+          |  +-- vrf?        string
+          +-- vrf?         string
+  grouping cts-sxp-connection-peer-password-grouping
+    +-- password* [password-type]
+       +-- password-type?   enumeration
+       +-- mode
+          +-- local!
+          |  +-- both!
+          |  |  +-- vrf?   string
+          |  +-- listener!
+          |  |  +-- hold-time
+          |  |  |  +-- min-time?   uint16
+          |  |  |  +-- max-time?   uint16
+          |  |  |  +-- vrf?        string
+          |  |  +-- vrf?         string
+          |  +-- speaker!
+          |     +-- hold-time
+          |     |  +-- min-time?   uint16
+          |     |  +-- vrf?        string
+          |     +-- vrf?         string
+          +-- peer!
+             +-- both!
+             |  +-- vrf?   string
+             +-- listener!
+             |  +-- hold-time
+             |  |  +-- min-time?   uint16
+             |  |  +-- vrf?        string
+             |  +-- vrf?         string
+             +-- speaker!
+                +-- hold-time
+                |  +-- min-time?   uint16
+                |  +-- max-time?   uint16
+                |  +-- vrf?        string
+                +-- vrf?         string
+  grouping config-cts-grouping
+    +-- cache
+    |  +-- enable?       empty
+    |  +-- nv-storage
+    |     +-- nv-storage?   enumeration
+    +-- critical-authentication-conf?   empty
+    +-- critical-authentication!
+    |  +-- default
+    |  |  +-- peer-sgt
+    |  |  |  +-- range* [range]
+    |  |  |     +-- range?     uint16
+    |  |  |     +-- trusted?   empty
+    |  |  +-- pmk
+    |  |     +-- type?     enumeration
+    |  |     +-- secret?   string
+    |  +-- fallback
+    |     +-- Cached?    empty
+    |     +-- default?   empty
+    +-- authorization
+    |  +-- list?   string
+    +-- dot1x-server-timeout?           uint16
+    +-- dot1x-supp-timeout?             uint16
+    +-- logging?                        enumeration
+    +-- role-based
+    |  +-- sgt-caching?         empty
+    |  +-- permissions
+    |  |  +-- default
+    |  |  |  +-- name?   string
+    |  |  +-- from
+    |  |     +-- range* [range]
+    |  |        +-- range?   uint16
+    |  |        +-- to
+    |  |           +-- range* [range]
+    |  |              +-- range?   uint16
+    |  |              +-- name?    string
+    |  +-- enforcement!
+    |  |  +-- logging-interval?   uint32
+    |  |  +-- vlan-list* [id]
+    |  |     +-- id?   union
+    |  +-- sgt-map* [ip sgt]
+    |  |  +-- ip?     union
+    |  |  +-- sgt?    uint16
+    |  |  +-- vrf?    string
+    |  |  +-- host?   empty
+    |  +-- sgt-map-vlan-list
+    |     +-- sgt-map* [vlan-list]
+    |        +-- vlan-list?   union
+    |        +-- sgt?         int16
+    +-- server
+    |  +-- deadtime?       uint32
+    |  +-- key-wrap
+    |  |  +-- enable?   empty
+    |  +-- load-balance
+    |  |  +-- method
+    |  |     +-- least-outstanding!
+    |  |        +-- batch-size?                uint32
+    |  |        +-- ignore-preferred-server?   empty
+    |  +-- test
+    |     +-- server* [ip]
+    |     |  +-- ip?          inet:ipv4-address
+    |     |  +-- deadtime?    uint32
+    |     |  +-- enable?      boolean
+    |     |  +-- idle-time?   uint32
+    |     +-- all
+    |        +-- deadtime?    uint32
+    |        +-- enable?      boolean
+    |        +-- idle-time?   uint32
+    +-- sgt?                            uint16
+    +-- sxp
+       +-- default
+       |  +-- password
+       |  |  +-- type?     enumeration
+       |  |  +-- secret?   string
+       |  +-- source-ip?   inet:ipv4-address
+       +-- connection
+       |  +-- peer
+       |     +-- ipv4* [ipv4]
+       |        +-- ipv4?       inet:ipv4-address
+       |        +-- source
+       |        |  +-- ipv4* [ipv4]
+       |        |     +-- ipv4?       inet:ipv4-address
+       |        |     +-- password* [password-type]
+       |        |        +-- password-type?   enumeration
+       |        |        +-- mode
+       |        |           +-- local!
+       |        |           |  +-- both!
+       |        |           |  |  +-- vrf?   string
+       |        |           |  +-- listener!
+       |        |           |  |  +-- hold-time
+       |        |           |  |  |  +-- min-time?   uint16
+       |        |           |  |  |  +-- max-time?   uint16
+       |        |           |  |  |  +-- vrf?        string
+       |        |           |  |  +-- vrf?         string
+       |        |           |  +-- speaker!
+       |        |           |     +-- hold-time
+       |        |           |     |  +-- min-time?   uint16
+       |        |           |     |  +-- vrf?        string
+       |        |           |     +-- vrf?         string
+       |        |           +-- peer!
+       |        |              +-- both!
+       |        |              |  +-- vrf?   string
+       |        |              +-- listener!
+       |        |              |  +-- hold-time
+       |        |              |  |  +-- min-time?   uint16
+       |        |              |  |  +-- vrf?        string
+       |        |              |  +-- vrf?         string
+       |        |              +-- speaker!
+       |        |                 +-- hold-time
+       |        |                 |  +-- min-time?   uint16
+       |        |                 |  +-- max-time?   uint16
+       |        |                 |  +-- vrf?        string
+       |        |                 +-- vrf?         string
+       |        +-- password* [password-type]
+       |           +-- password-type?   enumeration
+       |           +-- mode
+       |              +-- local!
+       |              |  +-- both!
+       |              |  |  +-- vrf?   string
+       |              |  +-- listener!
+       |              |  |  +-- hold-time
+       |              |  |  |  +-- min-time?   uint16
+       |              |  |  |  +-- max-time?   uint16
+       |              |  |  |  +-- vrf?        string
+       |              |  |  +-- vrf?         string
+       |              |  +-- speaker!
+       |              |     +-- hold-time
+       |              |     |  +-- min-time?   uint16
+       |              |     |  +-- vrf?        string
+       |              |     +-- vrf?         string
+       |              +-- peer!
+       |                 +-- both!
+       |                 |  +-- vrf?   string
+       |                 +-- listener!
+       |                 |  +-- hold-time
+       |                 |  |  +-- min-time?   uint16
+       |                 |  |  +-- vrf?        string
+       |                 |  +-- vrf?         string
+       |                 +-- speaker!
+       |                    +-- hold-time
+       |                    |  +-- min-time?   uint16
+       |                    |  +-- max-time?   uint16
+       |                    |  +-- vrf?        string
+       |                    +-- vrf?         string
+       +-- enable?       empty
+  grouping config-interface-cts-grouping
+    +-- cts
+       +-- manual!
+          +-- policy
+          |  +-- static
+          |     +-- sgt?       uint16
+          |     +-- trusted?   empty
+          +-- sap
+          |  +-- pmk* [word]
+          |     +-- word?        string
+          |     +-- mode-list
+          |        +-- gcm-encrypt!
+          |        |  +-- gmac!
+          |        |     +-- null?   empty
+          |        +-- no-encap!
+          |           +-- gmac!
+          |              +-- gcm-encrypt?   empty
+          +-- propagate
+             +-- sgt?   boolean

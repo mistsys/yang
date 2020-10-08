@@ -1,0 +1,35 @@
+
+module: openconfig-if-aggregate
+  augment /oc-if:interfaces/oc-if:interface:
+    +--rw aggregation
+       +--rw config
+       |  +--rw lag-type?    aggregation-type
+       |  +--rw min-links?   uint16
+       +--ro state
+          +--ro lag-type?    aggregation-type
+          +--ro min-links?   uint16
+          +--ro lag-speed?   uint32
+          +--ro member*      oc-if:base-interface-ref
+  augment /oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:config:
+    +--rw aggregate-id?   -> /oc-if:interfaces/interface/name
+  augment /oc-if:interfaces/oc-if:interface/oc-eth:ethernet/oc-eth:state:
+    +--ro aggregate-id?   -> /oc-if:interfaces/interface/name
+
+  grouping aggregation-logical-config
+    +-- lag-type?    aggregation-type
+    +-- min-links?   uint16
+  grouping aggregation-logical-state
+    +-- lag-speed?   uint32
+    +-- member*      oc-if:base-interface-ref
+  grouping aggregation-logical-top
+    +-- aggregation
+       +-- config
+       |  +-- lag-type?    aggregation-type
+       |  +-- min-links?   uint16
+       +--ro state
+          +--ro lag-type?    aggregation-type
+          +--ro min-links?   uint16
+          +--ro lag-speed?   uint32
+          +--ro member*      oc-if:base-interface-ref
+  grouping ethernet-if-aggregation-config
+    +-- aggregate-id?   -> /oc-if:interfaces/interface/name

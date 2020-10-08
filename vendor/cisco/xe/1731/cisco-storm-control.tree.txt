@@ -1,0 +1,18 @@
+module: cisco-storm-control
+
+  grouping traffic-threshold-config
+    +-- value    uint32
+    +-- unit     enumeration
+  grouping storm-control-config
+    +-- storm-control
+       +-- thresholds* [traffic-class]
+       |  +-- traffic-class?   cbridge:eth-traffic-class
+       |  +-- value            uint32
+       |  +-- unit             enumeration
+       +-- action?       identityref {configurable-storm-control-actions}?
+  grouping storm-control-stats
+    +-- storm-control
+       +-- drop-counter* [traffic-class]
+          +-- traffic-class?   cbridge:eth-traffic-class
+          +-- packet-drops?    yang:counter64
+          +-- octate-drops?    yang:counter64

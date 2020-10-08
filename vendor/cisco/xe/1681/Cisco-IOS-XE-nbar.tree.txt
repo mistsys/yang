@@ -1,0 +1,922 @@
+
+module: Cisco-IOS-XE-nbar
+  augment /ios:native/ios:ip:
+    +--rw nbar
+       +--rw attribute
+       |  +--rw application-group
+       |  |  +--rw custom* [name]
+       |  |     +--rw name    string
+       |  |     +--rw help?   string
+       |  +--rw application-set
+       |  |  +--rw custom* [name]
+       |  |     +--rw name    string
+       |  |     +--rw help?   string
+       |  +--rw category
+       |  |  +--rw custom* [name]
+       |  |     +--rw name    string
+       |  |     +--rw help?   string
+       |  +--rw sub-category
+       |     +--rw custom* [name]
+       |        +--rw name    string
+       |        +--rw help?   string
+       +--rw attribute-map* [name]
+       |  +--rw name         string
+       |  +--rw attribute
+       |     +--rw application-group?    string
+       |     +--rw application-set?      string
+       |     +--rw business-relevance?   string
+       |     +--rw category?             string
+       |     +--rw encrypted?            string
+       |     +--rw sub-category?         string
+       |     +--rw traffic-class?        string
+       |     +--rw tunnel?               string
+       +--rw attribute-set* [protocol-name]
+       |  +--rw protocol-name    string
+       |  +--rw profile-name?    string
+       +--rw classification
+       |  +--rw auto-learn!
+       |  |  +--rw top-asymmetric-socket?   empty
+       |  |  +--rw top-hosts!
+       |  |  |  +--rw sample-rate?   uint16
+       |  |  +--rw top-ports!
+       |  |     +--rw sample-rate?   uint16
+       |  +--rw dns
+       |  |  +--rw classify-by-domain?   empty
+       |  |  +--rw learning!
+       |  |     +--rw guard?   empty
+       |  +--rw granularity
+       |  |  +--rw coarse-grain?   empty
+       |  |  +--rw fine-grain!
+       |  |     +--rw attribute
+       |  |     |  +--rw application-group* [name]
+       |  |     |  |  +--rw name    string
+       |  |     |  +--rw application-set* [name]
+       |  |     |  |  +--rw name    string
+       |  |     |  +--rw business-relevance* [name]
+       |  |     |  |  +--rw name    string
+       |  |     |  +--rw category* [name]
+       |  |     |  |  +--rw name    string
+       |  |     |  +--rw encrypted* [name]
+       |  |     |  |  +--rw name    string
+       |  |     |  +--rw sub-category* [name]
+       |  |     |  |  +--rw name    string
+       |  |     |  +--rw traffic-class* [name]
+       |  |     |  |  +--rw name    string
+       |  |     |  +--rw tunnel* [name]
+       |  |     |     +--rw name    string
+       |  |     +--rw protocol
+       |  |        +--rw protocols-list* [name]
+       |  |           +--rw name    string
+       |  +--rw tunneled-traffic
+       |     +--rw capwap?     empty
+       |     +--rw ipv6inip?   empty
+       |     +--rw teredo?     empty
+       +--rw custom* [name]
+       |  +--rw name         string
+       |  +--rw composite
+       |  |  +--rw server-name* [name]
+       |  |     +--rw name       string
+       |  |     +--rw id?        uint16
+       |  |     +--rw extends?   string
+       |  +--rw dns
+       |  |  +--rw domain-name* [name]
+       |  |     +--rw name       string
+       |  |     +--rw id?        uint16
+       |  |     +--rw extends?   string
+       |  +--rw http
+       |  |  +--rw cookie?             string
+       |  |  +--rw host?               string
+       |  |  +--rw method?             string
+       |  |  +--rw referer?            string
+       |  |  +--rw (http-uv)?
+       |  |  |  +--:(url-case)
+       |  |  |  |  +--rw url?          string
+       |  |  |  +--:(user-agent-case)
+       |  |  |  |  +--rw user-agent?   string
+       |  |  |  +--:(version-case)
+       |  |  |  |  +--rw version?      string
+       |  |  |  +--:(via-case)
+       |  |  |     +--rw via?          string
+       |  |  +--rw id?                 uint16
+       |  +--rw ssl
+       |  |  +--rw unique-name* [name]
+       |  |     +--rw name    string
+       |  |     +--rw id?     uint16
+       |  +--rw transport
+       |  |  +--rw tcp!
+       |  |  |  +--rw id?          uint16
+       |  |  |  +--rw dscp
+       |  |  |  |  +--rw range?     uint8
+       |  |  |  |  +--rw af11?      empty
+       |  |  |  |  +--rw af12?      empty
+       |  |  |  |  +--rw af13?      empty
+       |  |  |  |  +--rw af21?      empty
+       |  |  |  |  +--rw af22?      empty
+       |  |  |  |  +--rw af23?      empty
+       |  |  |  |  +--rw af31?      empty
+       |  |  |  |  +--rw af32?      empty
+       |  |  |  |  +--rw af33?      empty
+       |  |  |  |  +--rw af41?      empty
+       |  |  |  |  +--rw af42?      empty
+       |  |  |  |  +--rw af43?      empty
+       |  |  |  |  +--rw cs1?       empty
+       |  |  |  |  +--rw cs2?       empty
+       |  |  |  |  +--rw cs3?       empty
+       |  |  |  |  +--rw cs4?       empty
+       |  |  |  |  +--rw cs5?       empty
+       |  |  |  |  +--rw cs6?       empty
+       |  |  |  |  +--rw cs7?       empty
+       |  |  |  |  +--rw default?   empty
+       |  |  |  |  +--rw ef?        empty
+       |  |  |  +--rw ip
+       |  |  |  |  +--rw address* [address0]
+       |  |  |  |  |  +--rw address0    inet:ipv4-address
+       |  |  |  |  |  +--rw address1?   inet:ipv4-address
+       |  |  |  |  |  +--rw address2?   inet:ipv4-address
+       |  |  |  |  |  +--rw address3?   inet:ipv4-address
+       |  |  |  |  |  +--rw address4?   inet:ipv4-address
+       |  |  |  |  |  +--rw address5?   inet:ipv4-address
+       |  |  |  |  |  +--rw address6?   inet:ipv4-address
+       |  |  |  |  |  +--rw address7?   inet:ipv4-address
+       |  |  |  |  +--rw subnet
+       |  |  |  |     +--rw subnet?   inet:ipv4-address
+       |  |  |  |     +--rw mask?     uint8
+       |  |  |  +--rw ipv6
+       |  |  |  |  +--rw address* [address0]
+       |  |  |  |  |  +--rw address0    inet:ipv6-address
+       |  |  |  |  |  +--rw address1?   inet:ipv6-address
+       |  |  |  |  |  +--rw address2?   inet:ipv6-address
+       |  |  |  |  |  +--rw address3?   inet:ipv6-address
+       |  |  |  |  |  +--rw address4?   inet:ipv6-address
+       |  |  |  |  |  +--rw address5?   inet:ipv6-address
+       |  |  |  |  |  +--rw address6?   inet:ipv6-address
+       |  |  |  |  |  +--rw address7?   inet:ipv6-address
+       |  |  |  |  +--rw subnet
+       |  |  |  |     +--rw subnet?   inet:ipv6-address
+       |  |  |  |     +--rw mask?     uint8
+       |  |  |  +--rw direction
+       |  |  |  |  +--rw any?           empty
+       |  |  |  |  +--rw destination?   empty
+       |  |  |  |  +--rw source?        empty
+       |  |  |  +--rw port
+       |  |  |     +--rw port-numbers* [port-number0]
+       |  |  |     |  +--rw port-number0    uint16
+       |  |  |     |  +--rw port-number1?   uint16
+       |  |  |     |  +--rw port-number2?   uint16
+       |  |  |     |  +--rw port-number3?   uint16
+       |  |  |     |  +--rw port-number4?   uint16
+       |  |  |     |  +--rw port-number5?   uint16
+       |  |  |     |  +--rw port-number6?   uint16
+       |  |  |     |  +--rw port-number7?   uint16
+       |  |  |     +--rw range
+       |  |  |        +--rw start-range?   uint16
+       |  |  |        +--rw end-range?     uint16
+       |  |  +--rw udp!
+       |  |  |  +--rw id?          uint16
+       |  |  |  +--rw dscp
+       |  |  |  |  +--rw range?     uint8
+       |  |  |  |  +--rw af11?      empty
+       |  |  |  |  +--rw af12?      empty
+       |  |  |  |  +--rw af13?      empty
+       |  |  |  |  +--rw af21?      empty
+       |  |  |  |  +--rw af22?      empty
+       |  |  |  |  +--rw af23?      empty
+       |  |  |  |  +--rw af31?      empty
+       |  |  |  |  +--rw af32?      empty
+       |  |  |  |  +--rw af33?      empty
+       |  |  |  |  +--rw af41?      empty
+       |  |  |  |  +--rw af42?      empty
+       |  |  |  |  +--rw af43?      empty
+       |  |  |  |  +--rw cs1?       empty
+       |  |  |  |  +--rw cs2?       empty
+       |  |  |  |  +--rw cs3?       empty
+       |  |  |  |  +--rw cs4?       empty
+       |  |  |  |  +--rw cs5?       empty
+       |  |  |  |  +--rw cs6?       empty
+       |  |  |  |  +--rw cs7?       empty
+       |  |  |  |  +--rw default?   empty
+       |  |  |  |  +--rw ef?        empty
+       |  |  |  +--rw ip
+       |  |  |  |  +--rw address* [address0]
+       |  |  |  |  |  +--rw address0    inet:ipv4-address
+       |  |  |  |  |  +--rw address1?   inet:ipv4-address
+       |  |  |  |  |  +--rw address2?   inet:ipv4-address
+       |  |  |  |  |  +--rw address3?   inet:ipv4-address
+       |  |  |  |  |  +--rw address4?   inet:ipv4-address
+       |  |  |  |  |  +--rw address5?   inet:ipv4-address
+       |  |  |  |  |  +--rw address6?   inet:ipv4-address
+       |  |  |  |  |  +--rw address7?   inet:ipv4-address
+       |  |  |  |  +--rw subnet
+       |  |  |  |     +--rw subnet?   inet:ipv4-address
+       |  |  |  |     +--rw mask?     uint8
+       |  |  |  +--rw ipv6
+       |  |  |  |  +--rw address* [address0]
+       |  |  |  |  |  +--rw address0    inet:ipv6-address
+       |  |  |  |  |  +--rw address1?   inet:ipv6-address
+       |  |  |  |  |  +--rw address2?   inet:ipv6-address
+       |  |  |  |  |  +--rw address3?   inet:ipv6-address
+       |  |  |  |  |  +--rw address4?   inet:ipv6-address
+       |  |  |  |  |  +--rw address5?   inet:ipv6-address
+       |  |  |  |  |  +--rw address6?   inet:ipv6-address
+       |  |  |  |  |  +--rw address7?   inet:ipv6-address
+       |  |  |  |  +--rw subnet
+       |  |  |  |     +--rw subnet?   inet:ipv6-address
+       |  |  |  |     +--rw mask?     uint8
+       |  |  |  +--rw direction
+       |  |  |  |  +--rw any?           empty
+       |  |  |  |  +--rw destination?   empty
+       |  |  |  |  +--rw source?        empty
+       |  |  |  +--rw port
+       |  |  |     +--rw port-numbers* [port-number0]
+       |  |  |     |  +--rw port-number0    uint16
+       |  |  |     |  +--rw port-number1?   uint16
+       |  |  |     |  +--rw port-number2?   uint16
+       |  |  |     |  +--rw port-number3?   uint16
+       |  |  |     |  +--rw port-number4?   uint16
+       |  |  |     |  +--rw port-number5?   uint16
+       |  |  |     |  +--rw port-number6?   uint16
+       |  |  |     |  +--rw port-number7?   uint16
+       |  |  |     +--rw range
+       |  |  |        +--rw start-range?   uint16
+       |  |  |        +--rw end-range?     uint16
+       |  |  +--rw udp-tcp!
+       |  |     +--rw id?          uint16
+       |  |     +--rw dscp
+       |  |     |  +--rw range?     uint8
+       |  |     |  +--rw af11?      empty
+       |  |     |  +--rw af12?      empty
+       |  |     |  +--rw af13?      empty
+       |  |     |  +--rw af21?      empty
+       |  |     |  +--rw af22?      empty
+       |  |     |  +--rw af23?      empty
+       |  |     |  +--rw af31?      empty
+       |  |     |  +--rw af32?      empty
+       |  |     |  +--rw af33?      empty
+       |  |     |  +--rw af41?      empty
+       |  |     |  +--rw af42?      empty
+       |  |     |  +--rw af43?      empty
+       |  |     |  +--rw cs1?       empty
+       |  |     |  +--rw cs2?       empty
+       |  |     |  +--rw cs3?       empty
+       |  |     |  +--rw cs4?       empty
+       |  |     |  +--rw cs5?       empty
+       |  |     |  +--rw cs6?       empty
+       |  |     |  +--rw cs7?       empty
+       |  |     |  +--rw default?   empty
+       |  |     |  +--rw ef?        empty
+       |  |     +--rw ip
+       |  |     |  +--rw address* [address0]
+       |  |     |  |  +--rw address0    inet:ipv4-address
+       |  |     |  |  +--rw address1?   inet:ipv4-address
+       |  |     |  |  +--rw address2?   inet:ipv4-address
+       |  |     |  |  +--rw address3?   inet:ipv4-address
+       |  |     |  |  +--rw address4?   inet:ipv4-address
+       |  |     |  |  +--rw address5?   inet:ipv4-address
+       |  |     |  |  +--rw address6?   inet:ipv4-address
+       |  |     |  |  +--rw address7?   inet:ipv4-address
+       |  |     |  +--rw subnet
+       |  |     |     +--rw subnet?   inet:ipv4-address
+       |  |     |     +--rw mask?     uint8
+       |  |     +--rw ipv6
+       |  |     |  +--rw address* [address0]
+       |  |     |  |  +--rw address0    inet:ipv6-address
+       |  |     |  |  +--rw address1?   inet:ipv6-address
+       |  |     |  |  +--rw address2?   inet:ipv6-address
+       |  |     |  |  +--rw address3?   inet:ipv6-address
+       |  |     |  |  +--rw address4?   inet:ipv6-address
+       |  |     |  |  +--rw address5?   inet:ipv6-address
+       |  |     |  |  +--rw address6?   inet:ipv6-address
+       |  |     |  |  +--rw address7?   inet:ipv6-address
+       |  |     |  +--rw subnet
+       |  |     |     +--rw subnet?   inet:ipv6-address
+       |  |     |     +--rw mask?     uint8
+       |  |     +--rw direction
+       |  |     |  +--rw any?           empty
+       |  |     |  +--rw destination?   empty
+       |  |     |  +--rw source?        empty
+       |  |     +--rw port
+       |  |        +--rw port-numbers* [port-number0]
+       |  |        |  +--rw port-number0    uint16
+       |  |        |  +--rw port-number1?   uint16
+       |  |        |  +--rw port-number2?   uint16
+       |  |        |  +--rw port-number3?   uint16
+       |  |        |  +--rw port-number4?   uint16
+       |  |        |  +--rw port-number5?   uint16
+       |  |        |  +--rw port-number6?   uint16
+       |  |        |  +--rw port-number7?   uint16
+       |  |        +--rw range
+       |  |           +--rw start-range?   uint16
+       |  |           +--rw end-range?     uint16
+       |  +--rw ip
+       |     +--rw any!
+       |        +--rw id?          uint16
+       |        +--rw dscp
+       |        |  +--rw range?     uint8
+       |        |  +--rw af11?      empty
+       |        |  +--rw af12?      empty
+       |        |  +--rw af13?      empty
+       |        |  +--rw af21?      empty
+       |        |  +--rw af22?      empty
+       |        |  +--rw af23?      empty
+       |        |  +--rw af31?      empty
+       |        |  +--rw af32?      empty
+       |        |  +--rw af33?      empty
+       |        |  +--rw af41?      empty
+       |        |  +--rw af42?      empty
+       |        |  +--rw af43?      empty
+       |        |  +--rw cs1?       empty
+       |        |  +--rw cs2?       empty
+       |        |  +--rw cs3?       empty
+       |        |  +--rw cs4?       empty
+       |        |  +--rw cs5?       empty
+       |        |  +--rw cs6?       empty
+       |        |  +--rw cs7?       empty
+       |        |  +--rw default?   empty
+       |        |  +--rw ef?        empty
+       |        +--rw ip
+       |        |  +--rw address* [address0]
+       |        |  |  +--rw address0    inet:ipv4-address
+       |        |  |  +--rw address1?   inet:ipv4-address
+       |        |  |  +--rw address2?   inet:ipv4-address
+       |        |  |  +--rw address3?   inet:ipv4-address
+       |        |  |  +--rw address4?   inet:ipv4-address
+       |        |  |  +--rw address5?   inet:ipv4-address
+       |        |  |  +--rw address6?   inet:ipv4-address
+       |        |  |  +--rw address7?   inet:ipv4-address
+       |        |  +--rw subnet
+       |        |     +--rw subnet?   inet:ipv4-address
+       |        |     +--rw mask?     uint8
+       |        +--rw ipv6
+       |        |  +--rw address* [address0]
+       |        |  |  +--rw address0    inet:ipv6-address
+       |        |  |  +--rw address1?   inet:ipv6-address
+       |        |  |  +--rw address2?   inet:ipv6-address
+       |        |  |  +--rw address3?   inet:ipv6-address
+       |        |  |  +--rw address4?   inet:ipv6-address
+       |        |  |  +--rw address5?   inet:ipv6-address
+       |        |  |  +--rw address6?   inet:ipv6-address
+       |        |  |  +--rw address7?   inet:ipv6-address
+       |        |  +--rw subnet
+       |        |     +--rw subnet?   inet:ipv6-address
+       |        |     +--rw mask?     uint8
+       |        +--rw direction
+       |        |  +--rw any?           empty
+       |        |  +--rw destination?   empty
+       |        |  +--rw source?        empty
+       |        +--rw port
+       |           +--rw port-numbers* [port-number0]
+       |           |  +--rw port-number0    uint16
+       |           |  +--rw port-number1?   uint16
+       |           |  +--rw port-number2?   uint16
+       |           |  +--rw port-number3?   uint16
+       |           |  +--rw port-number4?   uint16
+       |           |  +--rw port-number5?   uint16
+       |           |  +--rw port-number6?   uint16
+       |           |  +--rw port-number7?   uint16
+       |           +--rw range
+       |              +--rw start-range?   uint16
+       |              +--rw end-range?     uint16
+       +--rw protocol-pack
+       |  +--rw filepath* [filepath]
+       |     +--rw filepath    string
+       |     +--rw force?      empty
+       +--rw http-services?    empty
+  augment /ios:native/ios:interface/ios:FastEthernet/ios:ip:
+    +--rw nbar
+       +--rw protocol-discovery!
+          +--rw ipv4-ipv6?   enumeration
+  augment /ios:native/ios:interface/ios:GigabitEthernet/ios:ip:
+    +--rw nbar
+       +--rw protocol-discovery!
+          +--rw ipv4-ipv6?   enumeration
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet/ios:ip:
+    +--rw nbar
+       +--rw protocol-discovery!
+          +--rw ipv4-ipv6?   enumeration
+  augment /ios:native/ios:interface/ios:FiveGigabitEthernet/ios:ip:
+    +--rw nbar
+       +--rw protocol-discovery!
+          +--rw ipv4-ipv6?   enumeration
+  augment /ios:native/ios:interface/ios:TwentyFiveGigE/ios:ip:
+    +--rw nbar
+       +--rw protocol-discovery!
+          +--rw ipv4-ipv6?   enumeration
+  augment /ios:native/ios:interface/ios:TwoGigabitEthernet/ios:ip:
+    +--rw nbar
+       +--rw protocol-discovery!
+          +--rw ipv4-ipv6?   enumeration
+  augment /ios:native/ios:interface/ios:FortyGigabitEthernet/ios:ip:
+    +--rw nbar
+       +--rw protocol-discovery!
+          +--rw ipv4-ipv6?   enumeration
+  augment /ios:native/ios:interface/ios:HundredGigE/ios:ip:
+    +--rw nbar
+       +--rw protocol-discovery!
+          +--rw ipv4-ipv6?   enumeration
+  augment /ios:native/ios:interface/ios:Port-channel/ios:ip:
+    +--rw nbar
+       +--rw protocol-discovery!
+          +--rw ipv4-ipv6?   enumeration
+  augment /ios:native/ios:interface/ios:Loopback/ios:ip:
+    +--rw nbar
+       +--rw protocol-discovery!
+          +--rw ipv4-ipv6?   enumeration
+  augment /ios:native/ios:interface/ios:Tunnel/ios:ip:
+    +--rw nbar
+       +--rw protocol-discovery!
+          +--rw ipv4-ipv6?   enumeration
+  augment /ios:native/ios:interface/ios:Vlan/ios:ip:
+    +--rw nbar
+       +--rw protocol-discovery!
+          +--rw ipv4-ipv6?   enumeration
+  augment /ios:native/ios:avc:
+    +--rw dns-as
+    |  +--rw client
+    |     +--rw enable?            empty
+    |     +--rw trusted-domains!
+    |        +--rw domain?   string
+    +--rw sd-service!
+       +--rw segment?      string
+       +--rw controller!
+          +--rw address
+          |  +--rw ipv4-or-hostname* [ipv4-or-hostname]
+          |     +--rw ipv4-or-hostname     inet:host
+          |     +--rw ipv4-or-hostname0?   inet:host
+          +--rw destination-ports
+          |  +--rw sensor-exporter?   uint16
+          +--rw dscp?                uint8
+          +--rw vrf?                 string
+
+  grouping config-custom-grouping
+    +-- dscp
+    |  +-- range?     uint8
+    |  +-- af11?      empty
+    |  +-- af12?      empty
+    |  +-- af13?      empty
+    |  +-- af21?      empty
+    |  +-- af22?      empty
+    |  +-- af23?      empty
+    |  +-- af31?      empty
+    |  +-- af32?      empty
+    |  +-- af33?      empty
+    |  +-- af41?      empty
+    |  +-- af42?      empty
+    |  +-- af43?      empty
+    |  +-- cs1?       empty
+    |  +-- cs2?       empty
+    |  +-- cs3?       empty
+    |  +-- cs4?       empty
+    |  +-- cs5?       empty
+    |  +-- cs6?       empty
+    |  +-- cs7?       empty
+    |  +-- default?   empty
+    |  +-- ef?        empty
+    +-- ip
+    |  +-- address* [address0]
+    |  |  +-- address0?   inet:ipv4-address
+    |  |  +-- address1?   inet:ipv4-address
+    |  |  +-- address2?   inet:ipv4-address
+    |  |  +-- address3?   inet:ipv4-address
+    |  |  +-- address4?   inet:ipv4-address
+    |  |  +-- address5?   inet:ipv4-address
+    |  |  +-- address6?   inet:ipv4-address
+    |  |  +-- address7?   inet:ipv4-address
+    |  +-- subnet
+    |     +-- subnet?   inet:ipv4-address
+    |     +-- mask?     uint8
+    +-- ipv6
+    |  +-- address* [address0]
+    |  |  +-- address0?   inet:ipv6-address
+    |  |  +-- address1?   inet:ipv6-address
+    |  |  +-- address2?   inet:ipv6-address
+    |  |  +-- address3?   inet:ipv6-address
+    |  |  +-- address4?   inet:ipv6-address
+    |  |  +-- address5?   inet:ipv6-address
+    |  |  +-- address6?   inet:ipv6-address
+    |  |  +-- address7?   inet:ipv6-address
+    |  +-- subnet
+    |     +-- subnet?   inet:ipv6-address
+    |     +-- mask?     uint8
+    +-- direction
+    |  +-- any?           empty
+    |  +-- destination?   empty
+    |  +-- source?        empty
+    +-- port
+       +-- port-numbers* [port-number0]
+       |  +-- port-number0?   uint16
+       |  +-- port-number1?   uint16
+       |  +-- port-number2?   uint16
+       |  +-- port-number3?   uint16
+       |  +-- port-number4?   uint16
+       |  +-- port-number5?   uint16
+       |  +-- port-number6?   uint16
+       |  +-- port-number7?   uint16
+       +-- range
+          +-- start-range?   uint16
+          +-- end-range?     uint16
+  grouping config-avc-grouping
+    +-- dns-as
+    |  +-- client
+    |     +-- enable?            empty
+    |     +-- trusted-domains!
+    |        +-- domain?   string
+    +-- sd-service!
+       +-- segment?      string
+       +-- controller!
+          +-- address
+          |  +-- ipv4-or-hostname* [ipv4-or-hostname]
+          |     +-- ipv4-or-hostname?    inet:host
+          |     +-- ipv4-or-hostname0?   inet:host
+          +-- destination-ports
+          |  +-- sensor-exporter?   uint16
+          +-- dscp?                uint8
+          +-- vrf?                 string
+  grouping ip-nbar-attribute-custom-grouping
+    +-- custom* [name]
+       +-- name?   string
+       +-- help?   string
+  grouping config-interface-ip-nbar-grouping
+    +-- nbar
+       +-- protocol-discovery!
+          +-- ipv4-ipv6?   enumeration
+  grouping config-ip-nbar-grouping
+    +-- nbar
+       +-- attribute
+       |  +-- application-group
+       |  |  +-- custom* [name]
+       |  |     +-- name?   string
+       |  |     +-- help?   string
+       |  +-- application-set
+       |  |  +-- custom* [name]
+       |  |     +-- name?   string
+       |  |     +-- help?   string
+       |  +-- category
+       |  |  +-- custom* [name]
+       |  |     +-- name?   string
+       |  |     +-- help?   string
+       |  +-- sub-category
+       |     +-- custom* [name]
+       |        +-- name?   string
+       |        +-- help?   string
+       +-- attribute-map* [name]
+       |  +-- name?        string
+       |  +-- attribute
+       |     +-- application-group?    string
+       |     +-- application-set?      string
+       |     +-- business-relevance?   string
+       |     +-- category?             string
+       |     +-- encrypted?            string
+       |     +-- sub-category?         string
+       |     +-- traffic-class?        string
+       |     +-- tunnel?               string
+       +-- attribute-set* [protocol-name]
+       |  +-- protocol-name?   string
+       |  +-- profile-name?    string
+       +-- classification
+       |  +-- auto-learn!
+       |  |  +-- top-asymmetric-socket?   empty
+       |  |  +-- top-hosts!
+       |  |  |  +-- sample-rate?   uint16
+       |  |  +-- top-ports!
+       |  |     +-- sample-rate?   uint16
+       |  +-- dns
+       |  |  +-- classify-by-domain?   empty
+       |  |  +-- learning!
+       |  |     +-- guard?   empty
+       |  +-- granularity
+       |  |  +-- coarse-grain?   empty
+       |  |  +-- fine-grain!
+       |  |     +-- attribute
+       |  |     |  +-- application-group* [name]
+       |  |     |  |  +-- name?   string
+       |  |     |  +-- application-set* [name]
+       |  |     |  |  +-- name?   string
+       |  |     |  +-- business-relevance* [name]
+       |  |     |  |  +-- name?   string
+       |  |     |  +-- category* [name]
+       |  |     |  |  +-- name?   string
+       |  |     |  +-- encrypted* [name]
+       |  |     |  |  +-- name?   string
+       |  |     |  +-- sub-category* [name]
+       |  |     |  |  +-- name?   string
+       |  |     |  +-- traffic-class* [name]
+       |  |     |  |  +-- name?   string
+       |  |     |  +-- tunnel* [name]
+       |  |     |     +-- name?   string
+       |  |     +-- protocol
+       |  |        +-- protocols-list* [name]
+       |  |           +-- name?   string
+       |  +-- tunneled-traffic
+       |     +-- capwap?     empty
+       |     +-- ipv6inip?   empty
+       |     +-- teredo?     empty
+       +-- custom* [name]
+       |  +-- name?        string
+       |  +-- composite
+       |  |  +-- server-name* [name]
+       |  |     +-- name?      string
+       |  |     +-- id?        uint16
+       |  |     +-- extends?   string
+       |  +-- dns
+       |  |  +-- domain-name* [name]
+       |  |     +-- name?      string
+       |  |     +-- id?        uint16
+       |  |     +-- extends?   string
+       |  +-- http
+       |  |  +-- cookie?             string
+       |  |  +-- host?               string
+       |  |  +-- method?             string
+       |  |  +-- referer?            string
+       |  |  +-- (http-uv)?
+       |  |  |  +--:(url-case)
+       |  |  |  |  +-- url?          string
+       |  |  |  +--:(user-agent-case)
+       |  |  |  |  +-- user-agent?   string
+       |  |  |  +--:(version-case)
+       |  |  |  |  +-- version?      string
+       |  |  |  +--:(via-case)
+       |  |  |     +-- via?          string
+       |  |  +-- id?                 uint16
+       |  +-- ssl
+       |  |  +-- unique-name* [name]
+       |  |     +-- name?   string
+       |  |     +-- id?     uint16
+       |  +-- transport
+       |  |  +-- tcp!
+       |  |  |  +-- id?          uint16
+       |  |  |  +-- dscp
+       |  |  |  |  +-- range?     uint8
+       |  |  |  |  +-- af11?      empty
+       |  |  |  |  +-- af12?      empty
+       |  |  |  |  +-- af13?      empty
+       |  |  |  |  +-- af21?      empty
+       |  |  |  |  +-- af22?      empty
+       |  |  |  |  +-- af23?      empty
+       |  |  |  |  +-- af31?      empty
+       |  |  |  |  +-- af32?      empty
+       |  |  |  |  +-- af33?      empty
+       |  |  |  |  +-- af41?      empty
+       |  |  |  |  +-- af42?      empty
+       |  |  |  |  +-- af43?      empty
+       |  |  |  |  +-- cs1?       empty
+       |  |  |  |  +-- cs2?       empty
+       |  |  |  |  +-- cs3?       empty
+       |  |  |  |  +-- cs4?       empty
+       |  |  |  |  +-- cs5?       empty
+       |  |  |  |  +-- cs6?       empty
+       |  |  |  |  +-- cs7?       empty
+       |  |  |  |  +-- default?   empty
+       |  |  |  |  +-- ef?        empty
+       |  |  |  +-- ip
+       |  |  |  |  +-- address* [address0]
+       |  |  |  |  |  +-- address0?   inet:ipv4-address
+       |  |  |  |  |  +-- address1?   inet:ipv4-address
+       |  |  |  |  |  +-- address2?   inet:ipv4-address
+       |  |  |  |  |  +-- address3?   inet:ipv4-address
+       |  |  |  |  |  +-- address4?   inet:ipv4-address
+       |  |  |  |  |  +-- address5?   inet:ipv4-address
+       |  |  |  |  |  +-- address6?   inet:ipv4-address
+       |  |  |  |  |  +-- address7?   inet:ipv4-address
+       |  |  |  |  +-- subnet
+       |  |  |  |     +-- subnet?   inet:ipv4-address
+       |  |  |  |     +-- mask?     uint8
+       |  |  |  +-- ipv6
+       |  |  |  |  +-- address* [address0]
+       |  |  |  |  |  +-- address0?   inet:ipv6-address
+       |  |  |  |  |  +-- address1?   inet:ipv6-address
+       |  |  |  |  |  +-- address2?   inet:ipv6-address
+       |  |  |  |  |  +-- address3?   inet:ipv6-address
+       |  |  |  |  |  +-- address4?   inet:ipv6-address
+       |  |  |  |  |  +-- address5?   inet:ipv6-address
+       |  |  |  |  |  +-- address6?   inet:ipv6-address
+       |  |  |  |  |  +-- address7?   inet:ipv6-address
+       |  |  |  |  +-- subnet
+       |  |  |  |     +-- subnet?   inet:ipv6-address
+       |  |  |  |     +-- mask?     uint8
+       |  |  |  +-- direction
+       |  |  |  |  +-- any?           empty
+       |  |  |  |  +-- destination?   empty
+       |  |  |  |  +-- source?        empty
+       |  |  |  +-- port
+       |  |  |     +-- port-numbers* [port-number0]
+       |  |  |     |  +-- port-number0?   uint16
+       |  |  |     |  +-- port-number1?   uint16
+       |  |  |     |  +-- port-number2?   uint16
+       |  |  |     |  +-- port-number3?   uint16
+       |  |  |     |  +-- port-number4?   uint16
+       |  |  |     |  +-- port-number5?   uint16
+       |  |  |     |  +-- port-number6?   uint16
+       |  |  |     |  +-- port-number7?   uint16
+       |  |  |     +-- range
+       |  |  |        +-- start-range?   uint16
+       |  |  |        +-- end-range?     uint16
+       |  |  +-- udp!
+       |  |  |  +-- id?          uint16
+       |  |  |  +-- dscp
+       |  |  |  |  +-- range?     uint8
+       |  |  |  |  +-- af11?      empty
+       |  |  |  |  +-- af12?      empty
+       |  |  |  |  +-- af13?      empty
+       |  |  |  |  +-- af21?      empty
+       |  |  |  |  +-- af22?      empty
+       |  |  |  |  +-- af23?      empty
+       |  |  |  |  +-- af31?      empty
+       |  |  |  |  +-- af32?      empty
+       |  |  |  |  +-- af33?      empty
+       |  |  |  |  +-- af41?      empty
+       |  |  |  |  +-- af42?      empty
+       |  |  |  |  +-- af43?      empty
+       |  |  |  |  +-- cs1?       empty
+       |  |  |  |  +-- cs2?       empty
+       |  |  |  |  +-- cs3?       empty
+       |  |  |  |  +-- cs4?       empty
+       |  |  |  |  +-- cs5?       empty
+       |  |  |  |  +-- cs6?       empty
+       |  |  |  |  +-- cs7?       empty
+       |  |  |  |  +-- default?   empty
+       |  |  |  |  +-- ef?        empty
+       |  |  |  +-- ip
+       |  |  |  |  +-- address* [address0]
+       |  |  |  |  |  +-- address0?   inet:ipv4-address
+       |  |  |  |  |  +-- address1?   inet:ipv4-address
+       |  |  |  |  |  +-- address2?   inet:ipv4-address
+       |  |  |  |  |  +-- address3?   inet:ipv4-address
+       |  |  |  |  |  +-- address4?   inet:ipv4-address
+       |  |  |  |  |  +-- address5?   inet:ipv4-address
+       |  |  |  |  |  +-- address6?   inet:ipv4-address
+       |  |  |  |  |  +-- address7?   inet:ipv4-address
+       |  |  |  |  +-- subnet
+       |  |  |  |     +-- subnet?   inet:ipv4-address
+       |  |  |  |     +-- mask?     uint8
+       |  |  |  +-- ipv6
+       |  |  |  |  +-- address* [address0]
+       |  |  |  |  |  +-- address0?   inet:ipv6-address
+       |  |  |  |  |  +-- address1?   inet:ipv6-address
+       |  |  |  |  |  +-- address2?   inet:ipv6-address
+       |  |  |  |  |  +-- address3?   inet:ipv6-address
+       |  |  |  |  |  +-- address4?   inet:ipv6-address
+       |  |  |  |  |  +-- address5?   inet:ipv6-address
+       |  |  |  |  |  +-- address6?   inet:ipv6-address
+       |  |  |  |  |  +-- address7?   inet:ipv6-address
+       |  |  |  |  +-- subnet
+       |  |  |  |     +-- subnet?   inet:ipv6-address
+       |  |  |  |     +-- mask?     uint8
+       |  |  |  +-- direction
+       |  |  |  |  +-- any?           empty
+       |  |  |  |  +-- destination?   empty
+       |  |  |  |  +-- source?        empty
+       |  |  |  +-- port
+       |  |  |     +-- port-numbers* [port-number0]
+       |  |  |     |  +-- port-number0?   uint16
+       |  |  |     |  +-- port-number1?   uint16
+       |  |  |     |  +-- port-number2?   uint16
+       |  |  |     |  +-- port-number3?   uint16
+       |  |  |     |  +-- port-number4?   uint16
+       |  |  |     |  +-- port-number5?   uint16
+       |  |  |     |  +-- port-number6?   uint16
+       |  |  |     |  +-- port-number7?   uint16
+       |  |  |     +-- range
+       |  |  |        +-- start-range?   uint16
+       |  |  |        +-- end-range?     uint16
+       |  |  +-- udp-tcp!
+       |  |     +-- id?          uint16
+       |  |     +-- dscp
+       |  |     |  +-- range?     uint8
+       |  |     |  +-- af11?      empty
+       |  |     |  +-- af12?      empty
+       |  |     |  +-- af13?      empty
+       |  |     |  +-- af21?      empty
+       |  |     |  +-- af22?      empty
+       |  |     |  +-- af23?      empty
+       |  |     |  +-- af31?      empty
+       |  |     |  +-- af32?      empty
+       |  |     |  +-- af33?      empty
+       |  |     |  +-- af41?      empty
+       |  |     |  +-- af42?      empty
+       |  |     |  +-- af43?      empty
+       |  |     |  +-- cs1?       empty
+       |  |     |  +-- cs2?       empty
+       |  |     |  +-- cs3?       empty
+       |  |     |  +-- cs4?       empty
+       |  |     |  +-- cs5?       empty
+       |  |     |  +-- cs6?       empty
+       |  |     |  +-- cs7?       empty
+       |  |     |  +-- default?   empty
+       |  |     |  +-- ef?        empty
+       |  |     +-- ip
+       |  |     |  +-- address* [address0]
+       |  |     |  |  +-- address0?   inet:ipv4-address
+       |  |     |  |  +-- address1?   inet:ipv4-address
+       |  |     |  |  +-- address2?   inet:ipv4-address
+       |  |     |  |  +-- address3?   inet:ipv4-address
+       |  |     |  |  +-- address4?   inet:ipv4-address
+       |  |     |  |  +-- address5?   inet:ipv4-address
+       |  |     |  |  +-- address6?   inet:ipv4-address
+       |  |     |  |  +-- address7?   inet:ipv4-address
+       |  |     |  +-- subnet
+       |  |     |     +-- subnet?   inet:ipv4-address
+       |  |     |     +-- mask?     uint8
+       |  |     +-- ipv6
+       |  |     |  +-- address* [address0]
+       |  |     |  |  +-- address0?   inet:ipv6-address
+       |  |     |  |  +-- address1?   inet:ipv6-address
+       |  |     |  |  +-- address2?   inet:ipv6-address
+       |  |     |  |  +-- address3?   inet:ipv6-address
+       |  |     |  |  +-- address4?   inet:ipv6-address
+       |  |     |  |  +-- address5?   inet:ipv6-address
+       |  |     |  |  +-- address6?   inet:ipv6-address
+       |  |     |  |  +-- address7?   inet:ipv6-address
+       |  |     |  +-- subnet
+       |  |     |     +-- subnet?   inet:ipv6-address
+       |  |     |     +-- mask?     uint8
+       |  |     +-- direction
+       |  |     |  +-- any?           empty
+       |  |     |  +-- destination?   empty
+       |  |     |  +-- source?        empty
+       |  |     +-- port
+       |  |        +-- port-numbers* [port-number0]
+       |  |        |  +-- port-number0?   uint16
+       |  |        |  +-- port-number1?   uint16
+       |  |        |  +-- port-number2?   uint16
+       |  |        |  +-- port-number3?   uint16
+       |  |        |  +-- port-number4?   uint16
+       |  |        |  +-- port-number5?   uint16
+       |  |        |  +-- port-number6?   uint16
+       |  |        |  +-- port-number7?   uint16
+       |  |        +-- range
+       |  |           +-- start-range?   uint16
+       |  |           +-- end-range?     uint16
+       |  +-- ip
+       |     +-- any!
+       |        +-- id?          uint16
+       |        +-- dscp
+       |        |  +-- range?     uint8
+       |        |  +-- af11?      empty
+       |        |  +-- af12?      empty
+       |        |  +-- af13?      empty
+       |        |  +-- af21?      empty
+       |        |  +-- af22?      empty
+       |        |  +-- af23?      empty
+       |        |  +-- af31?      empty
+       |        |  +-- af32?      empty
+       |        |  +-- af33?      empty
+       |        |  +-- af41?      empty
+       |        |  +-- af42?      empty
+       |        |  +-- af43?      empty
+       |        |  +-- cs1?       empty
+       |        |  +-- cs2?       empty
+       |        |  +-- cs3?       empty
+       |        |  +-- cs4?       empty
+       |        |  +-- cs5?       empty
+       |        |  +-- cs6?       empty
+       |        |  +-- cs7?       empty
+       |        |  +-- default?   empty
+       |        |  +-- ef?        empty
+       |        +-- ip
+       |        |  +-- address* [address0]
+       |        |  |  +-- address0?   inet:ipv4-address
+       |        |  |  +-- address1?   inet:ipv4-address
+       |        |  |  +-- address2?   inet:ipv4-address
+       |        |  |  +-- address3?   inet:ipv4-address
+       |        |  |  +-- address4?   inet:ipv4-address
+       |        |  |  +-- address5?   inet:ipv4-address
+       |        |  |  +-- address6?   inet:ipv4-address
+       |        |  |  +-- address7?   inet:ipv4-address
+       |        |  +-- subnet
+       |        |     +-- subnet?   inet:ipv4-address
+       |        |     +-- mask?     uint8
+       |        +-- ipv6
+       |        |  +-- address* [address0]
+       |        |  |  +-- address0?   inet:ipv6-address
+       |        |  |  +-- address1?   inet:ipv6-address
+       |        |  |  +-- address2?   inet:ipv6-address
+       |        |  |  +-- address3?   inet:ipv6-address
+       |        |  |  +-- address4?   inet:ipv6-address
+       |        |  |  +-- address5?   inet:ipv6-address
+       |        |  |  +-- address6?   inet:ipv6-address
+       |        |  |  +-- address7?   inet:ipv6-address
+       |        |  +-- subnet
+       |        |     +-- subnet?   inet:ipv6-address
+       |        |     +-- mask?     uint8
+       |        +-- direction
+       |        |  +-- any?           empty
+       |        |  +-- destination?   empty
+       |        |  +-- source?        empty
+       |        +-- port
+       |           +-- port-numbers* [port-number0]
+       |           |  +-- port-number0?   uint16
+       |           |  +-- port-number1?   uint16
+       |           |  +-- port-number2?   uint16
+       |           |  +-- port-number3?   uint16
+       |           |  +-- port-number4?   uint16
+       |           |  +-- port-number5?   uint16
+       |           |  +-- port-number6?   uint16
+       |           |  +-- port-number7?   uint16
+       |           +-- range
+       |              +-- start-range?   uint16
+       |              +-- end-range?     uint16
+       +-- protocol-pack
+       |  +-- filepath* [filepath]
+       |     +-- filepath?   string
+       |     +-- force?      empty
+       +-- http-services?    empty

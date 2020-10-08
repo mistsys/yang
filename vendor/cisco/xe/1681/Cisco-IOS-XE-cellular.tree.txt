@@ -1,0 +1,59 @@
+
+module: Cisco-IOS-XE-cellular
+  augment /ios:native:
+    +--rw dialer
+       +--rw watch-list* [number]
+          +--rw number    uint8
+          +--rw delay* [interval]
+          |  +--rw interval      enumeration
+          |  +--rw initial?      empty
+          |  +--rw delay-time?   uint32
+          +--rw ip* [address]
+             +--rw address    inet:ipv4-address
+             +--rw mask?      inet:ipv4-address
+  augment /ios:native:
+    +--rw dialer-list* [group-number]
+       +--rw group-number    uint8
+       +--rw protocol* [protocol-type]
+          +--rw protocol-type    enumeration
+          +--rw access?          enumeration
+          +--rw list-name?       string
+  augment /ios:native/ios:interface/ios:Cellular:
+    +--rw dialer
+    |  +--rw in-band?        empty
+    |  +--rw idle-timeout?   uint32
+    |  +--rw string?         string
+    |  +--rw watch-group?    uint32
+    +--rw dialer-group?   uint8
+    +--rw pulse-time?     uint8
+    +--rw async
+       +--rw mode?   enumeration
+
+  grouping config-interface-cellular-grouping
+    +-- dialer
+    |  +-- in-band?        empty
+    |  +-- idle-timeout?   uint32
+    |  +-- string?         string
+    |  +-- watch-group?    uint32
+    +-- dialer-group?   uint8
+    +-- pulse-time?     uint8
+    +-- async
+       +-- mode?   enumeration
+  grouping config-dialer-grouping
+    +-- dialer
+       +-- watch-list* [number]
+          +-- number?   uint8
+          +-- delay* [interval]
+          |  +-- interval?     enumeration
+          |  +-- initial?      empty
+          |  +-- delay-time?   uint32
+          +-- ip* [address]
+             +-- address?   inet:ipv4-address
+             +-- mask?      inet:ipv4-address
+  grouping config-dialer-list-grouping
+    +-- dialer-list* [group-number]
+       +-- group-number?   uint8
+       +-- protocol* [protocol-type]
+          +-- protocol-type?   enumeration
+          +-- access?          enumeration
+          +-- list-name?       string

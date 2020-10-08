@@ -1,0 +1,2526 @@
+submodule: Cisco-IOS-XE-ospf-obsolete (belongs-to Cisco-IOS-XE-ospf)
+
+  grouping authentication-ipsec-grouping
+    o-- ipsec
+       o-- spi?    uint64
+       o-- md5
+       |  o-- key-string
+       |     o-- encrypt?   enumeration
+       |     o-- string?    string
+       o-- sha1
+          o-- key-string
+             o-- encrypt?   enumeration
+             o-- string?    string
+  grouping interface-ospf-neighbor-grouping
+    o-- neighbor* [id]
+       o-- id?                inet:ipv6-address
+       o-- cost?              uint16
+       o-- database-filter
+       |  o-- (database)?
+       |     +--:(all)
+       |        o-- all?   enumeration
+       o-- poll-interval?     uint32
+       o-- priority?          uint8
+  grouping interface-ospf-encryption-grouping
+    o-- encryption
+       o-- null?    empty
+       o-- ipsec
+          o-- spi?          uint64
+          o-- esp?          empty
+          o-- ipsec_3des
+          |  o-- key-string
+          |     o-- encrypt?   enumeration
+          |     o-- string?    string
+          o-- aes-cbc
+             o-- aes-cbc-128
+             |  o-- key-string
+             |     o-- encrypt?   enumeration
+             |     o-- string?    string
+             o-- aes-192
+             |  o-- key-string
+             |     o-- encrypt?   enumeration
+             |     o-- string?    string
+             o-- aes-256
+                o-- key-string
+                   o-- encrypt?   enumeration
+                   o-- string?    string
+  grouping interface-ospf-dead-interval-grouping
+    o-- dead-interval?   uint16
+  grouping interface-ospf-hello-interval-grouping
+    o-- hello-interval?   uint32
+  grouping interface-ospf-prefix-suppression-grouping
+    o-- prefix-suppression!
+       o-- disable?   empty
+  grouping interface-ospf-priority-grouping
+    o-- priority?   uint8
+  grouping interface-ospf-retransmit-interval-grouping
+    o-- retransmit-interval?   uint32
+  grouping interface-ospf-transmit-delay-grouping
+    o-- transmit-delay?   uint32
+  grouping interface-ospf-bfd-grouping
+    o-- bfd!
+       o-- disable?   empty
+  grouping interface-ospf-network-grouping
+    o-- network
+       o-- broadcast?             empty
+       o-- manet?                 empty
+       o-- non-broadcast?         empty
+       o-- point-to-multipoint!
+       |  +-- non-broadcast?   empty
+       o-- point-to-point?        empty
+  grouping config-interface-ip-ospf-grouping
+    o-- ospf
+       o-- process-id* [id]
+       |  o-- id?            -> /ios:native/router/ios-ospf:ospf/id
+       |  o-- area?          ios-types:ospf-area-type
+       |  o-- secondaries?   empty
+       |  o-- none?          empty
+       o-- authentication!
+       |  o-- key-chain
+       |  |  o-- name?   string
+       |  o-- message-digest?   empty
+       |  o-- null?             empty
+       o-- authentication-key
+       |  o-- auth-type?   uint8
+       |  o-- auth-key?    string
+       o-- network?               enumeration
+       o-- bfd!
+       |  o-- disable?   empty
+       o-- cost?                  uint16
+       o-- database-filter
+       |  o-- all?   empty
+       |  o-- out?   empty
+       o-- dead-interval
+       |  o-- value?     uint32
+       |  o-- minimal
+       |     o-- hello-multiplier?   uint8
+       o-- demand-circuit!
+       |  o-- ignore?   empty
+       o-- fast-reroute
+       |  o-- per-prefix
+       |     o-- candidate!
+       |     |  o-- disable?   empty
+       |     o-- protection!
+       |        o-- disable?   empty
+       o-- flood-reduction?       empty
+       o-- hello-interval?        uint32
+       o-- lls!
+       |  o-- disable?   empty
+       o-- message-digest-key* [id]
+       |  o-- id?    uint8
+       |  o-- md5
+       |     o-- auth-type?   uint8
+       |     o-- auth-key?    string
+       o-- mtu-ignore?            empty
+       o-- multi-area
+       |  o-- id?     union
+       |  o-- cost?   uint32
+       o-- prefix-suppression!
+       |  o-- disable?   empty
+       o-- priority?              uint8
+       o-- resync-timeout?        uint32
+       o-- retransmit-interval?   uint32
+       o-- shutdown?              empty
+       o-- transmit-delay?        uint32
+       o-- ttl-security!
+          o-- diable?   empty
+          o-- hops?     uint8
+  grouping config-interface-ipv6-ospf-grouping
+    o-- ospf
+       o-- process* [id]
+       |  o-- id?         uint16
+       |  o-- area?       union
+       |  o-- instance?   union
+       o-- authentication
+       |  o-- null?    empty
+       |  o-- ipsec
+       |     o-- spi?    uint64
+       |     o-- md5
+       |     |  o-- key-string
+       |     |     o-- encrypt?   enumeration
+       |     |     o-- string?    string
+       |     o-- sha1
+       |        o-- key-string
+       |           o-- encrypt?   enumeration
+       |           o-- string?    string
+       o-- bfd!
+       |  o-- disable?   empty
+       o-- cost?                  uint16
+       o-- database-filter
+       |  o-- (database)?
+       |     +--:(all)
+       |     |  o-- all?       enumeration
+       |     +--:(disable)
+       |        o-- disable?   empty
+       o-- dead-interval?         uint16
+       o-- demand-circuit!
+       |  o-- disable?   empty
+       |  o-- ignore?    empty
+       o-- encryption
+       |  o-- null?    empty
+       |  o-- ipsec
+       |     o-- spi?          uint64
+       |     o-- esp?          empty
+       |     o-- ipsec_3des
+       |     |  o-- key-string
+       |     |     o-- encrypt?   enumeration
+       |     |     o-- string?    string
+       |     o-- aes-cbc
+       |        o-- aes-cbc-128
+       |        |  o-- key-string
+       |        |     o-- encrypt?   enumeration
+       |        |     o-- string?    string
+       |        o-- aes-192
+       |        |  o-- key-string
+       |        |     o-- encrypt?   enumeration
+       |        |     o-- string?    string
+       |        o-- aes-256
+       |           o-- key-string
+       |              o-- encrypt?   enumeration
+       |              o-- string?    string
+       o-- flood-reduction!
+       |  o-- disable?   empty
+       o-- hello-interval?        uint32
+       o-- mtu-ignore!
+       |  o-- disable?   empty
+       o-- neighbor* [id]
+       |  o-- id?                inet:ipv6-address
+       |  o-- cost?              uint16
+       |  o-- database-filter
+       |  |  o-- (database)?
+       |  |     +--:(all)
+       |  |        o-- all?   enumeration
+       |  o-- poll-interval?     uint32
+       |  o-- priority?          uint8
+       o-- network
+       |  o-- broadcast?             empty
+       |  o-- manet?                 empty
+       |  o-- non-broadcast?         empty
+       |  o-- point-to-multipoint!
+       |  |  +-- non-broadcast?   empty
+       |  o-- point-to-point?        empty
+       o-- priority?              uint8
+       o-- retransmit-interval?   uint32
+       o-- shutdown!
+       |  o-- disable?   empty
+       o-- transmit-delay?        uint32
+  grouping ospf-ospfv3-common-address-family-grouping
+    o-- capability
+    |  o-- capability-type?   enumeration
+    x-- compatible
+    |  x-- rfc1583?   empty
+    |  o-- rfc1587?   empty
+    |  o-- rfc5243?   empty
+    x-- default-information
+    |  x-- originate!
+    |     x-- always?        empty
+    |     x-- metric?        uint32
+    |     x-- metric-type?   ios-types:ospf-metric-type
+    |     x-- route-map?     string
+    o-- default-metric?        uint32
+    o-- discard-route!
+    |  o-- external?   empty
+    |  o-- internal?   empty
+    |  o-- metric?     uint32
+    x-- distance
+    |  o-- ospf-distance
+    |  |  o-- distance?   uint32
+    |  |  o-- ip?         inet:ipv4-address
+    |  |  o-- wildcard?   inet:ipv4-address
+    |  |  o-- acl-name?   ios-types:access-list-standard-id-type
+    |  x-- ospf
+    |     x-- external?     uint32
+    |     x-- inter-area?   uint32
+    |     x-- intra-area?   uint32
+    o-- maximum-paths?         uint32
+    x-- redistribute
+       o-- application* [name]
+       |  o-- name?             string
+       |  x-- redist-options
+       |     o-- metric?        uint32
+       |     o-- metric-type?   enumeration
+       |     o-- tag?           uint32
+       |     o-- subnets?       empty
+       |     x-- route-map?     string
+       |     o-- nssa-only?     empty
+       x-- bgp* [as-number]
+       |  o-- as-number?        ios-types:bgp-as-number-type
+       |  x-- redist-options
+       |     o-- metric?        uint32
+       |     o-- metric-type?   enumeration
+       |     o-- tag?           uint32
+       |     o-- subnets?       empty
+       |     x-- route-map?     string
+       |     o-- nssa-only?     empty
+       x-- connected!
+       |  x-- redist-options
+       |     o-- metric?        uint32
+       |     o-- metric-type?   enumeration
+       |     o-- tag?           uint32
+       |     o-- subnets?       empty
+       |     x-- route-map?     string
+       |     o-- nssa-only?     empty
+       x-- eigrp* [as-number]
+       |  o-- as-number?        ios-types:bgp-as-number-type
+       |  x-- redist-options
+       |     o-- metric?        uint32
+       |     o-- metric-type?   enumeration
+       |     o-- tag?           uint32
+       |     o-- subnets?       empty
+       |     x-- route-map?     string
+       |     o-- nssa-only?     empty
+       o-- isis!
+       |  o-- (isis-level-routes-isis-area-choice)?
+       |  |  +--:(isis-level-routes)
+       |  |  |  o-- isis-level-routes?   enumeration
+       |  |  +--:(isis-area)
+       |  |     o-- isis-area* [name]
+       |  |        o-- name?                string
+       |  |        o-- isis-level-routes?   enumeration
+       |  |        x-- redist-options
+       |  |           o-- metric?        uint32
+       |  |           o-- metric-type?   enumeration
+       |  |           o-- tag?           uint32
+       |  |           o-- subnets?       empty
+       |  |           x-- route-map?     string
+       |  |           o-- nssa-only?     empty
+       |  x-- redist-options
+       |     o-- metric?        uint32
+       |     o-- metric-type?   enumeration
+       |     o-- tag?           uint32
+       |     o-- subnets?       empty
+       |     x-- route-map?     string
+       |     o-- nssa-only?     empty
+       o-- iso-igrp!
+       |  o-- (area-tag-route-map-choice)?
+       |  |  +--:(area-tag-route-map-container)
+       |  |  |  o-- area-tag-route-map-container
+       |  |  |     o-- area-tag?    string
+       |  |  |     o-- route-map?   string
+       |  |  +--:(route-map)
+       |  |     o-- route-map?                      string
+       |  o-- iso-igrp-container
+       |     o-- metric?        uint32
+       |     o-- metric-type?   enumeration
+       |     o-- tag?           uint32
+       |     o-- subnets?       empty
+       o-- lisp
+       |  x-- redist-options
+       |     o-- metric?        uint32
+       |     o-- metric-type?   enumeration
+       |     o-- tag?           uint32
+       |     o-- subnets?       empty
+       |     x-- route-map?     string
+       |     o-- nssa-only?     empty
+       o-- mobile!
+       |  x-- redist-options
+       |     o-- metric?        uint32
+       |     o-- metric-type?   enumeration
+       |     o-- tag?           uint32
+       |     o-- subnets?       empty
+       |     x-- route-map?     string
+       |     o-- nssa-only?     empty
+       o-- odr!
+       |  x-- redist-options
+       |     o-- metric?        uint32
+       |     o-- metric-type?   enumeration
+       |     o-- tag?           uint32
+       |     o-- subnets?       empty
+       |     x-- route-map?     string
+       |     o-- nssa-only?     empty
+       x-- omp! {ios-features:omp}?
+       |  x-- redist-options
+       |     o-- metric?        uint32
+       |     o-- metric-type?   enumeration
+       |     o-- tag?           uint32
+       |     o-- subnets?       empty
+       |     x-- route-map?     string
+       |     o-- nssa-only?     empty
+       x-- nat-route {ios-features:sdwan}?
+       |  x-- dia?              empty
+       |  x-- outside?          empty
+       |  x-- redist-options
+       |     o-- metric?        uint32
+       |     o-- metric-type?   enumeration
+       |     o-- tag?           uint32
+       |     o-- subnets?       empty
+       |     x-- route-map?     string
+       |     o-- nssa-only?     empty
+       o-- ospf* [id]
+       |  o-- id?            uint32
+       |  o-- match
+       |  |  o-- internal!
+       |  |  |  o-- metric?        uint32
+       |  |  |  o-- metric-type?   enumeration
+       |  |  |  o-- nssa-only?     empty
+       |  |  |  o-- subnets?       empty
+       |  |  |  o-- route-map?     string
+       |  |  |  o-- tag?           uint32
+       |  |  o-- external!
+       |  |  |  o-- external-routes?   redist-ospf-external-type
+       |  |  |  o-- metric?            uint32
+       |  |  |  o-- metric-type?       enumeration
+       |  |  |  o-- nssa-only?         empty
+       |  |  |  o-- subnets?           empty
+       |  |  |  o-- route-map?         string
+       |  |  |  o-- tag?               uint32
+       |  |  o-- nssa-external!
+       |  |     o-- nssa-external-routes?   redist-ospf-external-type
+       |  |     o-- metric?                 uint32
+       |  |     o-- metric-type?            enumeration
+       |  |     o-- nssa-only?              empty
+       |  |     o-- subnets?                empty
+       |  |     o-- route-map?              string
+       |  |     o-- tag?                    uint32
+       |  o-- metric?        uint32
+       |  o-- metric-type?   enumeration
+       |  o-- nssa-only?     empty
+       |  o-- subnets?       empty
+       |  o-- route-map?     string
+       |  o-- tag?           uint32
+       |  o-- vrf?           string
+       o-- ospfv3* [id]
+       |  o-- id?            uint32
+       |  o-- match
+       |  |  o-- internal!
+       |  |  |  o-- metric?        uint32
+       |  |  |  o-- metric-type?   enumeration
+       |  |  |  o-- nssa-only?     empty
+       |  |  |  o-- subnets?       empty
+       |  |  |  o-- route-map?     string
+       |  |  |  o-- tag?           uint32
+       |  |  o-- external!
+       |  |  |  o-- external-routes?   redist-ospf-external-type
+       |  |  |  o-- metric?            uint32
+       |  |  |  o-- metric-type?       enumeration
+       |  |  |  o-- nssa-only?         empty
+       |  |  |  o-- subnets?           empty
+       |  |  |  o-- route-map?         string
+       |  |  |  o-- tag?               uint32
+       |  |  o-- nssa-external!
+       |  |     o-- nssa-external-routes?   redist-ospf-external-type
+       |  |     o-- metric?                 uint32
+       |  |     o-- metric-type?            enumeration
+       |  |     o-- nssa-only?              empty
+       |  |     o-- subnets?                empty
+       |  |     o-- route-map?              string
+       |  |     o-- tag?                    uint32
+       |  o-- metric?        uint32
+       |  o-- metric-type?   enumeration
+       |  o-- nssa-only?     empty
+       |  o-- subnets?       empty
+       |  o-- route-map?     string
+       |  o-- tag?           uint32
+       o-- rip* [id]
+       |  o-- id?               string
+       |  x-- redist-options
+       |     o-- metric?        uint32
+       |     o-- metric-type?   enumeration
+       |     o-- tag?           uint32
+       |     o-- subnets?       empty
+       |     x-- route-map?     string
+       |     o-- nssa-only?     empty
+       x-- static!
+       |  x-- redist-options
+       |     o-- metric?        uint32
+       |     o-- metric-type?   enumeration
+       |     o-- tag?           uint32
+       |     o-- subnets?       empty
+       |     x-- route-map?     string
+       |     o-- nssa-only?     empty
+       o-- maximum-prefix
+       |  o-- number?                             uint32
+       |  o-- threshold-warning-only-container
+       |     o-- threshold?      uint32
+       |     o-- warning-only?   empty
+       o-- vrf
+          o-- non-global-vrf* [name]
+          |  o-- name?          string
+          |  o-- application* [name]
+          |  |  o-- name?             string
+          |  |  x-- redist-options
+          |  |     o-- metric?        uint32
+          |  |     o-- metric-type?   enumeration
+          |  |     o-- tag?           uint32
+          |  |     o-- subnets?       empty
+          |  |     x-- route-map?     string
+          |  |     o-- nssa-only?     empty
+          |  x-- bgp* [as-number]
+          |  |  o-- as-number?        ios-types:bgp-as-number-type
+          |  |  x-- redist-options
+          |  |     o-- metric?        uint32
+          |  |     o-- metric-type?   enumeration
+          |  |     o-- tag?           uint32
+          |  |     o-- subnets?       empty
+          |  |     x-- route-map?     string
+          |  |     o-- nssa-only?     empty
+          |  x-- connected!
+          |  |  x-- redist-options
+          |  |     o-- metric?        uint32
+          |  |     o-- metric-type?   enumeration
+          |  |     o-- tag?           uint32
+          |  |     o-- subnets?       empty
+          |  |     x-- route-map?     string
+          |  |     o-- nssa-only?     empty
+          |  x-- eigrp* [as-number]
+          |  |  o-- as-number?        ios-types:bgp-as-number-type
+          |  |  x-- redist-options
+          |  |     o-- metric?        uint32
+          |  |     o-- metric-type?   enumeration
+          |  |     o-- tag?           uint32
+          |  |     o-- subnets?       empty
+          |  |     x-- route-map?     string
+          |  |     o-- nssa-only?     empty
+          |  o-- isis!
+          |  |  o-- (isis-level-routes-isis-area-choice)?
+          |  |  |  +--:(isis-level-routes)
+          |  |  |  |  o-- isis-level-routes?   enumeration
+          |  |  |  +--:(isis-area)
+          |  |  |     o-- isis-area* [name]
+          |  |  |        o-- name?                string
+          |  |  |        o-- isis-level-routes?   enumeration
+          |  |  |        x-- redist-options
+          |  |  |           o-- metric?        uint32
+          |  |  |           o-- metric-type?   enumeration
+          |  |  |           o-- tag?           uint32
+          |  |  |           o-- subnets?       empty
+          |  |  |           x-- route-map?     string
+          |  |  |           o-- nssa-only?     empty
+          |  |  x-- redist-options
+          |  |     o-- metric?        uint32
+          |  |     o-- metric-type?   enumeration
+          |  |     o-- tag?           uint32
+          |  |     o-- subnets?       empty
+          |  |     x-- route-map?     string
+          |  |     o-- nssa-only?     empty
+          |  o-- iso-igrp!
+          |  |  o-- (area-tag-route-map-choice)?
+          |  |  |  +--:(area-tag-route-map-container)
+          |  |  |  |  o-- area-tag-route-map-container
+          |  |  |  |     o-- area-tag?    string
+          |  |  |  |     o-- route-map?   string
+          |  |  |  +--:(route-map)
+          |  |  |     o-- route-map?                      string
+          |  |  o-- iso-igrp-container
+          |  |     o-- metric?        uint32
+          |  |     o-- metric-type?   enumeration
+          |  |     o-- tag?           uint32
+          |  |     o-- subnets?       empty
+          |  o-- lisp
+          |  |  x-- redist-options
+          |  |     o-- metric?        uint32
+          |  |     o-- metric-type?   enumeration
+          |  |     o-- tag?           uint32
+          |  |     o-- subnets?       empty
+          |  |     x-- route-map?     string
+          |  |     o-- nssa-only?     empty
+          |  o-- mobile!
+          |  |  x-- redist-options
+          |  |     o-- metric?        uint32
+          |  |     o-- metric-type?   enumeration
+          |  |     o-- tag?           uint32
+          |  |     o-- subnets?       empty
+          |  |     x-- route-map?     string
+          |  |     o-- nssa-only?     empty
+          |  o-- odr!
+          |  |  x-- redist-options
+          |  |     o-- metric?        uint32
+          |  |     o-- metric-type?   enumeration
+          |  |     o-- tag?           uint32
+          |  |     o-- subnets?       empty
+          |  |     x-- route-map?     string
+          |  |     o-- nssa-only?     empty
+          |  x-- omp! {ios-features:omp}?
+          |  |  x-- redist-options
+          |  |     o-- metric?        uint32
+          |  |     o-- metric-type?   enumeration
+          |  |     o-- tag?           uint32
+          |  |     o-- subnets?       empty
+          |  |     x-- route-map?     string
+          |  |     o-- nssa-only?     empty
+          |  x-- nat-route {ios-features:sdwan}?
+          |  |  x-- dia?              empty
+          |  |  x-- outside?          empty
+          |  |  x-- redist-options
+          |  |     o-- metric?        uint32
+          |  |     o-- metric-type?   enumeration
+          |  |     o-- tag?           uint32
+          |  |     o-- subnets?       empty
+          |  |     x-- route-map?     string
+          |  |     o-- nssa-only?     empty
+          |  o-- ospf* [id]
+          |  |  o-- id?            uint32
+          |  |  o-- match
+          |  |  |  o-- internal!
+          |  |  |  |  o-- metric?        uint32
+          |  |  |  |  o-- metric-type?   enumeration
+          |  |  |  |  o-- nssa-only?     empty
+          |  |  |  |  o-- subnets?       empty
+          |  |  |  |  o-- route-map?     string
+          |  |  |  |  o-- tag?           uint32
+          |  |  |  o-- external!
+          |  |  |  |  o-- external-routes?   redist-ospf-external-type
+          |  |  |  |  o-- metric?            uint32
+          |  |  |  |  o-- metric-type?       enumeration
+          |  |  |  |  o-- nssa-only?         empty
+          |  |  |  |  o-- subnets?           empty
+          |  |  |  |  o-- route-map?         string
+          |  |  |  |  o-- tag?               uint32
+          |  |  |  o-- nssa-external!
+          |  |  |     o-- nssa-external-routes?   redist-ospf-external-type
+          |  |  |     o-- metric?                 uint32
+          |  |  |     o-- metric-type?            enumeration
+          |  |  |     o-- nssa-only?              empty
+          |  |  |     o-- subnets?                empty
+          |  |  |     o-- route-map?              string
+          |  |  |     o-- tag?                    uint32
+          |  |  o-- metric?        uint32
+          |  |  o-- metric-type?   enumeration
+          |  |  o-- nssa-only?     empty
+          |  |  o-- subnets?       empty
+          |  |  o-- route-map?     string
+          |  |  o-- tag?           uint32
+          |  |  o-- vrf?           string
+          |  o-- ospfv3* [id]
+          |  |  o-- id?            uint32
+          |  |  o-- match
+          |  |  |  o-- internal!
+          |  |  |  |  o-- metric?        uint32
+          |  |  |  |  o-- metric-type?   enumeration
+          |  |  |  |  o-- nssa-only?     empty
+          |  |  |  |  o-- subnets?       empty
+          |  |  |  |  o-- route-map?     string
+          |  |  |  |  o-- tag?           uint32
+          |  |  |  o-- external!
+          |  |  |  |  o-- external-routes?   redist-ospf-external-type
+          |  |  |  |  o-- metric?            uint32
+          |  |  |  |  o-- metric-type?       enumeration
+          |  |  |  |  o-- nssa-only?         empty
+          |  |  |  |  o-- subnets?           empty
+          |  |  |  |  o-- route-map?         string
+          |  |  |  |  o-- tag?               uint32
+          |  |  |  o-- nssa-external!
+          |  |  |     o-- nssa-external-routes?   redist-ospf-external-type
+          |  |  |     o-- metric?                 uint32
+          |  |  |     o-- metric-type?            enumeration
+          |  |  |     o-- nssa-only?              empty
+          |  |  |     o-- subnets?                empty
+          |  |  |     o-- route-map?              string
+          |  |  |     o-- tag?                    uint32
+          |  |  o-- metric?        uint32
+          |  |  o-- metric-type?   enumeration
+          |  |  o-- nssa-only?     empty
+          |  |  o-- subnets?       empty
+          |  |  o-- route-map?     string
+          |  |  o-- tag?           uint32
+          |  o-- rip* [id]
+          |  |  o-- id?               string
+          |  |  x-- redist-options
+          |  |     o-- metric?        uint32
+          |  |     o-- metric-type?   enumeration
+          |  |     o-- tag?           uint32
+          |  |     o-- subnets?       empty
+          |  |     x-- route-map?     string
+          |  |     o-- nssa-only?     empty
+          |  x-- static!
+          |     x-- redist-options
+          |        o-- metric?        uint32
+          |        o-- metric-type?   enumeration
+          |        o-- tag?           uint32
+          |        o-- subnets?       empty
+          |        x-- route-map?     string
+          |        o-- nssa-only?     empty
+          o-- global
+             o-- application* [name]
+             |  o-- name?             string
+             |  x-- redist-options
+             |     o-- metric?        uint32
+             |     o-- metric-type?   enumeration
+             |     o-- tag?           uint32
+             |     o-- subnets?       empty
+             |     x-- route-map?     string
+             |     o-- nssa-only?     empty
+             x-- bgp* [as-number]
+             |  o-- as-number?        ios-types:bgp-as-number-type
+             |  x-- redist-options
+             |     o-- metric?        uint32
+             |     o-- metric-type?   enumeration
+             |     o-- tag?           uint32
+             |     o-- subnets?       empty
+             |     x-- route-map?     string
+             |     o-- nssa-only?     empty
+             x-- connected!
+             |  x-- redist-options
+             |     o-- metric?        uint32
+             |     o-- metric-type?   enumeration
+             |     o-- tag?           uint32
+             |     o-- subnets?       empty
+             |     x-- route-map?     string
+             |     o-- nssa-only?     empty
+             x-- eigrp* [as-number]
+             |  o-- as-number?        ios-types:bgp-as-number-type
+             |  x-- redist-options
+             |     o-- metric?        uint32
+             |     o-- metric-type?   enumeration
+             |     o-- tag?           uint32
+             |     o-- subnets?       empty
+             |     x-- route-map?     string
+             |     o-- nssa-only?     empty
+             o-- isis!
+             |  o-- (isis-level-routes-isis-area-choice)?
+             |  |  +--:(isis-level-routes)
+             |  |  |  o-- isis-level-routes?   enumeration
+             |  |  +--:(isis-area)
+             |  |     o-- isis-area* [name]
+             |  |        o-- name?                string
+             |  |        o-- isis-level-routes?   enumeration
+             |  |        x-- redist-options
+             |  |           o-- metric?        uint32
+             |  |           o-- metric-type?   enumeration
+             |  |           o-- tag?           uint32
+             |  |           o-- subnets?       empty
+             |  |           x-- route-map?     string
+             |  |           o-- nssa-only?     empty
+             |  x-- redist-options
+             |     o-- metric?        uint32
+             |     o-- metric-type?   enumeration
+             |     o-- tag?           uint32
+             |     o-- subnets?       empty
+             |     x-- route-map?     string
+             |     o-- nssa-only?     empty
+             o-- iso-igrp!
+             |  o-- (area-tag-route-map-choice)?
+             |  |  +--:(area-tag-route-map-container)
+             |  |  |  o-- area-tag-route-map-container
+             |  |  |     o-- area-tag?    string
+             |  |  |     o-- route-map?   string
+             |  |  +--:(route-map)
+             |  |     o-- route-map?                      string
+             |  o-- iso-igrp-container
+             |     o-- metric?        uint32
+             |     o-- metric-type?   enumeration
+             |     o-- tag?           uint32
+             |     o-- subnets?       empty
+             o-- lisp
+             |  x-- redist-options
+             |     o-- metric?        uint32
+             |     o-- metric-type?   enumeration
+             |     o-- tag?           uint32
+             |     o-- subnets?       empty
+             |     x-- route-map?     string
+             |     o-- nssa-only?     empty
+             o-- mobile!
+             |  x-- redist-options
+             |     o-- metric?        uint32
+             |     o-- metric-type?   enumeration
+             |     o-- tag?           uint32
+             |     o-- subnets?       empty
+             |     x-- route-map?     string
+             |     o-- nssa-only?     empty
+             o-- odr!
+             |  x-- redist-options
+             |     o-- metric?        uint32
+             |     o-- metric-type?   enumeration
+             |     o-- tag?           uint32
+             |     o-- subnets?       empty
+             |     x-- route-map?     string
+             |     o-- nssa-only?     empty
+             x-- omp! {ios-features:omp}?
+             |  x-- redist-options
+             |     o-- metric?        uint32
+             |     o-- metric-type?   enumeration
+             |     o-- tag?           uint32
+             |     o-- subnets?       empty
+             |     x-- route-map?     string
+             |     o-- nssa-only?     empty
+             x-- nat-route {ios-features:sdwan}?
+             |  x-- dia?              empty
+             |  x-- outside?          empty
+             |  x-- redist-options
+             |     o-- metric?        uint32
+             |     o-- metric-type?   enumeration
+             |     o-- tag?           uint32
+             |     o-- subnets?       empty
+             |     x-- route-map?     string
+             |     o-- nssa-only?     empty
+             o-- ospf* [id]
+             |  o-- id?            uint32
+             |  o-- match
+             |  |  o-- internal!
+             |  |  |  o-- metric?        uint32
+             |  |  |  o-- metric-type?   enumeration
+             |  |  |  o-- nssa-only?     empty
+             |  |  |  o-- subnets?       empty
+             |  |  |  o-- route-map?     string
+             |  |  |  o-- tag?           uint32
+             |  |  o-- external!
+             |  |  |  o-- external-routes?   redist-ospf-external-type
+             |  |  |  o-- metric?            uint32
+             |  |  |  o-- metric-type?       enumeration
+             |  |  |  o-- nssa-only?         empty
+             |  |  |  o-- subnets?           empty
+             |  |  |  o-- route-map?         string
+             |  |  |  o-- tag?               uint32
+             |  |  o-- nssa-external!
+             |  |     o-- nssa-external-routes?   redist-ospf-external-type
+             |  |     o-- metric?                 uint32
+             |  |     o-- metric-type?            enumeration
+             |  |     o-- nssa-only?              empty
+             |  |     o-- subnets?                empty
+             |  |     o-- route-map?              string
+             |  |     o-- tag?                    uint32
+             |  o-- metric?        uint32
+             |  o-- metric-type?   enumeration
+             |  o-- nssa-only?     empty
+             |  o-- subnets?       empty
+             |  o-- route-map?     string
+             |  o-- tag?           uint32
+             |  o-- vrf?           string
+             o-- ospfv3* [id]
+             |  o-- id?            uint32
+             |  o-- match
+             |  |  o-- internal!
+             |  |  |  o-- metric?        uint32
+             |  |  |  o-- metric-type?   enumeration
+             |  |  |  o-- nssa-only?     empty
+             |  |  |  o-- subnets?       empty
+             |  |  |  o-- route-map?     string
+             |  |  |  o-- tag?           uint32
+             |  |  o-- external!
+             |  |  |  o-- external-routes?   redist-ospf-external-type
+             |  |  |  o-- metric?            uint32
+             |  |  |  o-- metric-type?       enumeration
+             |  |  |  o-- nssa-only?         empty
+             |  |  |  o-- subnets?           empty
+             |  |  |  o-- route-map?         string
+             |  |  |  o-- tag?               uint32
+             |  |  o-- nssa-external!
+             |  |     o-- nssa-external-routes?   redist-ospf-external-type
+             |  |     o-- metric?                 uint32
+             |  |     o-- metric-type?            enumeration
+             |  |     o-- nssa-only?              empty
+             |  |     o-- subnets?                empty
+             |  |     o-- route-map?              string
+             |  |     o-- tag?                    uint32
+             |  o-- metric?        uint32
+             |  o-- metric-type?   enumeration
+             |  o-- nssa-only?     empty
+             |  o-- subnets?       empty
+             |  o-- route-map?     string
+             |  o-- tag?           uint32
+             o-- rip* [id]
+             |  o-- id?               string
+             |  x-- redist-options
+             |     o-- metric?        uint32
+             |     o-- metric-type?   enumeration
+             |     o-- tag?           uint32
+             |     o-- subnets?       empty
+             |     x-- route-map?     string
+             |     o-- nssa-only?     empty
+             x-- static!
+                x-- redist-options
+                   o-- metric?        uint32
+                   o-- metric-type?   enumeration
+                   o-- tag?           uint32
+                   o-- subnets?       empty
+                   x-- route-map?     string
+                   o-- nssa-only?     empty
+  grouping ospf-ospfv3-common-grouping
+    x-- area* [id]
+    |  x-- id?               ios-types:ospf-area-type
+    |  x-- authentication!
+    |  |  x-- message-digest?   empty
+    |  o-- capability
+    |  |  o-- default-exclusion?   empty
+    |  o-- default-cost?     uint32
+    |  o-- filter-list* [in-out]
+    |  |  o-- in-out?   enumeration
+    |  |  o-- prefix    string
+    |  o-- nssa!
+    |  |  o-- default-information-originate!
+    |  |  |  o-- metric?              int32
+    |  |  |  o-- metric-type?         ios-types:ospf-metric-type
+    |  |  |  o-- no-ext-capability?   empty
+    |  |  |  o-- no-redistribution?   empty
+    |  |  |  o-- no-summary?          empty
+    |  |  |  o-- nssa-only?           empty
+    |  |  |  o-- translate
+    |  |  |     o-- type7
+    |  |  |        o-- always?        empty
+    |  |  |        o-- suppress-fa?   empty
+    |  |  o-- no-ext-capability?               empty
+    |  |  o-- no-redistribution?               empty
+    |  |  o-- no-summary?                      empty
+    |  |  o-- nssa-only?                       empty
+    |  |  o-- translate
+    |  |     o-- type7
+    |  |        o-- always?        empty
+    |  |        o-- suppress-fa?   empty
+    |  o-- ipv4-range
+    |  |  o-- range* [ip mask]
+    |  |     o-- ip?                    inet:ipv4-address
+    |  |     o-- mask?                  inet:ipv4-address
+    |  |     o-- (advertise-choice)?
+    |  |     |  +--:(advertise)
+    |  |     |  |  o-- advertise?       empty
+    |  |     |  +--:(not-advertise)
+    |  |     |     o-- not-advertise?   empty
+    |  |     o-- cost?                  uint32
+    |  o-- ipv6-range
+    |  |  o-- range* [ip]
+    |  |     o-- ip?                    ios-types:ipv6-prefix
+    |  |     o-- (advertise-choice)?
+    |  |     |  +--:(advertise)
+    |  |     |  |  o-- advertise?       empty
+    |  |     |  +--:(not-advertise)
+    |  |     |     o-- not-advertise?   empty
+    |  |     o-- cost?                  uint32
+    |  o-- sham-link* [source dest]
+    |  |  o-- source?         inet:ip-address
+    |  |  o-- dest?           inet:ip-address
+    |  |  o-- cost?           uint16
+    |  |  o-- ttl-security
+    |  |     o-- hops?   uint8
+    |  o-- stub!
+    |  |  o-- no-ext-capability?   empty
+    |  |  o-- no-summary?          empty
+    |  o-- virtual-link* [id]
+    |     o-- id?                    inet:ip-address
+    |     o-- authentication
+    |     |  o-- authentication-key
+    |     |  |  o-- auth-type?   uint8
+    |     |  |  o-- auth-key?    string
+    |     |  o-- message-digest-key* [id]
+    |     |  |  o-- id?    uint8
+    |     |  |  o-- md5
+    |     |  |     o-- auth-type?   uint8
+    |     |  |     o-- auth-key?    string
+    |     |  o-- key-chain
+    |     |  |  o-- name?                 string
+    |     |  |  o-- authentication-key
+    |     |  |  |  o-- auth-type?   uint8
+    |     |  |  |  o-- auth-key?    string
+    |     |  |  o-- message-digest-key* [id]
+    |     |  |     o-- id?    uint8
+    |     |  |     o-- md5
+    |     |  |        o-- auth-type?   uint8
+    |     |  |        o-- auth-key?    string
+    |     |  o-- message-digest
+    |     |  |  o-- authentication-key
+    |     |  |  |  o-- auth-type?   uint8
+    |     |  |  |  o-- auth-key?    string
+    |     |  |  o-- message-digest-key* [id]
+    |     |  |     o-- id?    uint8
+    |     |  |     o-- md5
+    |     |  |        o-- auth-type?   uint8
+    |     |  |        o-- auth-key?    string
+    |     |  o-- null?                 empty
+    |     o-- hello-interval
+    |     |  o-- hello-interval-value?   int32
+    |     o-- dead-interval
+    |     |  o-- dead-interval-value?   uint16
+    |     o-- retransmit-interval
+    |     |  o-- retransmit-interval-value?   uint16
+    |     o-- transmit-delay
+    |     |  o-- transmit-delay-value?   uint16
+    |     o-- topology
+    |     |  o-- disable?   empty
+    |     o-- ttl-security
+    |     |  o-- hops?   uint8
+    |     o-- authentication-key
+    |     |  o-- auth-type?   uint8
+    |     |  o-- auth-key?    string
+    |     o-- message-digest-key* [id]
+    |        o-- id?    uint8
+    |        o-- md5
+    |           o-- auth-type?   uint8
+    |           o-- auth-key?    string
+    x-- auto-cost!
+    |  x-- reference-bandwidth?   uint32
+    o-- event-log!
+    |  o-- one-shot?   empty
+    |  o-- pause?      empty
+    |  o-- size?       uint32
+    o-- bfd
+    |  o-- all-interfaces?   empty
+    o-- interface-id
+    |  o-- snmp-if-index?   empty
+    o-- log-adjacency-changes!
+    |  o-- detail?   empty
+    o-- max-lsa
+    |  o-- number?            uint32
+    |  o-- threshold-value?   uint32
+    |  o-- ignore-count?      uint32
+    |  o-- ignore-time?       uint32
+    |  o-- reset-time?        uint32
+    |  o-- warning-only?      empty
+    x-- max-metric
+    |  x-- router-lsa!
+    |     x-- external-lsa!
+    |     |  x-- metric?   uint32
+    |     x-- include-stub?   empty
+    |     x-- on-startup!
+    |     |  x-- (time-wait-for-bgp-choice)?
+    |     |     +--:(time)
+    |     |     |  x-- time?           uint32
+    |     |     +--:(wait-for-bgp)
+    |     |        x-- wait-for-bgp?   empty
+    |     o-- summary-lsa!
+    |        o-- metric?   uint32
+    +-- passive-interface
+    |  +-- (passive-interface-choice)?
+    |     +--:(default)
+    |     |  +-- default?     empty
+    |     +--:(interface)
+    |        +-- interface*   string
+    +-- disable
+    |  +-- passive-interface* [interface]
+    |     +-- interface?   string
+    o-- queue-depth
+    |  o-- hello
+    |  |  o-- options?   union
+    |  o-- update
+    |     o-- options?   union
+    x-- timers
+    |  o-- lsa
+    |  |  o-- arrival?   uint32
+    |  o-- pacing
+    |  |  o-- flood?            uint32
+    |  |  o-- lsa-group?        uint32
+    |  |  o-- retransmission?   uint32
+    |  x-- throttle
+    |     o-- lsa
+    |     |  o-- all
+    |     |     o-- delay?       uint32
+    |     |     o-- min-delay?   uint32
+    |     |     o-- max-delay?   uint32
+    |     x-- spf
+    |        x-- delay?       uint32
+    |        x-- min-delay?   uint32
+    |        x-- max-delay?   uint32
+    x-- router-id?               inet:ipv4-address
+    o-- nsr?                     empty
+    o-- traffic-share
+    |  o-- min?                 empty
+    |  o-- across-interfaces?   empty
+    o-- ttl-security
+       o-- all-interfaces?   empty
+       o-- hops?             uint8
+  grouping distribute-list-grouping
+    o-- distribute-list
+       o-- accesslist* [in-out]
+       |  o-- in-out?   ios-types:access-list-in-out-type
+       o-- accesslist-ifname* [in-out interface]
+       |  o-- in-out?                 ios-types:access-list-in-out-type
+       |  o-- interface?              string
+       |  o-- interface-routing-id?   uint8
+       |  o-- isis-tag?               string
+       |  o-- vrf?                    string
+       o-- accesslist-prefix-gateway* [in-out]
+       |  o-- in-out?           ios-types:access-list-in-out-type
+       |  o-- prefix-gateway    enumeration
+       |  o-- name              string
+       o-- accesslist-prefix-gateway-ifname* [in-out interface]
+          o-- in-out?                 ios-types:access-list-in-out-type
+          o-- interface?              string
+          o-- prefix-gateway          enumeration
+          o-- name                    string
+          o-- interface-routing-id?   uint8
+          o-- isis-tag?               string
+          o-- vrf?                    string
+  grouping ospf-authentication-key-grouping
+    o-- authentication-key
+       o-- auth-type?   uint8
+       o-- auth-key?    string
+  grouping ospf-area-virtual-link-grouping
+    o-- authentication-key
+    |  o-- auth-type?   uint8
+    |  o-- auth-key?    string
+    o-- message-digest-key* [id]
+       o-- id?    uint8
+       o-- md5
+          o-- auth-type?   uint8
+          o-- auth-key?    string
+  grouping tie-break-index
+    o-- required?   empty
+    o-- index?      uint8
+  grouping queue-depth-grouping
+    o-- options?   union
+  grouping router-eigrp-redistribute-grouping
+    o-- metric
+    |  o-- bandwith?      uint32
+    |  o-- delay?         uint32
+    |  o-- reliability?   uint8
+    |  o-- Effective?     uint8
+    |  o-- mtu?           uint16
+    o-- route-map?   string
+  grouping ospf-redistribute-match-grouping
+    o-- metric?        uint32
+    o-- metric-type?   enumeration
+    o-- nssa-only?     empty
+    o-- subnets?       empty
+    o-- route-map?     string
+    o-- tag?           uint32
+  grouping ospf-redistribute-top-match-grouping
+    o-- match
+       o-- internal!
+       |  o-- metric?        uint32
+       |  o-- metric-type?   enumeration
+       |  o-- nssa-only?     empty
+       |  o-- subnets?       empty
+       |  o-- route-map?     string
+       |  o-- tag?           uint32
+       o-- external!
+       |  o-- external-routes?   redist-ospf-external-type
+       |  o-- metric?            uint32
+       |  o-- metric-type?       enumeration
+       |  o-- nssa-only?         empty
+       |  o-- subnets?           empty
+       |  o-- route-map?         string
+       |  o-- tag?               uint32
+       o-- nssa-external!
+          o-- nssa-external-routes?   redist-ospf-external-type
+          o-- metric?                 uint32
+          o-- metric-type?            enumeration
+          o-- nssa-only?              empty
+          o-- subnets?                empty
+          o-- route-map?              string
+          o-- tag?                    uint32
+  grouping ospf-iso-igrp-redistribute-grouping
+    o-- metric?        uint32
+    o-- metric-type?   enumeration
+    o-- tag?           uint32
+    o-- subnets?       empty
+  grouping ospf-redistribute-grouping
+    x-- redist-options
+       o-- metric?        uint32
+       o-- metric-type?   enumeration
+       o-- tag?           uint32
+       o-- subnets?       empty
+       x-- route-map?     string
+       o-- nssa-only?     empty
+  grouping ospf-redistribute-top-grouping
+    o-- application* [name]
+    |  o-- name?             string
+    |  x-- redist-options
+    |     o-- metric?        uint32
+    |     o-- metric-type?   enumeration
+    |     o-- tag?           uint32
+    |     o-- subnets?       empty
+    |     x-- route-map?     string
+    |     o-- nssa-only?     empty
+    x-- bgp* [as-number]
+    |  o-- as-number?        ios-types:bgp-as-number-type
+    |  x-- redist-options
+    |     o-- metric?        uint32
+    |     o-- metric-type?   enumeration
+    |     o-- tag?           uint32
+    |     o-- subnets?       empty
+    |     x-- route-map?     string
+    |     o-- nssa-only?     empty
+    x-- connected!
+    |  x-- redist-options
+    |     o-- metric?        uint32
+    |     o-- metric-type?   enumeration
+    |     o-- tag?           uint32
+    |     o-- subnets?       empty
+    |     x-- route-map?     string
+    |     o-- nssa-only?     empty
+    x-- eigrp* [as-number]
+    |  o-- as-number?        ios-types:bgp-as-number-type
+    |  x-- redist-options
+    |     o-- metric?        uint32
+    |     o-- metric-type?   enumeration
+    |     o-- tag?           uint32
+    |     o-- subnets?       empty
+    |     x-- route-map?     string
+    |     o-- nssa-only?     empty
+    o-- isis!
+    |  o-- (isis-level-routes-isis-area-choice)?
+    |  |  +--:(isis-level-routes)
+    |  |  |  o-- isis-level-routes?   enumeration
+    |  |  +--:(isis-area)
+    |  |     o-- isis-area* [name]
+    |  |        o-- name?                string
+    |  |        o-- isis-level-routes?   enumeration
+    |  |        x-- redist-options
+    |  |           o-- metric?        uint32
+    |  |           o-- metric-type?   enumeration
+    |  |           o-- tag?           uint32
+    |  |           o-- subnets?       empty
+    |  |           x-- route-map?     string
+    |  |           o-- nssa-only?     empty
+    |  x-- redist-options
+    |     o-- metric?        uint32
+    |     o-- metric-type?   enumeration
+    |     o-- tag?           uint32
+    |     o-- subnets?       empty
+    |     x-- route-map?     string
+    |     o-- nssa-only?     empty
+    o-- iso-igrp!
+    |  o-- (area-tag-route-map-choice)?
+    |  |  +--:(area-tag-route-map-container)
+    |  |  |  o-- area-tag-route-map-container
+    |  |  |     o-- area-tag?    string
+    |  |  |     o-- route-map?   string
+    |  |  +--:(route-map)
+    |  |     o-- route-map?                      string
+    |  o-- iso-igrp-container
+    |     o-- metric?        uint32
+    |     o-- metric-type?   enumeration
+    |     o-- tag?           uint32
+    |     o-- subnets?       empty
+    o-- lisp
+    |  x-- redist-options
+    |     o-- metric?        uint32
+    |     o-- metric-type?   enumeration
+    |     o-- tag?           uint32
+    |     o-- subnets?       empty
+    |     x-- route-map?     string
+    |     o-- nssa-only?     empty
+    o-- mobile!
+    |  x-- redist-options
+    |     o-- metric?        uint32
+    |     o-- metric-type?   enumeration
+    |     o-- tag?           uint32
+    |     o-- subnets?       empty
+    |     x-- route-map?     string
+    |     o-- nssa-only?     empty
+    o-- odr!
+    |  x-- redist-options
+    |     o-- metric?        uint32
+    |     o-- metric-type?   enumeration
+    |     o-- tag?           uint32
+    |     o-- subnets?       empty
+    |     x-- route-map?     string
+    |     o-- nssa-only?     empty
+    x-- omp! {ios-features:omp}?
+    |  x-- redist-options
+    |     o-- metric?        uint32
+    |     o-- metric-type?   enumeration
+    |     o-- tag?           uint32
+    |     o-- subnets?       empty
+    |     x-- route-map?     string
+    |     o-- nssa-only?     empty
+    x-- nat-route {ios-features:sdwan}?
+    |  x-- dia?              empty
+    |  x-- outside?          empty
+    |  x-- redist-options
+    |     o-- metric?        uint32
+    |     o-- metric-type?   enumeration
+    |     o-- tag?           uint32
+    |     o-- subnets?       empty
+    |     x-- route-map?     string
+    |     o-- nssa-only?     empty
+    o-- ospf* [id]
+    |  o-- id?            uint32
+    |  o-- match
+    |  |  o-- internal!
+    |  |  |  o-- metric?        uint32
+    |  |  |  o-- metric-type?   enumeration
+    |  |  |  o-- nssa-only?     empty
+    |  |  |  o-- subnets?       empty
+    |  |  |  o-- route-map?     string
+    |  |  |  o-- tag?           uint32
+    |  |  o-- external!
+    |  |  |  o-- external-routes?   redist-ospf-external-type
+    |  |  |  o-- metric?            uint32
+    |  |  |  o-- metric-type?       enumeration
+    |  |  |  o-- nssa-only?         empty
+    |  |  |  o-- subnets?           empty
+    |  |  |  o-- route-map?         string
+    |  |  |  o-- tag?               uint32
+    |  |  o-- nssa-external!
+    |  |     o-- nssa-external-routes?   redist-ospf-external-type
+    |  |     o-- metric?                 uint32
+    |  |     o-- metric-type?            enumeration
+    |  |     o-- nssa-only?              empty
+    |  |     o-- subnets?                empty
+    |  |     o-- route-map?              string
+    |  |     o-- tag?                    uint32
+    |  o-- metric?        uint32
+    |  o-- metric-type?   enumeration
+    |  o-- nssa-only?     empty
+    |  o-- subnets?       empty
+    |  o-- route-map?     string
+    |  o-- tag?           uint32
+    |  o-- vrf?           string
+    o-- ospfv3* [id]
+    |  o-- id?            uint32
+    |  o-- match
+    |  |  o-- internal!
+    |  |  |  o-- metric?        uint32
+    |  |  |  o-- metric-type?   enumeration
+    |  |  |  o-- nssa-only?     empty
+    |  |  |  o-- subnets?       empty
+    |  |  |  o-- route-map?     string
+    |  |  |  o-- tag?           uint32
+    |  |  o-- external!
+    |  |  |  o-- external-routes?   redist-ospf-external-type
+    |  |  |  o-- metric?            uint32
+    |  |  |  o-- metric-type?       enumeration
+    |  |  |  o-- nssa-only?         empty
+    |  |  |  o-- subnets?           empty
+    |  |  |  o-- route-map?         string
+    |  |  |  o-- tag?               uint32
+    |  |  o-- nssa-external!
+    |  |     o-- nssa-external-routes?   redist-ospf-external-type
+    |  |     o-- metric?                 uint32
+    |  |     o-- metric-type?            enumeration
+    |  |     o-- nssa-only?              empty
+    |  |     o-- subnets?                empty
+    |  |     o-- route-map?              string
+    |  |     o-- tag?                    uint32
+    |  o-- metric?        uint32
+    |  o-- metric-type?   enumeration
+    |  o-- nssa-only?     empty
+    |  o-- subnets?       empty
+    |  o-- route-map?     string
+    |  o-- tag?           uint32
+    o-- rip* [id]
+    |  o-- id?               string
+    |  x-- redist-options
+    |     o-- metric?        uint32
+    |     o-- metric-type?   enumeration
+    |     o-- tag?           uint32
+    |     o-- subnets?       empty
+    |     x-- route-map?     string
+    |     o-- nssa-only?     empty
+    x-- static!
+       x-- redist-options
+          o-- metric?        uint32
+          o-- metric-type?   enumeration
+          o-- tag?           uint32
+          o-- subnets?       empty
+          x-- route-map?     string
+          o-- nssa-only?     empty
+  grouping ospf-redistribute-bgp-grouping
+    o-- as-number?        ios-types:bgp-as-number-type
+    x-- redist-options
+       o-- metric?        uint32
+       o-- metric-type?   enumeration
+       o-- tag?           uint32
+       o-- subnets?       empty
+       x-- route-map?     string
+       o-- nssa-only?     empty
+  grouping router-snmp-grouping
+    o-- snmp
+       o-- context* [name]
+          o-- name?        string
+          o-- community
+          |  o-- community-string?   string
+          |  o-- access
+          |     o-- standard-acl?   uint32
+          |     o-- expanded-acl?   uint32
+          |     o-- acl-name?       string
+          |     o-- ipv6?           string
+          |     o-- ro?             empty
+          |     o-- rw?             empty
+          o-- user
+             o-- name?          string
+             o-- permisssion
+                o-- access
+                |  o-- standard-acl?   uint32
+                |  o-- acl-name?       string
+                |  o-- ipv6?           string
+                o-- auth
+                |  o-- md5?   string
+                |  o-- sha?   string
+                o-- credential?   empty
+                o-- encrypted?    empty
+  grouping router-table-map-grouping
+    x-- table-map
+       x-- name?     string
+       x-- filter?   empty
+  grouping ospf-address-family-grouping
+    o-- snmp
+    |  o-- context* [name]
+    |     o-- name?        string
+    |     o-- community
+    |     |  o-- community-string?   string
+    |     |  o-- access
+    |     |     o-- standard-acl?   uint32
+    |     |     o-- expanded-acl?   uint32
+    |     |     o-- acl-name?       string
+    |     |     o-- ipv6?           string
+    |     |     o-- ro?             empty
+    |     |     o-- rw?             empty
+    |     o-- user
+    |        o-- name?          string
+    |        o-- permisssion
+    |           o-- access
+    |           |  o-- standard-acl?   uint32
+    |           |  o-- acl-name?       string
+    |           |  o-- ipv6?           string
+    |           o-- auth
+    |           |  o-- md5?   string
+    |           |  o-- sha?   string
+    |           o-- credential?   empty
+    |           o-- encrypted?    empty
+    o-- topology
+       o-- name?   string
+       o-- tid?    uint32
+  grouping config-router-ospf-grouping
+    x-- ospf* [id]
+       x-- id?                      uint16
+       x-- vrf?                     string
+       o-- address-family
+       |  o-- ipv4_1
+       |  |  o-- ipv4
+       |  |     o-- snmp
+       |  |     |  o-- context* [name]
+       |  |     |     o-- name?        string
+       |  |     |     o-- community
+       |  |     |     |  o-- community-string?   string
+       |  |     |     |  o-- access
+       |  |     |     |     o-- standard-acl?   uint32
+       |  |     |     |     o-- expanded-acl?   uint32
+       |  |     |     |     o-- acl-name?       string
+       |  |     |     |     o-- ipv6?           string
+       |  |     |     |     o-- ro?             empty
+       |  |     |     |     o-- rw?             empty
+       |  |     |     o-- user
+       |  |     |        o-- name?          string
+       |  |     |        o-- permisssion
+       |  |     |           o-- access
+       |  |     |           |  o-- standard-acl?   uint32
+       |  |     |           |  o-- acl-name?       string
+       |  |     |           |  o-- ipv6?           string
+       |  |     |           o-- auth
+       |  |     |           |  o-- md5?   string
+       |  |     |           |  o-- sha?   string
+       |  |     |           o-- credential?   empty
+       |  |     |           o-- encrypted?    empty
+       |  |     o-- topology
+       |  |        o-- name?   string
+       |  |        o-- tid?    uint32
+       |  o-- ipv4
+       |     o-- unicast
+       |     |  o-- snmp
+       |     |  |  o-- context* [name]
+       |     |  |     o-- name?        string
+       |     |  |     o-- community
+       |     |  |     |  o-- community-string?   string
+       |     |  |     |  o-- access
+       |     |  |     |     o-- standard-acl?   uint32
+       |     |  |     |     o-- expanded-acl?   uint32
+       |     |  |     |     o-- acl-name?       string
+       |     |  |     |     o-- ipv6?           string
+       |     |  |     |     o-- ro?             empty
+       |     |  |     |     o-- rw?             empty
+       |     |  |     o-- user
+       |     |  |        o-- name?          string
+       |     |  |        o-- permisssion
+       |     |  |           o-- access
+       |     |  |           |  o-- standard-acl?   uint32
+       |     |  |           |  o-- acl-name?       string
+       |     |  |           |  o-- ipv6?           string
+       |     |  |           o-- auth
+       |     |  |           |  o-- md5?   string
+       |     |  |           |  o-- sha?   string
+       |     |  |           o-- credential?   empty
+       |     |  |           o-- encrypted?    empty
+       |     |  o-- topology
+       |     |     o-- name?   string
+       |     |     o-- tid?    uint32
+       |     o-- multicast
+       |        o-- snmp
+       |        |  o-- context* [name]
+       |        |     o-- name?        string
+       |        |     o-- community
+       |        |     |  o-- community-string?   string
+       |        |     |  o-- access
+       |        |     |     o-- standard-acl?   uint32
+       |        |     |     o-- expanded-acl?   uint32
+       |        |     |     o-- acl-name?       string
+       |        |     |     o-- ipv6?           string
+       |        |     |     o-- ro?             empty
+       |        |     |     o-- rw?             empty
+       |        |     o-- user
+       |        |        o-- name?          string
+       |        |        o-- permisssion
+       |        |           o-- access
+       |        |           |  o-- standard-acl?   uint32
+       |        |           |  o-- acl-name?       string
+       |        |           |  o-- ipv6?           string
+       |        |           o-- auth
+       |        |           |  o-- md5?   string
+       |        |           |  o-- sha?   string
+       |        |           o-- credential?   empty
+       |        |           o-- encrypted?    empty
+       |        o-- topology
+       |           o-- name?   string
+       |           o-- tid?    uint32
+       x-- area* [id]
+       |  x-- id?               ios-types:ospf-area-type
+       |  x-- authentication!
+       |  |  x-- message-digest?   empty
+       |  o-- capability
+       |  |  o-- default-exclusion?   empty
+       |  o-- default-cost?     uint32
+       |  o-- filter-list* [in-out]
+       |  |  o-- in-out?   enumeration
+       |  |  o-- prefix    string
+       |  o-- nssa!
+       |  |  o-- default-information-originate!
+       |  |  |  o-- metric?              int32
+       |  |  |  o-- metric-type?         ios-types:ospf-metric-type
+       |  |  |  o-- no-ext-capability?   empty
+       |  |  |  o-- no-redistribution?   empty
+       |  |  |  o-- no-summary?          empty
+       |  |  |  o-- nssa-only?           empty
+       |  |  |  o-- translate
+       |  |  |     o-- type7
+       |  |  |        o-- always?        empty
+       |  |  |        o-- suppress-fa?   empty
+       |  |  o-- no-ext-capability?               empty
+       |  |  o-- no-redistribution?               empty
+       |  |  o-- no-summary?                      empty
+       |  |  o-- nssa-only?                       empty
+       |  |  o-- translate
+       |  |     o-- type7
+       |  |        o-- always?        empty
+       |  |        o-- suppress-fa?   empty
+       |  o-- ipv4-range
+       |  |  o-- range* [ip mask]
+       |  |     o-- ip?                    inet:ipv4-address
+       |  |     o-- mask?                  inet:ipv4-address
+       |  |     o-- (advertise-choice)?
+       |  |     |  +--:(advertise)
+       |  |     |  |  o-- advertise?       empty
+       |  |     |  +--:(not-advertise)
+       |  |     |     o-- not-advertise?   empty
+       |  |     o-- cost?                  uint32
+       |  o-- ipv6-range
+       |  |  o-- range* [ip]
+       |  |     o-- ip?                    ios-types:ipv6-prefix
+       |  |     o-- (advertise-choice)?
+       |  |     |  +--:(advertise)
+       |  |     |  |  o-- advertise?       empty
+       |  |     |  +--:(not-advertise)
+       |  |     |     o-- not-advertise?   empty
+       |  |     o-- cost?                  uint32
+       |  o-- sham-link* [source dest]
+       |  |  o-- source?         inet:ip-address
+       |  |  o-- dest?           inet:ip-address
+       |  |  o-- cost?           uint16
+       |  |  o-- ttl-security
+       |  |     o-- hops?   uint8
+       |  o-- stub!
+       |  |  o-- no-ext-capability?   empty
+       |  |  o-- no-summary?          empty
+       |  o-- virtual-link* [id]
+       |     o-- id?                    inet:ip-address
+       |     o-- authentication
+       |     |  o-- authentication-key
+       |     |  |  o-- auth-type?   uint8
+       |     |  |  o-- auth-key?    string
+       |     |  o-- message-digest-key* [id]
+       |     |  |  o-- id?    uint8
+       |     |  |  o-- md5
+       |     |  |     o-- auth-type?   uint8
+       |     |  |     o-- auth-key?    string
+       |     |  o-- key-chain
+       |     |  |  o-- name?                 string
+       |     |  |  o-- authentication-key
+       |     |  |  |  o-- auth-type?   uint8
+       |     |  |  |  o-- auth-key?    string
+       |     |  |  o-- message-digest-key* [id]
+       |     |  |     o-- id?    uint8
+       |     |  |     o-- md5
+       |     |  |        o-- auth-type?   uint8
+       |     |  |        o-- auth-key?    string
+       |     |  o-- message-digest
+       |     |  |  o-- authentication-key
+       |     |  |  |  o-- auth-type?   uint8
+       |     |  |  |  o-- auth-key?    string
+       |     |  |  o-- message-digest-key* [id]
+       |     |  |     o-- id?    uint8
+       |     |  |     o-- md5
+       |     |  |        o-- auth-type?   uint8
+       |     |  |        o-- auth-key?    string
+       |     |  o-- null?                 empty
+       |     o-- hello-interval
+       |     |  o-- hello-interval-value?   int32
+       |     o-- dead-interval
+       |     |  o-- dead-interval-value?   uint16
+       |     o-- retransmit-interval
+       |     |  o-- retransmit-interval-value?   uint16
+       |     o-- transmit-delay
+       |     |  o-- transmit-delay-value?   uint16
+       |     o-- topology
+       |     |  o-- disable?   empty
+       |     o-- ttl-security
+       |     |  o-- hops?   uint8
+       |     o-- authentication-key
+       |     |  o-- auth-type?   uint8
+       |     |  o-- auth-key?    string
+       |     o-- message-digest-key* [id]
+       |        o-- id?    uint8
+       |        o-- md5
+       |           o-- auth-type?   uint8
+       |           o-- auth-key?    string
+       x-- auto-cost!
+       |  x-- reference-bandwidth?   uint32
+       o-- event-log!
+       |  o-- one-shot?   empty
+       |  o-- pause?      empty
+       |  o-- size?       uint32
+       o-- bfd
+       |  o-- all-interfaces?   empty
+       o-- interface-id
+       |  o-- snmp-if-index?   empty
+       o-- log-adjacency-changes!
+       |  o-- detail?   empty
+       o-- max-lsa
+       |  o-- number?            uint32
+       |  o-- threshold-value?   uint32
+       |  o-- ignore-count?      uint32
+       |  o-- ignore-time?       uint32
+       |  o-- reset-time?        uint32
+       |  o-- warning-only?      empty
+       x-- max-metric
+       |  x-- router-lsa!
+       |     x-- external-lsa!
+       |     |  x-- metric?   uint32
+       |     x-- include-stub?   empty
+       |     x-- on-startup!
+       |     |  x-- (time-wait-for-bgp-choice)?
+       |     |     +--:(time)
+       |     |     |  x-- time?           uint32
+       |     |     +--:(wait-for-bgp)
+       |     |        x-- wait-for-bgp?   empty
+       |     o-- summary-lsa!
+       |        o-- metric?   uint32
+       +-- passive-interface
+       |  +-- (passive-interface-choice)?
+       |     +--:(default)
+       |     |  +-- default?     empty
+       |     +--:(interface)
+       |        +-- interface*   string
+       +-- disable
+       |  +-- passive-interface* [interface]
+       |     +-- interface?   string
+       o-- queue-depth
+       |  o-- hello
+       |  |  o-- options?   union
+       |  o-- update
+       |     o-- options?   union
+       x-- timers
+       |  o-- lsa
+       |  |  o-- arrival?   uint32
+       |  o-- pacing
+       |  |  o-- flood?            uint32
+       |  |  o-- lsa-group?        uint32
+       |  |  o-- retransmission?   uint32
+       |  x-- throttle
+       |     o-- lsa
+       |     |  o-- all
+       |     |     o-- delay?       uint32
+       |     |     o-- min-delay?   uint32
+       |     |     o-- max-delay?   uint32
+       |     x-- spf
+       |        x-- delay?       uint32
+       |        x-- min-delay?   uint32
+       |        x-- max-delay?   uint32
+       x-- router-id?               inet:ipv4-address
+       o-- nsr?                     empty
+       o-- traffic-share
+       |  o-- min?                 empty
+       |  o-- across-interfaces?   empty
+       o-- ttl-security
+       |  o-- all-interfaces?   empty
+       |  o-- hops?             uint8
+       o-- capability
+       |  o-- capability-type?   enumeration
+       x-- compatible
+       |  x-- rfc1583?   empty
+       |  o-- rfc1587?   empty
+       |  o-- rfc5243?   empty
+       x-- default-information
+       |  x-- originate!
+       |     x-- always?        empty
+       |     x-- metric?        uint32
+       |     x-- metric-type?   ios-types:ospf-metric-type
+       |     x-- route-map?     string
+       o-- default-metric?          uint32
+       o-- discard-route!
+       |  o-- external?   empty
+       |  o-- internal?   empty
+       |  o-- metric?     uint32
+       x-- distance
+       |  o-- ospf-distance
+       |  |  o-- distance?   uint32
+       |  |  o-- ip?         inet:ipv4-address
+       |  |  o-- wildcard?   inet:ipv4-address
+       |  |  o-- acl-name?   ios-types:access-list-standard-id-type
+       |  x-- ospf
+       |     x-- external?     uint32
+       |     x-- inter-area?   uint32
+       |     x-- intra-area?   uint32
+       o-- maximum-paths?           uint32
+       x-- redistribute
+       |  o-- application* [name]
+       |  |  o-- name?             string
+       |  |  x-- redist-options
+       |  |     o-- metric?        uint32
+       |  |     o-- metric-type?   enumeration
+       |  |     o-- tag?           uint32
+       |  |     o-- subnets?       empty
+       |  |     x-- route-map?     string
+       |  |     o-- nssa-only?     empty
+       |  x-- bgp* [as-number]
+       |  |  o-- as-number?        ios-types:bgp-as-number-type
+       |  |  x-- redist-options
+       |  |     o-- metric?        uint32
+       |  |     o-- metric-type?   enumeration
+       |  |     o-- tag?           uint32
+       |  |     o-- subnets?       empty
+       |  |     x-- route-map?     string
+       |  |     o-- nssa-only?     empty
+       |  x-- connected!
+       |  |  x-- redist-options
+       |  |     o-- metric?        uint32
+       |  |     o-- metric-type?   enumeration
+       |  |     o-- tag?           uint32
+       |  |     o-- subnets?       empty
+       |  |     x-- route-map?     string
+       |  |     o-- nssa-only?     empty
+       |  x-- eigrp* [as-number]
+       |  |  o-- as-number?        ios-types:bgp-as-number-type
+       |  |  x-- redist-options
+       |  |     o-- metric?        uint32
+       |  |     o-- metric-type?   enumeration
+       |  |     o-- tag?           uint32
+       |  |     o-- subnets?       empty
+       |  |     x-- route-map?     string
+       |  |     o-- nssa-only?     empty
+       |  o-- isis!
+       |  |  o-- (isis-level-routes-isis-area-choice)?
+       |  |  |  +--:(isis-level-routes)
+       |  |  |  |  o-- isis-level-routes?   enumeration
+       |  |  |  +--:(isis-area)
+       |  |  |     o-- isis-area* [name]
+       |  |  |        o-- name?                string
+       |  |  |        o-- isis-level-routes?   enumeration
+       |  |  |        x-- redist-options
+       |  |  |           o-- metric?        uint32
+       |  |  |           o-- metric-type?   enumeration
+       |  |  |           o-- tag?           uint32
+       |  |  |           o-- subnets?       empty
+       |  |  |           x-- route-map?     string
+       |  |  |           o-- nssa-only?     empty
+       |  |  x-- redist-options
+       |  |     o-- metric?        uint32
+       |  |     o-- metric-type?   enumeration
+       |  |     o-- tag?           uint32
+       |  |     o-- subnets?       empty
+       |  |     x-- route-map?     string
+       |  |     o-- nssa-only?     empty
+       |  o-- iso-igrp!
+       |  |  o-- (area-tag-route-map-choice)?
+       |  |  |  +--:(area-tag-route-map-container)
+       |  |  |  |  o-- area-tag-route-map-container
+       |  |  |  |     o-- area-tag?    string
+       |  |  |  |     o-- route-map?   string
+       |  |  |  +--:(route-map)
+       |  |  |     o-- route-map?                      string
+       |  |  o-- iso-igrp-container
+       |  |     o-- metric?        uint32
+       |  |     o-- metric-type?   enumeration
+       |  |     o-- tag?           uint32
+       |  |     o-- subnets?       empty
+       |  o-- lisp
+       |  |  x-- redist-options
+       |  |     o-- metric?        uint32
+       |  |     o-- metric-type?   enumeration
+       |  |     o-- tag?           uint32
+       |  |     o-- subnets?       empty
+       |  |     x-- route-map?     string
+       |  |     o-- nssa-only?     empty
+       |  o-- mobile!
+       |  |  x-- redist-options
+       |  |     o-- metric?        uint32
+       |  |     o-- metric-type?   enumeration
+       |  |     o-- tag?           uint32
+       |  |     o-- subnets?       empty
+       |  |     x-- route-map?     string
+       |  |     o-- nssa-only?     empty
+       |  o-- odr!
+       |  |  x-- redist-options
+       |  |     o-- metric?        uint32
+       |  |     o-- metric-type?   enumeration
+       |  |     o-- tag?           uint32
+       |  |     o-- subnets?       empty
+       |  |     x-- route-map?     string
+       |  |     o-- nssa-only?     empty
+       |  x-- omp! {ios-features:omp}?
+       |  |  x-- redist-options
+       |  |     o-- metric?        uint32
+       |  |     o-- metric-type?   enumeration
+       |  |     o-- tag?           uint32
+       |  |     o-- subnets?       empty
+       |  |     x-- route-map?     string
+       |  |     o-- nssa-only?     empty
+       |  x-- nat-route {ios-features:sdwan}?
+       |  |  x-- dia?              empty
+       |  |  x-- outside?          empty
+       |  |  x-- redist-options
+       |  |     o-- metric?        uint32
+       |  |     o-- metric-type?   enumeration
+       |  |     o-- tag?           uint32
+       |  |     o-- subnets?       empty
+       |  |     x-- route-map?     string
+       |  |     o-- nssa-only?     empty
+       |  o-- ospf* [id]
+       |  |  o-- id?            uint32
+       |  |  o-- match
+       |  |  |  o-- internal!
+       |  |  |  |  o-- metric?        uint32
+       |  |  |  |  o-- metric-type?   enumeration
+       |  |  |  |  o-- nssa-only?     empty
+       |  |  |  |  o-- subnets?       empty
+       |  |  |  |  o-- route-map?     string
+       |  |  |  |  o-- tag?           uint32
+       |  |  |  o-- external!
+       |  |  |  |  o-- external-routes?   redist-ospf-external-type
+       |  |  |  |  o-- metric?            uint32
+       |  |  |  |  o-- metric-type?       enumeration
+       |  |  |  |  o-- nssa-only?         empty
+       |  |  |  |  o-- subnets?           empty
+       |  |  |  |  o-- route-map?         string
+       |  |  |  |  o-- tag?               uint32
+       |  |  |  o-- nssa-external!
+       |  |  |     o-- nssa-external-routes?   redist-ospf-external-type
+       |  |  |     o-- metric?                 uint32
+       |  |  |     o-- metric-type?            enumeration
+       |  |  |     o-- nssa-only?              empty
+       |  |  |     o-- subnets?                empty
+       |  |  |     o-- route-map?              string
+       |  |  |     o-- tag?                    uint32
+       |  |  o-- metric?        uint32
+       |  |  o-- metric-type?   enumeration
+       |  |  o-- nssa-only?     empty
+       |  |  o-- subnets?       empty
+       |  |  o-- route-map?     string
+       |  |  o-- tag?           uint32
+       |  |  o-- vrf?           string
+       |  o-- ospfv3* [id]
+       |  |  o-- id?            uint32
+       |  |  o-- match
+       |  |  |  o-- internal!
+       |  |  |  |  o-- metric?        uint32
+       |  |  |  |  o-- metric-type?   enumeration
+       |  |  |  |  o-- nssa-only?     empty
+       |  |  |  |  o-- subnets?       empty
+       |  |  |  |  o-- route-map?     string
+       |  |  |  |  o-- tag?           uint32
+       |  |  |  o-- external!
+       |  |  |  |  o-- external-routes?   redist-ospf-external-type
+       |  |  |  |  o-- metric?            uint32
+       |  |  |  |  o-- metric-type?       enumeration
+       |  |  |  |  o-- nssa-only?         empty
+       |  |  |  |  o-- subnets?           empty
+       |  |  |  |  o-- route-map?         string
+       |  |  |  |  o-- tag?               uint32
+       |  |  |  o-- nssa-external!
+       |  |  |     o-- nssa-external-routes?   redist-ospf-external-type
+       |  |  |     o-- metric?                 uint32
+       |  |  |     o-- metric-type?            enumeration
+       |  |  |     o-- nssa-only?              empty
+       |  |  |     o-- subnets?                empty
+       |  |  |     o-- route-map?              string
+       |  |  |     o-- tag?                    uint32
+       |  |  o-- metric?        uint32
+       |  |  o-- metric-type?   enumeration
+       |  |  o-- nssa-only?     empty
+       |  |  o-- subnets?       empty
+       |  |  o-- route-map?     string
+       |  |  o-- tag?           uint32
+       |  o-- rip* [id]
+       |  |  o-- id?               string
+       |  |  x-- redist-options
+       |  |     o-- metric?        uint32
+       |  |     o-- metric-type?   enumeration
+       |  |     o-- tag?           uint32
+       |  |     o-- subnets?       empty
+       |  |     x-- route-map?     string
+       |  |     o-- nssa-only?     empty
+       |  x-- static!
+       |  |  x-- redist-options
+       |  |     o-- metric?        uint32
+       |  |     o-- metric-type?   enumeration
+       |  |     o-- tag?           uint32
+       |  |     o-- subnets?       empty
+       |  |     x-- route-map?     string
+       |  |     o-- nssa-only?     empty
+       |  o-- maximum-prefix
+       |  |  o-- number?                             uint32
+       |  |  o-- threshold-warning-only-container
+       |  |     o-- threshold?      uint32
+       |  |     o-- warning-only?   empty
+       |  o-- vrf
+       |     o-- non-global-vrf* [name]
+       |     |  o-- name?          string
+       |     |  o-- application* [name]
+       |     |  |  o-- name?             string
+       |     |  |  x-- redist-options
+       |     |  |     o-- metric?        uint32
+       |     |  |     o-- metric-type?   enumeration
+       |     |  |     o-- tag?           uint32
+       |     |  |     o-- subnets?       empty
+       |     |  |     x-- route-map?     string
+       |     |  |     o-- nssa-only?     empty
+       |     |  x-- bgp* [as-number]
+       |     |  |  o-- as-number?        ios-types:bgp-as-number-type
+       |     |  |  x-- redist-options
+       |     |  |     o-- metric?        uint32
+       |     |  |     o-- metric-type?   enumeration
+       |     |  |     o-- tag?           uint32
+       |     |  |     o-- subnets?       empty
+       |     |  |     x-- route-map?     string
+       |     |  |     o-- nssa-only?     empty
+       |     |  x-- connected!
+       |     |  |  x-- redist-options
+       |     |  |     o-- metric?        uint32
+       |     |  |     o-- metric-type?   enumeration
+       |     |  |     o-- tag?           uint32
+       |     |  |     o-- subnets?       empty
+       |     |  |     x-- route-map?     string
+       |     |  |     o-- nssa-only?     empty
+       |     |  x-- eigrp* [as-number]
+       |     |  |  o-- as-number?        ios-types:bgp-as-number-type
+       |     |  |  x-- redist-options
+       |     |  |     o-- metric?        uint32
+       |     |  |     o-- metric-type?   enumeration
+       |     |  |     o-- tag?           uint32
+       |     |  |     o-- subnets?       empty
+       |     |  |     x-- route-map?     string
+       |     |  |     o-- nssa-only?     empty
+       |     |  o-- isis!
+       |     |  |  o-- (isis-level-routes-isis-area-choice)?
+       |     |  |  |  +--:(isis-level-routes)
+       |     |  |  |  |  o-- isis-level-routes?   enumeration
+       |     |  |  |  +--:(isis-area)
+       |     |  |  |     o-- isis-area* [name]
+       |     |  |  |        o-- name?                string
+       |     |  |  |        o-- isis-level-routes?   enumeration
+       |     |  |  |        x-- redist-options
+       |     |  |  |           o-- metric?        uint32
+       |     |  |  |           o-- metric-type?   enumeration
+       |     |  |  |           o-- tag?           uint32
+       |     |  |  |           o-- subnets?       empty
+       |     |  |  |           x-- route-map?     string
+       |     |  |  |           o-- nssa-only?     empty
+       |     |  |  x-- redist-options
+       |     |  |     o-- metric?        uint32
+       |     |  |     o-- metric-type?   enumeration
+       |     |  |     o-- tag?           uint32
+       |     |  |     o-- subnets?       empty
+       |     |  |     x-- route-map?     string
+       |     |  |     o-- nssa-only?     empty
+       |     |  o-- iso-igrp!
+       |     |  |  o-- (area-tag-route-map-choice)?
+       |     |  |  |  +--:(area-tag-route-map-container)
+       |     |  |  |  |  o-- area-tag-route-map-container
+       |     |  |  |  |     o-- area-tag?    string
+       |     |  |  |  |     o-- route-map?   string
+       |     |  |  |  +--:(route-map)
+       |     |  |  |     o-- route-map?                      string
+       |     |  |  o-- iso-igrp-container
+       |     |  |     o-- metric?        uint32
+       |     |  |     o-- metric-type?   enumeration
+       |     |  |     o-- tag?           uint32
+       |     |  |     o-- subnets?       empty
+       |     |  o-- lisp
+       |     |  |  x-- redist-options
+       |     |  |     o-- metric?        uint32
+       |     |  |     o-- metric-type?   enumeration
+       |     |  |     o-- tag?           uint32
+       |     |  |     o-- subnets?       empty
+       |     |  |     x-- route-map?     string
+       |     |  |     o-- nssa-only?     empty
+       |     |  o-- mobile!
+       |     |  |  x-- redist-options
+       |     |  |     o-- metric?        uint32
+       |     |  |     o-- metric-type?   enumeration
+       |     |  |     o-- tag?           uint32
+       |     |  |     o-- subnets?       empty
+       |     |  |     x-- route-map?     string
+       |     |  |     o-- nssa-only?     empty
+       |     |  o-- odr!
+       |     |  |  x-- redist-options
+       |     |  |     o-- metric?        uint32
+       |     |  |     o-- metric-type?   enumeration
+       |     |  |     o-- tag?           uint32
+       |     |  |     o-- subnets?       empty
+       |     |  |     x-- route-map?     string
+       |     |  |     o-- nssa-only?     empty
+       |     |  x-- omp! {ios-features:omp}?
+       |     |  |  x-- redist-options
+       |     |  |     o-- metric?        uint32
+       |     |  |     o-- metric-type?   enumeration
+       |     |  |     o-- tag?           uint32
+       |     |  |     o-- subnets?       empty
+       |     |  |     x-- route-map?     string
+       |     |  |     o-- nssa-only?     empty
+       |     |  x-- nat-route {ios-features:sdwan}?
+       |     |  |  x-- dia?              empty
+       |     |  |  x-- outside?          empty
+       |     |  |  x-- redist-options
+       |     |  |     o-- metric?        uint32
+       |     |  |     o-- metric-type?   enumeration
+       |     |  |     o-- tag?           uint32
+       |     |  |     o-- subnets?       empty
+       |     |  |     x-- route-map?     string
+       |     |  |     o-- nssa-only?     empty
+       |     |  o-- ospf* [id]
+       |     |  |  o-- id?            uint32
+       |     |  |  o-- match
+       |     |  |  |  o-- internal!
+       |     |  |  |  |  o-- metric?        uint32
+       |     |  |  |  |  o-- metric-type?   enumeration
+       |     |  |  |  |  o-- nssa-only?     empty
+       |     |  |  |  |  o-- subnets?       empty
+       |     |  |  |  |  o-- route-map?     string
+       |     |  |  |  |  o-- tag?           uint32
+       |     |  |  |  o-- external!
+       |     |  |  |  |  o-- external-routes?   redist-ospf-external-type
+       |     |  |  |  |  o-- metric?            uint32
+       |     |  |  |  |  o-- metric-type?       enumeration
+       |     |  |  |  |  o-- nssa-only?         empty
+       |     |  |  |  |  o-- subnets?           empty
+       |     |  |  |  |  o-- route-map?         string
+       |     |  |  |  |  o-- tag?               uint32
+       |     |  |  |  o-- nssa-external!
+       |     |  |  |     o-- nssa-external-routes?   redist-ospf-external-type
+       |     |  |  |     o-- metric?                 uint32
+       |     |  |  |     o-- metric-type?            enumeration
+       |     |  |  |     o-- nssa-only?              empty
+       |     |  |  |     o-- subnets?                empty
+       |     |  |  |     o-- route-map?              string
+       |     |  |  |     o-- tag?                    uint32
+       |     |  |  o-- metric?        uint32
+       |     |  |  o-- metric-type?   enumeration
+       |     |  |  o-- nssa-only?     empty
+       |     |  |  o-- subnets?       empty
+       |     |  |  o-- route-map?     string
+       |     |  |  o-- tag?           uint32
+       |     |  |  o-- vrf?           string
+       |     |  o-- ospfv3* [id]
+       |     |  |  o-- id?            uint32
+       |     |  |  o-- match
+       |     |  |  |  o-- internal!
+       |     |  |  |  |  o-- metric?        uint32
+       |     |  |  |  |  o-- metric-type?   enumeration
+       |     |  |  |  |  o-- nssa-only?     empty
+       |     |  |  |  |  o-- subnets?       empty
+       |     |  |  |  |  o-- route-map?     string
+       |     |  |  |  |  o-- tag?           uint32
+       |     |  |  |  o-- external!
+       |     |  |  |  |  o-- external-routes?   redist-ospf-external-type
+       |     |  |  |  |  o-- metric?            uint32
+       |     |  |  |  |  o-- metric-type?       enumeration
+       |     |  |  |  |  o-- nssa-only?         empty
+       |     |  |  |  |  o-- subnets?           empty
+       |     |  |  |  |  o-- route-map?         string
+       |     |  |  |  |  o-- tag?               uint32
+       |     |  |  |  o-- nssa-external!
+       |     |  |  |     o-- nssa-external-routes?   redist-ospf-external-type
+       |     |  |  |     o-- metric?                 uint32
+       |     |  |  |     o-- metric-type?            enumeration
+       |     |  |  |     o-- nssa-only?              empty
+       |     |  |  |     o-- subnets?                empty
+       |     |  |  |     o-- route-map?              string
+       |     |  |  |     o-- tag?                    uint32
+       |     |  |  o-- metric?        uint32
+       |     |  |  o-- metric-type?   enumeration
+       |     |  |  o-- nssa-only?     empty
+       |     |  |  o-- subnets?       empty
+       |     |  |  o-- route-map?     string
+       |     |  |  o-- tag?           uint32
+       |     |  o-- rip* [id]
+       |     |  |  o-- id?               string
+       |     |  |  x-- redist-options
+       |     |  |     o-- metric?        uint32
+       |     |  |     o-- metric-type?   enumeration
+       |     |  |     o-- tag?           uint32
+       |     |  |     o-- subnets?       empty
+       |     |  |     x-- route-map?     string
+       |     |  |     o-- nssa-only?     empty
+       |     |  x-- static!
+       |     |     x-- redist-options
+       |     |        o-- metric?        uint32
+       |     |        o-- metric-type?   enumeration
+       |     |        o-- tag?           uint32
+       |     |        o-- subnets?       empty
+       |     |        x-- route-map?     string
+       |     |        o-- nssa-only?     empty
+       |     o-- global
+       |        o-- application* [name]
+       |        |  o-- name?             string
+       |        |  x-- redist-options
+       |        |     o-- metric?        uint32
+       |        |     o-- metric-type?   enumeration
+       |        |     o-- tag?           uint32
+       |        |     o-- subnets?       empty
+       |        |     x-- route-map?     string
+       |        |     o-- nssa-only?     empty
+       |        x-- bgp* [as-number]
+       |        |  o-- as-number?        ios-types:bgp-as-number-type
+       |        |  x-- redist-options
+       |        |     o-- metric?        uint32
+       |        |     o-- metric-type?   enumeration
+       |        |     o-- tag?           uint32
+       |        |     o-- subnets?       empty
+       |        |     x-- route-map?     string
+       |        |     o-- nssa-only?     empty
+       |        x-- connected!
+       |        |  x-- redist-options
+       |        |     o-- metric?        uint32
+       |        |     o-- metric-type?   enumeration
+       |        |     o-- tag?           uint32
+       |        |     o-- subnets?       empty
+       |        |     x-- route-map?     string
+       |        |     o-- nssa-only?     empty
+       |        x-- eigrp* [as-number]
+       |        |  o-- as-number?        ios-types:bgp-as-number-type
+       |        |  x-- redist-options
+       |        |     o-- metric?        uint32
+       |        |     o-- metric-type?   enumeration
+       |        |     o-- tag?           uint32
+       |        |     o-- subnets?       empty
+       |        |     x-- route-map?     string
+       |        |     o-- nssa-only?     empty
+       |        o-- isis!
+       |        |  o-- (isis-level-routes-isis-area-choice)?
+       |        |  |  +--:(isis-level-routes)
+       |        |  |  |  o-- isis-level-routes?   enumeration
+       |        |  |  +--:(isis-area)
+       |        |  |     o-- isis-area* [name]
+       |        |  |        o-- name?                string
+       |        |  |        o-- isis-level-routes?   enumeration
+       |        |  |        x-- redist-options
+       |        |  |           o-- metric?        uint32
+       |        |  |           o-- metric-type?   enumeration
+       |        |  |           o-- tag?           uint32
+       |        |  |           o-- subnets?       empty
+       |        |  |           x-- route-map?     string
+       |        |  |           o-- nssa-only?     empty
+       |        |  x-- redist-options
+       |        |     o-- metric?        uint32
+       |        |     o-- metric-type?   enumeration
+       |        |     o-- tag?           uint32
+       |        |     o-- subnets?       empty
+       |        |     x-- route-map?     string
+       |        |     o-- nssa-only?     empty
+       |        o-- iso-igrp!
+       |        |  o-- (area-tag-route-map-choice)?
+       |        |  |  +--:(area-tag-route-map-container)
+       |        |  |  |  o-- area-tag-route-map-container
+       |        |  |  |     o-- area-tag?    string
+       |        |  |  |     o-- route-map?   string
+       |        |  |  +--:(route-map)
+       |        |  |     o-- route-map?                      string
+       |        |  o-- iso-igrp-container
+       |        |     o-- metric?        uint32
+       |        |     o-- metric-type?   enumeration
+       |        |     o-- tag?           uint32
+       |        |     o-- subnets?       empty
+       |        o-- lisp
+       |        |  x-- redist-options
+       |        |     o-- metric?        uint32
+       |        |     o-- metric-type?   enumeration
+       |        |     o-- tag?           uint32
+       |        |     o-- subnets?       empty
+       |        |     x-- route-map?     string
+       |        |     o-- nssa-only?     empty
+       |        o-- mobile!
+       |        |  x-- redist-options
+       |        |     o-- metric?        uint32
+       |        |     o-- metric-type?   enumeration
+       |        |     o-- tag?           uint32
+       |        |     o-- subnets?       empty
+       |        |     x-- route-map?     string
+       |        |     o-- nssa-only?     empty
+       |        o-- odr!
+       |        |  x-- redist-options
+       |        |     o-- metric?        uint32
+       |        |     o-- metric-type?   enumeration
+       |        |     o-- tag?           uint32
+       |        |     o-- subnets?       empty
+       |        |     x-- route-map?     string
+       |        |     o-- nssa-only?     empty
+       |        x-- omp! {ios-features:omp}?
+       |        |  x-- redist-options
+       |        |     o-- metric?        uint32
+       |        |     o-- metric-type?   enumeration
+       |        |     o-- tag?           uint32
+       |        |     o-- subnets?       empty
+       |        |     x-- route-map?     string
+       |        |     o-- nssa-only?     empty
+       |        x-- nat-route {ios-features:sdwan}?
+       |        |  x-- dia?              empty
+       |        |  x-- outside?          empty
+       |        |  x-- redist-options
+       |        |     o-- metric?        uint32
+       |        |     o-- metric-type?   enumeration
+       |        |     o-- tag?           uint32
+       |        |     o-- subnets?       empty
+       |        |     x-- route-map?     string
+       |        |     o-- nssa-only?     empty
+       |        o-- ospf* [id]
+       |        |  o-- id?            uint32
+       |        |  o-- match
+       |        |  |  o-- internal!
+       |        |  |  |  o-- metric?        uint32
+       |        |  |  |  o-- metric-type?   enumeration
+       |        |  |  |  o-- nssa-only?     empty
+       |        |  |  |  o-- subnets?       empty
+       |        |  |  |  o-- route-map?     string
+       |        |  |  |  o-- tag?           uint32
+       |        |  |  o-- external!
+       |        |  |  |  o-- external-routes?   redist-ospf-external-type
+       |        |  |  |  o-- metric?            uint32
+       |        |  |  |  o-- metric-type?       enumeration
+       |        |  |  |  o-- nssa-only?         empty
+       |        |  |  |  o-- subnets?           empty
+       |        |  |  |  o-- route-map?         string
+       |        |  |  |  o-- tag?               uint32
+       |        |  |  o-- nssa-external!
+       |        |  |     o-- nssa-external-routes?   redist-ospf-external-type
+       |        |  |     o-- metric?                 uint32
+       |        |  |     o-- metric-type?            enumeration
+       |        |  |     o-- nssa-only?              empty
+       |        |  |     o-- subnets?                empty
+       |        |  |     o-- route-map?              string
+       |        |  |     o-- tag?                    uint32
+       |        |  o-- metric?        uint32
+       |        |  o-- metric-type?   enumeration
+       |        |  o-- nssa-only?     empty
+       |        |  o-- subnets?       empty
+       |        |  o-- route-map?     string
+       |        |  o-- tag?           uint32
+       |        |  o-- vrf?           string
+       |        o-- ospfv3* [id]
+       |        |  o-- id?            uint32
+       |        |  o-- match
+       |        |  |  o-- internal!
+       |        |  |  |  o-- metric?        uint32
+       |        |  |  |  o-- metric-type?   enumeration
+       |        |  |  |  o-- nssa-only?     empty
+       |        |  |  |  o-- subnets?       empty
+       |        |  |  |  o-- route-map?     string
+       |        |  |  |  o-- tag?           uint32
+       |        |  |  o-- external!
+       |        |  |  |  o-- external-routes?   redist-ospf-external-type
+       |        |  |  |  o-- metric?            uint32
+       |        |  |  |  o-- metric-type?       enumeration
+       |        |  |  |  o-- nssa-only?         empty
+       |        |  |  |  o-- subnets?           empty
+       |        |  |  |  o-- route-map?         string
+       |        |  |  |  o-- tag?               uint32
+       |        |  |  o-- nssa-external!
+       |        |  |     o-- nssa-external-routes?   redist-ospf-external-type
+       |        |  |     o-- metric?                 uint32
+       |        |  |     o-- metric-type?            enumeration
+       |        |  |     o-- nssa-only?              empty
+       |        |  |     o-- subnets?                empty
+       |        |  |     o-- route-map?              string
+       |        |  |     o-- tag?                    uint32
+       |        |  o-- metric?        uint32
+       |        |  o-- metric-type?   enumeration
+       |        |  o-- nssa-only?     empty
+       |        |  o-- subnets?       empty
+       |        |  o-- route-map?     string
+       |        |  o-- tag?           uint32
+       |        o-- rip* [id]
+       |        |  o-- id?               string
+       |        |  x-- redist-options
+       |        |     o-- metric?        uint32
+       |        |     o-- metric-type?   enumeration
+       |        |     o-- tag?           uint32
+       |        |     o-- subnets?       empty
+       |        |     x-- route-map?     string
+       |        |     o-- nssa-only?     empty
+       |        x-- static!
+       |           x-- redist-options
+       |              o-- metric?        uint32
+       |              o-- metric-type?   enumeration
+       |              o-- tag?           uint32
+       |              o-- subnets?       empty
+       |              x-- route-map?     string
+       |              o-- nssa-only?     empty
+       o-- distribute-list
+       |  o-- accesslist* [in-out]
+       |  |  o-- in-out?   ios-types:access-list-in-out-type
+       |  o-- accesslist-ifname* [in-out interface]
+       |  |  o-- in-out?                 ios-types:access-list-in-out-type
+       |  |  o-- interface?              string
+       |  |  o-- interface-routing-id?   uint8
+       |  |  o-- isis-tag?               string
+       |  |  o-- vrf?                    string
+       |  o-- accesslist-prefix-gateway* [in-out]
+       |  |  o-- in-out?           ios-types:access-list-in-out-type
+       |  |  o-- prefix-gateway    enumeration
+       |  |  o-- name              string
+       |  o-- accesslist-prefix-gateway-ifname* [in-out interface]
+       |     o-- in-out?                 ios-types:access-list-in-out-type
+       |     o-- interface?              string
+       |     o-- prefix-gateway          enumeration
+       |     o-- name                    string
+       |     o-- interface-routing-id?   uint8
+       |     o-- isis-tag?               string
+       |     o-- vrf?                    string
+       o-- domain-id
+       |  o-- (domain-id-choice)?
+       |     +--:(ip-format)
+       |     |  o-- ip-format?             inet:ipv4-address
+       |     +--:(ip-format-secondary)
+       |     |  o-- ip-format-secondary
+       |     |     o-- ip?          inet:ipv4-address
+       |     |     o-- secondary?   empty
+       |     +--:(Null)
+       |     |  o-- Null?                  empty
+       |     +--:(type)
+       |        o-- type
+       |           o-- type-leaf?   enumeration
+       |           o-- value?       string
+       o-- domain-tag?              uint32
+       o-- fast-reroute
+       |  o-- keep-all-paths?   empty
+       |  o-- per-prefix
+       |     o-- enable
+       |     |  o-- area?              ios-types:ospf-area-type
+       |     |  o-- prefix-priority?   enumeration
+       |     o-- remote-lfa
+       |     |  o-- area-cost
+       |     |  |  o-- area?           ios-types:ospf-area-type
+       |     |  |  o-- maximum-cost?   uint32
+       |     |  o-- area-tunnel
+       |     |  |  o-- area?     ios-types:ospf-area-type
+       |     |  |  o-- tunnel?   enumeration
+       |     |  o-- maximum-cost?   uint32
+       |     |  o-- tunnel?         enumeration
+       |     o-- tie-break
+       |        o-- broadcast-interface-disjoint
+       |        |  o-- required?   empty
+       |        |  o-- index?      uint8
+       |        o-- downstream
+       |        |  o-- required?   empty
+       |        |  o-- index?      uint8
+       |        o-- linecard-disjoint
+       |        |  o-- required?   empty
+       |        |  o-- index?      uint8
+       |        o-- lowest-metric
+       |        |  o-- required?   empty
+       |        |  o-- index?      uint8
+       |        o-- node-protecting
+       |        |  o-- required?   empty
+       |        |  o-- index?      uint8
+       |        o-- primary-path
+       |        |  o-- required?   empty
+       |        |  o-- index?      uint8
+       |        o-- secondary-path
+       |        |  o-- required?   empty
+       |        |  o-- index?      uint8
+       |        o-- srlg
+       |           o-- required?   empty
+       |           o-- index?      uint8
+       o-- graceful-restart!
+       |  o-- disable?            empty
+       |  o-- helper!
+       |  |  o-- disable?               empty
+       |  |  o-- strict-lsa-checking?   empty
+       |  o-- restart-interval?   uint16
+       o-- ignore
+       |  o-- lsa
+       |     o-- mospf?   empty
+       o-- ispf?                    empty
+       o-- limit
+       |  o-- retransmissions
+       |     o-- non-dc?   ios-types:limit-dc-non-dc-type
+       |     o-- dc?       ios-types:limit-dc-non-dc-type
+       o-- local-rib-criteria
+       |  o-- forwarding-address?   empty
+       |  o-- inter-area-summary?   empty
+       |  o-- nssa-translation?     empty
+       o-- microloop
+       |  o-- avoidance!
+       |     o-- disable?            empty
+       |     o-- protected?          empty
+       |     o-- rib-update-delay?   uint32
+       o-- mpls
+       |  o-- ldp
+       |  |  o-- autoconfig!
+       |  |  |  o-- area?   ios-types:ospf-area-type
+       |  |  o-- sync!
+       |  o-- traffic-eng
+       |     o-- multicast-intact?    empty
+       |     o-- area* [id]
+       |     |  o-- id?   ios-types:ospf-area-type
+       |     o-- autoroute-exclude
+       |     |  o-- prefix-list?   string
+       |     o-- interface* [name-id]
+       |     |  o-- name-id?   string
+       |     |  o-- area?      uint32
+       |     o-- mesh-group* [id area]
+       |     |  o-- id?          uint32
+       |     |  o-- area?        ios-types:ospf-area-type
+       |     |  o-- interface?   string
+       |     o-- router-id
+       |        +-- (interface-choice)?
+       |           +--:(AppNav-Compress)
+       |           |  +-- AppNav-Compress?             uint16
+       |           +--:(AppNav-UnCompress)
+       |           |  +-- AppNav-UnCompress?           uint16
+       |           +--:(ATM)
+       |           |  +-- ATM?                         string
+       |           +--:(ATM-subinterface)
+       |           |  +-- ATM-subinterface
+       |           |     +-- ATM?   string
+       |           +--:(ATM-ACR)
+       |           |  +-- ATM-ACR?                     string
+       |           +--:(ATM-ACRsubinterface)
+       |           |  +-- ATM-ACRsubinterface
+       |           |     +-- ATM-ACR?   string
+       |           +--:(BDI)
+       |           |  +-- BDI?                         string
+       |           +--:(CEM)
+       |           |  +-- CEM?                         string
+       |           +--:(CEM-ACR)
+       |           |  +-- CEM-ACR?                     uint8
+       |           +--:(Embedded-Service-Engine)
+       |           |  +-- Embedded-Service-Engine?     string
+       |           +--:(Ethernet)
+       |           |  +-- Ethernet?                    string
+       |           +--:(FastEthernet)
+       |           |  +-- FastEthernet?                string
+       |           +--:(GigabitEthernet)
+       |           |  +-- GigabitEthernet?             string
+       |           +--:(FiveGigabitEthernet)
+       |           |  +-- FiveGigabitEthernet?         string
+       |           +--:(AppGigabitEthernet)
+       |           |  +-- AppGigabitEthernet?          string
+       |           +--:(TwentyFiveGigabitEthernet)
+       |           |  o-- TwentyFiveGigabitEthernet?   string
+       |           +--:(TwentyFiveGigE)
+       |           |  +-- TwentyFiveGigE?              string
+       |           +--:(TwoGigabitEthernet)
+       |           |  +-- TwoGigabitEthernet?          string
+       |           +--:(FortyGigabitEthernet)
+       |           |  +-- FortyGigabitEthernet?        string
+       |           +--:(HundredGigE)
+       |           |  +-- HundredGigE?                 string
+       |           +--:(LISP)
+       |           |  +-- LISP?                        string
+       |           +--:(LISP-subinterface)
+       |           |  +-- LISP-subinterface
+       |           |     +-- LISP?   string
+       |           +--:(Loopback)
+       |           |  +-- Loopback?                    uint32
+       |           +--:(Multilink)
+       |           |  +-- Multilink?                   uint16
+       |           +--:(nve)
+       |           |  +-- nve?                         uint16
+       |           +--:(overlay)
+       |           |  +-- overlay?                     uint16
+       |           +--:(Port-channel)
+       |           |  +-- Port-channel?                uint32
+       |           +--:(Port-channel-subinterface)
+       |           |  +-- Port-channel-subinterface
+       |           |     +-- Port-channel?   string
+       |           +--:(pseudowire)
+       |           |  +-- pseudowire?                  uint32
+       |           +--:(SM)
+       |           |  +-- SM?                          string
+       |           +--:(Cellular)
+       |           |  +-- Cellular?                    string
+       |           +--:(Dialer)
+       |           |  +-- Dialer?                      string
+       |           +--:(Serial)
+       |           |  +-- Serial?                      string
+       |           +--:(TenGigabitEthernet)
+       |           |  +-- TenGigabitEthernet?          string
+       |           +--:(Tunnel)
+       |           |  +-- Tunnel?                      uint32
+       |           +--:(Virtual-Template)
+       |           |  +-- Virtual-Template?            uint16
+       |           +--:(Vlan)
+       |           |  +-- Vlan?                        uint16
+       |           +--:(VirtualPortGroup)
+       |           |  +-- VirtualPortGroup?            uint16
+       |           +--:(vasileft)
+       |           |  +-- vasileft?                    uint16
+       |           +--:(vasiright)
+       |           |  +-- vasiright?                   uint16
+       |           +--:(BD-VIF)
+       |              +-- BD-VIF?                      string
+       o-- neighbor* [ip]
+       |  o-- ip?                inet:ipv4-address
+       |  o-- cost?              uint32
+       |  o-- database-filter
+       |  |  o-- all
+       |  |     o-- out?   empty
+       |  o-- poll-interval?     uint32
+       |  o-- priority?          uint32
+       o-- network* [ip mask]
+       |  o-- ip?     inet:ipv4-address
+       |  o-- mask?   inet:ipv4-address
+       |  o-- area?   ios-types:ospf-area-type
+       o-- nsf!
+       |  o-- cisco!
+       |  |  o-- enforce
+       |  |  |  o-- global?   empty
+       |  |  o-- helper!
+       |  |     o-- disable?   empty
+       |  o-- ietf!
+       |     o-- helper!
+       |     |  o-- disable?               empty
+       |     |  o-- strict-lsa-checking?   empty
+       |     o-- restart-interval?   uint16
+       o-- prefix-priority
+       |  o-- high?        empty
+       |  o-- route-map?   string
+       o-- prefix-suppression?      empty
+       o-- priority?                uint8
+       o-- process-min-time
+       |  o-- percent?   uint32
+       o-- shutdown?                boolean
+       o-- snmp
+       |  o-- context* [name]
+       |     o-- name?        string
+       |     o-- community
+       |     |  o-- community-string?   string
+       |     |  o-- access
+       |     |     o-- standard-acl?   uint32
+       |     |     o-- expanded-acl?   uint32
+       |     |     o-- acl-name?       string
+       |     |     o-- ipv6?           string
+       |     |     o-- ro?             empty
+       |     |     o-- rw?             empty
+       |     o-- user
+       |        o-- name?          string
+       |        o-- permisssion
+       |           o-- access
+       |           |  o-- standard-acl?   uint32
+       |           |  o-- acl-name?       string
+       |           |  o-- ipv6?           string
+       |           o-- auth
+       |           |  o-- md5?   string
+       |           |  o-- sha?   string
+       |           o-- credential?   empty
+       |           o-- encrypted?    empty
+       o-- summary-address* [ip wildcard]
+       |  o-- ip?                    inet:ipv4-address
+       |  o-- wildcard?              inet:ipv4-address
+       |  o-- (tag-no-advertise-choice)?
+       |     +--:(nssa-only)
+       |     |  o-- nssa-only?       empty
+       |     +--:(tag)
+       |     |  o-- tag?             uint32
+       |     +--:(not-advertise)
+       |        o-- not-advertise?   empty
+       x-- table-map
+          x-- name?     string
+          x-- filter?   empty

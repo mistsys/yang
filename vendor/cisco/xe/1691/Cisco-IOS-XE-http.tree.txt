@@ -1,0 +1,57 @@
+
+module: Cisco-IOS-XE-http
+  augment /ios:native/ios:ip:
+    +--rw http
+       +--rw access-class?                    uint8
+       +--rw authentication
+       |  +--rw (authentication-choice)?
+       |     +--:(aaa)
+       |     |  +--rw aaa?     empty
+       |     +--:(local)
+       |        +--rw local?   empty
+       +--rw server?                          boolean
+       +--rw secure-server?                   boolean
+       +--rw secure-trustpoint?               string
+       +--rw timeout-policy
+       |  +--rw idle?       uint16
+       |  +--rw life?       uint32
+       |  +--rw requests?   uint32
+       +--rw client
+       |  +--rw secure-trustpoint?   string
+       |  +--rw source-interface?    string
+       |  +--rw proxy-server
+       |     +--rw proxy-server-name?   string
+       |     +--rw proxy-port?          uint16
+       +--rw port?                            uint16
+       +--rw max-connections?                 uint16
+       +--rw active-session-modules?          union
+       +--rw secure-active-session-modules?   union
+       +--rw secure-client-auth?              empty
+
+  grouping config-ip-http-grouping
+    +-- http
+       +-- access-class?                    uint8
+       +-- authentication
+       |  +-- (authentication-choice)?
+       |     +--:(aaa)
+       |     |  +-- aaa?     empty
+       |     +--:(local)
+       |        +-- local?   empty
+       +-- server?                          boolean
+       +-- secure-server?                   boolean
+       +-- secure-trustpoint?               string
+       +-- timeout-policy
+       |  +-- idle?       uint16
+       |  +-- life?       uint32
+       |  +-- requests?   uint32
+       +-- client
+       |  +-- secure-trustpoint?   string
+       |  +-- source-interface?    string
+       |  +-- proxy-server
+       |     +-- proxy-server-name?   string
+       |     +-- proxy-port?          uint16
+       +-- port?                            uint16
+       +-- max-connections?                 uint16
+       +-- active-session-modules?          union
+       +-- secure-active-session-modules?   union
+       +-- secure-client-auth?              empty

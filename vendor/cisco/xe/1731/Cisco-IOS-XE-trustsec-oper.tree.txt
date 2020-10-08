@@ -1,0 +1,106 @@
+module: Cisco-IOS-XE-trustsec-oper
+  +--ro trustsec-state
+  |  +--ro cts-rolebased-sgtmaps
+  |  |  +--ro cts-rolebased-sgtmap* [ip vrf-name]
+  |  |     +--ro ip          inet:ip-prefix
+  |  |     +--ro vrf-name    string
+  |  |     +--ro sgt?        int32
+  |  |     +--ro source?     trustsec-ios-xe-oper:cts-odm-binding-source
+  |  +--ro cts-rolebased-policies
+  |  |  +--ro cts-rolebased-policy* [src-sgt dst-sgt]
+  |  |     +--ro src-sgt                   int32
+  |  |     +--ro dst-sgt                   int32
+  |  |     +--ro sgacl-name?               string
+  |  |     +--ro num-of-sgacl?             uint32
+  |  |     +--ro monitor-mode?             boolean
+  |  |     +--ro policy-life-time?         uint64
+  |  |     +--ro last-updated-time?        yang:date-and-time
+  |  |     +--ro total-deny-count?         uint64
+  |  |     +--ro total-permit-count?       uint64
+  |  |     +--ro software-deny-count?      uint64
+  |  |     +--ro software-permit-count?    uint64
+  |  |     +--ro hardware-deny-count?      uint64
+  |  |     +--ro hardware-permit-count?    uint64
+  |  |     +--ro software-monitor-count?   uint64
+  |  |     +--ro hardware-monitor-count?   uint64
+  |  +--ro cts-rolebased-ipv6-policy* [src-sgt dst-sgt]
+  |  |  +--ro src-sgt                   int32
+  |  |  +--ro dst-sgt                   int32
+  |  |  +--ro sgacl-name?               string
+  |  |  +--ro num-of-sgacl?             uint32
+  |  |  +--ro monitor-mode?             boolean
+  |  |  +--ro policy-life-time?         uint64
+  |  |  +--ro last-updated-time?        yang:date-and-time
+  |  |  +--ro total-deny-count?         uint64
+  |  |  +--ro total-permit-count?       uint64
+  |  |  +--ro software-deny-count?      uint64
+  |  |  +--ro software-permit-count?    uint64
+  |  |  +--ro hardware-deny-count?      uint64
+  |  |  +--ro hardware-permit-count?    uint64
+  |  |  +--ro software-monitor-count?   uint64
+  |  |  +--ro hardware-monitor-count?   uint64
+  |  +--ro cts-sxp-connections
+  |  |  +--ro cts-sxp-connection* [peer-ip vrf-name]
+  |  |     +--ro peer-ip              inet:ip-address
+  |  |     +--ro vrf-name             string
+  |  |     +--ro source-ip?           inet:ip-address
+  |  |     +--ro speaker-state?       trustsec-ios-xe-oper:sxp-con-state
+  |  |     +--ro speaker-duration?    uint64
+  |  |     +--ro listener-state?      trustsec-ios-xe-oper:sxp-con-state
+  |  |     +--ro listener-duration?   uint64
+  |  |     +--ro local-mode?          trustsec-ios-xe-oper:sxp-con-mode
+  |  +--ro cts-manual-con* [if-name]
+  |     +--ro if-name          string
+  |     +--ro mode?            trustsec-ios-xe-oper:cts-ndac-mode
+  |     +--ro ifc-state?       trustsec-ios-xe-oper:cts-manual-ifc-state
+  |     +--ro trusted?         trustsec-ios-xe-oper:cts-manual-trust-status
+  |     +--ro sgt-propagate?   trustsec-ios-xe-oper:cts-manual-sgt-propagate-status
+  |     +--ro sap-status?      trustsec-ios-xe-oper:cts-sap-status
+  |     +--ro peer-sgt?        uint16
+  +--rw schema-metadata-Cisco-IOS-XE-trustsec-oper
+  |  +--rw json-metadata-leaf?   empty
+  +--rw gnmi-model-data
+
+  grouping cts-ip-sgt-map-key
+    +-- ip?         inet:ip-prefix
+    +-- vrf-name?   string
+  grouping cts-ip-sgt-map
+    +-- sgt?      int32
+    +-- source?   trustsec-ios-xe-oper:cts-odm-binding-source
+  grouping cts-role-based-policy-key
+    +-- src-sgt?   int32
+    +-- dst-sgt?   int32
+  grouping cts-role-based-policy
+    +-- sgacl-name?               string
+    +-- num-of-sgacl?             uint32
+    +-- monitor-mode?             boolean
+    +-- policy-life-time?         uint64
+    +-- last-updated-time?        yang:date-and-time
+    +-- total-deny-count?         uint64
+    +-- total-permit-count?       uint64
+    +-- software-deny-count?      uint64
+    +-- software-permit-count?    uint64
+    +-- hardware-deny-count?      uint64
+    +-- hardware-permit-count?    uint64
+    +-- software-monitor-count?   uint64
+    +-- hardware-monitor-count?   uint64
+  grouping cts-sxp-con-key
+    +-- peer-ip?    inet:ip-address
+    +-- vrf-name?   string
+  grouping cts-sxp-con
+    +-- source-ip?           inet:ip-address
+    +-- speaker-state?       trustsec-ios-xe-oper:sxp-con-state
+    +-- speaker-duration?    uint64
+    +-- listener-state?      trustsec-ios-xe-oper:sxp-con-state
+    +-- listener-duration?   uint64
+    +-- local-mode?          trustsec-ios-xe-oper:sxp-con-mode
+  grouping cts-manual-record
+    +-- if-name?         string
+    +-- mode?            trustsec-ios-xe-oper:cts-ndac-mode
+    +-- ifc-state?       trustsec-ios-xe-oper:cts-manual-ifc-state
+    +-- trusted?         trustsec-ios-xe-oper:cts-manual-trust-status
+    +-- sgt-propagate?   trustsec-ios-xe-oper:cts-manual-sgt-propagate-status
+    +-- sap-status?      trustsec-ios-xe-oper:cts-sap-status
+    +-- peer-sgt?        uint16
+  grouping __yangpp_metadata
+    +-- json-metadata-leaf?   empty

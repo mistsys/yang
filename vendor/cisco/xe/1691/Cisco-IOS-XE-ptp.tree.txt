@@ -1,0 +1,45 @@
+
+module: Cisco-IOS-XE-ptp
+  augment /ios:native/ios:ptp:
+    +--rw domain?                                 uint8
+    +--rw profile
+    |  +--rw dot1as?   empty
+    +--rw neighbor-propagation-delay-threshold?   uint32
+    +--rw priority1?                              uint8
+    +--rw priority2?                              uint8
+    +--rw mode
+       +--rw boundary
+       |  +--rw delay-req?    empty
+       |  +--rw pdelay-req?   empty
+       +--rw e2etransparent?   empty
+       +--rw p2ptransparent?   empty
+
+  grouping config-ptp-grouping
+    +-- ptp
+       +-- clock
+          +-- ordinary
+          |  +-- domain?   int8
+          +-- clock-port
+             +-- name?        string
+             +-- slave?       empty
+             +-- master?      empty
+             +-- transport
+             |  +-- ipv4?      empty
+             |  +-- unicast
+             |     +-- interface?     string
+             |     +-- negotiation?   empty
+             +-- clock
+                +-- source?   inet:ipv4-address
+  grouping config-ptp-grouping2
+    +-- domain?                                 uint8
+    +-- profile
+    |  +-- dot1as?   empty
+    +-- neighbor-propagation-delay-threshold?   uint32
+    +-- priority1?                              uint8
+    +-- priority2?                              uint8
+    +-- mode
+       +-- boundary
+       |  +-- delay-req?    empty
+       |  +-- pdelay-req?   empty
+       +-- e2etransparent?   empty
+       +-- p2ptransparent?   empty

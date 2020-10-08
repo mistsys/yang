@@ -1,0 +1,77 @@
+submodule: Cisco-IOS-XE-parser (belongs-to Cisco-IOS-XE-native)
+
+  grouping all-command-gouping
+    +-- command-list* [command]
+       +-- command?   string
+       +-- all?       empty
+  grouping config-exec-options-grouping
+    +-- exclude
+    |  +-- command-list* [command]
+    |     +-- command?   string
+    |     +-- all?       empty
+    +-- include
+    |  +-- command-list* [command]
+    |     +-- command?   string
+    |     +-- all?       empty
+    +-- include-exclusive
+       +-- command-list* [command]
+          +-- command?   string
+          +-- all?       empty
+  grouping parser-view-common-options-grouping
+    +-- secret
+       +-- type?     enumeration
+       +-- secret?   string
+  grouping config-parser-grouping
+    +-- parser
+       +-- config
+       |  +-- cache?       enumeration
+       |  +-- partition?   empty
+       +-- view
+          +-- view-name-list* [name]
+          |  +-- name?        string
+          |  +-- inclusive?   empty
+          |  +-- secret
+          |  |  +-- type?     enumeration
+          |  |  +-- secret?   string
+          |  +-- commands
+          |     +-- exec
+          |     |  +-- exclude
+          |     |  |  +-- command-list* [command]
+          |     |  |     +-- command?   string
+          |     |  |     +-- all?       empty
+          |     |  +-- include
+          |     |  |  +-- command-list* [command]
+          |     |  |     +-- command?   string
+          |     |  |     +-- all?       empty
+          |     |  +-- include-exclusive
+          |     |     +-- command-list* [command]
+          |     |        +-- command?   string
+          |     |        +-- all?       empty
+          |     +-- configure
+          |        +-- exclude
+          |        |  +-- command-list* [command]
+          |        |     +-- command?   string
+          |        |     +-- all?       empty
+          |        +-- include
+          |        |  +-- command-list* [command]
+          |        |     +-- command?   string
+          |        |     +-- all?       empty
+          |        +-- include-exclusive
+          |           +-- command-list* [command]
+          |              +-- command?   string
+          |              +-- all?       empty
+          +-- view-name-superview-list* [name]
+             +-- name?        string
+             +-- superview?   empty
+             +-- secret
+             |  +-- type?     enumeration
+             |  +-- secret?   string
+             +-- view* [view-name]
+                +-- view-name?   -> ../../../view-name-list/name
+  grouping config-privilege-grouping
+    +-- privilege
+       +-- exec
+          +-- level* [privilege]
+             +-- privilege?      uint8
+             +-- command-list* [command]
+                +-- command?   string

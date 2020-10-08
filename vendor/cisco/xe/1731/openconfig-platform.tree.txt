@@ -1,0 +1,263 @@
+module: openconfig-platform
+  +--rw components
+     +--rw component* [name]
+        +--rw name                  -> ../config/name
+        +--rw config
+        |  +--rw name?   string
+        +--ro state
+        |  +--ro name?               string
+        |  +--ro type?               union
+        |  +--ro id?                 string
+        |  +--ro location?           string
+        |  +--ro description?        string
+        |  +--ro mfg-name?           string
+        |  +--ro mfg-date?           oc-yang:date
+        |  +--ro hardware-version?   string
+        |  +--ro firmware-version?   string
+        |  +--ro software-version?   string
+        |  +--ro serial-no?          string
+        |  +--ro part-no?            string
+        |  +--ro removable?          boolean
+        |  +--ro oper-status?        identityref
+        |  +--ro empty?              boolean
+        |  +--ro parent?             -> ../../config/name
+        |  +--ro temperature
+        |  |  +--ro instant?           decimal64
+        |  |  +--ro avg?               decimal64
+        |  |  +--ro min?               decimal64
+        |  |  +--ro max?               decimal64
+        |  |  +--ro interval?          oc-types:stat-interval
+        |  |  +--ro min-time?          oc-types:timeticks64
+        |  |  +--ro max-time?          oc-types:timeticks64
+        |  |  +--ro alarm-status?      boolean
+        |  |  +--ro alarm-threshold?   uint32
+        |  |  +--ro alarm-severity?    identityref
+        |  +--ro memory
+        |  |  +--ro available?   uint64
+        |  |  +--ro utilized?    uint64
+        |  +--ro allocated-power?    uint32
+        |  +--ro used-power?         uint32
+        +--rw properties
+        |  +--rw property* [name]
+        |     +--rw name      -> ../config/name
+        |     +--rw config
+        |     |  +--rw name?    string
+        |     |  +--rw value?   union
+        |     +--ro state
+        |        +--ro name?           string
+        |        +--ro value?          union
+        |        +--ro configurable?   boolean
+        +--rw subcomponents
+        |  +--rw subcomponent* [name]
+        |     +--rw name      -> ../config/name
+        |     +--rw config
+        |     |  +--rw name?   -> ../../../../../component/config/name
+        |     +--ro state
+        |        +--ro name?   -> ../../../../../component/config/name
+        +--rw chassis
+        |  +--rw config
+        |  +--ro state
+        +--rw port
+        |  +--rw config
+        |  +--ro state
+        +--rw power-supply
+        |  +--rw config
+        |  +--ro state
+        +--rw fan
+        |  +--rw config
+        |  +--ro state
+        +--rw fabric
+        |  +--rw config
+        |  +--ro state
+        +--rw storage
+        |  +--rw config
+        |  +--ro state
+        +--rw cpu
+        |  +--rw config
+        |  +--ro state
+        +--rw integrated-circuit
+        |  +--rw config
+        |  +--ro state
+        +--rw backplane
+           +--rw config
+           +--ro state
+
+  grouping platform-component-properties-config
+    +-- name?    string
+    +-- value?   union
+  grouping platform-component-properties-state
+    +-- configurable?   boolean
+  grouping platform-component-properties-top
+    +-- properties
+       +-- property* [name]
+          +-- name?     -> ../config/name
+          +-- config
+          |  +-- name?    string
+          |  +-- value?   union
+          +--ro state
+             +--ro name?           string
+             +--ro value?          union
+             +--ro configurable?   boolean
+  grouping platform-subcomponent-ref-config
+    +-- name?   -> ../../../../../component/config/name
+  grouping platform-subcomponent-ref-state
+  grouping platform-subcomponent-ref-top
+    +-- subcomponents
+       +-- subcomponent* [name]
+          +-- name?     -> ../config/name
+          +-- config
+          |  +-- name?   -> ../../../../../component/config/name
+          +--ro state
+             +--ro name?   -> ../../../../../component/config/name
+  grouping platform-component-config
+    +-- name?   string
+  grouping platform-component-state
+    +-- type?               union
+    +-- id?                 string
+    +-- location?           string
+    +-- description?        string
+    +-- mfg-name?           string
+    +-- mfg-date?           oc-yang:date
+    +-- hardware-version?   string
+    +-- firmware-version?   string
+    +-- software-version?   string
+    +-- serial-no?          string
+    +-- part-no?            string
+    +-- removable?          boolean
+    +-- oper-status?        identityref
+    +-- empty?              boolean
+    +-- parent?             -> ../../config/name
+  grouping platform-component-temp-alarm-state
+    +-- alarm-status?      boolean
+    +-- alarm-threshold?   uint32
+    +-- alarm-severity?    identityref
+  grouping platform-component-power-state
+    +-- allocated-power?   uint32
+    +-- used-power?        uint32
+  grouping platform-component-temp-state
+    +-- temperature
+       +-- instant?           decimal64
+       +-- avg?               decimal64
+       +-- min?               decimal64
+       +-- max?               decimal64
+       +-- interval?          oc-types:stat-interval
+       +-- min-time?          oc-types:timeticks64
+       +-- max-time?          oc-types:timeticks64
+       +-- alarm-status?      boolean
+       +-- alarm-threshold?   uint32
+       +-- alarm-severity?    identityref
+  grouping platform-component-memory-state
+    +-- memory
+       +-- available?   uint64
+       +-- utilized?    uint64
+  grouping platform-anchors-top
+    +-- chassis
+    |  +-- config
+    |  +--ro state
+    +-- port
+    |  +-- config
+    |  +--ro state
+    +-- power-supply
+    |  +-- config
+    |  +--ro state
+    +-- fan
+    |  +-- config
+    |  +--ro state
+    +-- fabric
+    |  +-- config
+    |  +--ro state
+    +-- storage
+    |  +-- config
+    |  +--ro state
+    +-- cpu
+    |  +-- config
+    |  +--ro state
+    +-- integrated-circuit
+    |  +-- config
+    |  +--ro state
+    +-- backplane
+       +-- config
+       +--ro state
+  grouping platform-component-top
+    +-- components
+       +-- component* [name]
+          +-- name?                 -> ../config/name
+          +-- config
+          |  +-- name?   string
+          +--ro state
+          |  +--ro name?               string
+          |  +--ro type?               union
+          |  +--ro id?                 string
+          |  +--ro location?           string
+          |  +--ro description?        string
+          |  +--ro mfg-name?           string
+          |  +--ro mfg-date?           oc-yang:date
+          |  +--ro hardware-version?   string
+          |  +--ro firmware-version?   string
+          |  +--ro software-version?   string
+          |  +--ro serial-no?          string
+          |  +--ro part-no?            string
+          |  +--ro removable?          boolean
+          |  +--ro oper-status?        identityref
+          |  +--ro empty?              boolean
+          |  +--ro parent?             -> ../../config/name
+          |  +--ro temperature
+          |  |  +--ro instant?           decimal64
+          |  |  +--ro avg?               decimal64
+          |  |  +--ro min?               decimal64
+          |  |  +--ro max?               decimal64
+          |  |  +--ro interval?          oc-types:stat-interval
+          |  |  +--ro min-time?          oc-types:timeticks64
+          |  |  +--ro max-time?          oc-types:timeticks64
+          |  |  +--ro alarm-status?      boolean
+          |  |  +--ro alarm-threshold?   uint32
+          |  |  +--ro alarm-severity?    identityref
+          |  +--ro memory
+          |  |  +--ro available?   uint64
+          |  |  +--ro utilized?    uint64
+          |  +--ro allocated-power?    uint32
+          |  +--ro used-power?         uint32
+          +-- properties
+          |  +-- property* [name]
+          |     +-- name?     -> ../config/name
+          |     +-- config
+          |     |  +-- name?    string
+          |     |  +-- value?   union
+          |     +--ro state
+          |        +--ro name?           string
+          |        +--ro value?          union
+          |        +--ro configurable?   boolean
+          +-- subcomponents
+          |  +-- subcomponent* [name]
+          |     +-- name?     -> ../config/name
+          |     +-- config
+          |     |  +-- name?   -> ../../../../../component/config/name
+          |     +--ro state
+          |        +--ro name?   -> ../../../../../component/config/name
+          +-- chassis
+          |  +-- config
+          |  +--ro state
+          +-- port
+          |  +-- config
+          |  +--ro state
+          +-- power-supply
+          |  +-- config
+          |  +--ro state
+          +-- fan
+          |  +-- config
+          |  +--ro state
+          +-- fabric
+          |  +-- config
+          |  +--ro state
+          +-- storage
+          |  +-- config
+          |  +--ro state
+          +-- cpu
+          |  +-- config
+          |  +--ro state
+          +-- integrated-circuit
+          |  +-- config
+          |  +--ro state
+          +-- backplane
+             +-- config
+             +--ro state

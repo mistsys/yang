@@ -1,0 +1,31 @@
+
+module: Cisco-IOS-XE-rmi-dad
+  augment /ios:native/ios:redun-management:
+    +--rw interface* [interface]
+       +--rw interface    string
+       +--rw chassis* [chassis]
+          +--rw chassis    uint8
+          +--rw address* [address]
+             +--rw address    union
+             +--rw chassis* [chassis]
+                +--rw chassis    uint8
+                +--rw address* [address]
+                   +--rw address    union
+  augment /ios:native/ios:management:
+    +--rw gateway-failover
+       +--rw enable?   boolean
+
+  grouping config-redun-management-grouping
+    +-- interface* [interface]
+       +-- interface?   string
+       +-- chassis* [chassis]
+          +-- chassis?   uint8
+          +-- address* [address]
+             +-- address?   union
+             +-- chassis* [chassis]
+                +-- chassis?   uint8
+                +-- address* [address]
+                   +-- address?   union
+  grouping config-management-grouping
+    +-- gateway-failover
+       +-- enable?   boolean

@@ -1,0 +1,744 @@
+
+module: Cisco-IOS-XE-multicast
+  augment /ios:native/ios:ip/ios:multicast:
+    +--rw route-limit?   uint32
+    +--rw vrf* [name]
+       +--rw name           string
+       +--rw multipath?     empty
+       +--rw route-limit*   uint32
+  augment /ios:native/ios:ipv6/ios:multicast:
+    +--rw vrf?   string
+    +--rw rpf
+       +--rw backoff
+       |  +--rw initial-delay?   uint16
+       |  +--rw max-delay?       uint16
+       +--rw use-bgp?   empty
+  augment /ios:native/ios:ip/ios:pim:
+    +--rw accept-register
+    |  +--rw list?   ios-types:ext-acl-type
+    +--rw autorp!
+    |  +--rw listener?   empty
+    +--rw register-source?           string
+    +--rw rp-address* [address]
+    |  +--rw address        inet:ipv4-address
+    |  +--rw access-list?   ios-types:std-acl-type
+    |  +--rw override?      empty
+    +--rw spt-threshold* [how group-list]
+    |  +--rw how           enumeration
+    |  +--rw group-list    ios-types:std-acl-type
+    +--rw spt-threshold-container
+    |  +--rw spt-threshold
+    |     +--rw how?   enumeration
+    +--rw send-rp-announce
+    |  +--rw interface_list* [if-name]
+    |  |  +--rw if-name    string
+    |  |  +--rw scope
+    |  |     +--rw pkt-ttl?      uint8
+    |  |     +--rw group-list
+    |  |        +--rw acl-ref?   uint8
+    |  |        +--rw std-acl?   string
+    |  +--rw Port-channel* [name]
+    |     +--rw name     uint32
+    |     +--rw scope?   uint8
+    +--rw send-rp-discovery
+    |  +--rw scope?   uint8
+    +--rw ssm
+    |  +--rw range?   union
+    +--rw vrf* [id]
+       +--rw id                         string
+       +--rw accept-register
+       |  +--rw list?   ios-types:ext-acl-type
+       +--rw autorp!
+       |  +--rw listener?   empty
+       +--rw register-source?           string
+       +--rw rp-address* [address]
+       |  +--rw address        inet:ipv4-address
+       |  +--rw access-list?   ios-types:std-acl-type
+       |  +--rw override?      empty
+       +--rw spt-threshold* [how group-list]
+       |  +--rw how           enumeration
+       |  +--rw group-list    ios-types:std-acl-type
+       +--rw spt-threshold-container
+       |  +--rw spt-threshold
+       |     +--rw how?   enumeration
+       +--rw send-rp-announce
+       |  +--rw interface_list* [if-name]
+       |  |  +--rw if-name    string
+       |  |  +--rw scope
+       |  |     +--rw pkt-ttl?      uint8
+       |  |     +--rw group-list
+       |  |        +--rw acl-ref?   uint8
+       |  |        +--rw std-acl?   string
+       |  +--rw Port-channel* [name]
+       |     +--rw name     uint32
+       |     +--rw scope?   uint8
+       +--rw send-rp-discovery
+       |  +--rw scope?   uint8
+       +--rw ssm
+          +--rw range?   union
+  augment /ios:native/ios:ipv6/ios:pim:
+    +--rw rp-address
+    |  +--rw address?       union
+    |  +--rw access-list?   union
+    |  +--rw bidir?         empty
+    +--rw vrf* [id]
+       +--rw id            string
+       +--rw rp-address
+          +--rw address?       union
+          +--rw access-list?   union
+          +--rw bidir?         empty
+  augment /ios:native/ios:interface/ios:FastEthernet/ios:ip/ios:pim:
+    +--rw accept-register
+    |  +--rw list?   string
+    +--rw sparse-mode?       enumeration
+    +--rw nbma-mode?         empty
+    +--rw dr-priority?       uint32
+    +--rw query-interval
+    |  +--rw (seconds-milliseconds)?
+    |     +--:(seconds)
+    |     |  +--rw seconds-interval?        uint16
+    |     +--:(milliseconds)
+    |        +--rw milliseconds-interval?   uint16
+    |        +--rw msec                     empty
+    +--rw spt-threshold?     enumeration
+  augment /ios:native/ios:interface/ios:GigabitEthernet/ios:ip/ios:pim:
+    +--rw accept-register
+    |  +--rw list?   string
+    +--rw sparse-mode?       enumeration
+    +--rw nbma-mode?         empty
+    +--rw dr-priority?       uint32
+    +--rw query-interval
+    |  +--rw (seconds-milliseconds)?
+    |     +--:(seconds)
+    |     |  +--rw seconds-interval?        uint16
+    |     +--:(milliseconds)
+    |        +--rw milliseconds-interval?   uint16
+    |        +--rw msec                     empty
+    +--rw spt-threshold?     enumeration
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet/ios:ip/ios:pim:
+    +--rw accept-register
+    |  +--rw list?   string
+    +--rw sparse-mode?       enumeration
+    +--rw nbma-mode?         empty
+    +--rw dr-priority?       uint32
+    +--rw query-interval
+    |  +--rw (seconds-milliseconds)?
+    |     +--:(seconds)
+    |     |  +--rw seconds-interval?        uint16
+    |     +--:(milliseconds)
+    |        +--rw milliseconds-interval?   uint16
+    |        +--rw msec                     empty
+    +--rw spt-threshold?     enumeration
+  augment /ios:native/ios:interface/ios:Port-channel/ios:ip/ios:pim:
+    +--rw accept-register
+    |  +--rw list?   string
+    +--rw sparse-mode?       enumeration
+    +--rw nbma-mode?         empty
+    +--rw dr-priority?       uint32
+    +--rw query-interval
+    |  +--rw (seconds-milliseconds)?
+    |     +--:(seconds)
+    |     |  +--rw seconds-interval?        uint16
+    |     +--:(milliseconds)
+    |        +--rw milliseconds-interval?   uint16
+    |        +--rw msec                     empty
+    +--rw spt-threshold?     enumeration
+  augment /ios:native/ios:interface/ios:Loopback/ios:ip/ios:pim:
+    +--rw accept-register
+    |  +--rw list?   string
+    +--rw sparse-mode?       enumeration
+    +--rw nbma-mode?         empty
+    +--rw dr-priority?       uint32
+    +--rw query-interval
+    |  +--rw (seconds-milliseconds)?
+    |     +--:(seconds)
+    |     |  +--rw seconds-interval?        uint16
+    |     +--:(milliseconds)
+    |        +--rw milliseconds-interval?   uint16
+    |        +--rw msec                     empty
+    +--rw spt-threshold?     enumeration
+  augment /ios:native/ios:interface/ios:Tunnel/ios:ip/ios:pim:
+    +--rw accept-register
+    |  +--rw list?   string
+    +--rw sparse-mode?       enumeration
+    +--rw nbma-mode?         empty
+    +--rw dr-priority?       uint32
+    +--rw query-interval
+    |  +--rw (seconds-milliseconds)?
+    |     +--:(seconds)
+    |     |  +--rw seconds-interval?        uint16
+    |     +--:(milliseconds)
+    |        +--rw milliseconds-interval?   uint16
+    |        +--rw msec                     empty
+    +--rw spt-threshold?     enumeration
+  augment /ios:native/ios:interface/ios:Vlan/ios:ip/ios:pim:
+    +--rw accept-register
+    |  +--rw list?   string
+    +--rw sparse-mode?       enumeration
+    +--rw nbma-mode?         empty
+    +--rw dr-priority?       uint32
+    +--rw query-interval
+    |  +--rw (seconds-milliseconds)?
+    |     +--:(seconds)
+    |     |  +--rw seconds-interval?        uint16
+    |     +--:(milliseconds)
+    |        +--rw milliseconds-interval?   uint16
+    |        +--rw msec                     empty
+    +--rw spt-threshold?     enumeration
+  augment /ios:native/ios:interface/ios:Port-channel-subinterface/ios:Port-channel/ios:ip/ios:pim:
+    +--rw accept-register
+    |  +--rw list?   string
+    +--rw sparse-mode?       enumeration
+    +--rw nbma-mode?         empty
+    +--rw dr-priority?       uint32
+    +--rw query-interval
+    |  +--rw (seconds-milliseconds)?
+    |     +--:(seconds)
+    |     |  +--rw seconds-interval?        uint16
+    |     +--:(milliseconds)
+    |        +--rw milliseconds-interval?   uint16
+    |        +--rw msec                     empty
+    +--rw spt-threshold?     enumeration
+  augment /ios:native/ios:interface/ios:FastEthernet/ios:ipv6:
+    +--rw (ipv6-pim-choice)?
+       +--:(no-pim)
+       |  +--rw no-pim
+       |     +--rw pim?   boolean
+       +--:(pim)
+          +--rw pim
+             +--rw bfd?           empty
+             +--rw bsr
+             |  +--rw border?   empty
+             +--rw dr-priority?   uint32
+  augment /ios:native/ios:interface/ios:GigabitEthernet/ios:ipv6:
+    +--rw (ipv6-pim-choice)?
+       +--:(no-pim)
+       |  +--rw no-pim
+       |     +--rw pim?   boolean
+       +--:(pim)
+          +--rw pim
+             +--rw bfd?           empty
+             +--rw bsr
+             |  +--rw border?   empty
+             +--rw dr-priority?   uint32
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet/ios:ipv6:
+    +--rw (ipv6-pim-choice)?
+       +--:(no-pim)
+       |  +--rw no-pim
+       |     +--rw pim?   boolean
+       +--:(pim)
+          +--rw pim
+             +--rw bfd?           empty
+             +--rw bsr
+             |  +--rw border?   empty
+             +--rw dr-priority?   uint32
+  augment /ios:native/ios:interface/ios:Port-channel/ios:ipv6:
+    +--rw (ipv6-pim-choice)?
+       +--:(no-pim)
+       |  +--rw no-pim
+       |     +--rw pim?   boolean
+       +--:(pim)
+          +--rw pim
+             +--rw bfd?           empty
+             +--rw bsr
+             |  +--rw border?   empty
+             +--rw dr-priority?   uint32
+  augment /ios:native/ios:interface/ios:Loopback/ios:ipv6:
+    +--rw (ipv6-pim-choice)?
+       +--:(no-pim)
+       |  +--rw no-pim
+       |     +--rw pim?   boolean
+       +--:(pim)
+          +--rw pim
+             +--rw bfd?           empty
+             +--rw bsr
+             |  +--rw border?   empty
+             +--rw dr-priority?   uint32
+  augment /ios:native/ios:interface/ios:Tunnel/ios:ipv6:
+    +--rw (ipv6-pim-choice)?
+       +--:(no-pim)
+       |  +--rw no-pim
+       |     +--rw pim?   boolean
+       +--:(pim)
+          +--rw pim
+             +--rw bfd?           empty
+             +--rw bsr
+             |  +--rw border?   empty
+             +--rw dr-priority?   uint32
+  augment /ios:native/ios:interface/ios:Vlan/ios:ipv6:
+    +--rw (ipv6-pim-choice)?
+       +--:(no-pim)
+       |  +--rw no-pim
+       |     +--rw pim?   boolean
+       +--:(pim)
+          +--rw pim
+             +--rw bfd?           empty
+             +--rw bsr
+             |  +--rw border?   empty
+             +--rw dr-priority?   uint32
+  augment /ios:native/ios:ip:
+    +--rw msdp
+       +--rw peer
+       |  +--rw addr?             union
+       |  +--rw connect-source?   string
+       |  +--rw remote-as?        uint16
+       +--rw cache-rejected-sa?   uint32
+       +--rw cache-sa-state?      empty
+       +--rw default-peer
+       |  +--rw name-addr?     union
+       |  +--rw prefix-list?   string
+       +--rw description
+       |  +--rw name-addr?     union
+       |  +--rw description?   string
+       +--rw filter-sa-request
+       |  +--rw name-addr?   union
+       |  +--rw list?        ios-types:std-acl-type
+       +--rw keepalive
+       |  +--rw name-addr?   union
+       |  +--rw keepalive?   uint8
+       |  +--rw max-wait?    uint8
+       +--rw mesh-group
+       |  +--rw name?   string
+       |  +--rw addr?   union
+       +--rw originator-id?       string
+       +--rw password
+       |  +--rw peer
+       |     +--rw addr?         union
+       |     +--rw encryption?   uint8
+       |     +--rw password?     string
+       +--rw redistribute
+       |  +--rw list?        ios-types:ext-acl-type
+       |  +--rw asn?         uint16
+       |  +--rw route-map?   string
+       +--rw rpf?                 enumeration
+       +--rw sa-filter
+       |  +--rw in
+       |  |  +--rw addr?           union
+       |  |  +--rw list?           ios-types:ext-acl-type
+       |  |  +--rw route-map?      string
+       |  |  +--rw rp-list?        union
+       |  |  +--rw rp-route-map?   string
+       |  +--rw out
+       |     +--rw addr?           union
+       |     +--rw list?           ios-types:ext-acl-type
+       |     +--rw route-map?      string
+       |     +--rw rp-list?        union
+       |     +--rw rp-route-map?   string
+       +--rw sa-limit
+       |  +--rw name-addr?   union
+       |  +--rw limit?       uint32
+       +--rw shutdown
+       |  +--rw name-addr?   union
+       +--rw timer?               uint8
+       +--rw ttl-threshold
+       |  +--rw name-addr?   union
+       |  +--rw threshold?   uint8
+       +--rw vrf* [name]
+          +--rw name                 string
+          +--rw peer
+          |  +--rw addr?             union
+          |  +--rw connect-source?   string
+          |  +--rw remote-as?        uint16
+          +--rw cache-rejected-sa?   uint32
+          +--rw cache-sa-state?      empty
+          +--rw default-peer
+          |  +--rw name-addr?     union
+          |  +--rw prefix-list?   string
+          +--rw description
+          |  +--rw name-addr?     union
+          |  +--rw description?   string
+          +--rw filter-sa-request
+          |  +--rw name-addr?   union
+          |  +--rw list?        ios-types:std-acl-type
+          +--rw keepalive
+          |  +--rw name-addr?   union
+          |  +--rw keepalive?   uint8
+          |  +--rw max-wait?    uint8
+          +--rw mesh-group
+          |  +--rw name?   string
+          |  +--rw addr?   union
+          +--rw originator-id?       string
+          +--rw password
+          |  +--rw peer
+          |     +--rw addr?         union
+          |     +--rw encryption?   uint8
+          |     +--rw password?     string
+          +--rw redistribute
+          |  +--rw list?        ios-types:ext-acl-type
+          |  +--rw asn?         uint16
+          |  +--rw route-map?   string
+          +--rw rpf?                 enumeration
+          +--rw sa-filter
+          |  +--rw in
+          |  |  +--rw addr?           union
+          |  |  +--rw list?           ios-types:ext-acl-type
+          |  |  +--rw route-map?      string
+          |  |  +--rw rp-list?        union
+          |  |  +--rw rp-route-map?   string
+          |  +--rw out
+          |     +--rw addr?           union
+          |     +--rw list?           ios-types:ext-acl-type
+          |     +--rw route-map?      string
+          |     +--rw rp-list?        union
+          |     +--rw rp-route-map?   string
+          +--rw sa-limit
+          |  +--rw name-addr?   union
+          |  +--rw limit?       uint32
+          +--rw shutdown
+          |  +--rw name-addr?   union
+          +--rw timer?               uint8
+          +--rw ttl-threshold
+             +--rw name-addr?   union
+             +--rw threshold?   uint8
+  augment /ios:native/ios:ip:
+    +--rw mcr-conf
+    |  +--rw multicast-routing?   empty
+    +--rw multicast-routing!
+       +--rw vrf* [name]
+       |  +--rw name           string
+       |  +--rw distributed?   empty
+       +--rw distributed?   empty
+  augment /ios:native/ios:ip:
+    +--rw mroute
+       +--rw source-address?   inet:ipv4-address
+       +--rw subnet-mask?      inet:ipv4-address
+       +--rw Tunnel?           int32
+  augment /ios:native/ios:ipv6:
+    +--rw multicast-routing!
+       +--rw vrf?   string
+
+  grouping config-ip-mcast-grouping
+    +-- route-limit?   uint32
+    +-- vrf* [name]
+       +-- name?          string
+       +-- multipath?     empty
+       +-- route-limit*   uint32
+  grouping config-ipv6-mcast-grouping
+    +-- vrf?   string
+    +-- rpf
+       +-- backoff
+       |  +-- initial-delay?   uint16
+       |  +-- max-delay?       uint16
+       +-- use-bgp?   empty
+  grouping ip-pim-grouping
+    +-- accept-register
+    |  +-- list?   ios-types:ext-acl-type
+    +-- autorp!
+    |  +-- listener?   empty
+    +-- register-source?           string
+    +-- rp-address* [address]
+    |  +-- address?       inet:ipv4-address
+    |  +-- access-list?   ios-types:std-acl-type
+    |  +-- override?      empty
+    +-- spt-threshold* [how group-list]
+    |  +-- how?          enumeration
+    |  +-- group-list?   ios-types:std-acl-type
+    +-- spt-threshold-container
+    |  +-- spt-threshold
+    |     +-- how?   enumeration
+    +-- send-rp-announce
+    |  +-- interface_list* [if-name]
+    |  |  +-- if-name?   string
+    |  |  +-- scope
+    |  |     +-- pkt-ttl?      uint8
+    |  |     +-- group-list
+    |  |        +-- acl-ref?   uint8
+    |  |        +-- std-acl?   string
+    |  +-- Port-channel* [name]
+    |     +-- name?    uint32
+    |     +-- scope?   uint8
+    +-- send-rp-discovery
+    |  +-- scope?   uint8
+    +-- ssm
+       +-- range?   union
+  grouping config-ip-pim-grouping
+    +-- accept-register
+    |  +-- list?   ios-types:ext-acl-type
+    +-- autorp!
+    |  +-- listener?   empty
+    +-- register-source?           string
+    +-- rp-address* [address]
+    |  +-- address?       inet:ipv4-address
+    |  +-- access-list?   ios-types:std-acl-type
+    |  +-- override?      empty
+    +-- spt-threshold* [how group-list]
+    |  +-- how?          enumeration
+    |  +-- group-list?   ios-types:std-acl-type
+    +-- spt-threshold-container
+    |  +-- spt-threshold
+    |     +-- how?   enumeration
+    +-- send-rp-announce
+    |  +-- interface_list* [if-name]
+    |  |  +-- if-name?   string
+    |  |  +-- scope
+    |  |     +-- pkt-ttl?      uint8
+    |  |     +-- group-list
+    |  |        +-- acl-ref?   uint8
+    |  |        +-- std-acl?   string
+    |  +-- Port-channel* [name]
+    |     +-- name?    uint32
+    |     +-- scope?   uint8
+    +-- send-rp-discovery
+    |  +-- scope?   uint8
+    +-- ssm
+    |  +-- range?   union
+    +-- vrf* [id]
+       +-- id?                        string
+       +-- accept-register
+       |  +-- list?   ios-types:ext-acl-type
+       +-- autorp!
+       |  +-- listener?   empty
+       +-- register-source?           string
+       +-- rp-address* [address]
+       |  +-- address?       inet:ipv4-address
+       |  +-- access-list?   ios-types:std-acl-type
+       |  +-- override?      empty
+       +-- spt-threshold* [how group-list]
+       |  +-- how?          enumeration
+       |  +-- group-list?   ios-types:std-acl-type
+       +-- spt-threshold-container
+       |  +-- spt-threshold
+       |     +-- how?   enumeration
+       +-- send-rp-announce
+       |  +-- interface_list* [if-name]
+       |  |  +-- if-name?   string
+       |  |  +-- scope
+       |  |     +-- pkt-ttl?      uint8
+       |  |     +-- group-list
+       |  |        +-- acl-ref?   uint8
+       |  |        +-- std-acl?   string
+       |  +-- Port-channel* [name]
+       |     +-- name?    uint32
+       |     +-- scope?   uint8
+       +-- send-rp-discovery
+       |  +-- scope?   uint8
+       +-- ssm
+          +-- range?   union
+  grouping ipv6-pim-grouping
+    +-- rp-address
+       +-- address?       union
+       +-- access-list?   union
+       +-- bidir?         empty
+  grouping config-ipv6-pim-grouping
+    +-- rp-address
+    |  +-- address?       union
+    |  +-- access-list?   union
+    |  +-- bidir?         empty
+    +-- vrf* [id]
+       +-- id?           string
+       +-- rp-address
+          +-- address?       union
+          +-- access-list?   union
+          +-- bidir?         empty
+  grouping config-interface-ip-pim-grouping
+    +-- accept-register
+    |  +-- list?   string
+    +-- sparse-mode?       enumeration
+    +-- nbma-mode?         empty
+    +-- dr-priority?       uint32
+    +-- query-interval
+    |  +-- (seconds-milliseconds)?
+    |     +--:(seconds)
+    |     |  +-- seconds-interval?        uint16
+    |     +--:(milliseconds)
+    |        +-- milliseconds-interval?   uint16
+    |        +-- msec                     empty
+    +-- spt-threshold?     enumeration
+  grouping config-interface-ipv6-pim-grouping
+    +-- (ipv6-pim-choice)?
+       +--:(no-pim)
+       |  +-- no-pim
+       |     +-- pim?   boolean
+       +--:(pim)
+          +-- pim
+             +-- bfd?           empty
+             +-- bsr
+             |  +-- border?   empty
+             +-- dr-priority?   uint32
+  grouping config-mcr-conf-grouping
+    +-- mcr-conf
+       +-- multicast-routing?   empty
+  grouping config-multicast-routing-grouping
+    +-- multicast-routing!
+       +-- vrf* [name]
+       |  +-- name?          string
+       |  +-- distributed?   empty
+       +-- distributed?   empty
+  grouping config-ipv6-multicast-routing-grouping
+    +-- multicast-routing!
+       +-- vrf?   string
+  grouping ip-msdp-grouping
+    +-- peer
+    |  +-- addr?             union
+    |  +-- connect-source?   string
+    |  +-- remote-as?        uint16
+    +-- cache-rejected-sa?   uint32
+    +-- cache-sa-state?      empty
+    +-- default-peer
+    |  +-- name-addr?     union
+    |  +-- prefix-list?   string
+    +-- description
+    |  +-- name-addr?     union
+    |  +-- description?   string
+    +-- filter-sa-request
+    |  +-- name-addr?   union
+    |  +-- list?        ios-types:std-acl-type
+    +-- keepalive
+    |  +-- name-addr?   union
+    |  +-- keepalive?   uint8
+    |  +-- max-wait?    uint8
+    +-- mesh-group
+    |  +-- name?   string
+    |  +-- addr?   union
+    +-- originator-id?       string
+    +-- password
+    |  +-- peer
+    |     +-- addr?         union
+    |     +-- encryption?   uint8
+    |     +-- password?     string
+    +-- redistribute
+    |  +-- list?        ios-types:ext-acl-type
+    |  +-- asn?         uint16
+    |  +-- route-map?   string
+    +-- rpf?                 enumeration
+    +-- sa-filter
+    |  +-- in
+    |  |  +-- addr?           union
+    |  |  +-- list?           ios-types:ext-acl-type
+    |  |  +-- route-map?      string
+    |  |  +-- rp-list?        union
+    |  |  +-- rp-route-map?   string
+    |  +-- out
+    |     +-- addr?           union
+    |     +-- list?           ios-types:ext-acl-type
+    |     +-- route-map?      string
+    |     +-- rp-list?        union
+    |     +-- rp-route-map?   string
+    +-- sa-limit
+    |  +-- name-addr?   union
+    |  +-- limit?       uint32
+    +-- shutdown
+    |  +-- name-addr?   union
+    +-- timer?               uint8
+    +-- ttl-threshold
+       +-- name-addr?   union
+       +-- threshold?   uint8
+  grouping config-ip-msdp-grouping
+    +-- msdp
+       +-- peer
+       |  +-- addr?             union
+       |  +-- connect-source?   string
+       |  +-- remote-as?        uint16
+       +-- cache-rejected-sa?   uint32
+       +-- cache-sa-state?      empty
+       +-- default-peer
+       |  +-- name-addr?     union
+       |  +-- prefix-list?   string
+       +-- description
+       |  +-- name-addr?     union
+       |  +-- description?   string
+       +-- filter-sa-request
+       |  +-- name-addr?   union
+       |  +-- list?        ios-types:std-acl-type
+       +-- keepalive
+       |  +-- name-addr?   union
+       |  +-- keepalive?   uint8
+       |  +-- max-wait?    uint8
+       +-- mesh-group
+       |  +-- name?   string
+       |  +-- addr?   union
+       +-- originator-id?       string
+       +-- password
+       |  +-- peer
+       |     +-- addr?         union
+       |     +-- encryption?   uint8
+       |     +-- password?     string
+       +-- redistribute
+       |  +-- list?        ios-types:ext-acl-type
+       |  +-- asn?         uint16
+       |  +-- route-map?   string
+       +-- rpf?                 enumeration
+       +-- sa-filter
+       |  +-- in
+       |  |  +-- addr?           union
+       |  |  +-- list?           ios-types:ext-acl-type
+       |  |  +-- route-map?      string
+       |  |  +-- rp-list?        union
+       |  |  +-- rp-route-map?   string
+       |  +-- out
+       |     +-- addr?           union
+       |     +-- list?           ios-types:ext-acl-type
+       |     +-- route-map?      string
+       |     +-- rp-list?        union
+       |     +-- rp-route-map?   string
+       +-- sa-limit
+       |  +-- name-addr?   union
+       |  +-- limit?       uint32
+       +-- shutdown
+       |  +-- name-addr?   union
+       +-- timer?               uint8
+       +-- ttl-threshold
+       |  +-- name-addr?   union
+       |  +-- threshold?   uint8
+       +-- vrf* [name]
+          +-- name?                string
+          +-- peer
+          |  +-- addr?             union
+          |  +-- connect-source?   string
+          |  +-- remote-as?        uint16
+          +-- cache-rejected-sa?   uint32
+          +-- cache-sa-state?      empty
+          +-- default-peer
+          |  +-- name-addr?     union
+          |  +-- prefix-list?   string
+          +-- description
+          |  +-- name-addr?     union
+          |  +-- description?   string
+          +-- filter-sa-request
+          |  +-- name-addr?   union
+          |  +-- list?        ios-types:std-acl-type
+          +-- keepalive
+          |  +-- name-addr?   union
+          |  +-- keepalive?   uint8
+          |  +-- max-wait?    uint8
+          +-- mesh-group
+          |  +-- name?   string
+          |  +-- addr?   union
+          +-- originator-id?       string
+          +-- password
+          |  +-- peer
+          |     +-- addr?         union
+          |     +-- encryption?   uint8
+          |     +-- password?     string
+          +-- redistribute
+          |  +-- list?        ios-types:ext-acl-type
+          |  +-- asn?         uint16
+          |  +-- route-map?   string
+          +-- rpf?                 enumeration
+          +-- sa-filter
+          |  +-- in
+          |  |  +-- addr?           union
+          |  |  +-- list?           ios-types:ext-acl-type
+          |  |  +-- route-map?      string
+          |  |  +-- rp-list?        union
+          |  |  +-- rp-route-map?   string
+          |  +-- out
+          |     +-- addr?           union
+          |     +-- list?           ios-types:ext-acl-type
+          |     +-- route-map?      string
+          |     +-- rp-list?        union
+          |     +-- rp-route-map?   string
+          +-- sa-limit
+          |  +-- name-addr?   union
+          |  +-- limit?       uint32
+          +-- shutdown
+          |  +-- name-addr?   union
+          +-- timer?               uint8
+          +-- ttl-threshold
+             +-- name-addr?   union
+             +-- threshold?   uint8
+  grouping confif-ip-mroute-grouping
+    +-- mroute
+       +-- source-address?   inet:ipv4-address
+       +-- subnet-mask?      inet:ipv4-address
+       +-- Tunnel?           int32

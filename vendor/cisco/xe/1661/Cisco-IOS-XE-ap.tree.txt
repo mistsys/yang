@@ -1,0 +1,224 @@
+
+module: Cisco-IOS-XE-ap
+  augment /ios:native:
+    +--rw ap
+       +--rw group* [name]
+       |  +--rw name      string
+       |  +--rw config
+       |     +--rw airtime-fairness
+       |     |  +--rw dot11
+       |     |     +--rw _24GHz
+       |     |     |  +--rw mode?           enumeration
+       |     |     |  +--rw optimization?   empty
+       |     |     +--rw _5GHz
+       |     |        +--rw mode
+       |     |        |  +--rw enforce-policy?   empty
+       |     |        |  +--rw monitor?          empty
+       |     |        +--rw optimization?   empty
+       |     +--rw description?        string
+       |     +--rw hyperlocation!
+       |     |  +--rw threshold
+       |     |     +--rw detection?   int8
+       |     |     +--rw reset?       uint8
+       |     |     +--rw trigger?     uint8
+       |     +--rw ntp
+       |     |  +--rw ip?   inet:ipv4-address
+       |     +--rw port* [id]
+       |     |  +--rw id            uint8
+       |     |  +--rw poe?          empty
+       |     |  +--rw remote-lan?   string
+       |     |  +--rw shutdown?     empty
+       |     +--rw remote-lan?         string
+       |     +--rw rf-profile
+       |     |  +--rw dot11
+       |     |     +--rw _24ghz?   string
+       |     |     +--rw _5ghz?    string
+       |     +--rw wlan* [name]
+       |        +--rw name                string
+       |        +--rw airtime-fairness
+       |        |  +--rw dot11
+       |        |     +--rw _24GHz
+       |        |     |  +--rw policy?   string
+       |        |     +--rw _5GHz
+       |        |        +--rw policy?   string
+       |        +--rw radio-policy?       enumeration
+       |        +--rw vlan?               string
+       +--rw dot11
+          +--rw _24ghz
+          |  +--rw rate
+          |     +--rw RATE_11M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_12M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_18M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_1M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_24M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_2M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_36M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_48M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_54M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_5_5M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_6M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_9M
+          |        +--rw supported?   empty
+          +--rw _49ghz
+          |  +--rw rrm
+          |     +--rw profile
+          |        +--rw foreign?   uint8
+          +--rw _5ghz
+          |  +--rw rate
+          |     +--rw RATE_11M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_12M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_18M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_1M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_24M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_2M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_36M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_48M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_54M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_5_5M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_6M
+          |     |  +--rw supported?   empty
+          |     +--rw RATE_9M
+          |        +--rw supported?   empty
+          +--rw airtime-fairness
+             +--rw policy-name* [policy-name]
+                +--rw policy-name    string
+                +--rw policy-id?     uint16
+
+  grouping ap-port-grouping
+    +-- poe?          empty
+    +-- remote-lan?   string
+    +-- shutdown?     empty
+  grouping ap-wlan-grouping
+    +-- airtime-fairness
+    |  +-- dot11
+    |     +-- _24GHz
+    |     |  +-- policy?   string
+    |     +-- _5GHz
+    |        +-- policy?   string
+    +-- radio-policy?       enumeration
+    +-- vlan?               string
+  grouping config-ap-grouping
+    +-- ap
+       +-- group* [name]
+       |  +-- name?     string
+       |  +-- config
+       |     +-- airtime-fairness
+       |     |  +-- dot11
+       |     |     +-- _24GHz
+       |     |     |  +-- mode?           enumeration
+       |     |     |  +-- optimization?   empty
+       |     |     +-- _5GHz
+       |     |        +-- mode
+       |     |        |  +-- enforce-policy?   empty
+       |     |        |  +-- monitor?          empty
+       |     |        +-- optimization?   empty
+       |     +-- description?        string
+       |     +-- hyperlocation!
+       |     |  +-- threshold
+       |     |     +-- detection?   int8
+       |     |     +-- reset?       uint8
+       |     |     +-- trigger?     uint8
+       |     +-- ntp
+       |     |  +-- ip?   inet:ipv4-address
+       |     +-- port* [id]
+       |     |  +-- id?           uint8
+       |     |  +-- poe?          empty
+       |     |  +-- remote-lan?   string
+       |     |  +-- shutdown?     empty
+       |     +-- remote-lan?         string
+       |     +-- rf-profile
+       |     |  +-- dot11
+       |     |     +-- _24ghz?   string
+       |     |     +-- _5ghz?    string
+       |     +-- wlan* [name]
+       |        +-- name?               string
+       |        +-- airtime-fairness
+       |        |  +-- dot11
+       |        |     +-- _24GHz
+       |        |     |  +-- policy?   string
+       |        |     +-- _5GHz
+       |        |        +-- policy?   string
+       |        +-- radio-policy?       enumeration
+       |        +-- vlan?               string
+       +-- dot11
+          +-- _24ghz
+          |  +-- rate
+          |     +-- RATE_11M
+          |     |  +-- supported?   empty
+          |     +-- RATE_12M
+          |     |  +-- supported?   empty
+          |     +-- RATE_18M
+          |     |  +-- supported?   empty
+          |     +-- RATE_1M
+          |     |  +-- supported?   empty
+          |     +-- RATE_24M
+          |     |  +-- supported?   empty
+          |     +-- RATE_2M
+          |     |  +-- supported?   empty
+          |     +-- RATE_36M
+          |     |  +-- supported?   empty
+          |     +-- RATE_48M
+          |     |  +-- supported?   empty
+          |     +-- RATE_54M
+          |     |  +-- supported?   empty
+          |     +-- RATE_5_5M
+          |     |  +-- supported?   empty
+          |     +-- RATE_6M
+          |     |  +-- supported?   empty
+          |     +-- RATE_9M
+          |        +-- supported?   empty
+          +-- _49ghz
+          |  +-- rrm
+          |     +-- profile
+          |        +-- foreign?   uint8
+          +-- _5ghz
+          |  +-- rate
+          |     +-- RATE_11M
+          |     |  +-- supported?   empty
+          |     +-- RATE_12M
+          |     |  +-- supported?   empty
+          |     +-- RATE_18M
+          |     |  +-- supported?   empty
+          |     +-- RATE_1M
+          |     |  +-- supported?   empty
+          |     +-- RATE_24M
+          |     |  +-- supported?   empty
+          |     +-- RATE_2M
+          |     |  +-- supported?   empty
+          |     +-- RATE_36M
+          |     |  +-- supported?   empty
+          |     +-- RATE_48M
+          |     |  +-- supported?   empty
+          |     +-- RATE_54M
+          |     |  +-- supported?   empty
+          |     +-- RATE_5_5M
+          |     |  +-- supported?   empty
+          |     +-- RATE_6M
+          |     |  +-- supported?   empty
+          |     +-- RATE_9M
+          |        +-- supported?   empty
+          +-- airtime-fairness
+             +-- policy-name* [policy-name]
+                +-- policy-name?   string
+                +-- policy-id?     uint16

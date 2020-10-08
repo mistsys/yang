@@ -1,0 +1,285 @@
+module: Cisco-IOS-XE-interface-common
+
+  grouping interface-grouping
+    +-- (interface-choice)?
+       +--:(AppNav-Compress)
+       |  +-- AppNav-Compress?             uint16
+       +--:(AppNav-UnCompress)
+       |  +-- AppNav-UnCompress?           uint16
+       +--:(ATM)
+       |  +-- ATM?                         string
+       +--:(ATM-subinterface)
+       |  +-- ATM-subinterface
+       |     +-- ATM?   string
+       +--:(ATM-ACR)
+       |  +-- ATM-ACR?                     string
+       +--:(ATM-ACRsubinterface)
+       |  +-- ATM-ACRsubinterface
+       |     +-- ATM-ACR?   string
+       +--:(BDI)
+       |  +-- BDI?                         string
+       +--:(CEM)
+       |  +-- CEM?                         string
+       +--:(CEM-ACR)
+       |  +-- CEM-ACR?                     uint8
+       +--:(Embedded-Service-Engine)
+       |  +-- Embedded-Service-Engine?     string
+       +--:(Ethernet)
+       |  +-- Ethernet?                    string
+       +--:(FastEthernet)
+       |  +-- FastEthernet?                string
+       +--:(GigabitEthernet)
+       |  +-- GigabitEthernet?             string
+       +--:(FiveGigabitEthernet)
+       |  +-- FiveGigabitEthernet?         string
+       +--:(AppGigabitEthernet)
+       |  +-- AppGigabitEthernet?          string
+       +--:(TwentyFiveGigabitEthernet)
+       |  o-- TwentyFiveGigabitEthernet?   string
+       +--:(TwentyFiveGigE)
+       |  +-- TwentyFiveGigE?              string
+       +--:(TwoGigabitEthernet)
+       |  +-- TwoGigabitEthernet?          string
+       +--:(FortyGigabitEthernet)
+       |  +-- FortyGigabitEthernet?        string
+       +--:(HundredGigE)
+       |  +-- HundredGigE?                 string
+       +--:(LISP)
+       |  +-- LISP?                        string
+       +--:(LISP-subinterface)
+       |  +-- LISP-subinterface
+       |     +-- LISP?   string
+       +--:(Loopback)
+       |  +-- Loopback?                    uint32
+       +--:(Multilink)
+       |  +-- Multilink?                   uint16
+       +--:(nve)
+       |  +-- nve?                         uint16
+       +--:(overlay)
+       |  +-- overlay?                     uint16
+       +--:(Port-channel)
+       |  +-- Port-channel?                uint32
+       +--:(Port-channel-subinterface)
+       |  +-- Port-channel-subinterface
+       |     +-- Port-channel?   string
+       +--:(pseudowire)
+       |  +-- pseudowire?                  uint32
+       +--:(SM)
+       |  +-- SM?                          string
+       +--:(Cellular)
+       |  +-- Cellular?                    string
+       +--:(Dialer)
+       |  +-- Dialer?                      string
+       +--:(Serial)
+       |  +-- Serial?                      string
+       +--:(Async)
+       |  +-- Async?                       string
+       +--:(TenGigabitEthernet)
+       |  +-- TenGigabitEthernet?          string
+       +--:(Tunnel)
+       |  +-- Tunnel?                      uint32
+       +--:(Virtual-Template)
+       |  +-- Virtual-Template?            uint16
+       +--:(Vlan)
+       |  +-- Vlan?                        uint16
+       +--:(VirtualPortGroup)
+       |  +-- VirtualPortGroup?            uint16
+       +--:(vasileft)
+       |  +-- vasileft?                    uint16
+       +--:(vasiright)
+       |  +-- vasiright?                   uint16
+       +--:(BD-VIF)
+       |  +-- BD-VIF?                      string
+       +--:(MFR)
+       |  +-- MFR?                         uint32
+       +--:(Serial-subinterface)
+          +-- Serial-subinterface
+             +-- Serial?   string
+  grouping passive-interface-grouping
+    +-- passive-interface
+    |  +-- (passive-interface-choice)?
+    |     +--:(default)
+    |     |  +-- default?     empty
+    |     +--:(interface)
+    |        +-- interface*   string
+    +-- disable
+       +-- passive-interface* [interface]
+          +-- interface?   string
+  grouping interface-deprecated-grouping
+    +-- (interface-choice)?
+       +--:(AppNav-Compress)
+       |  x-- AppNav-Compress?             uint16
+       +--:(AppNav-UnCompress)
+       |  x-- AppNav-UnCompress?           uint16
+       +--:(ATM)
+       |  x-- ATM?                         string
+       +--:(ATM-subinterface)
+       |  x-- ATM-subinterface
+       |     x-- ATM?   string
+       +--:(ATM-ACR)
+       |  x-- ATM-ACR?                     string
+       +--:(ATM-ACRsubinterface)
+       |  x-- ATM-ACRsubinterface
+       |     x-- ATM-ACR?   string
+       +--:(BDI)
+       |  x-- BDI?                         string
+       +--:(CEM)
+       |  x-- CEM?                         string
+       +--:(CEM-ACR)
+       |  x-- CEM-ACR?                     uint8
+       +--:(Embedded-Service-Engine)
+       |  x-- Embedded-Service-Engine?     string
+       +--:(Ethernet)
+       |  x-- Ethernet?                    string
+       +--:(FastEthernet)
+       |  x-- FastEthernet?                string
+       +--:(GigabitEthernet)
+       |  x-- GigabitEthernet?             string
+       +--:(FiveGigabitEthernet)
+       |  x-- FiveGigabitEthernet?         string
+       +--:(AppGigabitEthernet)
+       |  x-- AppGigabitEthernet?          string
+       +--:(TwentyFiveGigE)
+       |  x-- TwentyFiveGigE?              string
+       +--:(TwoGigabitEthernet)
+       |  x-- TwoGigabitEthernet?          string
+       +--:(FortyGigabitEthernet)
+       |  x-- FortyGigabitEthernet?        string
+       +--:(HundredGigE)
+       |  x-- HundredGigE?                 string
+       +--:(LISP)
+       |  x-- LISP?                        string
+       +--:(LISP-subinterface)
+       |  x-- LISP-subinterface
+       |     x-- LISP?   string
+       +--:(Loopback)
+       |  x-- Loopback?                    uint32
+       +--:(Multilink)
+       |  x-- Multilink?                   uint16
+       +--:(nve)
+       |  x-- nve?                         uint16
+       +--:(overlay)
+       |  x-- overlay?                     uint16
+       +--:(Port-channel)
+       |  x-- Port-channel?                uint32
+       +--:(Port-channel-subinterface)
+       |  x-- Port-channel-subinterface
+       |     x-- Port-channel?   string
+       +--:(pseudowire)
+       |  x-- pseudowire?                  uint32
+       +--:(SM)
+       |  x-- SM?                          string
+       +--:(Cellular)
+       |  x-- Cellular?                    string
+       +--:(Dialer)
+       |  x-- Dialer?                      string
+       +--:(Serial)
+       |  x-- Serial?                      string
+       +--:(Async)
+       |  x-- Async?                       string
+       +--:(TenGigabitEthernet)
+       |  x-- TenGigabitEthernet?          string
+       +--:(Tunnel)
+       |  x-- Tunnel?                      uint32
+       +--:(Virtual-Template)
+       |  x-- Virtual-Template?            uint16
+       +--:(Vlan)
+       |  x-- Vlan?                        uint16
+       +--:(VirtualPortGroup)
+       |  x-- VirtualPortGroup?            uint16
+       +--:(vasileft)
+       |  x-- vasileft?                    uint16
+       +--:(vasiright)
+       |  x-- vasiright?                   uint16
+       +--:(BD-VIF)
+          x-- BD-VIF?                      string
+  grouping interface-obsolete-grouping
+    o-- (interface-choice)?
+       +--:(AppNav-Compress)
+       |  o-- AppNav-Compress?             uint16
+       +--:(AppNav-UnCompress)
+       |  o-- AppNav-UnCompress?           uint16
+       +--:(ATM)
+       |  o-- ATM?                         string
+       +--:(ATM-subinterface)
+       |  o-- ATM-subinterface
+       |     +-- ATM?   string
+       +--:(ATM-ACR)
+       |  o-- ATM-ACR?                     string
+       +--:(ATM-ACRsubinterface)
+       |  o-- ATM-ACRsubinterface
+       |     o-- ATM-ACR?   string
+       +--:(BDI)
+       |  o-- BDI?                         string
+       +--:(CEM)
+       |  o-- CEM?                         string
+       +--:(CEM-ACR)
+       |  o-- CEM-ACR?                     uint8
+       +--:(Embedded-Service-Engine)
+       |  o-- Embedded-Service-Engine?     string
+       +--:(Ethernet)
+       |  o-- Ethernet?                    string
+       +--:(FastEthernet)
+       |  o-- FastEthernet?                string
+       +--:(GigabitEthernet)
+       |  o-- GigabitEthernet?             string
+       +--:(FiveGigabitEthernet)
+       |  o-- FiveGigabitEthernet?         string
+       +--:(AppGigabitEthernet)
+       |  o-- AppGigabitEthernet?          string
+       +--:(TwentyFiveGigabitEthernet)
+       |  o-- TwentyFiveGigabitEthernet?   string
+       +--:(TwentyFiveGigE)
+       |  o-- TwentyFiveGigE?              string
+       +--:(TwoGigabitEthernet)
+       |  o-- TwoGigabitEthernet?          string
+       +--:(FortyGigabitEthernet)
+       |  o-- FortyGigabitEthernet?        string
+       +--:(HundredGigE)
+       |  o-- HundredGigE?                 string
+       +--:(LISP)
+       |  o-- LISP?                        string
+       +--:(LISP-subinterface)
+       |  o-- LISP-subinterface
+       |     o-- LISP?   string
+       +--:(Loopback)
+       |  o-- Loopback?                    uint32
+       +--:(Multilink)
+       |  o-- Multilink?                   uint16
+       +--:(nve)
+       |  o-- nve?                         uint16
+       +--:(overlay)
+       |  o-- overlay?                     uint16
+       +--:(Port-channel)
+       |  o-- Port-channel?                uint32
+       +--:(Port-channel-subinterface)
+       |  o-- Port-channel-subinterface
+       |     o-- Port-channel?   string
+       +--:(pseudowire)
+       |  o-- pseudowire?                  uint32
+       +--:(SM)
+       |  o-- SM?                          string
+       +--:(Cellular)
+       |  o-- Cellular?                    string
+       +--:(Dialer)
+       |  o-- Dialer?                      string
+       +--:(Serial)
+       |  o-- Serial?                      string
+       +--:(Async)
+       |  o-- Async?                       string
+       +--:(TenGigabitEthernet)
+       |  o-- TenGigabitEthernet?          string
+       +--:(Tunnel)
+       |  o-- Tunnel?                      uint32
+       +--:(Virtual-Template)
+       |  o-- Virtual-Template?            uint16
+       +--:(Vlan)
+       |  o-- Vlan?                        uint16
+       +--:(VirtualPortGroup)
+       |  o-- VirtualPortGroup?            uint16
+       +--:(vasileft)
+       |  o-- vasileft?                    uint16
+       +--:(vasiright)
+       |  o-- vasiright?                   uint16
+       +--:(BD-VIF)
+          o-- BD-VIF?                      string

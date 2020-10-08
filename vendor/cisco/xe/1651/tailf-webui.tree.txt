@@ -1,0 +1,60 @@
+module: tailf-webui
+  +--rw webui
+     +--rw schematics
+     |  +--rw panels
+     |  |  +--rw panel* [name]
+     |  |     +--rw name          string
+     |  |     +--rw properties
+     |  |     |  +--rw title?         string
+     |  |     |  +--rw description?   string
+     |  |     |  +--rw width?         uint16
+     |  |     |  +--rw height?        uint16
+     |  |     +--rw components
+     |  |        +--rw component* [id]
+     |  |           +--rw id            string
+     |  |           +--rw properties
+     |  |              +--rw top?           uint16
+     |  |              +--rw left?          uint16
+     |  |              +--rw width?         uint16
+     |  |              +--rw height?        uint16
+     |  |              +--rw z-index?       int16
+     |  |              +--rw (component-type)
+     |  |                 +--:(image)
+     |  |                 |  +--rw image
+     |  |                 |     +--rw image    -> /webui/schematics/assets/asset/name
+     |  |                 +--:(link)
+     |  |                    +--rw link
+     |  |                       +--rw text?   string
+     |  |                       +--rw link    string
+     |  +--rw assets
+     |     +--rw asset* [name]
+     |        +--rw name                   string
+     |        +--rw (asset-type)?
+     |           +--:(image)
+     |              +--rw base-64-image    string
+     |              +--rw type             enumeration
+     +--rw data-stores
+        +--rw user-profile* [username]
+        |  +--rw username       string
+        |  +--rw profile* [key]
+        |  |  +--rw key      string
+        |  |  +--rw value?   string
+        |  +--rw saved-query* [list-path name]
+        |     +--rw list-path           string
+        |     +--rw name                string
+        |     +--rw serialized-query    string
+        +--rw data-store* [key]
+        |  +--rw key      string
+        |  +--rw value?   string
+        +--rw saved-query* [list-path name]
+           +--rw list-path           string
+           +--rw name                string
+           +--rw serialized-query    string
+
+  grouping base-key-value-store
+    +-- key?     string
+    +-- value?   string
+  grouping base-saved-query-store
+    +-- list-path?          string
+    +-- name?               string
+    +-- serialized-query    string

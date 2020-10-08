@@ -1,0 +1,87 @@
+
+module: Cisco-IOS-XE-umbrella
+  augment /ios:native/ios:parameter-map:
+    +--rw umbrella-global
+       +--rw token?          string
+       +--rw local-domain?   union
+       +--rw dnscrypt?       boolean
+       +--rw public-key?     string
+       +--rw udp-timeout?    uint8
+       +--rw resolver
+          +--rw ipv4* [address]
+          |  +--rw address    inet:ipv4-address
+          +--rw ipv6* [address]
+             +--rw address    inet:ipv6-address
+  augment /ios:native/ios:interface/ios:FastEthernet:
+    +--rw umbrella
+       +--rw out?   empty
+       +--rw in?    string
+  augment /ios:native/ios:interface/ios:GigabitEthernet:
+    +--rw umbrella
+       +--rw out?   empty
+       +--rw in?    string
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet:
+    +--rw umbrella
+       +--rw out?   empty
+       +--rw in?    string
+  augment /ios:native/ios:interface/ios:FiveGigabitEthernet:
+    +--rw umbrella
+       +--rw out?   empty
+       +--rw in?    string
+  augment /ios:native/ios:interface/ios:TwentyFiveGigabitEthernet:
+    +--rw umbrella
+       +--rw out?   empty
+       +--rw in?    string
+  augment /ios:native/ios:interface/ios:FortyGigabitEthernet:
+    +--rw umbrella
+       +--rw out?   empty
+       +--rw in?    string
+  augment /ios:native/ios:interface/ios:HundredGigE:
+    +--rw umbrella
+       +--rw out?   empty
+       +--rw in?    string
+  augment /ios:native/ios:interface/ios:LISP:
+    +--rw umbrella
+       +--rw out?   empty
+       +--rw in?    string
+  augment /ios:native/ios:interface/ios:Loopback:
+    +--rw umbrella
+       +--rw out?   empty
+       +--rw in?    string
+  augment /ios:native/ios:interface/ios:Tunnel:
+    +--rw umbrella
+       +--rw out?   empty
+       +--rw in?    string
+  augment /ios:native/ios:interface/ios:Virtual-Template:
+    +--rw umbrella
+       +--rw out?   empty
+       +--rw in?    string
+  augment /ios:native/ios:interface/ios:Vlan:
+    +--rw umbrella
+       +--rw out?   empty
+       +--rw in?    string
+  augment /ios:native/ios:interface/ios:vasileft:
+    +--rw umbrella
+       +--rw out?   empty
+       +--rw in?    string
+  augment /ios:native/ios:interface/ios:vasiright:
+    +--rw umbrella
+       +--rw out?   empty
+       +--rw in?    string
+
+  grouping config-umbrella-grouping
+    +-- umbrella-global
+       +-- token?          string
+       +-- local-domain?   union
+       +-- dnscrypt?       boolean
+       +-- public-key?     string
+       +-- udp-timeout?    uint8
+       +-- resolver
+          +-- ipv4* [address]
+          |  +-- address?   inet:ipv4-address
+          +-- ipv6* [address]
+             +-- address?   inet:ipv6-address
+  grouping config-interface-umbrella-grouping
+    +-- umbrella
+       +-- out?   empty
+       +-- in?    string

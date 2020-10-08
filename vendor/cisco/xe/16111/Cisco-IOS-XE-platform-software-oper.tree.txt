@@ -1,0 +1,182 @@
+module: Cisco-IOS-XE-platform-software-oper
+  +--ro cisco-platform-software
+     +--ro system-usages
+     |  +--ro system-usage* [fru slot bay chassis]
+     |     +--ro fru                      common-types-ios-xe:fru-type
+     |     +--ro slot                     int16
+     |     +--ro bay                      int16
+     |     +--ro chassis                  int16
+     |     +--ro process-system-usages
+     |        +--ro process-system-usage* [pid]
+     |           +--ro pid                         uint32
+     |           +--ro name?                       string
+     |           +--ro total-run-time?             uint64
+     |           +--ro five-seconds?               uint64
+     |           +--ro allocated-memory?           uint64
+     |           +--ro allocated-memory-percent?   uint32
+     +--ro control-processes
+     |  +--ro control-process* [fru slot bay chassis]
+     |     +--ro fru                        common-types-ios-xe:fru-type
+     |     +--ro slot                       int16
+     |     +--ro bay                        int16
+     |     +--ro chassis                    int16
+     |     +--ro control-process-status?    string
+     |     +--ro updated?                   uint64
+     |     +--ro load-average-stats
+     |     |  +--ro load-average-status?   string
+     |     +--ro load-avg-minutes
+     |     |  +--ro load-avg-minute* [number]
+     |     |     +--ro number     uint64
+     |     |     +--ro average?   decimal64
+     |     |     +--ro status
+     |     |        +--ro condition?          string
+     |     |        +--ro threshold-status?   string
+     |     |        +--ro threshold-value?    decimal64
+     |     +--ro memory-stats
+     |     |  +--ro memory-status?       string
+     |     |  +--ro total?               uint64
+     |     |  +--ro used-number?         uint64
+     |     |  +--ro used-percent?        uint64
+     |     |  +--ro free-number?         uint64
+     |     |  +--ro free-percent?        uint64
+     |     |  +--ro available-number?    uint64
+     |     |  +--ro available-percent?   uint64
+     |     |  +--ro committed-number?    uint64
+     |     |  +--ro committed-percent?   uint8
+     |     |  +--ro status
+     |     |     +--ro warning-threshold-percent?    uint32
+     |     |     +--ro critical-threshold-percent?   uint32
+     |     +--ro per-core-stats
+     |     |  +--ro per-core-stat* [name]
+     |     |     +--ro name       uint32
+     |     |     +--ro user?      decimal64
+     |     |     +--ro system?    decimal64
+     |     |     +--ro nice?      decimal64
+     |     |     +--ro idle?      decimal64
+     |     |     +--ro irq?       decimal64
+     |     |     +--ro sirq?      decimal64
+     |     |     +--ro io-wait?   decimal64
+     |     +--ro high-availability-state?   common-types-ios-xe:high-availability-role
+     |     +--ro chassis-state?             common-types-ios-xe:high-availability-role
+     +--ro q-filesystem* [fru slot bay chassis]
+        +--ro fru           common-types-ios-xe:fru-type
+        +--ro slot          int16
+        +--ro bay           int16
+        +--ro chassis       int16
+        +--ro partitions* [name]
+        |  +--ro name          string
+        |  +--ro total-size?   uint64
+        |  +--ro used-size?    uint64
+        +--ro core-files* [filename]
+           +--ro filename    string
+           +--ro time?       yang:date-and-time
+
+  grouping min-status
+    +-- condition?          string
+    +-- threshold-status?   string
+    +-- threshold-value?    decimal64
+  grouping minute
+    +-- number?    uint64
+    +-- average?   decimal64
+    +-- status
+       +-- condition?          string
+       +-- threshold-status?   string
+       +-- threshold-value?    decimal64
+  grouping load-average-stats
+    +-- load-average-status?   string
+  grouping memory-status
+    +-- warning-threshold-percent?    uint32
+    +-- critical-threshold-percent?   uint32
+  grouping platform-memory-stats
+    +-- memory-status?       string
+    +-- total?               uint64
+    +-- used-number?         uint64
+    +-- used-percent?        uint64
+    +-- free-number?         uint64
+    +-- free-percent?        uint64
+    +-- available-number?    uint64
+    +-- available-percent?   uint64
+    +-- committed-number?    uint64
+    +-- committed-percent?   uint8
+    +-- status
+       +-- warning-threshold-percent?    uint32
+       +-- critical-threshold-percent?   uint32
+  grouping core
+    +-- name?      uint32
+    +-- user?      decimal64
+    +-- system?    decimal64
+    +-- nice?      decimal64
+    +-- idle?      decimal64
+    +-- irq?       decimal64
+    +-- sirq?      decimal64
+    +-- io-wait?   decimal64
+  grouping control-process
+    +-- control-process-status?    string
+    +-- updated?                   uint64
+    +-- load-average-stats
+    |  +-- load-average-status?   string
+    +-- load-avg-minutes
+    |  +-- load-avg-minute* [number]
+    |     +-- number?    uint64
+    |     +-- average?   decimal64
+    |     +-- status
+    |        +-- condition?          string
+    |        +-- threshold-status?   string
+    |        +-- threshold-value?    decimal64
+    +-- memory-stats
+    |  +-- memory-status?       string
+    |  +-- total?               uint64
+    |  +-- used-number?         uint64
+    |  +-- used-percent?        uint64
+    |  +-- free-number?         uint64
+    |  +-- free-percent?        uint64
+    |  +-- available-number?    uint64
+    |  +-- available-percent?   uint64
+    |  +-- committed-number?    uint64
+    |  +-- committed-percent?   uint8
+    |  +-- status
+    |     +-- warning-threshold-percent?    uint32
+    |     +-- critical-threshold-percent?   uint32
+    +-- per-core-stats
+    |  +-- per-core-stat* [name]
+    |     +-- name?      uint32
+    |     +-- user?      decimal64
+    |     +-- system?    decimal64
+    |     +-- nice?      decimal64
+    |     +-- idle?      decimal64
+    |     +-- irq?       decimal64
+    |     +-- sirq?      decimal64
+    |     +-- io-wait?   decimal64
+    +-- high-availability-state?   common-types-ios-xe:high-availability-role
+    +-- chassis-state?             common-types-ios-xe:high-availability-role
+  grouping core-files
+    +-- filename?   string
+    +-- time?       yang:date-and-time
+  grouping partitions
+    +-- name?         string
+    +-- total-size?   uint64
+    +-- used-size?    uint64
+  grouping filesystem
+    +-- partitions* [name]
+    |  +-- name?         string
+    |  +-- total-size?   uint64
+    |  +-- used-size?    uint64
+    +-- core-files* [filename]
+       +-- filename?   string
+       +-- time?       yang:date-and-time
+  grouping process-system-usage
+    +-- pid?                        uint32
+    +-- name?                       string
+    +-- total-run-time?             uint64
+    +-- five-seconds?               uint64
+    +-- allocated-memory?           uint64
+    +-- allocated-memory-percent?   uint32
+  grouping system-usage
+    +-- process-system-usages
+       +-- process-system-usage* [pid]
+          +-- pid?                        uint32
+          +-- name?                       string
+          +-- total-run-time?             uint64
+          +-- five-seconds?               uint64
+          +-- allocated-memory?           uint64
+          +-- allocated-memory-percent?   uint32

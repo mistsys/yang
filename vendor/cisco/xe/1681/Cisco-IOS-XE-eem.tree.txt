@@ -1,0 +1,283 @@
+
+module: Cisco-IOS-XE-eem
+  augment /ios:native/ios:event:
+    +--rw manager
+       +--rw environment* [name]
+       |  +--rw name     string
+       |  +--rw value?   string
+       +--rw directory
+       |  +--rw user
+       |     +--rw policy?   string
+       +--rw session
+       |  +--rw cli
+       |     +--rw username
+       |        +--rw username_in_word* [username_in_word]
+       |           +--rw username_in_word    string
+       |           +--rw privilege?          uint8
+       +--rw applet* [name]
+          +--rw name             string
+          +--rw authorization?   enumeration
+          +--rw class?           string
+          +--rw trap?            empty
+          +--rw event
+          |  +--rw timer
+          |  |  +--rw absolute
+          |  |  |  +--rw maxrun?      uint32
+          |  |  |  +--rw name?        string
+          |  |  |  +--rw ratelimit?   uint32
+          |  |  |  +--rw time?        uint32
+          |  |  +--rw countdown
+          |  |  |  +--rw maxrun?      uint32
+          |  |  |  +--rw name?        string
+          |  |  |  +--rw ratelimit?   uint32
+          |  |  |  +--rw time?        uint32
+          |  |  +--rw cron
+          |  |  |  +--rw maxrun?       uint32
+          |  |  |  +--rw name?         string
+          |  |  |  +--rw ratelimit?    uint32
+          |  |  |  +--rw cron-entry?   string
+          |  |  +--rw watchdog
+          |  |     +--rw maxrun?      uint32
+          |  |     +--rw name?        string
+          |  |     +--rw ratelimit?   uint32
+          |  |     +--rw time?        uint32
+          |  +--rw snmp-notification
+          |  |  +--rw oid?               string
+          |  |  +--rw oid-val?           string
+          |  |  +--rw op?                operator-type
+          |  |  +--rw src-ip-address?    union
+          |  |  +--rw dest-ip-address?   union
+          |  +--rw syslog
+          |  |  +--rw pattern?   string
+          |  +--rw track
+          |  |  +--rw track-object-number?   uint16
+          |  |  +--rw state?                 enumeration
+          |  +--rw none!
+          |  |  +--rw default?     uint32
+          |  |  +--rw maxrun?      uint32
+          |  |  +--rw ratelimit?   uint32
+          |  |  +--rw sync?        enumeration
+          |  +--rw resource
+          |  |  +--rw policy?      string
+          |  |  +--rw maxrun?      uint32
+          |  |  +--rw ratelimit?   uint32
+          |  +--rw rpc!
+          |  |  +--rw default?     uint32
+          |  |  +--rw maxrun?      uint32
+          |  |  +--rw ratelimit?   uint32
+          |  +--rw config!
+          |  |  +--rw maxrun?      uint32
+          |  |  +--rw ratelimit?   uint32
+          |  +--rw env
+          |  |  +--rw severity
+          |  |     +--rw (severty-level)?
+          |  |        +--:(major)
+          |  |        |  +--rw major!
+          |  |        |     +--rw maxrun?      uint32
+          |  |        |     +--rw ratelimit?   uint32
+          |  |        +--:(minor)
+          |  |           +--rw minor!
+          |  |              +--rw maxrun?      uint32
+          |  |              +--rw ratelimit?   uint32
+          |  +--rw oir!
+          |  |  +--rw event?    enumeration
+          |  |  +--rw maxrun?   uint32
+          |  +--rw rf
+          |     +--rw event?       string
+          |     +--rw maxrun?      uint32
+          |     +--rw ratelimit?   uint32
+          +--rw action* [name]
+          |  +--rw name         string
+          |  +--rw cli
+          |  |  +--rw command?   string
+          |  +--rw if
+          |  |  +--rw string-op-1?   string
+          |  |  +--rw keyword?       operator-type
+          |  |  +--rw string-op-2?   string
+          |  |  +--rw goto?          string
+          |  +--rw info
+          |  |  +--rw type
+          |  |     +--rw snmp
+          |  |        +--rw var
+          |  |        |  +--rw variable-name?    string
+          |  |        |  +--rw oid?              string
+          |  |        |  +--rw oid-type?         enumeration
+          |  |        |  +--rw oid-type-value?   string
+          |  |        +--rw trap
+          |  |           +--rw enterprise-oid?     string
+          |  |           +--rw generic-trapnum?    uint32
+          |  |           +--rw specific-trapnum?   uint32
+          |  |           +--rw trap-oid?           string
+          |  |           +--rw trap-var?           string
+          |  +--rw end?         empty
+          |  +--rw regexp
+          |  |  +--rw string-pattern?     string
+          |  |  +--rw string-input?       string
+          |  |  +--rw string-match?       string
+          |  |  +--rw string-submatch1?   string
+          |  |  +--rw string-submatch2?   string
+          |  |  +--rw string-submatch3?   string
+          |  +--rw snmp-trap!
+          |  |  +--rw intdata1?   int32
+          |  |  +--rw intdata2?   int32
+          |  |  +--rw strdata?    string
+          |  +--rw string
+          |  |  +--rw trim?   string
+          |  +--rw syslog
+          |  |  +--rw facility?   string
+          |  |  +--rw msg?        string
+          |  |  +--rw priority?   ios:logging-level-type
+          |  +--rw exit?        empty
+          +--rw description?     string
+          +--rw trigger
+
+  grouping eem-default-group
+    +-- default?   uint32
+  grouping eem-maxrun-group
+    +-- maxrun?   uint32
+  grouping eem-maxrun-incomplete-group
+    +-- maxrun?   uint32
+  grouping eem-ratelimit-group
+    +-- ratelimit?   uint32
+  grouping eem-ratelimit-incomplete-group
+    +-- ratelimit?   uint32
+  grouping eem-timer-cron-group
+    +-- maxrun?       uint32
+    +-- name?         string
+    +-- ratelimit?    uint32
+    +-- cron-entry?   string
+  grouping eem-timer-common-group
+    +-- maxrun?      uint32
+    +-- name?        string
+    +-- ratelimit?   uint32
+    +-- time?        uint32
+  grouping config-eem-grouping
+    +-- manager
+       +-- environment* [name]
+       |  +-- name?    string
+       |  +-- value?   string
+       +-- directory
+       |  +-- user
+       |     +-- policy?   string
+       +-- session
+       |  +-- cli
+       |     +-- username
+       |        +-- username_in_word* [username_in_word]
+       |           +-- username_in_word?   string
+       |           +-- privilege?          uint8
+       +-- applet* [name]
+          +-- name?            string
+          +-- authorization?   enumeration
+          +-- class?           string
+          +-- trap?            empty
+          +-- event
+          |  +-- timer
+          |  |  +-- absolute
+          |  |  |  +-- maxrun?      uint32
+          |  |  |  +-- name?        string
+          |  |  |  +-- ratelimit?   uint32
+          |  |  |  +-- time?        uint32
+          |  |  +-- countdown
+          |  |  |  +-- maxrun?      uint32
+          |  |  |  +-- name?        string
+          |  |  |  +-- ratelimit?   uint32
+          |  |  |  +-- time?        uint32
+          |  |  +-- cron
+          |  |  |  +-- maxrun?       uint32
+          |  |  |  +-- name?         string
+          |  |  |  +-- ratelimit?    uint32
+          |  |  |  +-- cron-entry?   string
+          |  |  +-- watchdog
+          |  |     +-- maxrun?      uint32
+          |  |     +-- name?        string
+          |  |     +-- ratelimit?   uint32
+          |  |     +-- time?        uint32
+          |  +-- snmp-notification
+          |  |  +-- oid?               string
+          |  |  +-- oid-val?           string
+          |  |  +-- op?                operator-type
+          |  |  +-- src-ip-address?    union
+          |  |  +-- dest-ip-address?   union
+          |  +-- syslog
+          |  |  +-- pattern?   string
+          |  +-- track
+          |  |  +-- track-object-number?   uint16
+          |  |  +-- state?                 enumeration
+          |  +-- none!
+          |  |  +-- default?     uint32
+          |  |  +-- maxrun?      uint32
+          |  |  +-- ratelimit?   uint32
+          |  |  +-- sync?        enumeration
+          |  +-- resource
+          |  |  +-- policy?      string
+          |  |  +-- maxrun?      uint32
+          |  |  +-- ratelimit?   uint32
+          |  +-- rpc!
+          |  |  +-- default?     uint32
+          |  |  +-- maxrun?      uint32
+          |  |  +-- ratelimit?   uint32
+          |  +-- config!
+          |  |  +-- maxrun?      uint32
+          |  |  +-- ratelimit?   uint32
+          |  +-- env
+          |  |  +-- severity
+          |  |     +-- (severty-level)?
+          |  |        +--:(major)
+          |  |        |  +-- major!
+          |  |        |     +-- maxrun?      uint32
+          |  |        |     +-- ratelimit?   uint32
+          |  |        +--:(minor)
+          |  |           +-- minor!
+          |  |              +-- maxrun?      uint32
+          |  |              +-- ratelimit?   uint32
+          |  +-- oir!
+          |  |  +-- event?    enumeration
+          |  |  +-- maxrun?   uint32
+          |  +-- rf
+          |     +-- event?       string
+          |     +-- maxrun?      uint32
+          |     +-- ratelimit?   uint32
+          +-- action* [name]
+          |  +-- name?        string
+          |  +-- cli
+          |  |  +-- command?   string
+          |  +-- if
+          |  |  +-- string-op-1?   string
+          |  |  +-- keyword?       operator-type
+          |  |  +-- string-op-2?   string
+          |  |  +-- goto?          string
+          |  +-- info
+          |  |  +-- type
+          |  |     +-- snmp
+          |  |        +-- var
+          |  |        |  +-- variable-name?    string
+          |  |        |  +-- oid?              string
+          |  |        |  +-- oid-type?         enumeration
+          |  |        |  +-- oid-type-value?   string
+          |  |        +-- trap
+          |  |           +-- enterprise-oid?     string
+          |  |           +-- generic-trapnum?    uint32
+          |  |           +-- specific-trapnum?   uint32
+          |  |           +-- trap-oid?           string
+          |  |           +-- trap-var?           string
+          |  +-- end?         empty
+          |  +-- regexp
+          |  |  +-- string-pattern?     string
+          |  |  +-- string-input?       string
+          |  |  +-- string-match?       string
+          |  |  +-- string-submatch1?   string
+          |  |  +-- string-submatch2?   string
+          |  |  +-- string-submatch3?   string
+          |  +-- snmp-trap!
+          |  |  +-- intdata1?   int32
+          |  |  +-- intdata2?   int32
+          |  |  +-- strdata?    string
+          |  +-- string
+          |  |  +-- trim?   string
+          |  +-- syslog
+          |  |  +-- facility?   string
+          |  |  +-- msg?        string
+          |  |  +-- priority?   ios:logging-level-type
+          |  +-- exit?        empty
+          +-- description?     string
+          +-- trigger

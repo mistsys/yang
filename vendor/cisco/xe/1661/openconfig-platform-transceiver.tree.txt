@@ -1,0 +1,187 @@
+
+module: openconfig-platform-transceiver
+  augment /oc-platform:components/oc-platform:component:
+    +--rw transceiver
+       +--rw config
+       |  +--rw enabled?       boolean
+       |  +--rw form-factor?   identityref
+       +--ro state
+       |  +--ro enabled?                     boolean
+       |  +--ro form-factor?                 identityref
+       |  +--ro present?                     enumeration
+       |  +--ro connector-type?              identityref
+       |  +--ro internal-temp?               int16
+       |  +--ro vendor?                      string
+       |  +--ro vendor-part?                 string
+       |  +--ro vendor-rev?                  string
+       |  +--ro ethernet-compliance-code?    identityref
+       |  +--ro sonet-sdh-compliance-code?   identityref
+       |  +--ro otn-compliance-code?         identityref
+       |  +--ro serial-no?                   string
+       |  +--ro date-code?                   yang:date-and-time
+       |  +--ro fault-condition?             boolean
+       +--rw physical-channels
+          +--rw channel* [index]
+             +--rw index     -> ../config/index
+             +--rw config
+             |  +--rw index?                 uint16
+             |  +--rw description?           string
+             |  +--rw tx-laser?              boolean
+             |  +--rw target-output-power?   decimal64
+             +--ro state
+                +--ro index?                 uint16
+                +--ro description?           string
+                +--ro tx-laser?              boolean
+                +--ro target-output-power?   decimal64
+                +--ro output-frequency?      oc-opt-types:frequency-type
+                +--ro output-power
+                |  +--ro instant?   decimal64
+                |  +--ro avg?       decimal64
+                |  +--ro min?       decimal64
+                |  +--ro max?       decimal64
+                +--ro input-power
+                |  +--ro instant?   decimal64
+                |  +--ro avg?       decimal64
+                |  +--ro min?       decimal64
+                |  +--ro max?       decimal64
+                +--ro laser-bias-current
+                   +--ro instant?   decimal64
+                   +--ro avg?       decimal64
+                   +--ro min?       decimal64
+                   +--ro max?       decimal64
+
+  grouping optical-power-state
+    +-- output-power
+    |  +-- instant?   decimal64
+    |  +-- avg?       decimal64
+    |  +-- min?       decimal64
+    |  +-- max?       decimal64
+    +-- input-power
+    |  +-- instant?   decimal64
+    |  +-- avg?       decimal64
+    |  +-- min?       decimal64
+    |  +-- max?       decimal64
+    +-- laser-bias-current
+       +-- instant?   decimal64
+       +-- avg?       decimal64
+       +-- min?       decimal64
+       +-- max?       decimal64
+  grouping output-optical-frequency
+    +-- output-frequency?   oc-opt-types:frequency-type
+  grouping physical-channel-config
+    +-- index?                 uint16
+    +-- description?           string
+    +-- tx-laser?              boolean
+    +-- target-output-power?   decimal64
+  grouping physical-channel-state
+    +-- output-frequency?     oc-opt-types:frequency-type
+    +-- output-power
+    |  +-- instant?   decimal64
+    |  +-- avg?       decimal64
+    |  +-- min?       decimal64
+    |  +-- max?       decimal64
+    +-- input-power
+    |  +-- instant?   decimal64
+    |  +-- avg?       decimal64
+    |  +-- min?       decimal64
+    |  +-- max?       decimal64
+    +-- laser-bias-current
+       +-- instant?   decimal64
+       +-- avg?       decimal64
+       +-- min?       decimal64
+       +-- max?       decimal64
+  grouping physical-channel-top
+    +-- physical-channels
+       +-- channel* [index]
+          +-- index?    -> ../config/index
+          +-- config
+          |  +-- index?                 uint16
+          |  +-- description?           string
+          |  +-- tx-laser?              boolean
+          |  +-- target-output-power?   decimal64
+          +--ro state
+             +--ro index?                 uint16
+             +--ro description?           string
+             +--ro tx-laser?              boolean
+             +--ro target-output-power?   decimal64
+             +--ro output-frequency?      oc-opt-types:frequency-type
+             +--ro output-power
+             |  +--ro instant?   decimal64
+             |  +--ro avg?       decimal64
+             |  +--ro min?       decimal64
+             |  +--ro max?       decimal64
+             +--ro input-power
+             |  +--ro instant?   decimal64
+             |  +--ro avg?       decimal64
+             |  +--ro min?       decimal64
+             |  +--ro max?       decimal64
+             +--ro laser-bias-current
+                +--ro instant?   decimal64
+                +--ro avg?       decimal64
+                +--ro min?       decimal64
+                +--ro max?       decimal64
+  grouping port-transceiver-config
+    +-- enabled?       boolean
+    +-- form-factor?   identityref
+  grouping port-transceiver-state
+    +-- present?                     enumeration
+    +-- connector-type?              identityref
+    +-- internal-temp?               int16
+    +-- vendor?                      string
+    +-- vendor-part?                 string
+    +-- vendor-rev?                  string
+    +-- ethernet-compliance-code?    identityref
+    +-- sonet-sdh-compliance-code?   identityref
+    +-- otn-compliance-code?         identityref
+    +-- serial-no?                   string
+    +-- date-code?                   yang:date-and-time
+    +-- fault-condition?             boolean
+  grouping port-transceiver-top
+    +-- transceiver
+       +-- config
+       |  +-- enabled?       boolean
+       |  +-- form-factor?   identityref
+       +--ro state
+       |  +--ro enabled?                     boolean
+       |  +--ro form-factor?                 identityref
+       |  +--ro present?                     enumeration
+       |  +--ro connector-type?              identityref
+       |  +--ro internal-temp?               int16
+       |  +--ro vendor?                      string
+       |  +--ro vendor-part?                 string
+       |  +--ro vendor-rev?                  string
+       |  +--ro ethernet-compliance-code?    identityref
+       |  +--ro sonet-sdh-compliance-code?   identityref
+       |  +--ro otn-compliance-code?         identityref
+       |  +--ro serial-no?                   string
+       |  +--ro date-code?                   yang:date-and-time
+       |  +--ro fault-condition?             boolean
+       +-- physical-channels
+          +-- channel* [index]
+             +-- index?    -> ../config/index
+             +-- config
+             |  +-- index?                 uint16
+             |  +-- description?           string
+             |  +-- tx-laser?              boolean
+             |  +-- target-output-power?   decimal64
+             +--ro state
+                +--ro index?                 uint16
+                +--ro description?           string
+                +--ro tx-laser?              boolean
+                +--ro target-output-power?   decimal64
+                +--ro output-frequency?      oc-opt-types:frequency-type
+                +--ro output-power
+                |  +--ro instant?   decimal64
+                |  +--ro avg?       decimal64
+                |  +--ro min?       decimal64
+                |  +--ro max?       decimal64
+                +--ro input-power
+                |  +--ro instant?   decimal64
+                |  +--ro avg?       decimal64
+                |  +--ro min?       decimal64
+                |  +--ro max?       decimal64
+                +--ro laser-bias-current
+                   +--ro instant?   decimal64
+                   +--ro avg?       decimal64
+                   +--ro min?       decimal64
+                   +--ro max?       decimal64

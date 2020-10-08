@@ -1,0 +1,110 @@
+module: Cisco-IOS-XE-eogre-tunnel-oper
+  +--ro eogre-tunnel-oper-data
+     +--ro tunnel-domain* [name type]
+     |  +--ro name                  string
+     |  +--ro type                  tunnel-types:tunnel-domain-mode
+     |  +--ro cfg
+     |  |  +--ro primary-tunnel-name?     string
+     |  |  +--ro secondary-tunnel-name?   string
+     |  |  +--ro redundancy-model?        tunnel-types:tunnel-redundancy-model
+     |  |  +--ro enable?                  boolean
+     |  +--ro active-tunnel-name?   string
+     |  +--ro history
+     |     +--ro event-history* []
+     |        +--ro event?         uint32
+     |        +--ro state?         uint32
+     |        +--ro context?       uint32
+     |        +--ro context-str?   string
+     |        +--ro current-rc?    uint32
+     |        +--ro count?         uint32
+     |        +--ro sticky?        boolean
+     |        +--ro timestamp?     yang:date-and-time
+     +--ro tunnel-intf* [name type]
+        +--ro name                string
+        +--ro type                tunnel-types:tunnel-domain-mode
+        +--ro gateway-address?    inet:ip-address
+        +--ro admin-status?       tunnel-types:tunnel-intf-status
+        +--ro status?             tunnel-types:tunnel-intf-status
+        +--ro up-timestamp?       yang:date-and-time
+        +--ro mtu?                uint32
+        +--ro stats
+        |  +--ro flap-count?           uint32
+        |  +--ro total-rx-bytes?       uint64
+        |  +--ro total-tx-bytes?       uint64
+        |  +--ro total-rx-pkts?        uint64
+        |  +--ro total-tx-pkts?        uint64
+        |  +--ro client-count?         uint32
+        |  +--ro up-time?              uint32
+        |  +--ro keepalive-tx?         uint64
+        |  +--ro keepalive-rx?         uint64
+        |  +--ro keepalive-windows?    uint32
+        |  +--ro keepalive-dropped?    uint32
+        |  +--ro total-keepalive-tx?   uint64
+        |  +--ro total-keepalive-rx?   uint64
+        +--ro source-interface?   string
+        +--ro source-address?     inet:ip-address
+        +--ro history
+        |  +--ro event-history* []
+        |     +--ro event?         uint32
+        |     +--ro state?         uint32
+        |     +--ro context?       uint32
+        |     +--ro context-str?   string
+        |     +--ro current-rc?    uint32
+        |     +--ro count?         uint32
+        |     +--ro sticky?        boolean
+        |     +--ro timestamp?     yang:date-and-time
+        +--ro intf-type?          tunnel-types:tunnel-intf-mode
+
+  grouping st-tunnel-domain
+    +-- cfg
+    |  +-- primary-tunnel-name?     string
+    |  +-- secondary-tunnel-name?   string
+    |  +-- redundancy-model?        tunnel-types:tunnel-redundancy-model
+    |  +-- enable?                  boolean
+    +-- active-tunnel-name?   string
+    +-- history
+       +-- event-history* []
+          +-- event?         uint32
+          +-- state?         uint32
+          +-- context?       uint32
+          +-- context-str?   string
+          +-- current-rc?    uint32
+          +-- count?         uint32
+          +-- sticky?        boolean
+          +-- timestamp?     yang:date-and-time
+  grouping tunnel-intf-key
+    +-- name?   string
+    +-- type?   tunnel-types:tunnel-domain-mode
+  grouping st-tunnel-interface
+    +-- gateway-address?    inet:ip-address
+    +-- admin-status?       tunnel-types:tunnel-intf-status
+    +-- status?             tunnel-types:tunnel-intf-status
+    +-- up-timestamp?       yang:date-and-time
+    +-- mtu?                uint32
+    +-- stats
+    |  +-- flap-count?           uint32
+    |  +-- total-rx-bytes?       uint64
+    |  +-- total-tx-bytes?       uint64
+    |  +-- total-rx-pkts?        uint64
+    |  +-- total-tx-pkts?        uint64
+    |  +-- client-count?         uint32
+    |  +-- up-time?              uint32
+    |  +-- keepalive-tx?         uint64
+    |  +-- keepalive-rx?         uint64
+    |  +-- keepalive-windows?    uint32
+    |  +-- keepalive-dropped?    uint32
+    |  +-- total-keepalive-tx?   uint64
+    |  +-- total-keepalive-rx?   uint64
+    +-- source-interface?   string
+    +-- source-address?     inet:ip-address
+    +-- history
+    |  +-- event-history* []
+    |     +-- event?         uint32
+    |     +-- state?         uint32
+    |     +-- context?       uint32
+    |     +-- context-str?   string
+    |     +-- current-rc?    uint32
+    |     +-- count?         uint32
+    |     +-- sticky?        boolean
+    |     +-- timestamp?     yang:date-and-time
+    +-- intf-type?          tunnel-types:tunnel-intf-mode

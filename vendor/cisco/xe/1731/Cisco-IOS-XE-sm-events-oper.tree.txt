@@ -1,0 +1,104 @@
+module: Cisco-IOS-XE-sm-events-oper
+  +--ro Cisco-IOS-XE-sm-events-oper
+  +--rw schema-metadata-Cisco-IOS-XE-sm-events-oper
+  |  +--rw json-metadata-leaf?           empty
+  |  +--rw Cisco-IOS-XE-sm-enum-types
+  +--rw gnmi-model-data
+
+  notifications:
+    +---n sessionevent
+       +--ro client-mac?                        yang:mac-address
+       +--ro audit-session-id?                  string
+       +--ro method-id?                         sm-enum-types:session-auth-method-id
+       +--ro username?                          string
+       +--ro client-join-time?                  yang:date-and-time
+       +--ro server-address?                    inet:ip-address
+       +--ro session-event?                     sm-enum-types:session-events
+       +--ro interface-name?                    string
+       +--ro (session-event-choice)?
+          +--:(session-event-session-authc-success)
+          |  +--ro authc-success-params
+          |     +--ro eap-method?   sm-enum-types:session-eap-method
+          +--:(session-event-session-authc-failed)
+          |  +--ro authc-failure-params
+          |     +--ro failure-reason?     sm-enum-types:session-event-failure-reason
+          |     +--ro failed-attribute?   string
+          +--:(session-event-session-authz-success)
+          |  +--ro authz-success-params
+          |     +--ro res-vlan-id?     uint32
+          |     +--ro res-vlan-name?   string
+          |     +--ro sgt?             uint32
+          |     +--ro eap-method?      sm-enum-types:session-eap-method
+          +--:(session-event-session-authz-failed)
+          |  +--ro authz-failure-params
+          |     +--ro failure-reason?     sm-enum-types:session-event-failure-reason
+          |     +--ro failed-attribute?   string
+          +--:(session-event-policy-update)
+          |  +--ro policy-change-params
+          |     +--ro res-vlan-id?     uint32
+          |     +--ro res-vlan-name?   string
+          |     +--ro sgt?             uint32
+          |     +--ro eap-method?      sm-enum-types:session-eap-method
+          +--:(session-event-coa-start)
+          |  +--ro coa-params
+          |     +--ro coa-req-type?   sm-enum-types:session-coa-request-type
+          +--:(session-event-security-violation)
+             +--ro security-violation-params
+                +--ro security-violation-action?   sm-enum-types:session-security-violation-action
+
+  grouping session-authc-success-params
+    +-- eap-method?   sm-enum-types:session-eap-method
+  grouping session-authz-success-params
+    +-- res-vlan-id?     uint32
+    +-- res-vlan-name?   string
+    +-- sgt?             uint32
+    +-- eap-method?      sm-enum-types:session-eap-method
+  grouping session-failure-params
+    +-- failure-reason?     sm-enum-types:session-event-failure-reason
+    +-- failed-attribute?   string
+  grouping session-coa-params
+    +-- coa-req-type?   sm-enum-types:session-coa-request-type
+  grouping session-security-violation-params
+    +-- security-violation-action?   sm-enum-types:session-security-violation-action
+  grouping session-event-data
+    +-- client-mac?                        yang:mac-address
+    +-- audit-session-id?                  string
+    +-- method-id?                         sm-enum-types:session-auth-method-id
+    +-- username?                          string
+    +-- client-join-time?                  yang:date-and-time
+    +-- server-address?                    inet:ip-address
+    +--ro session-event?                     sm-enum-types:session-events
+    +-- interface-name?                    string
+    +-- (session-event-choice)?
+       +--:(session-event-session-authc-success)
+       |  +-- authc-success-params
+       |     +-- eap-method?   sm-enum-types:session-eap-method
+       +--:(session-event-session-authc-failed)
+       |  +-- authc-failure-params
+       |     +-- failure-reason?     sm-enum-types:session-event-failure-reason
+       |     +-- failed-attribute?   string
+       +--:(session-event-session-authz-success)
+       |  +-- authz-success-params
+       |     +-- res-vlan-id?     uint32
+       |     +-- res-vlan-name?   string
+       |     +-- sgt?             uint32
+       |     +-- eap-method?      sm-enum-types:session-eap-method
+       +--:(session-event-session-authz-failed)
+       |  +-- authz-failure-params
+       |     +-- failure-reason?     sm-enum-types:session-event-failure-reason
+       |     +-- failed-attribute?   string
+       +--:(session-event-policy-update)
+       |  +-- policy-change-params
+       |     +-- res-vlan-id?     uint32
+       |     +-- res-vlan-name?   string
+       |     +-- sgt?             uint32
+       |     +-- eap-method?      sm-enum-types:session-eap-method
+       +--:(session-event-coa-start)
+       |  +-- coa-params
+       |     +-- coa-req-type?   sm-enum-types:session-coa-request-type
+       +--:(session-event-security-violation)
+          +-- security-violation-params
+             +-- security-violation-action?   sm-enum-types:session-security-violation-action
+  grouping __yangpp_metadata
+    +-- json-metadata-leaf?           empty
+    +-- Cisco-IOS-XE-sm-enum-types

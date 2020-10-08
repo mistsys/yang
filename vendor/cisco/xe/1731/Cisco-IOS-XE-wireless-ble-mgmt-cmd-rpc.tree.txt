@@ -1,0 +1,158 @@
+module: Cisco-IOS-XE-wireless-ble-mgmt-cmd-rpc
+
+  rpcs:
+    +---x ble-sync-req
+    |  +---w input
+    |     +---w ble-mac           yang:mac-address
+    |     +---w (ap-identifier-choice)
+    |        +--:(ap-identifier-name)
+    |        |  +---w ap-name     string
+    |        +--:(ap-identifier-mac-address)
+    |           +---w mac-addr    yang:mac-address
+    +---x ble-scan-req
+    |  +---w input
+    |     +---w interval-sec      uint32
+    |     +---w window-msec?      uint16
+    |     +---w max-value?        uint8
+    |     +---w filter?           wireless-enum-types:ble-ltx-scan-filter
+    |     +---w state             wireless-enum-types:ble-ltx-scan-state
+    |     +---w (ap-identifier-choice)
+    |        +--:(ap-identifier-name)
+    |        |  +---w ap-name     string
+    |        +--:(ap-identifier-mac-address)
+    |           +---w mac-addr    yang:mac-address
+    +---x ble-ibeacon-req
+    |  +---w input
+    |     +---w uuid              string
+    |     +---w major             uint16
+    |     +---w minor             uint16
+    |     +---w tx-power          uint8
+    |     +---w frequency-msec    uint16
+    |     +---w adv-tx-power      uint8
+    |     +---w (ap-identifier-choice)
+    |        +--:(ap-identifier-name)
+    |        |  +---w ap-name     string
+    |        +--:(ap-identifier-mac-address)
+    |           +---w mac-addr    yang:mac-address
+    +---x ble-eddy-uid-req
+    |  +---w input
+    |     +---w instance-id       string
+    |     +---w namespace         string
+    |     +---w (ap-identifier-choice)
+    |        +--:(ap-identifier-name)
+    |        |  +---w ap-name     string
+    |        +--:(ap-identifier-mac-address)
+    |           +---w mac-addr    yang:mac-address
+    +---x ble-eddy-url-req
+    |  +---w input
+    |     +---w url               string
+    |     +---w (ap-identifier-choice)
+    |        +--:(ap-identifier-name)
+    |        |  +---w ap-name     string
+    |        +--:(ap-identifier-mac-address)
+    |           +---w mac-addr    yang:mac-address
+    +---x ble-mgt-admin-req
+    |  +---w input
+    |     +---w state             wireless-enum-types:ble-ltx-admin-state
+    |     +---w (ap-identifier-choice)
+    |        +--:(ap-identifier-name)
+    |        |  +---w ap-name     string
+    |        +--:(ap-identifier-mac-address)
+    |           +---w mac-addr    yang:mac-address
+    +---x ble-vibeacon-req
+    |  +---w input
+    |     +---w beacon-id         uint8
+    |     +---w status            wireless-enum-types:ble-ltx-vibeacon-status
+    |     +---w uuid              string
+    |     +---w major             uint16
+    |     +---w minor             uint16
+    |     +---w tx-power          uint8
+    |     +---w interval-msec     uint16
+    |     +---w adv-tx-power      uint8
+    |     +---w (ap-identifier-choice)
+    |        +--:(ap-identifier-name)
+    |        |  +---w ap-name     string
+    |        +--:(ap-identifier-mac-address)
+    |           +---w mac-addr    yang:mac-address
+    +---x ble-no-adv-profile-req
+       +---w input
+          +---w state             wireless-enum-types:ble-no-adv-profile-state
+          +---w (ap-identifier-choice)
+             +--:(ap-identifier-name)
+             |  +---w ap-name     string
+             +--:(ap-identifier-mac-address)
+                +---w mac-addr    yang:mac-address
+
+  grouping ble-scan-req
+    +-- interval-sec      uint32
+    +-- window-msec?      uint16
+    +-- max-value?        uint8
+    +-- filter?           wireless-enum-types:ble-ltx-scan-filter
+    +-- state             wireless-enum-types:ble-ltx-scan-state
+    +-- (ap-identifier-choice)
+       +--:(ap-identifier-name)
+       |  +-- ap-name     string
+       +--:(ap-identifier-mac-address)
+          +-- mac-addr    yang:mac-address
+  grouping ble-sync-req
+    +-- ble-mac           yang:mac-address
+    +-- (ap-identifier-choice)
+       +--:(ap-identifier-name)
+       |  +-- ap-name     string
+       +--:(ap-identifier-mac-address)
+          +-- mac-addr    yang:mac-address
+  grouping ble-ibeacon-req
+    +-- uuid              string
+    +-- major             uint16
+    +-- minor             uint16
+    +-- tx-power          uint8
+    +-- frequency-msec    uint16
+    +-- adv-tx-power      uint8
+    +-- (ap-identifier-choice)
+       +--:(ap-identifier-name)
+       |  +-- ap-name     string
+       +--:(ap-identifier-mac-address)
+          +-- mac-addr    yang:mac-address
+  grouping ble-eddy-uid-req
+    +-- instance-id       string
+    +-- namespace         string
+    +-- (ap-identifier-choice)
+       +--:(ap-identifier-name)
+       |  +-- ap-name     string
+       +--:(ap-identifier-mac-address)
+          +-- mac-addr    yang:mac-address
+  grouping ble-eddy-url-req
+    +-- url               string
+    +-- (ap-identifier-choice)
+       +--:(ap-identifier-name)
+       |  +-- ap-name     string
+       +--:(ap-identifier-mac-address)
+          +-- mac-addr    yang:mac-address
+  grouping ble-mgt-admin-req
+    +-- state             wireless-enum-types:ble-ltx-admin-state
+    +-- (ap-identifier-choice)
+       +--:(ap-identifier-name)
+       |  +-- ap-name     string
+       +--:(ap-identifier-mac-address)
+          +-- mac-addr    yang:mac-address
+  grouping ble-vibeacon-req
+    +-- beacon-id         uint8
+    +-- status            wireless-enum-types:ble-ltx-vibeacon-status
+    +-- uuid              string
+    +-- major             uint16
+    +-- minor             uint16
+    +-- tx-power          uint8
+    +-- interval-msec     uint16
+    +-- adv-tx-power      uint8
+    +-- (ap-identifier-choice)
+       +--:(ap-identifier-name)
+       |  +-- ap-name     string
+       +--:(ap-identifier-mac-address)
+          +-- mac-addr    yang:mac-address
+  grouping ble-no-adv-profile-req
+    +-- state             wireless-enum-types:ble-no-adv-profile-state
+    +-- (ap-identifier-choice)
+       +--:(ap-identifier-name)
+       |  +-- ap-name     string
+       +--:(ap-identifier-mac-address)
+          +-- mac-addr    yang:mac-address

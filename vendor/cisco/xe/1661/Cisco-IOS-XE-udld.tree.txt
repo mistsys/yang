@@ -1,0 +1,65 @@
+
+module: Cisco-IOS-XE-udld
+  augment /ios:native/ios:udld:
+    +--rw aggressive?   empty
+    +--rw enable?       empty
+    +--rw message
+    |  +--rw time?   uint8
+    +--rw recovery!
+       +--rw interval?   uint32
+  augment /ios:native/ios:interface/ios:FastEthernet:
+    +--rw udld
+       +--rw port!
+          +--rw (port-choice)?
+             +--:(aggressive)
+             |  +--rw aggressive?   empty
+             +--:(disable)
+                +--rw disable?      empty
+  augment /ios:native/ios:interface/ios:GigabitEthernet:
+    +--rw udld
+       +--rw port!
+          +--rw (port-choice)?
+             +--:(aggressive)
+             |  +--rw aggressive?   empty
+             +--:(disable)
+                +--rw disable?      empty
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet:
+    +--rw udld
+       +--rw port!
+          +--rw (port-choice)?
+             +--:(aggressive)
+             |  +--rw aggressive?   empty
+             +--:(disable)
+                +--rw disable?      empty
+  augment /ios:native/ios:interface/ios:Tunnel:
+    +--rw udld
+       +--rw port!
+          +--rw (port-choice)?
+             +--:(aggressive)
+             |  +--rw aggressive?   empty
+             +--:(disable)
+                +--rw disable?      empty
+  augment /ios:native/ios:interface/ios:Loopback:
+    +--rw udld
+       +--rw port!
+          +--rw (port-choice)?
+             +--:(aggressive)
+             |  +--rw aggressive?   empty
+             +--:(disable)
+                +--rw disable?      empty
+
+  grouping config-interface-udld-grouping
+    +-- udld
+       +-- port!
+          +-- (port-choice)?
+             +--:(aggressive)
+             |  +-- aggressive?   empty
+             +--:(disable)
+                +-- disable?      empty
+  grouping config-udld-grouping
+    +-- aggressive?   empty
+    +-- enable?       empty
+    +-- message
+    |  +-- time?   uint8
+    +-- recovery!
+       +-- interval?   uint32

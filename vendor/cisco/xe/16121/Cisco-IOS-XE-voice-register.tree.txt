@@ -1,0 +1,34 @@
+submodule: Cisco-IOS-XE-voice-register (belongs-to Cisco-IOS-XE-voice)
+
+  grouping config-voice-register-grouping
+    +-- register
+       +-- global!
+       |  +-- max-dn?     uint32
+       |  +-- max-pool?   uint32
+       |  +-- system
+       |     +-- message?   string
+       +-- pool* [pool-tag]
+          +-- pool-tag?      uint16
+          +-- id
+          |  +-- network
+          |     +-- (ipaddress)?
+          |        +--:(ipv4)
+          |        |  +-- ipv4address
+          |        |     +-- address?   inet:ipv4-address
+          |        |     +-- mask?      inet:ipv4-address
+          |        +--:(ipv6)
+          |           +-- ippv6?         ios-types:ipv6-prefix
+          +-- voice-class
+          |  +-- codec?   -> ../../../../class/codec/codec-tag
+          +-- dtmf-relay
+             +-- rtp-nte?      empty
+             +-- sip-kpml?     empty
+             +-- sip-notify?   empty
+  grouping config-voice-moh-file-location-grouping
+    +-- filename?   string
+  grouping config-voice-call-manager-fallback-grouping
+    +-- call-manager-fallback!
+       +-- moh
+          +-- g729
+          |  +-- filename?   string
+          +-- filename?   string

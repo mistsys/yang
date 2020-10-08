@@ -1,0 +1,21 @@
+
+module: Cisco-IOS-XE-flow-rpc
+  augment /ios-xe-rpc:clear/ios-xe-rpc:input/ios-xe-rpc:clear-choice:
+    +--:(flow-case)
+       +-- flow
+          +-- (flow-choice)?
+             +--:(monitor-case)
+             |  +-- monitor
+             |     +-- name                  string
+             |     +-- (monitor-option)?
+             |        +--:(force-export)
+             |        |  +-- force-export?   empty
+             |        +--:(statistics)
+             |        |  +-- statistics?     empty
+             |        +--:(cache)
+             |           +-- cache
+             |              +-- force-export?   empty
+             +--:(export-case)
+                +-- exporter
+                   +-- name?         string
+                   +-- statistics?   empty

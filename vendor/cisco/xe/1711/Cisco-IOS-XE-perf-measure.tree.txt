@@ -1,0 +1,108 @@
+
+module: Cisco-IOS-XE-perf-measure
+  augment /ios:native/ios:performance-measurement:
+    +--rw interface* [interface-name]
+    |  +--rw interface-name       string
+    |  +--rw delay-measurement!
+    |  |  +--rw advertise-delay?   uint32
+    |  +--rw next-hop
+    |     +--rw (nexthop-address-choice)?
+    |        +--:(nexthop-ipv4-address)
+    |        |  +--rw ipv4?   inet:ipv4-address
+    |        +--:(nexthop-ipv6-address)
+    |           +--rw ipv6?   inet:ipv6-address
+    +--rw delay-profile
+    |  +--rw interfaces
+    |     +--rw advertisement
+    |     |  +--rw accelerated
+    |     |  |  +--rw threshold?        ios-types:percentage
+    |     |  |  +--rw minimum-change?   uint32
+    |     |  +--rw periodic
+    |     |     +--rw interval?         uint32
+    |     |     +--rw threshold?        ios-types:percentage
+    |     |     +--rw minimum-change?   uint32
+    |     |     +--rw disable?          empty
+    |     +--rw probe
+    |        +--rw interval?   uint32
+    |        +--rw one-way?    empty
+    |        +--rw burst
+    |        |  +--rw count?      uint8
+    |        |  +--rw interval?   uint32
+    |        +--rw protocol
+    |           +--rw (protocol-choice)?
+    |              +--:(pm-mpls)
+    |              |  +--rw pm-mpls?       empty
+    |              +--:(twamp-light)
+    |                 +--rw twamp-light?   empty
+    +--rw protocol
+       +--rw twamp-light
+          +--rw measurement
+             +--rw delay
+                +--rw unauthenticated
+                   +--rw querier-dst-port?   uint16
+                   +--rw querier-src-port?   uint16
+
+  grouping config-perf-measure-advertisement-grouping
+    +-- advertisement
+       +-- accelerated
+       |  +-- threshold?        ios-types:percentage
+       |  +-- minimum-change?   uint32
+       +-- periodic
+          +-- interval?         uint32
+          +-- threshold?        ios-types:percentage
+          +-- minimum-change?   uint32
+          +-- disable?          empty
+  grouping config-perf-measure-probe-grouping
+    +-- probe
+       +-- interval?   uint32
+       +-- one-way?    empty
+       +-- burst
+       |  +-- count?      uint8
+       |  +-- interval?   uint32
+       +-- protocol
+          +-- (protocol-choice)?
+             +--:(pm-mpls)
+             |  +-- pm-mpls?       empty
+             +--:(twamp-light)
+                +-- twamp-light?   empty
+  grouping config-perf-measure-grouping
+    +-- interface* [interface-name]
+    |  +-- interface-name?      string
+    |  +-- delay-measurement!
+    |  |  +-- advertise-delay?   uint32
+    |  +-- next-hop
+    |     +-- (nexthop-address-choice)?
+    |        +--:(nexthop-ipv4-address)
+    |        |  +-- ipv4?   inet:ipv4-address
+    |        +--:(nexthop-ipv6-address)
+    |           +-- ipv6?   inet:ipv6-address
+    +-- delay-profile
+    |  +-- interfaces
+    |     +-- advertisement
+    |     |  +-- accelerated
+    |     |  |  +-- threshold?        ios-types:percentage
+    |     |  |  +-- minimum-change?   uint32
+    |     |  +-- periodic
+    |     |     +-- interval?         uint32
+    |     |     +-- threshold?        ios-types:percentage
+    |     |     +-- minimum-change?   uint32
+    |     |     +-- disable?          empty
+    |     +-- probe
+    |        +-- interval?   uint32
+    |        +-- one-way?    empty
+    |        +-- burst
+    |        |  +-- count?      uint8
+    |        |  +-- interval?   uint32
+    |        +-- protocol
+    |           +-- (protocol-choice)?
+    |              +--:(pm-mpls)
+    |              |  +-- pm-mpls?       empty
+    |              +--:(twamp-light)
+    |                 +-- twamp-light?   empty
+    +-- protocol
+       +-- twamp-light
+          +-- measurement
+             +-- delay
+                +-- unauthenticated
+                   +-- querier-dst-port?   uint16
+                   +-- querier-src-port?   uint16

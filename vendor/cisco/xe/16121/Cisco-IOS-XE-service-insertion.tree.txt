@@ -1,0 +1,101 @@
+
+module: Cisco-IOS-XE-service-insertion
+  augment /ios:native/ios:service-insertion:
+    +--rw acg-reload-delay?          uint16
+    +--rw appnav-controller-group* [group-name]
+    |  +--rw group-name            string
+    |  +--rw appqoe?               empty
+    |  +--rw appnav-controllers* [address]
+    |  |  +--rw address    inet:ipv4-address
+    |  |  +--rw vrf?       string
+    |  x--rw appnav-controller*    inet:ipv4-address
+    |  +--rw description?          string
+    +--rw service-context
+    |  +--rw waas* [name]
+    |  |  +--rw name                       string
+    |  |  +--rw appnav-controller-group?   -> ../../../appnav-controller-group/group-name
+    |  |  +--rw authentication
+    |  |  |  +--rw sha1?      empty
+    |  |  |  +--rw key?       empty
+    |  |  |  +--rw encrypt?   enumeration
+    |  |  |  +--rw string?    string
+    |  |  +--rw service-node-group?        -> ../../../service-node-group/name
+    |  |  +--rw service-policy?            string
+    |  |  +--rw enable?                    empty
+    |  |  +--rw vrf
+    |  |     +--rw default?   empty
+    |  |     +--rw global?    empty
+    |  |     +--rw name?      string
+    |  +--rw appqoe* [name]
+    |     +--rw name                       string
+    |     +--rw appnav-controller-group?   -> ../../../appnav-controller-group/group-name
+    |     +--rw authentication
+    |     |  +--rw sha1?      empty
+    |     |  +--rw key?       empty
+    |     |  +--rw encrypt?   enumeration
+    |     |  +--rw string?    string
+    |     +--rw service-node-group?        -> ../../../service-node-group/name
+    |     +--rw service-policy?            string
+    |     +--rw enable?                    empty
+    |     +--rw vrf
+    |        +--rw default?   empty
+    |        +--rw global?    empty
+    |        +--rw name?      string
+    +--rw service-node-group* [name]
+    |  +--rw name              string
+    |  +--rw appqoe?           empty
+    |  +--rw description?      string
+    |  +--rw node-discovery?   enumeration
+    |  +--rw service-node*     inet:ipv4-address
+    +--rw swap
+       +--rw src-ip?   empty
+
+  grouping config-service-insertion-grouping
+    +-- acg-reload-delay?          uint16
+    +-- appnav-controller-group* [group-name]
+    |  +-- group-name?           string
+    |  +-- appqoe?               empty
+    |  +-- appnav-controllers* [address]
+    |  |  +-- address?   inet:ipv4-address
+    |  |  +-- vrf?       string
+    |  x-- appnav-controller*    inet:ipv4-address
+    |  +-- description?          string
+    +-- service-context
+    |  +-- waas* [name]
+    |  |  +-- name?                      string
+    |  |  +-- appnav-controller-group?   -> ../../../appnav-controller-group/group-name
+    |  |  +-- authentication
+    |  |  |  +-- sha1?      empty
+    |  |  |  +-- key?       empty
+    |  |  |  +-- encrypt?   enumeration
+    |  |  |  +-- string?    string
+    |  |  +-- service-node-group?        -> ../../../service-node-group/name
+    |  |  +-- service-policy?            string
+    |  |  +-- enable?                    empty
+    |  |  +-- vrf
+    |  |     +-- default?   empty
+    |  |     +-- global?    empty
+    |  |     +-- name?      string
+    |  +-- appqoe* [name]
+    |     +-- name?                      string
+    |     +-- appnav-controller-group?   -> ../../../appnav-controller-group/group-name
+    |     +-- authentication
+    |     |  +-- sha1?      empty
+    |     |  +-- key?       empty
+    |     |  +-- encrypt?   enumeration
+    |     |  +-- string?    string
+    |     +-- service-node-group?        -> ../../../service-node-group/name
+    |     +-- service-policy?            string
+    |     +-- enable?                    empty
+    |     +-- vrf
+    |        +-- default?   empty
+    |        +-- global?    empty
+    |        +-- name?      string
+    +-- service-node-group* [name]
+    |  +-- name?             string
+    |  +-- appqoe?           empty
+    |  +-- description?      string
+    |  +-- node-discovery?   enumeration
+    |  +-- service-node*     inet:ipv4-address
+    +-- swap
+       +-- src-ip?   empty

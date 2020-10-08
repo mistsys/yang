@@ -1,0 +1,174 @@
+module: openconfig-segment-routing
+
+  grouping srgb-config
+    +-- local-id?         string
+    +-- dataplane-type?   sr-dataplane-type
+    +-- ipv6-prefixes*    inet:ipv6-prefix
+  grouping srgb-state
+    +-- size?   uint32
+    +-- used?   uint32
+  grouping srlb-config
+    +-- local-id?         string
+    +-- dataplane-type?   sr-dataplane-type
+    +-- ipv6-prefix?      inet:ipv6-prefix
+  grouping sr-structural
+    +-- srgbs
+    |  +-- srgb* [local-id]
+    |     +-- local-id?   -> ../config/local-id
+    |     +-- config
+    |     |  +-- local-id?         string
+    |     |  +-- dataplane-type?   sr-dataplane-type
+    |     |  +-- ipv6-prefixes*    inet:ipv6-prefix
+    |     +--ro state
+    |        +--ro local-id?         string
+    |        +--ro dataplane-type?   sr-dataplane-type
+    |        +--ro ipv6-prefixes*    inet:ipv6-prefix
+    |        +--ro size?             uint32
+    |        +--ro used?             uint32
+    +-- srlbs
+       +-- srlb* [local-id]
+          +-- local-id?   -> ../config/local-id
+          +-- config
+          |  +-- local-id?         string
+          |  +-- dataplane-type?   sr-dataplane-type
+          |  +-- ipv6-prefix?      inet:ipv6-prefix
+          +--ro state
+             +--ro local-id?         string
+             +--ro dataplane-type?   sr-dataplane-type
+             +--ro ipv6-prefix?      inet:ipv6-prefix
+  grouping sr-mpls-top
+    +-- segment-routing
+       +-- aggregate-sid-counters
+       |  +--ro aggregate-sid-counter* [mpls-label]
+       |     +--ro mpls-label?   -> ../state/mpls-label
+       |     +--ro state
+       |        +--ro mpls-label?   oc-mpls-t:mpls-label
+       |        +--ro in-pkts?      yang:counter64
+       |        +--ro in-octets?    yang:counter64
+       |        +--ro out-pkts?     yang:counter64
+       |        +--ro out-octets?   yang:counter64
+       +-- interfaces
+          +-- interface* [interface-id]
+             +-- interface-id?    -> ../config/interface-id
+             +-- config
+             |  +-- interface-id?   string
+             +--ro state
+             |  +--ro interface-id?   string
+             |  +--ro in-pkts?        yang:counter64
+             |  +--ro in-octets?      yang:counter64
+             |  +--ro out-pkts?       yang:counter64
+             |  +--ro out-octets?     yang:counter64
+             +-- sid-counters
+             |  +--ro sid-counter* [mpls-label]
+             |     +--ro mpls-label?           -> ../state/mpls-label
+             |     +--ro state
+             |     |  +--ro mpls-label?   oc-mpls-t:mpls-label
+             |     |  +--ro in-pkts?      yang:counter64
+             |     |  +--ro in-octets?    yang:counter64
+             |     |  +--ro out-pkts?     yang:counter64
+             |     |  +--ro out-octets?   yang:counter64
+             |     +--ro forwarding-classes
+             |        +--ro forwarding-class* [exp]
+             |           +--ro exp?     -> ../state/exp
+             |           +--ro state
+             |              +--ro exp?          uint8
+             |              +--ro in-pkts?      yang:counter64
+             |              +--ro in-octets?    yang:counter64
+             |              +--ro out-pkts?     yang:counter64
+             |              +--ro out-octets?   yang:counter64
+             +-- interface-ref
+                +-- config
+                |  +-- interface?      -> /oc-if:interfaces/interface/name
+                |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+                +--ro state
+                   +--ro interface?      -> /oc-if:interfaces/interface/name
+                   +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+  grouping sr-mpls-interface-config
+    +-- interface-id?   string
+  grouping sr-mpls-interface-state
+    +-- in-pkts?      yang:counter64
+    +-- in-octets?    yang:counter64
+    +-- out-pkts?     yang:counter64
+    +-- out-octets?   yang:counter64
+  grouping sr-mpls-interface-sid-fc-state
+    +-- exp?   uint8
+  grouping sr-mpls-sid-counters-state
+    +-- mpls-label?   oc-mpls-t:mpls-label
+  grouping sr-mpls-common-counters
+    +-- in-pkts?      yang:counter64
+    +-- in-octets?    yang:counter64
+    +-- out-pkts?     yang:counter64
+    +-- out-octets?   yang:counter64
+  grouping sr-igp-config
+    +-- enabled?   boolean
+  grouping sr-igp-top
+    +-- segment-routing
+       +-- config
+       |  +-- enabled?   boolean
+       +--ro state
+          +--ro enabled?   boolean
+  grouping sr-igp-interface-prefix-sid-config
+    +-- prefix?          inet:ip-prefix
+    +-- sid-id?          sr-sid-type
+    +-- label-options?   enumeration
+  grouping sr-igp-interface-adjsid-config
+    +-- sid-id?                union
+    +-- protection-eligible?   boolean
+    +-- group?                 boolean
+    +-- neighbor?              inet:ip-address
+  grouping sr-igp-interface-adjsid-state
+    +-- allocated-dynamic-local?   sr-sid-type
+  grouping sr-igp-interface-top
+    +-- segment-routing
+       +-- prefix-sids
+       |  +-- prefix-sid* [prefix]
+       |     +-- prefix?   -> ../config/prefix
+       |     +-- config
+       |     |  +-- prefix?          inet:ip-prefix
+       |     |  +-- sid-id?          sr-sid-type
+       |     |  +-- label-options?   enumeration
+       |     +--ro state
+       |        +--ro prefix?          inet:ip-prefix
+       |        +--ro sid-id?          sr-sid-type
+       |        +--ro label-options?   enumeration
+       +-- adjacency-sids
+          +-- adjacency-sid* [neighbor sid-id]
+             +-- sid-id?     -> ../config/sid-id
+             +-- neighbor?   -> ../config/neighbor
+             +-- config
+             |  +-- sid-id?                union
+             |  +-- protection-eligible?   boolean
+             |  +-- group?                 boolean
+             |  +-- neighbor?              inet:ip-address
+             +--ro state
+                +--ro sid-id?                    union
+                +--ro protection-eligible?       boolean
+                +--ro group?                     boolean
+                +--ro neighbor?                  inet:ip-address
+                +--ro allocated-dynamic-local?   sr-sid-type
+  grouping sr-top
+    +-- segment-routing
+       +-- srgbs
+       |  +-- srgb* [local-id]
+       |     +-- local-id?   -> ../config/local-id
+       |     +-- config
+       |     |  +-- local-id?         string
+       |     |  +-- dataplane-type?   sr-dataplane-type
+       |     |  +-- ipv6-prefixes*    inet:ipv6-prefix
+       |     +--ro state
+       |        +--ro local-id?         string
+       |        +--ro dataplane-type?   sr-dataplane-type
+       |        +--ro ipv6-prefixes*    inet:ipv6-prefix
+       |        +--ro size?             uint32
+       |        +--ro used?             uint32
+       +-- srlbs
+          +-- srlb* [local-id]
+             +-- local-id?   -> ../config/local-id
+             +-- config
+             |  +-- local-id?         string
+             |  +-- dataplane-type?   sr-dataplane-type
+             |  +-- ipv6-prefix?      inet:ipv6-prefix
+             +--ro state
+                +--ro local-id?         string
+                +--ro dataplane-type?   sr-dataplane-type
+                +--ro ipv6-prefix?      inet:ipv6-prefix

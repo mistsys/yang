@@ -1,0 +1,73 @@
+module: Cisco-IOS-XE-dhcp-oper
+  +--ro dhcp-oper-data
+     +--ro dhcpv4-server-oper* [pool-name client-ip vrf-name]
+     |  +--ro pool-name         string
+     |  +--ro client-ip         inet:ip-address
+     |  +--ro vrf-name          string
+     |  +--ro client-id-type?   dhcp-ios-xe-oper:dhcp-client-id-type
+     |  +--ro client-id?        string
+     |  +--ro expiration
+     |  |  +--ro (expiration-time-choice)?
+     |  |     +--:(dhcp-expiration-time)
+     |  |     |  +--ro time?       yang:date-and-time
+     |  |     +--:(dhcp-expiration-infinite)
+     |  |        +--ro infinite?   empty
+     |  +--ro type?             dhcp-ios-xe-oper:dhcp-server-binding-type
+     |  +--ro state?            dhcp-ios-xe-oper:dhcp-server-binding-state
+     |  +--ro interface?        string
+     +--ro dhcpv4-client-oper* [if-name client-addr vrf-name]
+        +--ro if-name              string
+        +--ro client-addr          inet:ip-address
+        +--ro vrf-name             string
+        +--ro state?               dhcp-ios-xe-oper:dhcp-client-state
+        +--ro lease-server-addr?   inet:ip-address
+        +--ro gateway-addr?        inet:ip-address
+        +--ro lease-time?          uint32
+        +--ro lease-expiry
+        |  +--ro (expiration-time-choice)?
+        |     +--:(dhcp-expiration-time)
+        |     |  +--ro time?       yang:date-and-time
+        |     +--:(dhcp-expiration-infinite)
+        |        +--ro infinite?   empty
+        +--ro lease-remaining?     uint32
+        +--ro dns-list*            inet:ip-address
+
+  grouping dhcp-expiry
+    +-- (expiration-time-choice)?
+       +--:(dhcp-expiration-time)
+       |  +-- time?       yang:date-and-time
+       +--:(dhcp-expiration-infinite)
+          +-- infinite?   empty
+  grouping dhcpv4-server-key
+    +-- pool-name?   string
+    +-- client-ip?   inet:ip-address
+    +-- vrf-name?    string
+  grouping dhcpv4-server-oper
+    +-- client-id-type?   dhcp-ios-xe-oper:dhcp-client-id-type
+    +-- client-id?        string
+    +-- expiration
+    |  +-- (expiration-time-choice)?
+    |     +--:(dhcp-expiration-time)
+    |     |  +-- time?       yang:date-and-time
+    |     +--:(dhcp-expiration-infinite)
+    |        +-- infinite?   empty
+    +-- type?             dhcp-ios-xe-oper:dhcp-server-binding-type
+    +-- state?            dhcp-ios-xe-oper:dhcp-server-binding-state
+    +-- interface?        string
+  grouping dhcpv4-client-key
+    +-- if-name?       string
+    +-- client-addr?   inet:ip-address
+    +-- vrf-name?      string
+  grouping dhcpv4-client-oper
+    +-- state?               dhcp-ios-xe-oper:dhcp-client-state
+    +-- lease-server-addr?   inet:ip-address
+    +-- gateway-addr?        inet:ip-address
+    +-- lease-time?          uint32
+    +-- lease-expiry
+    |  +-- (expiration-time-choice)?
+    |     +--:(dhcp-expiration-time)
+    |     |  +-- time?       yang:date-and-time
+    |     +--:(dhcp-expiration-infinite)
+    |        +-- infinite?   empty
+    +-- lease-remaining?     uint32
+    +-- dns-list*            inet:ip-address

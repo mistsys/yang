@@ -1,0 +1,230 @@
+module: Cisco-IOS-XE-wireless-rrm-oper
+  +--ro rrm-oper-data
+     +--ro ap-auto-rf-dot11-data* [wtp-mac radio-slot-id]
+     |  +--ro wtp-mac                yang:mac-address
+     |  +--ro radio-slot-id          uint8
+     |  +--ro neighbor-radio-info
+     |     +--ro neighbor-radio-list* []
+     |        +--ro neighbor-radio-info
+     |           +--ro neighbor-radio-mac?       yang:mac-address
+     |           +--ro neighbor-radio-slot-id?   uint8
+     |           +--ro rssi?                     int8
+     |           +--ro snr?                      int8
+     |           +--ro channel?                  uint8
+     |           +--ro power?                    uint8
+     |           +--ro group-leader-ip?          inet:ip-address
+     |           +--ro chan-width?               wireless-enum-types:radio-neighbor-chan-width
+     |           +--ro sensor-covered?           boolean
+     +--ro ap-dot11-radar-data* [wtp-mac radio-slot-id]
+     |  +--ro wtp-mac                yang:mac-address
+     |  +--ro radio-slot-id          uint8
+     |  +--ro radar-info
+     |  |  +--ro radar-info* []
+     |  |     +--ro channel-number?             uint32
+     |  |     +--ro radar-detected-timestamp?   yang:date-and-time
+     |  +--ro last-radar-on-radio?   yang:date-and-time
+     +--ro ap-dot11-spectrum-data* [wtp-mac radio-slot-id]
+     |  +--ro wtp-mac          yang:mac-address
+     |  +--ro radio-slot-id    uint8
+     |  +--ro config
+     |     +--ro spectrum-intelligence-enable?   boolean
+     |     +--ro spectrum-wtp-ca-si-capable?     wireless-rrm-types:enm-ca-si-capable
+     |     +--ro spectrum-operation-state?       wireless-rrm-oper:enm-cleanair-oper-state
+     |     +--ro spectrum-admin-state?           boolean
+     |     +--ro spectrum-capable?               boolean
+     |     +--ro sensord-operational-status?     int32
+     +--ro rrm-measurement* [wtp-mac radio-slot-id]
+     |  +--ro wtp-mac          yang:mac-address
+     |  +--ro radio-slot-id    uint8
+     |  +--ro load
+     |     +--ro rx-util-percentage?             uint16
+     |     +--ro tx-util-percentage?             uint16
+     |     +--ro cca-util-percentage?            uint16
+     |     +--ro rx-noise-channel-utilization?   uint16
+     +--ro radio-slot* [wtp-mac radio-slot-id]
+     |  +--ro wtp-mac          yang:mac-address
+     |  +--ro radio-slot-id    uint8
+     |  +--ro radio-data
+     |     +--ro load-prof-passed?              boolean
+     |     +--ro coverage-profile-passed?       boolean
+     |     +--ro interference-profile-passed?   boolean
+     |     +--ro noise-profile-passed?          boolean
+     +--ro main-data* [phy-type]
+        +--ro phy-type                     wireless-types:enm-ewlc-dot11-radio-band
+        +--ro grp
+        |  +--ro current-state?           wireless-rrm-oper:enm-rrm-group-state
+        |  +--ro current-grouping-mode?   wireless-rrm-types:enm-rrm-ctrl-mode
+        |  +--ro current-grouping-role?   wireless-rrm-oper:enm-rrm-grouping-role-db
+        |  +--ro cntrlr-name?             string
+        |  +--ro cntrlr-ip-addr?          inet:ipv4-address
+        |  +--ro is-static-member?        wireless-rrm-oper:enm-is-static-member
+        |  +--ro fra-sensor-coverage?     uint8
+        +--ro oper-data
+        |  +--ro default-dca-channels
+        |  |  +--ro channel*   uint16
+        |  +--ro default-non-dca-channels
+        |     +--ro channel*   uint16
+        +--ro rrm-mgr-static-grp-member* [cntrlr-ip-addr]
+        |  +--ro cntrlr-name?        string
+        |  +--ro cntrlr-ip-addr      inet:ip-address
+        |  +--ro has-joined?         boolean
+        |  +--ro nack-reason?        wireless-types:enm-rrm-grp-member-nack-reason
+        |  +--ro max-radio-num?      uint16
+        |  +--ro last-join-cmd-ts?   yang:date-and-time
+        +--ro rrm-mgr-grp-member* [member-ip]
+           +--ro member-ip              inet:ip-address
+           +--ro member-secondary-ip?   inet:ip-address
+           +--ro max-radio-cnt?         uint16
+           +--ro curr-radio-cnt?        uint16
+           +--ro name?                  string
+
+  grouping st-rad-neighbor-attr
+    +-- neighbor-radio-mac?       yang:mac-address
+    +-- neighbor-radio-slot-id?   uint8
+    +-- rssi?                     int8
+    +-- snr?                      int8
+    +-- channel?                  uint8
+    +-- power?                    uint8
+    +-- group-leader-ip?          inet:ip-address
+    +-- chan-width?               wireless-enum-types:radio-neighbor-chan-width
+    +-- sensor-covered?           boolean
+  grouping st-rad-neighbor-list-data
+    +-- neighbor-radio-info
+       +-- neighbor-radio-mac?       yang:mac-address
+       +-- neighbor-radio-slot-id?   uint8
+       +-- rssi?                     int8
+       +-- snr?                      int8
+       +-- channel?                  uint8
+       +-- power?                    uint8
+       +-- group-leader-ip?          inet:ip-address
+       +-- chan-width?               wireless-enum-types:radio-neighbor-chan-width
+       +-- sensor-covered?           boolean
+  grouping st-rad-neighbor-list
+    +-- neighbor-radio-list* []
+       +-- neighbor-radio-info
+          +-- neighbor-radio-mac?       yang:mac-address
+          +-- neighbor-radio-slot-id?   uint8
+          +-- rssi?                     int8
+          +-- snr?                      int8
+          +-- channel?                  uint8
+          +-- power?                    uint8
+          +-- group-leader-ip?          inet:ip-address
+          +-- chan-width?               wireless-enum-types:radio-neighbor-chan-width
+          +-- sensor-covered?           boolean
+  grouping st-rad-neighbor-data
+    +-- neighbor-radio-info
+       +-- neighbor-radio-list* []
+          +-- neighbor-radio-info
+             +-- neighbor-radio-mac?       yang:mac-address
+             +-- neighbor-radio-slot-id?   uint8
+             +-- rssi?                     int8
+             +-- snr?                      int8
+             +-- channel?                  uint8
+             +-- power?                    uint8
+             +-- group-leader-ip?          inet:ip-address
+             +-- chan-width?               wireless-enum-types:radio-neighbor-chan-width
+             +-- sensor-covered?           boolean
+  grouping st-rrm-radio-radar-info
+    +-- channel-number?             uint32
+    +-- radar-detected-timestamp?   yang:date-and-time
+  grouping st-rrm-radio-radar-info-list
+    +-- radar-info* []
+       +-- channel-number?             uint32
+       +-- radar-detected-timestamp?   yang:date-and-time
+  grouping st-rrm-radio-radar-attr
+    +-- radar-info
+    |  +-- radar-info* []
+    |     +-- channel-number?             uint32
+    |     +-- radar-detected-timestamp?   yang:date-and-time
+    +-- last-radar-on-radio?   yang:date-and-time
+  grouping st-rrm-load-attr
+    +-- rx-util-percentage?             uint16
+    +-- tx-util-percentage?             uint16
+    +-- cca-util-percentage?            uint16
+    +-- rx-noise-channel-utilization?   uint16
+  grouping st-rrm-measurement-data
+    +-- load
+       +-- rx-util-percentage?             uint16
+       +-- tx-util-percentage?             uint16
+       +-- cca-util-percentage?            uint16
+       +-- rx-noise-channel-utilization?   uint16
+  grouping st-rrm-radio-data
+    +-- load-prof-passed?              boolean
+    +-- coverage-profile-passed?       boolean
+    +-- interference-profile-passed?   boolean
+    +-- noise-profile-passed?          boolean
+  grouping st-rrm-rad-slot-data
+    +-- radio-data
+       +-- load-prof-passed?              boolean
+       +-- coverage-profile-passed?       boolean
+       +-- interference-profile-passed?   boolean
+       +-- noise-profile-passed?          boolean
+  grouping st-spectrum-config
+    +-- spectrum-intelligence-enable?   boolean
+    +-- spectrum-wtp-ca-si-capable?     wireless-rrm-types:enm-ca-si-capable
+    +-- spectrum-operation-state?       wireless-rrm-oper:enm-cleanair-oper-state
+    +-- spectrum-admin-state?           boolean
+    +-- spectrum-capable?               boolean
+    +-- sensord-operational-status?     int32
+  grouping st-rrm-spectrum
+    +-- config
+       +-- spectrum-intelligence-enable?   boolean
+       +-- spectrum-wtp-ca-si-capable?     wireless-rrm-types:enm-ca-si-capable
+       +-- spectrum-operation-state?       wireless-rrm-oper:enm-cleanair-oper-state
+       +-- spectrum-admin-state?           boolean
+       +-- spectrum-capable?               boolean
+       +-- sensord-operational-status?     int32
+  grouping st-rrm-mgr-grp-member
+    +-- member-ip?             inet:ip-address
+    +-- member-secondary-ip?   inet:ip-address
+    +-- max-radio-cnt?         uint16
+    +-- curr-radio-cnt?        uint16
+    +-- name?                  string
+  grouping st-rrm-group-ctrl
+    +-- current-state?           wireless-rrm-oper:enm-rrm-group-state
+    +-- current-grouping-mode?   wireless-rrm-types:enm-rrm-ctrl-mode
+    +-- current-grouping-role?   wireless-rrm-oper:enm-rrm-grouping-role-db
+    +-- cntrlr-name?             string
+    +-- cntrlr-ip-addr?          inet:ipv4-address
+    +-- is-static-member?        wireless-rrm-oper:enm-is-static-member
+    +-- fra-sensor-coverage?     uint8
+  grouping st-rrm-static-grp-member
+    +-- cntrlr-name?        string
+    +-- cntrlr-ip-addr?     inet:ip-address
+    +-- has-joined?         boolean
+    +-- nack-reason?        wireless-types:enm-rrm-grp-member-nack-reason
+    +-- max-radio-num?      uint16
+    +-- last-join-cmd-ts?   yang:date-and-time
+  grouping st-rrm-mgr-oper-data
+    +-- default-dca-channels
+    |  +-- channel*   uint16
+    +-- default-non-dca-channels
+       +-- channel*   uint16
+  grouping st-rrm-mgr-main
+    +-- phy-type?                    wireless-types:enm-ewlc-dot11-radio-band
+    +-- grp
+    |  +-- current-state?           wireless-rrm-oper:enm-rrm-group-state
+    |  +-- current-grouping-mode?   wireless-rrm-types:enm-rrm-ctrl-mode
+    |  +-- current-grouping-role?   wireless-rrm-oper:enm-rrm-grouping-role-db
+    |  +-- cntrlr-name?             string
+    |  +-- cntrlr-ip-addr?          inet:ipv4-address
+    |  +-- is-static-member?        wireless-rrm-oper:enm-is-static-member
+    |  +-- fra-sensor-coverage?     uint8
+    +-- oper-data
+    |  +-- default-dca-channels
+    |  |  +-- channel*   uint16
+    |  +-- default-non-dca-channels
+    |     +-- channel*   uint16
+    +-- rrm-mgr-static-grp-member* [cntrlr-ip-addr]
+    |  +-- cntrlr-name?        string
+    |  +-- cntrlr-ip-addr?     inet:ip-address
+    |  +-- has-joined?         boolean
+    |  +-- nack-reason?        wireless-types:enm-rrm-grp-member-nack-reason
+    |  +-- max-radio-num?      uint16
+    |  +-- last-join-cmd-ts?   yang:date-and-time
+    +-- rrm-mgr-grp-member* [member-ip]
+       +-- member-ip?             inet:ip-address
+       +-- member-secondary-ip?   inet:ip-address
+       +-- max-radio-cnt?         uint16
+       +-- curr-radio-cnt?        uint16
+       +-- name?                  string

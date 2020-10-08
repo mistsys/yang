@@ -1,0 +1,96 @@
+module: openconfig-system-logging
+
+  grouping logging-selectors-config
+    +-- facility?   identityref
+    +-- severity?   syslog-severity
+  grouping logging-selectors-state
+  grouping logging-selectors-top
+    +-- selectors
+       +-- selector* [facility severity]
+          +-- facility?   -> ../config/facility
+          +-- severity?   -> ../config/severity
+          +-- config
+          |  +-- facility?   identityref
+          |  +-- severity?   syslog-severity
+          +--ro state
+             +--ro facility?   identityref
+             +--ro severity?   syslog-severity
+  grouping logging-console-config
+  grouping logging-console-state
+  grouping logging-console-top
+    +-- console
+       +-- config
+       +--ro state
+       +-- selectors
+          +-- selector* [facility severity]
+             +-- facility?   -> ../config/facility
+             +-- severity?   -> ../config/severity
+             +-- config
+             |  +-- facility?   identityref
+             |  +-- severity?   syslog-severity
+             +--ro state
+                +--ro facility?   identityref
+                +--ro severity?   syslog-severity
+  grouping logging-remote-config
+    +-- host?             oc-inet:host
+    +-- source-address?   oc-inet:ip-address
+    +-- remote-port?      oc-inet:port-number
+  grouping logging-remote-state
+  grouping logging-remote-top
+    +-- remote-servers
+       +-- remote-server* [host]
+          +-- host?        -> ../config/host
+          +-- config
+          |  +-- host?             oc-inet:host
+          |  +-- source-address?   oc-inet:ip-address
+          |  +-- remote-port?      oc-inet:port-number
+          +--ro state
+          |  +--ro host?             oc-inet:host
+          |  +--ro source-address?   oc-inet:ip-address
+          |  +--ro remote-port?      oc-inet:port-number
+          +-- selectors
+             +-- selector* [facility severity]
+                +-- facility?   -> ../config/facility
+                +-- severity?   -> ../config/severity
+                +-- config
+                |  +-- facility?   identityref
+                |  +-- severity?   syslog-severity
+                +--ro state
+                   +--ro facility?   identityref
+                   +--ro severity?   syslog-severity
+  grouping logging-top
+    +-- logging
+       +-- console
+       |  +-- config
+       |  +--ro state
+       |  +-- selectors
+       |     +-- selector* [facility severity]
+       |        +-- facility?   -> ../config/facility
+       |        +-- severity?   -> ../config/severity
+       |        +-- config
+       |        |  +-- facility?   identityref
+       |        |  +-- severity?   syslog-severity
+       |        +--ro state
+       |           +--ro facility?   identityref
+       |           +--ro severity?   syslog-severity
+       +-- remote-servers
+          +-- remote-server* [host]
+             +-- host?        -> ../config/host
+             +-- config
+             |  +-- host?             oc-inet:host
+             |  +-- source-address?   oc-inet:ip-address
+             |  +-- remote-port?      oc-inet:port-number
+             +--ro state
+             |  +--ro host?             oc-inet:host
+             |  +--ro source-address?   oc-inet:ip-address
+             |  +--ro remote-port?      oc-inet:port-number
+             +-- selectors
+                +-- selector* [facility severity]
+                   +-- facility?   -> ../config/facility
+                   +-- severity?   -> ../config/severity
+                   +-- config
+                   |  +-- facility?   identityref
+                   |  +-- severity?   syslog-severity
+                   +--ro state
+                      +--ro facility?   identityref
+                      +--ro severity?   syslog-severity

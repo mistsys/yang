@@ -1,0 +1,108 @@
+submodule: Cisco-IOS-XE-ipv6 (belongs-to Cisco-IOS-XE-native)
+
+  grouping ipv6-route-options-grouping
+    +-- next-hop?          inet:ipv6-address
+    +-- distance?          uint8
+    +-- (type-choice)?
+    |  +--:(multicast)
+    |  |  +-- multicast?   empty
+    |  +--:(unicast)
+    |     +-- unicast?     empty
+    +-- tag?               uint32
+    +-- track?             uint32
+  grouping ipv6-route-grouping
+    +-- ipv6-route-list* [prefix]
+       +-- prefix?          ios-types:ipv6-prefix
+       +-- ipv6-fwd-list* [fwd]
+          +-- fwd?               union
+          +-- next-hop?          inet:ipv6-address
+          +-- distance?          uint8
+          +-- (type-choice)?
+          |  +--:(multicast)
+          |  |  +-- multicast?   empty
+          |  +--:(unicast)
+          |     +-- unicast?     empty
+          +-- tag?               uint32
+          +-- track?             uint32
+  grouping config-ipv6-grouping
+    +-- ipv6
+       +-- source-guard
+       |  +-- policy* [source-guard-policy-name]
+       |     +-- source-guard-policy-name?   string
+       |     +-- validate
+       |        +-- address?   empty
+       |        +-- prefix?    empty
+       +-- destination-guard
+       |  +-- policy* [destination-guard-policy-name]
+       |     +-- destination-guard-policy-name?   string
+       |     +-- enforcement
+       |        +-- always?     empty
+       |        +-- stressed?   empty
+       +-- dhcp
+       +-- access-list
+       +-- unicast-routing?     empty
+       +-- multicast
+       +-- cef!
+       +-- nd
+       +-- pim
+       +-- route
+       |  +-- ipv6-route-list* [prefix]
+       |  |  +-- prefix?          ios-types:ipv6-prefix
+       |  |  +-- ipv6-fwd-list* [fwd]
+       |  |     +-- fwd?               union
+       |  |     +-- next-hop?          inet:ipv6-address
+       |  |     +-- distance?          uint8
+       |  |     +-- (type-choice)?
+       |  |     |  +--:(multicast)
+       |  |     |  |  +-- multicast?   empty
+       |  |     |  +--:(unicast)
+       |  |     |     +-- unicast?     empty
+       |  |     +-- tag?               uint32
+       |  |     +-- track?             uint32
+       |  +-- vrf* [name]
+       |     +-- name?              string
+       |     +-- ipv6-route-list* [prefix]
+       |        +-- prefix?          ios-types:ipv6-prefix
+       |        +-- ipv6-fwd-list* [fwd]
+       |           +-- fwd?               union
+       |           +-- next-hop?          inet:ipv6-address
+       |           +-- distance?          uint8
+       |           +-- (type-choice)?
+       |           |  +--:(multicast)
+       |           |  |  +-- multicast?   empty
+       |           |  +--:(unicast)
+       |           |     +-- unicast?     empty
+       |           +-- tag?               uint32
+       |           +-- track?             uint32
+       +-- router
+       |  +-- eigrp* [id]
+       |     +-- id?   uint16
+       +-- source-route?        boolean
+       +-- spd
+       |  +-- mode?    enumeration
+       |  +-- queue
+       |     +-- max-threshold?   uint16
+       |     +-- min-threshold?   uint16
+       +-- prefix-list
+          +-- prefixes* [name]
+          |  +-- name?          string
+          |  +-- description?   string
+          |  +-- permit
+          |  |  +-- address?   ios-types:ipv6-prefix
+          |  |  +-- ge?        uint8
+          |  |  +-- le?        uint8
+          |  +-- deny
+          |  |  +-- address?   ios-types:ipv6-prefix
+          |  |  +-- ge?        uint8
+          |  |  +-- le?        uint8
+          |  +-- seq* [no]
+          |     +-- no?       uint32
+          |     +-- deny
+          |     |  +-- ip?   ios-types:ipv6-prefix
+          |     |  +-- ge?   uint16
+          |     |  +-- le?   uint16
+          |     +-- permit
+          |        +-- ip?   ios-types:ipv6-prefix
+          |        +-- ge?   uint16
+          |        +-- le?   uint16
+          +-- sequence-number?   empty

@@ -1,0 +1,20 @@
+
+module: tailf-acm
+  augment /nacm:nacm:
+    +--rw cmd-read-default?        nacm:action-type
+    +--rw cmd-exec-default?        nacm:action-type
+    +--rw log-if-default-permit?   empty
+  augment /nacm:nacm/nacm:groups/nacm:group:
+    +--rw gid?   int32
+  augment /nacm:nacm/nacm:rule-list:
+    +--rw cmdrule* [name]
+       +--rw name                 string
+       +--rw context?             union
+       +--rw command?             string
+       +--rw access-operations?   union
+       +--rw action               nacm:action-type
+       +--rw log-if-permit?       empty
+       +--rw comment?             string
+  augment /nacm:nacm/nacm:rule-list/nacm:rule:
+    +--rw context?         union
+    +--rw log-if-permit?   empty

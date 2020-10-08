@@ -1,0 +1,174 @@
+module: oc-mapping-acl
+  +--rw acl-mapping
+     +--rw acl-sets
+     |  +--rw acl-set* [name]
+     |     +--rw name      string
+     |     +--rw config
+     |        +--rw name?          string
+     |        +--rw acl-type?      inet:ip-version
+     |        +--rw description?   string
+     |        +--rw acl-entries
+     |           +--rw acl-entry* [sequence-id]
+     |              +--rw sequence-id    uint32
+     |              +--rw ip-version?    inet:ip-version
+     +--rw interfaces
+        +--rw interface* [id]
+           +--rw id                  string
+           +--rw config
+           |  +--rw id?   oc-if:interface-id
+           +--rw interface-ref
+           |  +--rw config
+           |  |  +--rw interface?      -> /oc-if:interfaces/interface/name
+           |  |  +--rw subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+           |  +--ro state
+           |     +--ro interface?      -> /oc-if:interfaces/interface/name
+           |     +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+           +--rw ingress-acl-sets
+           |  +--rw ingress-acl-set* [set-name]
+           |     +--rw set-name       string
+           |     +--rw config
+           |     |  +--rw set-name?   string
+           |     +--ro state
+           |     |  +--ro set-name?   string
+           |     +--ro acl-entries
+           |        +--ro acl-entry* [sequence-id]
+           |           +--ro sequence-id    string
+           +--rw egress-acl-sets
+              +--rw egress-acl-set* [set-name]
+                 +--rw set-name       string
+                 +--rw config
+                 |  +--rw set-name?   string
+                 +--ro acl-entries
+                    +--ro acl-entry* [sequence-id]
+                       +--ro sequence-id    string
+
+  grouping input-interface-config
+  grouping access-list-entries-config
+    +-- sequence-id?   uint32
+  grouping access-list-entries-top
+    +-- acl-entries
+       +-- acl-entry* [sequence-id]
+          +-- sequence-id?   uint32
+          +-- ip-version?    inet:ip-version
+  grouping acl-config
+  grouping acl-set-top
+    +-- acl-sets
+       +-- acl-set* [name]
+          +-- name?     string
+          +-- config
+             +-- name?          string
+             +-- acl-type?      inet:ip-version
+             +-- description?   string
+             +-- acl-entries
+                +-- acl-entry* [sequence-id]
+                   +-- sequence-id?   uint32
+                   +-- ip-version?    inet:ip-version
+  grouping interface-acl-entries-config
+  grouping acl-set-config
+    +-- name?          string
+    +-- acl-type?      inet:ip-version
+    +-- description?   string
+  grouping interface-acl-entries-top
+    +--ro acl-entries
+       +--ro acl-entry* [sequence-id]
+          +--ro sequence-id?   string
+  grouping interface-ingress-acl-config
+    +-- set-name?   string
+  grouping interface-ingress-acl-top
+    +-- ingress-acl-sets
+       +-- ingress-acl-set* [set-name]
+          +-- set-name?      string
+          +-- config
+          |  +-- set-name?   string
+          +--ro state
+          |  +--ro set-name?   string
+          +--ro acl-entries
+             +--ro acl-entry* [sequence-id]
+                +--ro sequence-id?   string
+  grouping interface-egress-acl-config
+    +-- set-name?   string
+  grouping interface-egress-acl-top
+    +-- egress-acl-sets
+       +-- egress-acl-set* [set-name]
+          +-- set-name?      string
+          +-- config
+          |  +-- set-name?   string
+          +--ro acl-entries
+             +--ro acl-entry* [sequence-id]
+                +--ro sequence-id?   string
+  grouping acl-interfaces-config
+    +-- id?   oc-if:interface-id
+  grouping acl-interfaces-top
+    +-- interfaces
+       +-- interface* [id]
+          +-- id?                 string
+          +-- config
+          |  +-- id?   oc-if:interface-id
+          +-- interface-ref
+          |  +-- config
+          |  |  +-- interface?      -> /oc-if:interfaces/interface/name
+          |  |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+          |  +--ro state
+          |     +--ro interface?      -> /oc-if:interfaces/interface/name
+          |     +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+          +-- ingress-acl-sets
+          |  +-- ingress-acl-set* [set-name]
+          |     +-- set-name?      string
+          |     +-- config
+          |     |  +-- set-name?   string
+          |     +--ro state
+          |     |  +--ro set-name?   string
+          |     +--ro acl-entries
+          |        +--ro acl-entry* [sequence-id]
+          |           +--ro sequence-id?   string
+          +-- egress-acl-sets
+             +-- egress-acl-set* [set-name]
+                +-- set-name?      string
+                +-- config
+                |  +-- set-name?   string
+                +--ro acl-entries
+                   +--ro acl-entry* [sequence-id]
+                      +--ro sequence-id?   string
+  grouping acl-top
+    +-- acl-mapping
+       +-- acl-sets
+       |  +-- acl-set* [name]
+       |     +-- name?     string
+       |     +-- config
+       |        +-- name?          string
+       |        +-- acl-type?      inet:ip-version
+       |        +-- description?   string
+       |        +-- acl-entries
+       |           +-- acl-entry* [sequence-id]
+       |              +-- sequence-id?   uint32
+       |              +-- ip-version?    inet:ip-version
+       +-- interfaces
+          +-- interface* [id]
+             +-- id?                 string
+             +-- config
+             |  +-- id?   oc-if:interface-id
+             +-- interface-ref
+             |  +-- config
+             |  |  +-- interface?      -> /oc-if:interfaces/interface/name
+             |  |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+             |  +--ro state
+             |     +--ro interface?      -> /oc-if:interfaces/interface/name
+             |     +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+             +-- ingress-acl-sets
+             |  +-- ingress-acl-set* [set-name]
+             |     +-- set-name?      string
+             |     +-- config
+             |     |  +-- set-name?   string
+             |     +--ro state
+             |     |  +--ro set-name?   string
+             |     +--ro acl-entries
+             |        +--ro acl-entry* [sequence-id]
+             |           +--ro sequence-id?   string
+             +-- egress-acl-sets
+                +-- egress-acl-set* [set-name]
+                   +-- set-name?      string
+                   +-- config
+                   |  +-- set-name?   string
+                   +--ro acl-entries
+                      +--ro acl-entry* [sequence-id]
+                         +--ro sequence-id?   string

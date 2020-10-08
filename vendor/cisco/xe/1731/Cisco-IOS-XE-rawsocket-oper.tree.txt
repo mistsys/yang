@@ -1,0 +1,164 @@
+module: Cisco-IOS-XE-rawsocket-oper
+  +--ro rawsocket-oper-data
+  |  +--ro rs-udp!
+  |  |  +--ro rs-udp-stats* [async-line]
+  |  |  |  +--ro async-line           string
+  |  |  |  +--ro tty?                 uint32
+  |  |  |  +--ro vrf?                 string
+  |  |  |  +--ro num-sessions?        uint32
+  |  |  |  +--ro tcp-in-bytes?        uint64
+  |  |  |  +--ro tcp-out-bytes?       uint64
+  |  |  |  +--ro tcp-to-tty-frames?   uint64
+  |  |  |  +--ro tty-to-tcp-frames?   uint64
+  |  |  +--ro rs-udp-sessions* [async-line destination-ip destination-port]
+  |  |  |  +--ro async-line          string
+  |  |  |  +--ro destination-ip      inet:ip-address
+  |  |  |  +--ro destination-port    uint16
+  |  |  |  +--ro tty?                uint32
+  |  |  |  +--ro vrf?                string
+  |  |  |  +--ro idle-timeout?       uint32
+  |  |  |  +--ro mode?               raw-socket-ios-xe-oper:rs-mode
+  |  |  |  +--ro local-ip?           inet:ip-address
+  |  |  |  +--ro local-port?         uint16
+  |  |  |  +--ro socket?             uint32
+  |  |  |  +--ro start-time?         yang:date-and-time
+  |  |  |  +--ro last-active-time?   yang:date-and-time
+  |  |  +--ro rs-udp-clients-state* [async-line destination-ip destination-port]
+  |  |     +--ro async-line          string
+  |  |     +--ro destination-ip      inet:ip-address
+  |  |     +--ro destination-port    uint16
+  |  |     +--ro tty?                uint32
+  |  |     +--ro local-ip?           inet:ip-address
+  |  |     +--ro local-port?         uint16
+  |  |     +--ro state?              raw-socket-ios-xe-oper:rs-state
+  |  +--ro rs-tcp!
+  |     +--ro rs-tcp-stats* [async-line]
+  |     |  +--ro async-line           string
+  |     |  +--ro tty?                 uint32
+  |     |  +--ro vrf?                 string
+  |     |  +--ro num-sessions?        uint32
+  |     |  +--ro tcp-in-bytes?        uint64
+  |     |  +--ro tcp-out-bytes?       uint64
+  |     |  +--ro tcp-to-tty-frames?   uint64
+  |     |  +--ro tty-to-tcp-frames?   uint64
+  |     +--ro rs-tcp-sessions* [async-line destination-ip destination-port]
+  |     |  +--ro async-line          string
+  |     |  +--ro destination-ip      inet:ip-address
+  |     |  +--ro destination-port    uint16
+  |     |  +--ro tty?                uint32
+  |     |  +--ro vrf?                string
+  |     |  +--ro idle-timeout?       uint32
+  |     |  +--ro mode?               raw-socket-ios-xe-oper:rs-mode
+  |     |  +--ro local-ip?           inet:ip-address
+  |     |  +--ro local-port?         uint16
+  |     |  +--ro socket?             uint32
+  |     |  +--ro start-time?         yang:date-and-time
+  |     |  +--ro last-active-time?   yang:date-and-time
+  |     +--ro rs-tcp-clients-state* [async-line destination-ip destination-port]
+  |        +--ro async-line          string
+  |        +--ro destination-ip      inet:ip-address
+  |        +--ro destination-port    uint16
+  |        +--ro tty?                uint32
+  |        +--ro local-ip?           inet:ip-address
+  |        +--ro local-port?         uint16
+  |        +--ro state?              raw-socket-ios-xe-oper:rs-state
+  +--rw schema-metadata-Cisco-IOS-XE-rawsocket-oper
+  |  +--rw json-metadata-leaf?   empty
+  +--rw gnmi-model-data
+
+  grouping connection-stats
+    +-- async-line?          string
+    +-- tty?                 uint32
+    +-- vrf?                 string
+    +-- num-sessions?        uint32
+    +-- tcp-in-bytes?        uint64
+    +-- tcp-out-bytes?       uint64
+    +-- tcp-to-tty-frames?   uint64
+    +-- tty-to-tcp-frames?   uint64
+  grouping rs-session-info-key
+    +-- async-line?         string
+    +-- destination-ip?     inet:ip-address
+    +-- destination-port?   uint16
+  grouping rs-session-info-params
+    +-- tty?                uint32
+    +-- vrf?                string
+    +-- idle-timeout?       uint32
+    +-- mode?               raw-socket-ios-xe-oper:rs-mode
+    +-- local-ip?           inet:ip-address
+    +-- local-port?         uint16
+    +-- socket?             uint32
+    +-- start-time?         yang:date-and-time
+    +-- last-active-time?   yang:date-and-time
+  grouping rs-client-state-key
+    +-- async-line?         string
+    +-- destination-ip?     inet:ip-address
+    +-- destination-port?   uint16
+  grouping rs-client-state-params
+    +-- tty?          uint32
+    +-- local-ip?     inet:ip-address
+    +-- local-port?   uint16
+    +-- state?        raw-socket-ios-xe-oper:rs-state
+  grouping tcp
+    +-- rs-tcp-stats* [async-line]
+    |  +-- async-line?          string
+    |  +-- tty?                 uint32
+    |  +-- vrf?                 string
+    |  +-- num-sessions?        uint32
+    |  +-- tcp-in-bytes?        uint64
+    |  +-- tcp-out-bytes?       uint64
+    |  +-- tcp-to-tty-frames?   uint64
+    |  +-- tty-to-tcp-frames?   uint64
+    +-- rs-tcp-sessions* [async-line destination-ip destination-port]
+    |  +-- async-line?         string
+    |  +-- destination-ip?     inet:ip-address
+    |  +-- destination-port?   uint16
+    |  +-- tty?                uint32
+    |  +-- vrf?                string
+    |  +-- idle-timeout?       uint32
+    |  +-- mode?               raw-socket-ios-xe-oper:rs-mode
+    |  +-- local-ip?           inet:ip-address
+    |  +-- local-port?         uint16
+    |  +-- socket?             uint32
+    |  +-- start-time?         yang:date-and-time
+    |  +-- last-active-time?   yang:date-and-time
+    +-- rs-tcp-clients-state* [async-line destination-ip destination-port]
+       +-- async-line?         string
+       +-- destination-ip?     inet:ip-address
+       +-- destination-port?   uint16
+       +-- tty?                uint32
+       +-- local-ip?           inet:ip-address
+       +-- local-port?         uint16
+       +-- state?              raw-socket-ios-xe-oper:rs-state
+  grouping udp
+    +-- rs-udp-stats* [async-line]
+    |  +-- async-line?          string
+    |  +-- tty?                 uint32
+    |  +-- vrf?                 string
+    |  +-- num-sessions?        uint32
+    |  +-- tcp-in-bytes?        uint64
+    |  +-- tcp-out-bytes?       uint64
+    |  +-- tcp-to-tty-frames?   uint64
+    |  +-- tty-to-tcp-frames?   uint64
+    +-- rs-udp-sessions* [async-line destination-ip destination-port]
+    |  +-- async-line?         string
+    |  +-- destination-ip?     inet:ip-address
+    |  +-- destination-port?   uint16
+    |  +-- tty?                uint32
+    |  +-- vrf?                string
+    |  +-- idle-timeout?       uint32
+    |  +-- mode?               raw-socket-ios-xe-oper:rs-mode
+    |  +-- local-ip?           inet:ip-address
+    |  +-- local-port?         uint16
+    |  +-- socket?             uint32
+    |  +-- start-time?         yang:date-and-time
+    |  +-- last-active-time?   yang:date-and-time
+    +-- rs-udp-clients-state* [async-line destination-ip destination-port]
+       +-- async-line?         string
+       +-- destination-ip?     inet:ip-address
+       +-- destination-port?   uint16
+       +-- tty?                uint32
+       +-- local-ip?           inet:ip-address
+       +-- local-port?         uint16
+       +-- state?              raw-socket-ios-xe-oper:rs-state
+  grouping __yangpp_metadata
+    +-- json-metadata-leaf?   empty

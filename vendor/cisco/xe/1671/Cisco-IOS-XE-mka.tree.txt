@@ -1,0 +1,59 @@
+
+module: Cisco-IOS-XE-mka
+  augment /ios:native/ios:mka:
+    +--rw policy* [name]
+       +--rw name                      string
+       +--rw macsec-cipher-suite
+       |  +--rw gcm-aes-128?   empty
+       |  +--rw gcm-aes-256?   empty
+       +--rw confidentiality-offset?   enumeration
+  augment /ios:native/ios:interface/ios:FastEthernet:
+    +--rw mka
+       +--rw policy
+       |  +--rw name?   string
+       +--rw pre-shared-key
+          +--rw key-chain
+             +--rw name?   string
+  augment /ios:native/ios:interface/ios:GigabitEthernet:
+    +--rw mka
+       +--rw policy
+       |  +--rw name?   string
+       +--rw pre-shared-key
+          +--rw key-chain
+             +--rw name?   string
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet:
+    +--rw mka
+       +--rw policy
+       |  +--rw name?   string
+       +--rw pre-shared-key
+          +--rw key-chain
+             +--rw name?   string
+  augment /ios:native/ios:interface/ios:FiveGigabitEthernet:
+    +--rw mka
+       +--rw policy
+       |  +--rw name?   string
+       +--rw pre-shared-key
+          +--rw key-chain
+             +--rw name?   string
+  augment /ios:native/ios:interface/ios:TwentyFiveGigabitEthernet:
+    +--rw mka
+       +--rw policy
+       |  +--rw name?   string
+       +--rw pre-shared-key
+          +--rw key-chain
+             +--rw name?   string
+
+  grouping config-mka-grouping
+    +-- policy* [name]
+       +-- name?                     string
+       +-- macsec-cipher-suite
+       |  +-- gcm-aes-128?   empty
+       |  +-- gcm-aes-256?   empty
+       +-- confidentiality-offset?   enumeration
+  grouping config-interface-mka-grouping
+    +-- mka
+       +-- policy
+       |  +-- name?   string
+       +-- pre-shared-key
+          +-- key-chain
+             +-- name?   string

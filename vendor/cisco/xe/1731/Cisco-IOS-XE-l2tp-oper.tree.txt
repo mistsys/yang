@@ -1,0 +1,153 @@
+module: Cisco-IOS-XE-l2tp-oper
+  +--ro l2tp-oper-data
+  |  +--ro l2tp-tunnel-info* [local-tunnel-id]
+  |  |  +--ro local-ip-address?      inet:ip-address
+  |  |  +--ro remote-ip-address?     inet:ip-address
+  |  |  +--ro local-tunnel-id        uint32
+  |  |  +--ro remote-tunnel-id?      uint32
+  |  |  +--ro tunnel-local-name?     string
+  |  |  +--ro tunnel-remote-name?    string
+  |  |  +--ro l2tp-class-name?       string
+  |  |  +--ro tunnel-state?          l2tp-ios-xe-oper:l2tp-tunnel-state
+  |  |  +--ro total-sessions?        uint32
+  |  |  +--ro local-port?            uint16
+  |  |  +--ro remote-port?           uint16
+  |  |  +--ro ip-protocol-type?      uint16
+  |  |  +--ro is-path-mtu-enabled?   uint16
+  |  +--ro l2tp-tunnel-counter* [local-tunnel-id]
+  |  |  +--ro local-tunnel-id               uint32
+  |  |  +--ro last-state-change-time?       yang:date-and-time
+  |  |  +--ro last-counter-clear-time?      yang:date-and-time
+  |  |  +--ro count-since-clear
+  |  |  |  +--ro packets-in-ipv4?    uint64
+  |  |  |  +--ro packets-out-ipv4?   uint64
+  |  |  |  +--ro bytes-in-ipv4?      uint64
+  |  |  |  +--ro bytes-out-ipv4?     uint64
+  |  |  |  +--ro packets-in-ipv6?    uint64
+  |  |  |  +--ro packets-out-ipv6?   uint64
+  |  |  |  +--ro bytes-in-ipv6?      uint64
+  |  |  |  +--ro bytes-out-ipv6?     uint64
+  |  |  +--ro count-ignore-clear
+  |  |  |  +--ro packets-in-ipv4?    uint64
+  |  |  |  +--ro packets-out-ipv4?   uint64
+  |  |  |  +--ro bytes-in-ipv4?      uint64
+  |  |  |  +--ro bytes-out-ipv4?     uint64
+  |  |  |  +--ro packets-in-ipv6?    uint64
+  |  |  |  +--ro packets-out-ipv6?   uint64
+  |  |  |  +--ro bytes-in-ipv6?      uint64
+  |  |  |  +--ro bytes-out-ipv6?     uint64
+  |  |  +--ro total-resend?                 uint32
+  |  |  +--ro zlb-acks-sent?                uint32
+  |  |  +--ro out-of-order-drops?           uint32
+  |  |  +--ro out-of-order-reorder?         uint32
+  |  |  +--ro peer-authen-failed?           uint32
+  |  |  +--ro congestion-ctrl-avoid-pkts?   uint16
+  |  +--ro l2tp-tunnel-parameters* [local-tunnel-id]
+  |     +--ro local-tunnel-id                  uint32
+  |     +--ro tx-sequence-number?              uint16
+  |     +--ro rx-sequence-number?              uint16
+  |     +--ro local-window-size?               uint16
+  |     +--ro remote-window-size?              uint16
+  |     +--ro rxed-remote-window-size?         uint16
+  |     +--ro retransmission-time?             uint16
+  |     +--ro max-retransmission-time?         uint16
+  |     +--ro unsent-queue-size?               uint16
+  |     +--ro max-unsent-queue-size?           uint16
+  |     +--ro resend-queue-size?               uint16
+  |     +--ro max-resend-queue-size?           uint16
+  |     +--ro retrans-distr*                   uint16
+  |     +--ro number-of-digests?               uint16
+  |     +--ro congestion-window-size?          uint16
+  |     +--ro slow-start-threshold?            uint16
+  |     +--ro is-local-window-size-default?    boolean
+  |     +--ro is-max-remote-window-size?       boolean
+  |     +--ro is-locally-initiated?            boolean
+  |     +--ro is-congestion-ctrl-slow-start?   boolean
+  |     +--ro is-congestion-ctrl-enabled?      boolean
+  |     +--ro using-digest-secret2?            boolean
+  |     +--ro is-incomplete-export?            boolean
+  |     +--ro queue-check-attempts?            uint16
+  |     +--ro max-queue-check-attempts?        uint16
+  +--rw schema-metadata-Cisco-IOS-XE-l2tp-oper
+  |  +--rw json-metadata-leaf?   empty
+  +--rw gnmi-model-data
+
+  grouping l2tp-tunnel-info
+    +-- local-ip-address?      inet:ip-address
+    +-- remote-ip-address?     inet:ip-address
+    +-- local-tunnel-id?       uint32
+    +-- remote-tunnel-id?      uint32
+    +-- tunnel-local-name?     string
+    +-- tunnel-remote-name?    string
+    +-- l2tp-class-name?       string
+    +-- tunnel-state?          l2tp-ios-xe-oper:l2tp-tunnel-state
+    +-- total-sessions?        uint32
+    +-- local-port?            uint16
+    +-- remote-port?           uint16
+    +-- ip-protocol-type?      uint16
+    +-- is-path-mtu-enabled?   uint16
+  grouping l2tp-tunnel-packet-counter
+    +-- packets-in-ipv4?    uint64
+    +-- packets-out-ipv4?   uint64
+    +-- bytes-in-ipv4?      uint64
+    +-- bytes-out-ipv4?     uint64
+    +-- packets-in-ipv6?    uint64
+    +-- packets-out-ipv6?   uint64
+    +-- bytes-in-ipv6?      uint64
+    +-- bytes-out-ipv6?     uint64
+  grouping l2tp-tunnel-counter
+    +-- local-tunnel-id?              uint32
+    +-- last-state-change-time?       yang:date-and-time
+    +-- last-counter-clear-time?      yang:date-and-time
+    +-- count-since-clear
+    |  +-- packets-in-ipv4?    uint64
+    |  +-- packets-out-ipv4?   uint64
+    |  +-- bytes-in-ipv4?      uint64
+    |  +-- bytes-out-ipv4?     uint64
+    |  +-- packets-in-ipv6?    uint64
+    |  +-- packets-out-ipv6?   uint64
+    |  +-- bytes-in-ipv6?      uint64
+    |  +-- bytes-out-ipv6?     uint64
+    +-- count-ignore-clear
+    |  +-- packets-in-ipv4?    uint64
+    |  +-- packets-out-ipv4?   uint64
+    |  +-- bytes-in-ipv4?      uint64
+    |  +-- bytes-out-ipv4?     uint64
+    |  +-- packets-in-ipv6?    uint64
+    |  +-- packets-out-ipv6?   uint64
+    |  +-- bytes-in-ipv6?      uint64
+    |  +-- bytes-out-ipv6?     uint64
+    +-- total-resend?                 uint32
+    +-- zlb-acks-sent?                uint32
+    +-- out-of-order-drops?           uint32
+    +-- out-of-order-reorder?         uint32
+    +-- peer-authen-failed?           uint32
+    +-- congestion-ctrl-avoid-pkts?   uint16
+  grouping l2tp-tunnel-parameters
+    +-- local-tunnel-id?                 uint32
+    +-- tx-sequence-number?              uint16
+    +-- rx-sequence-number?              uint16
+    +-- local-window-size?               uint16
+    +-- remote-window-size?              uint16
+    +-- rxed-remote-window-size?         uint16
+    +-- retransmission-time?             uint16
+    +-- max-retransmission-time?         uint16
+    +-- unsent-queue-size?               uint16
+    +-- max-unsent-queue-size?           uint16
+    +-- resend-queue-size?               uint16
+    +-- max-resend-queue-size?           uint16
+    +-- retrans-distr*                   uint16
+    +-- number-of-digests?               uint16
+    +-- congestion-window-size?          uint16
+    +-- slow-start-threshold?            uint16
+    +-- is-local-window-size-default?    boolean
+    +-- is-max-remote-window-size?       boolean
+    +-- is-locally-initiated?            boolean
+    +-- is-congestion-ctrl-slow-start?   boolean
+    +-- is-congestion-ctrl-enabled?      boolean
+    +-- using-digest-secret2?            boolean
+    +-- is-incomplete-export?            boolean
+    +-- queue-check-attempts?            uint16
+    +-- max-queue-check-attempts?        uint16
+  grouping __yangpp_metadata
+    +-- json-metadata-leaf?   empty

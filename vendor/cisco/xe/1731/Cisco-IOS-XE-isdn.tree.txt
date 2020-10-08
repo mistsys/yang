@@ -1,0 +1,63 @@
+
+module: Cisco-IOS-XE-isdn
+  augment /ios:native/ios:interface/ios:Serial:
+    +--rw trunk-group
+    |  +--rw trunk-group-label?        string
+    |  +--rw trunk-group-preference?   uint8
+    +--rw isdn
+       +--rw switch-type
+       |  +--rw switch-type-pri?   enumeration
+       +--rw incoming-voice
+       |  +--rw (call-type)?
+       |  |  +--:(data)
+       |  |  |  +--rw data?     empty
+       |  |  +--:(modem)
+       |  |  |  +--rw modem?    empty
+       |  |  +--:(voice)
+       |  |     +--rw voice?    empty
+       |  +--rw b-channel-bw?   enumeration
+       +--rw protocol-emulate?   enumeration
+       +--rw timer
+          +--rw T200?   uint32
+          +--rw T203?   uint32
+          +--rw T301?   uint32
+          +--rw T303?   uint32
+          +--rw T306?   uint32
+          +--rw T309?   uint32
+          +--rw T310?   uint32
+          +--rw T321?   uint32
+  augment /ios:native:
+    +--rw isdn
+       +--rw logging?       empty
+       +--rw switch-type?   enumeration
+
+  grouping config-isdn-global-cli-grouping
+    +-- isdn
+       +-- logging?       empty
+       +-- switch-type?   enumeration
+  grouping config-isdn-interface-cli-grouping
+    +-- trunk-group
+    |  +-- trunk-group-label?        string
+    |  +-- trunk-group-preference?   uint8
+    +-- isdn
+       +-- switch-type
+       |  +-- switch-type-pri?   enumeration
+       +-- incoming-voice
+       |  +-- (call-type)?
+       |  |  +--:(data)
+       |  |  |  +-- data?     empty
+       |  |  +--:(modem)
+       |  |  |  +-- modem?    empty
+       |  |  +--:(voice)
+       |  |     +-- voice?    empty
+       |  +-- b-channel-bw?   enumeration
+       +-- protocol-emulate?   enumeration
+       +-- timer
+          +-- T200?   uint32
+          +-- T203?   uint32
+          +-- T301?   uint32
+          +-- T303?   uint32
+          +-- T306?   uint32
+          +-- T309?   uint32
+          +-- T310?   uint32
+          +-- T321?   uint32

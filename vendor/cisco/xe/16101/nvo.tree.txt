@@ -1,0 +1,22 @@
+module: nvo
+  +--rw nvo-instances
+     +--rw nvo-instance* [nvo-id]
+        +--rw nvo-id                   uint16
+        +--rw overlay-encapsulation?   identityref
+        +--rw source-interface         if:interface-ref
+        +--rw virtual-network* [vni-start vni-end]
+           +--rw vni-start             virtual-network-id-type
+           +--rw vni-end               virtual-network-id-type
+           +--rw (replication-mode)
+           |  +--:(ip-multicast)
+           |  |  +--rw multicast
+           |  |     +--rw multicast-group-min?   pim:IPv4-Multicast-Group-Address
+           |  |     +--rw multicast-group-max?   pim:IPv4-Multicast-Group-Address
+           |  +--:(static-peer-list)
+           |  |  +--rw peers* [peer-ip]
+           |  |     +--rw peer-ip    inet:ip-address
+           |  +--:(bgp)
+           |     +--rw bgp?            empty
+           +--rw routing-instance?     rt:routing-instance-ref
+           +--rw end-host-discovery?   enumeration
+           +--rw suppress-arp?         empty

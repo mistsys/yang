@@ -1,0 +1,286 @@
+module: openconfig-interfaces
+  +--rw interfaces
+     +--rw interface* [name]
+        +--rw name             -> ../config/name
+        +--rw config
+        |  +--rw type           identityref
+        |  +--rw mtu?           uint16
+        |  +--rw name?          string
+        |  +--rw description?   string
+        |  +--rw enabled?       boolean
+        +--ro state
+        |  +--ro type            identityref
+        |  +--ro mtu?            uint16
+        |  +--ro name?           string
+        |  +--ro description?    string
+        |  +--ro enabled?        boolean
+        |  +--ro ifindex?        uint32
+        |  +--ro admin-status    enumeration
+        |  +--ro oper-status     enumeration
+        |  +--ro last-change?    yang:timeticks
+        |  +--ro counters
+        |     +--ro in-octets?            yang:counter64
+        |     +--ro in-unicast-pkts?      yang:counter64
+        |     +--ro in-broadcast-pkts?    yang:counter64
+        |     +--ro in-multicast-pkts?    yang:counter64
+        |     +--ro in-discards?          yang:counter64
+        |     +--ro in-errors?            yang:counter64
+        |     +--ro in-unknown-protos?    yang:counter32
+        |     +--ro out-octets?           yang:counter64
+        |     +--ro out-unicast-pkts?     yang:counter64
+        |     +--ro out-broadcast-pkts?   yang:counter64
+        |     +--ro out-multicast-pkts?   yang:counter64
+        |     +--ro out-discards?         yang:counter64
+        |     +--ro out-errors?           yang:counter64
+        |     +--ro last-clear?           yang:date-and-time
+        +--rw hold-time
+        |  +--rw config
+        |  |  +--rw up?     uint32
+        |  |  +--rw down?   uint32
+        |  +--ro state
+        |     +--ro up?     uint32
+        |     +--ro down?   uint32
+        +--rw subinterfaces
+           +--rw subinterface* [index]
+              +--rw index     -> ../config/index
+              +--rw config
+              |  +--rw index?         uint32
+              |  +--rw name?          string
+              |  +--rw description?   string
+              |  +--rw enabled?       boolean
+              +--ro state
+                 +--ro index?          uint32
+                 +--ro name?           string
+                 +--ro description?    string
+                 +--ro enabled?        boolean
+                 +--ro ifindex?        uint32
+                 +--ro admin-status    enumeration
+                 +--ro oper-status     enumeration
+                 +--ro last-change?    yang:timeticks
+                 +--ro counters
+                    +--ro in-octets?            yang:counter64
+                    +--ro in-unicast-pkts?      yang:counter64
+                    +--ro in-broadcast-pkts?    yang:counter64
+                    +--ro in-multicast-pkts?    yang:counter64
+                    +--ro in-discards?          yang:counter64
+                    +--ro in-errors?            yang:counter64
+                    +--ro in-unknown-protos?    yang:counter32
+                    +--ro out-octets?           yang:counter64
+                    +--ro out-unicast-pkts?     yang:counter64
+                    +--ro out-broadcast-pkts?   yang:counter64
+                    +--ro out-multicast-pkts?   yang:counter64
+                    +--ro out-discards?         yang:counter64
+                    +--ro out-errors?           yang:counter64
+                    +--ro last-clear?           yang:date-and-time
+
+  grouping interface-ref-common
+    +-- interface?      -> /interfaces/interface/name
+    +-- subinterface?   -> /interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+  grouping interface-ref-state-container
+    +--ro state
+       +--ro interface?      -> /interfaces/interface/name
+       +--ro subinterface?   -> /interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+  grouping interface-ref
+    +-- interface-ref
+       +-- config
+       |  +-- interface?      -> /interfaces/interface/name
+       |  +-- subinterface?   -> /interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+       +--ro state
+          +--ro interface?      -> /interfaces/interface/name
+          +--ro subinterface?   -> /interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+  grouping interface-ref-state
+    +-- interface-ref
+       +--ro state
+          +--ro interface?      -> /interfaces/interface/name
+          +--ro subinterface?   -> /interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+  grouping interface-common-config
+    +-- name?          string
+    +-- description?   string
+    +-- enabled?       boolean
+  grouping interface-phys-config
+    +-- type           identityref
+    +-- mtu?           uint16
+    +-- name?          string
+    +-- description?   string
+    +-- enabled?       boolean
+  grouping interface-phys-holdtime-config
+    +-- up?     uint32
+    +-- down?   uint32
+  grouping interface-phys-holdtime-state
+  grouping interface-phys-holdtime-top
+    +-- hold-time
+       +-- config
+       |  +-- up?     uint32
+       |  +-- down?   uint32
+       +--ro state
+          +--ro up?     uint32
+          +--ro down?   uint32
+  grouping interface-common-state
+    +-- ifindex?        uint32
+    +-- admin-status    enumeration
+    +-- oper-status     enumeration
+    +-- last-change?    yang:timeticks
+  grouping interface-counters-state
+    +-- counters
+       +-- in-octets?            yang:counter64
+       +-- in-unicast-pkts?      yang:counter64
+       +-- in-broadcast-pkts?    yang:counter64
+       +-- in-multicast-pkts?    yang:counter64
+       +-- in-discards?          yang:counter64
+       +-- in-errors?            yang:counter64
+       +-- in-unknown-protos?    yang:counter32
+       +-- out-octets?           yang:counter64
+       +-- out-unicast-pkts?     yang:counter64
+       +-- out-broadcast-pkts?   yang:counter64
+       +-- out-multicast-pkts?   yang:counter64
+       +-- out-discards?         yang:counter64
+       +-- out-errors?           yang:counter64
+       +-- last-clear?           yang:date-and-time
+  grouping sub-unnumbered-config
+    +-- enabled?   boolean
+  grouping sub-unnumbered-state
+  grouping sub-unnumbered-top
+    +-- unnumbered
+       +-- config
+       |  +-- enabled?   boolean
+       +--ro state
+       |  +--ro enabled?   boolean
+       +-- interface-ref
+          +-- config
+          |  +-- interface?      -> /interfaces/interface/name
+          |  +-- subinterface?   -> /interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+          +--ro state
+             +--ro interface?      -> /interfaces/interface/name
+             +--ro subinterface?   -> /interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+  grouping subinterfaces-config
+    +-- index?         uint32
+    +-- name?          string
+    +-- description?   string
+    +-- enabled?       boolean
+  grouping subinterfaces-state
+    +-- ifindex?        uint32
+    +-- admin-status    enumeration
+    +-- oper-status     enumeration
+    +-- last-change?    yang:timeticks
+    +-- counters
+       +-- in-octets?            yang:counter64
+       +-- in-unicast-pkts?      yang:counter64
+       +-- in-broadcast-pkts?    yang:counter64
+       +-- in-multicast-pkts?    yang:counter64
+       +-- in-discards?          yang:counter64
+       +-- in-errors?            yang:counter64
+       +-- in-unknown-protos?    yang:counter32
+       +-- out-octets?           yang:counter64
+       +-- out-unicast-pkts?     yang:counter64
+       +-- out-broadcast-pkts?   yang:counter64
+       +-- out-multicast-pkts?   yang:counter64
+       +-- out-discards?         yang:counter64
+       +-- out-errors?           yang:counter64
+       +-- last-clear?           yang:date-and-time
+  grouping subinterfaces-top
+    +-- subinterfaces
+       +-- subinterface* [index]
+          +-- index?    -> ../config/index
+          +-- config
+          |  +-- index?         uint32
+          |  +-- name?          string
+          |  +-- description?   string
+          |  +-- enabled?       boolean
+          +--ro state
+             +--ro index?          uint32
+             +--ro name?           string
+             +--ro description?    string
+             +--ro enabled?        boolean
+             +--ro ifindex?        uint32
+             +--ro admin-status    enumeration
+             +--ro oper-status     enumeration
+             +--ro last-change?    yang:timeticks
+             +--ro counters
+                +--ro in-octets?            yang:counter64
+                +--ro in-unicast-pkts?      yang:counter64
+                +--ro in-broadcast-pkts?    yang:counter64
+                +--ro in-multicast-pkts?    yang:counter64
+                +--ro in-discards?          yang:counter64
+                +--ro in-errors?            yang:counter64
+                +--ro in-unknown-protos?    yang:counter32
+                +--ro out-octets?           yang:counter64
+                +--ro out-unicast-pkts?     yang:counter64
+                +--ro out-broadcast-pkts?   yang:counter64
+                +--ro out-multicast-pkts?   yang:counter64
+                +--ro out-discards?         yang:counter64
+                +--ro out-errors?           yang:counter64
+                +--ro last-clear?           yang:date-and-time
+  grouping interfaces-top
+    +-- interfaces
+       +-- interface* [name]
+          +-- name?            -> ../config/name
+          +-- config
+          |  +-- type           identityref
+          |  +-- mtu?           uint16
+          |  +-- name?          string
+          |  +-- description?   string
+          |  +-- enabled?       boolean
+          +--ro state
+          |  +--ro type            identityref
+          |  +--ro mtu?            uint16
+          |  +--ro name?           string
+          |  +--ro description?    string
+          |  +--ro enabled?        boolean
+          |  +--ro ifindex?        uint32
+          |  +--ro admin-status    enumeration
+          |  +--ro oper-status     enumeration
+          |  +--ro last-change?    yang:timeticks
+          |  +--ro counters
+          |     +--ro in-octets?            yang:counter64
+          |     +--ro in-unicast-pkts?      yang:counter64
+          |     +--ro in-broadcast-pkts?    yang:counter64
+          |     +--ro in-multicast-pkts?    yang:counter64
+          |     +--ro in-discards?          yang:counter64
+          |     +--ro in-errors?            yang:counter64
+          |     +--ro in-unknown-protos?    yang:counter32
+          |     +--ro out-octets?           yang:counter64
+          |     +--ro out-unicast-pkts?     yang:counter64
+          |     +--ro out-broadcast-pkts?   yang:counter64
+          |     +--ro out-multicast-pkts?   yang:counter64
+          |     +--ro out-discards?         yang:counter64
+          |     +--ro out-errors?           yang:counter64
+          |     +--ro last-clear?           yang:date-and-time
+          +-- hold-time
+          |  +-- config
+          |  |  +-- up?     uint32
+          |  |  +-- down?   uint32
+          |  +--ro state
+          |     +--ro up?     uint32
+          |     +--ro down?   uint32
+          +-- subinterfaces
+             +-- subinterface* [index]
+                +-- index?    -> ../config/index
+                +-- config
+                |  +-- index?         uint32
+                |  +-- name?          string
+                |  +-- description?   string
+                |  +-- enabled?       boolean
+                +--ro state
+                   +--ro index?          uint32
+                   +--ro name?           string
+                   +--ro description?    string
+                   +--ro enabled?        boolean
+                   +--ro ifindex?        uint32
+                   +--ro admin-status    enumeration
+                   +--ro oper-status     enumeration
+                   +--ro last-change?    yang:timeticks
+                   +--ro counters
+                      +--ro in-octets?            yang:counter64
+                      +--ro in-unicast-pkts?      yang:counter64
+                      +--ro in-broadcast-pkts?    yang:counter64
+                      +--ro in-multicast-pkts?    yang:counter64
+                      +--ro in-discards?          yang:counter64
+                      +--ro in-errors?            yang:counter64
+                      +--ro in-unknown-protos?    yang:counter32
+                      +--ro out-octets?           yang:counter64
+                      +--ro out-unicast-pkts?     yang:counter64
+                      +--ro out-broadcast-pkts?   yang:counter64
+                      +--ro out-multicast-pkts?   yang:counter64
+                      +--ro out-discards?         yang:counter64
+                      +--ro out-errors?           yang:counter64
+                      +--ro last-clear?           yang:date-and-time

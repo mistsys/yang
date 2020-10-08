@@ -1,0 +1,89 @@
+module: Cisco-IOS-XE-ncch-cfg
+  +--rw netconf-callhome-config
+  |  +--rw ncch-clients
+  |     +--rw ncch-client* [name]
+  |        +--rw name                     string
+  |        +--rw ncch-client-endpoints
+  |        |  +--rw ncch-client-endpoint* [name]
+  |        |     +--rw name                     string
+  |        |     +--ro transport?               ncch-cfg:ncch-transport
+  |        |     +--rw (transport-choice)?
+  |        |        +--:(transport-unspecified)
+  |        |        |  +--rw transport-unset?   boolean
+  |        |        +--:(ssh)
+  |        |           +--rw ssh
+  |        |              +--ro tcpc-remote-addr-type?          ncch-cfg:ncch-address-type
+  |        |              +--rw tcpc-remote-port?               uint16
+  |        |              +--rw tcpc-local-ipaddr?              inet:ip-address
+  |        |              +--rw tcpc-local-port?                uint16
+  |        |              +--rw tcpc-local-vrf?                 string
+  |        |              +--rw (tcpc-remote-addr-type-choice)?
+  |        |                 +--:(address-unspecified)
+  |        |                 |  +--rw tcpc-remote-addr-unset?   boolean
+  |        |                 +--:(ip-address)
+  |        |                    +--rw tcpc-remote-ipaddr?       inet:ip-address
+  |        +--rw reconnect-strategy
+  |           +--rw start-with?     ncch-cfg:ncch-start-with
+  |           +--rw max-attempts?   uint8
+  +--rw schema-metadata-Cisco-IOS-XE-ncch-cfg
+  |  +--rw json-metadata-leaf?   empty
+  +--rw gnmi-model-data
+
+  grouping ncch-ssh
+    +--ro tcpc-remote-addr-type?          ncch-cfg:ncch-address-type
+    +-- tcpc-remote-port?               uint16
+    +-- tcpc-local-ipaddr?              inet:ip-address
+    +-- tcpc-local-port?                uint16
+    +-- tcpc-local-vrf?                 string
+    +-- (tcpc-remote-addr-type-choice)?
+       +--:(address-unspecified)
+       |  +-- tcpc-remote-addr-unset?   boolean
+       +--:(ip-address)
+          +-- tcpc-remote-ipaddr?       inet:ip-address
+  grouping ncch-client-endpoint-cnfg
+    +-- name?                    string
+    +--ro transport?               ncch-cfg:ncch-transport
+    +-- (transport-choice)?
+       +--:(transport-unspecified)
+       |  +-- transport-unset?   boolean
+       +--:(ssh)
+          +-- ssh
+             +--ro tcpc-remote-addr-type?          ncch-cfg:ncch-address-type
+             +-- tcpc-remote-port?               uint16
+             +-- tcpc-local-ipaddr?              inet:ip-address
+             +-- tcpc-local-port?                uint16
+             +-- tcpc-local-vrf?                 string
+             +-- (tcpc-remote-addr-type-choice)?
+                +--:(address-unspecified)
+                |  +-- tcpc-remote-addr-unset?   boolean
+                +--:(ip-address)
+                   +-- tcpc-remote-ipaddr?       inet:ip-address
+  grouping ncch-reconnect-strategy
+    +-- start-with?     ncch-cfg:ncch-start-with
+    +-- max-attempts?   uint8
+  grouping ncch-client-cnfg
+    +-- name?                    string
+    +-- ncch-client-endpoints
+    |  +-- ncch-client-endpoint* [name]
+    |     +-- name?                    string
+    |     +--ro transport?               ncch-cfg:ncch-transport
+    |     +-- (transport-choice)?
+    |        +--:(transport-unspecified)
+    |        |  +-- transport-unset?   boolean
+    |        +--:(ssh)
+    |           +-- ssh
+    |              +--ro tcpc-remote-addr-type?          ncch-cfg:ncch-address-type
+    |              +-- tcpc-remote-port?               uint16
+    |              +-- tcpc-local-ipaddr?              inet:ip-address
+    |              +-- tcpc-local-port?                uint16
+    |              +-- tcpc-local-vrf?                 string
+    |              +-- (tcpc-remote-addr-type-choice)?
+    |                 +--:(address-unspecified)
+    |                 |  +-- tcpc-remote-addr-unset?   boolean
+    |                 +--:(ip-address)
+    |                    +-- tcpc-remote-ipaddr?       inet:ip-address
+    +-- reconnect-strategy
+       +-- start-with?     ncch-cfg:ncch-start-with
+       +-- max-attempts?   uint8
+  grouping __yangpp_metadata
+    +-- json-metadata-leaf?   empty

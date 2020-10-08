@@ -1,0 +1,717 @@
+module: openconfig-spanning-tree
+  +--rw stp
+     +--rw global
+     |  +--rw config
+     |  |  +--rw enabled-protocol*               identityref
+     |  |  +--rw bridge-assurance?               boolean
+     |  |  +--rw etherchannel-misconfig-guard?   boolean
+     |  |  +--rw bpduguard-timeout-recovery?     uint8
+     |  |  +--rw loop-guard?                     boolean
+     |  |  +--rw bpdu-guard?                     boolean
+     |  |  +--rw bpdu-filter?                    boolean
+     |  +--ro state
+     |     +--ro enabled-protocol*               identityref
+     |     +--ro bridge-assurance?               boolean
+     |     +--ro etherchannel-misconfig-guard?   boolean
+     |     +--ro bpduguard-timeout-recovery?     uint8
+     |     +--ro loop-guard?                     boolean
+     |     +--ro bpdu-guard?                     boolean
+     |     +--ro bpdu-filter?                    boolean
+     +--rw rstp
+     |  +--rw config
+     |  |  +--rw hello-time?         uint8
+     |  |  +--rw max-age?            uint8
+     |  |  +--rw forwarding-delay?   uint8
+     |  |  +--rw hold-count?         uint8
+     |  |  +--rw bridge-priority?    oc-stp-types:stp-bridge-priority-type
+     |  +--ro state
+     |  |  +--ro hello-time?                   uint8
+     |  |  +--ro max-age?                      uint8
+     |  |  +--ro forwarding-delay?             uint8
+     |  |  +--ro hold-count?                   uint8
+     |  |  +--ro bridge-priority?              oc-stp-types:stp-bridge-priority-type
+     |  |  +--ro bridge-address?               oc-yang:mac-address
+     |  |  +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+     |  |  +--ro designated-root-address?      oc-yang:mac-address
+     |  |  +--ro root-port?                    uint16
+     |  |  +--ro root-cost?                    uint32
+     |  |  +--ro hold-time?                    uint8
+     |  |  +--ro topology-changes?             oc-yang:counter64
+     |  |  +--ro time-since-topology-change?   oc-types:timeticks64
+     |  +--rw interfaces
+     |     +--rw interface* [name]
+     |        +--rw name      -> ../config/name
+     |        +--rw config
+     |        |  +--rw name?            oc-if:base-interface-ref
+     |        |  +--rw cost?            uint32
+     |        |  +--rw port-priority?   oc-stp-types:stp-port-priority-type
+     |        +--ro state
+     |           +--ro name?                         oc-if:base-interface-ref
+     |           +--ro cost?                         uint32
+     |           +--ro port-priority?                oc-stp-types:stp-port-priority-type
+     |           +--ro port-num?                     uint16
+     |           +--ro role?                         identityref
+     |           +--ro port-state?                   identityref
+     |           +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+     |           +--ro designated-root-address?      oc-yang:mac-address
+     |           +--ro designated-cost?              uint32
+     |           +--ro designated-bridge-priority?   oc-stp-types:stp-bridge-priority-type
+     |           +--ro designated-bridge-address?    oc-yang:mac-address
+     |           +--ro designated-port-priority?     oc-stp-types:stp-port-priority-type
+     |           +--ro designated-port-num?          uint16
+     |           +--ro forward-transisitions?        oc-yang:counter64
+     |           +--ro counters
+     |              +--ro bpdu-sent?       oc-yang:counter64
+     |              +--ro bpdu-received?   oc-yang:counter64
+     +--rw mstp
+     |  +--rw config
+     |  |  +--rw name?               string
+     |  |  +--rw revision?           uint32
+     |  |  +--rw max-hop?            uint8
+     |  |  +--rw hello-time?         uint8
+     |  |  +--rw max-age?            uint8
+     |  |  +--rw forwarding-delay?   uint8
+     |  |  +--rw hold-count?         uint8
+     |  +--ro state
+     |  |  +--ro name?               string
+     |  |  +--ro revision?           uint32
+     |  |  +--ro max-hop?            uint8
+     |  |  +--ro hello-time?         uint8
+     |  |  +--ro max-age?            uint8
+     |  |  +--ro forwarding-delay?   uint8
+     |  |  +--ro hold-count?         uint8
+     |  +--rw mst-instances
+     |     +--rw mst-instance* [mst-id]
+     |        +--rw mst-id        -> ../config/mst-id
+     |        +--rw config
+     |        |  +--rw mst-id?            uint16
+     |        |  +--rw vlan*              union
+     |        |  +--rw bridge-priority?   oc-stp-types:stp-bridge-priority-type
+     |        +--ro state
+     |        |  +--ro mst-id?                       uint16
+     |        |  +--ro vlan*                         union
+     |        |  +--ro bridge-priority?              oc-stp-types:stp-bridge-priority-type
+     |        |  +--ro bridge-address?               oc-yang:mac-address
+     |        |  +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+     |        |  +--ro designated-root-address?      oc-yang:mac-address
+     |        |  +--ro root-port?                    uint16
+     |        |  +--ro root-cost?                    uint32
+     |        |  +--ro hold-time?                    uint8
+     |        |  +--ro topology-changes?             oc-yang:counter64
+     |        |  +--ro time-since-topology-change?   oc-types:timeticks64
+     |        +--rw interfaces
+     |           +--rw interface* [name]
+     |              +--rw name      -> ../config/name
+     |              +--rw config
+     |              |  +--rw name?            oc-if:base-interface-ref
+     |              |  +--rw cost?            uint32
+     |              |  +--rw port-priority?   oc-stp-types:stp-port-priority-type
+     |              +--ro state
+     |                 +--ro name?                         oc-if:base-interface-ref
+     |                 +--ro cost?                         uint32
+     |                 +--ro port-priority?                oc-stp-types:stp-port-priority-type
+     |                 +--ro port-num?                     uint16
+     |                 +--ro role?                         identityref
+     |                 +--ro port-state?                   identityref
+     |                 +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+     |                 +--ro designated-root-address?      oc-yang:mac-address
+     |                 +--ro designated-cost?              uint32
+     |                 +--ro designated-bridge-priority?   oc-stp-types:stp-bridge-priority-type
+     |                 +--ro designated-bridge-address?    oc-yang:mac-address
+     |                 +--ro designated-port-priority?     oc-stp-types:stp-port-priority-type
+     |                 +--ro designated-port-num?          uint16
+     |                 +--ro forward-transisitions?        oc-yang:counter64
+     |                 +--ro counters
+     |                    +--ro bpdu-sent?       oc-yang:counter64
+     |                    +--ro bpdu-received?   oc-yang:counter64
+     +--rw rapid-pvst
+     |  +--rw vlan* [vlan-id]
+     |     +--rw vlan-id       -> ../config/vlan-id
+     |     +--rw config
+     |     |  +--rw vlan-id?            oc-vlan-types:vlan-id
+     |     |  +--rw hello-time?         uint8
+     |     |  +--rw max-age?            uint8
+     |     |  +--rw forwarding-delay?   uint8
+     |     |  +--rw hold-count?         uint8
+     |     |  +--rw bridge-priority?    oc-stp-types:stp-bridge-priority-type
+     |     +--ro state
+     |     |  +--ro vlan-id?                      oc-vlan-types:vlan-id
+     |     |  +--ro hello-time?                   uint8
+     |     |  +--ro max-age?                      uint8
+     |     |  +--ro forwarding-delay?             uint8
+     |     |  +--ro hold-count?                   uint8
+     |     |  +--ro bridge-priority?              oc-stp-types:stp-bridge-priority-type
+     |     |  +--ro bridge-address?               oc-yang:mac-address
+     |     |  +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+     |     |  +--ro designated-root-address?      oc-yang:mac-address
+     |     |  +--ro root-port?                    uint16
+     |     |  +--ro root-cost?                    uint32
+     |     |  +--ro hold-time?                    uint8
+     |     |  +--ro topology-changes?             oc-yang:counter64
+     |     |  +--ro time-since-topology-change?   oc-types:timeticks64
+     |     +--rw interfaces
+     |        +--rw interface* [name]
+     |           +--rw name      -> ../config/name
+     |           +--rw config
+     |           |  +--rw name?            oc-if:base-interface-ref
+     |           |  +--rw cost?            uint32
+     |           |  +--rw port-priority?   oc-stp-types:stp-port-priority-type
+     |           +--ro state
+     |              +--ro name?                         oc-if:base-interface-ref
+     |              +--ro cost?                         uint32
+     |              +--ro port-priority?                oc-stp-types:stp-port-priority-type
+     |              +--ro port-num?                     uint16
+     |              +--ro role?                         identityref
+     |              +--ro port-state?                   identityref
+     |              +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+     |              +--ro designated-root-address?      oc-yang:mac-address
+     |              +--ro designated-cost?              uint32
+     |              +--ro designated-bridge-priority?   oc-stp-types:stp-bridge-priority-type
+     |              +--ro designated-bridge-address?    oc-yang:mac-address
+     |              +--ro designated-port-priority?     oc-stp-types:stp-port-priority-type
+     |              +--ro designated-port-num?          uint16
+     |              +--ro forward-transisitions?        oc-yang:counter64
+     |              +--ro counters
+     |                 +--ro bpdu-sent?       oc-yang:counter64
+     |                 +--ro bpdu-received?   oc-yang:counter64
+     +--rw interfaces
+        +--rw interface* [name]
+           +--rw name      -> ../config/name
+           +--rw config
+           |  +--rw name?          oc-if:base-interface-ref
+           |  +--rw edge-port?     identityref
+           |  +--rw link-type?     oc-stp-types:stp-link-type
+           |  +--rw guard?         oc-stp-types:stp-guard-type
+           |  +--rw bpdu-guard?    boolean
+           |  +--rw bpdu-filter?   boolean
+           +--ro state
+              +--ro name?          oc-if:base-interface-ref
+              +--ro edge-port?     identityref
+              +--ro link-type?     oc-stp-types:stp-link-type
+              +--ro guard?         oc-stp-types:stp-guard-type
+              +--ro bpdu-guard?    boolean
+              +--ro bpdu-filter?   boolean
+
+  grouping stp-interfaces-state
+    +-- port-num?                     uint16
+    +-- role?                         identityref
+    +-- port-state?                   identityref
+    +-- designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+    +-- designated-root-address?      oc-yang:mac-address
+    +-- designated-cost?              uint32
+    +-- designated-bridge-priority?   oc-stp-types:stp-bridge-priority-type
+    +-- designated-bridge-address?    oc-yang:mac-address
+    +-- designated-port-priority?     oc-stp-types:stp-port-priority-type
+    +-- designated-port-num?          uint16
+    +-- forward-transisitions?        oc-yang:counter64
+    +-- counters
+       +-- bpdu-sent?       oc-yang:counter64
+       +-- bpdu-received?   oc-yang:counter64
+  grouping stp-interfaces-config
+    +-- name?            oc-if:base-interface-ref
+    +-- cost?            uint32
+    +-- port-priority?   oc-stp-types:stp-port-priority-type
+  grouping stp-interfaces-top
+    +-- interfaces
+       +-- interface* [name]
+          +-- name?     -> ../config/name
+          +-- config
+          |  +-- name?            oc-if:base-interface-ref
+          |  +-- cost?            uint32
+          |  +-- port-priority?   oc-stp-types:stp-port-priority-type
+          +--ro state
+             +--ro name?                         oc-if:base-interface-ref
+             +--ro cost?                         uint32
+             +--ro port-priority?                oc-stp-types:stp-port-priority-type
+             +--ro port-num?                     uint16
+             +--ro role?                         identityref
+             +--ro port-state?                   identityref
+             +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+             +--ro designated-root-address?      oc-yang:mac-address
+             +--ro designated-cost?              uint32
+             +--ro designated-bridge-priority?   oc-stp-types:stp-bridge-priority-type
+             +--ro designated-bridge-address?    oc-yang:mac-address
+             +--ro designated-port-priority?     oc-stp-types:stp-port-priority-type
+             +--ro designated-port-num?          uint16
+             +--ro forward-transisitions?        oc-yang:counter64
+             +--ro counters
+                +--ro bpdu-sent?       oc-yang:counter64
+                +--ro bpdu-received?   oc-yang:counter64
+  grouping bridge-priority-config
+    +-- bridge-priority?   oc-stp-types:stp-bridge-priority-type
+  grouping stp-common-state
+    +-- bridge-address?               oc-yang:mac-address
+    +-- designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+    +-- designated-root-address?      oc-yang:mac-address
+    +-- root-port?                    uint16
+    +-- root-cost?                    uint32
+    +-- hold-time?                    uint8
+    +-- topology-changes?             oc-yang:counter64
+    +-- time-since-topology-change?   oc-types:timeticks64
+  grouping stp-timer-config
+    +-- hello-time?         uint8
+    +-- max-age?            uint8
+    +-- forwarding-delay?   uint8
+    +-- hold-count?         uint8
+  grouping stp-rapid-pvst-config
+    +-- vlan-id?   oc-vlan-types:vlan-id
+  grouping stp-rapid-pvst-top
+    +-- vlan* [vlan-id]
+       +-- vlan-id?      -> ../config/vlan-id
+       +-- config
+       |  +-- vlan-id?            oc-vlan-types:vlan-id
+       |  +-- hello-time?         uint8
+       |  +-- max-age?            uint8
+       |  +-- forwarding-delay?   uint8
+       |  +-- hold-count?         uint8
+       |  +-- bridge-priority?    oc-stp-types:stp-bridge-priority-type
+       +--ro state
+       |  +--ro vlan-id?                      oc-vlan-types:vlan-id
+       |  +--ro hello-time?                   uint8
+       |  +--ro max-age?                      uint8
+       |  +--ro forwarding-delay?             uint8
+       |  +--ro hold-count?                   uint8
+       |  +--ro bridge-priority?              oc-stp-types:stp-bridge-priority-type
+       |  +--ro bridge-address?               oc-yang:mac-address
+       |  +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+       |  +--ro designated-root-address?      oc-yang:mac-address
+       |  +--ro root-port?                    uint16
+       |  +--ro root-cost?                    uint32
+       |  +--ro hold-time?                    uint8
+       |  +--ro topology-changes?             oc-yang:counter64
+       |  +--ro time-since-topology-change?   oc-types:timeticks64
+       +-- interfaces
+          +-- interface* [name]
+             +-- name?     -> ../config/name
+             +-- config
+             |  +-- name?            oc-if:base-interface-ref
+             |  +-- cost?            uint32
+             |  +-- port-priority?   oc-stp-types:stp-port-priority-type
+             +--ro state
+                +--ro name?                         oc-if:base-interface-ref
+                +--ro cost?                         uint32
+                +--ro port-priority?                oc-stp-types:stp-port-priority-type
+                +--ro port-num?                     uint16
+                +--ro role?                         identityref
+                +--ro port-state?                   identityref
+                +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+                +--ro designated-root-address?      oc-yang:mac-address
+                +--ro designated-cost?              uint32
+                +--ro designated-bridge-priority?   oc-stp-types:stp-bridge-priority-type
+                +--ro designated-bridge-address?    oc-yang:mac-address
+                +--ro designated-port-priority?     oc-stp-types:stp-port-priority-type
+                +--ro designated-port-num?          uint16
+                +--ro forward-transisitions?        oc-yang:counter64
+                +--ro counters
+                   +--ro bpdu-sent?       oc-yang:counter64
+                   +--ro bpdu-received?   oc-yang:counter64
+  grouping mst-instance-config
+    +-- mst-id?   uint16
+    +-- vlan*     union
+  grouping mst-instance-top
+    +-- mst-instance* [mst-id]
+       +-- mst-id?       -> ../config/mst-id
+       +-- config
+       |  +-- mst-id?            uint16
+       |  +-- vlan*              union
+       |  +-- bridge-priority?   oc-stp-types:stp-bridge-priority-type
+       +--ro state
+       |  +--ro mst-id?                       uint16
+       |  +--ro vlan*                         union
+       |  +--ro bridge-priority?              oc-stp-types:stp-bridge-priority-type
+       |  +--ro bridge-address?               oc-yang:mac-address
+       |  +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+       |  +--ro designated-root-address?      oc-yang:mac-address
+       |  +--ro root-port?                    uint16
+       |  +--ro root-cost?                    uint32
+       |  +--ro hold-time?                    uint8
+       |  +--ro topology-changes?             oc-yang:counter64
+       |  +--ro time-since-topology-change?   oc-types:timeticks64
+       +-- interfaces
+          +-- interface* [name]
+             +-- name?     -> ../config/name
+             +-- config
+             |  +-- name?            oc-if:base-interface-ref
+             |  +-- cost?            uint32
+             |  +-- port-priority?   oc-stp-types:stp-port-priority-type
+             +--ro state
+                +--ro name?                         oc-if:base-interface-ref
+                +--ro cost?                         uint32
+                +--ro port-priority?                oc-stp-types:stp-port-priority-type
+                +--ro port-num?                     uint16
+                +--ro role?                         identityref
+                +--ro port-state?                   identityref
+                +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+                +--ro designated-root-address?      oc-yang:mac-address
+                +--ro designated-cost?              uint32
+                +--ro designated-bridge-priority?   oc-stp-types:stp-bridge-priority-type
+                +--ro designated-bridge-address?    oc-yang:mac-address
+                +--ro designated-port-priority?     oc-stp-types:stp-port-priority-type
+                +--ro designated-port-num?          uint16
+                +--ro forward-transisitions?        oc-yang:counter64
+                +--ro counters
+                   +--ro bpdu-sent?       oc-yang:counter64
+                   +--ro bpdu-received?   oc-yang:counter64
+  grouping mstp-config
+    +-- name?               string
+    +-- revision?           uint32
+    +-- max-hop?            uint8
+    +-- hello-time?         uint8
+    +-- max-age?            uint8
+    +-- forwarding-delay?   uint8
+    +-- hold-count?         uint8
+  grouping mstp-state
+  grouping stp-mstp-top
+    +-- config
+    |  +-- name?               string
+    |  +-- revision?           uint32
+    |  +-- max-hop?            uint8
+    |  +-- hello-time?         uint8
+    |  +-- max-age?            uint8
+    |  +-- forwarding-delay?   uint8
+    |  +-- hold-count?         uint8
+    +--ro state
+    |  +--ro name?               string
+    |  +--ro revision?           uint32
+    |  +--ro max-hop?            uint8
+    |  +--ro hello-time?         uint8
+    |  +--ro max-age?            uint8
+    |  +--ro forwarding-delay?   uint8
+    |  +--ro hold-count?         uint8
+    +-- mst-instances
+       +-- mst-instance* [mst-id]
+          +-- mst-id?       -> ../config/mst-id
+          +-- config
+          |  +-- mst-id?            uint16
+          |  +-- vlan*              union
+          |  +-- bridge-priority?   oc-stp-types:stp-bridge-priority-type
+          +--ro state
+          |  +--ro mst-id?                       uint16
+          |  +--ro vlan*                         union
+          |  +--ro bridge-priority?              oc-stp-types:stp-bridge-priority-type
+          |  +--ro bridge-address?               oc-yang:mac-address
+          |  +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+          |  +--ro designated-root-address?      oc-yang:mac-address
+          |  +--ro root-port?                    uint16
+          |  +--ro root-cost?                    uint32
+          |  +--ro hold-time?                    uint8
+          |  +--ro topology-changes?             oc-yang:counter64
+          |  +--ro time-since-topology-change?   oc-types:timeticks64
+          +-- interfaces
+             +-- interface* [name]
+                +-- name?     -> ../config/name
+                +-- config
+                |  +-- name?            oc-if:base-interface-ref
+                |  +-- cost?            uint32
+                |  +-- port-priority?   oc-stp-types:stp-port-priority-type
+                +--ro state
+                   +--ro name?                         oc-if:base-interface-ref
+                   +--ro cost?                         uint32
+                   +--ro port-priority?                oc-stp-types:stp-port-priority-type
+                   +--ro port-num?                     uint16
+                   +--ro role?                         identityref
+                   +--ro port-state?                   identityref
+                   +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+                   +--ro designated-root-address?      oc-yang:mac-address
+                   +--ro designated-cost?              uint32
+                   +--ro designated-bridge-priority?   oc-stp-types:stp-bridge-priority-type
+                   +--ro designated-bridge-address?    oc-yang:mac-address
+                   +--ro designated-port-priority?     oc-stp-types:stp-port-priority-type
+                   +--ro designated-port-num?          uint16
+                   +--ro forward-transisitions?        oc-yang:counter64
+                   +--ro counters
+                      +--ro bpdu-sent?       oc-yang:counter64
+                      +--ro bpdu-received?   oc-yang:counter64
+  grouping stp-rstp-top
+    +-- config
+    |  +-- hello-time?         uint8
+    |  +-- max-age?            uint8
+    |  +-- forwarding-delay?   uint8
+    |  +-- hold-count?         uint8
+    |  +-- bridge-priority?    oc-stp-types:stp-bridge-priority-type
+    +--ro state
+    |  +--ro hello-time?                   uint8
+    |  +--ro max-age?                      uint8
+    |  +--ro forwarding-delay?             uint8
+    |  +--ro hold-count?                   uint8
+    |  +--ro bridge-priority?              oc-stp-types:stp-bridge-priority-type
+    |  +--ro bridge-address?               oc-yang:mac-address
+    |  +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+    |  +--ro designated-root-address?      oc-yang:mac-address
+    |  +--ro root-port?                    uint16
+    |  +--ro root-cost?                    uint32
+    |  +--ro hold-time?                    uint8
+    |  +--ro topology-changes?             oc-yang:counter64
+    |  +--ro time-since-topology-change?   oc-types:timeticks64
+    +-- interfaces
+       +-- interface* [name]
+          +-- name?     -> ../config/name
+          +-- config
+          |  +-- name?            oc-if:base-interface-ref
+          |  +-- cost?            uint32
+          |  +-- port-priority?   oc-stp-types:stp-port-priority-type
+          +--ro state
+             +--ro name?                         oc-if:base-interface-ref
+             +--ro cost?                         uint32
+             +--ro port-priority?                oc-stp-types:stp-port-priority-type
+             +--ro port-num?                     uint16
+             +--ro role?                         identityref
+             +--ro port-state?                   identityref
+             +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+             +--ro designated-root-address?      oc-yang:mac-address
+             +--ro designated-cost?              uint32
+             +--ro designated-bridge-priority?   oc-stp-types:stp-bridge-priority-type
+             +--ro designated-bridge-address?    oc-yang:mac-address
+             +--ro designated-port-priority?     oc-stp-types:stp-port-priority-type
+             +--ro designated-port-num?          uint16
+             +--ro forward-transisitions?        oc-yang:counter64
+             +--ro counters
+                +--ro bpdu-sent?       oc-yang:counter64
+                +--ro bpdu-received?   oc-yang:counter64
+  grouping stp-interface-common-config
+    +-- name?          oc-if:base-interface-ref
+    +-- edge-port?     identityref
+    +-- link-type?     oc-stp-types:stp-link-type
+    +-- guard?         oc-stp-types:stp-guard-type
+    +-- bpdu-guard?    boolean
+    +-- bpdu-filter?   boolean
+  grouping stp-interface-common-state
+  grouping stp-interface-common-top
+    +-- interface* [name]
+       +-- name?     -> ../config/name
+       +-- config
+       |  +-- name?          oc-if:base-interface-ref
+       |  +-- edge-port?     identityref
+       |  +-- link-type?     oc-stp-types:stp-link-type
+       |  +-- guard?         oc-stp-types:stp-guard-type
+       |  +-- bpdu-guard?    boolean
+       |  +-- bpdu-filter?   boolean
+       +--ro state
+          +--ro name?          oc-if:base-interface-ref
+          +--ro edge-port?     identityref
+          +--ro link-type?     oc-stp-types:stp-link-type
+          +--ro guard?         oc-stp-types:stp-guard-type
+          +--ro bpdu-guard?    boolean
+          +--ro bpdu-filter?   boolean
+  grouping stp-bpdu-config
+    +-- bpdu-guard?    boolean
+    +-- bpdu-filter?   boolean
+  grouping stp-global-config
+    +-- enabled-protocol*               identityref
+    +-- bridge-assurance?               boolean
+    +-- etherchannel-misconfig-guard?   boolean
+    +-- bpduguard-timeout-recovery?     uint8
+    +-- loop-guard?                     boolean
+    +-- bpdu-guard?                     boolean
+    +-- bpdu-filter?                    boolean
+  grouping stp-global-state
+  grouping stp-global-base
+    +-- config
+    |  +-- enabled-protocol*               identityref
+    |  +-- bridge-assurance?               boolean
+    |  +-- etherchannel-misconfig-guard?   boolean
+    |  +-- bpduguard-timeout-recovery?     uint8
+    |  +-- loop-guard?                     boolean
+    |  +-- bpdu-guard?                     boolean
+    |  +-- bpdu-filter?                    boolean
+    +--ro state
+       +--ro enabled-protocol*               identityref
+       +--ro bridge-assurance?               boolean
+       +--ro etherchannel-misconfig-guard?   boolean
+       +--ro bpduguard-timeout-recovery?     uint8
+       +--ro loop-guard?                     boolean
+       +--ro bpdu-guard?                     boolean
+       +--ro bpdu-filter?                    boolean
+  grouping stp-top
+    +-- stp
+       +-- global
+       |  +-- config
+       |  |  +-- enabled-protocol*               identityref
+       |  |  +-- bridge-assurance?               boolean
+       |  |  +-- etherchannel-misconfig-guard?   boolean
+       |  |  +-- bpduguard-timeout-recovery?     uint8
+       |  |  +-- loop-guard?                     boolean
+       |  |  +-- bpdu-guard?                     boolean
+       |  |  +-- bpdu-filter?                    boolean
+       |  +--ro state
+       |     +--ro enabled-protocol*               identityref
+       |     +--ro bridge-assurance?               boolean
+       |     +--ro etherchannel-misconfig-guard?   boolean
+       |     +--ro bpduguard-timeout-recovery?     uint8
+       |     +--ro loop-guard?                     boolean
+       |     +--ro bpdu-guard?                     boolean
+       |     +--ro bpdu-filter?                    boolean
+       +-- rstp
+       |  +-- config
+       |  |  +-- hello-time?         uint8
+       |  |  +-- max-age?            uint8
+       |  |  +-- forwarding-delay?   uint8
+       |  |  +-- hold-count?         uint8
+       |  |  +-- bridge-priority?    oc-stp-types:stp-bridge-priority-type
+       |  +--ro state
+       |  |  +--ro hello-time?                   uint8
+       |  |  +--ro max-age?                      uint8
+       |  |  +--ro forwarding-delay?             uint8
+       |  |  +--ro hold-count?                   uint8
+       |  |  +--ro bridge-priority?              oc-stp-types:stp-bridge-priority-type
+       |  |  +--ro bridge-address?               oc-yang:mac-address
+       |  |  +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+       |  |  +--ro designated-root-address?      oc-yang:mac-address
+       |  |  +--ro root-port?                    uint16
+       |  |  +--ro root-cost?                    uint32
+       |  |  +--ro hold-time?                    uint8
+       |  |  +--ro topology-changes?             oc-yang:counter64
+       |  |  +--ro time-since-topology-change?   oc-types:timeticks64
+       |  +-- interfaces
+       |     +-- interface* [name]
+       |        +-- name?     -> ../config/name
+       |        +-- config
+       |        |  +-- name?            oc-if:base-interface-ref
+       |        |  +-- cost?            uint32
+       |        |  +-- port-priority?   oc-stp-types:stp-port-priority-type
+       |        +--ro state
+       |           +--ro name?                         oc-if:base-interface-ref
+       |           +--ro cost?                         uint32
+       |           +--ro port-priority?                oc-stp-types:stp-port-priority-type
+       |           +--ro port-num?                     uint16
+       |           +--ro role?                         identityref
+       |           +--ro port-state?                   identityref
+       |           +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+       |           +--ro designated-root-address?      oc-yang:mac-address
+       |           +--ro designated-cost?              uint32
+       |           +--ro designated-bridge-priority?   oc-stp-types:stp-bridge-priority-type
+       |           +--ro designated-bridge-address?    oc-yang:mac-address
+       |           +--ro designated-port-priority?     oc-stp-types:stp-port-priority-type
+       |           +--ro designated-port-num?          uint16
+       |           +--ro forward-transisitions?        oc-yang:counter64
+       |           +--ro counters
+       |              +--ro bpdu-sent?       oc-yang:counter64
+       |              +--ro bpdu-received?   oc-yang:counter64
+       +-- mstp
+       |  +-- config
+       |  |  +-- name?               string
+       |  |  +-- revision?           uint32
+       |  |  +-- max-hop?            uint8
+       |  |  +-- hello-time?         uint8
+       |  |  +-- max-age?            uint8
+       |  |  +-- forwarding-delay?   uint8
+       |  |  +-- hold-count?         uint8
+       |  +--ro state
+       |  |  +--ro name?               string
+       |  |  +--ro revision?           uint32
+       |  |  +--ro max-hop?            uint8
+       |  |  +--ro hello-time?         uint8
+       |  |  +--ro max-age?            uint8
+       |  |  +--ro forwarding-delay?   uint8
+       |  |  +--ro hold-count?         uint8
+       |  +-- mst-instances
+       |     +-- mst-instance* [mst-id]
+       |        +-- mst-id?       -> ../config/mst-id
+       |        +-- config
+       |        |  +-- mst-id?            uint16
+       |        |  +-- vlan*              union
+       |        |  +-- bridge-priority?   oc-stp-types:stp-bridge-priority-type
+       |        +--ro state
+       |        |  +--ro mst-id?                       uint16
+       |        |  +--ro vlan*                         union
+       |        |  +--ro bridge-priority?              oc-stp-types:stp-bridge-priority-type
+       |        |  +--ro bridge-address?               oc-yang:mac-address
+       |        |  +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+       |        |  +--ro designated-root-address?      oc-yang:mac-address
+       |        |  +--ro root-port?                    uint16
+       |        |  +--ro root-cost?                    uint32
+       |        |  +--ro hold-time?                    uint8
+       |        |  +--ro topology-changes?             oc-yang:counter64
+       |        |  +--ro time-since-topology-change?   oc-types:timeticks64
+       |        +-- interfaces
+       |           +-- interface* [name]
+       |              +-- name?     -> ../config/name
+       |              +-- config
+       |              |  +-- name?            oc-if:base-interface-ref
+       |              |  +-- cost?            uint32
+       |              |  +-- port-priority?   oc-stp-types:stp-port-priority-type
+       |              +--ro state
+       |                 +--ro name?                         oc-if:base-interface-ref
+       |                 +--ro cost?                         uint32
+       |                 +--ro port-priority?                oc-stp-types:stp-port-priority-type
+       |                 +--ro port-num?                     uint16
+       |                 +--ro role?                         identityref
+       |                 +--ro port-state?                   identityref
+       |                 +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+       |                 +--ro designated-root-address?      oc-yang:mac-address
+       |                 +--ro designated-cost?              uint32
+       |                 +--ro designated-bridge-priority?   oc-stp-types:stp-bridge-priority-type
+       |                 +--ro designated-bridge-address?    oc-yang:mac-address
+       |                 +--ro designated-port-priority?     oc-stp-types:stp-port-priority-type
+       |                 +--ro designated-port-num?          uint16
+       |                 +--ro forward-transisitions?        oc-yang:counter64
+       |                 +--ro counters
+       |                    +--ro bpdu-sent?       oc-yang:counter64
+       |                    +--ro bpdu-received?   oc-yang:counter64
+       +-- rapid-pvst
+       |  +-- vlan* [vlan-id]
+       |     +-- vlan-id?      -> ../config/vlan-id
+       |     +-- config
+       |     |  +-- vlan-id?            oc-vlan-types:vlan-id
+       |     |  +-- hello-time?         uint8
+       |     |  +-- max-age?            uint8
+       |     |  +-- forwarding-delay?   uint8
+       |     |  +-- hold-count?         uint8
+       |     |  +-- bridge-priority?    oc-stp-types:stp-bridge-priority-type
+       |     +--ro state
+       |     |  +--ro vlan-id?                      oc-vlan-types:vlan-id
+       |     |  +--ro hello-time?                   uint8
+       |     |  +--ro max-age?                      uint8
+       |     |  +--ro forwarding-delay?             uint8
+       |     |  +--ro hold-count?                   uint8
+       |     |  +--ro bridge-priority?              oc-stp-types:stp-bridge-priority-type
+       |     |  +--ro bridge-address?               oc-yang:mac-address
+       |     |  +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+       |     |  +--ro designated-root-address?      oc-yang:mac-address
+       |     |  +--ro root-port?                    uint16
+       |     |  +--ro root-cost?                    uint32
+       |     |  +--ro hold-time?                    uint8
+       |     |  +--ro topology-changes?             oc-yang:counter64
+       |     |  +--ro time-since-topology-change?   oc-types:timeticks64
+       |     +-- interfaces
+       |        +-- interface* [name]
+       |           +-- name?     -> ../config/name
+       |           +-- config
+       |           |  +-- name?            oc-if:base-interface-ref
+       |           |  +-- cost?            uint32
+       |           |  +-- port-priority?   oc-stp-types:stp-port-priority-type
+       |           +--ro state
+       |              +--ro name?                         oc-if:base-interface-ref
+       |              +--ro cost?                         uint32
+       |              +--ro port-priority?                oc-stp-types:stp-port-priority-type
+       |              +--ro port-num?                     uint16
+       |              +--ro role?                         identityref
+       |              +--ro port-state?                   identityref
+       |              +--ro designated-root-priority?     oc-stp-types:stp-bridge-priority-type
+       |              +--ro designated-root-address?      oc-yang:mac-address
+       |              +--ro designated-cost?              uint32
+       |              +--ro designated-bridge-priority?   oc-stp-types:stp-bridge-priority-type
+       |              +--ro designated-bridge-address?    oc-yang:mac-address
+       |              +--ro designated-port-priority?     oc-stp-types:stp-port-priority-type
+       |              +--ro designated-port-num?          uint16
+       |              +--ro forward-transisitions?        oc-yang:counter64
+       |              +--ro counters
+       |                 +--ro bpdu-sent?       oc-yang:counter64
+       |                 +--ro bpdu-received?   oc-yang:counter64
+       +-- interfaces
+          +-- interface* [name]
+             +-- name?     -> ../config/name
+             +-- config
+             |  +-- name?          oc-if:base-interface-ref
+             |  +-- edge-port?     identityref
+             |  +-- link-type?     oc-stp-types:stp-link-type
+             |  +-- guard?         oc-stp-types:stp-guard-type
+             |  +-- bpdu-guard?    boolean
+             |  +-- bpdu-filter?   boolean
+             +--ro state
+                +--ro name?          oc-if:base-interface-ref
+                +--ro edge-port?     identityref
+                +--ro link-type?     oc-stp-types:stp-link-type
+                +--ro guard?         oc-stp-types:stp-guard-type
+                +--ro bpdu-guard?    boolean
+                +--ro bpdu-filter?   boolean

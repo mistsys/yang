@@ -1,0 +1,171 @@
+
+module: Cisco-IOS-XE-track
+  augment /ios:native/ios:track:
+    +--rw tracked-object* [object-number]
+    |  +--rw object-number    uint32
+    |  +--rw interface
+    |  |  +--rw name?       string
+    |  |  +--rw protocol?   enumeration
+    |  |  +--rw routing?    empty
+    |  +--rw ip
+    |  |  +--rw route
+    |  |  |  +--rw address?        inet:ipv4-address
+    |  |  |  +--rw mask?           inet:ipv4-address
+    |  |  |  +--rw reachability?   empty
+    |  |  |  +--rw metric?         enumeration
+    |  |  +--rw sla
+    |  |     +--rw number?         uint32
+    |  |     +--rw reachability?   empty
+    |  |     +--rw state?          empty
+    |  +--rw ipv6
+    |  |  +--rw route
+    |  |     +--rw address?        ios-types:ipv6-prefix
+    |  |     +--rw reachability?   empty
+    |  |     +--rw metric?         enumeration
+    |  +--rw list
+    |  |  +--rw boolean?     enumeration
+    |  |  +--rw threshold?   enumeration
+    |  +--rw stub-object?     empty
+    |  +--rw default
+    |  |  +--rw delay!
+    |  |  +--rw default-state?   enumeration
+    |  |  +--rw ip
+    |  |  |  +--rw vrf?   empty
+    |  |  +--rw ipv6
+    |  |     +--rw vrf?   empty
+    |  +--rw delay
+    |  |  +--rw down?   uint32
+    |  |  +--rw up?     uint32
+    |  +--rw default-state?   enumeration
+    |  +--rw object* [number]
+    |  |  +--rw number    uint32
+    |  |  +--rw not?      empty
+    |  +--rw ipv6-object
+    |  |  +--rw vrf?   string
+    |  +--rw ip-object
+    |     +--rw vrf?   string
+    +--rw resolution
+    |  +--rw ip
+    |     +--rw route
+    |        +--rw bgp?      uint32
+    |        +--rw eigrp?    uint32
+    |        +--rw isis?     uint32
+    |        +--rw ospf?     uint32
+    |        +--rw static?   uint32
+    +--rw timer
+       +--rw interface
+       |  +--rw seconds?   uint32
+       |  +--rw ms?        uint32
+       +--rw ip
+       |  +--rw route
+       |  |  +--rw seconds?   uint32
+       |  |  +--rw ms?        uint32
+       |  +--rw sla
+       |     +--rw seconds?   uint32
+       |     +--rw ms?        uint32
+       +--rw ipv6
+       |  +--rw route
+       |     +--rw seconds?   uint32
+       |     +--rw ms?        uint32
+       +--rw list
+       |  +--rw seconds?   uint32
+       |  +--rw ms?        uint32
+       +--rw stub-object
+          +--rw seconds?   uint32
+          +--rw ms?        uint32
+
+  grouping track-timer-grouping
+    +-- seconds?   uint32
+    +-- ms?        uint32
+  grouping track-grouping
+    +-- delay
+    |  +-- down?   uint32
+    |  +-- up?     uint32
+    +-- default-state?   enumeration
+    +-- object* [number]
+    |  +-- number?   uint32
+    |  +-- not?      empty
+    +-- ipv6-object
+    |  +-- vrf?   string
+    +-- ip-object
+       +-- vrf?   string
+  grouping default-track-grouping
+    +-- delay!
+    +-- default-state?   enumeration
+    +-- ip
+    |  +-- vrf?   empty
+    +-- ipv6
+       +-- vrf?   empty
+  grouping config-track-grouping
+    +-- tracked-object* [object-number]
+    |  +-- object-number?   uint32
+    |  +-- interface
+    |  |  +-- name?       string
+    |  |  +-- protocol?   enumeration
+    |  |  +-- routing?    empty
+    |  +-- ip
+    |  |  +-- route
+    |  |  |  +-- address?        inet:ipv4-address
+    |  |  |  +-- mask?           inet:ipv4-address
+    |  |  |  +-- reachability?   empty
+    |  |  |  +-- metric?         enumeration
+    |  |  +-- sla
+    |  |     +-- number?         uint32
+    |  |     +-- reachability?   empty
+    |  |     +-- state?          empty
+    |  +-- ipv6
+    |  |  +-- route
+    |  |     +-- address?        ios-types:ipv6-prefix
+    |  |     +-- reachability?   empty
+    |  |     +-- metric?         enumeration
+    |  +-- list
+    |  |  +-- boolean?     enumeration
+    |  |  +-- threshold?   enumeration
+    |  +-- stub-object?     empty
+    |  +-- default
+    |  |  +-- delay!
+    |  |  +-- default-state?   enumeration
+    |  |  +-- ip
+    |  |  |  +-- vrf?   empty
+    |  |  +-- ipv6
+    |  |     +-- vrf?   empty
+    |  +-- delay
+    |  |  +-- down?   uint32
+    |  |  +-- up?     uint32
+    |  +-- default-state?   enumeration
+    |  +-- object* [number]
+    |  |  +-- number?   uint32
+    |  |  +-- not?      empty
+    |  +-- ipv6-object
+    |  |  +-- vrf?   string
+    |  +-- ip-object
+    |     +-- vrf?   string
+    +-- resolution
+    |  +-- ip
+    |     +-- route
+    |        +-- bgp?      uint32
+    |        +-- eigrp?    uint32
+    |        +-- isis?     uint32
+    |        +-- ospf?     uint32
+    |        +-- static?   uint32
+    +-- timer
+       +-- interface
+       |  +-- seconds?   uint32
+       |  +-- ms?        uint32
+       +-- ip
+       |  +-- route
+       |  |  +-- seconds?   uint32
+       |  |  +-- ms?        uint32
+       |  +-- sla
+       |     +-- seconds?   uint32
+       |     +-- ms?        uint32
+       +-- ipv6
+       |  +-- route
+       |     +-- seconds?   uint32
+       |     +-- ms?        uint32
+       +-- list
+       |  +-- seconds?   uint32
+       |  +-- ms?        uint32
+       +-- stub-object
+          +-- seconds?   uint32
+          +-- ms?        uint32

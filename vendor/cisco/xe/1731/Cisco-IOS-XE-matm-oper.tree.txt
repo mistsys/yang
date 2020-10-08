@@ -1,0 +1,39 @@
+module: Cisco-IOS-XE-matm-oper
+  +--ro matm-oper-data
+  |  +--ro matm-table* [table-type vlan-id-number]
+  |     +--ro aging-time?       uint32
+  |     +--ro matm-mac-entry* [table-type vlan-id-number mac]
+  |     |  +--ro mat-addr-type?    matm-ios-xe-oper:e-matm-addr-type
+  |     |  +--ro port?             string
+  |     |  +--ro vlan-all?         empty
+  |     |  +--ro table-type        matm-ios-xe-oper:e-matm-table-type
+  |     |  +--ro vlan-id-number    uint32
+  |     |  +--ro mac               yang:mac-address
+  |     +--ro table-type        matm-ios-xe-oper:e-matm-table-type
+  |     +--ro vlan-id-number    uint32
+  +--rw schema-metadata-Cisco-IOS-XE-matm-oper
+  |  +--rw json-metadata-leaf?   empty
+  +--rw gnmi-model-data
+
+  grouping matm-table-key
+    +-- table-type?       matm-ios-xe-oper:e-matm-table-type
+    +-- vlan-id-number?   uint32
+  grouping matm-mac-key
+    +-- table-type?       matm-ios-xe-oper:e-matm-table-type
+    +-- vlan-id-number?   uint32
+    +-- mac?              yang:mac-address
+  grouping matm-mac-param
+    +-- mat-addr-type?   matm-ios-xe-oper:e-matm-addr-type
+    +-- port?            string
+    +-- vlan-all?        empty
+  grouping matm-table-param
+    +-- aging-time?       uint32
+    +-- matm-mac-entry* [table-type vlan-id-number mac]
+       +-- mat-addr-type?    matm-ios-xe-oper:e-matm-addr-type
+       +-- port?             string
+       +-- vlan-all?         empty
+       +-- table-type?       matm-ios-xe-oper:e-matm-table-type
+       +-- vlan-id-number?   uint32
+       +-- mac?              yang:mac-address
+  grouping __yangpp_metadata
+    +-- json-metadata-leaf?   empty

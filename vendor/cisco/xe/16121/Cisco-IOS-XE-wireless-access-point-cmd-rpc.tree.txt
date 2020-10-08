@@ -1,0 +1,32 @@
+module: Cisco-IOS-XE-wireless-access-point-cmd-rpc
+
+  rpcs:
+    +---x ap-reset
+    |  +---w input
+    |     +---w (ap-identifier-choice)?
+    |        +--:(ap-identifier-name)
+    |        |  +---w ap-name?    string
+    |        +--:(ap-identifier-mac-address)
+    |           +---w mac-addr?   yang:mac-address
+    +---x clear-ap-config
+       +---w input
+          +---w operation-type?   wireless-types:ap-clear-config-op-type
+          +---w (ap-identifier-choice)?
+             +--:(ap-identifier-name)
+             |  +---w ap-name?    string
+             +--:(ap-identifier-mac-address)
+                +---w mac-addr?   yang:mac-address
+
+  grouping ap-reset
+    +-- (ap-identifier-choice)?
+       +--:(ap-identifier-name)
+       |  +-- ap-name?    string
+       +--:(ap-identifier-mac-address)
+          +-- mac-addr?   yang:mac-address
+  grouping clear-ap-config
+    +-- operation-type?   wireless-types:ap-clear-config-op-type
+    +-- (ap-identifier-choice)?
+       +--:(ap-identifier-name)
+       |  +-- ap-name?    string
+       +--:(ap-identifier-mac-address)
+          +-- mac-addr?   yang:mac-address

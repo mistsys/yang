@@ -1,0 +1,70 @@
+module: cisco-qos-action-qlimit-cfg
+
+  grouping QUEUELIMIT
+    +-- qlimit-default-thresh
+    |  +-- threshold
+    |     +-- (threshold-type)?
+    |        +--:(size)
+    |        |  +-- threshold-size?           uint64
+    |        |  +-- thresh-size-metric?       c3pl:metric
+    |        |  +-- thresh-size-units?        thresh-unit
+    |        +--:(interval)
+    |           +-- threshold-interval?       uint64
+    |           +-- thresh-interval-metric?   c3pl:metric
+    |           +-- thresh-interval-units?    thresh-unit
+    +-- qlimit-cos-thresh-lists
+    |  +-- qlimit-cos-thresh-list* [cos-min cos-max]
+    |     +-- cos-min?     policy-types:cos-type
+    |     +-- cos-max?     policy-types:cos-type
+    |     +-- threshold
+    |        +-- (threshold-type)?
+    |           +--:(size)
+    |           |  +-- threshold-size?           uint64
+    |           |  +-- thresh-size-metric?       c3pl:metric
+    |           |  +-- thresh-size-units?        thresh-unit
+    |           +--:(interval)
+    |              +-- threshold-interval?       uint64
+    |              +-- thresh-interval-metric?   c3pl:metric
+    |              +-- thresh-interval-units?    thresh-unit
+    +-- qlimit-disc-class-thresh-lists
+    |  +-- qlimit-disc-class-thresh-list* [disc-class-min disc-class-max] {disc-class-based-queuing-support}?
+    |     +-- disc-class-min?   c3pl:discard-class-type
+    |     +-- disc-class-max?   c3pl:discard-class-type
+    |     +-- threshold
+    |        +-- (threshold-type)?
+    |           +--:(size)
+    |           |  +-- threshold-size?           uint64
+    |           |  +-- thresh-size-metric?       c3pl:metric
+    |           |  +-- thresh-size-units?        thresh-unit
+    |           +--:(interval)
+    |              +-- threshold-interval?       uint64
+    |              +-- thresh-interval-metric?   c3pl:metric
+    |              +-- thresh-interval-units?    thresh-unit
+    +-- qlimit-qos-grp-thresh-lists
+    |  +-- qlimit-qos-grp-thresh-list* [qos-group-min qos-group-max] {qos-grp-based-queuing-support}?
+    |     +-- qos-group-min?   policy-types:qos-group-type
+    |     +-- qos-group-max?   policy-types:qos-group-type
+    |     +-- threshold
+    |        +-- (threshold-type)?
+    |           +--:(size)
+    |           |  +-- threshold-size?           uint64
+    |           |  +-- thresh-size-metric?       c3pl:metric
+    |           |  +-- thresh-size-units?        thresh-unit
+    |           +--:(interval)
+    |              +-- threshold-interval?       uint64
+    |              +-- thresh-interval-metric?   c3pl:metric
+    |              +-- thresh-interval-units?    thresh-unit
+    +-- qlimit-mpls-exp-thresh-lists
+       +-- qlimit-mpls-exp-thresh-list* [exp-min exp-max] {qos-grp-based-queuing-support}?
+          +-- exp-min?     policy-types:mpls-exp-type
+          +-- exp-max?     policy-types:mpls-exp-type
+          +-- threshold
+             +-- (threshold-type)?
+                +--:(size)
+                |  +-- threshold-size?           uint64
+                |  +-- thresh-size-metric?       c3pl:metric
+                |  +-- thresh-size-units?        thresh-unit
+                +--:(interval)
+                   +-- threshold-interval?       uint64
+                   +-- thresh-interval-metric?   c3pl:metric
+                   +-- thresh-interval-units?    thresh-unit

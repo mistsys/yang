@@ -1,0 +1,1871 @@
+module: Cisco-IOS-XE-interfaces-oper
+  +--ro interfaces
+     +--ro interface* [name]
+        +--ro name                            string
+        +--ro interface-type?                 interfaces-ios-xe-oper:ietf-intf-type
+        +--ro admin-status?                   interfaces-ios-xe-oper:intf-state
+        +--ro oper-status?                    interfaces-ios-xe-oper:oper-state
+        +--ro last-change?                    yang:date-and-time
+        +--ro if-index?                       int32
+        +--ro phys-address?                   yang:mac-address
+        +--ro higher-layer-if*                string
+        +--ro lower-layer-if*                 string
+        +--ro speed?                          uint64
+        +--ro statistics
+        |  +--ro discontinuity-time?   yang:date-and-time
+        |  +--ro in-octets?            uint64
+        |  +--ro in-unicast-pkts?      uint64
+        |  +--ro in-broadcast-pkts?    uint64
+        |  +--ro in-multicast-pkts?    uint64
+        |  +--ro in-discards?          uint32
+        |  +--ro in-errors?            uint32
+        |  +--ro in-unknown-protos?    uint32
+        |  +--ro out-octets?           uint32
+        |  +--ro out-unicast-pkts?     uint64
+        |  +--ro out-broadcast-pkts?   uint64
+        |  +--ro out-multicast-pkts?   uint64
+        |  +--ro out-discards?         uint64
+        |  +--ro out-errors?           uint64
+        |  +--ro rx-pps?               uint64
+        |  +--ro rx-kbps?              uint64
+        |  +--ro tx-pps?               uint64
+        |  +--ro tx-kbps?              uint64
+        |  +--ro num-flaps?            uint64
+        |  +--ro in-crc-errors?        uint64
+        +--ro diffserv-info* [direction policy-name]
+        |  +--ro direction                           interfaces-ios-xe-oper:qos-direction
+        |  +--ro policy-name                         string
+        |  +--ro diffserv-target-classifier-stats* [classifier-entry-name parent-path]
+        |  |  +--ro classifier-entry-name     string
+        |  |  +--ro parent-path               string
+        |  |  +--ro classifier-entry-stats
+        |  |  |  +--ro classified-pkts?    uint64
+        |  |  |  +--ro classified-bytes?   uint64
+        |  |  |  +--ro classified-rate?    uint64
+        |  |  +--ro meter-stats* [meter-id]
+        |  |  |  +--ro meter-id               uint16
+        |  |  |  +--ro meter-succeed-pkts?    uint64
+        |  |  |  +--ro meter-succeed-bytes?   uint64
+        |  |  |  +--ro meter-failed-pkts?     uint64
+        |  |  |  +--ro meter-failed-bytes?    uint64
+        |  |  +--ro queuing-stats
+        |  |  |  +--ro output-pkts?        uint64
+        |  |  |  +--ro output-bytes?       uint64
+        |  |  |  +--ro queue-size-pkts?    uint64
+        |  |  |  +--ro queue-size-bytes?   uint64
+        |  |  |  +--ro drop-pkts?          uint64
+        |  |  |  +--ro drop-bytes?         uint64
+        |  |  |  +--ro wred-stats
+        |  |  |  |  +--ro early-drop-pkts?          uint64
+        |  |  |  |  +--ro early-drop-bytes?         uint64
+        |  |  |  |  +--ro mean-queue-depth?         uint16
+        |  |  |  |  +--ro transmitted-pkts?         uint64
+        |  |  |  |  +--ro transmitted-bytes?        uint64
+        |  |  |  |  +--ro tail-drop-pkts?           uint64
+        |  |  |  |  +--ro tail-drop-bytes?          uint64
+        |  |  |  |  +--ro drop-pkts-flow?           uint64
+        |  |  |  |  +--ro drop-pkts-no-buffer?      uint64
+        |  |  |  |  +--ro queue-peak-size-pkts?     uint64
+        |  |  |  |  +--ro queue-peak-size-bytes?    uint64
+        |  |  |  |  +--ro bandwidth-exceed-drops?   uint64
+        |  |  |  +--ro cac-stats
+        |  |  |     +--ro num-admitted-flows?       uint32
+        |  |  |     +--ro num-non-admitted-flows?   uint32
+        |  |  +--ro subclass-list* [match-type]
+        |  |  |  +--ro match-type                interfaces-ios-xe-oper:qos-match-type
+        |  |  |  +--ro cos-counters* [cos-min cos-max]
+        |  |  |  |  +--ro cos-min                  uint32
+        |  |  |  |  +--ro cos-max                  uint32
+        |  |  |  |  +--ro wred-tx-pkts?            uint64
+        |  |  |  |  +--ro wred-tx-bytes?           uint64
+        |  |  |  |  +--ro wred-tail-drop-pkts?     uint64
+        |  |  |  |  +--ro wred-tail-drop-bytes?    uint64
+        |  |  |  |  +--ro wred-early-drop-pkts?    uint64
+        |  |  |  |  +--ro wred-early-drop-bytes?   uint64
+        |  |  |  +--ro cos-default
+        |  |  |  |  +--ro wred-tx-pkts?            uint64
+        |  |  |  |  +--ro wred-tx-bytes?           uint64
+        |  |  |  |  +--ro wred-tail-drop-pkts?     uint64
+        |  |  |  |  +--ro wred-tail-drop-bytes?    uint64
+        |  |  |  |  +--ro wred-early-drop-pkts?    uint64
+        |  |  |  |  +--ro wred-early-drop-bytes?   uint64
+        |  |  |  +--ro dscp-counters* [dscp-min dscp-max]
+        |  |  |  |  +--ro dscp-min                 uint32
+        |  |  |  |  +--ro dscp-max                 uint32
+        |  |  |  |  +--ro wred-tx-pkts?            uint64
+        |  |  |  |  +--ro wred-tx-bytes?           uint64
+        |  |  |  |  +--ro wred-tail-drop-pkts?     uint64
+        |  |  |  |  +--ro wred-tail-drop-bytes?    uint64
+        |  |  |  |  +--ro wred-early-drop-pkts?    uint64
+        |  |  |  |  +--ro wred-early-drop-bytes?   uint64
+        |  |  |  +--ro dscp-default
+        |  |  |  |  +--ro wred-tx-pkts?            uint64
+        |  |  |  |  +--ro wred-tx-bytes?           uint64
+        |  |  |  |  +--ro wred-tail-drop-pkts?     uint64
+        |  |  |  |  +--ro wred-tail-drop-bytes?    uint64
+        |  |  |  |  +--ro wred-early-drop-pkts?    uint64
+        |  |  |  |  +--ro wred-early-drop-bytes?   uint64
+        |  |  |  +--ro discard-class-counters* [disc-class-min disc-class-max]
+        |  |  |  |  +--ro disc-class-min           uint32
+        |  |  |  |  +--ro disc-class-max           uint32
+        |  |  |  |  +--ro wred-tx-pkts?            uint64
+        |  |  |  |  +--ro wred-tx-bytes?           uint64
+        |  |  |  |  +--ro wred-tail-drop-pkts?     uint64
+        |  |  |  |  +--ro wred-tail-drop-bytes?    uint64
+        |  |  |  |  +--ro wred-early-drop-pkts?    uint64
+        |  |  |  |  +--ro wred-early-drop-bytes?   uint64
+        |  |  |  +--ro disc-class-default
+        |  |  |  |  +--ro wred-tx-pkts?            uint64
+        |  |  |  |  +--ro wred-tx-bytes?           uint64
+        |  |  |  |  +--ro wred-tail-drop-pkts?     uint64
+        |  |  |  |  +--ro wred-tail-drop-bytes?    uint64
+        |  |  |  |  +--ro wred-early-drop-pkts?    uint64
+        |  |  |  |  +--ro wred-early-drop-bytes?   uint64
+        |  |  |  +--ro precedence-counters* [prec-min prec-max]
+        |  |  |  |  +--ro prec-min                 uint32
+        |  |  |  |  +--ro prec-max                 uint32
+        |  |  |  |  +--ro wred-tx-pkts?            uint64
+        |  |  |  |  +--ro wred-tx-bytes?           uint64
+        |  |  |  |  +--ro wred-tail-drop-pkts?     uint64
+        |  |  |  |  +--ro wred-tail-drop-bytes?    uint64
+        |  |  |  |  +--ro wred-early-drop-pkts?    uint64
+        |  |  |  |  +--ro wred-early-drop-bytes?   uint64
+        |  |  |  +--ro prec-default
+        |  |  |  |  +--ro wred-tx-pkts?            uint64
+        |  |  |  |  +--ro wred-tx-bytes?           uint64
+        |  |  |  |  +--ro wred-tail-drop-pkts?     uint64
+        |  |  |  |  +--ro wred-tail-drop-bytes?    uint64
+        |  |  |  |  +--ro wred-early-drop-pkts?    uint64
+        |  |  |  |  +--ro wred-early-drop-bytes?   uint64
+        |  |  |  +--ro mpls-exp-counters* [exp-min exp-max]
+        |  |  |  |  +--ro exp-min                  uint32
+        |  |  |  |  +--ro exp-max                  uint32
+        |  |  |  |  +--ro wred-tx-pkts?            uint64
+        |  |  |  |  +--ro wred-tx-bytes?           uint64
+        |  |  |  |  +--ro wred-tail-drop-pkts?     uint64
+        |  |  |  |  +--ro wred-tail-drop-bytes?    uint64
+        |  |  |  |  +--ro wred-early-drop-pkts?    uint64
+        |  |  |  |  +--ro wred-early-drop-bytes?   uint64
+        |  |  |  +--ro mpls-exp-default
+        |  |  |  |  +--ro wred-tx-pkts?            uint64
+        |  |  |  |  +--ro wred-tx-bytes?           uint64
+        |  |  |  |  +--ro wred-tail-drop-pkts?     uint64
+        |  |  |  |  +--ro wred-tail-drop-bytes?    uint64
+        |  |  |  |  +--ro wred-early-drop-pkts?    uint64
+        |  |  |  |  +--ro wred-early-drop-bytes?   uint64
+        |  |  |  +--ro dei-counters* [dei-min dei-max]
+        |  |  |  |  +--ro dei-min                  uint32
+        |  |  |  |  +--ro dei-max                  uint32
+        |  |  |  |  +--ro wred-tx-pkts?            uint64
+        |  |  |  |  +--ro wred-tx-bytes?           uint64
+        |  |  |  |  +--ro wred-tail-drop-pkts?     uint64
+        |  |  |  |  +--ro wred-tail-drop-bytes?    uint64
+        |  |  |  |  +--ro wred-early-drop-pkts?    uint64
+        |  |  |  |  +--ro wred-early-drop-bytes?   uint64
+        |  |  |  +--ro dei-counts-default
+        |  |  |  |  +--ro wred-tx-pkts?            uint64
+        |  |  |  |  +--ro wred-tx-bytes?           uint64
+        |  |  |  |  +--ro wred-tail-drop-pkts?     uint64
+        |  |  |  |  +--ro wred-tail-drop-bytes?    uint64
+        |  |  |  |  +--ro wred-early-drop-pkts?    uint64
+        |  |  |  |  +--ro wred-early-drop-bytes?   uint64
+        |  |  |  +--ro clp-counters* [clp-val]
+        |  |  |  |  +--ro clp-val                  uint32
+        |  |  |  |  +--ro wred-tx-pkts?            uint64
+        |  |  |  |  +--ro wred-tx-bytes?           uint64
+        |  |  |  |  +--ro wred-tail-drop-pkts?     uint64
+        |  |  |  |  +--ro wred-tail-drop-bytes?    uint64
+        |  |  |  |  +--ro wred-early-drop-pkts?    uint64
+        |  |  |  |  +--ro wred-early-drop-bytes?   uint64
+        |  |  |  +--ro clp-default
+        |  |  |     +--ro wred-tx-pkts?            uint64
+        |  |  |     +--ro wred-tx-bytes?           uint64
+        |  |  |     +--ro wred-tail-drop-pkts?     uint64
+        |  |  |     +--ro wred-tail-drop-bytes?    uint64
+        |  |  |     +--ro wred-early-drop-pkts?    uint64
+        |  |  |     +--ro wred-early-drop-bytes?   uint64
+        |  |  +--ro marking-stats
+        |  |     +--ro marking-dscp-stats-val
+        |  |     |  +--ro dscp?          uint32
+        |  |     |  +--ro marked-pkts?   uint64
+        |  |     +--ro marking-dscp-tunnel-stats-val
+        |  |     |  +--ro dscp-val?      uint32
+        |  |     |  +--ro marked-pkts?   uint64
+        |  |     +--ro marking-cos-stats-val
+        |  |     |  +--ro cos-val?       uint32
+        |  |     |  +--ro marked-pkts?   uint64
+        |  |     +--ro marking-cos-inner-stats-val
+        |  |     |  +--ro cos-inner-val?   uint32
+        |  |     |  +--ro marked-pkts?     uint64
+        |  |     +--ro marking-discard-class-stats-val
+        |  |     |  +--ro disc-class-val?   uint32
+        |  |     |  +--ro marked-pkts?      uint64
+        |  |     +--ro marking-qos-grp-stats-val
+        |  |     |  +--ro qos-grp-val?   uint32
+        |  |     |  +--ro marked-pkts?   uint64
+        |  |     +--ro marking-prec-stats-val
+        |  |     |  +--ro prec-val?      uint32
+        |  |     |  +--ro marked-pkts?   uint64
+        |  |     +--ro marking-prec-tunnel-stats-val
+        |  |     |  +--ro prec-val?      uint32
+        |  |     |  +--ro marked-pkts?   uint64
+        |  |     +--ro marking-mpls-exp-imp-stats-val
+        |  |     |  +--ro mpls-exp-imp-val?   uint32
+        |  |     |  +--ro marked-pkts?        uint64
+        |  |     +--ro marking-mpls-exp-top-stats-val
+        |  |     |  +--ro mpls-exp-top-val?   uint32
+        |  |     |  +--ro marked-pkts?        uint64
+        |  |     +--ro marking-fr-de-stats-val
+        |  |     |  +--ro fr-de?         boolean
+        |  |     |  +--ro marked-pkts?   uint64
+        |  |     +--ro marking-fr-fecn-becn-stats-val
+        |  |     |  +--ro fecn-becn-val?   uint32
+        |  |     |  +--ro marked-pkts?     uint64
+        |  |     +--ro marking-atm-clp-stats-val
+        |  |     |  +--ro atm-clp-val?   uint8
+        |  |     |  +--ro marked-pkts?   uint64
+        |  |     +--ro marking-vlan-inner-stats-val
+        |  |     |  +--ro vlan-inner-val?   uint32
+        |  |     |  +--ro marked-pkts?      uint64
+        |  |     +--ro marking-dei-stats-val
+        |  |     |  +--ro dei-imp-value?   uint32
+        |  |     |  +--ro marked-pkts?     uint64
+        |  |     +--ro marking-dei-imp-stats-val
+        |  |     |  +--ro dei-imp-value?   uint32
+        |  |     |  +--ro marked-pkts?     uint64
+        |  |     +--ro marking-srp-priority-stats-val
+        |  |     |  +--ro srp-priority-value?   uint8
+        |  |     |  +--ro marked-pkts?          uint64
+        |  |     +--ro marking-wlan-user-priority-stats-val
+        |  |        +--ro wlan-user-priority-value?   uint8
+        |  |        +--ro marked-pkts?                uint64
+        |  +--ro priority-oper-list* [priority-level]
+        |     +--ro priority-level                   uint16
+        |     +--ro agg-priority-stats
+        |     |  +--ro output-pkts?           uint64
+        |     |  +--ro output-bytes?          uint64
+        |     |  +--ro queue-size-pkts?       uint64
+        |     |  +--ro queue-size-bytes?      uint64
+        |     |  +--ro drop-pkts?             uint64
+        |     |  +--ro drop-bytes?            uint64
+        |     |  +--ro drop-pkts-flow?        uint64
+        |     |  +--ro drop-pkts-no-buffer?   uint64
+        |     +--ro qlimit-default-thresh
+        |     |  +--ro bytes?                    uint64
+        |     |  +--ro thresh-size-metric?       uint32
+        |     |  +--ro unit-val?                 interfaces-ios-xe-oper:thresh-unit
+        |     |  +--ro threshold-interval?       uint64
+        |     |  +--ro thresh-interval-metric?   uint32
+        |     |  +--ro interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+        |     +--ro qlimit-cos-thresh-list* [cos-min cos-max]
+        |     |  +--ro cos-min                   uint32
+        |     |  +--ro cos-max                   uint32
+        |     |  +--ro bytes?                    uint64
+        |     |  +--ro thresh-size-metric?       uint32
+        |     |  +--ro unit-val?                 interfaces-ios-xe-oper:thresh-unit
+        |     |  +--ro threshold-interval?       uint64
+        |     |  +--ro thresh-interval-metric?   uint32
+        |     |  +--ro interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+        |     +--ro qlimit-disc-class-thresh-list* [disc-class-min disc-class-max]
+        |     |  +--ro disc-class-min            uint32
+        |     |  +--ro disc-class-max            uint32
+        |     |  +--ro bytes?                    uint64
+        |     |  +--ro thresh-size-metric?       uint32
+        |     |  +--ro unit-val?                 interfaces-ios-xe-oper:thresh-unit
+        |     |  +--ro threshold-interval?       uint64
+        |     |  +--ro thresh-interval-metric?   uint32
+        |     |  +--ro interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+        |     +--ro qlimit-qos-grp-thresh-list* [qos-group-min qos-group-max]
+        |     |  +--ro qos-group-min             uint32
+        |     |  +--ro qos-group-max             uint32
+        |     |  +--ro bytes?                    uint64
+        |     |  +--ro thresh-size-metric?       uint32
+        |     |  +--ro unit-val?                 interfaces-ios-xe-oper:thresh-unit
+        |     |  +--ro threshold-interval?       uint64
+        |     |  +--ro thresh-interval-metric?   uint32
+        |     |  +--ro interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+        |     +--ro qlimit-mpls-exp-thresh-list* [exp-min exp-max]
+        |     |  +--ro exp-min                   uint32
+        |     |  +--ro exp-max                   uint32
+        |     |  +--ro bytes?                    uint64
+        |     |  +--ro thresh-size-metric?       uint32
+        |     |  +--ro unit-val?                 interfaces-ios-xe-oper:thresh-unit
+        |     |  +--ro threshold-interval?       uint64
+        |     |  +--ro thresh-interval-metric?   uint32
+        |     |  +--ro interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+        |     +--ro qlimit-dscp-thresh-list* [dscp-min dscp-max]
+        |        +--ro dscp-min                  uint32
+        |        +--ro dscp-max                  uint32
+        |        +--ro bytes?                    uint64
+        |        +--ro thresh-size-metric?       uint32
+        |        +--ro unit-val?                 interfaces-ios-xe-oper:thresh-unit
+        |        +--ro threshold-interval?       uint64
+        |        +--ro thresh-interval-metric?   uint32
+        |        +--ro interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+        +--ro vrf?                            string
+        +--ro ipv4?                           inet:ip-address
+        +--ro ipv4-subnet-mask?               inet:ip-address
+        +--ro description?                    string
+        +--ro mtu?                            uint32
+        +--ro input-security-acl?             string
+        +--ro output-security-acl?            string
+        +--ro v4-protocol-stats
+        |  +--ro in-pkts?                uint64
+        |  +--ro in-octets?              uint64
+        |  +--ro in-error-pkts?          uint64
+        |  +--ro in-forwarded-pkts?      uint64
+        |  +--ro in-forwarded-octets?    uint64
+        |  +--ro in-discarded-pkts?      uint64
+        |  +--ro out-pkts?               uint64
+        |  +--ro out-octets?             uint64
+        |  +--ro out-error-pkts?         uint64
+        |  +--ro out-forwarded-pkts?     uint64
+        |  +--ro out-forwarded-octets?   uint64
+        |  +--ro out-discarded-pkts?     uint64
+        +--ro v6-protocol-stats
+        |  +--ro in-pkts?                uint64
+        |  +--ro in-octets?              uint64
+        |  +--ro in-error-pkts?          uint64
+        |  +--ro in-forwarded-pkts?      uint64
+        |  +--ro in-forwarded-octets?    uint64
+        |  +--ro in-discarded-pkts?      uint64
+        |  +--ro out-pkts?               uint64
+        |  +--ro out-octets?             uint64
+        |  +--ro out-error-pkts?         uint64
+        |  +--ro out-forwarded-pkts?     uint64
+        |  +--ro out-forwarded-octets?   uint64
+        |  +--ro out-discarded-pkts?     uint64
+        +--ro bia-address?                    yang:mac-address
+        +--ro ipv6-addrs*                     inet:ip-address
+        +--ro lag-aggregate-state* [aggregate-id]
+        |  +--ro aggregate-id    string
+        |  +--ro lag-type?       interfaces-ios-xe-oper:aggregation-type
+        |  +--ro min-links?      uint16
+        |  +--ro lag-speed?      uint32
+        |  +--ro members*        string
+        +--ro ipv4-tcp-adjust-mss?            uint16
+        +--ro ipv6-tcp-adjust-mss?            uint16
+        +--ro (interface-class-choice)?
+           +--:(interface-class-ethernet)
+           |  +--ro ether-state
+           |  |  +--ro negotiated-duplex-mode?   interfaces-ios-xe-oper:ether-duplex
+           |  |  +--ro negotiated-port-speed?    interfaces-ios-xe-oper:ether-speed
+           |  |  +--ro auto-negotiate?           boolean
+           |  |  +--ro enable-flow-control?      boolean
+           |  +--ro ether-stats
+           |     +--ro in-mac-control-frames?     uint64
+           |     +--ro in-mac-pause-frames?       uint64
+           |     +--ro in-oversize-frames?        uint64
+           |     +--ro in-jabber-frames?          uint64
+           |     +--ro in-fragment-frames?        uint64
+           |     +--ro in-8021q-frames?           uint64
+           |     +--ro out-mac-control-frames?    uint64
+           |     +--ro out-mac-pause-frames?      uint64
+           |     +--ro out-8021q-frames?          uint64
+           |     +--ro dot3-counters-supported?   empty
+           |     +--ro dot3-counters
+           |        +--ro dot3-stats-version?       interfaces-ios-xe-oper:dot3-stats-versions
+           |        +--ro dot3-error-counters-v2
+           |           +--ro dot3-alignment-errors?                  uint64
+           |           +--ro dot3-fcs-errors?                        uint64
+           |           +--ro dot3-single-collision-frames?           uint64
+           |           +--ro dot3-multiple-collision-frames?         uint64
+           |           +--ro dot3-sqe-test-errors?                   uint64
+           |           +--ro dot3-deferred-transmissions?            uint64
+           |           +--ro dot3-late-collisions?                   uint64
+           |           +--ro dot3-excessive-collisions?              uint64
+           |           +--ro dot3-internal-mac-transmit-errors?      uint64
+           |           +--ro dot3-carrier-sense-errors?              uint64
+           |           +--ro dot3-frame-too-longs?                   uint64
+           |           +--ro dot3-internal-mac-receive-errors?       uint64
+           |           +--ro dot3-symbol-errors?                     uint64
+           |           +--ro dot3-duplex-status?                     uint64
+           |           +--ro dot3-hc-alignment-errors?               uint64
+           |           +--ro dot3-hc-inpause-frames?                 uint64
+           |           +--ro dot3-hc-outpause-frames?                uint64
+           |           +--ro dot3-hc-fcs-errors?                     uint64
+           |           +--ro dot3-hc-frame-too-longs?                uint64
+           |           +--ro dot3-hc-internal-mac-transmit-errors?   uint64
+           |           +--ro dot3-hc-internal-mac-receive-errors?    uint64
+           |           +--ro dot3-hc-symbol-errors?                  uint64
+           +--:(interface-class-t1e1serial)
+           |  +--ro serial-state
+           |  |  +--ro crc-type?   interfaces-ios-xe-oper:serial-crc
+           |  |  +--ro loopback?   interfaces-ios-xe-oper:t1e1-loopback-mode
+           |  |  +--ro keeplive?   uint32
+           |  |  +--ro timeslot?   uint32
+           |  |  +--ro subrate?    interfaces-ios-xe-oper:subrate-speed
+           |  +--ro serial-stats
+           |     +--ro in-abort-clock-error?   uint32
+           +--:(interface-class-unspecified)
+           |  +--ro intf-class-unspecified?   boolean
+           +--:(interface-class-syncserial)
+              +--ro syncserial-state
+                 +--ro carrier-delay?    uint32
+                 +--ro dtr-pulse-time?   uint32
+                 +--ro restart-delay?    uint32
+                 +--ro cable-type?       string
+                 +--ro loopback?         boolean
+                 +--ro nrzi-encoding?    boolean
+                 +--ro idle-character?   interfaces-ios-xe-oper:idle-character-type
+                 +--ro rts-signal?       interfaces-ios-xe-oper:signal-status
+                 +--ro cts-signal?       interfaces-ios-xe-oper:signal-status
+                 +--ro dtr-signal?       interfaces-ios-xe-oper:signal-status
+                 +--ro dcd-signal?       interfaces-ios-xe-oper:signal-status
+                 +--ro dsr-signal?       interfaces-ios-xe-oper:signal-status
+                 +--ro dce-mode-state
+                 |  +--ro dce-terminal-timing-enable?   boolean
+                 |  +--ro ignore-dtr?                   boolean
+                 |  +--ro serial-clock-rate?            uint32
+                 +--ro dte-mode-state
+                    +--ro tx-invert-clk?        boolean
+                    +--ro ignore-dcd?           boolean
+                    +--ro rx-clockrate?         uint32
+                    +--ro rx-clock-threshold?   uint32
+
+  grouping wred-class-counts
+    +-- wred-tx-pkts?            uint64
+    +-- wred-tx-bytes?           uint64
+    +-- wred-tail-drop-pkts?     uint64
+    +-- wred-tail-drop-bytes?    uint64
+    +-- wred-early-drop-pkts?    uint64
+    +-- wred-early-drop-bytes?   uint64
+  grouping marking-dscp-stats
+    +-- dscp?          uint32
+    +-- marked-pkts?   uint64
+  grouping marking-dscp-tunnel-stats
+    +-- dscp-val?      uint32
+    +-- marked-pkts?   uint64
+  grouping marking-cos-stats
+    +-- cos-val?       uint32
+    +-- marked-pkts?   uint64
+  grouping marking-cos-inner-stats
+    +-- cos-inner-val?   uint32
+    +-- marked-pkts?     uint64
+  grouping marking-discard-class-stats
+    +-- disc-class-val?   uint32
+    +-- marked-pkts?      uint64
+  grouping marking-qos-grp-stats
+    +-- qos-grp-val?   uint32
+    +-- marked-pkts?   uint64
+  grouping marking-prec-stats
+    +-- prec-val?      uint32
+    +-- marked-pkts?   uint64
+  grouping marking-prec-tunnel-stats
+    +-- prec-val?      uint32
+    +-- marked-pkts?   uint64
+  grouping marking-mpls-exp-imp-stats
+    +-- mpls-exp-imp-val?   uint32
+    +-- marked-pkts?        uint64
+  grouping marking-mpls-exp-top-stats
+    +-- mpls-exp-top-val?   uint32
+    +-- marked-pkts?        uint64
+  grouping marking-fr-de-stats
+    +-- fr-de?         boolean
+    +-- marked-pkts?   uint64
+  grouping marking-fr-fecn-becn-stats
+    +-- fecn-becn-val?   uint32
+    +-- marked-pkts?     uint64
+  grouping marking-atm-clp-stats
+    +-- atm-clp-val?   uint8
+    +-- marked-pkts?   uint64
+  grouping marking-vlan-inner-stats
+    +-- vlan-inner-val?   uint32
+    +-- marked-pkts?      uint64
+  grouping marking-dei-stats
+    +-- dei-imp-value?   uint32
+    +-- marked-pkts?     uint64
+  grouping marking-dei-imp-stats
+    +-- dei-imp-value?   uint32
+    +-- marked-pkts?     uint64
+  grouping marking-srp-priority-stats
+    +-- srp-priority-value?   uint8
+    +-- marked-pkts?          uint64
+  grouping marking-wlan-user-priority-stats
+    +-- wlan-user-priority-value?   uint8
+    +-- marked-pkts?                uint64
+  grouping marking-stats
+    +-- marking-dscp-stats-val
+    |  +-- dscp?          uint32
+    |  +-- marked-pkts?   uint64
+    +-- marking-dscp-tunnel-stats-val
+    |  +-- dscp-val?      uint32
+    |  +-- marked-pkts?   uint64
+    +-- marking-cos-stats-val
+    |  +-- cos-val?       uint32
+    |  +-- marked-pkts?   uint64
+    +-- marking-cos-inner-stats-val
+    |  +-- cos-inner-val?   uint32
+    |  +-- marked-pkts?     uint64
+    +-- marking-discard-class-stats-val
+    |  +-- disc-class-val?   uint32
+    |  +-- marked-pkts?      uint64
+    +-- marking-qos-grp-stats-val
+    |  +-- qos-grp-val?   uint32
+    |  +-- marked-pkts?   uint64
+    +-- marking-prec-stats-val
+    |  +-- prec-val?      uint32
+    |  +-- marked-pkts?   uint64
+    +-- marking-prec-tunnel-stats-val
+    |  +-- prec-val?      uint32
+    |  +-- marked-pkts?   uint64
+    +-- marking-mpls-exp-imp-stats-val
+    |  +-- mpls-exp-imp-val?   uint32
+    |  +-- marked-pkts?        uint64
+    +-- marking-mpls-exp-top-stats-val
+    |  +-- mpls-exp-top-val?   uint32
+    |  +-- marked-pkts?        uint64
+    +-- marking-fr-de-stats-val
+    |  +-- fr-de?         boolean
+    |  +-- marked-pkts?   uint64
+    +-- marking-fr-fecn-becn-stats-val
+    |  +-- fecn-becn-val?   uint32
+    |  +-- marked-pkts?     uint64
+    +-- marking-atm-clp-stats-val
+    |  +-- atm-clp-val?   uint8
+    |  +-- marked-pkts?   uint64
+    +-- marking-vlan-inner-stats-val
+    |  +-- vlan-inner-val?   uint32
+    |  +-- marked-pkts?      uint64
+    +-- marking-dei-stats-val
+    |  +-- dei-imp-value?   uint32
+    |  +-- marked-pkts?     uint64
+    +-- marking-dei-imp-stats-val
+    |  +-- dei-imp-value?   uint32
+    |  +-- marked-pkts?     uint64
+    +-- marking-srp-priority-stats-val
+    |  +-- srp-priority-value?   uint8
+    |  +-- marked-pkts?          uint64
+    +-- marking-wlan-user-priority-stats-val
+       +-- wlan-user-priority-value?   uint8
+       +-- marked-pkts?                uint64
+  grouping cos-key
+    +-- cos-min?   uint32
+    +-- cos-max?   uint32
+  grouping disc-class-key
+    +-- disc-class-min?   uint32
+    +-- disc-class-max?   uint32
+  grouping dscp-key
+    +-- dscp-min?   uint32
+    +-- dscp-max?   uint32
+  grouping qos-grp-key
+    +-- qos-group-min?   uint32
+    +-- qos-group-max?   uint32
+  grouping mpls-exp-key
+    +-- exp-min?   uint32
+    +-- exp-max?   uint32
+  grouping prec-key
+    +-- prec-min?   uint32
+    +-- prec-max?   uint32
+  grouping dei-key
+    +-- dei-min?   uint32
+    +-- dei-max?   uint32
+  grouping clp-key
+    +-- clp-val?   uint32
+  grouping subclass-list
+    +-- match-type?               interfaces-ios-xe-oper:qos-match-type
+    +-- cos-counters* [cos-min cos-max]
+    |  +-- cos-min?                 uint32
+    |  +-- cos-max?                 uint32
+    |  +-- wred-tx-pkts?            uint64
+    |  +-- wred-tx-bytes?           uint64
+    |  +-- wred-tail-drop-pkts?     uint64
+    |  +-- wred-tail-drop-bytes?    uint64
+    |  +-- wred-early-drop-pkts?    uint64
+    |  +-- wred-early-drop-bytes?   uint64
+    +-- cos-default
+    |  +-- wred-tx-pkts?            uint64
+    |  +-- wred-tx-bytes?           uint64
+    |  +-- wred-tail-drop-pkts?     uint64
+    |  +-- wred-tail-drop-bytes?    uint64
+    |  +-- wred-early-drop-pkts?    uint64
+    |  +-- wred-early-drop-bytes?   uint64
+    +-- dscp-counters* [dscp-min dscp-max]
+    |  +-- dscp-min?                uint32
+    |  +-- dscp-max?                uint32
+    |  +-- wred-tx-pkts?            uint64
+    |  +-- wred-tx-bytes?           uint64
+    |  +-- wred-tail-drop-pkts?     uint64
+    |  +-- wred-tail-drop-bytes?    uint64
+    |  +-- wred-early-drop-pkts?    uint64
+    |  +-- wred-early-drop-bytes?   uint64
+    +-- dscp-default
+    |  +-- wred-tx-pkts?            uint64
+    |  +-- wred-tx-bytes?           uint64
+    |  +-- wred-tail-drop-pkts?     uint64
+    |  +-- wred-tail-drop-bytes?    uint64
+    |  +-- wred-early-drop-pkts?    uint64
+    |  +-- wred-early-drop-bytes?   uint64
+    +-- discard-class-counters* [disc-class-min disc-class-max]
+    |  +-- disc-class-min?          uint32
+    |  +-- disc-class-max?          uint32
+    |  +-- wred-tx-pkts?            uint64
+    |  +-- wred-tx-bytes?           uint64
+    |  +-- wred-tail-drop-pkts?     uint64
+    |  +-- wred-tail-drop-bytes?    uint64
+    |  +-- wred-early-drop-pkts?    uint64
+    |  +-- wred-early-drop-bytes?   uint64
+    +-- disc-class-default
+    |  +-- wred-tx-pkts?            uint64
+    |  +-- wred-tx-bytes?           uint64
+    |  +-- wred-tail-drop-pkts?     uint64
+    |  +-- wred-tail-drop-bytes?    uint64
+    |  +-- wred-early-drop-pkts?    uint64
+    |  +-- wred-early-drop-bytes?   uint64
+    +-- precedence-counters* [prec-min prec-max]
+    |  +-- prec-min?                uint32
+    |  +-- prec-max?                uint32
+    |  +-- wred-tx-pkts?            uint64
+    |  +-- wred-tx-bytes?           uint64
+    |  +-- wred-tail-drop-pkts?     uint64
+    |  +-- wred-tail-drop-bytes?    uint64
+    |  +-- wred-early-drop-pkts?    uint64
+    |  +-- wred-early-drop-bytes?   uint64
+    +-- prec-default
+    |  +-- wred-tx-pkts?            uint64
+    |  +-- wred-tx-bytes?           uint64
+    |  +-- wred-tail-drop-pkts?     uint64
+    |  +-- wred-tail-drop-bytes?    uint64
+    |  +-- wred-early-drop-pkts?    uint64
+    |  +-- wred-early-drop-bytes?   uint64
+    +-- mpls-exp-counters* [exp-min exp-max]
+    |  +-- exp-min?                 uint32
+    |  +-- exp-max?                 uint32
+    |  +-- wred-tx-pkts?            uint64
+    |  +-- wred-tx-bytes?           uint64
+    |  +-- wred-tail-drop-pkts?     uint64
+    |  +-- wred-tail-drop-bytes?    uint64
+    |  +-- wred-early-drop-pkts?    uint64
+    |  +-- wred-early-drop-bytes?   uint64
+    +-- mpls-exp-default
+    |  +-- wred-tx-pkts?            uint64
+    |  +-- wred-tx-bytes?           uint64
+    |  +-- wred-tail-drop-pkts?     uint64
+    |  +-- wred-tail-drop-bytes?    uint64
+    |  +-- wred-early-drop-pkts?    uint64
+    |  +-- wred-early-drop-bytes?   uint64
+    +-- dei-counters* [dei-min dei-max]
+    |  +-- dei-min?                 uint32
+    |  +-- dei-max?                 uint32
+    |  +-- wred-tx-pkts?            uint64
+    |  +-- wred-tx-bytes?           uint64
+    |  +-- wred-tail-drop-pkts?     uint64
+    |  +-- wred-tail-drop-bytes?    uint64
+    |  +-- wred-early-drop-pkts?    uint64
+    |  +-- wred-early-drop-bytes?   uint64
+    +-- dei-counts-default
+    |  +-- wred-tx-pkts?            uint64
+    |  +-- wred-tx-bytes?           uint64
+    |  +-- wred-tail-drop-pkts?     uint64
+    |  +-- wred-tail-drop-bytes?    uint64
+    |  +-- wred-early-drop-pkts?    uint64
+    |  +-- wred-early-drop-bytes?   uint64
+    +-- clp-counters* [clp-val]
+    |  +-- clp-val?                 uint32
+    |  +-- wred-tx-pkts?            uint64
+    |  +-- wred-tx-bytes?           uint64
+    |  +-- wred-tail-drop-pkts?     uint64
+    |  +-- wred-tail-drop-bytes?    uint64
+    |  +-- wred-early-drop-pkts?    uint64
+    |  +-- wred-early-drop-bytes?   uint64
+    +-- clp-default
+       +-- wred-tx-pkts?            uint64
+       +-- wred-tx-bytes?           uint64
+       +-- wred-tail-drop-pkts?     uint64
+       +-- wred-tail-drop-bytes?    uint64
+       +-- wred-early-drop-pkts?    uint64
+       +-- wred-early-drop-bytes?   uint64
+  grouping classifier-entry-statistics
+    +-- classified-pkts?    uint64
+    +-- classified-bytes?   uint64
+    +-- classified-rate?    uint64
+  grouping diffserv-target-classifier-statistics-key
+    +-- classifier-entry-name?   string
+    +-- parent-path?             string
+  grouping wred-stats
+    +-- early-drop-pkts?          uint64
+    +-- early-drop-bytes?         uint64
+    +-- mean-queue-depth?         uint16
+    +-- transmitted-pkts?         uint64
+    +-- transmitted-bytes?        uint64
+    +-- tail-drop-pkts?           uint64
+    +-- tail-drop-bytes?          uint64
+    +-- drop-pkts-flow?           uint64
+    +-- drop-pkts-no-buffer?      uint64
+    +-- queue-peak-size-pkts?     uint64
+    +-- queue-peak-size-bytes?    uint64
+    +-- bandwidth-exceed-drops?   uint64
+  grouping cac-stats
+    +-- num-admitted-flows?       uint32
+    +-- num-non-admitted-flows?   uint32
+  grouping queuing-statistics
+    +-- output-pkts?        uint64
+    +-- output-bytes?       uint64
+    +-- queue-size-pkts?    uint64
+    +-- queue-size-bytes?   uint64
+    +-- drop-pkts?          uint64
+    +-- drop-bytes?         uint64
+    +-- wred-stats
+    |  +-- early-drop-pkts?          uint64
+    |  +-- early-drop-bytes?         uint64
+    |  +-- mean-queue-depth?         uint16
+    |  +-- transmitted-pkts?         uint64
+    |  +-- transmitted-bytes?        uint64
+    |  +-- tail-drop-pkts?           uint64
+    |  +-- tail-drop-bytes?          uint64
+    |  +-- drop-pkts-flow?           uint64
+    |  +-- drop-pkts-no-buffer?      uint64
+    |  +-- queue-peak-size-pkts?     uint64
+    |  +-- queue-peak-size-bytes?    uint64
+    |  +-- bandwidth-exceed-drops?   uint64
+    +-- cac-stats
+       +-- num-admitted-flows?       uint32
+       +-- num-non-admitted-flows?   uint32
+  grouping meter-statistics
+    +-- meter-id?              uint16
+    +-- meter-succeed-pkts?    uint64
+    +-- meter-succeed-bytes?   uint64
+    +-- meter-failed-pkts?     uint64
+    +-- meter-failed-bytes?    uint64
+  grouping diffserv-target-classifier-statistics
+    +-- classifier-entry-stats
+    |  +-- classified-pkts?    uint64
+    |  +-- classified-bytes?   uint64
+    |  +-- classified-rate?    uint64
+    +-- meter-stats* [meter-id]
+    |  +-- meter-id?              uint16
+    |  +-- meter-succeed-pkts?    uint64
+    |  +-- meter-succeed-bytes?   uint64
+    |  +-- meter-failed-pkts?     uint64
+    |  +-- meter-failed-bytes?    uint64
+    +-- queuing-stats
+    |  +-- output-pkts?        uint64
+    |  +-- output-bytes?       uint64
+    |  +-- queue-size-pkts?    uint64
+    |  +-- queue-size-bytes?   uint64
+    |  +-- drop-pkts?          uint64
+    |  +-- drop-bytes?         uint64
+    |  +-- wred-stats
+    |  |  +-- early-drop-pkts?          uint64
+    |  |  +-- early-drop-bytes?         uint64
+    |  |  +-- mean-queue-depth?         uint16
+    |  |  +-- transmitted-pkts?         uint64
+    |  |  +-- transmitted-bytes?        uint64
+    |  |  +-- tail-drop-pkts?           uint64
+    |  |  +-- tail-drop-bytes?          uint64
+    |  |  +-- drop-pkts-flow?           uint64
+    |  |  +-- drop-pkts-no-buffer?      uint64
+    |  |  +-- queue-peak-size-pkts?     uint64
+    |  |  +-- queue-peak-size-bytes?    uint64
+    |  |  +-- bandwidth-exceed-drops?   uint64
+    |  +-- cac-stats
+    |     +-- num-admitted-flows?       uint32
+    |     +-- num-non-admitted-flows?   uint32
+    +-- subclass-list* [match-type]
+    |  +-- match-type?               interfaces-ios-xe-oper:qos-match-type
+    |  +-- cos-counters* [cos-min cos-max]
+    |  |  +-- cos-min?                 uint32
+    |  |  +-- cos-max?                 uint32
+    |  |  +-- wred-tx-pkts?            uint64
+    |  |  +-- wred-tx-bytes?           uint64
+    |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  +-- wred-early-drop-bytes?   uint64
+    |  +-- cos-default
+    |  |  +-- wred-tx-pkts?            uint64
+    |  |  +-- wred-tx-bytes?           uint64
+    |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  +-- wred-early-drop-bytes?   uint64
+    |  +-- dscp-counters* [dscp-min dscp-max]
+    |  |  +-- dscp-min?                uint32
+    |  |  +-- dscp-max?                uint32
+    |  |  +-- wred-tx-pkts?            uint64
+    |  |  +-- wred-tx-bytes?           uint64
+    |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  +-- wred-early-drop-bytes?   uint64
+    |  +-- dscp-default
+    |  |  +-- wred-tx-pkts?            uint64
+    |  |  +-- wred-tx-bytes?           uint64
+    |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  +-- wred-early-drop-bytes?   uint64
+    |  +-- discard-class-counters* [disc-class-min disc-class-max]
+    |  |  +-- disc-class-min?          uint32
+    |  |  +-- disc-class-max?          uint32
+    |  |  +-- wred-tx-pkts?            uint64
+    |  |  +-- wred-tx-bytes?           uint64
+    |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  +-- wred-early-drop-bytes?   uint64
+    |  +-- disc-class-default
+    |  |  +-- wred-tx-pkts?            uint64
+    |  |  +-- wred-tx-bytes?           uint64
+    |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  +-- wred-early-drop-bytes?   uint64
+    |  +-- precedence-counters* [prec-min prec-max]
+    |  |  +-- prec-min?                uint32
+    |  |  +-- prec-max?                uint32
+    |  |  +-- wred-tx-pkts?            uint64
+    |  |  +-- wred-tx-bytes?           uint64
+    |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  +-- wred-early-drop-bytes?   uint64
+    |  +-- prec-default
+    |  |  +-- wred-tx-pkts?            uint64
+    |  |  +-- wred-tx-bytes?           uint64
+    |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  +-- wred-early-drop-bytes?   uint64
+    |  +-- mpls-exp-counters* [exp-min exp-max]
+    |  |  +-- exp-min?                 uint32
+    |  |  +-- exp-max?                 uint32
+    |  |  +-- wred-tx-pkts?            uint64
+    |  |  +-- wred-tx-bytes?           uint64
+    |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  +-- wred-early-drop-bytes?   uint64
+    |  +-- mpls-exp-default
+    |  |  +-- wred-tx-pkts?            uint64
+    |  |  +-- wred-tx-bytes?           uint64
+    |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  +-- wred-early-drop-bytes?   uint64
+    |  +-- dei-counters* [dei-min dei-max]
+    |  |  +-- dei-min?                 uint32
+    |  |  +-- dei-max?                 uint32
+    |  |  +-- wred-tx-pkts?            uint64
+    |  |  +-- wred-tx-bytes?           uint64
+    |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  +-- wred-early-drop-bytes?   uint64
+    |  +-- dei-counts-default
+    |  |  +-- wred-tx-pkts?            uint64
+    |  |  +-- wred-tx-bytes?           uint64
+    |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  +-- wred-early-drop-bytes?   uint64
+    |  +-- clp-counters* [clp-val]
+    |  |  +-- clp-val?                 uint32
+    |  |  +-- wred-tx-pkts?            uint64
+    |  |  +-- wred-tx-bytes?           uint64
+    |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  +-- wred-early-drop-bytes?   uint64
+    |  +-- clp-default
+    |     +-- wred-tx-pkts?            uint64
+    |     +-- wred-tx-bytes?           uint64
+    |     +-- wred-tail-drop-pkts?     uint64
+    |     +-- wred-tail-drop-bytes?    uint64
+    |     +-- wred-early-drop-pkts?    uint64
+    |     +-- wred-early-drop-bytes?   uint64
+    +-- marking-stats
+       +-- marking-dscp-stats-val
+       |  +-- dscp?          uint32
+       |  +-- marked-pkts?   uint64
+       +-- marking-dscp-tunnel-stats-val
+       |  +-- dscp-val?      uint32
+       |  +-- marked-pkts?   uint64
+       +-- marking-cos-stats-val
+       |  +-- cos-val?       uint32
+       |  +-- marked-pkts?   uint64
+       +-- marking-cos-inner-stats-val
+       |  +-- cos-inner-val?   uint32
+       |  +-- marked-pkts?     uint64
+       +-- marking-discard-class-stats-val
+       |  +-- disc-class-val?   uint32
+       |  +-- marked-pkts?      uint64
+       +-- marking-qos-grp-stats-val
+       |  +-- qos-grp-val?   uint32
+       |  +-- marked-pkts?   uint64
+       +-- marking-prec-stats-val
+       |  +-- prec-val?      uint32
+       |  +-- marked-pkts?   uint64
+       +-- marking-prec-tunnel-stats-val
+       |  +-- prec-val?      uint32
+       |  +-- marked-pkts?   uint64
+       +-- marking-mpls-exp-imp-stats-val
+       |  +-- mpls-exp-imp-val?   uint32
+       |  +-- marked-pkts?        uint64
+       +-- marking-mpls-exp-top-stats-val
+       |  +-- mpls-exp-top-val?   uint32
+       |  +-- marked-pkts?        uint64
+       +-- marking-fr-de-stats-val
+       |  +-- fr-de?         boolean
+       |  +-- marked-pkts?   uint64
+       +-- marking-fr-fecn-becn-stats-val
+       |  +-- fecn-becn-val?   uint32
+       |  +-- marked-pkts?     uint64
+       +-- marking-atm-clp-stats-val
+       |  +-- atm-clp-val?   uint8
+       |  +-- marked-pkts?   uint64
+       +-- marking-vlan-inner-stats-val
+       |  +-- vlan-inner-val?   uint32
+       |  +-- marked-pkts?      uint64
+       +-- marking-dei-stats-val
+       |  +-- dei-imp-value?   uint32
+       |  +-- marked-pkts?     uint64
+       +-- marking-dei-imp-stats-val
+       |  +-- dei-imp-value?   uint32
+       |  +-- marked-pkts?     uint64
+       +-- marking-srp-priority-stats-val
+       |  +-- srp-priority-value?   uint8
+       |  +-- marked-pkts?          uint64
+       +-- marking-wlan-user-priority-stats-val
+          +-- wlan-user-priority-value?   uint8
+          +-- marked-pkts?                uint64
+  grouping diffserv-target-entry-key
+    +-- direction?     interfaces-ios-xe-oper:qos-direction
+    +-- policy-name?   string
+  grouping agg-priority-stats
+    +-- output-pkts?           uint64
+    +-- output-bytes?          uint64
+    +-- queue-size-pkts?       uint64
+    +-- queue-size-bytes?      uint64
+    +-- drop-pkts?             uint64
+    +-- drop-bytes?            uint64
+    +-- drop-pkts-flow?        uint64
+    +-- drop-pkts-no-buffer?   uint64
+  grouping threshold
+    +-- bytes?                    uint64
+    +-- thresh-size-metric?       uint32
+    +-- unit-val?                 interfaces-ios-xe-oper:thresh-unit
+    +-- threshold-interval?       uint64
+    +-- thresh-interval-metric?   uint32
+    +-- interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+  grouping priority-oper-list
+    +-- priority-level?                  uint16
+    +-- agg-priority-stats
+    |  +-- output-pkts?           uint64
+    |  +-- output-bytes?          uint64
+    |  +-- queue-size-pkts?       uint64
+    |  +-- queue-size-bytes?      uint64
+    |  +-- drop-pkts?             uint64
+    |  +-- drop-bytes?            uint64
+    |  +-- drop-pkts-flow?        uint64
+    |  +-- drop-pkts-no-buffer?   uint64
+    +-- qlimit-default-thresh
+    |  +-- bytes?                    uint64
+    |  +-- thresh-size-metric?       uint32
+    |  +-- unit-val?                 interfaces-ios-xe-oper:thresh-unit
+    |  +-- threshold-interval?       uint64
+    |  +-- thresh-interval-metric?   uint32
+    |  +-- interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+    +-- qlimit-cos-thresh-list* [cos-min cos-max]
+    |  +-- cos-min?                  uint32
+    |  +-- cos-max?                  uint32
+    |  +-- bytes?                    uint64
+    |  +-- thresh-size-metric?       uint32
+    |  +-- unit-val?                 interfaces-ios-xe-oper:thresh-unit
+    |  +-- threshold-interval?       uint64
+    |  +-- thresh-interval-metric?   uint32
+    |  +-- interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+    +-- qlimit-disc-class-thresh-list* [disc-class-min disc-class-max]
+    |  +-- disc-class-min?           uint32
+    |  +-- disc-class-max?           uint32
+    |  +-- bytes?                    uint64
+    |  +-- thresh-size-metric?       uint32
+    |  +-- unit-val?                 interfaces-ios-xe-oper:thresh-unit
+    |  +-- threshold-interval?       uint64
+    |  +-- thresh-interval-metric?   uint32
+    |  +-- interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+    +-- qlimit-qos-grp-thresh-list* [qos-group-min qos-group-max]
+    |  +-- qos-group-min?            uint32
+    |  +-- qos-group-max?            uint32
+    |  +-- bytes?                    uint64
+    |  +-- thresh-size-metric?       uint32
+    |  +-- unit-val?                 interfaces-ios-xe-oper:thresh-unit
+    |  +-- threshold-interval?       uint64
+    |  +-- thresh-interval-metric?   uint32
+    |  +-- interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+    +-- qlimit-mpls-exp-thresh-list* [exp-min exp-max]
+    |  +-- exp-min?                  uint32
+    |  +-- exp-max?                  uint32
+    |  +-- bytes?                    uint64
+    |  +-- thresh-size-metric?       uint32
+    |  +-- unit-val?                 interfaces-ios-xe-oper:thresh-unit
+    |  +-- threshold-interval?       uint64
+    |  +-- thresh-interval-metric?   uint32
+    |  +-- interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+    +-- qlimit-dscp-thresh-list* [dscp-min dscp-max]
+       +-- dscp-min?                 uint32
+       +-- dscp-max?                 uint32
+       +-- bytes?                    uint64
+       +-- thresh-size-metric?       uint32
+       +-- unit-val?                 interfaces-ios-xe-oper:thresh-unit
+       +-- threshold-interval?       uint64
+       +-- thresh-interval-metric?   uint32
+       +-- interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+  grouping diffserv-target-entry
+    +-- diffserv-target-classifier-stats* [classifier-entry-name parent-path]
+    |  +-- classifier-entry-name?    string
+    |  +-- parent-path?              string
+    |  +-- classifier-entry-stats
+    |  |  +-- classified-pkts?    uint64
+    |  |  +-- classified-bytes?   uint64
+    |  |  +-- classified-rate?    uint64
+    |  +-- meter-stats* [meter-id]
+    |  |  +-- meter-id?              uint16
+    |  |  +-- meter-succeed-pkts?    uint64
+    |  |  +-- meter-succeed-bytes?   uint64
+    |  |  +-- meter-failed-pkts?     uint64
+    |  |  +-- meter-failed-bytes?    uint64
+    |  +-- queuing-stats
+    |  |  +-- output-pkts?        uint64
+    |  |  +-- output-bytes?       uint64
+    |  |  +-- queue-size-pkts?    uint64
+    |  |  +-- queue-size-bytes?   uint64
+    |  |  +-- drop-pkts?          uint64
+    |  |  +-- drop-bytes?         uint64
+    |  |  +-- wred-stats
+    |  |  |  +-- early-drop-pkts?          uint64
+    |  |  |  +-- early-drop-bytes?         uint64
+    |  |  |  +-- mean-queue-depth?         uint16
+    |  |  |  +-- transmitted-pkts?         uint64
+    |  |  |  +-- transmitted-bytes?        uint64
+    |  |  |  +-- tail-drop-pkts?           uint64
+    |  |  |  +-- tail-drop-bytes?          uint64
+    |  |  |  +-- drop-pkts-flow?           uint64
+    |  |  |  +-- drop-pkts-no-buffer?      uint64
+    |  |  |  +-- queue-peak-size-pkts?     uint64
+    |  |  |  +-- queue-peak-size-bytes?    uint64
+    |  |  |  +-- bandwidth-exceed-drops?   uint64
+    |  |  +-- cac-stats
+    |  |     +-- num-admitted-flows?       uint32
+    |  |     +-- num-non-admitted-flows?   uint32
+    |  +-- subclass-list* [match-type]
+    |  |  +-- match-type?               interfaces-ios-xe-oper:qos-match-type
+    |  |  +-- cos-counters* [cos-min cos-max]
+    |  |  |  +-- cos-min?                 uint32
+    |  |  |  +-- cos-max?                 uint32
+    |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  +-- cos-default
+    |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  +-- dscp-counters* [dscp-min dscp-max]
+    |  |  |  +-- dscp-min?                uint32
+    |  |  |  +-- dscp-max?                uint32
+    |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  +-- dscp-default
+    |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  +-- discard-class-counters* [disc-class-min disc-class-max]
+    |  |  |  +-- disc-class-min?          uint32
+    |  |  |  +-- disc-class-max?          uint32
+    |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  +-- disc-class-default
+    |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  +-- precedence-counters* [prec-min prec-max]
+    |  |  |  +-- prec-min?                uint32
+    |  |  |  +-- prec-max?                uint32
+    |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  +-- prec-default
+    |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  +-- mpls-exp-counters* [exp-min exp-max]
+    |  |  |  +-- exp-min?                 uint32
+    |  |  |  +-- exp-max?                 uint32
+    |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  +-- mpls-exp-default
+    |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  +-- dei-counters* [dei-min dei-max]
+    |  |  |  +-- dei-min?                 uint32
+    |  |  |  +-- dei-max?                 uint32
+    |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  +-- dei-counts-default
+    |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  +-- clp-counters* [clp-val]
+    |  |  |  +-- clp-val?                 uint32
+    |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  +-- clp-default
+    |  |     +-- wred-tx-pkts?            uint64
+    |  |     +-- wred-tx-bytes?           uint64
+    |  |     +-- wred-tail-drop-pkts?     uint64
+    |  |     +-- wred-tail-drop-bytes?    uint64
+    |  |     +-- wred-early-drop-pkts?    uint64
+    |  |     +-- wred-early-drop-bytes?   uint64
+    |  +-- marking-stats
+    |     +-- marking-dscp-stats-val
+    |     |  +-- dscp?          uint32
+    |     |  +-- marked-pkts?   uint64
+    |     +-- marking-dscp-tunnel-stats-val
+    |     |  +-- dscp-val?      uint32
+    |     |  +-- marked-pkts?   uint64
+    |     +-- marking-cos-stats-val
+    |     |  +-- cos-val?       uint32
+    |     |  +-- marked-pkts?   uint64
+    |     +-- marking-cos-inner-stats-val
+    |     |  +-- cos-inner-val?   uint32
+    |     |  +-- marked-pkts?     uint64
+    |     +-- marking-discard-class-stats-val
+    |     |  +-- disc-class-val?   uint32
+    |     |  +-- marked-pkts?      uint64
+    |     +-- marking-qos-grp-stats-val
+    |     |  +-- qos-grp-val?   uint32
+    |     |  +-- marked-pkts?   uint64
+    |     +-- marking-prec-stats-val
+    |     |  +-- prec-val?      uint32
+    |     |  +-- marked-pkts?   uint64
+    |     +-- marking-prec-tunnel-stats-val
+    |     |  +-- prec-val?      uint32
+    |     |  +-- marked-pkts?   uint64
+    |     +-- marking-mpls-exp-imp-stats-val
+    |     |  +-- mpls-exp-imp-val?   uint32
+    |     |  +-- marked-pkts?        uint64
+    |     +-- marking-mpls-exp-top-stats-val
+    |     |  +-- mpls-exp-top-val?   uint32
+    |     |  +-- marked-pkts?        uint64
+    |     +-- marking-fr-de-stats-val
+    |     |  +-- fr-de?         boolean
+    |     |  +-- marked-pkts?   uint64
+    |     +-- marking-fr-fecn-becn-stats-val
+    |     |  +-- fecn-becn-val?   uint32
+    |     |  +-- marked-pkts?     uint64
+    |     +-- marking-atm-clp-stats-val
+    |     |  +-- atm-clp-val?   uint8
+    |     |  +-- marked-pkts?   uint64
+    |     +-- marking-vlan-inner-stats-val
+    |     |  +-- vlan-inner-val?   uint32
+    |     |  +-- marked-pkts?      uint64
+    |     +-- marking-dei-stats-val
+    |     |  +-- dei-imp-value?   uint32
+    |     |  +-- marked-pkts?     uint64
+    |     +-- marking-dei-imp-stats-val
+    |     |  +-- dei-imp-value?   uint32
+    |     |  +-- marked-pkts?     uint64
+    |     +-- marking-srp-priority-stats-val
+    |     |  +-- srp-priority-value?   uint8
+    |     |  +-- marked-pkts?          uint64
+    |     +-- marking-wlan-user-priority-stats-val
+    |        +-- wlan-user-priority-value?   uint8
+    |        +-- marked-pkts?                uint64
+    +-- priority-oper-list* [priority-level]
+       +-- priority-level?                  uint16
+       +-- agg-priority-stats
+       |  +-- output-pkts?           uint64
+       |  +-- output-bytes?          uint64
+       |  +-- queue-size-pkts?       uint64
+       |  +-- queue-size-bytes?      uint64
+       |  +-- drop-pkts?             uint64
+       |  +-- drop-bytes?            uint64
+       |  +-- drop-pkts-flow?        uint64
+       |  +-- drop-pkts-no-buffer?   uint64
+       +-- qlimit-default-thresh
+       |  +-- bytes?                    uint64
+       |  +-- thresh-size-metric?       uint32
+       |  +-- unit-val?                 interfaces-ios-xe-oper:thresh-unit
+       |  +-- threshold-interval?       uint64
+       |  +-- thresh-interval-metric?   uint32
+       |  +-- interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+       +-- qlimit-cos-thresh-list* [cos-min cos-max]
+       |  +-- cos-min?                  uint32
+       |  +-- cos-max?                  uint32
+       |  +-- bytes?                    uint64
+       |  +-- thresh-size-metric?       uint32
+       |  +-- unit-val?                 interfaces-ios-xe-oper:thresh-unit
+       |  +-- threshold-interval?       uint64
+       |  +-- thresh-interval-metric?   uint32
+       |  +-- interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+       +-- qlimit-disc-class-thresh-list* [disc-class-min disc-class-max]
+       |  +-- disc-class-min?           uint32
+       |  +-- disc-class-max?           uint32
+       |  +-- bytes?                    uint64
+       |  +-- thresh-size-metric?       uint32
+       |  +-- unit-val?                 interfaces-ios-xe-oper:thresh-unit
+       |  +-- threshold-interval?       uint64
+       |  +-- thresh-interval-metric?   uint32
+       |  +-- interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+       +-- qlimit-qos-grp-thresh-list* [qos-group-min qos-group-max]
+       |  +-- qos-group-min?            uint32
+       |  +-- qos-group-max?            uint32
+       |  +-- bytes?                    uint64
+       |  +-- thresh-size-metric?       uint32
+       |  +-- unit-val?                 interfaces-ios-xe-oper:thresh-unit
+       |  +-- threshold-interval?       uint64
+       |  +-- thresh-interval-metric?   uint32
+       |  +-- interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+       +-- qlimit-mpls-exp-thresh-list* [exp-min exp-max]
+       |  +-- exp-min?                  uint32
+       |  +-- exp-max?                  uint32
+       |  +-- bytes?                    uint64
+       |  +-- thresh-size-metric?       uint32
+       |  +-- unit-val?                 interfaces-ios-xe-oper:thresh-unit
+       |  +-- threshold-interval?       uint64
+       |  +-- thresh-interval-metric?   uint32
+       |  +-- interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+       +-- qlimit-dscp-thresh-list* [dscp-min dscp-max]
+          +-- dscp-min?                 uint32
+          +-- dscp-max?                 uint32
+          +-- bytes?                    uint64
+          +-- thresh-size-metric?       uint32
+          +-- unit-val?                 interfaces-ios-xe-oper:thresh-unit
+          +-- threshold-interval?       uint64
+          +-- thresh-interval-metric?   uint32
+          +-- interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+  grouping lag-aggregate-state
+    +-- aggregate-id?   string
+    +-- lag-type?       interfaces-ios-xe-oper:aggregation-type
+    +-- min-links?      uint16
+    +-- lag-speed?      uint32
+    +-- members*        string
+  grouping protocol-statistics
+    +-- in-pkts?                uint64
+    +-- in-octets?              uint64
+    +-- in-error-pkts?          uint64
+    +-- in-forwarded-pkts?      uint64
+    +-- in-forwarded-octets?    uint64
+    +-- in-discarded-pkts?      uint64
+    +-- out-pkts?               uint64
+    +-- out-octets?             uint64
+    +-- out-error-pkts?         uint64
+    +-- out-forwarded-pkts?     uint64
+    +-- out-forwarded-octets?   uint64
+    +-- out-discarded-pkts?     uint64
+  grouping intf-statistics
+    +-- discontinuity-time?   yang:date-and-time
+    +-- in-octets?            uint64
+    +-- in-unicast-pkts?      uint64
+    +-- in-broadcast-pkts?    uint64
+    +-- in-multicast-pkts?    uint64
+    +-- in-discards?          uint32
+    +-- in-errors?            uint32
+    +-- in-unknown-protos?    uint32
+    +-- out-octets?           uint32
+    +-- out-unicast-pkts?     uint64
+    +-- out-broadcast-pkts?   uint64
+    +-- out-multicast-pkts?   uint64
+    +-- out-discards?         uint64
+    +-- out-errors?           uint64
+    +-- rx-pps?               uint64
+    +-- rx-kbps?              uint64
+    +-- tx-pps?               uint64
+    +-- tx-kbps?              uint64
+    +-- num-flaps?            uint64
+    +-- in-crc-errors?        uint64
+  grouping ethernet-state
+    +-- negotiated-duplex-mode?   interfaces-ios-xe-oper:ether-duplex
+    +-- negotiated-port-speed?    interfaces-ios-xe-oper:ether-speed
+    +-- auto-negotiate?           boolean
+    +-- enable-flow-control?      boolean
+  grouping dot3-v2-error-counters
+    +-- dot3-alignment-errors?                  uint64
+    +-- dot3-fcs-errors?                        uint64
+    +-- dot3-single-collision-frames?           uint64
+    +-- dot3-multiple-collision-frames?         uint64
+    +-- dot3-sqe-test-errors?                   uint64
+    +-- dot3-deferred-transmissions?            uint64
+    +-- dot3-late-collisions?                   uint64
+    +-- dot3-excessive-collisions?              uint64
+    +-- dot3-internal-mac-transmit-errors?      uint64
+    +-- dot3-carrier-sense-errors?              uint64
+    +-- dot3-frame-too-longs?                   uint64
+    +-- dot3-internal-mac-receive-errors?       uint64
+    +-- dot3-symbol-errors?                     uint64
+    +-- dot3-duplex-status?                     uint64
+    +-- dot3-hc-alignment-errors?               uint64
+    +-- dot3-hc-inpause-frames?                 uint64
+    +-- dot3-hc-outpause-frames?                uint64
+    +-- dot3-hc-fcs-errors?                     uint64
+    +-- dot3-hc-frame-too-longs?                uint64
+    +-- dot3-hc-internal-mac-transmit-errors?   uint64
+    +-- dot3-hc-internal-mac-receive-errors?    uint64
+    +-- dot3-hc-symbol-errors?                  uint64
+  grouping dot3-counters
+    +-- dot3-stats-version?       interfaces-ios-xe-oper:dot3-stats-versions
+    +-- dot3-error-counters-v2
+       +-- dot3-alignment-errors?                  uint64
+       +-- dot3-fcs-errors?                        uint64
+       +-- dot3-single-collision-frames?           uint64
+       +-- dot3-multiple-collision-frames?         uint64
+       +-- dot3-sqe-test-errors?                   uint64
+       +-- dot3-deferred-transmissions?            uint64
+       +-- dot3-late-collisions?                   uint64
+       +-- dot3-excessive-collisions?              uint64
+       +-- dot3-internal-mac-transmit-errors?      uint64
+       +-- dot3-carrier-sense-errors?              uint64
+       +-- dot3-frame-too-longs?                   uint64
+       +-- dot3-internal-mac-receive-errors?       uint64
+       +-- dot3-symbol-errors?                     uint64
+       +-- dot3-duplex-status?                     uint64
+       +-- dot3-hc-alignment-errors?               uint64
+       +-- dot3-hc-inpause-frames?                 uint64
+       +-- dot3-hc-outpause-frames?                uint64
+       +-- dot3-hc-fcs-errors?                     uint64
+       +-- dot3-hc-frame-too-longs?                uint64
+       +-- dot3-hc-internal-mac-transmit-errors?   uint64
+       +-- dot3-hc-internal-mac-receive-errors?    uint64
+       +-- dot3-hc-symbol-errors?                  uint64
+  grouping ethernet-statistics
+    +-- in-mac-control-frames?     uint64
+    +-- in-mac-pause-frames?       uint64
+    +-- in-oversize-frames?        uint64
+    +-- in-jabber-frames?          uint64
+    +-- in-fragment-frames?        uint64
+    +-- in-8021q-frames?           uint64
+    +-- out-mac-control-frames?    uint64
+    +-- out-mac-pause-frames?      uint64
+    +-- out-8021q-frames?          uint64
+    +-- dot3-counters-supported?   empty
+    +-- dot3-counters
+       +-- dot3-stats-version?       interfaces-ios-xe-oper:dot3-stats-versions
+       +-- dot3-error-counters-v2
+          +-- dot3-alignment-errors?                  uint64
+          +-- dot3-fcs-errors?                        uint64
+          +-- dot3-single-collision-frames?           uint64
+          +-- dot3-multiple-collision-frames?         uint64
+          +-- dot3-sqe-test-errors?                   uint64
+          +-- dot3-deferred-transmissions?            uint64
+          +-- dot3-late-collisions?                   uint64
+          +-- dot3-excessive-collisions?              uint64
+          +-- dot3-internal-mac-transmit-errors?      uint64
+          +-- dot3-carrier-sense-errors?              uint64
+          +-- dot3-frame-too-longs?                   uint64
+          +-- dot3-internal-mac-receive-errors?       uint64
+          +-- dot3-symbol-errors?                     uint64
+          +-- dot3-duplex-status?                     uint64
+          +-- dot3-hc-alignment-errors?               uint64
+          +-- dot3-hc-inpause-frames?                 uint64
+          +-- dot3-hc-outpause-frames?                uint64
+          +-- dot3-hc-fcs-errors?                     uint64
+          +-- dot3-hc-frame-too-longs?                uint64
+          +-- dot3-hc-internal-mac-transmit-errors?   uint64
+          +-- dot3-hc-internal-mac-receive-errors?    uint64
+          +-- dot3-hc-symbol-errors?                  uint64
+  grouping t1e1-serial-state
+    +-- crc-type?   interfaces-ios-xe-oper:serial-crc
+    +-- loopback?   interfaces-ios-xe-oper:t1e1-loopback-mode
+    +-- keeplive?   uint32
+    +-- timeslot?   uint32
+    +-- subrate?    interfaces-ios-xe-oper:subrate-speed
+  grouping t1e1-serial-stats
+    +-- in-abort-clock-error?   uint32
+  grouping dce-state
+    +-- dce-terminal-timing-enable?   boolean
+    +-- ignore-dtr?                   boolean
+    +-- serial-clock-rate?            uint32
+  grouping dte-state
+    +-- tx-invert-clk?        boolean
+    +-- ignore-dcd?           boolean
+    +-- rx-clockrate?         uint32
+    +-- rx-clock-threshold?   uint32
+  grouping sync-serial-state
+    +-- carrier-delay?    uint32
+    +-- dtr-pulse-time?   uint32
+    +-- restart-delay?    uint32
+    +-- cable-type?       string
+    +-- loopback?         boolean
+    +-- nrzi-encoding?    boolean
+    +-- idle-character?   interfaces-ios-xe-oper:idle-character-type
+    +-- rts-signal?       interfaces-ios-xe-oper:signal-status
+    +-- cts-signal?       interfaces-ios-xe-oper:signal-status
+    +-- dtr-signal?       interfaces-ios-xe-oper:signal-status
+    +-- dcd-signal?       interfaces-ios-xe-oper:signal-status
+    +-- dsr-signal?       interfaces-ios-xe-oper:signal-status
+    +-- dce-mode-state
+    |  +-- dce-terminal-timing-enable?   boolean
+    |  +-- ignore-dtr?                   boolean
+    |  +-- serial-clock-rate?            uint32
+    +-- dte-mode-state
+       +-- tx-invert-clk?        boolean
+       +-- ignore-dcd?           boolean
+       +-- rx-clockrate?         uint32
+       +-- rx-clock-threshold?   uint32
+  grouping interface-state
+    +-- name?                           string
+    +-- interface-type?                 interfaces-ios-xe-oper:ietf-intf-type
+    +-- admin-status?                   interfaces-ios-xe-oper:intf-state
+    +-- oper-status?                    interfaces-ios-xe-oper:oper-state
+    +-- last-change?                    yang:date-and-time
+    +-- if-index?                       int32
+    +-- phys-address?                   yang:mac-address
+    +-- higher-layer-if*                string
+    +-- lower-layer-if*                 string
+    +-- speed?                          uint64
+    +-- statistics
+    |  +-- discontinuity-time?   yang:date-and-time
+    |  +-- in-octets?            uint64
+    |  +-- in-unicast-pkts?      uint64
+    |  +-- in-broadcast-pkts?    uint64
+    |  +-- in-multicast-pkts?    uint64
+    |  +-- in-discards?          uint32
+    |  +-- in-errors?            uint32
+    |  +-- in-unknown-protos?    uint32
+    |  +-- out-octets?           uint32
+    |  +-- out-unicast-pkts?     uint64
+    |  +-- out-broadcast-pkts?   uint64
+    |  +-- out-multicast-pkts?   uint64
+    |  +-- out-discards?         uint64
+    |  +-- out-errors?           uint64
+    |  +-- rx-pps?               uint64
+    |  +-- rx-kbps?              uint64
+    |  +-- tx-pps?               uint64
+    |  +-- tx-kbps?              uint64
+    |  +-- num-flaps?            uint64
+    |  +-- in-crc-errors?        uint64
+    +-- diffserv-info* [direction policy-name]
+    |  +-- direction?                          interfaces-ios-xe-oper:qos-direction
+    |  +-- policy-name?                        string
+    |  +-- diffserv-target-classifier-stats* [classifier-entry-name parent-path]
+    |  |  +-- classifier-entry-name?    string
+    |  |  +-- parent-path?              string
+    |  |  +-- classifier-entry-stats
+    |  |  |  +-- classified-pkts?    uint64
+    |  |  |  +-- classified-bytes?   uint64
+    |  |  |  +-- classified-rate?    uint64
+    |  |  +-- meter-stats* [meter-id]
+    |  |  |  +-- meter-id?              uint16
+    |  |  |  +-- meter-succeed-pkts?    uint64
+    |  |  |  +-- meter-succeed-bytes?   uint64
+    |  |  |  +-- meter-failed-pkts?     uint64
+    |  |  |  +-- meter-failed-bytes?    uint64
+    |  |  +-- queuing-stats
+    |  |  |  +-- output-pkts?        uint64
+    |  |  |  +-- output-bytes?       uint64
+    |  |  |  +-- queue-size-pkts?    uint64
+    |  |  |  +-- queue-size-bytes?   uint64
+    |  |  |  +-- drop-pkts?          uint64
+    |  |  |  +-- drop-bytes?         uint64
+    |  |  |  +-- wred-stats
+    |  |  |  |  +-- early-drop-pkts?          uint64
+    |  |  |  |  +-- early-drop-bytes?         uint64
+    |  |  |  |  +-- mean-queue-depth?         uint16
+    |  |  |  |  +-- transmitted-pkts?         uint64
+    |  |  |  |  +-- transmitted-bytes?        uint64
+    |  |  |  |  +-- tail-drop-pkts?           uint64
+    |  |  |  |  +-- tail-drop-bytes?          uint64
+    |  |  |  |  +-- drop-pkts-flow?           uint64
+    |  |  |  |  +-- drop-pkts-no-buffer?      uint64
+    |  |  |  |  +-- queue-peak-size-pkts?     uint64
+    |  |  |  |  +-- queue-peak-size-bytes?    uint64
+    |  |  |  |  +-- bandwidth-exceed-drops?   uint64
+    |  |  |  +-- cac-stats
+    |  |  |     +-- num-admitted-flows?       uint32
+    |  |  |     +-- num-non-admitted-flows?   uint32
+    |  |  +-- subclass-list* [match-type]
+    |  |  |  +-- match-type?               interfaces-ios-xe-oper:qos-match-type
+    |  |  |  +-- cos-counters* [cos-min cos-max]
+    |  |  |  |  +-- cos-min?                 uint32
+    |  |  |  |  +-- cos-max?                 uint32
+    |  |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  |  +-- cos-default
+    |  |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  |  +-- dscp-counters* [dscp-min dscp-max]
+    |  |  |  |  +-- dscp-min?                uint32
+    |  |  |  |  +-- dscp-max?                uint32
+    |  |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  |  +-- dscp-default
+    |  |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  |  +-- discard-class-counters* [disc-class-min disc-class-max]
+    |  |  |  |  +-- disc-class-min?          uint32
+    |  |  |  |  +-- disc-class-max?          uint32
+    |  |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  |  +-- disc-class-default
+    |  |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  |  +-- precedence-counters* [prec-min prec-max]
+    |  |  |  |  +-- prec-min?                uint32
+    |  |  |  |  +-- prec-max?                uint32
+    |  |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  |  +-- prec-default
+    |  |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  |  +-- mpls-exp-counters* [exp-min exp-max]
+    |  |  |  |  +-- exp-min?                 uint32
+    |  |  |  |  +-- exp-max?                 uint32
+    |  |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  |  +-- mpls-exp-default
+    |  |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  |  +-- dei-counters* [dei-min dei-max]
+    |  |  |  |  +-- dei-min?                 uint32
+    |  |  |  |  +-- dei-max?                 uint32
+    |  |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  |  +-- dei-counts-default
+    |  |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  |  +-- clp-counters* [clp-val]
+    |  |  |  |  +-- clp-val?                 uint32
+    |  |  |  |  +-- wred-tx-pkts?            uint64
+    |  |  |  |  +-- wred-tx-bytes?           uint64
+    |  |  |  |  +-- wred-tail-drop-pkts?     uint64
+    |  |  |  |  +-- wred-tail-drop-bytes?    uint64
+    |  |  |  |  +-- wred-early-drop-pkts?    uint64
+    |  |  |  |  +-- wred-early-drop-bytes?   uint64
+    |  |  |  +-- clp-default
+    |  |  |     +-- wred-tx-pkts?            uint64
+    |  |  |     +-- wred-tx-bytes?           uint64
+    |  |  |     +-- wred-tail-drop-pkts?     uint64
+    |  |  |     +-- wred-tail-drop-bytes?    uint64
+    |  |  |     +-- wred-early-drop-pkts?    uint64
+    |  |  |     +-- wred-early-drop-bytes?   uint64
+    |  |  +-- marking-stats
+    |  |     +-- marking-dscp-stats-val
+    |  |     |  +-- dscp?          uint32
+    |  |     |  +-- marked-pkts?   uint64
+    |  |     +-- marking-dscp-tunnel-stats-val
+    |  |     |  +-- dscp-val?      uint32
+    |  |     |  +-- marked-pkts?   uint64
+    |  |     +-- marking-cos-stats-val
+    |  |     |  +-- cos-val?       uint32
+    |  |     |  +-- marked-pkts?   uint64
+    |  |     +-- marking-cos-inner-stats-val
+    |  |     |  +-- cos-inner-val?   uint32
+    |  |     |  +-- marked-pkts?     uint64
+    |  |     +-- marking-discard-class-stats-val
+    |  |     |  +-- disc-class-val?   uint32
+    |  |     |  +-- marked-pkts?      uint64
+    |  |     +-- marking-qos-grp-stats-val
+    |  |     |  +-- qos-grp-val?   uint32
+    |  |     |  +-- marked-pkts?   uint64
+    |  |     +-- marking-prec-stats-val
+    |  |     |  +-- prec-val?      uint32
+    |  |     |  +-- marked-pkts?   uint64
+    |  |     +-- marking-prec-tunnel-stats-val
+    |  |     |  +-- prec-val?      uint32
+    |  |     |  +-- marked-pkts?   uint64
+    |  |     +-- marking-mpls-exp-imp-stats-val
+    |  |     |  +-- mpls-exp-imp-val?   uint32
+    |  |     |  +-- marked-pkts?        uint64
+    |  |     +-- marking-mpls-exp-top-stats-val
+    |  |     |  +-- mpls-exp-top-val?   uint32
+    |  |     |  +-- marked-pkts?        uint64
+    |  |     +-- marking-fr-de-stats-val
+    |  |     |  +-- fr-de?         boolean
+    |  |     |  +-- marked-pkts?   uint64
+    |  |     +-- marking-fr-fecn-becn-stats-val
+    |  |     |  +-- fecn-becn-val?   uint32
+    |  |     |  +-- marked-pkts?     uint64
+    |  |     +-- marking-atm-clp-stats-val
+    |  |     |  +-- atm-clp-val?   uint8
+    |  |     |  +-- marked-pkts?   uint64
+    |  |     +-- marking-vlan-inner-stats-val
+    |  |     |  +-- vlan-inner-val?   uint32
+    |  |     |  +-- marked-pkts?      uint64
+    |  |     +-- marking-dei-stats-val
+    |  |     |  +-- dei-imp-value?   uint32
+    |  |     |  +-- marked-pkts?     uint64
+    |  |     +-- marking-dei-imp-stats-val
+    |  |     |  +-- dei-imp-value?   uint32
+    |  |     |  +-- marked-pkts?     uint64
+    |  |     +-- marking-srp-priority-stats-val
+    |  |     |  +-- srp-priority-value?   uint8
+    |  |     |  +-- marked-pkts?          uint64
+    |  |     +-- marking-wlan-user-priority-stats-val
+    |  |        +-- wlan-user-priority-value?   uint8
+    |  |        +-- marked-pkts?                uint64
+    |  +-- priority-oper-list* [priority-level]
+    |     +-- priority-level?                  uint16
+    |     +-- agg-priority-stats
+    |     |  +-- output-pkts?           uint64
+    |     |  +-- output-bytes?          uint64
+    |     |  +-- queue-size-pkts?       uint64
+    |     |  +-- queue-size-bytes?      uint64
+    |     |  +-- drop-pkts?             uint64
+    |     |  +-- drop-bytes?            uint64
+    |     |  +-- drop-pkts-flow?        uint64
+    |     |  +-- drop-pkts-no-buffer?   uint64
+    |     +-- qlimit-default-thresh
+    |     |  +-- bytes?                    uint64
+    |     |  +-- thresh-size-metric?       uint32
+    |     |  +-- unit-val?                 interfaces-ios-xe-oper:thresh-unit
+    |     |  +-- threshold-interval?       uint64
+    |     |  +-- thresh-interval-metric?   uint32
+    |     |  +-- interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+    |     +-- qlimit-cos-thresh-list* [cos-min cos-max]
+    |     |  +-- cos-min?                  uint32
+    |     |  +-- cos-max?                  uint32
+    |     |  +-- bytes?                    uint64
+    |     |  +-- thresh-size-metric?       uint32
+    |     |  +-- unit-val?                 interfaces-ios-xe-oper:thresh-unit
+    |     |  +-- threshold-interval?       uint64
+    |     |  +-- thresh-interval-metric?   uint32
+    |     |  +-- interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+    |     +-- qlimit-disc-class-thresh-list* [disc-class-min disc-class-max]
+    |     |  +-- disc-class-min?           uint32
+    |     |  +-- disc-class-max?           uint32
+    |     |  +-- bytes?                    uint64
+    |     |  +-- thresh-size-metric?       uint32
+    |     |  +-- unit-val?                 interfaces-ios-xe-oper:thresh-unit
+    |     |  +-- threshold-interval?       uint64
+    |     |  +-- thresh-interval-metric?   uint32
+    |     |  +-- interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+    |     +-- qlimit-qos-grp-thresh-list* [qos-group-min qos-group-max]
+    |     |  +-- qos-group-min?            uint32
+    |     |  +-- qos-group-max?            uint32
+    |     |  +-- bytes?                    uint64
+    |     |  +-- thresh-size-metric?       uint32
+    |     |  +-- unit-val?                 interfaces-ios-xe-oper:thresh-unit
+    |     |  +-- threshold-interval?       uint64
+    |     |  +-- thresh-interval-metric?   uint32
+    |     |  +-- interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+    |     +-- qlimit-mpls-exp-thresh-list* [exp-min exp-max]
+    |     |  +-- exp-min?                  uint32
+    |     |  +-- exp-max?                  uint32
+    |     |  +-- bytes?                    uint64
+    |     |  +-- thresh-size-metric?       uint32
+    |     |  +-- unit-val?                 interfaces-ios-xe-oper:thresh-unit
+    |     |  +-- threshold-interval?       uint64
+    |     |  +-- thresh-interval-metric?   uint32
+    |     |  +-- interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+    |     +-- qlimit-dscp-thresh-list* [dscp-min dscp-max]
+    |        +-- dscp-min?                 uint32
+    |        +-- dscp-max?                 uint32
+    |        +-- bytes?                    uint64
+    |        +-- thresh-size-metric?       uint32
+    |        +-- unit-val?                 interfaces-ios-xe-oper:thresh-unit
+    |        +-- threshold-interval?       uint64
+    |        +-- thresh-interval-metric?   uint32
+    |        +-- interval-unit-val?        interfaces-ios-xe-oper:thresh-unit
+    +-- vrf?                            string
+    +-- ipv4?                           inet:ip-address
+    +-- ipv4-subnet-mask?               inet:ip-address
+    +-- description?                    string
+    +-- mtu?                            uint32
+    +-- input-security-acl?             string
+    +-- output-security-acl?            string
+    +-- v4-protocol-stats
+    |  +-- in-pkts?                uint64
+    |  +-- in-octets?              uint64
+    |  +-- in-error-pkts?          uint64
+    |  +-- in-forwarded-pkts?      uint64
+    |  +-- in-forwarded-octets?    uint64
+    |  +-- in-discarded-pkts?      uint64
+    |  +-- out-pkts?               uint64
+    |  +-- out-octets?             uint64
+    |  +-- out-error-pkts?         uint64
+    |  +-- out-forwarded-pkts?     uint64
+    |  +-- out-forwarded-octets?   uint64
+    |  +-- out-discarded-pkts?     uint64
+    +-- v6-protocol-stats
+    |  +-- in-pkts?                uint64
+    |  +-- in-octets?              uint64
+    |  +-- in-error-pkts?          uint64
+    |  +-- in-forwarded-pkts?      uint64
+    |  +-- in-forwarded-octets?    uint64
+    |  +-- in-discarded-pkts?      uint64
+    |  +-- out-pkts?               uint64
+    |  +-- out-octets?             uint64
+    |  +-- out-error-pkts?         uint64
+    |  +-- out-forwarded-pkts?     uint64
+    |  +-- out-forwarded-octets?   uint64
+    |  +-- out-discarded-pkts?     uint64
+    +-- bia-address?                    yang:mac-address
+    +-- ipv6-addrs*                     inet:ip-address
+    +-- lag-aggregate-state* [aggregate-id]
+    |  +-- aggregate-id?   string
+    |  +-- lag-type?       interfaces-ios-xe-oper:aggregation-type
+    |  +-- min-links?      uint16
+    |  +-- lag-speed?      uint32
+    |  +-- members*        string
+    +-- ipv4-tcp-adjust-mss?            uint16
+    +-- ipv6-tcp-adjust-mss?            uint16
+    +-- (interface-class-choice)?
+       +--:(interface-class-ethernet)
+       |  +-- ether-state
+       |  |  +-- negotiated-duplex-mode?   interfaces-ios-xe-oper:ether-duplex
+       |  |  +-- negotiated-port-speed?    interfaces-ios-xe-oper:ether-speed
+       |  |  +-- auto-negotiate?           boolean
+       |  |  +-- enable-flow-control?      boolean
+       |  +-- ether-stats
+       |     +-- in-mac-control-frames?     uint64
+       |     +-- in-mac-pause-frames?       uint64
+       |     +-- in-oversize-frames?        uint64
+       |     +-- in-jabber-frames?          uint64
+       |     +-- in-fragment-frames?        uint64
+       |     +-- in-8021q-frames?           uint64
+       |     +-- out-mac-control-frames?    uint64
+       |     +-- out-mac-pause-frames?      uint64
+       |     +-- out-8021q-frames?          uint64
+       |     +-- dot3-counters-supported?   empty
+       |     +-- dot3-counters
+       |        +-- dot3-stats-version?       interfaces-ios-xe-oper:dot3-stats-versions
+       |        +-- dot3-error-counters-v2
+       |           +-- dot3-alignment-errors?                  uint64
+       |           +-- dot3-fcs-errors?                        uint64
+       |           +-- dot3-single-collision-frames?           uint64
+       |           +-- dot3-multiple-collision-frames?         uint64
+       |           +-- dot3-sqe-test-errors?                   uint64
+       |           +-- dot3-deferred-transmissions?            uint64
+       |           +-- dot3-late-collisions?                   uint64
+       |           +-- dot3-excessive-collisions?              uint64
+       |           +-- dot3-internal-mac-transmit-errors?      uint64
+       |           +-- dot3-carrier-sense-errors?              uint64
+       |           +-- dot3-frame-too-longs?                   uint64
+       |           +-- dot3-internal-mac-receive-errors?       uint64
+       |           +-- dot3-symbol-errors?                     uint64
+       |           +-- dot3-duplex-status?                     uint64
+       |           +-- dot3-hc-alignment-errors?               uint64
+       |           +-- dot3-hc-inpause-frames?                 uint64
+       |           +-- dot3-hc-outpause-frames?                uint64
+       |           +-- dot3-hc-fcs-errors?                     uint64
+       |           +-- dot3-hc-frame-too-longs?                uint64
+       |           +-- dot3-hc-internal-mac-transmit-errors?   uint64
+       |           +-- dot3-hc-internal-mac-receive-errors?    uint64
+       |           +-- dot3-hc-symbol-errors?                  uint64
+       +--:(interface-class-t1e1serial)
+       |  +-- serial-state
+       |  |  +-- crc-type?   interfaces-ios-xe-oper:serial-crc
+       |  |  +-- loopback?   interfaces-ios-xe-oper:t1e1-loopback-mode
+       |  |  +-- keeplive?   uint32
+       |  |  +-- timeslot?   uint32
+       |  |  +-- subrate?    interfaces-ios-xe-oper:subrate-speed
+       |  +-- serial-stats
+       |     +-- in-abort-clock-error?   uint32
+       +--:(interface-class-unspecified)
+       |  +-- intf-class-unspecified?   boolean
+       +--:(interface-class-syncserial)
+          +-- syncserial-state
+             +-- carrier-delay?    uint32
+             +-- dtr-pulse-time?   uint32
+             +-- restart-delay?    uint32
+             +-- cable-type?       string
+             +-- loopback?         boolean
+             +-- nrzi-encoding?    boolean
+             +-- idle-character?   interfaces-ios-xe-oper:idle-character-type
+             +-- rts-signal?       interfaces-ios-xe-oper:signal-status
+             +-- cts-signal?       interfaces-ios-xe-oper:signal-status
+             +-- dtr-signal?       interfaces-ios-xe-oper:signal-status
+             +-- dcd-signal?       interfaces-ios-xe-oper:signal-status
+             +-- dsr-signal?       interfaces-ios-xe-oper:signal-status
+             +-- dce-mode-state
+             |  +-- dce-terminal-timing-enable?   boolean
+             |  +-- ignore-dtr?                   boolean
+             |  +-- serial-clock-rate?            uint32
+             +-- dte-mode-state
+                +-- tx-invert-clk?        boolean
+                +-- ignore-dcd?           boolean
+                +-- rx-clockrate?         uint32
+                +-- rx-clock-threshold?   uint32

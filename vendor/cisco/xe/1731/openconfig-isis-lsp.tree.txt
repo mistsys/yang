@@ -1,0 +1,1403 @@
+submodule: openconfig-isis-lsp (belongs-to openconfig-isis)
+
+  grouping isis-lsdb-link-characteristics-a-bit
+    +-- a-bit?   boolean
+  grouping isis-lsdb-tlv-nlpid-state
+    +-- nlpid?   enumeration
+  grouping isis-lsdb-subtlv-type-state
+    +-- subtlv-type?   identityref
+  grouping isis-lsdb-tlv-type-state
+    +-- type?   identityref
+  grouping is-reachability-neighbor-state
+    +-- subTLVs
+    |  +-- subTLVs* [subtlv-type]
+    |     +-- subtlv-type?                     -> ../state/subtlv-type
+    |     +-- state
+    |     |  +-- subtlv-type?   identityref
+    |     +-- admin-group
+    |     |  +-- state
+    |     |     +-- subtlv-type?   identityref
+    |     |     +-- admin-group*   uint32
+    |     +-- ipv4-interface-address
+    |     |  +-- state
+    |     |     +-- subtlv-type?              identityref
+    |     |     +-- ipv4-interface-address*   inet:ipv4-address-no-zone
+    |     +-- ipv4-neighbor-address
+    |     |  +-- state
+    |     |     +-- subtlv-type?             identityref
+    |     |     +-- ipv4-neighbor-address*   inet:ipv4-address-no-zone
+    |     +-- max-link-bandwidth
+    |     |  +-- state
+    |     |     +-- subtlv-type?          identityref
+    |     |     +-- max-link-bandwidth?   oc-types:ieeefloat32
+    |     +-- max-reservable-link-bandwidth
+    |     |  +-- state
+    |     |     +-- subtlv-type?                     identityref
+    |     |     +-- max-reservable-link-bandwidth?   oc-types:ieeefloat32
+    |     +-- unreserved-bandwidth
+    |     |  +-- setup-priority* []
+    |     |     +-- state
+    |     |        +-- setup-priority?         uint8
+    |     |        +-- subtlv-type?            identityref
+    |     |        +-- unreserved-bandwidth?   oc-types:ieeefloat32
+    |     +-- ipv6-interface-address
+    |     |  +-- state
+    |     |     +-- subtlv-type?              identityref
+    |     |     +-- ipv6-interface-address*   inet:ipv6-address
+    |     +-- ipv6-neighbor-address
+    |     |  +-- state
+    |     |     +-- subtlv-type?             identityref
+    |     |     +-- ipv6-neighbor-address*   inet:ipv6-address
+    |     +-- extended-admin-group
+    |     |  +-- state
+    |     |     +-- subtlv-type?            identityref
+    |     |     +-- extended-admin-group?   uint32
+    |     +-- te-default-metric
+    |     |  +-- state
+    |     |     +-- subtlv-type?         identityref
+    |     |     +-- te-default-metric?   uint32
+    |     +-- link-attributes
+    |     |  +-- state
+    |     |     +-- subtlv-type?        identityref
+    |     |     +-- local-protection*   enumeration
+    |     +-- link-protection-type
+    |     |  +-- state
+    |     |     +-- subtlv-type?            identityref
+    |     |     +-- link-protection-type*   enumeration
+    |     +-- bandwidth-constraints
+    |     |  +-- state
+    |     |     +-- subtlv-type?             identityref
+    |     |     +-- model-id?                uint8
+    |     |     +-- reserved?                uint32
+    |     |     +-- bandwidth-constraints*   oc-types:ieeefloat32
+    |     +-- unconstrained-lsp
+    |     |  +-- state
+    |     |     +-- subtlv-type?         identityref
+    |     |     +-- unconstrained-lsp?   uint16
+    |     +-- adjacency-sid
+    |     |  +-- sid* []
+    |     |     +-- state
+    |     |        +-- value?    uint32
+    |     |        +-- flags*    enumeration
+    |     |        +-- weight?   uint8
+    |     +-- lan-adjacency-sid
+    |     |  +-- sid* []
+    |     |     +-- state
+    |     |        +-- value?         uint32
+    |     |        +-- flags*         enumeration
+    |     |        +-- weight?        uint8
+    |     |        +-- neighbor-id?   oc-isis-types:system-id
+    |     +-- link-delay
+    |     |  +-- state
+    |     |     +-- subtlv-type?   identityref
+    |     |     +-- a-bit?         boolean
+    |     |     +-- delay?         uint32
+    |     +-- min-max-link-delay
+    |     |  +-- state
+    |     |     +-- subtlv-type?   identityref
+    |     |     +-- a-bit?         boolean
+    |     |     +-- min-delay?     uint32
+    |     |     +-- max-delay?     uint32
+    |     +-- link-delay-variation
+    |     |  +-- state
+    |     |     +-- subtlv-type?   identityref
+    |     |     +-- delay?         uint32
+    |     +-- link-loss
+    |     |  +-- state
+    |     |     +-- subtlv-type?   identityref
+    |     |     +-- a-bit?         boolean
+    |     |     +-- link-loss?     uint32
+    |     +-- residual-bandwidth
+    |     |  +-- state
+    |     |     +-- subtlv-type?          identityref
+    |     |     +-- residual-bandwidth?   oc-types:ieeefloat32
+    |     +-- available-bandwidth
+    |     |  +-- state
+    |     |     +-- subtlv-type?           identityref
+    |     |     +-- available-bandwidth?   oc-types:ieeefloat32
+    |     +-- utilized-bandwidth
+    |        +-- state
+    |           +-- subtlv-type?          identityref
+    |           +-- utilized-bandwidth?   oc-types:ieeefloat32
+    +-- undefined-subtlvs
+       +-- undefined-subtlv* [type]
+          +-- type?    -> ../state/type
+          +-- state
+             +-- type?     uint8
+             +-- length?   uint8
+             +-- value?    binary
+  grouping isis-lsdb-undefined-tlv
+    +-- undefined-tlvs
+       +-- undefined-tlv* [type]
+          +-- type?    -> ../state/type
+          +-- state
+             +-- type?     uint8
+             +-- length?   uint8
+             +-- value?    binary
+  grouping isis-lsdb-undefined-subtlv
+    +-- undefined-subtlvs
+       +-- undefined-subtlv* [type]
+          +-- type?    -> ../state/type
+          +-- state
+             +-- type?     uint8
+             +-- length?   uint8
+             +-- value?    binary
+  grouping isis-lsdb-prefix-state
+    +-- subTLVs
+    |  +-- subTLVs* [subtlv-type]
+    |     +-- subtlv-type?             -> ../state/subtlv-type
+    |     +-- state
+    |     |  +-- subtlv-type?   identityref
+    |     +-- tag
+    |     |  +-- state
+    |     |     +-- subtlv-type?   identityref
+    |     |     +-- tag32*         uint32
+    |     +-- tag64
+    |     |  +-- state
+    |     |     +-- subtlv-type?   identityref
+    |     |     +-- tag64*         uint64
+    |     +-- flags
+    |     |  +-- state
+    |     |     +-- subtlv-type?   identityref
+    |     |     +-- flags*         enumeration
+    |     +-- ipv4-source-router-id
+    |     |  +-- state
+    |     |     +-- subtlv-type?             identityref
+    |     |     +-- ipv4-source-router-id?   inet:ipv4-address-no-zone
+    |     +-- ipv6-source-router-id
+    |     |  +-- state
+    |     |     +-- subtlv-type?             identityref
+    |     |     +-- ipv6-source-router-id?   inet:ipv6-address
+    |     +-- prefix-sid
+    |        +-- sid* []
+    |           +-- state
+    |              +-- subtlv-type?   identityref
+    |              +-- value?         uint32
+    |              +-- flags*         enumeration
+    |              +-- algorithm?     uint8
+    +-- undefined-subtlvs
+       +-- undefined-subtlv* [type]
+          +-- type?    -> ../state/type
+          +-- state
+             +-- type?     uint8
+             +-- length?   uint8
+             +-- value?    binary
+  grouping isis-lsdb-prefix-sid-state
+    +-- prefix-sid
+       +-- sid* []
+          +-- state
+             +-- subtlv-type?   identityref
+             +-- value?         uint32
+             +-- flags*         enumeration
+             +-- algorithm?     uint8
+  grouping isis-lsdb-adjacency-sid-state
+    +-- adjacency-sid
+       +-- sid* []
+          +-- state
+             +-- value?    uint32
+             +-- flags*    enumeration
+             +-- weight?   uint8
+  grouping isis-lsdb-lan-adjacency-sid-state
+    +-- lan-adjacency-sid
+       +-- sid* []
+          +-- state
+             +-- value?         uint32
+             +-- flags*         enumeration
+             +-- weight?        uint8
+             +-- neighbor-id?   oc-isis-types:system-id
+  grouping isis-lsdb-common-metric-specification
+    +-- default-metric
+    |  +-- state
+    |     +-- flags?            enumeration
+    |     +-- default-metric?   oc-isis-types:narrow-metric
+    +-- delay-metric
+    |  +-- state
+    |     +-- metric?   oc-isis-types:narrow-metric
+    |     +-- flags*    isis-metric-flags
+    +-- expense-metric
+    |  +-- state
+    |     +-- metric?   oc-isis-types:narrow-metric
+    |     +-- flags*    isis-metric-flags
+    +-- error-metric
+       +-- state
+          +-- metric?   oc-isis-types:narrow-metric
+          +-- flags*    isis-metric-flags
+  grouping isis-lsdb-neighbor
+    +-- state
+    |  +-- system-id?   oc-isis-types:system-id
+    +-- default-metric
+    |  +-- state
+    |     +-- flags?            enumeration
+    |     +-- default-metric?   oc-isis-types:narrow-metric
+    +-- delay-metric
+    |  +-- state
+    |     +-- metric?   oc-isis-types:narrow-metric
+    |     +-- flags*    isis-metric-flags
+    +-- expense-metric
+    |  +-- state
+    |     +-- metric?   oc-isis-types:narrow-metric
+    |     +-- flags*    isis-metric-flags
+    +-- error-metric
+       +-- state
+          +-- metric?   oc-isis-types:narrow-metric
+          +-- flags*    isis-metric-flags
+  grouping ipv4-prefix-attributes-state
+    +-- state
+    |  +-- up-down?       boolean
+    |  +-- ipv4-prefix?   inet:ipv4-prefix
+    +-- default-metric
+    |  +-- state
+    |     +-- flags?            enumeration
+    |     +-- default-metric?   oc-isis-types:narrow-metric
+    +-- delay-metric
+    |  +-- state
+    |     +-- metric?   oc-isis-types:narrow-metric
+    |     +-- flags*    isis-metric-flags
+    +-- expense-metric
+    |  +-- state
+    |     +-- metric?   oc-isis-types:narrow-metric
+    |     +-- flags*    isis-metric-flags
+    +-- error-metric
+       +-- state
+          +-- metric?   oc-isis-types:narrow-metric
+          +-- flags*    isis-metric-flags
+  grouping ipv4-prefix-extended-state
+    +-- state
+    |  +-- up-down?       boolean
+    |  +-- s-bit?         boolean
+    |  +-- ipv4-prefix?   inet:ipv4-prefix
+    |  +-- metric?        oc-isis-types:wide-metric
+    +-- subTLVs
+    |  +-- subTLVs* [subtlv-type]
+    |     +-- subtlv-type?             -> ../state/subtlv-type
+    |     +-- state
+    |     |  +-- subtlv-type?   identityref
+    |     +-- tag
+    |     |  +-- state
+    |     |     +-- subtlv-type?   identityref
+    |     |     +-- tag32*         uint32
+    |     +-- tag64
+    |     |  +-- state
+    |     |     +-- subtlv-type?   identityref
+    |     |     +-- tag64*         uint64
+    |     +-- flags
+    |     |  +-- state
+    |     |     +-- subtlv-type?   identityref
+    |     |     +-- flags*         enumeration
+    |     +-- ipv4-source-router-id
+    |     |  +-- state
+    |     |     +-- subtlv-type?             identityref
+    |     |     +-- ipv4-source-router-id?   inet:ipv4-address-no-zone
+    |     +-- ipv6-source-router-id
+    |     |  +-- state
+    |     |     +-- subtlv-type?             identityref
+    |     |     +-- ipv6-source-router-id?   inet:ipv6-address
+    |     +-- prefix-sid
+    |        +-- sid* []
+    |           +-- state
+    |              +-- subtlv-type?   identityref
+    |              +-- value?         uint32
+    |              +-- flags*         enumeration
+    |              +-- algorithm?     uint8
+    +-- undefined-subtlvs
+       +-- undefined-subtlv* [type]
+          +-- type?    -> ../state/type
+          +-- state
+             +-- type?     uint8
+             +-- length?   uint8
+             +-- value?    binary
+  grouping ipv6-prefix-extended-state
+    +-- state
+    |  +-- up-down?       boolean
+    |  +-- x-bit?         boolean
+    |  +-- s-bit?         boolean
+    |  +-- ipv6-prefix?   inet:ipv6-prefix
+    |  +-- metric?        oc-isis-types:wide-metric
+    +-- subTLVs
+    |  +-- subTLVs* [subtlv-type]
+    |     +-- subtlv-type?             -> ../state/subtlv-type
+    |     +-- state
+    |     |  +-- subtlv-type?   identityref
+    |     +-- tag
+    |     |  +-- state
+    |     |     +-- subtlv-type?   identityref
+    |     |     +-- tag32*         uint32
+    |     +-- tag64
+    |     |  +-- state
+    |     |     +-- subtlv-type?   identityref
+    |     |     +-- tag64*         uint64
+    |     +-- flags
+    |     |  +-- state
+    |     |     +-- subtlv-type?   identityref
+    |     |     +-- flags*         enumeration
+    |     +-- ipv4-source-router-id
+    |     |  +-- state
+    |     |     +-- subtlv-type?             identityref
+    |     |     +-- ipv4-source-router-id?   inet:ipv4-address-no-zone
+    |     +-- ipv6-source-router-id
+    |     |  +-- state
+    |     |     +-- subtlv-type?             identityref
+    |     |     +-- ipv6-source-router-id?   inet:ipv6-address
+    |     +-- prefix-sid
+    |        +-- sid* []
+    |           +-- state
+    |              +-- subtlv-type?   identityref
+    |              +-- value?         uint32
+    |              +-- flags*         enumeration
+    |              +-- algorithm?     uint8
+    +-- undefined-subtlvs
+       +-- undefined-subtlv* [type]
+          +-- type?    -> ../state/type
+          +-- state
+             +-- type?     uint8
+             +-- length?   uint8
+             +-- value?    binary
+  grouping mt-isis-neighbor
+    +-- state
+    |  +-- mt-id?       uint16
+    |  +-- system-id?   oc-isis-types:system-id
+    |  +-- metric?      oc-isis-types:wide-metric
+    +-- subTLVs
+    |  +-- subTLVs* [subtlv-type]
+    |     +-- subtlv-type?                     -> ../state/subtlv-type
+    |     +-- state
+    |     |  +-- subtlv-type?   identityref
+    |     +-- admin-group
+    |     |  +-- state
+    |     |     +-- subtlv-type?   identityref
+    |     |     +-- admin-group*   uint32
+    |     +-- ipv4-interface-address
+    |     |  +-- state
+    |     |     +-- subtlv-type?              identityref
+    |     |     +-- ipv4-interface-address*   inet:ipv4-address-no-zone
+    |     +-- ipv4-neighbor-address
+    |     |  +-- state
+    |     |     +-- subtlv-type?             identityref
+    |     |     +-- ipv4-neighbor-address*   inet:ipv4-address-no-zone
+    |     +-- max-link-bandwidth
+    |     |  +-- state
+    |     |     +-- subtlv-type?          identityref
+    |     |     +-- max-link-bandwidth?   oc-types:ieeefloat32
+    |     +-- max-reservable-link-bandwidth
+    |     |  +-- state
+    |     |     +-- subtlv-type?                     identityref
+    |     |     +-- max-reservable-link-bandwidth?   oc-types:ieeefloat32
+    |     +-- unreserved-bandwidth
+    |     |  +-- setup-priority* []
+    |     |     +-- state
+    |     |        +-- setup-priority?         uint8
+    |     |        +-- subtlv-type?            identityref
+    |     |        +-- unreserved-bandwidth?   oc-types:ieeefloat32
+    |     +-- ipv6-interface-address
+    |     |  +-- state
+    |     |     +-- subtlv-type?              identityref
+    |     |     +-- ipv6-interface-address*   inet:ipv6-address
+    |     +-- ipv6-neighbor-address
+    |     |  +-- state
+    |     |     +-- subtlv-type?             identityref
+    |     |     +-- ipv6-neighbor-address*   inet:ipv6-address
+    |     +-- extended-admin-group
+    |     |  +-- state
+    |     |     +-- subtlv-type?            identityref
+    |     |     +-- extended-admin-group?   uint32
+    |     +-- te-default-metric
+    |     |  +-- state
+    |     |     +-- subtlv-type?         identityref
+    |     |     +-- te-default-metric?   uint32
+    |     +-- link-attributes
+    |     |  +-- state
+    |     |     +-- subtlv-type?        identityref
+    |     |     +-- local-protection*   enumeration
+    |     +-- link-protection-type
+    |     |  +-- state
+    |     |     +-- subtlv-type?            identityref
+    |     |     +-- link-protection-type*   enumeration
+    |     +-- bandwidth-constraints
+    |     |  +-- state
+    |     |     +-- subtlv-type?             identityref
+    |     |     +-- model-id?                uint8
+    |     |     +-- reserved?                uint32
+    |     |     +-- bandwidth-constraints*   oc-types:ieeefloat32
+    |     +-- unconstrained-lsp
+    |     |  +-- state
+    |     |     +-- subtlv-type?         identityref
+    |     |     +-- unconstrained-lsp?   uint16
+    |     +-- adjacency-sid
+    |     |  +-- sid* []
+    |     |     +-- state
+    |     |        +-- value?    uint32
+    |     |        +-- flags*    enumeration
+    |     |        +-- weight?   uint8
+    |     +-- lan-adjacency-sid
+    |     |  +-- sid* []
+    |     |     +-- state
+    |     |        +-- value?         uint32
+    |     |        +-- flags*         enumeration
+    |     |        +-- weight?        uint8
+    |     |        +-- neighbor-id?   oc-isis-types:system-id
+    |     +-- link-delay
+    |     |  +-- state
+    |     |     +-- subtlv-type?   identityref
+    |     |     +-- a-bit?         boolean
+    |     |     +-- delay?         uint32
+    |     +-- min-max-link-delay
+    |     |  +-- state
+    |     |     +-- subtlv-type?   identityref
+    |     |     +-- a-bit?         boolean
+    |     |     +-- min-delay?     uint32
+    |     |     +-- max-delay?     uint32
+    |     +-- link-delay-variation
+    |     |  +-- state
+    |     |     +-- subtlv-type?   identityref
+    |     |     +-- delay?         uint32
+    |     +-- link-loss
+    |     |  +-- state
+    |     |     +-- subtlv-type?   identityref
+    |     |     +-- a-bit?         boolean
+    |     |     +-- link-loss?     uint32
+    |     +-- residual-bandwidth
+    |     |  +-- state
+    |     |     +-- subtlv-type?          identityref
+    |     |     +-- residual-bandwidth?   oc-types:ieeefloat32
+    |     +-- available-bandwidth
+    |     |  +-- state
+    |     |     +-- subtlv-type?           identityref
+    |     |     +-- available-bandwidth?   oc-types:ieeefloat32
+    |     +-- utilized-bandwidth
+    |        +-- state
+    |           +-- subtlv-type?          identityref
+    |           +-- utilized-bandwidth?   oc-types:ieeefloat32
+    +-- undefined-subtlvs
+       +-- undefined-subtlv* [type]
+          +-- type?    -> ../state/type
+          +-- state
+             +-- type?     uint8
+             +-- length?   uint8
+             +-- value?    binary
+  grouping sr-capability
+    +-- state
+       +-- subtlv-type?   identityref
+       +-- flags*         enumeration
+       +-- range?         uint32
+       +-- label?         uint32
+  grouping setup-priority-state
+    +-- setup-priority?   uint8
+  grouping isis-lsdb-generic-tlv
+    +-- type?     uint8
+    +-- length?   uint8
+    +-- value?    binary
+  grouping undefined-tlv-state
+    +-- type?     uint8
+    +-- length?   uint8
+    +-- value?    binary
+  grouping undefined-subtlv-state
+    +-- type?     uint8
+    +-- length?   uint8
+    +-- value?    binary
+  grouping lsp-state
+    +-- lsp-id?           -> ../state/lsp-id
+    +-- state
+    |  +-- lsp-id?                   oc-isis-types:lsp-id
+    |  +-- maximum-area-addresses?   uint8
+    |  +-- version?                  uint8
+    |  +-- version2?                 uint8
+    |  +-- id-length?                uint8
+    |  +-- pdu-type?                 enumeration
+    |  +-- remaining-lifetime?       uint16
+    |  +-- sequence-number?          uint32
+    |  +-- checksum?                 uint16
+    |  +-- pdu-length?               uint16
+    +-- tlvs
+    |  +-- tlv* [type]
+    |     +-- type?                         -> ../state/type
+    |     +-- state
+    |     |  +-- type?   identityref
+    |     +-- area-address
+    |     |  +-- state
+    |     |     +-- type?           identityref
+    |     |     +-- area-address*   oc-isis-types:area-address
+    |     +-- nlpid
+    |     |  +-- state
+    |     |     +-- type?    identityref
+    |     |     +-- nlpid?   enumeration
+    |     +-- hostname
+    |     |  +-- state
+    |     |     +-- type?       identityref
+    |     |     +-- hostname?   string
+    |     +-- ipv4-interface-addresses
+    |     |  +-- state
+    |     |     +-- type?                       identityref
+    |     |     +-- ipv4-interface-addresses*   inet:ipv4-prefix
+    |     +-- ipv6-interface-addresses
+    |     |  +-- state
+    |     |     +-- type?                       identityref
+    |     |     +-- ipv6-interface-addresses*   inet:ipv6-prefix
+    |     +-- ipv4-te-router-id
+    |     |  +-- state
+    |     |     +-- type?                identityref
+    |     |     +-- ipv4-te-router-id?   inet:ipv4-address-no-zone
+    |     +-- ipv6-te-router-id
+    |     |  +-- state
+    |     |     +-- type?                identityref
+    |     |     +-- ipv6-te-router-id?   inet:ipv6-address
+    |     +-- instance-id
+    |     |  +-- state
+    |     |     +-- type?          identityref
+    |     |     +-- instance-id?   uint16
+    |     |     +-- topology-id*   uint16
+    |     +-- ipv4-srlg
+    |     |  +-- state
+    |     |     +-- type?                     identityref
+    |     |     +-- system-id?                oc-isis-types:system-id
+    |     |     +-- psn-number?               uint8
+    |     |     +-- flags*                    enumeration
+    |     |     +-- ipv4-interface-address?   inet:ipv4-address-no-zone
+    |     |     +-- ipv4-neighbor-address?    inet:ipv4-address-no-zone
+    |     |     +-- srlg-value*               uint32
+    |     +-- ipv6-srlg
+    |     |  +-- state
+    |     |     +-- type?                     identityref
+    |     |     +-- system-id?                oc-isis-types:system-id
+    |     |     +-- psn-number?               uint8
+    |     |     +-- flags*                    enumeration
+    |     |     +-- ipv6-interface-address?   inet:ipv6-address
+    |     |     +-- ipv6-neighbor-address?    inet:ipv6-address
+    |     |     +-- srlg-value*               uint32
+    |     +-- purge-oi
+    |     |  +-- state
+    |     |     +-- type?                 identityref
+    |     |     +-- system-id-count?      uint8
+    |     |     +-- source-system-id?     oc-isis-types:system-id
+    |     |     +-- received-system-id?   oc-isis-types:system-id
+    |     +-- router-capabilities
+    |     |  +-- router-capability* []
+    |     |     +-- state
+    |     |     |  +-- type?        identityref
+    |     |     |  +-- router-id?   inet:ipv4-address-no-zone
+    |     |     |  +-- flags*       enumeration
+    |     |     +-- subtlvs
+    |     |     |  +-- subtlvs* [subtlv-type]
+    |     |     |     +-- subtlv-type?                  -> ../state/subtlv-type
+    |     |     |     +-- state
+    |     |     |     |  +-- subtlv-type?   identityref
+    |     |     |     +-- segment-routing-algorithm
+    |     |     |     |  +-- state
+    |     |     |     |     +-- segment-routing-algorithm?   enumeration
+    |     |     |     +-- segment-routing-capability
+    |     |     |        +-- state
+    |     |     |           +-- subtlv-type?   identityref
+    |     |     |           +-- flags*         enumeration
+    |     |     |           +-- range?         uint32
+    |     |     |           +-- label?         uint32
+    |     |     +-- undefined-subtlvs
+    |     |        +-- undefined-subtlv* [type]
+    |     |           +-- type?    -> ../state/type
+    |     |           +-- state
+    |     |              +-- type?     uint8
+    |     |              +-- length?   uint8
+    |     |              +-- value?    binary
+    |     +-- is-reachability
+    |     |  +--ro state
+    |     |  |  +--ro type?   identityref
+    |     |  +-- neighbors
+    |     |     +-- neighbors* []
+    |     |        +-- state
+    |     |        |  +-- system-id?   oc-isis-types:system-id
+    |     |        +-- default-metric
+    |     |        |  +-- state
+    |     |        |     +-- flags?            enumeration
+    |     |        |     +-- default-metric?   oc-isis-types:narrow-metric
+    |     |        +-- delay-metric
+    |     |        |  +-- state
+    |     |        |     +-- metric?   oc-isis-types:narrow-metric
+    |     |        |     +-- flags*    isis-metric-flags
+    |     |        +-- expense-metric
+    |     |        |  +-- state
+    |     |        |     +-- metric?   oc-isis-types:narrow-metric
+    |     |        |     +-- flags*    isis-metric-flags
+    |     |        +-- error-metric
+    |     |           +-- state
+    |     |              +-- metric?   oc-isis-types:narrow-metric
+    |     |              +-- flags*    isis-metric-flags
+    |     +-- ipv4-internal-reachability
+    |     |  +--ro state
+    |     |  |  +--ro type?   identityref
+    |     |  +-- prefixes
+    |     |     +-- prefixes* []
+    |     |        +-- state
+    |     |        |  +-- up-down?       boolean
+    |     |        |  +-- ipv4-prefix?   inet:ipv4-prefix
+    |     |        +-- default-metric
+    |     |        |  +-- state
+    |     |        |     +-- flags?            enumeration
+    |     |        |     +-- default-metric?   oc-isis-types:narrow-metric
+    |     |        +-- delay-metric
+    |     |        |  +-- state
+    |     |        |     +-- metric?   oc-isis-types:narrow-metric
+    |     |        |     +-- flags*    isis-metric-flags
+    |     |        +-- expense-metric
+    |     |        |  +-- state
+    |     |        |     +-- metric?   oc-isis-types:narrow-metric
+    |     |        |     +-- flags*    isis-metric-flags
+    |     |        +-- error-metric
+    |     |           +-- state
+    |     |              +-- metric?   oc-isis-types:narrow-metric
+    |     |              +-- flags*    isis-metric-flags
+    |     +-- ipv4-external-reachability
+    |     |  +--ro state
+    |     |  |  +--ro type?   identityref
+    |     |  +-- prefixes
+    |     |     +-- prefixes* []
+    |     |        +-- state
+    |     |        |  +-- up-down?       boolean
+    |     |        |  +-- ipv4-prefix?   inet:ipv4-prefix
+    |     |        +-- default-metric
+    |     |        |  +-- state
+    |     |        |     +-- flags?            enumeration
+    |     |        |     +-- default-metric?   oc-isis-types:narrow-metric
+    |     |        +-- delay-metric
+    |     |        |  +-- state
+    |     |        |     +-- metric?   oc-isis-types:narrow-metric
+    |     |        |     +-- flags*    isis-metric-flags
+    |     |        +-- expense-metric
+    |     |        |  +-- state
+    |     |        |     +-- metric?   oc-isis-types:narrow-metric
+    |     |        |     +-- flags*    isis-metric-flags
+    |     |        +-- error-metric
+    |     |           +-- state
+    |     |              +-- metric?   oc-isis-types:narrow-metric
+    |     |              +-- flags*    isis-metric-flags
+    |     +-- type-block
+    |     |  +-- state
+    |     |     +-- flags*     enumeration
+    |     |     +-- is-type?   oc-isis-types:level-number
+    |     +-- authentication
+    |     |  +-- state
+    |     |     +-- type?                 identityref
+    |     |     +-- crypto-type?          enumeration
+    |     |     +-- authentication-key?   string
+    |     +-- extended-is-reachability
+    |     |  +--ro state
+    |     |  |  +--ro type?   identityref
+    |     |  +-- neighbors
+    |     |     +-- neighbors* []
+    |     |        +-- state
+    |     |        |  +-- system-id?   oc-isis-types:system-id
+    |     |        |  +-- metric?      oc-isis-types:wide-metric
+    |     |        +-- subTLVs
+    |     |        |  +-- subTLVs* [subtlv-type]
+    |     |        |     +-- subtlv-type?                     -> ../state/subtlv-type
+    |     |        |     +-- state
+    |     |        |     |  +-- subtlv-type?   identityref
+    |     |        |     +-- admin-group
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- admin-group*   uint32
+    |     |        |     +-- ipv4-interface-address
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?              identityref
+    |     |        |     |     +-- ipv4-interface-address*   inet:ipv4-address-no-zone
+    |     |        |     +-- ipv4-neighbor-address
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?             identityref
+    |     |        |     |     +-- ipv4-neighbor-address*   inet:ipv4-address-no-zone
+    |     |        |     +-- max-link-bandwidth
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?          identityref
+    |     |        |     |     +-- max-link-bandwidth?   oc-types:ieeefloat32
+    |     |        |     +-- max-reservable-link-bandwidth
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?                     identityref
+    |     |        |     |     +-- max-reservable-link-bandwidth?   oc-types:ieeefloat32
+    |     |        |     +-- unreserved-bandwidth
+    |     |        |     |  +-- setup-priority* []
+    |     |        |     |     +-- state
+    |     |        |     |        +-- setup-priority?         uint8
+    |     |        |     |        +-- subtlv-type?            identityref
+    |     |        |     |        +-- unreserved-bandwidth?   oc-types:ieeefloat32
+    |     |        |     +-- ipv6-interface-address
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?              identityref
+    |     |        |     |     +-- ipv6-interface-address*   inet:ipv6-address
+    |     |        |     +-- ipv6-neighbor-address
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?             identityref
+    |     |        |     |     +-- ipv6-neighbor-address*   inet:ipv6-address
+    |     |        |     +-- extended-admin-group
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?            identityref
+    |     |        |     |     +-- extended-admin-group?   uint32
+    |     |        |     +-- te-default-metric
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?         identityref
+    |     |        |     |     +-- te-default-metric?   uint32
+    |     |        |     +-- link-attributes
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?        identityref
+    |     |        |     |     +-- local-protection*   enumeration
+    |     |        |     +-- link-protection-type
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?            identityref
+    |     |        |     |     +-- link-protection-type*   enumeration
+    |     |        |     +-- bandwidth-constraints
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?             identityref
+    |     |        |     |     +-- model-id?                uint8
+    |     |        |     |     +-- reserved?                uint32
+    |     |        |     |     +-- bandwidth-constraints*   oc-types:ieeefloat32
+    |     |        |     +-- unconstrained-lsp
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?         identityref
+    |     |        |     |     +-- unconstrained-lsp?   uint16
+    |     |        |     +-- adjacency-sid
+    |     |        |     |  +-- sid* []
+    |     |        |     |     +-- state
+    |     |        |     |        +-- value?    uint32
+    |     |        |     |        +-- flags*    enumeration
+    |     |        |     |        +-- weight?   uint8
+    |     |        |     +-- lan-adjacency-sid
+    |     |        |     |  +-- sid* []
+    |     |        |     |     +-- state
+    |     |        |     |        +-- value?         uint32
+    |     |        |     |        +-- flags*         enumeration
+    |     |        |     |        +-- weight?        uint8
+    |     |        |     |        +-- neighbor-id?   oc-isis-types:system-id
+    |     |        |     +-- link-delay
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- a-bit?         boolean
+    |     |        |     |     +-- delay?         uint32
+    |     |        |     +-- min-max-link-delay
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- a-bit?         boolean
+    |     |        |     |     +-- min-delay?     uint32
+    |     |        |     |     +-- max-delay?     uint32
+    |     |        |     +-- link-delay-variation
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- delay?         uint32
+    |     |        |     +-- link-loss
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- a-bit?         boolean
+    |     |        |     |     +-- link-loss?     uint32
+    |     |        |     +-- residual-bandwidth
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?          identityref
+    |     |        |     |     +-- residual-bandwidth?   oc-types:ieeefloat32
+    |     |        |     +-- available-bandwidth
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?           identityref
+    |     |        |     |     +-- available-bandwidth?   oc-types:ieeefloat32
+    |     |        |     +-- utilized-bandwidth
+    |     |        |        +-- state
+    |     |        |           +-- subtlv-type?          identityref
+    |     |        |           +-- utilized-bandwidth?   oc-types:ieeefloat32
+    |     |        +-- undefined-subtlvs
+    |     |           +-- undefined-subtlv* [type]
+    |     |              +-- type?    -> ../state/type
+    |     |              +-- state
+    |     |                 +-- type?     uint8
+    |     |                 +-- length?   uint8
+    |     |                 +-- value?    binary
+    |     +-- extended-ipv4-reachability
+    |     |  +--ro state
+    |     |  |  +--ro type?   identityref
+    |     |  +-- prefixes
+    |     |     +-- prefix* []
+    |     |        +-- state
+    |     |        |  +-- up-down?       boolean
+    |     |        |  +-- s-bit?         boolean
+    |     |        |  +-- ipv4-prefix?   inet:ipv4-prefix
+    |     |        |  +-- metric?        oc-isis-types:wide-metric
+    |     |        +-- subTLVs
+    |     |        |  +-- subTLVs* [subtlv-type]
+    |     |        |     +-- subtlv-type?             -> ../state/subtlv-type
+    |     |        |     +-- state
+    |     |        |     |  +-- subtlv-type?   identityref
+    |     |        |     +-- tag
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- tag32*         uint32
+    |     |        |     +-- tag64
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- tag64*         uint64
+    |     |        |     +-- flags
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- flags*         enumeration
+    |     |        |     +-- ipv4-source-router-id
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?             identityref
+    |     |        |     |     +-- ipv4-source-router-id?   inet:ipv4-address-no-zone
+    |     |        |     +-- ipv6-source-router-id
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?             identityref
+    |     |        |     |     +-- ipv6-source-router-id?   inet:ipv6-address
+    |     |        |     +-- prefix-sid
+    |     |        |        +-- sid* []
+    |     |        |           +-- state
+    |     |        |              +-- subtlv-type?   identityref
+    |     |        |              +-- value?         uint32
+    |     |        |              +-- flags*         enumeration
+    |     |        |              +-- algorithm?     uint8
+    |     |        +-- undefined-subtlvs
+    |     |           +-- undefined-subtlv* [type]
+    |     |              +-- type?    -> ../state/type
+    |     |              +-- state
+    |     |                 +-- type?     uint8
+    |     |                 +-- length?   uint8
+    |     |                 +-- value?    binary
+    |     +-- ipv6-reachability
+    |     |  +--ro state
+    |     |  |  +--ro type?   identityref
+    |     |  +-- prefixes
+    |     |     +-- prefixes* []
+    |     |        +-- state
+    |     |        |  +-- up-down?       boolean
+    |     |        |  +-- x-bit?         boolean
+    |     |        |  +-- s-bit?         boolean
+    |     |        |  +-- ipv6-prefix?   inet:ipv6-prefix
+    |     |        |  +-- metric?        oc-isis-types:wide-metric
+    |     |        +-- subTLVs
+    |     |        |  +-- subTLVs* [subtlv-type]
+    |     |        |     +-- subtlv-type?             -> ../state/subtlv-type
+    |     |        |     +-- state
+    |     |        |     |  +-- subtlv-type?   identityref
+    |     |        |     +-- tag
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- tag32*         uint32
+    |     |        |     +-- tag64
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- tag64*         uint64
+    |     |        |     +-- flags
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- flags*         enumeration
+    |     |        |     +-- ipv4-source-router-id
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?             identityref
+    |     |        |     |     +-- ipv4-source-router-id?   inet:ipv4-address-no-zone
+    |     |        |     +-- ipv6-source-router-id
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?             identityref
+    |     |        |     |     +-- ipv6-source-router-id?   inet:ipv6-address
+    |     |        |     +-- prefix-sid
+    |     |        |        +-- sid* []
+    |     |        |           +-- state
+    |     |        |              +-- subtlv-type?   identityref
+    |     |        |              +-- value?         uint32
+    |     |        |              +-- flags*         enumeration
+    |     |        |              +-- algorithm?     uint8
+    |     |        +-- undefined-subtlvs
+    |     |           +-- undefined-subtlv* [type]
+    |     |              +-- type?    -> ../state/type
+    |     |              +-- state
+    |     |                 +-- type?     uint8
+    |     |                 +-- length?   uint8
+    |     |                 +-- value?    binary
+    |     +-- multi-topology
+    |     |  +--ro state
+    |     |  |  +--ro type?   identityref
+    |     |  +-- topologies
+    |     |     +-- topology* []
+    |     |        +-- state
+    |     |           +-- MT-ID?        uint16
+    |     |           +-- attributes?   enumeration
+    |     +-- isis-neighbor-attribute
+    |     |  +--ro state
+    |     |  |  +--ro type?   identityref
+    |     |  +-- neighbors
+    |     |     +-- neighbor* []
+    |     |        +-- state
+    |     |        |  +-- system-id?   oc-isis-types:system-id
+    |     |        |  +-- metric?      oc-isis-types:wide-metric
+    |     |        +-- subTLVs
+    |     |        |  +-- subTLVs* [subtlv-type]
+    |     |        |     +-- subtlv-type?                     -> ../state/subtlv-type
+    |     |        |     +-- state
+    |     |        |     |  +-- subtlv-type?   identityref
+    |     |        |     +-- admin-group
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- admin-group*   uint32
+    |     |        |     +-- ipv4-interface-address
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?              identityref
+    |     |        |     |     +-- ipv4-interface-address*   inet:ipv4-address-no-zone
+    |     |        |     +-- ipv4-neighbor-address
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?             identityref
+    |     |        |     |     +-- ipv4-neighbor-address*   inet:ipv4-address-no-zone
+    |     |        |     +-- max-link-bandwidth
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?          identityref
+    |     |        |     |     +-- max-link-bandwidth?   oc-types:ieeefloat32
+    |     |        |     +-- max-reservable-link-bandwidth
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?                     identityref
+    |     |        |     |     +-- max-reservable-link-bandwidth?   oc-types:ieeefloat32
+    |     |        |     +-- unreserved-bandwidth
+    |     |        |     |  +-- setup-priority* []
+    |     |        |     |     +-- state
+    |     |        |     |        +-- setup-priority?         uint8
+    |     |        |     |        +-- subtlv-type?            identityref
+    |     |        |     |        +-- unreserved-bandwidth?   oc-types:ieeefloat32
+    |     |        |     +-- ipv6-interface-address
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?              identityref
+    |     |        |     |     +-- ipv6-interface-address*   inet:ipv6-address
+    |     |        |     +-- ipv6-neighbor-address
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?             identityref
+    |     |        |     |     +-- ipv6-neighbor-address*   inet:ipv6-address
+    |     |        |     +-- extended-admin-group
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?            identityref
+    |     |        |     |     +-- extended-admin-group?   uint32
+    |     |        |     +-- te-default-metric
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?         identityref
+    |     |        |     |     +-- te-default-metric?   uint32
+    |     |        |     +-- link-attributes
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?        identityref
+    |     |        |     |     +-- local-protection*   enumeration
+    |     |        |     +-- link-protection-type
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?            identityref
+    |     |        |     |     +-- link-protection-type*   enumeration
+    |     |        |     +-- bandwidth-constraints
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?             identityref
+    |     |        |     |     +-- model-id?                uint8
+    |     |        |     |     +-- reserved?                uint32
+    |     |        |     |     +-- bandwidth-constraints*   oc-types:ieeefloat32
+    |     |        |     +-- unconstrained-lsp
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?         identityref
+    |     |        |     |     +-- unconstrained-lsp?   uint16
+    |     |        |     +-- adjacency-sid
+    |     |        |     |  +-- sid* []
+    |     |        |     |     +-- state
+    |     |        |     |        +-- value?    uint32
+    |     |        |     |        +-- flags*    enumeration
+    |     |        |     |        +-- weight?   uint8
+    |     |        |     +-- lan-adjacency-sid
+    |     |        |     |  +-- sid* []
+    |     |        |     |     +-- state
+    |     |        |     |        +-- value?         uint32
+    |     |        |     |        +-- flags*         enumeration
+    |     |        |     |        +-- weight?        uint8
+    |     |        |     |        +-- neighbor-id?   oc-isis-types:system-id
+    |     |        |     +-- link-delay
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- a-bit?         boolean
+    |     |        |     |     +-- delay?         uint32
+    |     |        |     +-- min-max-link-delay
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- a-bit?         boolean
+    |     |        |     |     +-- min-delay?     uint32
+    |     |        |     |     +-- max-delay?     uint32
+    |     |        |     +-- link-delay-variation
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- delay?         uint32
+    |     |        |     +-- link-loss
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- a-bit?         boolean
+    |     |        |     |     +-- link-loss?     uint32
+    |     |        |     +-- residual-bandwidth
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?          identityref
+    |     |        |     |     +-- residual-bandwidth?   oc-types:ieeefloat32
+    |     |        |     +-- available-bandwidth
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?           identityref
+    |     |        |     |     +-- available-bandwidth?   oc-types:ieeefloat32
+    |     |        |     +-- utilized-bandwidth
+    |     |        |        +-- state
+    |     |        |           +-- subtlv-type?          identityref
+    |     |        |           +-- utilized-bandwidth?   oc-types:ieeefloat32
+    |     |        +-- undefined-subtlvs
+    |     |           +-- undefined-subtlv* [type]
+    |     |              +-- type?    -> ../state/type
+    |     |              +-- state
+    |     |                 +-- type?     uint8
+    |     |                 +-- length?   uint8
+    |     |                 +-- value?    binary
+    |     +-- isis-alias-id
+    |     |  +--ro state
+    |     |     +--ro type?       identityref
+    |     |     +--ro alias-id?   oc-isis-types:system-id
+    |     +-- mt-isn
+    |     |  +--ro state
+    |     |  |  +--ro type?   identityref
+    |     |  +-- neighbors
+    |     |     +-- neighbor* []
+    |     |        +-- state
+    |     |        |  +-- mt-id?       uint16
+    |     |        |  +-- system-id?   oc-isis-types:system-id
+    |     |        |  +-- metric?      oc-isis-types:wide-metric
+    |     |        +-- subTLVs
+    |     |        |  +-- subTLVs* [subtlv-type]
+    |     |        |     +-- subtlv-type?                     -> ../state/subtlv-type
+    |     |        |     +-- state
+    |     |        |     |  +-- subtlv-type?   identityref
+    |     |        |     +-- admin-group
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- admin-group*   uint32
+    |     |        |     +-- ipv4-interface-address
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?              identityref
+    |     |        |     |     +-- ipv4-interface-address*   inet:ipv4-address-no-zone
+    |     |        |     +-- ipv4-neighbor-address
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?             identityref
+    |     |        |     |     +-- ipv4-neighbor-address*   inet:ipv4-address-no-zone
+    |     |        |     +-- max-link-bandwidth
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?          identityref
+    |     |        |     |     +-- max-link-bandwidth?   oc-types:ieeefloat32
+    |     |        |     +-- max-reservable-link-bandwidth
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?                     identityref
+    |     |        |     |     +-- max-reservable-link-bandwidth?   oc-types:ieeefloat32
+    |     |        |     +-- unreserved-bandwidth
+    |     |        |     |  +-- setup-priority* []
+    |     |        |     |     +-- state
+    |     |        |     |        +-- setup-priority?         uint8
+    |     |        |     |        +-- subtlv-type?            identityref
+    |     |        |     |        +-- unreserved-bandwidth?   oc-types:ieeefloat32
+    |     |        |     +-- ipv6-interface-address
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?              identityref
+    |     |        |     |     +-- ipv6-interface-address*   inet:ipv6-address
+    |     |        |     +-- ipv6-neighbor-address
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?             identityref
+    |     |        |     |     +-- ipv6-neighbor-address*   inet:ipv6-address
+    |     |        |     +-- extended-admin-group
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?            identityref
+    |     |        |     |     +-- extended-admin-group?   uint32
+    |     |        |     +-- te-default-metric
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?         identityref
+    |     |        |     |     +-- te-default-metric?   uint32
+    |     |        |     +-- link-attributes
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?        identityref
+    |     |        |     |     +-- local-protection*   enumeration
+    |     |        |     +-- link-protection-type
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?            identityref
+    |     |        |     |     +-- link-protection-type*   enumeration
+    |     |        |     +-- bandwidth-constraints
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?             identityref
+    |     |        |     |     +-- model-id?                uint8
+    |     |        |     |     +-- reserved?                uint32
+    |     |        |     |     +-- bandwidth-constraints*   oc-types:ieeefloat32
+    |     |        |     +-- unconstrained-lsp
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?         identityref
+    |     |        |     |     +-- unconstrained-lsp?   uint16
+    |     |        |     +-- adjacency-sid
+    |     |        |     |  +-- sid* []
+    |     |        |     |     +-- state
+    |     |        |     |        +-- value?    uint32
+    |     |        |     |        +-- flags*    enumeration
+    |     |        |     |        +-- weight?   uint8
+    |     |        |     +-- lan-adjacency-sid
+    |     |        |     |  +-- sid* []
+    |     |        |     |     +-- state
+    |     |        |     |        +-- value?         uint32
+    |     |        |     |        +-- flags*         enumeration
+    |     |        |     |        +-- weight?        uint8
+    |     |        |     |        +-- neighbor-id?   oc-isis-types:system-id
+    |     |        |     +-- link-delay
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- a-bit?         boolean
+    |     |        |     |     +-- delay?         uint32
+    |     |        |     +-- min-max-link-delay
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- a-bit?         boolean
+    |     |        |     |     +-- min-delay?     uint32
+    |     |        |     |     +-- max-delay?     uint32
+    |     |        |     +-- link-delay-variation
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- delay?         uint32
+    |     |        |     +-- link-loss
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- a-bit?         boolean
+    |     |        |     |     +-- link-loss?     uint32
+    |     |        |     +-- residual-bandwidth
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?          identityref
+    |     |        |     |     +-- residual-bandwidth?   oc-types:ieeefloat32
+    |     |        |     +-- available-bandwidth
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?           identityref
+    |     |        |     |     +-- available-bandwidth?   oc-types:ieeefloat32
+    |     |        |     +-- utilized-bandwidth
+    |     |        |        +-- state
+    |     |        |           +-- subtlv-type?          identityref
+    |     |        |           +-- utilized-bandwidth?   oc-types:ieeefloat32
+    |     |        +-- undefined-subtlvs
+    |     |           +-- undefined-subtlv* [type]
+    |     |              +-- type?    -> ../state/type
+    |     |              +-- state
+    |     |                 +-- type?     uint8
+    |     |                 +-- length?   uint8
+    |     |                 +-- value?    binary
+    |     +-- mt-isis-neighbor-attribute
+    |     |  +--ro state
+    |     |  |  +--ro type?   identityref
+    |     |  +-- neighbors
+    |     |     +-- neighbor* []
+    |     |        +-- state
+    |     |        |  +-- mt-id?       uint16
+    |     |        |  +-- system-id?   oc-isis-types:system-id
+    |     |        |  +-- metric?      oc-isis-types:wide-metric
+    |     |        +-- subTLVs
+    |     |        |  +-- subTLVs* [subtlv-type]
+    |     |        |     +-- subtlv-type?                     -> ../state/subtlv-type
+    |     |        |     +-- state
+    |     |        |     |  +-- subtlv-type?   identityref
+    |     |        |     +-- admin-group
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- admin-group*   uint32
+    |     |        |     +-- ipv4-interface-address
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?              identityref
+    |     |        |     |     +-- ipv4-interface-address*   inet:ipv4-address-no-zone
+    |     |        |     +-- ipv4-neighbor-address
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?             identityref
+    |     |        |     |     +-- ipv4-neighbor-address*   inet:ipv4-address-no-zone
+    |     |        |     +-- max-link-bandwidth
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?          identityref
+    |     |        |     |     +-- max-link-bandwidth?   oc-types:ieeefloat32
+    |     |        |     +-- max-reservable-link-bandwidth
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?                     identityref
+    |     |        |     |     +-- max-reservable-link-bandwidth?   oc-types:ieeefloat32
+    |     |        |     +-- unreserved-bandwidth
+    |     |        |     |  +-- setup-priority* []
+    |     |        |     |     +-- state
+    |     |        |     |        +-- setup-priority?         uint8
+    |     |        |     |        +-- subtlv-type?            identityref
+    |     |        |     |        +-- unreserved-bandwidth?   oc-types:ieeefloat32
+    |     |        |     +-- ipv6-interface-address
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?              identityref
+    |     |        |     |     +-- ipv6-interface-address*   inet:ipv6-address
+    |     |        |     +-- ipv6-neighbor-address
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?             identityref
+    |     |        |     |     +-- ipv6-neighbor-address*   inet:ipv6-address
+    |     |        |     +-- extended-admin-group
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?            identityref
+    |     |        |     |     +-- extended-admin-group?   uint32
+    |     |        |     +-- te-default-metric
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?         identityref
+    |     |        |     |     +-- te-default-metric?   uint32
+    |     |        |     +-- link-attributes
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?        identityref
+    |     |        |     |     +-- local-protection*   enumeration
+    |     |        |     +-- link-protection-type
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?            identityref
+    |     |        |     |     +-- link-protection-type*   enumeration
+    |     |        |     +-- bandwidth-constraints
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?             identityref
+    |     |        |     |     +-- model-id?                uint8
+    |     |        |     |     +-- reserved?                uint32
+    |     |        |     |     +-- bandwidth-constraints*   oc-types:ieeefloat32
+    |     |        |     +-- unconstrained-lsp
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?         identityref
+    |     |        |     |     +-- unconstrained-lsp?   uint16
+    |     |        |     +-- adjacency-sid
+    |     |        |     |  +-- sid* []
+    |     |        |     |     +-- state
+    |     |        |     |        +-- value?    uint32
+    |     |        |     |        +-- flags*    enumeration
+    |     |        |     |        +-- weight?   uint8
+    |     |        |     +-- lan-adjacency-sid
+    |     |        |     |  +-- sid* []
+    |     |        |     |     +-- state
+    |     |        |     |        +-- value?         uint32
+    |     |        |     |        +-- flags*         enumeration
+    |     |        |     |        +-- weight?        uint8
+    |     |        |     |        +-- neighbor-id?   oc-isis-types:system-id
+    |     |        |     +-- link-delay
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- a-bit?         boolean
+    |     |        |     |     +-- delay?         uint32
+    |     |        |     +-- min-max-link-delay
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- a-bit?         boolean
+    |     |        |     |     +-- min-delay?     uint32
+    |     |        |     |     +-- max-delay?     uint32
+    |     |        |     +-- link-delay-variation
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- delay?         uint32
+    |     |        |     +-- link-loss
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- a-bit?         boolean
+    |     |        |     |     +-- link-loss?     uint32
+    |     |        |     +-- residual-bandwidth
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?          identityref
+    |     |        |     |     +-- residual-bandwidth?   oc-types:ieeefloat32
+    |     |        |     +-- available-bandwidth
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?           identityref
+    |     |        |     |     +-- available-bandwidth?   oc-types:ieeefloat32
+    |     |        |     +-- utilized-bandwidth
+    |     |        |        +-- state
+    |     |        |           +-- subtlv-type?          identityref
+    |     |        |           +-- utilized-bandwidth?   oc-types:ieeefloat32
+    |     |        +-- undefined-subtlvs
+    |     |           +-- undefined-subtlv* [type]
+    |     |              +-- type?    -> ../state/type
+    |     |              +-- state
+    |     |                 +-- type?     uint8
+    |     |                 +-- length?   uint8
+    |     |                 +-- value?    binary
+    |     +-- mt-ipv4-reachability
+    |     |  +--ro state
+    |     |  |  +--ro type?   identityref
+    |     |  +-- prefixes
+    |     |     +-- prefix* []
+    |     |        +-- mt
+    |     |        |  +-- state
+    |     |        |     +-- mt-id?   uint16
+    |     |        +-- state
+    |     |        |  +-- up-down?       boolean
+    |     |        |  +-- s-bit?         boolean
+    |     |        |  +-- ipv4-prefix?   inet:ipv4-prefix
+    |     |        |  +-- metric?        oc-isis-types:wide-metric
+    |     |        +-- subTLVs
+    |     |        |  +-- subTLVs* [subtlv-type]
+    |     |        |     +-- subtlv-type?             -> ../state/subtlv-type
+    |     |        |     +-- state
+    |     |        |     |  +-- subtlv-type?   identityref
+    |     |        |     +-- tag
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- tag32*         uint32
+    |     |        |     +-- tag64
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- tag64*         uint64
+    |     |        |     +-- flags
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?   identityref
+    |     |        |     |     +-- flags*         enumeration
+    |     |        |     +-- ipv4-source-router-id
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?             identityref
+    |     |        |     |     +-- ipv4-source-router-id?   inet:ipv4-address-no-zone
+    |     |        |     +-- ipv6-source-router-id
+    |     |        |     |  +-- state
+    |     |        |     |     +-- subtlv-type?             identityref
+    |     |        |     |     +-- ipv6-source-router-id?   inet:ipv6-address
+    |     |        |     +-- prefix-sid
+    |     |        |        +-- sid* []
+    |     |        |           +-- state
+    |     |        |              +-- subtlv-type?   identityref
+    |     |        |              +-- value?         uint32
+    |     |        |              +-- flags*         enumeration
+    |     |        |              +-- algorithm?     uint8
+    |     |        +-- undefined-subtlvs
+    |     |           +-- undefined-subtlv* [type]
+    |     |              +-- type?    -> ../state/type
+    |     |              +-- state
+    |     |                 +-- type?     uint8
+    |     |                 +-- length?   uint8
+    |     |                 +-- value?    binary
+    |     +-- mt-ipv6-reachability
+    |        +--ro state
+    |        |  +--ro type?   identityref
+    |        +-- prefixes
+    |           +-- prefix* []
+    |              +-- mt
+    |              |  +-- state
+    |              |     +-- mt-id?   uint16
+    |              +-- state
+    |              |  +-- up-down?       boolean
+    |              |  +-- x-bit?         boolean
+    |              |  +-- s-bit?         boolean
+    |              |  +-- ipv6-prefix?   inet:ipv6-prefix
+    |              |  +-- metric?        oc-isis-types:wide-metric
+    |              +-- subTLVs
+    |              |  +-- subTLVs* [subtlv-type]
+    |              |     +-- subtlv-type?             -> ../state/subtlv-type
+    |              |     +-- state
+    |              |     |  +-- subtlv-type?   identityref
+    |              |     +-- tag
+    |              |     |  +-- state
+    |              |     |     +-- subtlv-type?   identityref
+    |              |     |     +-- tag32*         uint32
+    |              |     +-- tag64
+    |              |     |  +-- state
+    |              |     |     +-- subtlv-type?   identityref
+    |              |     |     +-- tag64*         uint64
+    |              |     +-- flags
+    |              |     |  +-- state
+    |              |     |     +-- subtlv-type?   identityref
+    |              |     |     +-- flags*         enumeration
+    |              |     +-- ipv4-source-router-id
+    |              |     |  +-- state
+    |              |     |     +-- subtlv-type?             identityref
+    |              |     |     +-- ipv4-source-router-id?   inet:ipv4-address-no-zone
+    |              |     +-- ipv6-source-router-id
+    |              |     |  +-- state
+    |              |     |     +-- subtlv-type?             identityref
+    |              |     |     +-- ipv6-source-router-id?   inet:ipv6-address
+    |              |     +-- prefix-sid
+    |              |        +-- sid* []
+    |              |           +-- state
+    |              |              +-- subtlv-type?   identityref
+    |              |              +-- value?         uint32
+    |              |              +-- flags*         enumeration
+    |              |              +-- algorithm?     uint8
+    |              +-- undefined-subtlvs
+    |                 +-- undefined-subtlv* [type]
+    |                    +-- type?    -> ../state/type
+    |                    +-- state
+    |                       +-- type?     uint8
+    |                       +-- length?   uint8
+    |                       +-- value?    binary
+    +-- undefined-tlvs
+       +-- undefined-tlv* [type]
+          +-- type?    -> ../state/type
+          +-- state
+             +-- type?     uint8
+             +-- length?   uint8
+             +-- value?    binary

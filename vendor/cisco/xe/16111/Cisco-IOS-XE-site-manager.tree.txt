@@ -1,0 +1,476 @@
+
+module: Cisco-IOS-XE-site-manager
+  augment /ios:native:
+    +--rw site-manager!
+       +--rw master* [name]
+       |  +--rw name                       site-manager-site-type
+       |  +--rw advanced
+       |  |  +--rw dca-probe-http-interval?   union
+       |  |  +--rw dia-probe-icmp-interval?   union
+       |  |  +--rw dns-redirect?              inet:ipv4-address
+       |  +--rw dca-probe-http-interval?   union
+       |  +--rw dia-probe-icmp-interval?   union
+       |  +--rw dns-redirect?              inet:ipv4-address
+       |  +--rw domain-map
+       |     +--rw application* [name]
+       |        +--rw name      string
+       |        +--rw domain?   string
+       |        +--rw dscp?     ios-types:dscp-type
+       +--rw vrf* [name]
+          +--rw name      string
+          +--rw border
+          |  +--rw master?             union
+          |  +--rw shutdown?           empty
+          |  +--rw source-interface
+          |  |  +--rw Loopback?   -> /ios:native/interface/Loopback/name
+          |  +--rw password
+          |     +--rw enryption-type?   enumeration
+          |     +--rw auth-password?    string
+          +--rw master* [name]
+             +--rw name                site-manager-site-type
+             +--rw source-interface
+             |  +--rw Loopback?   -> /ios:native/interface/Loopback/name
+             +--rw shutdown?           empty
+             +--rw advanced
+             |  +--rw tcp
+             |  |  +--rw mc-port?   uint16
+             |  +--rw connection-keepalive-interval?   int8
+             +--rw password
+             |  +--rw enryption-type?   enumeration
+             |  +--rw auth-password?    string
+             +--rw policy
+                +--rw local* [type]
+                |  +--rw type     enumeration
+                |  +--rw class* [name sequence]
+                |     +--rw name               string
+                |     +--rw sequence           uint16
+                |     +--rw match
+                |     |  +--rw app-group* [name]
+                |     |  |  +--rw name      string
+                |     |  |  +--rw policy?   enumeration
+                |     |  +--rw application* [name]
+                |     |     +--rw name      string
+                |     |     +--rw policy?   enumeration
+                |     +--rw path-preference
+                |        +--rw primary?          string
+                |        +--rw primary2?         string
+                |        +--rw primary3?         string
+                |        +--rw fallback?         union
+                |        +--rw fallback2?        string
+                |        +--rw fallback3?        string
+                |        +--rw next-fallback?    union
+                |        +--rw next-fallback2?   string
+                |        +--rw next-fallback3?   string
+                +--rw group* [group-name type]
+                   +--rw group-name    union
+                   +--rw type          enumeration
+                   +--rw class* [name sequence]
+                      +--rw name               string
+                      +--rw sequence           uint16
+                      +--rw match
+                      |  +--rw app-group* [name]
+                      |  |  +--rw name      string
+                      |  |  +--rw policy?   enumeration
+                      |  +--rw application* [name]
+                      |     +--rw name      string
+                      |     +--rw policy?   enumeration
+                      +--rw path-preference
+                         +--rw primary?          string
+                         +--rw primary2?         string
+                         +--rw primary3?         string
+                         +--rw fallback?         union
+                         +--rw fallback2?        string
+                         +--rw fallback3?        string
+                         +--rw next-fallback?    union
+                         +--rw next-fallback2?   string
+                         +--rw next-fallback3?   string
+  augment /ios:native/ios:interface/ios:Ethernet:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:FastEthernet:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:ATM:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:ATM-subinterface/ios:ATM:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:ATM/ios-atm:pvc:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:ATM-subinterface/ios:ATM/ios-atm:pvc:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:GigabitEthernet:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:FiveGigabitEthernet:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:AppGigabitEthernet:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:TwentyFiveGigE:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:FortyGigabitEthernet:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:TwoGigabitEthernet:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:HundredGigE:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:Multilink:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:Port-channel:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:Tunnel:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:LISP:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:Virtual-Template:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:vasileft:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:vasiright:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:Vlan:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:BDI:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:Cellular:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:Dialer:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+  augment /ios:native/ios:interface/ios:Serial:
+    +--rw site-manager
+       +--rw (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +--rw path?                     string
+          |  +--rw direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +--rw inside?                   empty
+
+  grouping config-password
+    +-- password
+       +-- enryption-type?   enumeration
+       +-- auth-password?    string
+  grouping config-source-interface
+    +-- source-interface
+       +-- Loopback?   -> /ios:native/interface/Loopback/name
+  grouping config-class-app-policy-type
+    +-- policy?   enumeration
+  grouping class-app-group
+    +-- app-group* [name]
+       +-- name?     string
+       +-- policy?   enumeration
+  grouping class-application
+    +-- application* [name]
+       +-- name?     string
+       +-- policy?   enumeration
+  grouping config-policy-class
+    +-- class* [name sequence]
+       +-- name?              string
+       +-- sequence?          uint16
+       +-- match
+       |  +-- app-group* [name]
+       |  |  +-- name?     string
+       |  |  +-- policy?   enumeration
+       |  +-- application* [name]
+       |     +-- name?     string
+       |     +-- policy?   enumeration
+       +-- path-preference
+          +-- primary?          string
+          +-- primary2?         string
+          +-- primary3?         string
+          +-- fallback?         union
+          +-- fallback2?        string
+          +-- fallback3?        string
+          +-- next-fallback?    union
+          +-- next-fallback2?   string
+          +-- next-fallback3?   string
+  grouping config-policy
+    +-- policy
+       +-- local* [type]
+       |  +-- type?    enumeration
+       |  +-- class* [name sequence]
+       |     +-- name?              string
+       |     +-- sequence?          uint16
+       |     +-- match
+       |     |  +-- app-group* [name]
+       |     |  |  +-- name?     string
+       |     |  |  +-- policy?   enumeration
+       |     |  +-- application* [name]
+       |     |     +-- name?     string
+       |     |     +-- policy?   enumeration
+       |     +-- path-preference
+       |        +-- primary?          string
+       |        +-- primary2?         string
+       |        +-- primary3?         string
+       |        +-- fallback?         union
+       |        +-- fallback2?        string
+       |        +-- fallback3?        string
+       |        +-- next-fallback?    union
+       |        +-- next-fallback2?   string
+       |        +-- next-fallback3?   string
+       +-- group* [group-name type]
+          +-- group-name?   union
+          +-- type?         enumeration
+          +-- class* [name sequence]
+             +-- name?              string
+             +-- sequence?          uint16
+             +-- match
+             |  +-- app-group* [name]
+             |  |  +-- name?     string
+             |  |  +-- policy?   enumeration
+             |  +-- application* [name]
+             |     +-- name?     string
+             |     +-- policy?   enumeration
+             +-- path-preference
+                +-- primary?          string
+                +-- primary2?         string
+                +-- primary3?         string
+                +-- fallback?         union
+                +-- fallback2?        string
+                +-- fallback3?        string
+                +-- next-fallback?    union
+                +-- next-fallback2?   string
+                +-- next-fallback3?   string
+  grouping config-interface-site-manager-grouping
+    +-- site-manager
+       +-- (sitemgr-path-type)?
+          +--:(sitemgr-path)
+          |  +-- path?                     string
+          |  +-- direct-internet-access?   empty
+          +--:(sitemgr-inside)
+             +-- inside?                   empty
+  grouping config-allvrfs-hub-br-common
+    +-- dca-probe-http-interval?   union
+    +-- dia-probe-icmp-interval?   union
+    +-- dns-redirect?              inet:ipv4-address
+  grouping config-sitemgr-grouping
+    +-- site-manager!
+       +-- master* [name]
+       |  +-- name?                      site-manager-site-type
+       |  +-- advanced
+       |  |  +-- dca-probe-http-interval?   union
+       |  |  +-- dia-probe-icmp-interval?   union
+       |  |  +-- dns-redirect?              inet:ipv4-address
+       |  +-- dca-probe-http-interval?   union
+       |  +-- dia-probe-icmp-interval?   union
+       |  +-- dns-redirect?              inet:ipv4-address
+       |  +-- domain-map
+       |     +-- application* [name]
+       |        +-- name?     string
+       |        +-- domain?   string
+       |        +-- dscp?     ios-types:dscp-type
+       +-- vrf* [name]
+          +-- name?     string
+          +-- border
+          |  +-- master?             union
+          |  +-- shutdown?           empty
+          |  +-- source-interface
+          |  |  +-- Loopback?   -> /ios:native/interface/Loopback/name
+          |  +-- password
+          |     +-- enryption-type?   enumeration
+          |     +-- auth-password?    string
+          +-- master* [name]
+             +-- name?               site-manager-site-type
+             +-- source-interface
+             |  +-- Loopback?   -> /ios:native/interface/Loopback/name
+             +-- shutdown?           empty
+             +-- advanced
+             |  +-- tcp
+             |  |  +-- mc-port?   uint16
+             |  +-- connection-keepalive-interval?   int8
+             +-- password
+             |  +-- enryption-type?   enumeration
+             |  +-- auth-password?    string
+             +-- policy
+                +-- local* [type]
+                |  +-- type?    enumeration
+                |  +-- class* [name sequence]
+                |     +-- name?              string
+                |     +-- sequence?          uint16
+                |     +-- match
+                |     |  +-- app-group* [name]
+                |     |  |  +-- name?     string
+                |     |  |  +-- policy?   enumeration
+                |     |  +-- application* [name]
+                |     |     +-- name?     string
+                |     |     +-- policy?   enumeration
+                |     +-- path-preference
+                |        +-- primary?          string
+                |        +-- primary2?         string
+                |        +-- primary3?         string
+                |        +-- fallback?         union
+                |        +-- fallback2?        string
+                |        +-- fallback3?        string
+                |        +-- next-fallback?    union
+                |        +-- next-fallback2?   string
+                |        +-- next-fallback3?   string
+                +-- group* [group-name type]
+                   +-- group-name?   union
+                   +-- type?         enumeration
+                   +-- class* [name sequence]
+                      +-- name?              string
+                      +-- sequence?          uint16
+                      +-- match
+                      |  +-- app-group* [name]
+                      |  |  +-- name?     string
+                      |  |  +-- policy?   enumeration
+                      |  +-- application* [name]
+                      |     +-- name?     string
+                      |     +-- policy?   enumeration
+                      +-- path-preference
+                         +-- primary?          string
+                         +-- primary2?         string
+                         +-- primary3?         string
+                         +-- fallback?         union
+                         +-- fallback2?        string
+                         +-- fallback3?        string
+                         +-- next-fallback?    union
+                         +-- next-fallback2?   string
+                         +-- next-fallback3?   string

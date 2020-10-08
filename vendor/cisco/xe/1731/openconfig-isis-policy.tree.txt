@@ -1,0 +1,41 @@
+
+module: openconfig-isis-policy
+  augment /rpol:routing-policy/rpol:policy-definitions/rpol:policy-definition/rpol:statements/rpol:statement/rpol:actions/rpol:igp-actions:
+    +--rw isis-actions
+       +--rw config
+       |  +--rw set-level?         isis-types:level-number
+       |  +--rw set-metric-type?   isis-types:level-number
+       |  +--rw set-metric?        isis-types:wide-metric
+       +--ro state
+          +--ro set-level?         isis-types:level-number
+          +--ro set-metric-type?   isis-types:level-number
+          +--ro set-metric?        isis-types:wide-metric
+  augment /rpol:routing-policy/rpol:policy-definitions/rpol:policy-definition/rpol:statements/rpol:statement/rpol:conditions/rpol:igp-conditions:
+    +--rw isis-conditions
+       +--rw config
+       |  +--rw level-eq?   isis-types:level-number
+       +--ro state
+          +--ro level-eq?   isis-types:level-number
+
+  grouping isis-match-conditions
+    +-- isis-conditions
+       +-- config
+       |  +-- level-eq?   isis-types:level-number
+       +--ro state
+          +--ro level-eq?   isis-types:level-number
+  grouping isis-match-conditions-config
+    +-- level-eq?   isis-types:level-number
+  grouping isis-actions
+    +-- isis-actions
+       +-- config
+       |  +-- set-level?         isis-types:level-number
+       |  +-- set-metric-type?   isis-types:level-number
+       |  +-- set-metric?        isis-types:wide-metric
+       +--ro state
+          +--ro set-level?         isis-types:level-number
+          +--ro set-metric-type?   isis-types:level-number
+          +--ro set-metric?        isis-types:wide-metric
+  grouping isis-actions-config
+    +-- set-level?         isis-types:level-number
+    +-- set-metric-type?   isis-types:level-number
+    +-- set-metric?        isis-types:wide-metric

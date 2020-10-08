@@ -1,0 +1,45 @@
+
+module: Cisco-IOS-XE-pppoe
+  augment /ios:native/ios:interface/ios:Ethernet:
+    +--rw pppoe
+    |  +--rw enable-config
+    |  |  +--rw pppoe-enable?   empty
+    |  |  +--rw group-name?     union
+    |  x--rw enable!
+    |  |  x--rw group?   union
+    |  +--rw max-sessons?     uint32
+    +--rw pppoe-client
+    |  +--rw dial-pool-number-list* [number]
+    |  |  +--rw number          uint32
+    |  |  +--rw service-name?   string
+    |  x--rw dial-pool-number?        uint32
+    |  +--rw ppp-max-payload?         uint32
+    +--rw pppoe-session
+       +--rw threshold
+          +--rw loss-threshold?   uint32
+          +--rw percent
+             +--rw percantage?   uint32
+             +--rw interval?     uint32
+
+  grouping config-pppoe-grouping
+    +-- pppoe
+       +-- enable-config
+       |  +-- pppoe-enable?   empty
+       |  +-- group-name?     union
+       x-- enable!
+       |  x-- group?   union
+       +-- max-sessons?     uint32
+  grouping config-pppoe-client-grouping
+    +-- pppoe-client
+       +-- dial-pool-number-list* [number]
+       |  +-- number?         uint32
+       |  +-- service-name?   string
+       x-- dial-pool-number?        uint32
+       +-- ppp-max-payload?         uint32
+  grouping config-pppoe-session-grouping
+    +-- pppoe-session
+       +-- threshold
+          +-- loss-threshold?   uint32
+          +-- percent
+             +-- percantage?   uint32
+             +-- interval?     uint32

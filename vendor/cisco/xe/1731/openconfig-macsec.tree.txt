@@ -1,0 +1,527 @@
+module: openconfig-macsec
+  +--rw macsec
+     +--rw mka
+     |  +--rw policies
+     |  |  +--rw policy* [name]
+     |  |     +--rw name      -> ../config/name
+     |  |     +--rw config
+     |  |     |  +--rw name?                          string
+     |  |     |  +--rw key-server-priority?           uint8
+     |  |     |  +--rw macsec-cipher-suite*           macsec-types:macsec-cipher-suite
+     |  |     |  +--rw confidentiality-offset?        macsec-types:confidentiality-offset
+     |  |     |  +--rw delay-protection?              boolean
+     |  |     |  +--rw include-icv-indicator?         boolean
+     |  |     |  +--rw sak-rekey-interval?            uint32
+     |  |     |  +--rw sak-rekey-on-live-peer-loss?   boolean
+     |  |     |  +--rw use-updated-eth-header?        boolean
+     |  |     +--ro state
+     |  |        +--ro name?                          string
+     |  |        +--ro key-server-priority?           uint8
+     |  |        +--ro macsec-cipher-suite*           macsec-types:macsec-cipher-suite
+     |  |        +--ro confidentiality-offset?        macsec-types:confidentiality-offset
+     |  |        +--ro delay-protection?              boolean
+     |  |        +--ro include-icv-indicator?         boolean
+     |  |        +--ro sak-rekey-interval?            uint32
+     |  |        +--ro sak-rekey-on-live-peer-loss?   boolean
+     |  |        +--ro use-updated-eth-header?        boolean
+     |  +--rw key-chains
+     |  |  +--rw key-chain* [name]
+     |  |     +--rw name        -> ../config/name
+     |  |     +--rw config
+     |  |     |  +--rw name?   string
+     |  |     +--ro state
+     |  |     |  +--ro name?   string
+     |  |     +--rw mka-keys
+     |  |        +--rw mka-key* [id]
+     |  |           +--rw id        -> ../config/id
+     |  |           +--rw config
+     |  |           |  +--rw id?                        oc-yang:hex-string
+     |  |           |  +--rw key-clear-text?            string
+     |  |           |  +--rw cryptographic-algorithm?   enumeration
+     |  |           |  +--rw valid-date-time?           union
+     |  |           |  +--rw expiration-date-time?      union
+     |  |           +--ro state
+     |  |              +--ro id?                        oc-yang:hex-string
+     |  |              +--ro key-clear-text?            string
+     |  |              +--ro cryptographic-algorithm?   enumeration
+     |  |              +--ro valid-date-time?           union
+     |  |              +--ro expiration-date-time?      union
+     |  +--ro state
+     |     +--ro counters
+     |        +--ro out-mkpdu-errors?                   oc-yang:counter64
+     |        +--ro in-mkpdu-icv-verification-errors?   oc-yang:counter64
+     |        +--ro in-mkpdu-validation-errors?         oc-yang:counter64
+     |        +--ro in-mkpdu-bad-peer-errors?           oc-yang:counter64
+     |        +--ro in-mkpdu-peer-list-errors?          oc-yang:counter64
+     |        +--ro sak-generation-errors?              oc-yang:counter64
+     |        +--ro sak-hash-errors?                    oc-yang:counter64
+     |        +--ro sak-encryption-errors?              oc-yang:counter64
+     |        +--ro sak-decryption-errors?              oc-yang:counter64
+     |        +--ro sak-cipher-mismatch-errors?         oc-yang:counter64
+     +--rw interfaces
+        +--rw interface* [name]
+           +--rw name       -> ../config/name
+           +--rw config
+           |  +--rw name?                oc-if:base-interface-ref
+           |  +--rw enable?              boolean
+           |  +--rw replay-protection?   uint16
+           +--ro state
+           |  +--ro name?                oc-if:base-interface-ref
+           |  +--ro enable?              boolean
+           |  +--ro replay-protection?   uint16
+           |  +--ro counters
+           |     +--ro tx-untagged-pkts?     oc-yang:counter64
+           |     +--ro rx-untagged-pkts?     oc-yang:counter64
+           |     +--ro rx-badtag-pkts?       oc-yang:counter64
+           |     +--ro rx-unknownsci-pkts?   oc-yang:counter64
+           |     +--ro rx-nosci-pkts?        oc-yang:counter64
+           +--ro scsa-tx
+           |  +--ro scsa-tx* [sci-tx]
+           |     +--ro sci-tx    -> ../state/counters/sci-tx
+           |     +--ro state
+           |        +--ro counters
+           |           +--ro sci-tx?         oc-yang:hex-string
+           |           +--ro sc-auth-only?   oc-yang:counter64
+           |           +--ro sc-encrypted?   oc-yang:counter64
+           |           +--ro sa-auth-only?   oc-yang:counter64
+           |           +--ro sa-encrypted?   oc-yang:counter64
+           +--ro scsa-rx
+           |  +--ro scsa-rx* [sci-rx]
+           |     +--ro sci-rx    -> ../state/counters/sci-rx
+           |     +--ro state
+           |        +--ro counters
+           |           +--ro sci-rx?       oc-yang:hex-string
+           |           +--ro sc-invalid?   oc-yang:counter64
+           |           +--ro sc-valid?     oc-yang:counter64
+           |           +--ro sa-invalid?   oc-yang:counter64
+           |           +--ro sa-valid?     oc-yang:counter64
+           +--rw mka
+              +--rw config
+              |  +--rw mka-policy?   -> /macsec/mka/policies/policy/name
+              |  +--rw key-chain?    -> /macsec/mka/key-chains/key-chain/name
+              +--ro state
+                 +--ro mka-policy?   -> /macsec/mka/policies/policy/name
+                 +--ro key-chain?    -> /macsec/mka/key-chains/key-chain/name
+                 +--ro counters
+                    +--ro in-mkpdu?        oc-yang:counter64
+                    +--ro in-sak-mkpdu?    oc-yang:counter64
+                    +--ro in-cak-mkpdu?    oc-yang:counter64
+                    +--ro out-mkpdu?       oc-yang:counter64
+                    +--ro out-sak-mkpdu?   oc-yang:counter64
+                    +--ro out-cak-mkpdu?   oc-yang:counter64
+
+  grouping macsec-mka-key-config
+    +-- id?                        oc-yang:hex-string
+    +-- key-clear-text?            string
+    +-- cryptographic-algorithm?   enumeration
+    +-- valid-date-time?           union
+    +-- expiration-date-time?      union
+  grouping macsec-mka-key-top
+    +-- mka-keys
+       +-- mka-key* [id]
+          +-- id?       -> ../config/id
+          +-- config
+          |  +-- id?                        oc-yang:hex-string
+          |  +-- key-clear-text?            string
+          |  +-- cryptographic-algorithm?   enumeration
+          |  +-- valid-date-time?           union
+          |  +-- expiration-date-time?      union
+          +--ro state
+             +--ro id?                        oc-yang:hex-string
+             +--ro key-clear-text?            string
+             +--ro cryptographic-algorithm?   enumeration
+             +--ro valid-date-time?           union
+             +--ro expiration-date-time?      union
+  grouping macsec-mka-key-chain-config
+    +-- name?   string
+  grouping macsec-mka-key-chain-top
+    +-- key-chains
+       +-- key-chain* [name]
+          +-- name?       -> ../config/name
+          +-- config
+          |  +-- name?   string
+          +--ro state
+          |  +--ro name?   string
+          +-- mka-keys
+             +-- mka-key* [id]
+                +-- id?       -> ../config/id
+                +-- config
+                |  +-- id?                        oc-yang:hex-string
+                |  +-- key-clear-text?            string
+                |  +-- cryptographic-algorithm?   enumeration
+                |  +-- valid-date-time?           union
+                |  +-- expiration-date-time?      union
+                +--ro state
+                   +--ro id?                        oc-yang:hex-string
+                   +--ro key-clear-text?            string
+                   +--ro cryptographic-algorithm?   enumeration
+                   +--ro valid-date-time?           union
+                   +--ro expiration-date-time?      union
+  grouping macsec-mka-interface-config
+    +-- mka-policy?   -> /macsec/mka/policies/policy/name
+    +-- key-chain?    -> /macsec/mka/key-chains/key-chain/name
+  grouping macsec-mka-interface-counters
+    +-- in-mkpdu?        oc-yang:counter64
+    +-- in-sak-mkpdu?    oc-yang:counter64
+    +-- in-cak-mkpdu?    oc-yang:counter64
+    +-- out-mkpdu?       oc-yang:counter64
+    +-- out-sak-mkpdu?   oc-yang:counter64
+    +-- out-cak-mkpdu?   oc-yang:counter64
+  grouping macsec-mka-interface-state
+    +-- counters
+       +-- in-mkpdu?        oc-yang:counter64
+       +-- in-sak-mkpdu?    oc-yang:counter64
+       +-- in-cak-mkpdu?    oc-yang:counter64
+       +-- out-mkpdu?       oc-yang:counter64
+       +-- out-sak-mkpdu?   oc-yang:counter64
+       +-- out-cak-mkpdu?   oc-yang:counter64
+  grouping macsec-mka-interface-top
+    +-- mka
+       +-- config
+       |  +-- mka-policy?   -> /macsec/mka/policies/policy/name
+       |  +-- key-chain?    -> /macsec/mka/key-chains/key-chain/name
+       +--ro state
+          +--ro mka-policy?   -> /macsec/mka/policies/policy/name
+          +--ro key-chain?    -> /macsec/mka/key-chains/key-chain/name
+          +--ro counters
+             +--ro in-mkpdu?        oc-yang:counter64
+             +--ro in-sak-mkpdu?    oc-yang:counter64
+             +--ro in-cak-mkpdu?    oc-yang:counter64
+             +--ro out-mkpdu?       oc-yang:counter64
+             +--ro out-sak-mkpdu?   oc-yang:counter64
+             +--ro out-cak-mkpdu?   oc-yang:counter64
+  grouping macsec-interface-config
+    +-- name?                oc-if:base-interface-ref
+    +-- enable?              boolean
+    +-- replay-protection?   uint16
+  grouping macsec-scsa-tx-interface-stats
+    +-- sci-tx?         oc-yang:hex-string
+    +-- sc-auth-only?   oc-yang:counter64
+    +-- sc-encrypted?   oc-yang:counter64
+    +-- sa-auth-only?   oc-yang:counter64
+    +-- sa-encrypted?   oc-yang:counter64
+  grouping macsec-scsa-rx-interface-stats
+    +-- sci-rx?       oc-yang:hex-string
+    +-- sc-invalid?   oc-yang:counter64
+    +-- sc-valid?     oc-yang:counter64
+    +-- sa-invalid?   oc-yang:counter64
+    +-- sa-valid?     oc-yang:counter64
+  grouping macsec-interface-counters
+    +-- tx-untagged-pkts?     oc-yang:counter64
+    +-- rx-untagged-pkts?     oc-yang:counter64
+    +-- rx-badtag-pkts?       oc-yang:counter64
+    +-- rx-unknownsci-pkts?   oc-yang:counter64
+    +-- rx-nosci-pkts?        oc-yang:counter64
+  grouping macsec-scsa-interface-top
+    +--ro scsa-tx
+    |  +--ro scsa-tx* [sci-tx]
+    |     +--ro sci-tx?   -> ../state/counters/sci-tx
+    |     +--ro state
+    |        +--ro counters
+    |           +--ro sci-tx?         oc-yang:hex-string
+    |           +--ro sc-auth-only?   oc-yang:counter64
+    |           +--ro sc-encrypted?   oc-yang:counter64
+    |           +--ro sa-auth-only?   oc-yang:counter64
+    |           +--ro sa-encrypted?   oc-yang:counter64
+    +--ro scsa-rx
+       +--ro scsa-rx* [sci-rx]
+          +--ro sci-rx?   -> ../state/counters/sci-rx
+          +--ro state
+             +--ro counters
+                +--ro sci-rx?       oc-yang:hex-string
+                +--ro sc-invalid?   oc-yang:counter64
+                +--ro sc-valid?     oc-yang:counter64
+                +--ro sa-invalid?   oc-yang:counter64
+                +--ro sa-valid?     oc-yang:counter64
+  grouping macsec-interface-top
+    +-- interfaces
+       +-- interface* [name]
+          +-- name?      -> ../config/name
+          +-- config
+          |  +-- name?                oc-if:base-interface-ref
+          |  +-- enable?              boolean
+          |  +-- replay-protection?   uint16
+          +--ro state
+          |  +--ro name?                oc-if:base-interface-ref
+          |  +--ro enable?              boolean
+          |  +--ro replay-protection?   uint16
+          |  +--ro counters
+          |     +--ro tx-untagged-pkts?     oc-yang:counter64
+          |     +--ro rx-untagged-pkts?     oc-yang:counter64
+          |     +--ro rx-badtag-pkts?       oc-yang:counter64
+          |     +--ro rx-unknownsci-pkts?   oc-yang:counter64
+          |     +--ro rx-nosci-pkts?        oc-yang:counter64
+          +--ro scsa-tx
+          |  +--ro scsa-tx* [sci-tx]
+          |     +--ro sci-tx?   -> ../state/counters/sci-tx
+          |     +--ro state
+          |        +--ro counters
+          |           +--ro sci-tx?         oc-yang:hex-string
+          |           +--ro sc-auth-only?   oc-yang:counter64
+          |           +--ro sc-encrypted?   oc-yang:counter64
+          |           +--ro sa-auth-only?   oc-yang:counter64
+          |           +--ro sa-encrypted?   oc-yang:counter64
+          +--ro scsa-rx
+          |  +--ro scsa-rx* [sci-rx]
+          |     +--ro sci-rx?   -> ../state/counters/sci-rx
+          |     +--ro state
+          |        +--ro counters
+          |           +--ro sci-rx?       oc-yang:hex-string
+          |           +--ro sc-invalid?   oc-yang:counter64
+          |           +--ro sc-valid?     oc-yang:counter64
+          |           +--ro sa-invalid?   oc-yang:counter64
+          |           +--ro sa-valid?     oc-yang:counter64
+          +-- mka
+             +-- config
+             |  +-- mka-policy?   -> /macsec/mka/policies/policy/name
+             |  +-- key-chain?    -> /macsec/mka/key-chains/key-chain/name
+             +--ro state
+                +--ro mka-policy?   -> /macsec/mka/policies/policy/name
+                +--ro key-chain?    -> /macsec/mka/key-chains/key-chain/name
+                +--ro counters
+                   +--ro in-mkpdu?        oc-yang:counter64
+                   +--ro in-sak-mkpdu?    oc-yang:counter64
+                   +--ro in-cak-mkpdu?    oc-yang:counter64
+                   +--ro out-mkpdu?       oc-yang:counter64
+                   +--ro out-sak-mkpdu?   oc-yang:counter64
+                   +--ro out-cak-mkpdu?   oc-yang:counter64
+  grouping macsec-mka-policy-config
+    +-- name?                          string
+    +-- key-server-priority?           uint8
+    +-- macsec-cipher-suite*           macsec-types:macsec-cipher-suite
+    +-- confidentiality-offset?        macsec-types:confidentiality-offset
+    +-- delay-protection?              boolean
+    +-- include-icv-indicator?         boolean
+    +-- sak-rekey-interval?            uint32
+    +-- sak-rekey-on-live-peer-loss?   boolean
+    +-- use-updated-eth-header?        boolean
+  grouping macsec-mka-global-counters
+    +-- out-mkpdu-errors?                   oc-yang:counter64
+    +-- in-mkpdu-icv-verification-errors?   oc-yang:counter64
+    +-- in-mkpdu-validation-errors?         oc-yang:counter64
+    +-- in-mkpdu-bad-peer-errors?           oc-yang:counter64
+    +-- in-mkpdu-peer-list-errors?          oc-yang:counter64
+    +-- sak-generation-errors?              oc-yang:counter64
+    +-- sak-hash-errors?                    oc-yang:counter64
+    +-- sak-encryption-errors?              oc-yang:counter64
+    +-- sak-decryption-errors?              oc-yang:counter64
+    +-- sak-cipher-mismatch-errors?         oc-yang:counter64
+  grouping macsec-mka-global-state
+    +-- counters
+       +-- out-mkpdu-errors?                   oc-yang:counter64
+       +-- in-mkpdu-icv-verification-errors?   oc-yang:counter64
+       +-- in-mkpdu-validation-errors?         oc-yang:counter64
+       +-- in-mkpdu-bad-peer-errors?           oc-yang:counter64
+       +-- in-mkpdu-peer-list-errors?          oc-yang:counter64
+       +-- sak-generation-errors?              oc-yang:counter64
+       +-- sak-hash-errors?                    oc-yang:counter64
+       +-- sak-encryption-errors?              oc-yang:counter64
+       +-- sak-decryption-errors?              oc-yang:counter64
+       +-- sak-cipher-mismatch-errors?         oc-yang:counter64
+  grouping macsec-mka-global-top
+    +--ro state
+       +--ro counters
+          +--ro out-mkpdu-errors?                   oc-yang:counter64
+          +--ro in-mkpdu-icv-verification-errors?   oc-yang:counter64
+          +--ro in-mkpdu-validation-errors?         oc-yang:counter64
+          +--ro in-mkpdu-bad-peer-errors?           oc-yang:counter64
+          +--ro in-mkpdu-peer-list-errors?          oc-yang:counter64
+          +--ro sak-generation-errors?              oc-yang:counter64
+          +--ro sak-hash-errors?                    oc-yang:counter64
+          +--ro sak-encryption-errors?              oc-yang:counter64
+          +--ro sak-decryption-errors?              oc-yang:counter64
+          +--ro sak-cipher-mismatch-errors?         oc-yang:counter64
+  grouping macsec-mka-policy-top
+    +-- policies
+       +-- policy* [name]
+          +-- name?     -> ../config/name
+          +-- config
+          |  +-- name?                          string
+          |  +-- key-server-priority?           uint8
+          |  +-- macsec-cipher-suite*           macsec-types:macsec-cipher-suite
+          |  +-- confidentiality-offset?        macsec-types:confidentiality-offset
+          |  +-- delay-protection?              boolean
+          |  +-- include-icv-indicator?         boolean
+          |  +-- sak-rekey-interval?            uint32
+          |  +-- sak-rekey-on-live-peer-loss?   boolean
+          |  +-- use-updated-eth-header?        boolean
+          +--ro state
+             +--ro name?                          string
+             +--ro key-server-priority?           uint8
+             +--ro macsec-cipher-suite*           macsec-types:macsec-cipher-suite
+             +--ro confidentiality-offset?        macsec-types:confidentiality-offset
+             +--ro delay-protection?              boolean
+             +--ro include-icv-indicator?         boolean
+             +--ro sak-rekey-interval?            uint32
+             +--ro sak-rekey-on-live-peer-loss?   boolean
+             +--ro use-updated-eth-header?        boolean
+  grouping macsec-mka-top
+    +-- mka
+       +-- policies
+       |  +-- policy* [name]
+       |     +-- name?     -> ../config/name
+       |     +-- config
+       |     |  +-- name?                          string
+       |     |  +-- key-server-priority?           uint8
+       |     |  +-- macsec-cipher-suite*           macsec-types:macsec-cipher-suite
+       |     |  +-- confidentiality-offset?        macsec-types:confidentiality-offset
+       |     |  +-- delay-protection?              boolean
+       |     |  +-- include-icv-indicator?         boolean
+       |     |  +-- sak-rekey-interval?            uint32
+       |     |  +-- sak-rekey-on-live-peer-loss?   boolean
+       |     |  +-- use-updated-eth-header?        boolean
+       |     +--ro state
+       |        +--ro name?                          string
+       |        +--ro key-server-priority?           uint8
+       |        +--ro macsec-cipher-suite*           macsec-types:macsec-cipher-suite
+       |        +--ro confidentiality-offset?        macsec-types:confidentiality-offset
+       |        +--ro delay-protection?              boolean
+       |        +--ro include-icv-indicator?         boolean
+       |        +--ro sak-rekey-interval?            uint32
+       |        +--ro sak-rekey-on-live-peer-loss?   boolean
+       |        +--ro use-updated-eth-header?        boolean
+       +-- key-chains
+       |  +-- key-chain* [name]
+       |     +-- name?       -> ../config/name
+       |     +-- config
+       |     |  +-- name?   string
+       |     +--ro state
+       |     |  +--ro name?   string
+       |     +-- mka-keys
+       |        +-- mka-key* [id]
+       |           +-- id?       -> ../config/id
+       |           +-- config
+       |           |  +-- id?                        oc-yang:hex-string
+       |           |  +-- key-clear-text?            string
+       |           |  +-- cryptographic-algorithm?   enumeration
+       |           |  +-- valid-date-time?           union
+       |           |  +-- expiration-date-time?      union
+       |           +--ro state
+       |              +--ro id?                        oc-yang:hex-string
+       |              +--ro key-clear-text?            string
+       |              +--ro cryptographic-algorithm?   enumeration
+       |              +--ro valid-date-time?           union
+       |              +--ro expiration-date-time?      union
+       +--ro state
+          +--ro counters
+             +--ro out-mkpdu-errors?                   oc-yang:counter64
+             +--ro in-mkpdu-icv-verification-errors?   oc-yang:counter64
+             +--ro in-mkpdu-validation-errors?         oc-yang:counter64
+             +--ro in-mkpdu-bad-peer-errors?           oc-yang:counter64
+             +--ro in-mkpdu-peer-list-errors?          oc-yang:counter64
+             +--ro sak-generation-errors?              oc-yang:counter64
+             +--ro sak-hash-errors?                    oc-yang:counter64
+             +--ro sak-encryption-errors?              oc-yang:counter64
+             +--ro sak-decryption-errors?              oc-yang:counter64
+             +--ro sak-cipher-mismatch-errors?         oc-yang:counter64
+  grouping macsec-top
+    +-- macsec
+       +-- mka
+       |  +-- policies
+       |  |  +-- policy* [name]
+       |  |     +-- name?     -> ../config/name
+       |  |     +-- config
+       |  |     |  +-- name?                          string
+       |  |     |  +-- key-server-priority?           uint8
+       |  |     |  +-- macsec-cipher-suite*           macsec-types:macsec-cipher-suite
+       |  |     |  +-- confidentiality-offset?        macsec-types:confidentiality-offset
+       |  |     |  +-- delay-protection?              boolean
+       |  |     |  +-- include-icv-indicator?         boolean
+       |  |     |  +-- sak-rekey-interval?            uint32
+       |  |     |  +-- sak-rekey-on-live-peer-loss?   boolean
+       |  |     |  +-- use-updated-eth-header?        boolean
+       |  |     +--ro state
+       |  |        +--ro name?                          string
+       |  |        +--ro key-server-priority?           uint8
+       |  |        +--ro macsec-cipher-suite*           macsec-types:macsec-cipher-suite
+       |  |        +--ro confidentiality-offset?        macsec-types:confidentiality-offset
+       |  |        +--ro delay-protection?              boolean
+       |  |        +--ro include-icv-indicator?         boolean
+       |  |        +--ro sak-rekey-interval?            uint32
+       |  |        +--ro sak-rekey-on-live-peer-loss?   boolean
+       |  |        +--ro use-updated-eth-header?        boolean
+       |  +-- key-chains
+       |  |  +-- key-chain* [name]
+       |  |     +-- name?       -> ../config/name
+       |  |     +-- config
+       |  |     |  +-- name?   string
+       |  |     +--ro state
+       |  |     |  +--ro name?   string
+       |  |     +-- mka-keys
+       |  |        +-- mka-key* [id]
+       |  |           +-- id?       -> ../config/id
+       |  |           +-- config
+       |  |           |  +-- id?                        oc-yang:hex-string
+       |  |           |  +-- key-clear-text?            string
+       |  |           |  +-- cryptographic-algorithm?   enumeration
+       |  |           |  +-- valid-date-time?           union
+       |  |           |  +-- expiration-date-time?      union
+       |  |           +--ro state
+       |  |              +--ro id?                        oc-yang:hex-string
+       |  |              +--ro key-clear-text?            string
+       |  |              +--ro cryptographic-algorithm?   enumeration
+       |  |              +--ro valid-date-time?           union
+       |  |              +--ro expiration-date-time?      union
+       |  +--ro state
+       |     +--ro counters
+       |        +--ro out-mkpdu-errors?                   oc-yang:counter64
+       |        +--ro in-mkpdu-icv-verification-errors?   oc-yang:counter64
+       |        +--ro in-mkpdu-validation-errors?         oc-yang:counter64
+       |        +--ro in-mkpdu-bad-peer-errors?           oc-yang:counter64
+       |        +--ro in-mkpdu-peer-list-errors?          oc-yang:counter64
+       |        +--ro sak-generation-errors?              oc-yang:counter64
+       |        +--ro sak-hash-errors?                    oc-yang:counter64
+       |        +--ro sak-encryption-errors?              oc-yang:counter64
+       |        +--ro sak-decryption-errors?              oc-yang:counter64
+       |        +--ro sak-cipher-mismatch-errors?         oc-yang:counter64
+       +-- interfaces
+          +-- interface* [name]
+             +-- name?      -> ../config/name
+             +-- config
+             |  +-- name?                oc-if:base-interface-ref
+             |  +-- enable?              boolean
+             |  +-- replay-protection?   uint16
+             +--ro state
+             |  +--ro name?                oc-if:base-interface-ref
+             |  +--ro enable?              boolean
+             |  +--ro replay-protection?   uint16
+             |  +--ro counters
+             |     +--ro tx-untagged-pkts?     oc-yang:counter64
+             |     +--ro rx-untagged-pkts?     oc-yang:counter64
+             |     +--ro rx-badtag-pkts?       oc-yang:counter64
+             |     +--ro rx-unknownsci-pkts?   oc-yang:counter64
+             |     +--ro rx-nosci-pkts?        oc-yang:counter64
+             +--ro scsa-tx
+             |  +--ro scsa-tx* [sci-tx]
+             |     +--ro sci-tx?   -> ../state/counters/sci-tx
+             |     +--ro state
+             |        +--ro counters
+             |           +--ro sci-tx?         oc-yang:hex-string
+             |           +--ro sc-auth-only?   oc-yang:counter64
+             |           +--ro sc-encrypted?   oc-yang:counter64
+             |           +--ro sa-auth-only?   oc-yang:counter64
+             |           +--ro sa-encrypted?   oc-yang:counter64
+             +--ro scsa-rx
+             |  +--ro scsa-rx* [sci-rx]
+             |     +--ro sci-rx?   -> ../state/counters/sci-rx
+             |     +--ro state
+             |        +--ro counters
+             |           +--ro sci-rx?       oc-yang:hex-string
+             |           +--ro sc-invalid?   oc-yang:counter64
+             |           +--ro sc-valid?     oc-yang:counter64
+             |           +--ro sa-invalid?   oc-yang:counter64
+             |           +--ro sa-valid?     oc-yang:counter64
+             +-- mka
+                +-- config
+                |  +-- mka-policy?   -> /macsec/mka/policies/policy/name
+                |  +-- key-chain?    -> /macsec/mka/key-chains/key-chain/name
+                +--ro state
+                   +--ro mka-policy?   -> /macsec/mka/policies/policy/name
+                   +--ro key-chain?    -> /macsec/mka/key-chains/key-chain/name
+                   +--ro counters
+                      +--ro in-mkpdu?        oc-yang:counter64
+                      +--ro in-sak-mkpdu?    oc-yang:counter64
+                      +--ro in-cak-mkpdu?    oc-yang:counter64
+                      +--ro out-mkpdu?       oc-yang:counter64
+                      +--ro out-sak-mkpdu?   oc-yang:counter64
+                      +--ro out-cak-mkpdu?   oc-yang:counter64

@@ -1,0 +1,73 @@
+module: Cisco-IOS-XE-qfp-resource-utilization-oper
+  +--ro qfp-resource-utilization-oper-data
+  |  +--ro location* [fru slot bay chassis node]
+  |     +--ro fru               common-types-ios-xe:fru-type
+  |     +--ro slot              int16
+  |     +--ro bay               int16
+  |     +--ro chassis           int16
+  |     +--ro node              uint16
+  |     +--ro qfp-exmem-stat* [qfp]
+  |     |  +--ro qfp     uint16
+  |     |  +--ro dram
+  |     |  |  +--ro total?                    uint64
+  |     |  |  +--ro in-use?                   uint64
+  |     |  |  +--ro free?                     uint64
+  |     |  |  +--ro lowest-free-water-mark?   uint64
+  |     |  +--ro iram
+  |     |  |  +--ro total?                    uint64
+  |     |  |  +--ro in-use?                   uint64
+  |     |  |  +--ro free?                     uint64
+  |     |  |  +--ro lowest-free-water-mark?   uint64
+  |     |  +--ro sram
+  |     |     +--ro total?                    uint64
+  |     |     +--ro in-use?                   uint64
+  |     |     +--ro free?                     uint64
+  |     |     +--ro lowest-free-water-mark?   uint64
+  |     +--ro qfp-dp-util* [period]
+  |        +--ro cpp-num?              uint64
+  |        +--ro period                datapath-utilization:cpp-period
+  |        +--ro total-input-pkts?     uint64
+  |        +--ro total-input-bytes?    uint64
+  |        +--ro total-output-pkts?    uint64
+  |        +--ro total-output-bytes?   uint64
+  |        +--ro dp-stats-load?        uint64
+  +--rw schema-metadata-Cisco-IOS-XE-qfp-resource-utilization-oper
+  |  +--rw json-metadata-leaf?          empty
+  |  +--rw Cisco-IOS-XE-common-types
+  |     +--rw json-metadata-leaf?   empty
+  +--rw gnmi-model-data
+
+  grouping cpp-dp-utilization-sum
+    +-- cpp-num?              uint64
+    +-- period?               datapath-utilization:cpp-period
+    +-- total-input-pkts?     uint64
+    +-- total-input-bytes?    uint64
+    +-- total-output-pkts?    uint64
+    +-- total-output-bytes?   uint64
+    +-- dp-stats-load?        uint64
+  grouping stat-values
+    +-- total?                    uint64
+    +-- in-use?                   uint64
+    +-- free?                     uint64
+    +-- lowest-free-water-mark?   uint64
+  grouping qfp-exmem-stat
+    +-- qfp?    uint16
+    +-- dram
+    |  +-- total?                    uint64
+    |  +-- in-use?                   uint64
+    |  +-- free?                     uint64
+    |  +-- lowest-free-water-mark?   uint64
+    +-- iram
+    |  +-- total?                    uint64
+    |  +-- in-use?                   uint64
+    |  +-- free?                     uint64
+    |  +-- lowest-free-water-mark?   uint64
+    +-- sram
+       +-- total?                    uint64
+       +-- in-use?                   uint64
+       +-- free?                     uint64
+       +-- lowest-free-water-mark?   uint64
+  grouping __yangpp_metadata
+    +-- json-metadata-leaf?          empty
+    +-- Cisco-IOS-XE-common-types
+       +-- json-metadata-leaf?   empty

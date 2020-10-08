@@ -1,0 +1,685 @@
+
+module: Cisco-IOS-XE-ppp
+  augment /ios:native/ios:ppp:
+    +--rw packet
+       +--rw throttle?     uint32
+       +--rw allow_time?   uint32
+       +--rw block_time?   uint32
+  augment /ios:native/ios:multilink:
+    +--rw bundle-name?        enumeration {ios-features:multilink}?
+    +--rw test-mode?          uint8 {ios-features:multilink}?
+    +--rw virtual-template?   uint16 {ios-features:multilink}?
+  augment /ios:native/ios:interface/ios:Multilink:
+    +--rw ppp {ios-features:multilink}?
+       +--rw accounting?       union
+       +--rw chap
+       |  +--rw hostname?           string
+       |  +--rw challenge-length
+       |  |  +--rw minimum?   uint8
+       |  |  +--rw maximum?   uint8
+       |  +--rw password
+       |     +--rw enryption-type?      enumeration
+       |     +--rw ppp-auth-password?   string
+       +--rw pap
+       |  +--rw refuse!
+       |  |  +--rw callin?   empty
+       |  +--rw sent-username
+       |  |  +--rw username
+       |  |     +--rw username-string?     string
+       |  |     +--rw password?            empty
+       |  |     +--rw enryption-type?      enumeration
+       |  |     +--rw ppp-auth-password?   string
+       |  +--rw wait?            empty
+       +--rw authentication
+       |  +--rw method?       enumeration
+       |  +--rw chap?         empty
+       |  +--rw eap?          empty
+       |  +--rw ms-chap?      empty
+       |  +--rw ms-chap-v2?   empty
+       |  +--rw pap?          empty
+       |  +--rw callback?     empty
+       |  +--rw callin?       empty
+       |  +--rw callout?      empty
+       |  +--rw optional?     empty
+       |  +--rw list-name?    string
+       |  +--rw default?      empty
+       |  +--rw one-time?     empty
+       +--rw authorization?    union
+       +--rw ipcp
+       |  +--rw dns
+       |  |  +--rw primary
+       |  |  |  +--rw primary-dns-address?     inet:ipv4-address
+       |  |  |  +--rw secondary-dns-address?   inet:ipv4-address
+       |  |  |  +--rw aaa?                     empty
+       |  |  |  +--rw accept?                  empty
+       |  |  +--rw accept?    empty
+       |  |  +--rw reject?    empty
+       |  |  +--rw request!
+       |  |     +--rw accept?   empty
+       |  +--rw wins
+       |  |  +--rw primary
+       |  |  |  +--rw primary-wins-address?     inet:ipv4-address
+       |  |  |  +--rw secondary-wins-address?   inet:ipv4-address
+       |  |  |  +--rw aaa?                      empty
+       |  |  |  +--rw accept?                   empty
+       |  |  +--rw accept?    empty
+       |  |  +--rw reject?    empty
+       |  |  +--rw request!
+       |  |     +--rw accept?   empty
+       |  +--rw route
+       |     +--rw default?   empty
+       +--rw timeout
+       |  +--rw ncp
+       |  |  +--rw ncp-timeout?   uint16
+       |  |  +--rw termination?   uint16
+       |  +--rw authentication?   uint8
+       +--rw mtu
+       |  +--rw adaptive!
+       |  |  +--rw proxy?   empty
+       |  +--rw pppoe
+       |     +--rw unlimited?   empty
+       +--rw multilink! {ios-features:multilink}?
+          +--rw links
+          |  +--rw minimum
+          |  |  +--rw minimum-value?   uint8
+          |  |  +--rw mandatory?       empty
+          |  +--rw maximum
+          |     +--rw maximum-value?   uint8
+          +--rw endpoint
+          |  +--rw string?   string
+          +--rw fragment
+          |  +--rw delay
+          |  |  +--rw delay-value?              uint16
+          |  |  +--rw additional-delay-value?   uint16
+          |  +--rw disable?   empty
+          +--rw interleave?   empty
+          +--rw group?        uint32
+  augment /ios:native/ios:interface/ios:Serial:
+    +--rw ppp {ios-features:multilink}?
+       +--rw accounting?       union
+       +--rw chap
+       |  +--rw hostname?           string
+       |  +--rw challenge-length
+       |  |  +--rw minimum?   uint8
+       |  |  +--rw maximum?   uint8
+       |  +--rw password
+       |     +--rw enryption-type?      enumeration
+       |     +--rw ppp-auth-password?   string
+       +--rw pap
+       |  +--rw refuse!
+       |  |  +--rw callin?   empty
+       |  +--rw sent-username
+       |  |  +--rw username
+       |  |     +--rw username-string?     string
+       |  |     +--rw password?            empty
+       |  |     +--rw enryption-type?      enumeration
+       |  |     +--rw ppp-auth-password?   string
+       |  +--rw wait?            empty
+       +--rw authentication
+       |  +--rw method?       enumeration
+       |  +--rw chap?         empty
+       |  +--rw eap?          empty
+       |  +--rw ms-chap?      empty
+       |  +--rw ms-chap-v2?   empty
+       |  +--rw pap?          empty
+       |  +--rw callback?     empty
+       |  +--rw callin?       empty
+       |  +--rw callout?      empty
+       |  +--rw optional?     empty
+       |  +--rw list-name?    string
+       |  +--rw default?      empty
+       |  +--rw one-time?     empty
+       +--rw authorization?    union
+       +--rw ipcp
+       |  +--rw dns
+       |  |  +--rw primary
+       |  |  |  +--rw primary-dns-address?     inet:ipv4-address
+       |  |  |  +--rw secondary-dns-address?   inet:ipv4-address
+       |  |  |  +--rw aaa?                     empty
+       |  |  |  +--rw accept?                  empty
+       |  |  +--rw accept?    empty
+       |  |  +--rw reject?    empty
+       |  |  +--rw request!
+       |  |     +--rw accept?   empty
+       |  +--rw wins
+       |  |  +--rw primary
+       |  |  |  +--rw primary-wins-address?     inet:ipv4-address
+       |  |  |  +--rw secondary-wins-address?   inet:ipv4-address
+       |  |  |  +--rw aaa?                      empty
+       |  |  |  +--rw accept?                   empty
+       |  |  +--rw accept?    empty
+       |  |  +--rw reject?    empty
+       |  |  +--rw request!
+       |  |     +--rw accept?   empty
+       |  +--rw route
+       |     +--rw default?   empty
+       +--rw timeout
+       |  +--rw ncp
+       |  |  +--rw ncp-timeout?   uint16
+       |  |  +--rw termination?   uint16
+       |  +--rw authentication?   uint8
+       +--rw mtu
+       |  +--rw adaptive!
+       |  |  +--rw proxy?   empty
+       |  +--rw pppoe
+       |     +--rw unlimited?   empty
+       +--rw multilink! {ios-features:multilink}?
+          +--rw links
+          |  +--rw minimum
+          |  |  +--rw minimum-value?   uint8
+          |  |  +--rw mandatory?       empty
+          |  +--rw maximum
+          |     +--rw maximum-value?   uint8
+          +--rw endpoint
+          |  +--rw string?   string
+          +--rw fragment
+          |  +--rw delay
+          |  |  +--rw delay-value?              uint16
+          |  |  +--rw additional-delay-value?   uint16
+          |  +--rw disable?   empty
+          +--rw interleave?   empty
+          +--rw group?        -> /ios:native/interface/Multilink/ios-ppp:ppp/multilink/group
+  augment /ios:native/ios:interface/ios:Virtual-Template:
+    +--rw ppp {ios-features:multilink}?
+       +--rw accounting?       union
+       +--rw chap
+       |  +--rw hostname?           string
+       |  +--rw challenge-length
+       |  |  +--rw minimum?   uint8
+       |  |  +--rw maximum?   uint8
+       |  +--rw password
+       |     +--rw enryption-type?      enumeration
+       |     +--rw ppp-auth-password?   string
+       +--rw pap
+       |  +--rw refuse!
+       |  |  +--rw callin?   empty
+       |  +--rw sent-username
+       |  |  +--rw username
+       |  |     +--rw username-string?     string
+       |  |     +--rw password?            empty
+       |  |     +--rw enryption-type?      enumeration
+       |  |     +--rw ppp-auth-password?   string
+       |  +--rw wait?            empty
+       +--rw authentication
+       |  +--rw method?       enumeration
+       |  +--rw chap?         empty
+       |  +--rw eap?          empty
+       |  +--rw ms-chap?      empty
+       |  +--rw ms-chap-v2?   empty
+       |  +--rw pap?          empty
+       |  +--rw callback?     empty
+       |  +--rw callin?       empty
+       |  +--rw callout?      empty
+       |  +--rw optional?     empty
+       |  +--rw list-name?    string
+       |  +--rw default?      empty
+       |  +--rw one-time?     empty
+       +--rw authorization?    union
+       +--rw ipcp
+       |  +--rw dns
+       |  |  +--rw primary
+       |  |  |  +--rw primary-dns-address?     inet:ipv4-address
+       |  |  |  +--rw secondary-dns-address?   inet:ipv4-address
+       |  |  |  +--rw aaa?                     empty
+       |  |  |  +--rw accept?                  empty
+       |  |  +--rw accept?    empty
+       |  |  +--rw reject?    empty
+       |  |  +--rw request!
+       |  |     +--rw accept?   empty
+       |  +--rw wins
+       |  |  +--rw primary
+       |  |  |  +--rw primary-wins-address?     inet:ipv4-address
+       |  |  |  +--rw secondary-wins-address?   inet:ipv4-address
+       |  |  |  +--rw aaa?                      empty
+       |  |  |  +--rw accept?                   empty
+       |  |  +--rw accept?    empty
+       |  |  +--rw reject?    empty
+       |  |  +--rw request!
+       |  |     +--rw accept?   empty
+       |  +--rw route
+       |     +--rw default?   empty
+       +--rw timeout
+       |  +--rw ncp
+       |  |  +--rw ncp-timeout?   uint16
+       |  |  +--rw termination?   uint16
+       |  +--rw authentication?   uint8
+       +--rw mtu
+       |  +--rw adaptive!
+       |  |  +--rw proxy?   empty
+       |  +--rw pppoe
+       |     +--rw unlimited?   empty
+       +--rw multilink! {ios-features:multilink}?
+          +--rw links
+          |  +--rw minimum
+          |  |  +--rw minimum-value?   uint8
+          |  |  +--rw mandatory?       empty
+          |  +--rw maximum
+          |     +--rw maximum-value?   uint8
+          +--rw endpoint
+          |  +--rw string?   string
+          +--rw fragment
+          |  +--rw delay
+          |  |  +--rw delay-value?              uint16
+          |  |  +--rw additional-delay-value?   uint16
+          |  +--rw disable?   empty
+          +--rw interleave?   empty
+          +--rw group?        -> /ios:native/interface/Multilink/ios-ppp:ppp/multilink/group
+  augment /ios:native/ios:interface/ios:Virtual-PPP:
+    +--rw ppp {ios-features:multilink}?
+       +--rw accounting?       union
+       +--rw chap
+       |  +--rw hostname?           string
+       |  +--rw challenge-length
+       |  |  +--rw minimum?   uint8
+       |  |  +--rw maximum?   uint8
+       |  +--rw password
+       |     +--rw enryption-type?      enumeration
+       |     +--rw ppp-auth-password?   string
+       +--rw pap
+       |  +--rw refuse!
+       |  |  +--rw callin?   empty
+       |  +--rw sent-username
+       |  |  +--rw username
+       |  |     +--rw username-string?     string
+       |  |     +--rw password?            empty
+       |  |     +--rw enryption-type?      enumeration
+       |  |     +--rw ppp-auth-password?   string
+       |  +--rw wait?            empty
+       +--rw authentication
+       |  +--rw method?       enumeration
+       |  +--rw chap?         empty
+       |  +--rw eap?          empty
+       |  +--rw ms-chap?      empty
+       |  +--rw ms-chap-v2?   empty
+       |  +--rw pap?          empty
+       |  +--rw callback?     empty
+       |  +--rw callin?       empty
+       |  +--rw callout?      empty
+       |  +--rw optional?     empty
+       |  +--rw list-name?    string
+       |  +--rw default?      empty
+       |  +--rw one-time?     empty
+       +--rw authorization?    union
+       +--rw ipcp
+       |  +--rw dns
+       |  |  +--rw primary
+       |  |  |  +--rw primary-dns-address?     inet:ipv4-address
+       |  |  |  +--rw secondary-dns-address?   inet:ipv4-address
+       |  |  |  +--rw aaa?                     empty
+       |  |  |  +--rw accept?                  empty
+       |  |  +--rw accept?    empty
+       |  |  +--rw reject?    empty
+       |  |  +--rw request!
+       |  |     +--rw accept?   empty
+       |  +--rw wins
+       |  |  +--rw primary
+       |  |  |  +--rw primary-wins-address?     inet:ipv4-address
+       |  |  |  +--rw secondary-wins-address?   inet:ipv4-address
+       |  |  |  +--rw aaa?                      empty
+       |  |  |  +--rw accept?                   empty
+       |  |  +--rw accept?    empty
+       |  |  +--rw reject?    empty
+       |  |  +--rw request!
+       |  |     +--rw accept?   empty
+       |  +--rw route
+       |     +--rw default?   empty
+       +--rw timeout
+       |  +--rw ncp
+       |  |  +--rw ncp-timeout?   uint16
+       |  |  +--rw termination?   uint16
+       |  +--rw authentication?   uint8
+       +--rw mtu
+          +--rw adaptive!
+          |  +--rw proxy?   empty
+          +--rw pppoe
+             +--rw unlimited?   empty
+  augment /ios:native/ios:interface/ios:Dialer:
+    +--rw ppp {ios-features:multilink}?
+       +--rw accounting?       union
+       +--rw chap
+       |  +--rw hostname?           string
+       |  +--rw challenge-length
+       |  |  +--rw minimum?   uint8
+       |  |  +--rw maximum?   uint8
+       |  +--rw password
+       |     +--rw enryption-type?      enumeration
+       |     +--rw ppp-auth-password?   string
+       +--rw pap
+       |  +--rw refuse!
+       |  |  +--rw callin?   empty
+       |  +--rw sent-username
+       |  |  +--rw username
+       |  |     +--rw username-string?     string
+       |  |     +--rw password?            empty
+       |  |     +--rw enryption-type?      enumeration
+       |  |     +--rw ppp-auth-password?   string
+       |  +--rw wait?            empty
+       +--rw authentication
+       |  +--rw method?       enumeration
+       |  +--rw chap?         empty
+       |  +--rw eap?          empty
+       |  +--rw ms-chap?      empty
+       |  +--rw ms-chap-v2?   empty
+       |  +--rw pap?          empty
+       |  +--rw callback?     empty
+       |  +--rw callin?       empty
+       |  +--rw callout?      empty
+       |  +--rw optional?     empty
+       |  +--rw list-name?    string
+       |  +--rw default?      empty
+       |  +--rw one-time?     empty
+       +--rw authorization?    union
+       +--rw ipcp
+       |  +--rw dns
+       |  |  +--rw primary
+       |  |  |  +--rw primary-dns-address?     inet:ipv4-address
+       |  |  |  +--rw secondary-dns-address?   inet:ipv4-address
+       |  |  |  +--rw aaa?                     empty
+       |  |  |  +--rw accept?                  empty
+       |  |  +--rw accept?    empty
+       |  |  +--rw reject?    empty
+       |  |  +--rw request!
+       |  |     +--rw accept?   empty
+       |  +--rw wins
+       |  |  +--rw primary
+       |  |  |  +--rw primary-wins-address?     inet:ipv4-address
+       |  |  |  +--rw secondary-wins-address?   inet:ipv4-address
+       |  |  |  +--rw aaa?                      empty
+       |  |  |  +--rw accept?                   empty
+       |  |  +--rw accept?    empty
+       |  |  +--rw reject?    empty
+       |  |  +--rw request!
+       |  |     +--rw accept?   empty
+       |  +--rw route
+       |     +--rw default?   empty
+       +--rw timeout
+       |  +--rw ncp
+       |  |  +--rw ncp-timeout?   uint16
+       |  |  +--rw termination?   uint16
+       |  +--rw authentication?   uint8
+       +--rw mtu
+       |  +--rw adaptive!
+       |  |  +--rw proxy?   empty
+       |  +--rw pppoe
+       |     +--rw unlimited?   empty
+       +--rw multilink! {ios-features:multilink}?
+          +--rw links
+          |  +--rw minimum
+          |  |  +--rw minimum-value?   uint8
+          |  |  +--rw mandatory?       empty
+          |  +--rw maximum
+          |     +--rw maximum-value?   uint8
+          +--rw endpoint
+          |  +--rw string?   string
+          +--rw fragment
+          |  +--rw delay
+          |  |  +--rw delay-value?              uint16
+          |  |  +--rw additional-delay-value?   uint16
+          |  +--rw disable?   empty
+          +--rw interleave?   empty
+          +--rw group?        uint32
+
+  grouping config-ppp-grouping
+    +-- packet
+       +-- throttle?     uint32
+       +-- allow_time?   uint32
+       +-- block_time?   uint32
+  grouping config-multilink-grouping
+    +-- bundle-name?        enumeration
+    +-- test-mode?          uint8
+    +-- virtual-template?   uint16
+  grouping config-interface-p2p-multilink-group-common-grouping
+    +-- links
+    |  +-- minimum
+    |  |  +-- minimum-value?   uint8
+    |  |  +-- mandatory?       empty
+    |  +-- maximum
+    |     +-- maximum-value?   uint8
+    +-- endpoint
+    |  +-- string?   string
+    +-- fragment
+    |  +-- delay
+    |  |  +-- delay-value?              uint16
+    |  |  +-- additional-delay-value?   uint16
+    |  +-- disable?   empty
+    +-- interleave?   empty
+  grouping config-interface-p2p-multilink-group-create-grouping
+    +-- multilink!
+       +-- links
+       |  +-- minimum
+       |  |  +-- minimum-value?   uint8
+       |  |  +-- mandatory?       empty
+       |  +-- maximum
+       |     +-- maximum-value?   uint8
+       +-- endpoint
+       |  +-- string?   string
+       +-- fragment
+       |  +-- delay
+       |  |  +-- delay-value?              uint16
+       |  |  +-- additional-delay-value?   uint16
+       |  +-- disable?   empty
+       +-- interleave?   empty
+       +-- group?        uint32
+  grouping config-interface-p2p-multilink-group-use-grouping
+    +-- multilink!
+       +-- links
+       |  +-- minimum
+       |  |  +-- minimum-value?   uint8
+       |  |  +-- mandatory?       empty
+       |  +-- maximum
+       |     +-- maximum-value?   uint8
+       +-- endpoint
+       |  +-- string?   string
+       +-- fragment
+       |  +-- delay
+       |  |  +-- delay-value?              uint16
+       |  |  +-- additional-delay-value?   uint16
+       |  +-- disable?   empty
+       +-- interleave?   empty
+       +-- group?        -> /ios:native/interface/Multilink/ios-ppp:ppp/multilink/group
+  grouping config-interface-p2p-options-grouping
+    +-- accounting?       union
+    +-- chap
+    |  +-- hostname?           string
+    |  +-- challenge-length
+    |  |  +-- minimum?   uint8
+    |  |  +-- maximum?   uint8
+    |  +-- password
+    |     +-- enryption-type?      enumeration
+    |     +-- ppp-auth-password?   string
+    +-- pap
+    |  +-- refuse!
+    |  |  +-- callin?   empty
+    |  +-- sent-username
+    |  |  +-- username
+    |  |     +-- username-string?     string
+    |  |     +-- password?            empty
+    |  |     +-- enryption-type?      enumeration
+    |  |     +-- ppp-auth-password?   string
+    |  +-- wait?            empty
+    +-- authentication
+    |  +-- method?       enumeration
+    |  +-- chap?         empty
+    |  +-- eap?          empty
+    |  +-- ms-chap?      empty
+    |  +-- ms-chap-v2?   empty
+    |  +-- pap?          empty
+    |  +-- callback?     empty
+    |  +-- callin?       empty
+    |  +-- callout?      empty
+    |  +-- optional?     empty
+    |  +-- list-name?    string
+    |  +-- default?      empty
+    |  +-- one-time?     empty
+    +-- authorization?    union
+    +-- ipcp
+    |  +-- dns
+    |  |  +-- primary
+    |  |  |  +-- primary-dns-address?     inet:ipv4-address
+    |  |  |  +-- secondary-dns-address?   inet:ipv4-address
+    |  |  |  +-- aaa?                     empty
+    |  |  |  +-- accept?                  empty
+    |  |  +-- accept?    empty
+    |  |  +-- reject?    empty
+    |  |  +-- request!
+    |  |     +-- accept?   empty
+    |  +-- wins
+    |  |  +-- primary
+    |  |  |  +-- primary-wins-address?     inet:ipv4-address
+    |  |  |  +-- secondary-wins-address?   inet:ipv4-address
+    |  |  |  +-- aaa?                      empty
+    |  |  |  +-- accept?                   empty
+    |  |  +-- accept?    empty
+    |  |  +-- reject?    empty
+    |  |  +-- request!
+    |  |     +-- accept?   empty
+    |  +-- route
+    |     +-- default?   empty
+    +-- timeout
+    |  +-- ncp
+    |  |  +-- ncp-timeout?   uint16
+    |  |  +-- termination?   uint16
+    |  +-- authentication?   uint8
+    +-- mtu
+       +-- adaptive!
+       |  +-- proxy?   empty
+       +-- pppoe
+          +-- unlimited?   empty
+  grouping config-interface-p2p-grouping
+    +-- ppp
+       +-- accounting?       union
+       +-- chap
+       |  +-- hostname?           string
+       |  +-- challenge-length
+       |  |  +-- minimum?   uint8
+       |  |  +-- maximum?   uint8
+       |  +-- password
+       |     +-- enryption-type?      enumeration
+       |     +-- ppp-auth-password?   string
+       +-- pap
+       |  +-- refuse!
+       |  |  +-- callin?   empty
+       |  +-- sent-username
+       |  |  +-- username
+       |  |     +-- username-string?     string
+       |  |     +-- password?            empty
+       |  |     +-- enryption-type?      enumeration
+       |  |     +-- ppp-auth-password?   string
+       |  +-- wait?            empty
+       +-- authentication
+       |  +-- method?       enumeration
+       |  +-- chap?         empty
+       |  +-- eap?          empty
+       |  +-- ms-chap?      empty
+       |  +-- ms-chap-v2?   empty
+       |  +-- pap?          empty
+       |  +-- callback?     empty
+       |  +-- callin?       empty
+       |  +-- callout?      empty
+       |  +-- optional?     empty
+       |  +-- list-name?    string
+       |  +-- default?      empty
+       |  +-- one-time?     empty
+       +-- authorization?    union
+       +-- ipcp
+       |  +-- dns
+       |  |  +-- primary
+       |  |  |  +-- primary-dns-address?     inet:ipv4-address
+       |  |  |  +-- secondary-dns-address?   inet:ipv4-address
+       |  |  |  +-- aaa?                     empty
+       |  |  |  +-- accept?                  empty
+       |  |  +-- accept?    empty
+       |  |  +-- reject?    empty
+       |  |  +-- request!
+       |  |     +-- accept?   empty
+       |  +-- wins
+       |  |  +-- primary
+       |  |  |  +-- primary-wins-address?     inet:ipv4-address
+       |  |  |  +-- secondary-wins-address?   inet:ipv4-address
+       |  |  |  +-- aaa?                      empty
+       |  |  |  +-- accept?                   empty
+       |  |  +-- accept?    empty
+       |  |  +-- reject?    empty
+       |  |  +-- request!
+       |  |     +-- accept?   empty
+       |  +-- route
+       |     +-- default?   empty
+       +-- timeout
+       |  +-- ncp
+       |  |  +-- ncp-timeout?   uint16
+       |  |  +-- termination?   uint16
+       |  +-- authentication?   uint8
+       +-- mtu
+          +-- adaptive!
+          |  +-- proxy?   empty
+          +-- pppoe
+             +-- unlimited?   empty
+  grouping config-interface-encap-depend-p2p-grouping
+    +-- ppp
+       +-- accounting?       union
+       +-- chap
+       |  +-- hostname?           string
+       |  +-- challenge-length
+       |  |  +-- minimum?   uint8
+       |  |  +-- maximum?   uint8
+       |  +-- password
+       |     +-- enryption-type?      enumeration
+       |     +-- ppp-auth-password?   string
+       +-- pap
+       |  +-- refuse!
+       |  |  +-- callin?   empty
+       |  +-- sent-username
+       |  |  +-- username
+       |  |     +-- username-string?     string
+       |  |     +-- password?            empty
+       |  |     +-- enryption-type?      enumeration
+       |  |     +-- ppp-auth-password?   string
+       |  +-- wait?            empty
+       +-- authentication
+       |  +-- method?       enumeration
+       |  +-- chap?         empty
+       |  +-- eap?          empty
+       |  +-- ms-chap?      empty
+       |  +-- ms-chap-v2?   empty
+       |  +-- pap?          empty
+       |  +-- callback?     empty
+       |  +-- callin?       empty
+       |  +-- callout?      empty
+       |  +-- optional?     empty
+       |  +-- list-name?    string
+       |  +-- default?      empty
+       |  +-- one-time?     empty
+       +-- authorization?    union
+       +-- ipcp
+       |  +-- dns
+       |  |  +-- primary
+       |  |  |  +-- primary-dns-address?     inet:ipv4-address
+       |  |  |  +-- secondary-dns-address?   inet:ipv4-address
+       |  |  |  +-- aaa?                     empty
+       |  |  |  +-- accept?                  empty
+       |  |  +-- accept?    empty
+       |  |  +-- reject?    empty
+       |  |  +-- request!
+       |  |     +-- accept?   empty
+       |  +-- wins
+       |  |  +-- primary
+       |  |  |  +-- primary-wins-address?     inet:ipv4-address
+       |  |  |  +-- secondary-wins-address?   inet:ipv4-address
+       |  |  |  +-- aaa?                      empty
+       |  |  |  +-- accept?                   empty
+       |  |  +-- accept?    empty
+       |  |  +-- reject?    empty
+       |  |  +-- request!
+       |  |     +-- accept?   empty
+       |  +-- route
+       |     +-- default?   empty
+       +-- timeout
+       |  +-- ncp
+       |  |  +-- ncp-timeout?   uint16
+       |  |  +-- termination?   uint16
+       |  +-- authentication?   uint8
+       +-- mtu
+          +-- adaptive!
+          |  +-- proxy?   empty
+          +-- pppoe
+             +-- unlimited?   empty

@@ -1,0 +1,982 @@
+module: Cisco-IOS-XE-docsis-oper
+  +--ro docsis-oper-data
+     +--ro cm-summary-total!
+     |  +--ro total?                  uint32
+     |  +--ro registered?             uint32
+     |  +--ro operational?            uint32
+     |  +--ro unregistered?           uint32
+     |  +--ro offline?                uint32
+     |  +--ro wideband?               uint32
+     |  +--ro initrc?                 uint32
+     |  +--ro initd?                  uint32
+     |  +--ro initio?                 uint32
+     |  +--ro inito?                  uint32
+     |  +--ro cm-if-summary-totals* [interface]
+     |     +--ro interface       string
+     |     +--ro total?          uint32
+     |     +--ro registered?     uint32
+     |     +--ro operational?    uint32
+     |     +--ro unregistered?   uint32
+     |     +--ro offline?        uint32
+     |     +--ro wideband?       uint32
+     |     +--ro initrc?         uint32
+     |     +--ro initd?          uint32
+     |     +--ro initio?         uint32
+     |     +--ro inito?          uint32
+     +--ro cable-modem* [mac-address]
+     |  +--ro mac-address       yang:mac-address
+     |  +--ro ipv4-addr?        inet:ipv4-address
+     |  +--ro ipv6-addr?        inet:ipv6-address
+     |  +--ro interface?        string
+     |  +--ro state?            docsis-ios-xe-oper:cm-state
+     |  +--ro docsis-version?   docsis-ios-xe-oper:docsis-version-type
+     |  +--ro primary-sid?      uint32
+     |  +--ro us-chan* []
+     |  |  +--ro chan-index?      uint8
+     |  |  +--ro rx-power?        decimal64
+     |  |  +--ro timing-offset?   uint32
+     |  +--ro cpe-number?       uint32
+     |  +--ro dual-ip?          boolean
+     +--ro cable-license* [license-type]
+     |  +--ro license-type                docsis-ios-xe-oper:cbr-lic-conf-type
+     |  +--ro (license-state-choice)?
+     |     +--:(downstream-license)
+     |     |  +--ro ds-lic
+     |     |     +--ro entitlement?                  string
+     |     |     +--ro c-cnt?                        uint32
+     |     |     +--ro reported-to-sm?               uint32
+     |     |     +--ro cfg-lock-enforced?            boolean
+     |     |     +--ro (enforced-state-choice)?
+     |     |        +--:(deact-enforced)
+     |     |        |  +--ro deact-enforcement?      string
+     |     |        +--:(capped-enforced)
+     |     |        |  +--ro capped-enforcement?     uint32
+     |     |        +--:(not-enforced)
+     |     |           +--ro no-enforcement-state?   boolean
+     |     +--:(upstream-license)
+     |     |  +--ro us-lic
+     |     |     +--ro entitlement?                  string
+     |     |     +--ro c-cnt?                        uint32
+     |     |     +--ro reported-to-sm?               uint32
+     |     |     +--ro cfg-lock-enforced?            boolean
+     |     |     +--ro (enforced-state-choice)?
+     |     |        +--:(deact-enforced)
+     |     |        |  +--ro deact-enforcement?      string
+     |     |        +--:(capped-enforced)
+     |     |        |  +--ro capped-enforcement?     uint32
+     |     |        +--:(not-enforced)
+     |     |           +--ro no-enforcement-state?   boolean
+     |     +--:(wan-license)
+     |     |  +--ro wan-lic
+     |     |     +--ro entitlement?                       string
+     |     |     +--ro c-cnt?                             uint32
+     |     |     +--ro reported-to-sm?                    uint32
+     |     |     +--ro cfg-lock-enforced?                 boolean
+     |     |     +--ro (enforced-state-choice)?
+     |     |     |  +--:(deact-enforced)
+     |     |     |  |  +--ro deact-enforcement?           string
+     |     |     |  +--:(capped-enforced)
+     |     |     |  |  +--ro capped-enforcement?          uint32
+     |     |     |  +--:(not-enforced)
+     |     |     |     +--ro no-enforcement-state?        boolean
+     |     |     +--ro (sup250-100g-en-choice)?
+     |     |        +--:(sup250-100-g-enabled)
+     |     |           +--ro backhaul-consumes-wan-lic?   boolean
+     |     +--:(lcha-license)
+     |     |  +--ro lcha-lic
+     |     |     +--ro entitlement?                  string
+     |     |     +--ro c-cnt?                        uint32
+     |     |     +--ro reported-to-sm?               uint32
+     |     |     +--ro cfg-lock-enforced?            boolean
+     |     |     +--ro (enforced-state-choice)?
+     |     |        +--:(deact-enforced)
+     |     |        |  +--ro deact-enforcement?      string
+     |     |        +--:(capped-enforced)
+     |     |        |  +--ro capped-enforcement?     uint32
+     |     |        +--:(not-enforced)
+     |     |           +--ro no-enforcement-state?   boolean
+     |     +--:(video-narrowcast-license)
+     |     |  +--ro nc-lic
+     |     |     +--ro entitlement?                  string
+     |     |     +--ro c-cnt?                        uint32
+     |     |     +--ro reported-to-sm?               uint32
+     |     |     +--ro (enforced-state-choice)?
+     |     |        +--:(deact-enforced)
+     |     |        |  +--ro deact-enforcement?      string
+     |     |        +--:(capped-enforced)
+     |     |        |  +--ro capped-enforcement?     uint32
+     |     |        +--:(not-enforced)
+     |     |           +--ro no-enforcement-state?   boolean
+     |     +--:(video-narrowcast-replicate-license)
+     |     |  +--ro nc-rpl-lic
+     |     |     +--ro entitlement?                  string
+     |     |     +--ro c-cnt?                        uint32
+     |     |     +--ro reported-to-sm?               uint32
+     |     |     +--ro (enforced-state-choice)?
+     |     |        +--:(deact-enforced)
+     |     |        |  +--ro deact-enforcement?      string
+     |     |        +--:(capped-enforced)
+     |     |        |  +--ro capped-enforcement?     uint32
+     |     |        +--:(not-enforced)
+     |     |           +--ro no-enforcement-state?   boolean
+     |     +--:(video-narrowcast-pkey-license)
+     |     |  +--ro nc-pky-lic
+     |     |     +--ro entitlement?                  string
+     |     |     +--ro c-cnt?                        uint32
+     |     |     +--ro reported-to-sm?               uint32
+     |     |     +--ro (enforced-state-choice)?
+     |     |        +--:(deact-enforced)
+     |     |        |  +--ro deact-enforcement?      string
+     |     |        +--:(capped-enforced)
+     |     |        |  +--ro capped-enforcement?     uint32
+     |     |        +--:(not-enforced)
+     |     |           +--ro no-enforcement-state?   boolean
+     |     +--:(video-narrowcast-pme-license)
+     |     |  +--ro nc-pme-lic
+     |     |     +--ro entitlement?                  string
+     |     |     +--ro c-cnt?                        uint32
+     |     |     +--ro reported-to-sm?               uint32
+     |     |     +--ro (enforced-state-choice)?
+     |     |        +--:(deact-enforced)
+     |     |        |  +--ro deact-enforcement?      string
+     |     |        +--:(capped-enforced)
+     |     |        |  +--ro capped-enforcement?     uint32
+     |     |        +--:(not-enforced)
+     |     |           +--ro no-enforcement-state?   boolean
+     |     +--:(video-narrowcast-dvb-license)
+     |     |  +--ro nc-dvb-lic
+     |     |     +--ro entitlement?                  string
+     |     |     +--ro c-cnt?                        uint32
+     |     |     +--ro reported-to-sm?               uint32
+     |     |     +--ro (enforced-state-choice)?
+     |     |        +--:(deact-enforced)
+     |     |        |  +--ro deact-enforcement?      string
+     |     |        +--:(capped-enforced)
+     |     |        |  +--ro capped-enforcement?     uint32
+     |     |        +--:(not-enforced)
+     |     |           +--ro no-enforcement-state?   boolean
+     |     +--:(video-broadcast-license)
+     |     |  +--ro bc-lic
+     |     |     +--ro entitlement?                  string
+     |     |     +--ro c-cnt?                        uint32
+     |     |     +--ro reported-to-sm?               uint32
+     |     |     +--ro (enforced-state-choice)?
+     |     |        +--:(deact-enforced)
+     |     |        |  +--ro deact-enforcement?      string
+     |     |        +--:(capped-enforced)
+     |     |        |  +--ro capped-enforcement?     uint32
+     |     |        +--:(not-enforced)
+     |     |           +--ro no-enforcement-state?   boolean
+     |     +--:(video-broadcast-enc-license)
+     |     |  +--ro bc-enc-lic
+     |     |     +--ro entitlement?                  string
+     |     |     +--ro c-cnt?                        uint32
+     |     |     +--ro reported-to-sm?               uint32
+     |     |     +--ro (enforced-state-choice)?
+     |     |        +--:(deact-enforced)
+     |     |        |  +--ro deact-enforcement?      string
+     |     |        +--:(capped-enforced)
+     |     |        |  +--ro capped-enforcement?     uint32
+     |     |        +--:(not-enforced)
+     |     |           +--ro no-enforcement-state?   boolean
+     |     +--:(docsis31-downstream-channel-license)
+     |     |  +--ro ds-31-lic
+     |     |     +--ro entitlement?                  string
+     |     |     +--ro c-cnt?                        uint32
+     |     |     +--ro reported-to-sm?               uint32
+     |     |     +--ro cfg-lock-enforced?            boolean
+     |     |     +--ro (enforced-state-choice)?
+     |     |        +--:(deact-enforced)
+     |     |        |  +--ro deact-enforcement?      string
+     |     |        +--:(capped-enforced)
+     |     |        |  +--ro capped-enforcement?     uint32
+     |     |        +--:(not-enforced)
+     |     |           +--ro no-enforcement-state?   boolean
+     |     +--:(rphy-video-broadcast-license)
+     |     |  +--ro rphy-bc-lic
+     |     |     +--ro entitlement?                  string
+     |     |     +--ro c-cnt?                        uint32
+     |     |     +--ro reported-to-sm?               uint32
+     |     |     +--ro (enforced-state-choice)?
+     |     |        +--:(deact-enforced)
+     |     |        |  +--ro deact-enforcement?      string
+     |     |        +--:(capped-enforced)
+     |     |        |  +--ro capped-enforcement?     uint32
+     |     |        +--:(not-enforced)
+     |     |           +--ro no-enforcement-state?   boolean
+     |     +--:(docsis31-upstream-channel-exclusive-license)
+     |     |  +--ro us-d31-lic
+     |     |     +--ro entitlement?                  string
+     |     |     +--ro total-licensed-spectrum?      uint32
+     |     |     +--ro c-cnt?                        uint32
+     |     |     +--ro reported-to-sm?               uint32
+     |     |     +--ro forced-shut-down-chan?        string
+     |     |     +--ro (enforced-state-choice)?
+     |     |        +--:(deact-enforced)
+     |     |        |  +--ro deact-enforcement?      string
+     |     |        +--:(capped-enforced)
+     |     |        |  +--ro capped-enforcement?     uint32
+     |     |        +--:(not-enforced)
+     |     |           +--ro no-enforcement-state?   boolean
+     |     +--:(docsis31-upstream-channel-overlap-license)
+     |     |  +--ro us-d31-overlap-lic
+     |     |     +--ro entitlement?                  string
+     |     |     +--ro total-licensed-spectrum?      uint32
+     |     |     +--ro c-cnt?                        uint32
+     |     |     +--ro reported-to-sm?               uint32
+     |     |     +--ro forced-shut-down-chan?        string
+     |     |     +--ro (enforced-state-choice)?
+     |     |        +--:(deact-enforced)
+     |     |        |  +--ro deact-enforcement?      string
+     |     |        +--:(capped-enforced)
+     |     |        |  +--ro capped-enforcement?     uint32
+     |     |        +--:(not-enforced)
+     |     |           +--ro no-enforcement-state?   boolean
+     |     +--:(wan-100-g-license)
+     |     |  +--ro wan-100g-lic
+     |     |     +--ro entitlement?                  string
+     |     |     +--ro c-cnt?                        uint32
+     |     |     +--ro reported-to-sm?               uint32
+     |     |     +--ro cfg-lock-enforced?            boolean
+     |     |     +--ro (enforced-state-choice)?
+     |     |        +--:(deact-enforced)
+     |     |        |  +--ro deact-enforcement?      string
+     |     |        +--:(capped-enforced)
+     |     |        |  +--ro capped-enforcement?     uint32
+     |     |        +--:(not-enforced)
+     |     |           +--ro no-enforcement-state?   boolean
+     |     +--:(cpb-license)
+     |        +--ro cpb-lic
+     |           +--ro entitlement?                  string
+     |           +--ro c-cnt?                        uint32
+     |           +--ro reported-to-sm?               uint32
+     |           +--ro enforced-state?               boolean
+     |           +--ro cfg-lock-enforced?            boolean
+     |           +--ro quarterly-cpb-rate?           uint32
+     |           +--ro quarter?                      docsis-ios-xe-oper:license-quarter-type
+     |           +--ro year?                         uint32
+     |           +--ro first-monthly-cpb-bps?        uint32
+     |           +--ro first-monthly-cpb-100mbps?    uint32
+     |           +--ro second-monthly-cpb-bps?       uint32
+     |           +--ro second-monthly-cpb-100mbps?   uint32
+     |           +--ro third-monthly-cpb-bps?        uint32
+     |           +--ro third-monthly-cpb-100mbps?    uint32
+     +--ro cm-dc-summary!
+     |  +--ro online?   uint32
+     |  +--ro unrep?    uint32
+     |  +--ro cm?       uint32
+     |  +--ro e-rtr?    uint32
+     |  +--ro e-mta?    uint32
+     |  +--ro e-stb?    uint32
+     |  +--ro e-ps?     uint32
+     |  +--ro e-dva?    uint32
+     +--ro cable-rpd-state* [id local-if]
+     |  +--ro id              yang:mac-address
+     |  +--ro local-if        string
+     |  +--ro ip-addr?        inet:ip-address
+     |  +--ro clock-synced?   boolean
+     |  +--ro state?          docsis-ios-xe-oper:rpd-state-type
+     |  +--ro core-role?      docsis-ios-xe-oper:rpd-core-role-type
+     |  +--ro ha-role?        docsis-ios-xe-oper:rpd-ha-role-type
+     |  +--ro auth?           docsis-ios-xe-oper:rpd-auth-method-type
+     |  +--ro name?           string
+     +--ro cable-rpd-conf* [name]
+        +--ro name                               string
+        +--ro description?                       string
+        +--ro identifier?                        yang:mac-address
+        +--ro type?                              docsis-ios-xe-oper:rpd-conf-type
+        +--ro auth-type?                         docsis-ios-xe-oper:rpd-auth-method-type
+        +--ro ds-port-conf* [index]
+        |  +--ro index                   uint32
+        |  +--ro ds-chan-power-adjust* []
+        |  |  +--ro start-chan?     uint32
+        |  |  +--ro end-chan?       uint32
+        |  |  +--ro power-adjust?   decimal64
+        |  +--ro ds-chan-mute* []
+        |  |  +--ro start-chan?   uint32
+        |  |  +--ro end-chan?     uint32
+        |  |  +--ro mute?         boolean
+        |  +--ro ds-chan-shutdown* []
+        |  |  +--ro start-chan?   uint32
+        |  |  +--ro end-chan?     uint32
+        |  |  +--ro shutdown?     boolean
+        |  +--ro tilt-slope?             decimal64
+        |  +--ro tilt-pivot-freq?        uint32
+        |  +--ro mute?                   boolean
+        |  +--ro shutdown?               boolean
+        |  +--ro (pt-prof-conf-choice)?
+        |  |  +--:(ds-pilot-tone)
+        |  |     +--ro pt-prof-id?       uint32
+        |  +--ro (rpd-type-choice)?
+        |     +--:(rpd-node)
+        |     |  +--ro node-ds-conf
+        |     |     +--ro base-power?   decimal64
+        |     +--:(rpd-shelf)
+        |        +--ro shelf-ds-conf
+        |           +--ro max-carrier?   uint32
+        |           +--ro base-power?    decimal64
+        +--ro core-conf* [index]
+        |  +--ro index                         uint32
+        |  +--ro core-if?                      string
+        |  +--ro principal?                    boolean
+        |  +--ro core-ds-port* []
+        |  |  +--ro ds-index?   uint8
+        |  |  +--ro ds-ctlr* []
+        |  |     +--ro ds-ctrlr-index?   uint8
+        |  |     +--ro downstream-if?    string
+        |  |     +--ro profile?          uint32
+        |  +--ro core-ds-oob-vom* []
+        |  |  +--ro ds-index?   uint8
+        |  |  +--ro vom-id?     uint32
+        |  |  +--ro profile?    uint32
+        |  +--ro core-us-port* []
+        |  |  +--ro us-index?     uint8
+        |  |  +--ro us-intf?      string
+        |  |  +--ro profile-id?   uint32
+        |  +--ro core-us-port-varpd* []
+        |  |  +--ro us-index?   uint8
+        |  |  +--ro varpd-id?   uint32
+        |  |  +--ro profile?    uint32
+        |  +--ro ds-pw* []
+        |  |  +--ro index?            uint8
+        |  |  +--ro static-pw-name?   string
+        |  |  +--ro profile?          uint32
+        |  +--ro us-pw* []
+        |  |  +--ro index?            uint8
+        |  |  +--ro static-pw-name?   string
+        |  |  +--ro profile?          uint32
+        |  +--ro depi?                         string
+        |  +--ro uepi?                         string
+        |  +--ro (nw-delay-sampling-en-choice)?
+        |  |  +--:(netork-delay-sampling-interval)
+        |  |     +--ro network-delay-dlm
+        |  |        +--ro sampling-interval?   uint32
+        |  |        +--ro measure-only?        boolean
+        |  +--ro (nw-delay-static-en-choice)?
+        |     +--:(netork-delay-static)
+        |        +--ro network-delay-static?   uint32
+        +--ro us-description* []
+        |  +--ro us-index?         uint8
+        |  +--ro us-description?   string
+        +--ro analog-power-rx
+        |  +--ro power-major-lo-th?   uint16
+        |  +--ro power-minor-lo-th?   uint16
+        |  +--ro power-normal-th?     uint16
+        |  +--ro power-minor-hi-th?   uint16
+        +--ro analog-power-tx
+        |  +--ro power-major-lo-th?   uint16
+        |  +--ro power-minor-lo-th?   uint16
+        |  +--ro power-normal-th?     uint16
+        |  +--ro power-minor-hi-th?   uint16
+        +--ro (rpd-event-prof-en-choice)?
+        |  +--:(rpd-event-profile)
+        |     +--ro rpd-event-profile?           uint8
+        +--ro (ssd-prof-en-choice)?
+        |  +--:(ssd-profile)
+        |     +--ro ssd-profile-id?              uint8
+        +--ro (oob-us-evt-prof-en-choice)?
+        |  +--:(oob-551-us-event-profile)
+        |     +--ro oob-55d1-us-event-prof-id?   uint8
+        +--ro (sbfd-enable-choice)?
+        |  +--:(sbfd-configured)
+        |     +--ro sbfd-parameter
+        |        +--ro sbfd-interval?     uint32
+        |        +--ro sbfd-multiplier?   uint32
+        +--ro (ptp-clk-prof-en-choice)?
+           +--:(ptp-clock-profile)
+              +--ro r-dti?                       uint8
+
+  grouping upstream-chan-type
+    +-- chan-index?      uint8
+    +-- rx-power?        decimal64
+    +-- timing-offset?   uint32
+  grouping cable-modem
+    +-- mac-address?      yang:mac-address
+    +-- ipv4-addr?        inet:ipv4-address
+    +-- ipv6-addr?        inet:ipv6-address
+    +-- interface?        string
+    +-- state?            docsis-ios-xe-oper:cm-state
+    +-- docsis-version?   docsis-ios-xe-oper:docsis-version-type
+    +-- primary-sid?      uint32
+    +-- us-chan* []
+    |  +-- chan-index?      uint8
+    |  +-- rx-power?        decimal64
+    |  +-- timing-offset?   uint32
+    +-- cpe-number?       uint32
+    +-- dual-ip?          boolean
+  grouping cm-if-summary-totals
+    +-- interface?      string
+    +-- total?          uint32
+    +-- registered?     uint32
+    +-- operational?    uint32
+    +-- unregistered?   uint32
+    +-- offline?        uint32
+    +-- wideband?       uint32
+    +-- initrc?         uint32
+    +-- initd?          uint32
+    +-- initio?         uint32
+    +-- inito?          uint32
+  grouping cm-summary-total
+    +-- total?                  uint32
+    +-- registered?             uint32
+    +-- operational?            uint32
+    +-- unregistered?           uint32
+    +-- offline?                uint32
+    +-- wideband?               uint32
+    +-- initrc?                 uint32
+    +-- initd?                  uint32
+    +-- initio?                 uint32
+    +-- inito?                  uint32
+    +-- cm-if-summary-totals* [interface]
+       +-- interface?      string
+       +-- total?          uint32
+       +-- registered?     uint32
+       +-- operational?    uint32
+       +-- unregistered?   uint32
+       +-- offline?        uint32
+       +-- wideband?       uint32
+       +-- initrc?         uint32
+       +-- initd?          uint32
+       +-- initio?         uint32
+       +-- inito?          uint32
+  grouping cm-dc-summary
+    +-- online?   uint32
+    +-- unrep?    uint32
+    +-- cm?       uint32
+    +-- e-rtr?    uint32
+    +-- e-mta?    uint32
+    +-- e-stb?    uint32
+    +-- e-ps?     uint32
+    +-- e-dva?    uint32
+  grouping cable-rpd-state-key
+    +-- id?         yang:mac-address
+    +-- local-if?   string
+  grouping cable-rpd-state
+    +-- ip-addr?        inet:ip-address
+    +-- clock-synced?   boolean
+    +-- state?          docsis-ios-xe-oper:rpd-state-type
+    +-- core-role?      docsis-ios-xe-oper:rpd-core-role-type
+    +-- ha-role?        docsis-ios-xe-oper:rpd-ha-role-type
+    +-- auth?           docsis-ios-xe-oper:rpd-auth-method-type
+    +-- name?           string
+  grouping ds-chan-shutdown-conf-type
+    +-- start-chan?   uint32
+    +-- end-chan?     uint32
+    +-- shutdown?     boolean
+  grouping ds-chan-power-adjust-conf-type
+    +-- start-chan?     uint32
+    +-- end-chan?       uint32
+    +-- power-adjust?   decimal64
+  grouping ds-chan-mute-conf-type
+    +-- start-chan?   uint32
+    +-- end-chan?     uint32
+    +-- mute?         boolean
+  grouping sbfd-para-conf-type
+    +-- sbfd-interval?     uint32
+    +-- sbfd-multiplier?   uint32
+  grouping us-description-conf-type
+    +-- us-index?         uint8
+    +-- us-description?   string
+  grouping analog-power-conf
+    +-- power-major-lo-th?   uint16
+    +-- power-minor-lo-th?   uint16
+    +-- power-normal-th?     uint16
+    +-- power-minor-hi-th?   uint16
+  grouping rpd-shelf-ds-conf-type
+    +-- max-carrier?   uint32
+    +-- base-power?    decimal64
+  grouping rpd-node-ds-conf-type
+    +-- base-power?   decimal64
+  grouping ds-port-conf
+    +-- index?                  uint32
+    +-- ds-chan-power-adjust* []
+    |  +-- start-chan?     uint32
+    |  +-- end-chan?       uint32
+    |  +-- power-adjust?   decimal64
+    +-- ds-chan-mute* []
+    |  +-- start-chan?   uint32
+    |  +-- end-chan?     uint32
+    |  +-- mute?         boolean
+    +-- ds-chan-shutdown* []
+    |  +-- start-chan?   uint32
+    |  +-- end-chan?     uint32
+    |  +-- shutdown?     boolean
+    +-- tilt-slope?             decimal64
+    +-- tilt-pivot-freq?        uint32
+    +-- mute?                   boolean
+    +-- shutdown?               boolean
+    +-- (pt-prof-conf-choice)?
+    |  +--:(ds-pilot-tone)
+    |     +-- pt-prof-id?       uint32
+    +-- (rpd-type-choice)?
+       +--:(rpd-node)
+       |  +-- node-ds-conf
+       |     +-- base-power?   decimal64
+       +--:(rpd-shelf)
+          +-- shelf-ds-conf
+             +-- max-carrier?   uint32
+             +-- base-power?    decimal64
+  grouping ds-oob-vom-conf-type
+    +-- ds-index?   uint8
+    +-- vom-id?     uint32
+    +-- profile?    uint32
+  grouping core-ds-ctlr-conf
+    +-- ds-ctrlr-index?   uint8
+    +-- downstream-if?    string
+    +-- profile?          uint32
+  grouping core-ds-port-conf
+    +-- ds-index?   uint8
+    +-- ds-ctlr* []
+       +-- ds-ctrlr-index?   uint8
+       +-- downstream-if?    string
+       +-- profile?          uint32
+  grouping us-oob-varpd-conf
+    +-- us-index?   uint8
+    +-- varpd-id?   uint32
+    +-- profile?    uint32
+  grouping core-us-port-conf
+    +-- us-index?     uint8
+    +-- us-intf?      string
+    +-- profile-id?   uint32
+  grouping pw-conf
+    +-- index?            uint8
+    +-- static-pw-name?   string
+    +-- profile?          uint32
+  grouping nw-delay-dlm-conf
+    +-- sampling-interval?   uint32
+    +-- measure-only?        boolean
+  grouping core-conf
+    +-- index?                        uint32
+    +-- core-if?                      string
+    +-- principal?                    boolean
+    +-- core-ds-port* []
+    |  +-- ds-index?   uint8
+    |  +-- ds-ctlr* []
+    |     +-- ds-ctrlr-index?   uint8
+    |     +-- downstream-if?    string
+    |     +-- profile?          uint32
+    +-- core-ds-oob-vom* []
+    |  +-- ds-index?   uint8
+    |  +-- vom-id?     uint32
+    |  +-- profile?    uint32
+    +-- core-us-port* []
+    |  +-- us-index?     uint8
+    |  +-- us-intf?      string
+    |  +-- profile-id?   uint32
+    +-- core-us-port-varpd* []
+    |  +-- us-index?   uint8
+    |  +-- varpd-id?   uint32
+    |  +-- profile?    uint32
+    +-- ds-pw* []
+    |  +-- index?            uint8
+    |  +-- static-pw-name?   string
+    |  +-- profile?          uint32
+    +-- us-pw* []
+    |  +-- index?            uint8
+    |  +-- static-pw-name?   string
+    |  +-- profile?          uint32
+    +-- depi?                         string
+    +-- uepi?                         string
+    +-- (nw-delay-sampling-en-choice)?
+    |  +--:(netork-delay-sampling-interval)
+    |     +-- network-delay-dlm
+    |        +-- sampling-interval?   uint32
+    |        +-- measure-only?        boolean
+    +-- (nw-delay-static-en-choice)?
+       +--:(netork-delay-static)
+          +-- network-delay-static?   uint32
+  grouping cable-rpd-conf
+    +-- name?                              string
+    +-- description?                       string
+    +-- identifier?                        yang:mac-address
+    +-- type?                              docsis-ios-xe-oper:rpd-conf-type
+    +-- auth-type?                         docsis-ios-xe-oper:rpd-auth-method-type
+    +-- ds-port-conf* [index]
+    |  +-- index?                  uint32
+    |  +-- ds-chan-power-adjust* []
+    |  |  +-- start-chan?     uint32
+    |  |  +-- end-chan?       uint32
+    |  |  +-- power-adjust?   decimal64
+    |  +-- ds-chan-mute* []
+    |  |  +-- start-chan?   uint32
+    |  |  +-- end-chan?     uint32
+    |  |  +-- mute?         boolean
+    |  +-- ds-chan-shutdown* []
+    |  |  +-- start-chan?   uint32
+    |  |  +-- end-chan?     uint32
+    |  |  +-- shutdown?     boolean
+    |  +-- tilt-slope?             decimal64
+    |  +-- tilt-pivot-freq?        uint32
+    |  +-- mute?                   boolean
+    |  +-- shutdown?               boolean
+    |  +-- (pt-prof-conf-choice)?
+    |  |  +--:(ds-pilot-tone)
+    |  |     +-- pt-prof-id?       uint32
+    |  +-- (rpd-type-choice)?
+    |     +--:(rpd-node)
+    |     |  +-- node-ds-conf
+    |     |     +-- base-power?   decimal64
+    |     +--:(rpd-shelf)
+    |        +-- shelf-ds-conf
+    |           +-- max-carrier?   uint32
+    |           +-- base-power?    decimal64
+    +-- core-conf* [index]
+    |  +-- index?                        uint32
+    |  +-- core-if?                      string
+    |  +-- principal?                    boolean
+    |  +-- core-ds-port* []
+    |  |  +-- ds-index?   uint8
+    |  |  +-- ds-ctlr* []
+    |  |     +-- ds-ctrlr-index?   uint8
+    |  |     +-- downstream-if?    string
+    |  |     +-- profile?          uint32
+    |  +-- core-ds-oob-vom* []
+    |  |  +-- ds-index?   uint8
+    |  |  +-- vom-id?     uint32
+    |  |  +-- profile?    uint32
+    |  +-- core-us-port* []
+    |  |  +-- us-index?     uint8
+    |  |  +-- us-intf?      string
+    |  |  +-- profile-id?   uint32
+    |  +-- core-us-port-varpd* []
+    |  |  +-- us-index?   uint8
+    |  |  +-- varpd-id?   uint32
+    |  |  +-- profile?    uint32
+    |  +-- ds-pw* []
+    |  |  +-- index?            uint8
+    |  |  +-- static-pw-name?   string
+    |  |  +-- profile?          uint32
+    |  +-- us-pw* []
+    |  |  +-- index?            uint8
+    |  |  +-- static-pw-name?   string
+    |  |  +-- profile?          uint32
+    |  +-- depi?                         string
+    |  +-- uepi?                         string
+    |  +-- (nw-delay-sampling-en-choice)?
+    |  |  +--:(netork-delay-sampling-interval)
+    |  |     +-- network-delay-dlm
+    |  |        +-- sampling-interval?   uint32
+    |  |        +-- measure-only?        boolean
+    |  +-- (nw-delay-static-en-choice)?
+    |     +--:(netork-delay-static)
+    |        +-- network-delay-static?   uint32
+    +-- us-description* []
+    |  +-- us-index?         uint8
+    |  +-- us-description?   string
+    +-- analog-power-rx
+    |  +-- power-major-lo-th?   uint16
+    |  +-- power-minor-lo-th?   uint16
+    |  +-- power-normal-th?     uint16
+    |  +-- power-minor-hi-th?   uint16
+    +-- analog-power-tx
+    |  +-- power-major-lo-th?   uint16
+    |  +-- power-minor-lo-th?   uint16
+    |  +-- power-normal-th?     uint16
+    |  +-- power-minor-hi-th?   uint16
+    +-- (rpd-event-prof-en-choice)?
+    |  +--:(rpd-event-profile)
+    |     +-- rpd-event-profile?           uint8
+    +-- (ssd-prof-en-choice)?
+    |  +--:(ssd-profile)
+    |     +-- ssd-profile-id?              uint8
+    +-- (oob-us-evt-prof-en-choice)?
+    |  +--:(oob-551-us-event-profile)
+    |     +-- oob-55d1-us-event-prof-id?   uint8
+    +-- (sbfd-enable-choice)?
+    |  +--:(sbfd-configured)
+    |     +-- sbfd-parameter
+    |        +-- sbfd-interval?     uint32
+    |        +-- sbfd-multiplier?   uint32
+    +-- (ptp-clk-prof-en-choice)?
+       +--:(ptp-clock-profile)
+          +-- r-dti?                       uint8
+  grouping lic-with-conf-lock
+    +-- entitlement?                  string
+    +-- c-cnt?                        uint32
+    +-- reported-to-sm?               uint32
+    +-- cfg-lock-enforced?            boolean
+    +-- (enforced-state-choice)?
+       +--:(deact-enforced)
+       |  +-- deact-enforcement?      string
+       +--:(capped-enforced)
+       |  +-- capped-enforcement?     uint32
+       +--:(not-enforced)
+          +-- no-enforcement-state?   boolean
+  grouping lic-without-conf-lock
+    +-- entitlement?                  string
+    +-- c-cnt?                        uint32
+    +-- reported-to-sm?               uint32
+    +-- (enforced-state-choice)?
+       +--:(deact-enforced)
+       |  +-- deact-enforcement?      string
+       +--:(capped-enforced)
+       |  +-- capped-enforcement?     uint32
+       +--:(not-enforced)
+          +-- no-enforcement-state?   boolean
+  grouping wan-lic-state-type
+    +-- entitlement?                       string
+    +-- c-cnt?                             uint32
+    +-- reported-to-sm?                    uint32
+    +-- cfg-lock-enforced?                 boolean
+    +-- (enforced-state-choice)?
+    |  +--:(deact-enforced)
+    |  |  +-- deact-enforcement?           string
+    |  +--:(capped-enforced)
+    |  |  +-- capped-enforcement?          uint32
+    |  +--:(not-enforced)
+    |     +-- no-enforcement-state?        boolean
+    +-- (sup250-100g-en-choice)?
+       +--:(sup250-100-g-enabled)
+          +-- backhaul-consumes-wan-lic?   boolean
+  grouping us-d31-lic-state
+    +-- entitlement?                  string
+    +-- total-licensed-spectrum?      uint32
+    +-- c-cnt?                        uint32
+    +-- reported-to-sm?               uint32
+    +-- forced-shut-down-chan?        string
+    +-- (enforced-state-choice)?
+       +--:(deact-enforced)
+       |  +-- deact-enforcement?      string
+       +--:(capped-enforced)
+       |  +-- capped-enforcement?     uint32
+       +--:(not-enforced)
+          +-- no-enforcement-state?   boolean
+  grouping cpb-lic-state
+    +-- entitlement?                  string
+    +-- c-cnt?                        uint32
+    +-- reported-to-sm?               uint32
+    +-- enforced-state?               boolean
+    +-- cfg-lock-enforced?            boolean
+    +-- quarterly-cpb-rate?           uint32
+    +-- quarter?                      docsis-ios-xe-oper:license-quarter-type
+    +-- year?                         uint32
+    +-- first-monthly-cpb-bps?        uint32
+    +-- first-monthly-cpb-100mbps?    uint32
+    +-- second-monthly-cpb-bps?       uint32
+    +-- second-monthly-cpb-100mbps?   uint32
+    +-- third-monthly-cpb-bps?        uint32
+    +-- third-monthly-cpb-100mbps?    uint32
+  grouping cable-license
+    +-- license-type?               docsis-ios-xe-oper:cbr-lic-conf-type
+    +-- (license-state-choice)?
+       +--:(downstream-license)
+       |  +-- ds-lic
+       |     +-- entitlement?                  string
+       |     +-- c-cnt?                        uint32
+       |     +-- reported-to-sm?               uint32
+       |     +-- cfg-lock-enforced?            boolean
+       |     +-- (enforced-state-choice)?
+       |        +--:(deact-enforced)
+       |        |  +-- deact-enforcement?      string
+       |        +--:(capped-enforced)
+       |        |  +-- capped-enforcement?     uint32
+       |        +--:(not-enforced)
+       |           +-- no-enforcement-state?   boolean
+       +--:(upstream-license)
+       |  +-- us-lic
+       |     +-- entitlement?                  string
+       |     +-- c-cnt?                        uint32
+       |     +-- reported-to-sm?               uint32
+       |     +-- cfg-lock-enforced?            boolean
+       |     +-- (enforced-state-choice)?
+       |        +--:(deact-enforced)
+       |        |  +-- deact-enforcement?      string
+       |        +--:(capped-enforced)
+       |        |  +-- capped-enforcement?     uint32
+       |        +--:(not-enforced)
+       |           +-- no-enforcement-state?   boolean
+       +--:(wan-license)
+       |  +-- wan-lic
+       |     +-- entitlement?                       string
+       |     +-- c-cnt?                             uint32
+       |     +-- reported-to-sm?                    uint32
+       |     +-- cfg-lock-enforced?                 boolean
+       |     +-- (enforced-state-choice)?
+       |     |  +--:(deact-enforced)
+       |     |  |  +-- deact-enforcement?           string
+       |     |  +--:(capped-enforced)
+       |     |  |  +-- capped-enforcement?          uint32
+       |     |  +--:(not-enforced)
+       |     |     +-- no-enforcement-state?        boolean
+       |     +-- (sup250-100g-en-choice)?
+       |        +--:(sup250-100-g-enabled)
+       |           +-- backhaul-consumes-wan-lic?   boolean
+       +--:(lcha-license)
+       |  +-- lcha-lic
+       |     +-- entitlement?                  string
+       |     +-- c-cnt?                        uint32
+       |     +-- reported-to-sm?               uint32
+       |     +-- cfg-lock-enforced?            boolean
+       |     +-- (enforced-state-choice)?
+       |        +--:(deact-enforced)
+       |        |  +-- deact-enforcement?      string
+       |        +--:(capped-enforced)
+       |        |  +-- capped-enforcement?     uint32
+       |        +--:(not-enforced)
+       |           +-- no-enforcement-state?   boolean
+       +--:(video-narrowcast-license)
+       |  +-- nc-lic
+       |     +-- entitlement?                  string
+       |     +-- c-cnt?                        uint32
+       |     +-- reported-to-sm?               uint32
+       |     +-- (enforced-state-choice)?
+       |        +--:(deact-enforced)
+       |        |  +-- deact-enforcement?      string
+       |        +--:(capped-enforced)
+       |        |  +-- capped-enforcement?     uint32
+       |        +--:(not-enforced)
+       |           +-- no-enforcement-state?   boolean
+       +--:(video-narrowcast-replicate-license)
+       |  +-- nc-rpl-lic
+       |     +-- entitlement?                  string
+       |     +-- c-cnt?                        uint32
+       |     +-- reported-to-sm?               uint32
+       |     +-- (enforced-state-choice)?
+       |        +--:(deact-enforced)
+       |        |  +-- deact-enforcement?      string
+       |        +--:(capped-enforced)
+       |        |  +-- capped-enforcement?     uint32
+       |        +--:(not-enforced)
+       |           +-- no-enforcement-state?   boolean
+       +--:(video-narrowcast-pkey-license)
+       |  +-- nc-pky-lic
+       |     +-- entitlement?                  string
+       |     +-- c-cnt?                        uint32
+       |     +-- reported-to-sm?               uint32
+       |     +-- (enforced-state-choice)?
+       |        +--:(deact-enforced)
+       |        |  +-- deact-enforcement?      string
+       |        +--:(capped-enforced)
+       |        |  +-- capped-enforcement?     uint32
+       |        +--:(not-enforced)
+       |           +-- no-enforcement-state?   boolean
+       +--:(video-narrowcast-pme-license)
+       |  +-- nc-pme-lic
+       |     +-- entitlement?                  string
+       |     +-- c-cnt?                        uint32
+       |     +-- reported-to-sm?               uint32
+       |     +-- (enforced-state-choice)?
+       |        +--:(deact-enforced)
+       |        |  +-- deact-enforcement?      string
+       |        +--:(capped-enforced)
+       |        |  +-- capped-enforcement?     uint32
+       |        +--:(not-enforced)
+       |           +-- no-enforcement-state?   boolean
+       +--:(video-narrowcast-dvb-license)
+       |  +-- nc-dvb-lic
+       |     +-- entitlement?                  string
+       |     +-- c-cnt?                        uint32
+       |     +-- reported-to-sm?               uint32
+       |     +-- (enforced-state-choice)?
+       |        +--:(deact-enforced)
+       |        |  +-- deact-enforcement?      string
+       |        +--:(capped-enforced)
+       |        |  +-- capped-enforcement?     uint32
+       |        +--:(not-enforced)
+       |           +-- no-enforcement-state?   boolean
+       +--:(video-broadcast-license)
+       |  +-- bc-lic
+       |     +-- entitlement?                  string
+       |     +-- c-cnt?                        uint32
+       |     +-- reported-to-sm?               uint32
+       |     +-- (enforced-state-choice)?
+       |        +--:(deact-enforced)
+       |        |  +-- deact-enforcement?      string
+       |        +--:(capped-enforced)
+       |        |  +-- capped-enforcement?     uint32
+       |        +--:(not-enforced)
+       |           +-- no-enforcement-state?   boolean
+       +--:(video-broadcast-enc-license)
+       |  +-- bc-enc-lic
+       |     +-- entitlement?                  string
+       |     +-- c-cnt?                        uint32
+       |     +-- reported-to-sm?               uint32
+       |     +-- (enforced-state-choice)?
+       |        +--:(deact-enforced)
+       |        |  +-- deact-enforcement?      string
+       |        +--:(capped-enforced)
+       |        |  +-- capped-enforcement?     uint32
+       |        +--:(not-enforced)
+       |           +-- no-enforcement-state?   boolean
+       +--:(docsis31-downstream-channel-license)
+       |  +-- ds-31-lic
+       |     +-- entitlement?                  string
+       |     +-- c-cnt?                        uint32
+       |     +-- reported-to-sm?               uint32
+       |     +-- cfg-lock-enforced?            boolean
+       |     +-- (enforced-state-choice)?
+       |        +--:(deact-enforced)
+       |        |  +-- deact-enforcement?      string
+       |        +--:(capped-enforced)
+       |        |  +-- capped-enforcement?     uint32
+       |        +--:(not-enforced)
+       |           +-- no-enforcement-state?   boolean
+       +--:(rphy-video-broadcast-license)
+       |  +-- rphy-bc-lic
+       |     +-- entitlement?                  string
+       |     +-- c-cnt?                        uint32
+       |     +-- reported-to-sm?               uint32
+       |     +-- (enforced-state-choice)?
+       |        +--:(deact-enforced)
+       |        |  +-- deact-enforcement?      string
+       |        +--:(capped-enforced)
+       |        |  +-- capped-enforcement?     uint32
+       |        +--:(not-enforced)
+       |           +-- no-enforcement-state?   boolean
+       +--:(docsis31-upstream-channel-exclusive-license)
+       |  +-- us-d31-lic
+       |     +-- entitlement?                  string
+       |     +-- total-licensed-spectrum?      uint32
+       |     +-- c-cnt?                        uint32
+       |     +-- reported-to-sm?               uint32
+       |     +-- forced-shut-down-chan?        string
+       |     +-- (enforced-state-choice)?
+       |        +--:(deact-enforced)
+       |        |  +-- deact-enforcement?      string
+       |        +--:(capped-enforced)
+       |        |  +-- capped-enforcement?     uint32
+       |        +--:(not-enforced)
+       |           +-- no-enforcement-state?   boolean
+       +--:(docsis31-upstream-channel-overlap-license)
+       |  +-- us-d31-overlap-lic
+       |     +-- entitlement?                  string
+       |     +-- total-licensed-spectrum?      uint32
+       |     +-- c-cnt?                        uint32
+       |     +-- reported-to-sm?               uint32
+       |     +-- forced-shut-down-chan?        string
+       |     +-- (enforced-state-choice)?
+       |        +--:(deact-enforced)
+       |        |  +-- deact-enforcement?      string
+       |        +--:(capped-enforced)
+       |        |  +-- capped-enforcement?     uint32
+       |        +--:(not-enforced)
+       |           +-- no-enforcement-state?   boolean
+       +--:(wan-100-g-license)
+       |  +-- wan-100g-lic
+       |     +-- entitlement?                  string
+       |     +-- c-cnt?                        uint32
+       |     +-- reported-to-sm?               uint32
+       |     +-- cfg-lock-enforced?            boolean
+       |     +-- (enforced-state-choice)?
+       |        +--:(deact-enforced)
+       |        |  +-- deact-enforcement?      string
+       |        +--:(capped-enforced)
+       |        |  +-- capped-enforcement?     uint32
+       |        +--:(not-enforced)
+       |           +-- no-enforcement-state?   boolean
+       +--:(cpb-license)
+          +-- cpb-lic
+             +-- entitlement?                  string
+             +-- c-cnt?                        uint32
+             +-- reported-to-sm?               uint32
+             +-- enforced-state?               boolean
+             +-- cfg-lock-enforced?            boolean
+             +-- quarterly-cpb-rate?           uint32
+             +-- quarter?                      docsis-ios-xe-oper:license-quarter-type
+             +-- year?                         uint32
+             +-- first-monthly-cpb-bps?        uint32
+             +-- first-monthly-cpb-100mbps?    uint32
+             +-- second-monthly-cpb-bps?       uint32
+             +-- second-monthly-cpb-100mbps?   uint32
+             +-- third-monthly-cpb-bps?        uint32
+             +-- third-monthly-cpb-100mbps?    uint32

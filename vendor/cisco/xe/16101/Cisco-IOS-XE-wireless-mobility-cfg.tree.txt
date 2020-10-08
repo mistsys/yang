@@ -1,0 +1,51 @@
+module: Cisco-IOS-XE-wireless-mobility-cfg
+  +--rw mobility-cfg-data
+     +--rw mobility-config
+     |  +--rw local-group?                    string
+     |  +--rw local-multicast-address?        inet:ipv4-address
+     |  +--rw local-ipv6-multicast-address?   inet:ipv6-address
+     |  +--rw mobility-keepalive-interval?    uint16
+     |  +--rw mobility-keepalive-count?       uint16
+     |  +--rw mobility-dscp?                  uint8
+     |  +--rw mac-address?                    yang:mac-address
+     |  +--rw mobility-peers
+     |     +--rw mobility-peer* [mac-addr]
+     |        +--rw mac-addr                yang:mac-address
+     |        +--rw ip-address?             inet:ip-address
+     |        +--rw group-name              string
+     |        +--rw nat-ip?                 inet:ip-address
+     |        +--rw data-link-encryption?   boolean
+     |        +--rw ssc-hash?               string
+     +--rw mobility-groups
+        +--rw mobility-group* [group-name]
+           +--rw group-name             string
+           +--rw multicast-address?     inet:ipv4-address
+           +--rw multicast-addressv6?   inet:ipv6-address
+
+  grouping mmgroupinfo
+    +-- group-name?            string
+    +-- multicast-address?     inet:ipv4-address
+    +-- multicast-addressv6?   inet:ipv6-address
+  grouping mmpeer
+    +-- mac-addr?               yang:mac-address
+    +-- ip-address?             inet:ip-address
+    +-- group-name              string
+    +-- nat-ip?                 inet:ip-address
+    +-- data-link-encryption?   boolean
+    +-- ssc-hash?               string
+  grouping mmcfg
+    +-- local-group?                    string
+    +-- local-multicast-address?        inet:ipv4-address
+    +-- local-ipv6-multicast-address?   inet:ipv6-address
+    +-- mobility-keepalive-interval?    uint16
+    +-- mobility-keepalive-count?       uint16
+    +-- mobility-dscp?                  uint8
+    +-- mac-address?                    yang:mac-address
+    +-- mobility-peers
+       +-- mobility-peer* [mac-addr]
+          +-- mac-addr?               yang:mac-address
+          +-- ip-address?             inet:ip-address
+          +-- group-name              string
+          +-- nat-ip?                 inet:ip-address
+          +-- data-link-encryption?   boolean
+          +-- ssc-hash?               string

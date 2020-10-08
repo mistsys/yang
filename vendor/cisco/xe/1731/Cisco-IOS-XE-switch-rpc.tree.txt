@@ -1,0 +1,39 @@
+
+module: Cisco-IOS-XE-switch-rpc
+  augment /ios-xe-rpc:reload/ios-xe-rpc:input:
+    +---w slot?   uint8
+  augment /ios-xe-rpc:factory-reset/ios-xe-rpc:input:
+    +---w switch
+       +---w (switch-number-options)?
+       |  +--:(switch-number-case)
+       |  |  +---w switch-number-drop-node-name?   uint8
+       |  +--:(switch-all-case)
+       |     +---w all-drop-node-name
+       |        +---w all?   empty
+       +---w (clear-choice)?
+          +--:(clear-all)
+          |  +---w clear-all-drop-node-name
+          |     +---w all?   empty
+          +--:(clear-all-3-pass)
+          |  +---w all
+          |     +---w secure
+          |        +---w alt-name-3-pass?   empty
+          +--:(clear-boot-vars)
+          |  +---w boot-vars?                      empty
+          +--:(clear-config)
+             +---w config?                         empty
+
+  rpcs:
+    +---x switch
+       +---w input
+       |  +---w switch-number-drop-node-name    uint8
+       |  +---w (pri-renum-stack)
+       |     +--:(priority-case)
+       |     |  +---w priority?                 uint8
+       |     +--:(renumver-case)
+       |     |  +---w renumber?                 uint8
+       |     +--:(stack-case)
+       |        +---w statck
+       |           +---w port?   uint8
+       +--ro output
+          +--ro result?   string

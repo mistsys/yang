@@ -1,0 +1,784 @@
+submodule: Cisco-IOS-XE-line (belongs-to Cisco-IOS-XE-native)
+
+  grouping password-07-grouping
+    +-- level?    uint8
+    +-- type?     enumeration
+    +-- secret?   string
+  grouping line-grouping
+    +-- authorization
+    |  +-- commands* [enable-level auth-name]
+    |  |  +-- enable-level?   uint8
+    |  |  +-- auth-name?      string
+    |  +-- exec
+    |     +-- authorization-name?   string
+    |     +-- default?              empty
+    +-- access-class
+    |  +-- acccess-list* [direction]
+    |     +-- direction?     enumeration
+    |     +-- access-list    ios-types:exp-acl-type
+    |     +-- vrf-also?      empty
+    +-- no-activation-character?      boolean
+    +-- activation-character?         union
+    +-- autocommand
+    |  +-- line?                     string
+    |  +-- no-suppress-linenumber!
+    |     +-- line?   string
+    +-- autocommand-options!
+    |  +-- abort-character!
+    |  |  +-- character?   union
+    |  +-- delay!
+    |  |  +-- time?   uint8
+    |  +-- nohangup!
+    |     +-- abort-character?   empty
+    |     +-- delay?             empty
+    +-- data-character-bits?          uint8
+    +-- databits
+    |  +-- set-to-5?   empty
+    |  +-- set-to-6?   empty
+    |  +-- set-to-7?   empty
+    |  +-- set-to-8?   empty
+    +-- domain-lookup?                empty
+    +-- editing?                      empty
+    +-- escape-character
+    |  +-- char?   union
+    |  +-- soft?   empty
+    +-- (exec-choice)?
+    |  +--:(no-exec)
+    |  |  +-- no-exec
+    |  |     +-- exec?   boolean
+    |  +--:(exec)
+    |     +-- exec
+    |        +-- prompt
+    |           +-- timestamp?   empty
+    +-- exec-banner?                  empty
+    +-- exec-character-bits?          uint8
+    +-- exec-timeout
+    |  +-- minutes?   uint32
+    |  +-- seconds?   uint32
+    +-- flowcontrol
+    |  +-- NONE?       empty
+    |  +-- hardware?   empty
+    |  +-- software?   empty
+    +-- full-help?                    empty
+    +-- history!
+    |  +-- size?   uint16
+    +-- international?                empty
+    +-- ip
+    |  +-- netmask-format!
+    |  |  +-- format?   enumeration
+    |  +-- tcp?              empty
+    +-- ipv6
+    |  +-- access-class
+    |     +-- access-class* [access-class-name]
+    |        +-- access-class-name?    string
+    |        +-- enumeration-in-out?   enumeration
+    +-- length?                       uint16
+    +-- line?                         uint8
+    +-- location?                     string
+    +-- logging
+    |  +-- synchronous!
+    +-- login!
+    |  +-- local?            empty
+    |  +-- authentication?   string
+    +-- media-type
+    |  +-- rj45?   empty
+    +-- modem
+    |  +-- CTS-Alarm?        empty
+    |  +-- DTR-active?       empty
+    |  +-- Dialin?           empty
+    |  +-- Host?             empty
+    |  +-- InOut?            empty
+    |  +-- Printer?          empty
+    |  +-- answer-timeout?   empty
+    |  +-- autoconfigure
+    |  |  +-- discovery?   empty
+    |  |  +-- type?        string
+    |  +-- dtr-delay?        empty
+    +-- monitor?                      empty
+    +-- motd-banner?                  empty
+    +-- notify?                       empty
+    +-- padding
+    |  +-- character?   union
+    |  +-- null?        uint8
+    +-- parity
+    |  +-- even?    empty
+    |  +-- mark?    empty
+    |  +-- none?    empty
+    |  +-- odd?     empty
+    |  +-- space?   empty
+    +-- password
+    |  +-- level?    uint8
+    |  +-- type?     enumeration
+    |  +-- secret?   string
+    +-- prc
+    |  +-- expose?   empty
+    |  +-- hide?     empty
+    +-- privilege
+    |  +-- level!
+    |     +-- number?   uint8
+    +-- rotary?                       uint8
+    +-- rxspeed?                      uint32
+    +-- session-disconnect-warning
+    |  +-- seconds?   uint32
+    |  +-- message?   string
+    +-- session-limit?                uint32
+    +-- session-timeout
+    |  +-- session-timeout-value?   uint16
+    |  +-- output?                  empty
+    +-- special-character-bits?       uint8
+    +-- speed?                        uint32
+    +-- start-character?              union
+    +-- stop-character?               union
+    +-- stopbits?                     enumeration
+    +-- terminal-type?                string
+    +-- timeout
+    |  +-- login?   empty
+    +-- telnet
+    |  +-- transparent?   empty
+    +-- transport
+    |  +-- input
+    |  |  +-- (input-protocol)?
+    |  |     +--:(all-protocol)
+    |  |     |  +-- all?     empty
+    |  |     +--:(no-protocol)
+    |  |     |  +-- none?    empty
+    |  |     +--:(other-protocol)
+    |  |        +-- input*   enumeration
+    |  +-- output
+    |  |  +-- (output-protocol)?
+    |  |     +--:(all-protocol)
+    |  |     |  +-- all?      empty
+    |  |     +--:(no-protocol)
+    |  |     |  +-- none?     empty
+    |  |     +--:(other-protocol)
+    |  |        +-- output*   enumeration
+    |  +-- preferred!
+    |     +-- protocol?   enumeration
+    +-- txspeed?                      uint32
+    +-- usb-inactivity-timeout
+    |  +-- switch?   empty
+    +-- width?                        uint16
+  grouping config-line-grouping
+    +-- line
+       +-- line-list* [first-number]
+       |  +-- first-number?                 uint8
+       |  +-- last-number?                  uint16
+       |  +-- authorization
+       |  |  +-- commands* [enable-level auth-name]
+       |  |  |  +-- enable-level?   uint8
+       |  |  |  +-- auth-name?      string
+       |  |  +-- exec
+       |  |     +-- authorization-name?   string
+       |  |     +-- default?              empty
+       |  +-- access-class
+       |  |  +-- acccess-list* [direction]
+       |  |     +-- direction?     enumeration
+       |  |     +-- access-list    ios-types:exp-acl-type
+       |  |     +-- vrf-also?      empty
+       |  +-- no-activation-character?      boolean
+       |  +-- activation-character?         union
+       |  +-- autocommand
+       |  |  +-- line?                     string
+       |  |  +-- no-suppress-linenumber!
+       |  |     +-- line?   string
+       |  +-- autocommand-options!
+       |  |  +-- abort-character!
+       |  |  |  +-- character?   union
+       |  |  +-- delay!
+       |  |  |  +-- time?   uint8
+       |  |  +-- nohangup!
+       |  |     +-- abort-character?   empty
+       |  |     +-- delay?             empty
+       |  +-- data-character-bits?          uint8
+       |  +-- databits
+       |  |  +-- set-to-5?   empty
+       |  |  +-- set-to-6?   empty
+       |  |  +-- set-to-7?   empty
+       |  |  +-- set-to-8?   empty
+       |  +-- domain-lookup?                empty
+       |  +-- editing?                      empty
+       |  +-- escape-character
+       |  |  +-- char?   union
+       |  |  +-- soft?   empty
+       |  +-- (exec-choice)?
+       |  |  +--:(no-exec)
+       |  |  |  +-- no-exec
+       |  |  |     +-- exec?   boolean
+       |  |  +--:(exec)
+       |  |     +-- exec
+       |  |        +-- prompt
+       |  |           +-- timestamp?   empty
+       |  +-- exec-banner?                  empty
+       |  +-- exec-character-bits?          uint8
+       |  +-- exec-timeout
+       |  |  +-- minutes?   uint32
+       |  |  +-- seconds?   uint32
+       |  +-- flowcontrol
+       |  |  +-- NONE?       empty
+       |  |  +-- hardware?   empty
+       |  |  +-- software?   empty
+       |  +-- full-help?                    empty
+       |  +-- history!
+       |  |  +-- size?   uint16
+       |  +-- international?                empty
+       |  +-- ip
+       |  |  +-- netmask-format!
+       |  |  |  +-- format?   enumeration
+       |  |  +-- tcp?              empty
+       |  +-- ipv6
+       |  |  +-- access-class
+       |  |     +-- access-class* [access-class-name]
+       |  |        +-- access-class-name?    string
+       |  |        +-- enumeration-in-out?   enumeration
+       |  +-- length?                       uint16
+       |  +-- line?                         uint8
+       |  +-- location?                     string
+       |  +-- logging
+       |  |  +-- synchronous!
+       |  +-- login!
+       |  |  +-- local?            empty
+       |  |  +-- authentication?   string
+       |  +-- media-type
+       |  |  +-- rj45?   empty
+       |  +-- modem
+       |  |  +-- CTS-Alarm?        empty
+       |  |  +-- DTR-active?       empty
+       |  |  +-- Dialin?           empty
+       |  |  +-- Host?             empty
+       |  |  +-- InOut?            empty
+       |  |  +-- Printer?          empty
+       |  |  +-- answer-timeout?   empty
+       |  |  +-- autoconfigure
+       |  |  |  +-- discovery?   empty
+       |  |  |  +-- type?        string
+       |  |  +-- dtr-delay?        empty
+       |  +-- monitor?                      empty
+       |  +-- motd-banner?                  empty
+       |  +-- notify?                       empty
+       |  +-- padding
+       |  |  +-- character?   union
+       |  |  +-- null?        uint8
+       |  +-- parity
+       |  |  +-- even?    empty
+       |  |  +-- mark?    empty
+       |  |  +-- none?    empty
+       |  |  +-- odd?     empty
+       |  |  +-- space?   empty
+       |  +-- password
+       |  |  +-- level?    uint8
+       |  |  +-- type?     enumeration
+       |  |  +-- secret?   string
+       |  +-- prc
+       |  |  +-- expose?   empty
+       |  |  +-- hide?     empty
+       |  +-- privilege
+       |  |  +-- level!
+       |  |     +-- number?   uint8
+       |  +-- rotary?                       uint8
+       |  +-- rxspeed?                      uint32
+       |  +-- session-disconnect-warning
+       |  |  +-- seconds?   uint32
+       |  |  +-- message?   string
+       |  +-- session-limit?                uint32
+       |  +-- session-timeout
+       |  |  +-- session-timeout-value?   uint16
+       |  |  +-- output?                  empty
+       |  +-- special-character-bits?       uint8
+       |  +-- speed?                        uint32
+       |  +-- start-character?              union
+       |  +-- stop-character?               union
+       |  +-- stopbits?                     enumeration
+       |  +-- terminal-type?                string
+       |  +-- timeout
+       |  |  +-- login?   empty
+       |  +-- telnet
+       |  |  +-- transparent?   empty
+       |  +-- transport
+       |  |  +-- input
+       |  |  |  +-- (input-protocol)?
+       |  |  |     +--:(all-protocol)
+       |  |  |     |  +-- all?     empty
+       |  |  |     +--:(no-protocol)
+       |  |  |     |  +-- none?    empty
+       |  |  |     +--:(other-protocol)
+       |  |  |        +-- input*   enumeration
+       |  |  +-- output
+       |  |  |  +-- (output-protocol)?
+       |  |  |     +--:(all-protocol)
+       |  |  |     |  +-- all?      empty
+       |  |  |     +--:(no-protocol)
+       |  |  |     |  +-- none?     empty
+       |  |  |     +--:(other-protocol)
+       |  |  |        +-- output*   enumeration
+       |  |  +-- preferred!
+       |  |     +-- protocol?   enumeration
+       |  +-- txspeed?                      uint32
+       |  +-- usb-inactivity-timeout
+       |  |  +-- switch?   empty
+       |  +-- width?                        uint16
+       +-- aux* [first]
+       |  +-- first?                        enumeration
+       |  +-- authorization
+       |  |  +-- commands* [enable-level auth-name]
+       |  |  |  +-- enable-level?   uint8
+       |  |  |  +-- auth-name?      string
+       |  |  +-- exec
+       |  |     +-- authorization-name?   string
+       |  |     +-- default?              empty
+       |  +-- access-class
+       |  |  +-- acccess-list* [direction]
+       |  |     +-- direction?     enumeration
+       |  |     +-- access-list    ios-types:exp-acl-type
+       |  |     +-- vrf-also?      empty
+       |  +-- no-activation-character?      boolean
+       |  +-- activation-character?         union
+       |  +-- autocommand
+       |  |  +-- line?                     string
+       |  |  +-- no-suppress-linenumber!
+       |  |     +-- line?   string
+       |  +-- autocommand-options!
+       |  |  +-- abort-character!
+       |  |  |  +-- character?   union
+       |  |  +-- delay!
+       |  |  |  +-- time?   uint8
+       |  |  +-- nohangup!
+       |  |     +-- abort-character?   empty
+       |  |     +-- delay?             empty
+       |  +-- data-character-bits?          uint8
+       |  +-- databits
+       |  |  +-- set-to-5?   empty
+       |  |  +-- set-to-6?   empty
+       |  |  +-- set-to-7?   empty
+       |  |  +-- set-to-8?   empty
+       |  +-- domain-lookup?                empty
+       |  +-- editing?                      empty
+       |  +-- escape-character
+       |  |  +-- char?   union
+       |  |  +-- soft?   empty
+       |  +-- (exec-choice)?
+       |  |  +--:(no-exec)
+       |  |  |  +-- no-exec
+       |  |  |     +-- exec?   boolean
+       |  |  +--:(exec)
+       |  |     +-- exec
+       |  |        +-- prompt
+       |  |           +-- timestamp?   empty
+       |  +-- exec-banner?                  empty
+       |  +-- exec-character-bits?          uint8
+       |  +-- exec-timeout
+       |  |  +-- minutes?   uint32
+       |  |  +-- seconds?   uint32
+       |  +-- flowcontrol
+       |  |  +-- NONE?       empty
+       |  |  +-- hardware?   empty
+       |  |  +-- software?   empty
+       |  +-- full-help?                    empty
+       |  +-- history!
+       |  |  +-- size?   uint16
+       |  +-- international?                empty
+       |  +-- ip
+       |  |  +-- netmask-format!
+       |  |  |  +-- format?   enumeration
+       |  |  +-- tcp?              empty
+       |  +-- ipv6
+       |  |  +-- access-class
+       |  |     +-- access-class* [access-class-name]
+       |  |        +-- access-class-name?    string
+       |  |        +-- enumeration-in-out?   enumeration
+       |  +-- length?                       uint16
+       |  +-- line?                         uint8
+       |  +-- location?                     string
+       |  +-- logging
+       |  |  +-- synchronous!
+       |  +-- login!
+       |  |  +-- local?            empty
+       |  |  +-- authentication?   string
+       |  +-- media-type
+       |  |  +-- rj45?   empty
+       |  +-- modem
+       |  |  +-- CTS-Alarm?        empty
+       |  |  +-- DTR-active?       empty
+       |  |  +-- Dialin?           empty
+       |  |  +-- Host?             empty
+       |  |  +-- InOut?            empty
+       |  |  +-- Printer?          empty
+       |  |  +-- answer-timeout?   empty
+       |  |  +-- autoconfigure
+       |  |  |  +-- discovery?   empty
+       |  |  |  +-- type?        string
+       |  |  +-- dtr-delay?        empty
+       |  +-- monitor?                      empty
+       |  +-- motd-banner?                  empty
+       |  +-- notify?                       empty
+       |  +-- padding
+       |  |  +-- character?   union
+       |  |  +-- null?        uint8
+       |  +-- parity
+       |  |  +-- even?    empty
+       |  |  +-- mark?    empty
+       |  |  +-- none?    empty
+       |  |  +-- odd?     empty
+       |  |  +-- space?   empty
+       |  +-- password
+       |  |  +-- level?    uint8
+       |  |  +-- type?     enumeration
+       |  |  +-- secret?   string
+       |  +-- prc
+       |  |  +-- expose?   empty
+       |  |  +-- hide?     empty
+       |  +-- privilege
+       |  |  +-- level!
+       |  |     +-- number?   uint8
+       |  +-- rotary?                       uint8
+       |  +-- rxspeed?                      uint32
+       |  +-- session-disconnect-warning
+       |  |  +-- seconds?   uint32
+       |  |  +-- message?   string
+       |  +-- session-limit?                uint32
+       |  +-- session-timeout
+       |  |  +-- session-timeout-value?   uint16
+       |  |  +-- output?                  empty
+       |  +-- special-character-bits?       uint8
+       |  +-- speed?                        uint32
+       |  +-- start-character?              union
+       |  +-- stop-character?               union
+       |  +-- stopbits?                     enumeration
+       |  +-- terminal-type?                string
+       |  +-- timeout
+       |  |  +-- login?   empty
+       |  +-- telnet
+       |  |  +-- transparent?   empty
+       |  +-- transport
+       |  |  +-- input
+       |  |  |  +-- (input-protocol)?
+       |  |  |     +--:(all-protocol)
+       |  |  |     |  +-- all?     empty
+       |  |  |     +--:(no-protocol)
+       |  |  |     |  +-- none?    empty
+       |  |  |     +--:(other-protocol)
+       |  |  |        +-- input*   enumeration
+       |  |  +-- output
+       |  |  |  +-- (output-protocol)?
+       |  |  |     +--:(all-protocol)
+       |  |  |     |  +-- all?      empty
+       |  |  |     +--:(no-protocol)
+       |  |  |     |  +-- none?     empty
+       |  |  |     +--:(other-protocol)
+       |  |  |        +-- output*   enumeration
+       |  |  +-- preferred!
+       |  |     +-- protocol?   enumeration
+       |  +-- txspeed?                      uint32
+       |  +-- usb-inactivity-timeout
+       |  |  +-- switch?   empty
+       |  +-- width?                        uint16
+       +-- console* [first]
+       |  +-- first?                        enumeration
+       |  +-- authorization
+       |  |  +-- commands* [enable-level auth-name]
+       |  |  |  +-- enable-level?   uint8
+       |  |  |  +-- auth-name?      string
+       |  |  +-- exec
+       |  |     +-- authorization-name?   string
+       |  |     +-- default?              empty
+       |  +-- access-class
+       |  |  +-- acccess-list* [direction]
+       |  |     +-- direction?     enumeration
+       |  |     +-- access-list    ios-types:exp-acl-type
+       |  |     +-- vrf-also?      empty
+       |  +-- no-activation-character?      boolean
+       |  +-- activation-character?         union
+       |  +-- autocommand
+       |  |  +-- line?                     string
+       |  |  +-- no-suppress-linenumber!
+       |  |     +-- line?   string
+       |  +-- autocommand-options!
+       |  |  +-- abort-character!
+       |  |  |  +-- character?   union
+       |  |  +-- delay!
+       |  |  |  +-- time?   uint8
+       |  |  +-- nohangup!
+       |  |     +-- abort-character?   empty
+       |  |     +-- delay?             empty
+       |  +-- data-character-bits?          uint8
+       |  +-- databits
+       |  |  +-- set-to-5?   empty
+       |  |  +-- set-to-6?   empty
+       |  |  +-- set-to-7?   empty
+       |  |  +-- set-to-8?   empty
+       |  +-- domain-lookup?                empty
+       |  +-- editing?                      empty
+       |  +-- escape-character
+       |  |  +-- char?   union
+       |  |  +-- soft?   empty
+       |  +-- (exec-choice)?
+       |  |  +--:(no-exec)
+       |  |  |  +-- no-exec
+       |  |  |     +-- exec?   boolean
+       |  |  +--:(exec)
+       |  |     +-- exec
+       |  |        +-- prompt
+       |  |           +-- timestamp?   empty
+       |  +-- exec-banner?                  empty
+       |  +-- exec-character-bits?          uint8
+       |  +-- exec-timeout
+       |  |  +-- minutes?   uint32
+       |  |  +-- seconds?   uint32
+       |  +-- flowcontrol
+       |  |  +-- NONE?       empty
+       |  |  +-- hardware?   empty
+       |  |  +-- software?   empty
+       |  +-- full-help?                    empty
+       |  +-- history!
+       |  |  +-- size?   uint16
+       |  +-- international?                empty
+       |  +-- ip
+       |  |  +-- netmask-format!
+       |  |  |  +-- format?   enumeration
+       |  |  +-- tcp?              empty
+       |  +-- ipv6
+       |  |  +-- access-class
+       |  |     +-- access-class* [access-class-name]
+       |  |        +-- access-class-name?    string
+       |  |        +-- enumeration-in-out?   enumeration
+       |  +-- length?                       uint16
+       |  +-- line?                         uint8
+       |  +-- location?                     string
+       |  +-- logging
+       |  |  +-- synchronous!
+       |  +-- login!
+       |  |  +-- local?            empty
+       |  |  +-- authentication?   string
+       |  +-- media-type
+       |  |  +-- rj45?   empty
+       |  +-- modem
+       |  |  +-- CTS-Alarm?        empty
+       |  |  +-- DTR-active?       empty
+       |  |  +-- Dialin?           empty
+       |  |  +-- Host?             empty
+       |  |  +-- InOut?            empty
+       |  |  +-- Printer?          empty
+       |  |  +-- answer-timeout?   empty
+       |  |  +-- autoconfigure
+       |  |  |  +-- discovery?   empty
+       |  |  |  +-- type?        string
+       |  |  +-- dtr-delay?        empty
+       |  +-- monitor?                      empty
+       |  +-- motd-banner?                  empty
+       |  +-- notify?                       empty
+       |  +-- padding
+       |  |  +-- character?   union
+       |  |  +-- null?        uint8
+       |  +-- parity
+       |  |  +-- even?    empty
+       |  |  +-- mark?    empty
+       |  |  +-- none?    empty
+       |  |  +-- odd?     empty
+       |  |  +-- space?   empty
+       |  +-- password
+       |  |  +-- level?    uint8
+       |  |  +-- type?     enumeration
+       |  |  +-- secret?   string
+       |  +-- prc
+       |  |  +-- expose?   empty
+       |  |  +-- hide?     empty
+       |  +-- privilege
+       |  |  +-- level!
+       |  |     +-- number?   uint8
+       |  +-- rotary?                       uint8
+       |  +-- rxspeed?                      uint32
+       |  +-- session-disconnect-warning
+       |  |  +-- seconds?   uint32
+       |  |  +-- message?   string
+       |  +-- session-limit?                uint32
+       |  +-- session-timeout
+       |  |  +-- session-timeout-value?   uint16
+       |  |  +-- output?                  empty
+       |  +-- special-character-bits?       uint8
+       |  +-- speed?                        uint32
+       |  +-- start-character?              union
+       |  +-- stop-character?               union
+       |  +-- stopbits?                     enumeration
+       |  +-- terminal-type?                string
+       |  +-- timeout
+       |  |  +-- login?   empty
+       |  +-- telnet
+       |  |  +-- transparent?   empty
+       |  +-- transport
+       |  |  +-- input
+       |  |  |  +-- (input-protocol)?
+       |  |  |     +--:(all-protocol)
+       |  |  |     |  +-- all?     empty
+       |  |  |     +--:(no-protocol)
+       |  |  |     |  +-- none?    empty
+       |  |  |     +--:(other-protocol)
+       |  |  |        +-- input*   enumeration
+       |  |  +-- output
+       |  |  |  +-- (output-protocol)?
+       |  |  |     +--:(all-protocol)
+       |  |  |     |  +-- all?      empty
+       |  |  |     +--:(no-protocol)
+       |  |  |     |  +-- none?     empty
+       |  |  |     +--:(other-protocol)
+       |  |  |        +-- output*   enumeration
+       |  |  +-- preferred!
+       |  |     +-- protocol?   enumeration
+       |  +-- txspeed?                      uint32
+       |  +-- usb-inactivity-timeout
+       |  |  +-- switch?   empty
+       |  +-- width?                        uint16
+       +-- vty* [first]
+          +-- first?                        uint16
+          +-- last?                         uint16
+          +-- authorization
+          |  +-- commands* [enable-level auth-name]
+          |  |  +-- enable-level?   uint8
+          |  |  +-- auth-name?      string
+          |  +-- exec
+          |     +-- authorization-name?   string
+          |     +-- default?              empty
+          +-- access-class
+          |  +-- acccess-list* [direction]
+          |     +-- direction?     enumeration
+          |     +-- access-list    ios-types:exp-acl-type
+          |     +-- vrf-also?      empty
+          +-- no-activation-character?      boolean
+          +-- activation-character?         union
+          +-- autocommand
+          |  +-- line?                     string
+          |  +-- no-suppress-linenumber!
+          |     +-- line?   string
+          +-- autocommand-options!
+          |  +-- abort-character!
+          |  |  +-- character?   union
+          |  +-- delay!
+          |  |  +-- time?   uint8
+          |  +-- nohangup!
+          |     +-- abort-character?   empty
+          |     +-- delay?             empty
+          +-- data-character-bits?          uint8
+          +-- databits
+          |  +-- set-to-5?   empty
+          |  +-- set-to-6?   empty
+          |  +-- set-to-7?   empty
+          |  +-- set-to-8?   empty
+          +-- domain-lookup?                empty
+          +-- editing?                      empty
+          +-- escape-character
+          |  +-- char?   union
+          |  +-- soft?   empty
+          +-- (exec-choice)?
+          |  +--:(no-exec)
+          |  |  +-- no-exec
+          |  |     +-- exec?   boolean
+          |  +--:(exec)
+          |     +-- exec
+          |        +-- prompt
+          |           +-- timestamp?   empty
+          +-- exec-banner?                  empty
+          +-- exec-character-bits?          uint8
+          +-- exec-timeout
+          |  +-- minutes?   uint32
+          |  +-- seconds?   uint32
+          +-- flowcontrol
+          |  +-- NONE?       empty
+          |  +-- hardware?   empty
+          |  +-- software?   empty
+          +-- full-help?                    empty
+          +-- history!
+          |  +-- size?   uint16
+          +-- international?                empty
+          +-- ip
+          |  +-- netmask-format!
+          |  |  +-- format?   enumeration
+          |  +-- tcp?              empty
+          +-- ipv6
+          |  +-- access-class
+          |     +-- access-class* [access-class-name]
+          |        +-- access-class-name?    string
+          |        +-- enumeration-in-out?   enumeration
+          +-- length?                       uint16
+          +-- line?                         uint8
+          +-- location?                     string
+          +-- logging
+          |  +-- synchronous!
+          +-- login!
+          |  +-- local?            empty
+          |  +-- authentication?   string
+          +-- media-type
+          |  +-- rj45?   empty
+          +-- modem
+          |  +-- CTS-Alarm?        empty
+          |  +-- DTR-active?       empty
+          |  +-- Dialin?           empty
+          |  +-- Host?             empty
+          |  +-- InOut?            empty
+          |  +-- Printer?          empty
+          |  +-- answer-timeout?   empty
+          |  +-- autoconfigure
+          |  |  +-- discovery?   empty
+          |  |  +-- type?        string
+          |  +-- dtr-delay?        empty
+          +-- monitor?                      empty
+          +-- motd-banner?                  empty
+          +-- notify?                       empty
+          +-- padding
+          |  +-- character?   union
+          |  +-- null?        uint8
+          +-- parity
+          |  +-- even?    empty
+          |  +-- mark?    empty
+          |  +-- none?    empty
+          |  +-- odd?     empty
+          |  +-- space?   empty
+          +-- password
+          |  +-- level?    uint8
+          |  +-- type?     enumeration
+          |  +-- secret?   string
+          +-- prc
+          |  +-- expose?   empty
+          |  +-- hide?     empty
+          +-- privilege
+          |  +-- level!
+          |     +-- number?   uint8
+          +-- rotary?                       uint8
+          +-- rxspeed?                      uint32
+          +-- session-disconnect-warning
+          |  +-- seconds?   uint32
+          |  +-- message?   string
+          +-- session-limit?                uint32
+          +-- session-timeout
+          |  +-- session-timeout-value?   uint16
+          |  +-- output?                  empty
+          +-- special-character-bits?       uint8
+          +-- speed?                        uint32
+          +-- start-character?              union
+          +-- stop-character?               union
+          +-- stopbits?                     enumeration
+          +-- terminal-type?                string
+          +-- timeout
+          |  +-- login?   empty
+          +-- telnet
+          |  +-- transparent?   empty
+          +-- transport
+          |  +-- input
+          |  |  +-- (input-protocol)?
+          |  |     +--:(all-protocol)
+          |  |     |  +-- all?     empty
+          |  |     +--:(no-protocol)
+          |  |     |  +-- none?    empty
+          |  |     +--:(other-protocol)
+          |  |        +-- input*   enumeration
+          |  +-- output
+          |  |  +-- (output-protocol)?
+          |  |     +--:(all-protocol)
+          |  |     |  +-- all?      empty
+          |  |     +--:(no-protocol)
+          |  |     |  +-- none?     empty
+          |  |     +--:(other-protocol)
+          |  |        +-- output*   enumeration
+          |  +-- preferred!
+          |     +-- protocol?   enumeration
+          +-- txspeed?                      uint32
+          +-- usb-inactivity-timeout
+          |  +-- switch?   empty
+          +-- width?                        uint16

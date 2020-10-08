@@ -1,0 +1,101 @@
+
+module: Cisco-IOS-XE-pnp
+  augment /ios:native:
+    +--rw pnp
+       +--rw startup-vlan?   uint16
+       +--rw profile* [name]
+          +--rw name         string
+          +--rw transport
+             +--rw https
+             |  +--rw host
+             |  |  +--rw host-name?    string
+             |  |  +--rw port?         uint16
+             |  |  +--rw localcert?    string
+             |  |  +--rw remotecert?   string
+             |  +--rw ipv4
+             |  |  +--rw ipv4-address?   inet:ipv4-address
+             |  |  +--rw port?           uint16
+             |  |  +--rw localcert?      string
+             |  |  +--rw remotecert?     string
+             |  +--rw ipv6
+             |     +--rw ipv6-address?   inet:ipv6-address
+             |     +--rw port?           uint16
+             |     +--rw localcert?      string
+             |     +--rw remotecert?     string
+             +--rw http
+                +--rw host
+                |  +--rw host-name?    string
+                |  +--rw port?         uint16
+                |  +--rw localcert?    string
+                |  +--rw remotecert?   string
+                +--rw ipv4
+                |  +--rw ipv4-address?   inet:ipv4-address
+                |  +--rw port?           uint16
+                |  +--rw localcert?      string
+                |  +--rw remotecert?     string
+                +--rw ipv6
+                   +--rw ipv6-address?   inet:ipv6-address
+                   +--rw port?           uint16
+                   +--rw localcert?      string
+                   +--rw remotecert?     string
+
+  grouping config-pnp-transport-port-grouping
+    +-- port?   uint16
+  grouping config-pnp-transport-localcert-grouping
+    +-- localcert?   string
+  grouping config-pnp-transport-remotecert-grouping
+    +-- remotecert?   string
+  grouping config-pnp-transport-grouping
+    +-- host
+    |  +-- host-name?    string
+    |  +-- port?         uint16
+    |  +-- localcert?    string
+    |  +-- remotecert?   string
+    +-- ipv4
+    |  +-- ipv4-address?   inet:ipv4-address
+    |  +-- port?           uint16
+    |  +-- localcert?      string
+    |  +-- remotecert?     string
+    +-- ipv6
+       +-- ipv6-address?   inet:ipv6-address
+       +-- port?           uint16
+       +-- localcert?      string
+       +-- remotecert?     string
+  grouping config-pnp-grouping
+    +-- pnp
+       +-- startup-vlan?   uint16
+       +-- profile* [name]
+          +-- name?        string
+          +-- transport
+             +-- https
+             |  +-- host
+             |  |  +-- host-name?    string
+             |  |  +-- port?         uint16
+             |  |  +-- localcert?    string
+             |  |  +-- remotecert?   string
+             |  +-- ipv4
+             |  |  +-- ipv4-address?   inet:ipv4-address
+             |  |  +-- port?           uint16
+             |  |  +-- localcert?      string
+             |  |  +-- remotecert?     string
+             |  +-- ipv6
+             |     +-- ipv6-address?   inet:ipv6-address
+             |     +-- port?           uint16
+             |     +-- localcert?      string
+             |     +-- remotecert?     string
+             +-- http
+                +-- host
+                |  +-- host-name?    string
+                |  +-- port?         uint16
+                |  +-- localcert?    string
+                |  +-- remotecert?   string
+                +-- ipv4
+                |  +-- ipv4-address?   inet:ipv4-address
+                |  +-- port?           uint16
+                |  +-- localcert?      string
+                |  +-- remotecert?     string
+                +-- ipv6
+                   +-- ipv6-address?   inet:ipv6-address
+                   +-- port?           uint16
+                   +-- localcert?      string
+                   +-- remotecert?     string

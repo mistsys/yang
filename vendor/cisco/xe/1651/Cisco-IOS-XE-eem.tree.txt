@@ -1,0 +1,165 @@
+
+module: Cisco-IOS-XE-eem
+  augment /ios:native/ios:event:
+    +--rw manager
+       +--rw environment* [name]
+       |  +--rw name     string
+       |  +--rw value?   string
+       +--rw directory
+       |  +--rw user
+       |     +--rw policy?   string
+       +--rw session
+       |  +--rw cli
+       |     +--rw username
+       |        +--rw username_in_word* [username_in_word]
+       |           +--rw username_in_word    string
+       |           +--rw privilege?          uint8
+       +--rw applet* [name]
+          +--rw name             string
+          +--rw authorization?   enumeration
+          +--rw class?           string
+          +--rw trap?            empty
+          +--rw event
+          |  +--rw timer
+          |  |  +--rw watchdog
+          |  |     +--rw name
+          |  |        +--rw timer-name* [timer-name]
+          |  |           +--rw timer-name    string
+          |  |           +--rw time
+          |  |              +--rw time-in-seconds* [time-in-seconds]
+          |  |                 +--rw time-in-seconds    uint32
+          |  |                 +--rw maxrun
+          |  |                    +--rw timer-in-seconds* [timer-in-seconds]
+          |  |                       +--rw timer-in-seconds    uint32
+          |  |                       +--rw ratelimit?          uint32
+          |  +--rw snmp-notification
+          |  |  +--rw oid?               string
+          |  |  +--rw oid-val?           string
+          |  |  +--rw op?                operator-type
+          |  |  +--rw src-ip-address?    union
+          |  |  +--rw dest-ip-address?   union
+          |  +--rw syslog
+          |     +--rw pattern?   string
+          +--rw action* [name]
+          |  +--rw name         string
+          |  +--rw if
+          |  |  +--rw string-op-1?   string
+          |  |  +--rw keyword?       operator-type
+          |  |  +--rw string-op-2?   string
+          |  |  +--rw goto?          string
+          |  +--rw info
+          |  |  +--rw type
+          |  |     +--rw snmp
+          |  |        +--rw var
+          |  |        |  +--rw variable-name?    string
+          |  |        |  +--rw oid?              string
+          |  |        |  +--rw oid-type?         enumeration
+          |  |        |  +--rw oid-type-value?   string
+          |  |        +--rw trap
+          |  |           +--rw enterprise-oid?     string
+          |  |           +--rw generic-trapnum?    uint32
+          |  |           +--rw specific-trapnum?   uint32
+          |  |           +--rw trap-oid?           string
+          |  |           +--rw trap-var?           string
+          |  +--rw end?         empty
+          |  +--rw regexp
+          |  |  +--rw string-pattern?     string
+          |  |  +--rw string-input?       string
+          |  |  +--rw string-match?       string
+          |  |  +--rw string-submatch1?   string
+          |  |  +--rw string-submatch2?   string
+          |  |  +--rw string-submatch3?   string
+          |  +--rw snmp-trap!
+          |  |  +--rw intdata1?   int32
+          |  |  +--rw intdata2?   int32
+          |  |  +--rw strdata?    string
+          |  +--rw string
+          |  |  +--rw trim?   string
+          |  +--rw syslog
+          |     +--rw facility?   string
+          |     +--rw msg?        string
+          |     +--rw priority?   ios:logging-level-type
+          +--rw description?     string
+          +--rw trigger
+
+  grouping config-eem-grouping
+    +-- manager
+       +-- environment* [name]
+       |  +-- name?    string
+       |  +-- value?   string
+       +-- directory
+       |  +-- user
+       |     +-- policy?   string
+       +-- session
+       |  +-- cli
+       |     +-- username
+       |        +-- username_in_word* [username_in_word]
+       |           +-- username_in_word?   string
+       |           +-- privilege?          uint8
+       +-- applet* [name]
+          +-- name?            string
+          +-- authorization?   enumeration
+          +-- class?           string
+          +-- trap?            empty
+          +-- event
+          |  +-- timer
+          |  |  +-- watchdog
+          |  |     +-- name
+          |  |        +-- timer-name* [timer-name]
+          |  |           +-- timer-name?   string
+          |  |           +-- time
+          |  |              +-- time-in-seconds* [time-in-seconds]
+          |  |                 +-- time-in-seconds?   uint32
+          |  |                 +-- maxrun
+          |  |                    +-- timer-in-seconds* [timer-in-seconds]
+          |  |                       +-- timer-in-seconds?   uint32
+          |  |                       +-- ratelimit?          uint32
+          |  +-- snmp-notification
+          |  |  +-- oid?               string
+          |  |  +-- oid-val?           string
+          |  |  +-- op?                operator-type
+          |  |  +-- src-ip-address?    union
+          |  |  +-- dest-ip-address?   union
+          |  +-- syslog
+          |     +-- pattern?   string
+          +-- action* [name]
+          |  +-- name?        string
+          |  +-- if
+          |  |  +-- string-op-1?   string
+          |  |  +-- keyword?       operator-type
+          |  |  +-- string-op-2?   string
+          |  |  +-- goto?          string
+          |  +-- info
+          |  |  +-- type
+          |  |     +-- snmp
+          |  |        +-- var
+          |  |        |  +-- variable-name?    string
+          |  |        |  +-- oid?              string
+          |  |        |  +-- oid-type?         enumeration
+          |  |        |  +-- oid-type-value?   string
+          |  |        +-- trap
+          |  |           +-- enterprise-oid?     string
+          |  |           +-- generic-trapnum?    uint32
+          |  |           +-- specific-trapnum?   uint32
+          |  |           +-- trap-oid?           string
+          |  |           +-- trap-var?           string
+          |  +-- end?         empty
+          |  +-- regexp
+          |  |  +-- string-pattern?     string
+          |  |  +-- string-input?       string
+          |  |  +-- string-match?       string
+          |  |  +-- string-submatch1?   string
+          |  |  +-- string-submatch2?   string
+          |  |  +-- string-submatch3?   string
+          |  +-- snmp-trap!
+          |  |  +-- intdata1?   int32
+          |  |  +-- intdata2?   int32
+          |  |  +-- strdata?    string
+          |  +-- string
+          |  |  +-- trim?   string
+          |  +-- syslog
+          |     +-- facility?   string
+          |     +-- msg?        string
+          |     +-- priority?   ios:logging-level-type
+          +-- description?     string
+          +-- trigger

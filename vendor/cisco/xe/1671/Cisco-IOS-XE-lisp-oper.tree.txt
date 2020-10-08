@@ -1,0 +1,170 @@
+module: Cisco-IOS-XE-lisp-oper
+  +--ro lisp-state
+     +--ro lisp-routers* [top-id]
+        +--ro top-id       uint32
+        +--ro site-id?     uint64
+        +--ro xtr-id*      uint8
+        +--ro instances* [iid]
+           +--ro iid    uint32
+           +--ro af* [iaftype]
+              +--ro iaftype      lisp-ios-xe-oper:lisp-iaftype-type
+              +--ro role
+              |  +--ro is-ms?     boolean
+              |  +--ro is-mr?     boolean
+              |  +--ro is-itr?    boolean
+              |  +--ro is-etr?    boolean
+              |  +--ro is-pitr?   boolean
+              |  +--ro is-petr?   boolean
+              +--ro map-cache* [afi prefix]
+                 +--ro up-time?              yang:date-and-time
+                 +--ro last-modified-time?   yang:date-and-time
+                 +--ro last-update-time?     yang:date-and-time
+                 +--ro ttl?                  uint32
+                 +--ro is-authoritative?     boolean
+                 +--ro is-static?            boolean
+                 +--ro is-negative?          boolean
+                 +--ro nmr-action?           lisp-ios-xe-oper:lisp-map-reply-action-type
+                 +--ro rloc* [afi address]
+                 |  +--ro params
+                 |  |  +--ro priority?         uint8
+                 |  |  +--ro weight?           uint8
+                 |  |  +--ro mcast-priority?   uint8
+                 |  |  +--ro mcast-weight?     uint8
+                 |  +--ro afi        lisp-ios-xe-oper:lisp-address-family-type
+                 |  +--ro address    string
+                 +--ro afi                   lisp-ios-xe-oper:lisp-address-family-type
+                 +--ro prefix                string
+
+  grouping lisp-address-type
+    +-- afi?       lisp-ios-xe-oper:lisp-address-family-type
+    +-- address?   string
+  grouping lisp-prefix-type
+    +-- afi?      lisp-ios-xe-oper:lisp-address-family-type
+    +-- prefix?   string
+  grouping lisp-rloc-parameters-type
+    +-- priority?         uint8
+    +-- weight?           uint8
+    +-- mcast-priority?   uint8
+    +-- mcast-weight?     uint8
+  grouping lisp-rloc-type
+    +-- params
+       +-- priority?         uint8
+       +-- weight?           uint8
+       +-- mcast-priority?   uint8
+       +-- mcast-weight?     uint8
+  grouping lisp-map-cache-mapping-type
+    +-- up-time?              yang:date-and-time
+    +-- last-modified-time?   yang:date-and-time
+    +-- last-update-time?     yang:date-and-time
+    +-- ttl?                  uint32
+    +-- is-authoritative?     boolean
+    +-- is-static?            boolean
+    +-- is-negative?          boolean
+    +-- nmr-action?           lisp-ios-xe-oper:lisp-map-reply-action-type
+    +-- rloc* [afi address]
+       +-- params
+       |  +-- priority?         uint8
+       |  +-- weight?           uint8
+       |  +-- mcast-priority?   uint8
+       |  +-- mcast-weight?     uint8
+       +-- afi?       lisp-ios-xe-oper:lisp-address-family-type
+       +-- address?   string
+  grouping lisp-role-type
+    +-- is-ms?     boolean
+    +-- is-mr?     boolean
+    +-- is-itr?    boolean
+    +-- is-etr?    boolean
+    +-- is-pitr?   boolean
+    +-- is-petr?   boolean
+  grouping lisp-instance-af-type
+    +-- iaftype?     lisp-ios-xe-oper:lisp-iaftype-type
+    +-- role
+    |  +-- is-ms?     boolean
+    |  +-- is-mr?     boolean
+    |  +-- is-itr?    boolean
+    |  +-- is-etr?    boolean
+    |  +-- is-pitr?   boolean
+    |  +-- is-petr?   boolean
+    +-- map-cache* [afi prefix]
+       +-- up-time?              yang:date-and-time
+       +-- last-modified-time?   yang:date-and-time
+       +-- last-update-time?     yang:date-and-time
+       +-- ttl?                  uint32
+       +-- is-authoritative?     boolean
+       +-- is-static?            boolean
+       +-- is-negative?          boolean
+       +-- nmr-action?           lisp-ios-xe-oper:lisp-map-reply-action-type
+       +-- rloc* [afi address]
+       |  +-- params
+       |  |  +-- priority?         uint8
+       |  |  +-- weight?           uint8
+       |  |  +-- mcast-priority?   uint8
+       |  |  +-- mcast-weight?     uint8
+       |  +-- afi?       lisp-ios-xe-oper:lisp-address-family-type
+       |  +-- address?   string
+       +-- afi?                  lisp-ios-xe-oper:lisp-address-family-type
+       +-- prefix?               string
+  grouping lisp-instance-type
+    +-- iid?   uint32
+    +-- af* [iaftype]
+       +-- iaftype?     lisp-ios-xe-oper:lisp-iaftype-type
+       +-- role
+       |  +-- is-ms?     boolean
+       |  +-- is-mr?     boolean
+       |  +-- is-itr?    boolean
+       |  +-- is-etr?    boolean
+       |  +-- is-pitr?   boolean
+       |  +-- is-petr?   boolean
+       +-- map-cache* [afi prefix]
+          +-- up-time?              yang:date-and-time
+          +-- last-modified-time?   yang:date-and-time
+          +-- last-update-time?     yang:date-and-time
+          +-- ttl?                  uint32
+          +-- is-authoritative?     boolean
+          +-- is-static?            boolean
+          +-- is-negative?          boolean
+          +-- nmr-action?           lisp-ios-xe-oper:lisp-map-reply-action-type
+          +-- rloc* [afi address]
+          |  +-- params
+          |  |  +-- priority?         uint8
+          |  |  +-- weight?           uint8
+          |  |  +-- mcast-priority?   uint8
+          |  |  +-- mcast-weight?     uint8
+          |  +-- afi?       lisp-ios-xe-oper:lisp-address-family-type
+          |  +-- address?   string
+          +-- afi?                  lisp-ios-xe-oper:lisp-address-family-type
+          +-- prefix?               string
+  grouping lisp-router-type
+    +-- top-id?      uint32
+    +-- site-id?     uint64
+    +-- xtr-id*      uint8
+    +-- instances* [iid]
+       +-- iid?   uint32
+       +-- af* [iaftype]
+          +-- iaftype?     lisp-ios-xe-oper:lisp-iaftype-type
+          +-- role
+          |  +-- is-ms?     boolean
+          |  +-- is-mr?     boolean
+          |  +-- is-itr?    boolean
+          |  +-- is-etr?    boolean
+          |  +-- is-pitr?   boolean
+          |  +-- is-petr?   boolean
+          +-- map-cache* [afi prefix]
+             +-- up-time?              yang:date-and-time
+             +-- last-modified-time?   yang:date-and-time
+             +-- last-update-time?     yang:date-and-time
+             +-- ttl?                  uint32
+             +-- is-authoritative?     boolean
+             +-- is-static?            boolean
+             +-- is-negative?          boolean
+             +-- nmr-action?           lisp-ios-xe-oper:lisp-map-reply-action-type
+             +-- rloc* [afi address]
+             |  +-- params
+             |  |  +-- priority?         uint8
+             |  |  +-- weight?           uint8
+             |  |  +-- mcast-priority?   uint8
+             |  |  +-- mcast-weight?     uint8
+             |  +-- afi?       lisp-ios-xe-oper:lisp-address-family-type
+             |  +-- address?   string
+             +-- afi?                  lisp-ios-xe-oper:lisp-address-family-type
+             +-- prefix?               string

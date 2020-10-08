@@ -1,0 +1,521 @@
+submodule: openconfig-mpls-te (belongs-to openconfig-mpls)
+
+  grouping te-tunnel-reoptimize_config
+    +-- reoptimize-timer?   uint16
+  grouping te-lsp-auto-bandwidth_config
+    +-- enabled?            boolean
+    +-- min-bw?             uint32
+    +-- max-bw?             uint32
+    +-- adjust-interval?    uint32
+    +-- adjust-threshold?   oc-types:percentage
+  grouping te-lsp-overflow_config
+    +-- enabled?               boolean
+    +-- overflow-threshold?    oc-types:percentage
+    +-- trigger-event-count?   uint16
+  grouping te-lsp-underflow_config
+    +-- enabled?               boolean
+    +-- underflow-threshold?   oc-types:percentage
+    +-- trigger-event-count?   uint16
+  grouping te-path-placement-constraints-config
+    +-- exclude-group*       -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+    +-- include-all-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+    +-- include-any-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+  grouping te-path-placement-constraints-state
+  grouping te-path-placement-constraints-top
+    +-- admin-groups
+       +-- config
+       |  +-- exclude-group*       -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+       |  +-- include-all-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+       |  +-- include-any-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+       +--ro state
+          +--ro exclude-group*       -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+          +--ro include-all-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+          +--ro include-any-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+  grouping te-tunnel-protection_config
+    +-- protection-style-requested?   identityref
+  grouping explicit-route-subobject-config
+    +-- address?    inet:ip-address
+    +-- hop-type?   mpls-hop-type
+    +-- index?      uint8
+  grouping named-explicit-path-config
+    +-- name?   string
+  grouping explicit-paths_top
+    +-- named-explicit-paths
+       +-- named-explicit-path* [name]
+          +-- name?                     -> ../config/name
+          +-- config
+          |  +-- name?                      string
+          |  +-- sid-selection-mode?        enumeration
+          |  +-- sid-protection-required?   boolean
+          +--ro state
+          |  +--ro name?                      string
+          |  +--ro sid-selection-mode?        enumeration
+          |  +--ro sid-protection-required?   boolean
+          +-- explicit-route-objects
+             +-- explicit-route-object* [index]
+                +-- index?    -> ../config/index
+                +-- config
+                |  +-- address?    inet:ip-address
+                |  +-- hop-type?   mpls-hop-type
+                |  +-- index?      uint8
+                +--ro state
+                   +--ro address?    inet:ip-address
+                   +--ro hop-type?   mpls-hop-type
+                   +--ro index?      uint8
+  grouping mpls-te-srlg_config
+    +-- name?            string
+    +-- value?           uint32
+    +-- cost?            uint32
+    +-- flooding-type?   mpls-srlg-flooding-type
+  grouping mpls-te-srlg-members_config
+    +-- from-address?   inet:ip-address
+    +-- to-address?     inet:ip-address
+  grouping mpls-te-srlg-top
+    +-- srlgs
+       +-- srlg* [name]
+          +-- name?                  -> ../config/name
+          +-- config
+          |  +-- name?            string
+          |  +-- value?           uint32
+          |  +-- cost?            uint32
+          |  +-- flooding-type?   mpls-srlg-flooding-type
+          +--ro state
+          |  +--ro name?            string
+          |  +--ro value?           uint32
+          |  +--ro cost?            uint32
+          |  +--ro flooding-type?   mpls-srlg-flooding-type
+          +-- static-srlg-members
+             +-- members-list* [from-address]
+                +-- from-address?   -> ../config/from-address
+                +-- config
+                |  +-- from-address?   inet:ip-address
+                |  +-- to-address?     inet:ip-address
+                +--ro state
+                   +--ro from-address?   inet:ip-address
+                   +--ro to-address?     inet:ip-address
+  grouping te-global-tunnel_config
+    +-- name?                         string
+    +-- type?                         identityref
+    +-- signaling-protocol?           identityref
+    +-- description?                  string
+    +-- admin-status?                 identityref
+    +-- preference?                   uint8
+    +-- metric-type?                  identityref
+    +-- metric?                       int32
+    +-- shortcut-eligible?            boolean
+    +-- protection-style-requested?   identityref
+    +-- reoptimize-timer?             uint16
+    +-- source?                       inet:ip-address
+    +-- soft-preemption?              boolean
+    +-- setup-priority?               uint8
+    +-- hold-priority?                uint8
+  grouping tunnel-p2p-attributes_config
+    +-- destination?   inet:ip-address
+  grouping p2p-path_state
+    +-- associated-rsvp-session?   -> ../../../../../../../../../signaling-protocols/rsvp-te/sessions/session/local-index
+  grouping p2p-path_config
+    +-- name?                      string
+    +-- path-computation-method?   identityref
+    +-- use-cspf?                  boolean
+    +-- cspf-tiebreaker?           cspf-tie-breaking
+    +-- path-computation-server?   inet:ip-address
+    +-- explicit-path-name?        -> ../../../../../../../named-explicit-paths/named-explicit-path/config/name
+    +-- preference?                uint8
+    +-- setup-priority?            uint8
+    +-- hold-priority?             uint8
+    +-- retry-timer?               uint16
+  grouping te-tunnel-p2p_top
+    +-- p2p-tunnel-attributes
+       +-- config
+       |  +-- destination?   inet:ip-address
+       +--ro state
+       |  +--ro destination?   inet:ip-address
+       +-- p2p-primary-path
+       |  +-- p2p-primary-path* [name]
+       |     +-- name?                        -> ../config/name
+       |     +-- config
+       |     |  +-- name?                      string
+       |     |  +-- path-computation-method?   identityref
+       |     |  +-- use-cspf?                  boolean
+       |     |  +-- cspf-tiebreaker?           cspf-tie-breaking
+       |     |  +-- path-computation-server?   inet:ip-address
+       |     |  +-- explicit-path-name?        -> ../../../../../../../named-explicit-paths/named-explicit-path/config/name
+       |     |  +-- preference?                uint8
+       |     |  +-- setup-priority?            uint8
+       |     |  +-- hold-priority?             uint8
+       |     |  +-- retry-timer?               uint16
+       |     +--ro state
+       |     |  +--ro name?                      string
+       |     |  +--ro path-computation-method?   identityref
+       |     |  +--ro use-cspf?                  boolean
+       |     |  +--ro cspf-tiebreaker?           cspf-tie-breaking
+       |     |  +--ro path-computation-server?   inet:ip-address
+       |     |  +--ro explicit-path-name?        -> ../../../../../../../named-explicit-paths/named-explicit-path/config/name
+       |     |  +--ro preference?                uint8
+       |     |  +--ro setup-priority?            uint8
+       |     |  +--ro hold-priority?             uint8
+       |     |  +--ro retry-timer?               uint16
+       |     |  +--ro associated-rsvp-session?   -> ../../../../../../../../../signaling-protocols/rsvp-te/sessions/session/local-index
+       |     +-- candidate-secondary-paths
+       |     |  +-- candidate-secondary-path* [secondary-path]
+       |     |     +-- secondary-path?   -> ../config/secondary-path
+       |     |     +-- config
+       |     |     |  +-- secondary-path?   -> ../../../../../../p2p-secondary-paths/p2p-secondary-path/config/name
+       |     |     |  +-- priority?         uint16
+       |     |     +--ro state
+       |     |        +--ro secondary-path?   -> ../../../../../../p2p-secondary-paths/p2p-secondary-path/config/name
+       |     |        +--ro priority?         uint16
+       |     |        +--ro active?           boolean
+       |     +-- admin-groups
+       |        +-- config
+       |        |  +-- exclude-group*       -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+       |        |  +-- include-all-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+       |        |  +-- include-any-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+       |        +--ro state
+       |           +--ro exclude-group*       -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+       |           +--ro include-all-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+       |           +--ro include-any-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+       +-- p2p-secondary-paths
+          +-- p2p-secondary-path* [name]
+             +-- name?           -> ../config/name
+             +-- config
+             |  +-- name?                      string
+             |  +-- path-computation-method?   identityref
+             |  +-- use-cspf?                  boolean
+             |  +-- cspf-tiebreaker?           cspf-tie-breaking
+             |  +-- path-computation-server?   inet:ip-address
+             |  +-- explicit-path-name?        -> ../../../../../../../named-explicit-paths/named-explicit-path/config/name
+             |  +-- preference?                uint8
+             |  +-- setup-priority?            uint8
+             |  +-- hold-priority?             uint8
+             |  +-- retry-timer?               uint16
+             +--ro state
+             |  +--ro name?                      string
+             |  +--ro path-computation-method?   identityref
+             |  +--ro use-cspf?                  boolean
+             |  +--ro cspf-tiebreaker?           cspf-tie-breaking
+             |  +--ro path-computation-server?   inet:ip-address
+             |  +--ro explicit-path-name?        -> ../../../../../../../named-explicit-paths/named-explicit-path/config/name
+             |  +--ro preference?                uint8
+             |  +--ro setup-priority?            uint8
+             |  +--ro hold-priority?             uint8
+             |  +--ro retry-timer?               uint16
+             |  +--ro associated-rsvp-session?   -> ../../../../../../../../../signaling-protocols/rsvp-te/sessions/session/local-index
+             +-- admin-groups
+                +-- config
+                |  +-- exclude-group*       -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+                |  +-- include-all-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+                |  +-- include-any-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+                +--ro state
+                   +--ro exclude-group*       -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+                   +--ro include-all-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+                   +--ro include-any-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+  grouping te-tunnel_state
+    +-- oper-status?   identityref
+    +-- role?          identityref
+    +-- counters
+       +-- bytes?                      yang:counter64
+       +-- packets?                    yang:counter64
+       +-- path-changes?               yang:counter64
+       +-- state-changes?              yang:counter64
+       +-- online-time?                yang:date-and-time
+       +-- current-path-time?          yang:date-and-time
+       +-- next-reoptimization-time?   yang:date-and-time
+  grouping te-tunnel-bandwidth_config
+    +-- specification-type?   te-bandwidth-type
+    +-- set-bandwidth?        uint32
+  grouping te-tunnel-bandwidth_top
+    +-- bandwidth
+       +-- config
+       |  +-- specification-type?   te-bandwidth-type
+       |  +-- set-bandwidth?        uint32
+       +--ro state
+       |  +--ro specification-type?   te-bandwidth-type
+       |  +--ro set-bandwidth?        uint32
+       +-- auto-bandwidth
+          +-- config
+          |  +-- enabled?            boolean
+          |  +-- min-bw?             uint32
+          |  +-- max-bw?             uint32
+          |  +-- adjust-interval?    uint32
+          |  +-- adjust-threshold?   oc-types:percentage
+          +--ro state
+          |  +--ro enabled?            boolean
+          |  +--ro min-bw?             uint32
+          |  +--ro max-bw?             uint32
+          |  +--ro adjust-interval?    uint32
+          |  +--ro adjust-threshold?   oc-types:percentage
+          +-- overflow
+          |  +-- config
+          |  |  +-- enabled?               boolean
+          |  |  +-- overflow-threshold?    oc-types:percentage
+          |  |  +-- trigger-event-count?   uint16
+          |  +--ro state
+          |     +--ro enabled?               boolean
+          |     +--ro overflow-threshold?    oc-types:percentage
+          |     +--ro trigger-event-count?   uint16
+          +-- underflow
+             +-- config
+             |  +-- enabled?               boolean
+             |  +-- underflow-threshold?   oc-types:percentage
+             |  +-- trigger-event-count?   uint16
+             +--ro state
+                +--ro enabled?               boolean
+                +--ro underflow-threshold?   oc-types:percentage
+                +--ro trigger-event-count?   uint16
+  grouping p2p-path-candidate-secondary-path-config
+    +-- secondary-path?   -> ../../../../../../p2p-secondary-paths/p2p-secondary-path/config/name
+    +-- priority?         uint16
+  grouping p2p-path-candidate-secondary-path-state
+    +-- active?   boolean
+  grouping p2p-primary-paths_top
+    +-- p2p-primary-path
+       +-- p2p-primary-path* [name]
+          +-- name?                        -> ../config/name
+          +-- config
+          |  +-- name?                      string
+          |  +-- path-computation-method?   identityref
+          |  +-- use-cspf?                  boolean
+          |  +-- cspf-tiebreaker?           cspf-tie-breaking
+          |  +-- path-computation-server?   inet:ip-address
+          |  +-- explicit-path-name?        -> ../../../../../../../named-explicit-paths/named-explicit-path/config/name
+          |  +-- preference?                uint8
+          |  +-- setup-priority?            uint8
+          |  +-- hold-priority?             uint8
+          |  +-- retry-timer?               uint16
+          +--ro state
+          |  +--ro name?                      string
+          |  +--ro path-computation-method?   identityref
+          |  +--ro use-cspf?                  boolean
+          |  +--ro cspf-tiebreaker?           cspf-tie-breaking
+          |  +--ro path-computation-server?   inet:ip-address
+          |  +--ro explicit-path-name?        -> ../../../../../../../named-explicit-paths/named-explicit-path/config/name
+          |  +--ro preference?                uint8
+          |  +--ro setup-priority?            uint8
+          |  +--ro hold-priority?             uint8
+          |  +--ro retry-timer?               uint16
+          |  +--ro associated-rsvp-session?   -> ../../../../../../../../../signaling-protocols/rsvp-te/sessions/session/local-index
+          +-- candidate-secondary-paths
+          |  +-- candidate-secondary-path* [secondary-path]
+          |     +-- secondary-path?   -> ../config/secondary-path
+          |     +-- config
+          |     |  +-- secondary-path?   -> ../../../../../../p2p-secondary-paths/p2p-secondary-path/config/name
+          |     |  +-- priority?         uint16
+          |     +--ro state
+          |        +--ro secondary-path?   -> ../../../../../../p2p-secondary-paths/p2p-secondary-path/config/name
+          |        +--ro priority?         uint16
+          |        +--ro active?           boolean
+          +-- admin-groups
+             +-- config
+             |  +-- exclude-group*       -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+             |  +-- include-all-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+             |  +-- include-any-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+             +--ro state
+                +--ro exclude-group*       -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+                +--ro include-all-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+                +--ro include-any-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+  grouping p2p-secondary-paths_top
+    +-- p2p-secondary-paths
+       +-- p2p-secondary-path* [name]
+          +-- name?           -> ../config/name
+          +-- config
+          |  +-- name?                      string
+          |  +-- path-computation-method?   identityref
+          |  +-- use-cspf?                  boolean
+          |  +-- cspf-tiebreaker?           cspf-tie-breaking
+          |  +-- path-computation-server?   inet:ip-address
+          |  +-- explicit-path-name?        -> ../../../../../../../named-explicit-paths/named-explicit-path/config/name
+          |  +-- preference?                uint8
+          |  +-- setup-priority?            uint8
+          |  +-- hold-priority?             uint8
+          |  +-- retry-timer?               uint16
+          +--ro state
+          |  +--ro name?                      string
+          |  +--ro path-computation-method?   identityref
+          |  +--ro use-cspf?                  boolean
+          |  +--ro cspf-tiebreaker?           cspf-tie-breaking
+          |  +--ro path-computation-server?   inet:ip-address
+          |  +--ro explicit-path-name?        -> ../../../../../../../named-explicit-paths/named-explicit-path/config/name
+          |  +--ro preference?                uint8
+          |  +--ro setup-priority?            uint8
+          |  +--ro hold-priority?             uint8
+          |  +--ro retry-timer?               uint16
+          |  +--ro associated-rsvp-session?   -> ../../../../../../../../../signaling-protocols/rsvp-te/sessions/session/local-index
+          +-- admin-groups
+             +-- config
+             |  +-- exclude-group*       -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+             |  +-- include-all-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+             |  +-- include-any-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+             +--ro state
+                +--ro exclude-group*       -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+                +--ro include-all-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+                +--ro include-any-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+  grouping te-tunnels_top
+    +-- tunnels
+       +-- tunnel* [name]
+          +-- name?                    -> ../config/name
+          +-- config
+          |  +-- name?                         string
+          |  +-- type?                         identityref
+          |  +-- signaling-protocol?           identityref
+          |  +-- description?                  string
+          |  +-- admin-status?                 identityref
+          |  +-- preference?                   uint8
+          |  +-- metric-type?                  identityref
+          |  +-- metric?                       int32
+          |  +-- shortcut-eligible?            boolean
+          |  +-- protection-style-requested?   identityref
+          |  +-- reoptimize-timer?             uint16
+          |  +-- source?                       inet:ip-address
+          |  +-- soft-preemption?              boolean
+          |  +-- setup-priority?               uint8
+          |  +-- hold-priority?                uint8
+          +--ro state
+          |  +--ro name?                         string
+          |  +--ro type?                         identityref
+          |  +--ro signaling-protocol?           identityref
+          |  +--ro description?                  string
+          |  +--ro admin-status?                 identityref
+          |  +--ro preference?                   uint8
+          |  +--ro metric-type?                  identityref
+          |  +--ro metric?                       int32
+          |  +--ro shortcut-eligible?            boolean
+          |  +--ro protection-style-requested?   identityref
+          |  +--ro reoptimize-timer?             uint16
+          |  +--ro source?                       inet:ip-address
+          |  +--ro soft-preemption?              boolean
+          |  +--ro setup-priority?               uint8
+          |  +--ro hold-priority?                uint8
+          |  +--ro oper-status?                  identityref
+          |  +--ro role?                         identityref
+          |  +--ro counters
+          |     +--ro bytes?                      yang:counter64
+          |     +--ro packets?                    yang:counter64
+          |     +--ro path-changes?               yang:counter64
+          |     +--ro state-changes?              yang:counter64
+          |     +--ro online-time?                yang:date-and-time
+          |     +--ro current-path-time?          yang:date-and-time
+          |     +--ro next-reoptimization-time?   yang:date-and-time
+          +-- bandwidth
+          |  +-- config
+          |  |  +-- specification-type?   te-bandwidth-type
+          |  |  +-- set-bandwidth?        uint32
+          |  +--ro state
+          |  |  +--ro specification-type?   te-bandwidth-type
+          |  |  +--ro set-bandwidth?        uint32
+          |  +-- auto-bandwidth
+          |     +-- config
+          |     |  +-- enabled?            boolean
+          |     |  +-- min-bw?             uint32
+          |     |  +-- max-bw?             uint32
+          |     |  +-- adjust-interval?    uint32
+          |     |  +-- adjust-threshold?   oc-types:percentage
+          |     +--ro state
+          |     |  +--ro enabled?            boolean
+          |     |  +--ro min-bw?             uint32
+          |     |  +--ro max-bw?             uint32
+          |     |  +--ro adjust-interval?    uint32
+          |     |  +--ro adjust-threshold?   oc-types:percentage
+          |     +-- overflow
+          |     |  +-- config
+          |     |  |  +-- enabled?               boolean
+          |     |  |  +-- overflow-threshold?    oc-types:percentage
+          |     |  |  +-- trigger-event-count?   uint16
+          |     |  +--ro state
+          |     |     +--ro enabled?               boolean
+          |     |     +--ro overflow-threshold?    oc-types:percentage
+          |     |     +--ro trigger-event-count?   uint16
+          |     +-- underflow
+          |        +-- config
+          |        |  +-- enabled?               boolean
+          |        |  +-- underflow-threshold?   oc-types:percentage
+          |        |  +-- trigger-event-count?   uint16
+          |        +--ro state
+          |           +--ro enabled?               boolean
+          |           +--ro underflow-threshold?   oc-types:percentage
+          |           +--ro trigger-event-count?   uint16
+          +-- p2p-tunnel-attributes
+             +-- config
+             |  +-- destination?   inet:ip-address
+             +--ro state
+             |  +--ro destination?   inet:ip-address
+             +-- p2p-primary-path
+             |  +-- p2p-primary-path* [name]
+             |     +-- name?                        -> ../config/name
+             |     +-- config
+             |     |  +-- name?                      string
+             |     |  +-- path-computation-method?   identityref
+             |     |  +-- use-cspf?                  boolean
+             |     |  +-- cspf-tiebreaker?           cspf-tie-breaking
+             |     |  +-- path-computation-server?   inet:ip-address
+             |     |  +-- explicit-path-name?        -> ../../../../../../../named-explicit-paths/named-explicit-path/config/name
+             |     |  +-- preference?                uint8
+             |     |  +-- setup-priority?            uint8
+             |     |  +-- hold-priority?             uint8
+             |     |  +-- retry-timer?               uint16
+             |     +--ro state
+             |     |  +--ro name?                      string
+             |     |  +--ro path-computation-method?   identityref
+             |     |  +--ro use-cspf?                  boolean
+             |     |  +--ro cspf-tiebreaker?           cspf-tie-breaking
+             |     |  +--ro path-computation-server?   inet:ip-address
+             |     |  +--ro explicit-path-name?        -> ../../../../../../../named-explicit-paths/named-explicit-path/config/name
+             |     |  +--ro preference?                uint8
+             |     |  +--ro setup-priority?            uint8
+             |     |  +--ro hold-priority?             uint8
+             |     |  +--ro retry-timer?               uint16
+             |     |  +--ro associated-rsvp-session?   -> ../../../../../../../../../signaling-protocols/rsvp-te/sessions/session/local-index
+             |     +-- candidate-secondary-paths
+             |     |  +-- candidate-secondary-path* [secondary-path]
+             |     |     +-- secondary-path?   -> ../config/secondary-path
+             |     |     +-- config
+             |     |     |  +-- secondary-path?   -> ../../../../../../p2p-secondary-paths/p2p-secondary-path/config/name
+             |     |     |  +-- priority?         uint16
+             |     |     +--ro state
+             |     |        +--ro secondary-path?   -> ../../../../../../p2p-secondary-paths/p2p-secondary-path/config/name
+             |     |        +--ro priority?         uint16
+             |     |        +--ro active?           boolean
+             |     +-- admin-groups
+             |        +-- config
+             |        |  +-- exclude-group*       -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+             |        |  +-- include-all-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+             |        |  +-- include-any-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+             |        +--ro state
+             |           +--ro exclude-group*       -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+             |           +--ro include-all-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+             |           +--ro include-any-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+             +-- p2p-secondary-paths
+                +-- p2p-secondary-path* [name]
+                   +-- name?           -> ../config/name
+                   +-- config
+                   |  +-- name?                      string
+                   |  +-- path-computation-method?   identityref
+                   |  +-- use-cspf?                  boolean
+                   |  +-- cspf-tiebreaker?           cspf-tie-breaking
+                   |  +-- path-computation-server?   inet:ip-address
+                   |  +-- explicit-path-name?        -> ../../../../../../../named-explicit-paths/named-explicit-path/config/name
+                   |  +-- preference?                uint8
+                   |  +-- setup-priority?            uint8
+                   |  +-- hold-priority?             uint8
+                   |  +-- retry-timer?               uint16
+                   +--ro state
+                   |  +--ro name?                      string
+                   |  +--ro path-computation-method?   identityref
+                   |  +--ro use-cspf?                  boolean
+                   |  +--ro cspf-tiebreaker?           cspf-tie-breaking
+                   |  +--ro path-computation-server?   inet:ip-address
+                   |  +--ro explicit-path-name?        -> ../../../../../../../named-explicit-paths/named-explicit-path/config/name
+                   |  +--ro preference?                uint8
+                   |  +--ro setup-priority?            uint8
+                   |  +--ro hold-priority?             uint8
+                   |  +--ro retry-timer?               uint16
+                   |  +--ro associated-rsvp-session?   -> ../../../../../../../../../signaling-protocols/rsvp-te/sessions/session/local-index
+                   +-- admin-groups
+                      +-- config
+                      |  +-- exclude-group*       -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+                      |  +-- include-all-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+                      |  +-- include-any-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+                      +--ro state
+                         +--ro exclude-group*       -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+                         +--ro include-all-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name
+                         +--ro include-any-group*   -> ../../../../../../../../../../te-global-attributes/mpls-admin-groups/admin-group/admin-group-name

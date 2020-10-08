@@ -1,0 +1,185 @@
+module: Cisco-IOS-XE-bgp-route-oper
+
+  grouping path-status
+    +-- suppressed?        empty
+    +-- damped?            empty
+    +-- history?           empty
+    +-- valid?             empty
+    +-- sourced?           empty
+    +-- bestpath?          empty
+    +-- internal?          empty
+    +-- rib-fail?          empty
+    +-- stale?             empty
+    +-- multipath?         empty
+    +-- backup-path?       empty
+    +-- rt-filter?         empty
+    +-- best-external?     empty
+    +-- additional-path?   empty
+    +-- rib-compressed?    empty
+  grouping path-type
+    +-- nexthop?       string
+    +-- metric?        uint32
+    +-- local-pref?    uint32
+    +-- weight?        uint32
+    +-- as-path?       string
+    +-- origin?        bgp-route-ios-xe-oper:bgp-origin-code
+    +-- path-status
+    |  +-- suppressed?        empty
+    |  +-- damped?            empty
+    |  +-- history?           empty
+    |  +-- valid?             empty
+    |  +-- sourced?           empty
+    |  +-- bestpath?          empty
+    |  +-- internal?          empty
+    |  +-- rib-fail?          empty
+    |  +-- stale?             empty
+    |  +-- multipath?         empty
+    |  +-- backup-path?       empty
+    |  +-- rt-filter?         empty
+    |  +-- best-external?     empty
+    |  +-- additional-path?   empty
+    |  +-- rib-compressed?    empty
+    +-- rpki-status?   bgp-route-ios-xe-oper:bgp-rpki-status
+    +-- community?     string
+  grouping route-entry
+    +-- prefix?             string
+    +-- version?            uint32
+    +-- available-paths?    uint32
+    +-- advertised-to?      string
+    +-- bgp-path-entries
+       +-- bgp-path-entry* [nexthop]
+          +-- nexthop?       string
+          +-- metric?        uint32
+          +-- local-pref?    uint32
+          +-- weight?        uint32
+          +-- as-path?       string
+          +-- origin?        bgp-route-ios-xe-oper:bgp-origin-code
+          +-- path-status
+          |  +-- suppressed?        empty
+          |  +-- damped?            empty
+          |  +-- history?           empty
+          |  +-- valid?             empty
+          |  +-- sourced?           empty
+          |  +-- bestpath?          empty
+          |  +-- internal?          empty
+          |  +-- rib-fail?          empty
+          |  +-- stale?             empty
+          |  +-- multipath?         empty
+          |  +-- backup-path?       empty
+          |  +-- rt-filter?         empty
+          |  +-- best-external?     empty
+          |  +-- additional-path?   empty
+          |  +-- rib-compressed?    empty
+          +-- rpki-status?   bgp-route-ios-xe-oper:bgp-rpki-status
+          +-- community?     string
+  grouping route-filter
+    +-- route-filter?        bgp-route-ios-xe-oper:bgp-route-filters
+    +-- bgp-route-entries
+       +-- bgp-route-entry* [prefix]
+          +-- prefix?             string
+          +-- version?            uint32
+          +-- available-paths?    uint32
+          +-- advertised-to?      string
+          +-- bgp-path-entries
+             +-- bgp-path-entry* [nexthop]
+                +-- nexthop?       string
+                +-- metric?        uint32
+                +-- local-pref?    uint32
+                +-- weight?        uint32
+                +-- as-path?       string
+                +-- origin?        bgp-route-ios-xe-oper:bgp-origin-code
+                +-- path-status
+                |  +-- suppressed?        empty
+                |  +-- damped?            empty
+                |  +-- history?           empty
+                |  +-- valid?             empty
+                |  +-- sourced?           empty
+                |  +-- bestpath?          empty
+                |  +-- internal?          empty
+                |  +-- rib-fail?          empty
+                |  +-- stale?             empty
+                |  +-- multipath?         empty
+                |  +-- backup-path?       empty
+                |  +-- rt-filter?         empty
+                |  +-- best-external?     empty
+                |  +-- additional-path?   empty
+                |  +-- rib-compressed?    empty
+                +-- rpki-status?   bgp-route-ios-xe-oper:bgp-rpki-status
+                +-- community?     string
+  grouping af-record
+    +-- afi-safi?            bgp-common-ios-xe-oper:afi-safi
+    +-- bgp-route-filters
+       +-- bgp-route-filter* [route-filter]
+          +-- route-filter?        bgp-route-ios-xe-oper:bgp-route-filters
+          +-- bgp-route-entries
+             +-- bgp-route-entry* [prefix]
+                +-- prefix?             string
+                +-- version?            uint32
+                +-- available-paths?    uint32
+                +-- advertised-to?      string
+                +-- bgp-path-entries
+                   +-- bgp-path-entry* [nexthop]
+                      +-- nexthop?       string
+                      +-- metric?        uint32
+                      +-- local-pref?    uint32
+                      +-- weight?        uint32
+                      +-- as-path?       string
+                      +-- origin?        bgp-route-ios-xe-oper:bgp-origin-code
+                      +-- path-status
+                      |  +-- suppressed?        empty
+                      |  +-- damped?            empty
+                      |  +-- history?           empty
+                      |  +-- valid?             empty
+                      |  +-- sourced?           empty
+                      |  +-- bestpath?          empty
+                      |  +-- internal?          empty
+                      |  +-- rib-fail?          empty
+                      |  +-- stale?             empty
+                      |  +-- multipath?         empty
+                      |  +-- backup-path?       empty
+                      |  +-- rt-filter?         empty
+                      |  +-- best-external?     empty
+                      |  +-- additional-path?   empty
+                      |  +-- rib-compressed?    empty
+                      +-- rpki-status?   bgp-route-ios-xe-oper:bgp-rpki-status
+                      +-- community?     string
+  grouping vrf-record
+    +-- vrf?             string
+    +-- bgp-route-afs
+       +-- bgp-route-af* [afi-safi]
+          +-- afi-safi?            bgp-common-ios-xe-oper:afi-safi
+          +-- bgp-route-filters
+             +-- bgp-route-filter* [route-filter]
+                +-- route-filter?        bgp-route-ios-xe-oper:bgp-route-filters
+                +-- bgp-route-entries
+                   +-- bgp-route-entry* [prefix]
+                      +-- prefix?             string
+                      +-- version?            uint32
+                      +-- available-paths?    uint32
+                      +-- advertised-to?      string
+                      +-- bgp-path-entries
+                         +-- bgp-path-entry* [nexthop]
+                            +-- nexthop?       string
+                            +-- metric?        uint32
+                            +-- local-pref?    uint32
+                            +-- weight?        uint32
+                            +-- as-path?       string
+                            +-- origin?        bgp-route-ios-xe-oper:bgp-origin-code
+                            +-- path-status
+                            |  +-- suppressed?        empty
+                            |  +-- damped?            empty
+                            |  +-- history?           empty
+                            |  +-- valid?             empty
+                            |  +-- sourced?           empty
+                            |  +-- bestpath?          empty
+                            |  +-- internal?          empty
+                            |  +-- rib-fail?          empty
+                            |  +-- stale?             empty
+                            |  +-- multipath?         empty
+                            |  +-- backup-path?       empty
+                            |  +-- rt-filter?         empty
+                            |  +-- best-external?     empty
+                            |  +-- additional-path?   empty
+                            |  +-- rib-compressed?    empty
+                            +-- rpki-status?   bgp-route-ios-xe-oper:bgp-rpki-status
+                            +-- community?     string

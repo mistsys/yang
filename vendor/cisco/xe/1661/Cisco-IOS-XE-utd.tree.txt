@@ -1,0 +1,158 @@
+
+module: Cisco-IOS-XE-utd
+  augment /ios:native:
+    +--rw utd!
+    +--rw utd-engine
+       +--rw utd
+          +--rw engine
+          |  +--rw advanced
+          |  |  +--rw default
+          |  |  |  +--rw threat!
+          |  |  +--rw threat!
+          |  |     +--rw detection?   empty
+          |  x--rw standard
+          |     +--rw default
+          |     |  +--rw policy?   empty
+          |     |  +--rw threat?   empty
+          |     +--rw logging
+          |     |  +--rw server
+          |     |  |  +--rw name?     string
+          |     |  |  +--rw level?    syslog-level-type
+          |     |  |  +--rw syslog?   empty
+          |     |  +--rw syslog!
+          |     |     +--rw level?   syslog-level-type
+          |     +--rw policy?      enumeration
+          |     +--rw signature
+          |     |  +--rw update
+          |     |     +--rw occur-at
+          |     |     |  +--rw daily
+          |     |     |  |  +--rw hours?     uint8
+          |     |     |  |  +--rw minutes?   uint8
+          |     |     |  +--rw monthly
+          |     |     |  |  +--rw days?      string
+          |     |     |  |  +--rw hours?     uint8
+          |     |     |  |  +--rw minutes?   uint8
+          |     |     |  +--rw weekly
+          |     |     |     +--rw days?      string
+          |     |     |     +--rw hours?     uint8
+          |     |     |     +--rw minutes?   uint8
+          |     |     +--rw server
+          |     |        +--rw cisco
+          |     |        |  +--rw username?   string
+          |     |        |  +--rw password?   string
+          |     |        +--rw url
+          |     |           +--rw (url-uname-passwd)?
+          |     |              +--:(all-case)
+          |     |              |  +--rw all
+          |     |              |     +--rw name?       string
+          |     |              |     +--rw username?   string
+          |     |              |     +--rw password?   string
+          |     |              +--:(name-only)
+          |     |                 +--rw name?   string
+          |     +--rw threat?      enumeration
+          |     +--rw whitelist?   empty
+          x--rw whitelist
+             +--rw signature
+                +--rw id?        uint64
+                +--rw comment?   string
+
+  grouping hour-minute-grouping
+    +-- hours?     uint8
+    +-- minutes?   uint8
+  grouping username-password-grouping
+    +-- username?   string
+    +-- password?   string
+  grouping utd-engine-standard-grouping
+    +-- logging
+    |  +-- server
+    |  |  +-- name?     string
+    |  |  +-- level?    syslog-level-type
+    |  |  +-- syslog?   empty
+    |  +-- syslog!
+    |     +-- level?   syslog-level-type
+    +-- policy?      enumeration
+    +-- signature
+    |  +-- update
+    |     +-- occur-at
+    |     |  +-- daily
+    |     |  |  +-- hours?     uint8
+    |     |  |  +-- minutes?   uint8
+    |     |  +-- monthly
+    |     |  |  +-- days?      string
+    |     |  |  +-- hours?     uint8
+    |     |  |  +-- minutes?   uint8
+    |     |  +-- weekly
+    |     |     +-- days?      string
+    |     |     +-- hours?     uint8
+    |     |     +-- minutes?   uint8
+    |     +-- server
+    |        +-- cisco
+    |        |  +-- username?   string
+    |        |  +-- password?   string
+    |        +-- url
+    |           +-- (url-uname-passwd)?
+    |              +--:(all-case)
+    |              |  +-- all
+    |              |     +-- name?       string
+    |              |     +-- username?   string
+    |              |     +-- password?   string
+    |              +--:(name-only)
+    |                 +-- name?   string
+    +-- threat?      enumeration
+    +-- whitelist?   empty
+  grouping config-utd-engine-grouping
+    +-- utd-engine
+       +-- utd
+          +-- engine
+          |  +-- advanced
+          |  |  +-- default
+          |  |  |  +-- threat!
+          |  |  +-- threat!
+          |  |     +-- detection?   empty
+          |  x-- standard
+          |     +-- default
+          |     |  +-- policy?   empty
+          |     |  +-- threat?   empty
+          |     +-- logging
+          |     |  +-- server
+          |     |  |  +-- name?     string
+          |     |  |  +-- level?    syslog-level-type
+          |     |  |  +-- syslog?   empty
+          |     |  +-- syslog!
+          |     |     +-- level?   syslog-level-type
+          |     +-- policy?      enumeration
+          |     +-- signature
+          |     |  +-- update
+          |     |     +-- occur-at
+          |     |     |  +-- daily
+          |     |     |  |  +-- hours?     uint8
+          |     |     |  |  +-- minutes?   uint8
+          |     |     |  +-- monthly
+          |     |     |  |  +-- days?      string
+          |     |     |  |  +-- hours?     uint8
+          |     |     |  |  +-- minutes?   uint8
+          |     |     |  +-- weekly
+          |     |     |     +-- days?      string
+          |     |     |     +-- hours?     uint8
+          |     |     |     +-- minutes?   uint8
+          |     |     +-- server
+          |     |        +-- cisco
+          |     |        |  +-- username?   string
+          |     |        |  +-- password?   string
+          |     |        +-- url
+          |     |           +-- (url-uname-passwd)?
+          |     |              +--:(all-case)
+          |     |              |  +-- all
+          |     |              |     +-- name?       string
+          |     |              |     +-- username?   string
+          |     |              |     +-- password?   string
+          |     |              +--:(name-only)
+          |     |                 +-- name?   string
+          |     +-- threat?      enumeration
+          |     +-- whitelist?   empty
+          x-- whitelist
+             +-- signature
+                +-- id?        uint64
+                +-- comment?   string
+  grouping config-utd-grouping
+    +-- utd!

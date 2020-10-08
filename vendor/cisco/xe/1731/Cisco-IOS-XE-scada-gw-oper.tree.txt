@@ -1,0 +1,142 @@
+module: Cisco-IOS-XE-scada-gw-oper
+  +--ro scada-gw-oper-data
+  |  +--ro scada-gw-stats!
+  |  |  +--ro t104-stats* [channel-name]
+  |  |  |  +--ro channel-name         string
+  |  |  |  +--ro messages-sent?       uint32
+  |  |  |  +--ro messages-received?   uint32
+  |  |  |  +--ro timeouts?            uint32
+  |  |  |  +--ro aborts?              uint32
+  |  |  |  +--ro rejections?          uint32
+  |  |  |  +--ro protocol-errors?     uint32
+  |  |  |  +--ro link-errors?         uint32
+  |  |  |  +--ro addr-errors?         uint32
+  |  |  +--ro t101-stats* [channel-name]
+  |  |  |  +--ro channel-name         string
+  |  |  |  +--ro messages-sent?       uint32
+  |  |  |  +--ro messages-received?   uint32
+  |  |  |  +--ro timeouts?            uint32
+  |  |  |  +--ro aborts?              uint32
+  |  |  |  +--ro rejections?          uint32
+  |  |  |  +--ro protocol-errors?     uint32
+  |  |  |  +--ro link-errors?         uint32
+  |  |  |  +--ro addr-errors?         uint32
+  |  |  +--ro dnp3n-stats* [channel-name]
+  |  |  |  +--ro channel-name         string
+  |  |  |  +--ro messages-sent?       uint32
+  |  |  |  +--ro messages-received?   uint32
+  |  |  |  +--ro timeouts?            uint32
+  |  |  |  +--ro aborts?              uint32
+  |  |  |  +--ro rejections?          uint32
+  |  |  |  +--ro protocol-errors?     uint32
+  |  |  |  +--ro link-errors?         uint32
+  |  |  |  +--ro addr-errors?         uint32
+  |  |  +--ro dnp3s-stats* [channel-name]
+  |  |     +--ro channel-name         string
+  |  |     +--ro messages-sent?       uint32
+  |  |     +--ro messages-received?   uint32
+  |  |     +--ro timeouts?            uint32
+  |  |     +--ro aborts?              uint32
+  |  |     +--ro rejections?          uint32
+  |  |     +--ro protocol-errors?     uint32
+  |  |     +--ro link-errors?         uint32
+  |  |     +--ro addr-errors?         uint32
+  |  +--ro scada-gw-conns!
+  |     +--ro t104-tcp-conns* [channel-name]
+  |     |  +--ro channel-name    string
+  |     |  +--ro conn* []
+  |     |     +--ro local-ip?      inet:ip-address
+  |     |     +--ro local-port?    uint16
+  |     |     +--ro remote-ip?     inet:ip-address
+  |     |     +--ro data-socket?   uint32
+  |     +--ro dnp3n-tcp-conns* [channel-name]
+  |        +--ro channel-name    string
+  |        +--ro conn* []
+  |           +--ro local-ip?      inet:ip-address
+  |           +--ro local-port?    uint16
+  |           +--ro remote-ip?     inet:ip-address
+  |           +--ro data-socket?   uint32
+  +--rw schema-metadata-Cisco-IOS-XE-scada-gw-oper
+  |  +--rw json-metadata-leaf?   empty
+  +--rw gnmi-model-data
+
+  grouping line-stats
+    +-- channel-name?        string
+    +-- messages-sent?       uint32
+    +-- messages-received?   uint32
+    +-- timeouts?            uint32
+    +-- aborts?              uint32
+    +-- rejections?          uint32
+    +-- protocol-errors?     uint32
+    +-- link-errors?         uint32
+    +-- addr-errors?         uint32
+  grouping scada-gw-stats
+    +-- t104-stats* [channel-name]
+    |  +-- channel-name?        string
+    |  +-- messages-sent?       uint32
+    |  +-- messages-received?   uint32
+    |  +-- timeouts?            uint32
+    |  +-- aborts?              uint32
+    |  +-- rejections?          uint32
+    |  +-- protocol-errors?     uint32
+    |  +-- link-errors?         uint32
+    |  +-- addr-errors?         uint32
+    +-- t101-stats* [channel-name]
+    |  +-- channel-name?        string
+    |  +-- messages-sent?       uint32
+    |  +-- messages-received?   uint32
+    |  +-- timeouts?            uint32
+    |  +-- aborts?              uint32
+    |  +-- rejections?          uint32
+    |  +-- protocol-errors?     uint32
+    |  +-- link-errors?         uint32
+    |  +-- addr-errors?         uint32
+    +-- dnp3n-stats* [channel-name]
+    |  +-- channel-name?        string
+    |  +-- messages-sent?       uint32
+    |  +-- messages-received?   uint32
+    |  +-- timeouts?            uint32
+    |  +-- aborts?              uint32
+    |  +-- rejections?          uint32
+    |  +-- protocol-errors?     uint32
+    |  +-- link-errors?         uint32
+    |  +-- addr-errors?         uint32
+    +-- dnp3s-stats* [channel-name]
+       +-- channel-name?        string
+       +-- messages-sent?       uint32
+       +-- messages-received?   uint32
+       +-- timeouts?            uint32
+       +-- aborts?              uint32
+       +-- rejections?          uint32
+       +-- protocol-errors?     uint32
+       +-- link-errors?         uint32
+       +-- addr-errors?         uint32
+  grouping scada-tcp-conn-info
+    +-- local-ip?      inet:ip-address
+    +-- local-port?    uint16
+    +-- remote-ip?     inet:ip-address
+    +-- data-socket?   uint32
+  grouping tcp-connection
+    +-- channel-name?   string
+    +-- conn* []
+       +-- local-ip?      inet:ip-address
+       +-- local-port?    uint16
+       +-- remote-ip?     inet:ip-address
+       +-- data-socket?   uint32
+  grouping scada-gw-conns
+    +-- t104-tcp-conns* [channel-name]
+    |  +-- channel-name?   string
+    |  +-- conn* []
+    |     +-- local-ip?      inet:ip-address
+    |     +-- local-port?    uint16
+    |     +-- remote-ip?     inet:ip-address
+    |     +-- data-socket?   uint32
+    +-- dnp3n-tcp-conns* [channel-name]
+       +-- channel-name?   string
+       +-- conn* []
+          +-- local-ip?      inet:ip-address
+          +-- local-port?    uint16
+          +-- remote-ip?     inet:ip-address
+          +-- data-socket?   uint32
+  grouping __yangpp_metadata
+    +-- json-metadata-leaf?   empty

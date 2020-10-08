@@ -1,0 +1,207 @@
+module: Cisco-IOS-XE-ptp-synce-oper
+  +--ro ptp-synce-oper-data
+  |  +--ro ptp-dataset* [clock-type clock-domain clock-inst]
+  |  |  +--ro clock-type                ptp-synce-ios-xe-oper:ptp-clock-type
+  |  |  +--ro clock-domain              uint64
+  |  |  +--ro clock-inst                uint64
+  |  |  +--ro clock-quality
+  |  |  |  +--ro clock-class?             uint8
+  |  |  |  +--ro offset-scaled-log-var?   uint16
+  |  |  +--ro clock-quality-received* []
+  |  |  |  +--ro clock-quality
+  |  |  |  |  +--ro clock-class?             uint8
+  |  |  |  |  +--ro offset-scaled-log-var?   uint16
+  |  |  |  +--ro protocol-address?   inet:ip-address
+  |  |  +--ro runtime-state
+  |  |  |  +--ro clock-state?    ptp-synce-ios-xe-oper:ptp-clock-state
+  |  |  |  +--ro clock-domain?   uint8
+  |  |  |  +--ro pkts-sent?      uint64
+  |  |  |  +--ro pkts-rcvd?      uint64
+  |  |  |  +--ro ptp-master* []
+  |  |  |  |  +--ro address-type
+  |  |  |  |  |  +--ro peer-address?   ptp-synce-ios-xe-oper:peer-address-type
+  |  |  |  |  |  +--ro (peer-address-choice)?
+  |  |  |  |  |     +--:(peer-address-mac)
+  |  |  |  |  |     |  +--ro mac?      yang:mac-address
+  |  |  |  |  |     +--:(peer-address-ip)
+  |  |  |  |  |        +--ro ip?       inet:ip-address
+  |  |  |  |  +--ro pkts-in?        uint64
+  |  |  |  |  +--ro pkts-out?       uint64
+  |  |  |  |  +--ro err-in?         uint64
+  |  |  |  |  +--ro err-out?        uint64
+  |  |  |  +--ro ptp-slave* []
+  |  |  |     +--ro address-type
+  |  |  |     |  +--ro peer-address?   ptp-synce-ios-xe-oper:peer-address-type
+  |  |  |     |  +--ro (peer-address-choice)?
+  |  |  |     |     +--:(peer-address-mac)
+  |  |  |     |     |  +--ro mac?      yang:mac-address
+  |  |  |     |     +--:(peer-address-ip)
+  |  |  |     |        +--ro ip?       inet:ip-address
+  |  |  |     +--ro pkts-in?        uint64
+  |  |  |     +--ro pkts-out?       uint64
+  |  |  |     +--ro err-in?         uint64
+  |  |  |     +--ro err-out?        uint64
+  |  |  +--ro time-properties
+  |  |  |  +--ro current-utc-offset?         uint16
+  |  |  |  +--ro current-utc-offset-valid?   empty
+  |  |  |  +--ro leap59?                     boolean
+  |  |  |  +--ro leap61?                     boolean
+  |  |  |  +--ro time-traceable?             boolean
+  |  |  |  +--ro frequency-traceable?        boolean
+  |  |  |  +--ro ptp-time-scale?             boolean
+  |  |  |  +--ro time-source?                ptp-synce-ios-xe-oper:ptp-clock-time-source
+  |  |  +--ro current-dataset
+  |  |     +--ro steps-removed?        uint16
+  |  |     +--ro offset-from-master
+  |  |     |  +--ro scaled-nano-seconds?   int64
+  |  |     +--ro mean-path-delay
+  |  |        +--ro scaled-nano-seconds?   int64
+  |  +--ro netsync-ql* [interface sig-type]
+  |     +--ro ql-tx?       ptp-synce-ios-xe-oper:netsync-ql
+  |     +--ro ql-rx?       ptp-synce-ios-xe-oper:netsync-ql
+  |     +--ro cfg-ql-rx?   ptp-synce-ios-xe-oper:netsync-ql
+  |     +--ro interface    string
+  |     +--ro sig-type     ptp-synce-ios-xe-oper:signal-type
+  +--rw schema-metadata-Cisco-IOS-XE-ptp-synce-oper
+  |  +--rw json-metadata-leaf?   empty
+  +--rw gnmi-model-data
+
+  grouping ptp-clock-quality
+    +-- clock-class?             uint8
+    +-- offset-scaled-log-var?   uint16
+  grouping ptp-clock-quality-received
+    +-- clock-quality
+    |  +-- clock-class?             uint8
+    |  +-- offset-scaled-log-var?   uint16
+    +-- protocol-address?   inet:ip-address
+  grouping peer-address-data
+    +--ro peer-address?   ptp-synce-ios-xe-oper:peer-address-type
+    +-- (peer-address-choice)?
+       +--:(peer-address-mac)
+       |  +-- mac?      yang:mac-address
+       +--:(peer-address-ip)
+          +-- ip?       inet:ip-address
+  grouping ptp-operational-session
+    +-- address-type
+    |  +--ro peer-address?   ptp-synce-ios-xe-oper:peer-address-type
+    |  +-- (peer-address-choice)?
+    |     +--:(peer-address-mac)
+    |     |  +-- mac?      yang:mac-address
+    |     +--:(peer-address-ip)
+    |        +-- ip?       inet:ip-address
+    +-- pkts-in?        uint64
+    +-- pkts-out?       uint64
+    +-- err-in?         uint64
+    +-- err-out?        uint64
+  grouping ptp-clock-runtime-state
+    +-- clock-state?    ptp-synce-ios-xe-oper:ptp-clock-state
+    +-- clock-domain?   uint8
+    +-- pkts-sent?      uint64
+    +-- pkts-rcvd?      uint64
+    +-- ptp-master* []
+    |  +-- address-type
+    |  |  +--ro peer-address?   ptp-synce-ios-xe-oper:peer-address-type
+    |  |  +-- (peer-address-choice)?
+    |  |     +--:(peer-address-mac)
+    |  |     |  +-- mac?      yang:mac-address
+    |  |     +--:(peer-address-ip)
+    |  |        +-- ip?       inet:ip-address
+    |  +-- pkts-in?        uint64
+    |  +-- pkts-out?       uint64
+    |  +-- err-in?         uint64
+    |  +-- err-out?        uint64
+    +-- ptp-slave* []
+       +-- address-type
+       |  +--ro peer-address?   ptp-synce-ios-xe-oper:peer-address-type
+       |  +-- (peer-address-choice)?
+       |     +--:(peer-address-mac)
+       |     |  +-- mac?      yang:mac-address
+       |     +--:(peer-address-ip)
+       |        +-- ip?       inet:ip-address
+       +-- pkts-in?        uint64
+       +-- pkts-out?       uint64
+       +-- err-in?         uint64
+       +-- err-out?        uint64
+  grouping ptp-clock-time-properties
+    +-- current-utc-offset?         uint16
+    +-- current-utc-offset-valid?   empty
+    +-- leap59?                     boolean
+    +-- leap61?                     boolean
+    +-- time-traceable?             boolean
+    +-- frequency-traceable?        boolean
+    +-- ptp-time-scale?             boolean
+    +-- time-source?                ptp-synce-ios-xe-oper:ptp-clock-time-source
+  grouping ptp-time-interval
+    +-- scaled-nano-seconds?   int64
+  grouping ptp-clock-current-data-set
+    +-- steps-removed?        uint16
+    +-- offset-from-master
+    |  +-- scaled-nano-seconds?   int64
+    +-- mean-path-delay
+       +-- scaled-nano-seconds?   int64
+  grouping ptp-key
+    +-- clock-type?     ptp-synce-ios-xe-oper:ptp-clock-type
+    +-- clock-domain?   uint64
+    +-- clock-inst?     uint64
+  grouping ptp-data
+    +-- clock-quality
+    |  +-- clock-class?             uint8
+    |  +-- offset-scaled-log-var?   uint16
+    +-- clock-quality-received* []
+    |  +-- clock-quality
+    |  |  +-- clock-class?             uint8
+    |  |  +-- offset-scaled-log-var?   uint16
+    |  +-- protocol-address?   inet:ip-address
+    +-- runtime-state
+    |  +-- clock-state?    ptp-synce-ios-xe-oper:ptp-clock-state
+    |  +-- clock-domain?   uint8
+    |  +-- pkts-sent?      uint64
+    |  +-- pkts-rcvd?      uint64
+    |  +-- ptp-master* []
+    |  |  +-- address-type
+    |  |  |  +--ro peer-address?   ptp-synce-ios-xe-oper:peer-address-type
+    |  |  |  +-- (peer-address-choice)?
+    |  |  |     +--:(peer-address-mac)
+    |  |  |     |  +-- mac?      yang:mac-address
+    |  |  |     +--:(peer-address-ip)
+    |  |  |        +-- ip?       inet:ip-address
+    |  |  +-- pkts-in?        uint64
+    |  |  +-- pkts-out?       uint64
+    |  |  +-- err-in?         uint64
+    |  |  +-- err-out?        uint64
+    |  +-- ptp-slave* []
+    |     +-- address-type
+    |     |  +--ro peer-address?   ptp-synce-ios-xe-oper:peer-address-type
+    |     |  +-- (peer-address-choice)?
+    |     |     +--:(peer-address-mac)
+    |     |     |  +-- mac?      yang:mac-address
+    |     |     +--:(peer-address-ip)
+    |     |        +-- ip?       inet:ip-address
+    |     +-- pkts-in?        uint64
+    |     +-- pkts-out?       uint64
+    |     +-- err-in?         uint64
+    |     +-- err-out?        uint64
+    +-- time-properties
+    |  +-- current-utc-offset?         uint16
+    |  +-- current-utc-offset-valid?   empty
+    |  +-- leap59?                     boolean
+    |  +-- leap61?                     boolean
+    |  +-- time-traceable?             boolean
+    |  +-- frequency-traceable?        boolean
+    |  +-- ptp-time-scale?             boolean
+    |  +-- time-source?                ptp-synce-ios-xe-oper:ptp-clock-time-source
+    +-- current-dataset
+       +-- steps-removed?        uint16
+       +-- offset-from-master
+       |  +-- scaled-nano-seconds?   int64
+       +-- mean-path-delay
+          +-- scaled-nano-seconds?   int64
+  grouping netsync-ql-data
+    +-- ql-tx?       ptp-synce-ios-xe-oper:netsync-ql
+    +-- ql-rx?       ptp-synce-ios-xe-oper:netsync-ql
+    +-- cfg-ql-rx?   ptp-synce-ios-xe-oper:netsync-ql
+  grouping netsync-key
+    +-- interface?   string
+    +-- sig-type?    ptp-synce-ios-xe-oper:signal-type
+  grouping __yangpp_metadata
+    +-- json-metadata-leaf?   empty

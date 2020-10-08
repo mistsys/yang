@@ -1,0 +1,83 @@
+module: Cisco-IOS-XE-wireless-ap-cfg
+  +--rw ap-cfg-data
+     +--rw location-entries
+     |  +--rw location-entry* [location-name]
+     |     +--rw location-name     string
+     |     +--rw description?      string
+     |     +--rw tag-info
+     |     |  +--rw policy-tag?   string
+     |     |  +--rw site-tag?     string
+     |     |  +--rw rf-tag?       string
+     |     +--rw associated-aps
+     |        +--rw associated-ap* [ap-mac]
+     |           +--rw ap-mac    yang:mac-address
+     +--rw tag-source-priority-configs
+     |  +--rw tag-source-priority-config* [priority]
+     |     +--rw priority    uint8
+     |     +--rw tag-src?    wireless-ap-types:enm-ap-tag-source
+     +--rw ap-filter-configs
+     |  +--rw ap-filter-config* [filter-name]
+     |     +--rw filter-name        string
+     |     +--rw filter-string?     string
+     |     +--rw filter-priority?   uint8
+     |     +--rw apply-tag-list
+     |        +--rw policy-tag?   string
+     |        +--rw site-tag?     string
+     |        +--rw rf-tag?       string
+     o--rw ap-filter-priority-cfg-entries
+     |  +--rw ap-filter-priority-cfg-entry* [priority]
+     |     +--rw priority       uint8
+     |     +--rw filter-name?   string
+     +--rw ap-rule-priority-cfg-entries
+     |  +--rw ap-rule-priority-cfg-entry* [priority]
+     |     +--rw priority       uint32
+     |     +--rw filter-name?   string
+     +--rw ap-tags
+        +--rw ap-tag* [ap-mac]
+           +--rw ap-mac        yang:mac-address
+           +--rw policy-tag?   string
+           +--rw site-tag?     string
+           +--rw rf-tag?       string
+
+  grouping ap-tag
+    +-- ap-mac?       yang:mac-address
+    +-- policy-tag?   string
+    +-- site-tag?     string
+    +-- rf-tag?       string
+  grouping st-tag-source-priority-config
+    +-- priority?   uint8
+    +-- tag-src?    wireless-ap-types:enm-ap-tag-source
+  grouping st-tag-list-config
+    +-- policy-tag?   string
+    +-- site-tag?     string
+    +-- rf-tag?       string
+  grouping ap-filter-priority-config
+    +-- priority?      uint8
+    +-- filter-name?   string
+  grouping st-ap-rule-priority-config
+    +-- priority?      uint32
+    +-- filter-name?   string
+  grouping st-ap-filter-config
+    +-- filter-name?       string
+    +-- filter-string?     string
+    +-- filter-priority?   uint8
+    +-- apply-tag-list
+       +-- policy-tag?   string
+       +-- site-tag?     string
+       +-- rf-tag?       string
+  grouping associated-aps
+    +-- ap-mac?   yang:mac-address
+  grouping st-location-tags
+    +-- policy-tag?   string
+    +-- site-tag?     string
+    +-- rf-tag?       string
+  grouping location-config
+    +-- location-name?    string
+    +-- description?      string
+    +-- tag-info
+    |  +-- policy-tag?   string
+    |  +-- site-tag?     string
+    |  +-- rf-tag?       string
+    +-- associated-aps
+       +-- associated-ap* [ap-mac]
+          +-- ap-mac?   yang:mac-address

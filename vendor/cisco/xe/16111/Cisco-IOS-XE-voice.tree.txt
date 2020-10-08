@@ -1,0 +1,79 @@
+
+module: Cisco-IOS-XE-voice
+  augment /ios:native:
+    +--rw voice
+    |  +--rw service* [type]
+    |     +--rw type                enumeration
+    |     +--rw media-recording
+    |     |  +--rw licenses?   uint16
+    |     +--rw fax
+    |     |  +--rw protocol?        enumeration
+    |     |  +--rw fallback?        enumeration
+    |     |  +--rw codec?           enumeration
+    |     |  +--rw ls-redundancy?   uint8
+    |     |  +--rw hs-redundancy?   uint8
+    |     |  +--rw version?         enumeration
+    |     +--rw redundancy-group?   uint8
+    +--rw voice-card* [slot]
+    |  +--rw slot    uint8
+    +--rw dial-peer
+    |  +--rw voice* [dialpeertag]
+    |     +--rw dialpeertag        uint32
+    |     +--rw type?              enumeration
+    |     +--rw media-recording
+    |     |  +--rw dialpeertag?   uint32
+    |     +--rw voice-class
+    |        +--rw sip
+    |           +--rw extension
+    |              +--rw voip_ext?   enumeration
+    |              +--rw pots_ext?   enumeration
+    +--rw dsapp
+    |  +--rw line?   empty
+    +--rw ccm-manager
+       +--rw sipana
+       |  +--rw auto-config
+       |     +--rw local
+       |        +--rw GigabitEthernet?   -> /ios:native/interface/GigabitEthernet/name
+       +--rw config
+          +--rw server?   union
+
+  grouping config-voice-grouping
+    +-- voice
+       +-- service* [type]
+          +-- type?               enumeration
+          +-- media-recording
+          |  +-- licenses?   uint16
+          +-- fax
+          |  +-- protocol?        enumeration
+          |  +-- fallback?        enumeration
+          |  +-- codec?           enumeration
+          |  +-- ls-redundancy?   uint8
+          |  +-- hs-redundancy?   uint8
+          |  +-- version?         enumeration
+          +-- redundancy-group?   uint8
+  grouping config-voice-card-grouping
+    +-- voice-card* [slot]
+       +-- slot?   uint8
+  grouping config-dial-peer-grouping
+    +-- dial-peer
+       +-- voice* [dialpeertag]
+          +-- dialpeertag?       uint32
+          +-- type?              enumeration
+          +-- media-recording
+          |  +-- dialpeertag?   uint32
+          +-- voice-class
+             +-- sip
+                +-- extension
+                   +-- voip_ext?   enumeration
+                   +-- pots_ext?   enumeration
+  grouping config-dsapp-line-grouping
+    +-- dsapp
+       +-- line?   empty
+  grouping config-ccm-manager-grouping
+    +-- ccm-manager
+       +-- sipana
+       |  +-- auto-config
+       |     +-- local
+       |        +-- GigabitEthernet?   -> /ios:native/interface/GigabitEthernet/name
+       +-- config
+          +-- server?   union

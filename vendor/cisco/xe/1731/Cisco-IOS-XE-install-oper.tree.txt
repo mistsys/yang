@@ -1,0 +1,2161 @@
+module: Cisco-IOS-XE-install-oper
+  +--ro install-oper-data
+  |  +--ro install-location-information* [fru slot bay chassis]
+  |     +--ro fru                           common-types-ios-xe:fru-type
+  |     +--ro slot                          int16
+  |     +--ro bay                           int16
+  |     +--ro chassis                       int16
+  |     +--ro install-packages* [pkg-dir pkg-name]
+  |     |  +--ro pkg-dir                     string
+  |     |  +--ro pkg-name                    string
+  |     |  +--ro ios-dir?                    string
+  |     |  +--ro pkg-data
+  |     |  |  +--ro pkg-name?            string
+  |     |  |  +--ro version?             string
+  |     |  |  +--ro checksum?            string
+  |     |  |  +--ro pkg-size?            uint64
+  |     |  |  +--ro verify-status?       install-ios-xe-oper:install-package-verify-status
+  |     |  |  +--ro pkg-type?            install-ios-xe-oper:install-package-type
+  |     |  |  +--ro (pkg-type-choice)?
+  |     |  |     +--:(install-pkg-img)
+  |     |  |     |  +--ro img-attr
+  |     |  |     |     +--ro timestamp?             yang:date-and-time
+  |     |  |     |     +--ro header-size?           uint32
+  |     |  |     |     +--ro header-package-type?   install-ios-xe-oper:install-header-package-type
+  |     |  |     |     +--ro pkg-info-data
+  |     |  |     |        +--ro common-data
+  |     |  |     |           +--ro generic-info
+  |     |  |     |              +--ro name?           string
+  |     |  |     |              +--ro build-time?     yang:date-and-time
+  |     |  |     |              +--ro release-date?   yang:date-and-time
+  |     |  |     |              +--ro user-name?      string
+  |     |  |     |              +--ro package-name?   string
+  |     |  |     |              +--ro build-name?     string
+  |     |  |     +--:(install-pkg-smu)
+  |     |  |     |  +--ro smu-attr
+  |     |  |     |     +--ro package-state?   install-ios-xe-oper:install-package-state
+  |     |  |     |     +--ro pkg-info-data
+  |     |  |     |        +--ro common-data
+  |     |  |     |        |  +--ro generic-info
+  |     |  |     |        |     +--ro name?           string
+  |     |  |     |        |     +--ro build-time?     yang:date-and-time
+  |     |  |     |        |     +--ro release-date?   yang:date-and-time
+  |     |  |     |        |     +--ro user-name?      string
+  |     |  |     |        |     +--ro package-name?   string
+  |     |  |     |        |     +--ro build-name?     string
+  |     |  |     |        +--ro defect?        string
+  |     |  |     |        +--ro smu-data
+  |     |  |     |           +--ro smu-id?                uint32
+  |     |  |     |           +--ro smu-mode?              install-ios-xe-oper:install-mode
+  |     |  |     |           +--ro smu-supersedes-list*   uint32
+  |     |  |     |           +--ro smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+  |     |  |     |           +--ro smu-compatible-with?   string
+  |     |  |     |           +--ro smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+  |     |  |     |           +--ro activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+  |     |  |     |           +--ro deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+  |     |  |     |           +--ro smu-impact?            install-ios-xe-oper:install-smu-impact-type
+  |     |  |     |           +--ro smu-class?             install-ios-xe-oper:install-smu-class
+  |     |  |     |           +--ro smu-fixes-list*        string
+  |     |  |     |           +--ro smu-license-level?     install-ios-xe-oper:install-smu-license-level
+  |     |  |     |           +--ro crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  |     |  |     +--:(install-pkg-subpkg)
+  |     |  |     |  +--ro subpkg-attr
+  |     |  |     |     +--ro package-state?   install-ios-xe-oper:install-package-state
+  |     |  |     |     +--ro pkg-info-data
+  |     |  |     |        +--ro common-data
+  |     |  |     |        |  +--ro generic-info
+  |     |  |     |        |     +--ro name?           string
+  |     |  |     |        |     +--ro build-time?     yang:date-and-time
+  |     |  |     |        |     +--ro release-date?   yang:date-and-time
+  |     |  |     |        |     +--ro user-name?      string
+  |     |  |     |        |     +--ro package-name?   string
+  |     |  |     |        |     +--ro build-name?     string
+  |     |  |     |        +--ro subpkg-type?   string
+  |     |  |     |        +--ro smu-data
+  |     |  |     |           +--ro smu-id?                uint32
+  |     |  |     |           +--ro smu-mode?              install-ios-xe-oper:install-mode
+  |     |  |     |           +--ro smu-supersedes-list*   uint32
+  |     |  |     |           +--ro smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+  |     |  |     |           +--ro smu-compatible-with?   string
+  |     |  |     |           +--ro smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+  |     |  |     |           +--ro activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+  |     |  |     |           +--ro deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+  |     |  |     |           +--ro smu-impact?            install-ios-xe-oper:install-smu-impact-type
+  |     |  |     |           +--ro smu-class?             install-ios-xe-oper:install-smu-class
+  |     |  |     |           +--ro smu-fixes-list*        string
+  |     |  |     |           +--ro smu-license-level?     install-ios-xe-oper:install-smu-license-level
+  |     |  |     |           +--ro crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  |     |  |     +--:(install-pkg-dmp)
+  |     |  |     |  +--ro dmp-attr
+  |     |  |     |     +--ro package-state?   install-ios-xe-oper:install-package-state
+  |     |  |     |     +--ro pkg-info-data
+  |     |  |     |        +--ro common-data
+  |     |  |     |        |  +--ro generic-info
+  |     |  |     |        |     +--ro name?           string
+  |     |  |     |        |     +--ro build-time?     yang:date-and-time
+  |     |  |     |        |     +--ro release-date?   yang:date-and-time
+  |     |  |     |        |     +--ro user-name?      string
+  |     |  |     |        |     +--ro package-name?   string
+  |     |  |     |        |     +--ro build-name?     string
+  |     |  |     |        +--ro defect?        string
+  |     |  |     |        +--ro smu-data
+  |     |  |     |           +--ro smu-id?                uint32
+  |     |  |     |           +--ro smu-mode?              install-ios-xe-oper:install-mode
+  |     |  |     |           +--ro smu-supersedes-list*   uint32
+  |     |  |     |           +--ro smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+  |     |  |     |           +--ro smu-compatible-with?   string
+  |     |  |     |           +--ro smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+  |     |  |     |           +--ro activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+  |     |  |     |           +--ro deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+  |     |  |     |           +--ro smu-impact?            install-ios-xe-oper:install-smu-impact-type
+  |     |  |     |           +--ro smu-class?             install-ios-xe-oper:install-smu-class
+  |     |  |     |           +--ro smu-fixes-list*        string
+  |     |  |     |           +--ro smu-license-level?     install-ios-xe-oper:install-smu-license-level
+  |     |  |     |           +--ro crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  |     |  |     +--:(install-pkg-apsp)
+  |     |  |     |  +--ro apsp-attr
+  |     |  |     |     +--ro package-state?   install-ios-xe-oper:install-package-state
+  |     |  |     |     +--ro pkg-info-data
+  |     |  |     |        +--ro common-data
+  |     |  |     |        |  +--ro generic-info
+  |     |  |     |        |     +--ro name?           string
+  |     |  |     |        |     +--ro build-time?     yang:date-and-time
+  |     |  |     |        |     +--ro release-date?   yang:date-and-time
+  |     |  |     |        |     +--ro user-name?      string
+  |     |  |     |        |     +--ro package-name?   string
+  |     |  |     |        |     +--ro build-name?     string
+  |     |  |     |        +--ro defect?        string
+  |     |  |     |        +--ro smu-data
+  |     |  |     |           +--ro smu-id?                uint32
+  |     |  |     |           +--ro smu-mode?              install-ios-xe-oper:install-mode
+  |     |  |     |           +--ro smu-supersedes-list*   uint32
+  |     |  |     |           +--ro smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+  |     |  |     |           +--ro smu-compatible-with?   string
+  |     |  |     |           +--ro smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+  |     |  |     |           +--ro activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+  |     |  |     |           +--ro deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+  |     |  |     |           +--ro smu-impact?            install-ios-xe-oper:install-smu-impact-type
+  |     |  |     |           +--ro smu-class?             install-ios-xe-oper:install-smu-class
+  |     |  |     |           +--ro smu-fixes-list*        string
+  |     |  |     |           +--ro smu-license-level?     install-ios-xe-oper:install-smu-license-level
+  |     |  |     |           +--ro crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  |     |  |     +--:(install-pkg-apdp)
+  |     |  |        +--ro apdp-attr
+  |     |  |           +--ro package-state?   install-ios-xe-oper:install-package-state
+  |     |  |           +--ro pkg-info-data
+  |     |  |              +--ro common-data
+  |     |  |              |  +--ro generic-info
+  |     |  |              |     +--ro name?           string
+  |     |  |              |     +--ro build-time?     yang:date-and-time
+  |     |  |              |     +--ro release-date?   yang:date-and-time
+  |     |  |              |     +--ro user-name?      string
+  |     |  |              |     +--ro package-name?   string
+  |     |  |              |     +--ro build-name?     string
+  |     |  |              +--ro defect?        string
+  |     |  |              +--ro smu-data
+  |     |  |                 +--ro smu-id?                uint32
+  |     |  |                 +--ro smu-mode?              install-ios-xe-oper:install-mode
+  |     |  |                 +--ro smu-supersedes-list*   uint32
+  |     |  |                 +--ro smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+  |     |  |                 +--ro smu-compatible-with?   string
+  |     |  |                 +--ro smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+  |     |  |                 +--ro activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+  |     |  |                 +--ro deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+  |     |  |                 +--ro smu-impact?            install-ios-xe-oper:install-smu-impact-type
+  |     |  |                 +--ro smu-class?             install-ios-xe-oper:install-smu-class
+  |     |  |                 +--ro smu-fixes-list*        string
+  |     |  |                 +--ro smu-license-level?     install-ios-xe-oper:install-smu-license-level
+  |     |  |                 +--ro crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  |     |  +--ro install-related-packages* [version pkg-name]
+  |     |     +--ro version                      string
+  |     |     +--ro pkg-name                     string
+  |     |     +--ro pkg-data
+  |     |     |  +--ro pkg-name?            string
+  |     |     |  +--ro version?             string
+  |     |     |  +--ro checksum?            string
+  |     |     |  +--ro pkg-size?            uint64
+  |     |     |  +--ro verify-status?       install-ios-xe-oper:install-package-verify-status
+  |     |     |  +--ro pkg-type?            install-ios-xe-oper:install-package-type
+  |     |     |  +--ro (pkg-type-choice)?
+  |     |     |     +--:(install-pkg-img)
+  |     |     |     |  +--ro img-attr
+  |     |     |     |     +--ro timestamp?             yang:date-and-time
+  |     |     |     |     +--ro header-size?           uint32
+  |     |     |     |     +--ro header-package-type?   install-ios-xe-oper:install-header-package-type
+  |     |     |     |     +--ro pkg-info-data
+  |     |     |     |        +--ro common-data
+  |     |     |     |           +--ro generic-info
+  |     |     |     |              +--ro name?           string
+  |     |     |     |              +--ro build-time?     yang:date-and-time
+  |     |     |     |              +--ro release-date?   yang:date-and-time
+  |     |     |     |              +--ro user-name?      string
+  |     |     |     |              +--ro package-name?   string
+  |     |     |     |              +--ro build-name?     string
+  |     |     |     +--:(install-pkg-smu)
+  |     |     |     |  +--ro smu-attr
+  |     |     |     |     +--ro package-state?   install-ios-xe-oper:install-package-state
+  |     |     |     |     +--ro pkg-info-data
+  |     |     |     |        +--ro common-data
+  |     |     |     |        |  +--ro generic-info
+  |     |     |     |        |     +--ro name?           string
+  |     |     |     |        |     +--ro build-time?     yang:date-and-time
+  |     |     |     |        |     +--ro release-date?   yang:date-and-time
+  |     |     |     |        |     +--ro user-name?      string
+  |     |     |     |        |     +--ro package-name?   string
+  |     |     |     |        |     +--ro build-name?     string
+  |     |     |     |        +--ro defect?        string
+  |     |     |     |        +--ro smu-data
+  |     |     |     |           +--ro smu-id?                uint32
+  |     |     |     |           +--ro smu-mode?              install-ios-xe-oper:install-mode
+  |     |     |     |           +--ro smu-supersedes-list*   uint32
+  |     |     |     |           +--ro smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+  |     |     |     |           +--ro smu-compatible-with?   string
+  |     |     |     |           +--ro smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+  |     |     |     |           +--ro activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+  |     |     |     |           +--ro deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+  |     |     |     |           +--ro smu-impact?            install-ios-xe-oper:install-smu-impact-type
+  |     |     |     |           +--ro smu-class?             install-ios-xe-oper:install-smu-class
+  |     |     |     |           +--ro smu-fixes-list*        string
+  |     |     |     |           +--ro smu-license-level?     install-ios-xe-oper:install-smu-license-level
+  |     |     |     |           +--ro crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  |     |     |     +--:(install-pkg-subpkg)
+  |     |     |     |  +--ro subpkg-attr
+  |     |     |     |     +--ro package-state?   install-ios-xe-oper:install-package-state
+  |     |     |     |     +--ro pkg-info-data
+  |     |     |     |        +--ro common-data
+  |     |     |     |        |  +--ro generic-info
+  |     |     |     |        |     +--ro name?           string
+  |     |     |     |        |     +--ro build-time?     yang:date-and-time
+  |     |     |     |        |     +--ro release-date?   yang:date-and-time
+  |     |     |     |        |     +--ro user-name?      string
+  |     |     |     |        |     +--ro package-name?   string
+  |     |     |     |        |     +--ro build-name?     string
+  |     |     |     |        +--ro subpkg-type?   string
+  |     |     |     |        +--ro smu-data
+  |     |     |     |           +--ro smu-id?                uint32
+  |     |     |     |           +--ro smu-mode?              install-ios-xe-oper:install-mode
+  |     |     |     |           +--ro smu-supersedes-list*   uint32
+  |     |     |     |           +--ro smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+  |     |     |     |           +--ro smu-compatible-with?   string
+  |     |     |     |           +--ro smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+  |     |     |     |           +--ro activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+  |     |     |     |           +--ro deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+  |     |     |     |           +--ro smu-impact?            install-ios-xe-oper:install-smu-impact-type
+  |     |     |     |           +--ro smu-class?             install-ios-xe-oper:install-smu-class
+  |     |     |     |           +--ro smu-fixes-list*        string
+  |     |     |     |           +--ro smu-license-level?     install-ios-xe-oper:install-smu-license-level
+  |     |     |     |           +--ro crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  |     |     |     +--:(install-pkg-dmp)
+  |     |     |     |  +--ro dmp-attr
+  |     |     |     |     +--ro package-state?   install-ios-xe-oper:install-package-state
+  |     |     |     |     +--ro pkg-info-data
+  |     |     |     |        +--ro common-data
+  |     |     |     |        |  +--ro generic-info
+  |     |     |     |        |     +--ro name?           string
+  |     |     |     |        |     +--ro build-time?     yang:date-and-time
+  |     |     |     |        |     +--ro release-date?   yang:date-and-time
+  |     |     |     |        |     +--ro user-name?      string
+  |     |     |     |        |     +--ro package-name?   string
+  |     |     |     |        |     +--ro build-name?     string
+  |     |     |     |        +--ro defect?        string
+  |     |     |     |        +--ro smu-data
+  |     |     |     |           +--ro smu-id?                uint32
+  |     |     |     |           +--ro smu-mode?              install-ios-xe-oper:install-mode
+  |     |     |     |           +--ro smu-supersedes-list*   uint32
+  |     |     |     |           +--ro smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+  |     |     |     |           +--ro smu-compatible-with?   string
+  |     |     |     |           +--ro smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+  |     |     |     |           +--ro activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+  |     |     |     |           +--ro deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+  |     |     |     |           +--ro smu-impact?            install-ios-xe-oper:install-smu-impact-type
+  |     |     |     |           +--ro smu-class?             install-ios-xe-oper:install-smu-class
+  |     |     |     |           +--ro smu-fixes-list*        string
+  |     |     |     |           +--ro smu-license-level?     install-ios-xe-oper:install-smu-license-level
+  |     |     |     |           +--ro crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  |     |     |     +--:(install-pkg-apsp)
+  |     |     |     |  +--ro apsp-attr
+  |     |     |     |     +--ro package-state?   install-ios-xe-oper:install-package-state
+  |     |     |     |     +--ro pkg-info-data
+  |     |     |     |        +--ro common-data
+  |     |     |     |        |  +--ro generic-info
+  |     |     |     |        |     +--ro name?           string
+  |     |     |     |        |     +--ro build-time?     yang:date-and-time
+  |     |     |     |        |     +--ro release-date?   yang:date-and-time
+  |     |     |     |        |     +--ro user-name?      string
+  |     |     |     |        |     +--ro package-name?   string
+  |     |     |     |        |     +--ro build-name?     string
+  |     |     |     |        +--ro defect?        string
+  |     |     |     |        +--ro smu-data
+  |     |     |     |           +--ro smu-id?                uint32
+  |     |     |     |           +--ro smu-mode?              install-ios-xe-oper:install-mode
+  |     |     |     |           +--ro smu-supersedes-list*   uint32
+  |     |     |     |           +--ro smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+  |     |     |     |           +--ro smu-compatible-with?   string
+  |     |     |     |           +--ro smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+  |     |     |     |           +--ro activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+  |     |     |     |           +--ro deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+  |     |     |     |           +--ro smu-impact?            install-ios-xe-oper:install-smu-impact-type
+  |     |     |     |           +--ro smu-class?             install-ios-xe-oper:install-smu-class
+  |     |     |     |           +--ro smu-fixes-list*        string
+  |     |     |     |           +--ro smu-license-level?     install-ios-xe-oper:install-smu-license-level
+  |     |     |     |           +--ro crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  |     |     |     +--:(install-pkg-apdp)
+  |     |     |        +--ro apdp-attr
+  |     |     |           +--ro package-state?   install-ios-xe-oper:install-package-state
+  |     |     |           +--ro pkg-info-data
+  |     |     |              +--ro common-data
+  |     |     |              |  +--ro generic-info
+  |     |     |              |     +--ro name?           string
+  |     |     |              |     +--ro build-time?     yang:date-and-time
+  |     |     |              |     +--ro release-date?   yang:date-and-time
+  |     |     |              |     +--ro user-name?      string
+  |     |     |              |     +--ro package-name?   string
+  |     |     |              |     +--ro build-name?     string
+  |     |     |              +--ro defect?        string
+  |     |     |              +--ro smu-data
+  |     |     |                 +--ro smu-id?                uint32
+  |     |     |                 +--ro smu-mode?              install-ios-xe-oper:install-mode
+  |     |     |                 +--ro smu-supersedes-list*   uint32
+  |     |     |                 +--ro smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+  |     |     |                 +--ro smu-compatible-with?   string
+  |     |     |                 +--ro smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+  |     |     |                 +--ro activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+  |     |     |                 +--ro deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+  |     |     |                 +--ro smu-impact?            install-ios-xe-oper:install-smu-impact-type
+  |     |     |                 +--ro smu-class?             install-ios-xe-oper:install-smu-class
+  |     |     |                 +--ro smu-fixes-list*        string
+  |     |     |                 +--ro smu-license-level?     install-ios-xe-oper:install-smu-license-level
+  |     |     |                 +--ro crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  |     |     +--ro install-included-packages* [inc-version inc-pkg-name]
+  |     |        +--ro inc-version          string
+  |     |        +--ro inc-pkg-name         string
+  |     |        +--ro pkg-name?            string
+  |     |        +--ro version?             string
+  |     |        +--ro checksum?            string
+  |     |        +--ro pkg-size?            uint64
+  |     |        +--ro verify-status?       install-ios-xe-oper:install-package-verify-status
+  |     |        +--ro pkg-type?            install-ios-xe-oper:install-package-type
+  |     |        +--ro (pkg-type-choice)?
+  |     |           +--:(install-pkg-img)
+  |     |           |  +--ro img-attr
+  |     |           |     +--ro timestamp?             yang:date-and-time
+  |     |           |     +--ro header-size?           uint32
+  |     |           |     +--ro header-package-type?   install-ios-xe-oper:install-header-package-type
+  |     |           |     +--ro pkg-info-data
+  |     |           |        +--ro common-data
+  |     |           |           +--ro generic-info
+  |     |           |              +--ro name?           string
+  |     |           |              +--ro build-time?     yang:date-and-time
+  |     |           |              +--ro release-date?   yang:date-and-time
+  |     |           |              +--ro user-name?      string
+  |     |           |              +--ro package-name?   string
+  |     |           |              +--ro build-name?     string
+  |     |           +--:(install-pkg-smu)
+  |     |           |  +--ro smu-attr
+  |     |           |     +--ro package-state?   install-ios-xe-oper:install-package-state
+  |     |           |     +--ro pkg-info-data
+  |     |           |        +--ro common-data
+  |     |           |        |  +--ro generic-info
+  |     |           |        |     +--ro name?           string
+  |     |           |        |     +--ro build-time?     yang:date-and-time
+  |     |           |        |     +--ro release-date?   yang:date-and-time
+  |     |           |        |     +--ro user-name?      string
+  |     |           |        |     +--ro package-name?   string
+  |     |           |        |     +--ro build-name?     string
+  |     |           |        +--ro defect?        string
+  |     |           |        +--ro smu-data
+  |     |           |           +--ro smu-id?                uint32
+  |     |           |           +--ro smu-mode?              install-ios-xe-oper:install-mode
+  |     |           |           +--ro smu-supersedes-list*   uint32
+  |     |           |           +--ro smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+  |     |           |           +--ro smu-compatible-with?   string
+  |     |           |           +--ro smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+  |     |           |           +--ro activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+  |     |           |           +--ro deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+  |     |           |           +--ro smu-impact?            install-ios-xe-oper:install-smu-impact-type
+  |     |           |           +--ro smu-class?             install-ios-xe-oper:install-smu-class
+  |     |           |           +--ro smu-fixes-list*        string
+  |     |           |           +--ro smu-license-level?     install-ios-xe-oper:install-smu-license-level
+  |     |           |           +--ro crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  |     |           +--:(install-pkg-subpkg)
+  |     |           |  +--ro subpkg-attr
+  |     |           |     +--ro package-state?   install-ios-xe-oper:install-package-state
+  |     |           |     +--ro pkg-info-data
+  |     |           |        +--ro common-data
+  |     |           |        |  +--ro generic-info
+  |     |           |        |     +--ro name?           string
+  |     |           |        |     +--ro build-time?     yang:date-and-time
+  |     |           |        |     +--ro release-date?   yang:date-and-time
+  |     |           |        |     +--ro user-name?      string
+  |     |           |        |     +--ro package-name?   string
+  |     |           |        |     +--ro build-name?     string
+  |     |           |        +--ro subpkg-type?   string
+  |     |           |        +--ro smu-data
+  |     |           |           +--ro smu-id?                uint32
+  |     |           |           +--ro smu-mode?              install-ios-xe-oper:install-mode
+  |     |           |           +--ro smu-supersedes-list*   uint32
+  |     |           |           +--ro smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+  |     |           |           +--ro smu-compatible-with?   string
+  |     |           |           +--ro smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+  |     |           |           +--ro activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+  |     |           |           +--ro deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+  |     |           |           +--ro smu-impact?            install-ios-xe-oper:install-smu-impact-type
+  |     |           |           +--ro smu-class?             install-ios-xe-oper:install-smu-class
+  |     |           |           +--ro smu-fixes-list*        string
+  |     |           |           +--ro smu-license-level?     install-ios-xe-oper:install-smu-license-level
+  |     |           |           +--ro crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  |     |           +--:(install-pkg-dmp)
+  |     |           |  +--ro dmp-attr
+  |     |           |     +--ro package-state?   install-ios-xe-oper:install-package-state
+  |     |           |     +--ro pkg-info-data
+  |     |           |        +--ro common-data
+  |     |           |        |  +--ro generic-info
+  |     |           |        |     +--ro name?           string
+  |     |           |        |     +--ro build-time?     yang:date-and-time
+  |     |           |        |     +--ro release-date?   yang:date-and-time
+  |     |           |        |     +--ro user-name?      string
+  |     |           |        |     +--ro package-name?   string
+  |     |           |        |     +--ro build-name?     string
+  |     |           |        +--ro defect?        string
+  |     |           |        +--ro smu-data
+  |     |           |           +--ro smu-id?                uint32
+  |     |           |           +--ro smu-mode?              install-ios-xe-oper:install-mode
+  |     |           |           +--ro smu-supersedes-list*   uint32
+  |     |           |           +--ro smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+  |     |           |           +--ro smu-compatible-with?   string
+  |     |           |           +--ro smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+  |     |           |           +--ro activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+  |     |           |           +--ro deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+  |     |           |           +--ro smu-impact?            install-ios-xe-oper:install-smu-impact-type
+  |     |           |           +--ro smu-class?             install-ios-xe-oper:install-smu-class
+  |     |           |           +--ro smu-fixes-list*        string
+  |     |           |           +--ro smu-license-level?     install-ios-xe-oper:install-smu-license-level
+  |     |           |           +--ro crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  |     |           +--:(install-pkg-apsp)
+  |     |           |  +--ro apsp-attr
+  |     |           |     +--ro package-state?   install-ios-xe-oper:install-package-state
+  |     |           |     +--ro pkg-info-data
+  |     |           |        +--ro common-data
+  |     |           |        |  +--ro generic-info
+  |     |           |        |     +--ro name?           string
+  |     |           |        |     +--ro build-time?     yang:date-and-time
+  |     |           |        |     +--ro release-date?   yang:date-and-time
+  |     |           |        |     +--ro user-name?      string
+  |     |           |        |     +--ro package-name?   string
+  |     |           |        |     +--ro build-name?     string
+  |     |           |        +--ro defect?        string
+  |     |           |        +--ro smu-data
+  |     |           |           +--ro smu-id?                uint32
+  |     |           |           +--ro smu-mode?              install-ios-xe-oper:install-mode
+  |     |           |           +--ro smu-supersedes-list*   uint32
+  |     |           |           +--ro smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+  |     |           |           +--ro smu-compatible-with?   string
+  |     |           |           +--ro smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+  |     |           |           +--ro activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+  |     |           |           +--ro deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+  |     |           |           +--ro smu-impact?            install-ios-xe-oper:install-smu-impact-type
+  |     |           |           +--ro smu-class?             install-ios-xe-oper:install-smu-class
+  |     |           |           +--ro smu-fixes-list*        string
+  |     |           |           +--ro smu-license-level?     install-ios-xe-oper:install-smu-license-level
+  |     |           |           +--ro crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  |     |           +--:(install-pkg-apdp)
+  |     |              +--ro apdp-attr
+  |     |                 +--ro package-state?   install-ios-xe-oper:install-package-state
+  |     |                 +--ro pkg-info-data
+  |     |                    +--ro common-data
+  |     |                    |  +--ro generic-info
+  |     |                    |     +--ro name?           string
+  |     |                    |     +--ro build-time?     yang:date-and-time
+  |     |                    |     +--ro release-date?   yang:date-and-time
+  |     |                    |     +--ro user-name?      string
+  |     |                    |     +--ro package-name?   string
+  |     |                    |     +--ro build-name?     string
+  |     |                    +--ro defect?        string
+  |     |                    +--ro smu-data
+  |     |                       +--ro smu-id?                uint32
+  |     |                       +--ro smu-mode?              install-ios-xe-oper:install-mode
+  |     |                       +--ro smu-supersedes-list*   uint32
+  |     |                       +--ro smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+  |     |                       +--ro smu-compatible-with?   string
+  |     |                       +--ro smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+  |     |                       +--ro activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+  |     |                       +--ro deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+  |     |                       +--ro smu-impact?            install-ios-xe-oper:install-smu-impact-type
+  |     |                       +--ro smu-class?             install-ios-xe-oper:install-smu-class
+  |     |                       +--ro smu-fixes-list*        string
+  |     |                       +--ro smu-license-level?     install-ios-xe-oper:install-smu-license-level
+  |     |                       +--ro crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  |     +--ro install-version-info* [version version-extension]
+  |     |  +--ro version                       string
+  |     |  +--ro version-extension             string
+  |     |  +--ro is-default?                   boolean
+  |     |  +--ro previous?                     install-ios-xe-oper:install-version-state
+  |     |  +--ro current?                      install-ios-xe-oper:install-version-state
+  |     |  +--ro src-filename?                 string
+  |     |  +--ro src-checksum?                 string
+  |     |  +--ro install-package-state-info* [package-type pkg-dir pkg-name]
+  |     |     +--ro package-type     install-ios-xe-oper:install-package-type
+  |     |     +--ro pkg-dir          string
+  |     |     +--ro pkg-name         string
+  |     |     +--ro package-state?   install-ios-xe-oper:install-package-state
+  |     +--ro install-version-state-info* [version-state]
+  |     |  +--ro version-state        install-ios-xe-oper:install-version-state
+  |     |  +--ro version?             string
+  |     |  +--ro version-extension?   string
+  |     +--ro oper-state
+  |        +--ro auto-abort-timer
+  |           +--ro state?      install-ios-xe-oper:install-timer-state
+  |           +--ro end-time?   yang:date-and-time
+  +--rw schema-metadata-Cisco-IOS-XE-install-oper
+  |  +--rw json-metadata-leaf?          empty
+  |  +--rw Cisco-IOS-XE-common-types
+  |     +--rw json-metadata-leaf?   empty
+  +--rw gnmi-model-data
+
+  grouping install-generic-pkg-info
+    +-- name?           string
+    +-- build-time?     yang:date-and-time
+    +-- release-date?   yang:date-and-time
+    +-- user-name?      string
+    +-- package-name?   string
+    +-- build-name?     string
+  grouping install-common-pkg-info
+    +-- generic-info
+       +-- name?           string
+       +-- build-time?     yang:date-and-time
+       +-- release-date?   yang:date-and-time
+       +-- user-name?      string
+       +-- package-name?   string
+       +-- build-name?     string
+  grouping install-common-smu-pkg-info
+    +-- smu-id?                uint32
+    +-- smu-mode?              install-ios-xe-oper:install-mode
+    +-- smu-supersedes-list*   uint32
+    +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    +-- smu-compatible-with?   string
+    +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    +-- smu-class?             install-ios-xe-oper:install-smu-class
+    +-- smu-fixes-list*        string
+    +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  grouping install-smu-pkg-info
+    +-- common-data
+    |  +-- generic-info
+    |     +-- name?           string
+    |     +-- build-time?     yang:date-and-time
+    |     +-- release-date?   yang:date-and-time
+    |     +-- user-name?      string
+    |     +-- package-name?   string
+    |     +-- build-name?     string
+    +-- defect?        string
+    +-- smu-data
+       +-- smu-id?                uint32
+       +-- smu-mode?              install-ios-xe-oper:install-mode
+       +-- smu-supersedes-list*   uint32
+       +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+       +-- smu-compatible-with?   string
+       +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+       +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+       +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+       +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+       +-- smu-class?             install-ios-xe-oper:install-smu-class
+       +-- smu-fixes-list*        string
+       +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+       +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  grouping install-smu-attr
+    +-- package-state?   install-ios-xe-oper:install-package-state
+    +-- pkg-info-data
+       +-- common-data
+       |  +-- generic-info
+       |     +-- name?           string
+       |     +-- build-time?     yang:date-and-time
+       |     +-- release-date?   yang:date-and-time
+       |     +-- user-name?      string
+       |     +-- package-name?   string
+       |     +-- build-name?     string
+       +-- defect?        string
+       +-- smu-data
+          +-- smu-id?                uint32
+          +-- smu-mode?              install-ios-xe-oper:install-mode
+          +-- smu-supersedes-list*   uint32
+          +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+          +-- smu-compatible-with?   string
+          +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+          +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+          +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+          +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+          +-- smu-class?             install-ios-xe-oper:install-smu-class
+          +-- smu-fixes-list*        string
+          +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+          +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  grouping install-subpkg-pkg-info
+    +-- common-data
+    |  +-- generic-info
+    |     +-- name?           string
+    |     +-- build-time?     yang:date-and-time
+    |     +-- release-date?   yang:date-and-time
+    |     +-- user-name?      string
+    |     +-- package-name?   string
+    |     +-- build-name?     string
+    +-- subpkg-type?   string
+    +-- smu-data
+       +-- smu-id?                uint32
+       +-- smu-mode?              install-ios-xe-oper:install-mode
+       +-- smu-supersedes-list*   uint32
+       +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+       +-- smu-compatible-with?   string
+       +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+       +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+       +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+       +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+       +-- smu-class?             install-ios-xe-oper:install-smu-class
+       +-- smu-fixes-list*        string
+       +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+       +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  grouping install-subpkg-attr
+    +-- package-state?   install-ios-xe-oper:install-package-state
+    +-- pkg-info-data
+       +-- common-data
+       |  +-- generic-info
+       |     +-- name?           string
+       |     +-- build-time?     yang:date-and-time
+       |     +-- release-date?   yang:date-and-time
+       |     +-- user-name?      string
+       |     +-- package-name?   string
+       |     +-- build-name?     string
+       +-- subpkg-type?   string
+       +-- smu-data
+          +-- smu-id?                uint32
+          +-- smu-mode?              install-ios-xe-oper:install-mode
+          +-- smu-supersedes-list*   uint32
+          +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+          +-- smu-compatible-with?   string
+          +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+          +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+          +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+          +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+          +-- smu-class?             install-ios-xe-oper:install-smu-class
+          +-- smu-fixes-list*        string
+          +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+          +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  grouping install-img-pkg-info
+    +-- common-data
+       +-- generic-info
+          +-- name?           string
+          +-- build-time?     yang:date-and-time
+          +-- release-date?   yang:date-and-time
+          +-- user-name?      string
+          +-- package-name?   string
+          +-- build-name?     string
+  grouping install-img-attr
+    +-- timestamp?             yang:date-and-time
+    +-- header-size?           uint32
+    +-- header-package-type?   install-ios-xe-oper:install-header-package-type
+    +-- pkg-info-data
+       +-- common-data
+          +-- generic-info
+             +-- name?           string
+             +-- build-time?     yang:date-and-time
+             +-- release-date?   yang:date-and-time
+             +-- user-name?      string
+             +-- package-name?   string
+             +-- build-name?     string
+  grouping install-auto-abort-timer
+    +-- state?      install-ios-xe-oper:install-timer-state
+    +-- end-time?   yang:date-and-time
+  grouping install-oper-state
+    +-- auto-abort-timer
+       +-- state?      install-ios-xe-oper:install-timer-state
+       +-- end-time?   yang:date-and-time
+  grouping install-location-info
+    +-- install-packages* [pkg-dir pkg-name]
+    |  +-- pkg-dir?                    string
+    |  +-- pkg-name?                   string
+    |  +-- ios-dir?                    string
+    |  +-- pkg-data
+    |  |  +-- pkg-name?            string
+    |  |  +-- version?             string
+    |  |  +-- checksum?            string
+    |  |  +-- pkg-size?            uint64
+    |  |  +-- verify-status?       install-ios-xe-oper:install-package-verify-status
+    |  |  +--ro pkg-type?            install-ios-xe-oper:install-package-type
+    |  |  +-- (pkg-type-choice)?
+    |  |     +--:(install-pkg-img)
+    |  |     |  +-- img-attr
+    |  |     |     +-- timestamp?             yang:date-and-time
+    |  |     |     +-- header-size?           uint32
+    |  |     |     +-- header-package-type?   install-ios-xe-oper:install-header-package-type
+    |  |     |     +-- pkg-info-data
+    |  |     |        +-- common-data
+    |  |     |           +-- generic-info
+    |  |     |              +-- name?           string
+    |  |     |              +-- build-time?     yang:date-and-time
+    |  |     |              +-- release-date?   yang:date-and-time
+    |  |     |              +-- user-name?      string
+    |  |     |              +-- package-name?   string
+    |  |     |              +-- build-name?     string
+    |  |     +--:(install-pkg-smu)
+    |  |     |  +-- smu-attr
+    |  |     |     +-- package-state?   install-ios-xe-oper:install-package-state
+    |  |     |     +-- pkg-info-data
+    |  |     |        +-- common-data
+    |  |     |        |  +-- generic-info
+    |  |     |        |     +-- name?           string
+    |  |     |        |     +-- build-time?     yang:date-and-time
+    |  |     |        |     +-- release-date?   yang:date-and-time
+    |  |     |        |     +-- user-name?      string
+    |  |     |        |     +-- package-name?   string
+    |  |     |        |     +-- build-name?     string
+    |  |     |        +-- defect?        string
+    |  |     |        +-- smu-data
+    |  |     |           +-- smu-id?                uint32
+    |  |     |           +-- smu-mode?              install-ios-xe-oper:install-mode
+    |  |     |           +-- smu-supersedes-list*   uint32
+    |  |     |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |  |     |           +-- smu-compatible-with?   string
+    |  |     |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |  |     |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |  |     |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |  |     |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |  |     |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |  |     |           +-- smu-fixes-list*        string
+    |  |     |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |  |     |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |  |     +--:(install-pkg-subpkg)
+    |  |     |  +-- subpkg-attr
+    |  |     |     +-- package-state?   install-ios-xe-oper:install-package-state
+    |  |     |     +-- pkg-info-data
+    |  |     |        +-- common-data
+    |  |     |        |  +-- generic-info
+    |  |     |        |     +-- name?           string
+    |  |     |        |     +-- build-time?     yang:date-and-time
+    |  |     |        |     +-- release-date?   yang:date-and-time
+    |  |     |        |     +-- user-name?      string
+    |  |     |        |     +-- package-name?   string
+    |  |     |        |     +-- build-name?     string
+    |  |     |        +-- subpkg-type?   string
+    |  |     |        +-- smu-data
+    |  |     |           +-- smu-id?                uint32
+    |  |     |           +-- smu-mode?              install-ios-xe-oper:install-mode
+    |  |     |           +-- smu-supersedes-list*   uint32
+    |  |     |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |  |     |           +-- smu-compatible-with?   string
+    |  |     |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |  |     |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |  |     |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |  |     |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |  |     |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |  |     |           +-- smu-fixes-list*        string
+    |  |     |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |  |     |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |  |     +--:(install-pkg-dmp)
+    |  |     |  +-- dmp-attr
+    |  |     |     +-- package-state?   install-ios-xe-oper:install-package-state
+    |  |     |     +-- pkg-info-data
+    |  |     |        +-- common-data
+    |  |     |        |  +-- generic-info
+    |  |     |        |     +-- name?           string
+    |  |     |        |     +-- build-time?     yang:date-and-time
+    |  |     |        |     +-- release-date?   yang:date-and-time
+    |  |     |        |     +-- user-name?      string
+    |  |     |        |     +-- package-name?   string
+    |  |     |        |     +-- build-name?     string
+    |  |     |        +-- defect?        string
+    |  |     |        +-- smu-data
+    |  |     |           +-- smu-id?                uint32
+    |  |     |           +-- smu-mode?              install-ios-xe-oper:install-mode
+    |  |     |           +-- smu-supersedes-list*   uint32
+    |  |     |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |  |     |           +-- smu-compatible-with?   string
+    |  |     |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |  |     |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |  |     |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |  |     |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |  |     |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |  |     |           +-- smu-fixes-list*        string
+    |  |     |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |  |     |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |  |     +--:(install-pkg-apsp)
+    |  |     |  +-- apsp-attr
+    |  |     |     +-- package-state?   install-ios-xe-oper:install-package-state
+    |  |     |     +-- pkg-info-data
+    |  |     |        +-- common-data
+    |  |     |        |  +-- generic-info
+    |  |     |        |     +-- name?           string
+    |  |     |        |     +-- build-time?     yang:date-and-time
+    |  |     |        |     +-- release-date?   yang:date-and-time
+    |  |     |        |     +-- user-name?      string
+    |  |     |        |     +-- package-name?   string
+    |  |     |        |     +-- build-name?     string
+    |  |     |        +-- defect?        string
+    |  |     |        +-- smu-data
+    |  |     |           +-- smu-id?                uint32
+    |  |     |           +-- smu-mode?              install-ios-xe-oper:install-mode
+    |  |     |           +-- smu-supersedes-list*   uint32
+    |  |     |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |  |     |           +-- smu-compatible-with?   string
+    |  |     |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |  |     |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |  |     |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |  |     |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |  |     |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |  |     |           +-- smu-fixes-list*        string
+    |  |     |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |  |     |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |  |     +--:(install-pkg-apdp)
+    |  |        +-- apdp-attr
+    |  |           +-- package-state?   install-ios-xe-oper:install-package-state
+    |  |           +-- pkg-info-data
+    |  |              +-- common-data
+    |  |              |  +-- generic-info
+    |  |              |     +-- name?           string
+    |  |              |     +-- build-time?     yang:date-and-time
+    |  |              |     +-- release-date?   yang:date-and-time
+    |  |              |     +-- user-name?      string
+    |  |              |     +-- package-name?   string
+    |  |              |     +-- build-name?     string
+    |  |              +-- defect?        string
+    |  |              +-- smu-data
+    |  |                 +-- smu-id?                uint32
+    |  |                 +-- smu-mode?              install-ios-xe-oper:install-mode
+    |  |                 +-- smu-supersedes-list*   uint32
+    |  |                 +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |  |                 +-- smu-compatible-with?   string
+    |  |                 +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |  |                 +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |  |                 +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |  |                 +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |  |                 +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |  |                 +-- smu-fixes-list*        string
+    |  |                 +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |  |                 +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |  +-- install-related-packages* [version pkg-name]
+    |     +-- version?                     string
+    |     +-- pkg-name?                    string
+    |     +-- pkg-data
+    |     |  +-- pkg-name?            string
+    |     |  +-- version?             string
+    |     |  +-- checksum?            string
+    |     |  +-- pkg-size?            uint64
+    |     |  +-- verify-status?       install-ios-xe-oper:install-package-verify-status
+    |     |  +--ro pkg-type?            install-ios-xe-oper:install-package-type
+    |     |  +-- (pkg-type-choice)?
+    |     |     +--:(install-pkg-img)
+    |     |     |  +-- img-attr
+    |     |     |     +-- timestamp?             yang:date-and-time
+    |     |     |     +-- header-size?           uint32
+    |     |     |     +-- header-package-type?   install-ios-xe-oper:install-header-package-type
+    |     |     |     +-- pkg-info-data
+    |     |     |        +-- common-data
+    |     |     |           +-- generic-info
+    |     |     |              +-- name?           string
+    |     |     |              +-- build-time?     yang:date-and-time
+    |     |     |              +-- release-date?   yang:date-and-time
+    |     |     |              +-- user-name?      string
+    |     |     |              +-- package-name?   string
+    |     |     |              +-- build-name?     string
+    |     |     +--:(install-pkg-smu)
+    |     |     |  +-- smu-attr
+    |     |     |     +-- package-state?   install-ios-xe-oper:install-package-state
+    |     |     |     +-- pkg-info-data
+    |     |     |        +-- common-data
+    |     |     |        |  +-- generic-info
+    |     |     |        |     +-- name?           string
+    |     |     |        |     +-- build-time?     yang:date-and-time
+    |     |     |        |     +-- release-date?   yang:date-and-time
+    |     |     |        |     +-- user-name?      string
+    |     |     |        |     +-- package-name?   string
+    |     |     |        |     +-- build-name?     string
+    |     |     |        +-- defect?        string
+    |     |     |        +-- smu-data
+    |     |     |           +-- smu-id?                uint32
+    |     |     |           +-- smu-mode?              install-ios-xe-oper:install-mode
+    |     |     |           +-- smu-supersedes-list*   uint32
+    |     |     |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |     |     |           +-- smu-compatible-with?   string
+    |     |     |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |     |     |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |     |     |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |     |     |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |     |     |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |     |     |           +-- smu-fixes-list*        string
+    |     |     |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |     |     |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |     |     +--:(install-pkg-subpkg)
+    |     |     |  +-- subpkg-attr
+    |     |     |     +-- package-state?   install-ios-xe-oper:install-package-state
+    |     |     |     +-- pkg-info-data
+    |     |     |        +-- common-data
+    |     |     |        |  +-- generic-info
+    |     |     |        |     +-- name?           string
+    |     |     |        |     +-- build-time?     yang:date-and-time
+    |     |     |        |     +-- release-date?   yang:date-and-time
+    |     |     |        |     +-- user-name?      string
+    |     |     |        |     +-- package-name?   string
+    |     |     |        |     +-- build-name?     string
+    |     |     |        +-- subpkg-type?   string
+    |     |     |        +-- smu-data
+    |     |     |           +-- smu-id?                uint32
+    |     |     |           +-- smu-mode?              install-ios-xe-oper:install-mode
+    |     |     |           +-- smu-supersedes-list*   uint32
+    |     |     |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |     |     |           +-- smu-compatible-with?   string
+    |     |     |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |     |     |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |     |     |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |     |     |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |     |     |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |     |     |           +-- smu-fixes-list*        string
+    |     |     |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |     |     |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |     |     +--:(install-pkg-dmp)
+    |     |     |  +-- dmp-attr
+    |     |     |     +-- package-state?   install-ios-xe-oper:install-package-state
+    |     |     |     +-- pkg-info-data
+    |     |     |        +-- common-data
+    |     |     |        |  +-- generic-info
+    |     |     |        |     +-- name?           string
+    |     |     |        |     +-- build-time?     yang:date-and-time
+    |     |     |        |     +-- release-date?   yang:date-and-time
+    |     |     |        |     +-- user-name?      string
+    |     |     |        |     +-- package-name?   string
+    |     |     |        |     +-- build-name?     string
+    |     |     |        +-- defect?        string
+    |     |     |        +-- smu-data
+    |     |     |           +-- smu-id?                uint32
+    |     |     |           +-- smu-mode?              install-ios-xe-oper:install-mode
+    |     |     |           +-- smu-supersedes-list*   uint32
+    |     |     |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |     |     |           +-- smu-compatible-with?   string
+    |     |     |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |     |     |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |     |     |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |     |     |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |     |     |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |     |     |           +-- smu-fixes-list*        string
+    |     |     |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |     |     |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |     |     +--:(install-pkg-apsp)
+    |     |     |  +-- apsp-attr
+    |     |     |     +-- package-state?   install-ios-xe-oper:install-package-state
+    |     |     |     +-- pkg-info-data
+    |     |     |        +-- common-data
+    |     |     |        |  +-- generic-info
+    |     |     |        |     +-- name?           string
+    |     |     |        |     +-- build-time?     yang:date-and-time
+    |     |     |        |     +-- release-date?   yang:date-and-time
+    |     |     |        |     +-- user-name?      string
+    |     |     |        |     +-- package-name?   string
+    |     |     |        |     +-- build-name?     string
+    |     |     |        +-- defect?        string
+    |     |     |        +-- smu-data
+    |     |     |           +-- smu-id?                uint32
+    |     |     |           +-- smu-mode?              install-ios-xe-oper:install-mode
+    |     |     |           +-- smu-supersedes-list*   uint32
+    |     |     |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |     |     |           +-- smu-compatible-with?   string
+    |     |     |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |     |     |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |     |     |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |     |     |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |     |     |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |     |     |           +-- smu-fixes-list*        string
+    |     |     |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |     |     |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |     |     +--:(install-pkg-apdp)
+    |     |        +-- apdp-attr
+    |     |           +-- package-state?   install-ios-xe-oper:install-package-state
+    |     |           +-- pkg-info-data
+    |     |              +-- common-data
+    |     |              |  +-- generic-info
+    |     |              |     +-- name?           string
+    |     |              |     +-- build-time?     yang:date-and-time
+    |     |              |     +-- release-date?   yang:date-and-time
+    |     |              |     +-- user-name?      string
+    |     |              |     +-- package-name?   string
+    |     |              |     +-- build-name?     string
+    |     |              +-- defect?        string
+    |     |              +-- smu-data
+    |     |                 +-- smu-id?                uint32
+    |     |                 +-- smu-mode?              install-ios-xe-oper:install-mode
+    |     |                 +-- smu-supersedes-list*   uint32
+    |     |                 +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |     |                 +-- smu-compatible-with?   string
+    |     |                 +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |     |                 +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |     |                 +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |     |                 +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |     |                 +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |     |                 +-- smu-fixes-list*        string
+    |     |                 +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |     |                 +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |     +-- install-included-packages* [inc-version inc-pkg-name]
+    |        +-- inc-version?         string
+    |        +-- inc-pkg-name?        string
+    |        +-- pkg-name?            string
+    |        +-- version?             string
+    |        +-- checksum?            string
+    |        +-- pkg-size?            uint64
+    |        +-- verify-status?       install-ios-xe-oper:install-package-verify-status
+    |        +--ro pkg-type?            install-ios-xe-oper:install-package-type
+    |        +-- (pkg-type-choice)?
+    |           +--:(install-pkg-img)
+    |           |  +-- img-attr
+    |           |     +-- timestamp?             yang:date-and-time
+    |           |     +-- header-size?           uint32
+    |           |     +-- header-package-type?   install-ios-xe-oper:install-header-package-type
+    |           |     +-- pkg-info-data
+    |           |        +-- common-data
+    |           |           +-- generic-info
+    |           |              +-- name?           string
+    |           |              +-- build-time?     yang:date-and-time
+    |           |              +-- release-date?   yang:date-and-time
+    |           |              +-- user-name?      string
+    |           |              +-- package-name?   string
+    |           |              +-- build-name?     string
+    |           +--:(install-pkg-smu)
+    |           |  +-- smu-attr
+    |           |     +-- package-state?   install-ios-xe-oper:install-package-state
+    |           |     +-- pkg-info-data
+    |           |        +-- common-data
+    |           |        |  +-- generic-info
+    |           |        |     +-- name?           string
+    |           |        |     +-- build-time?     yang:date-and-time
+    |           |        |     +-- release-date?   yang:date-and-time
+    |           |        |     +-- user-name?      string
+    |           |        |     +-- package-name?   string
+    |           |        |     +-- build-name?     string
+    |           |        +-- defect?        string
+    |           |        +-- smu-data
+    |           |           +-- smu-id?                uint32
+    |           |           +-- smu-mode?              install-ios-xe-oper:install-mode
+    |           |           +-- smu-supersedes-list*   uint32
+    |           |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |           |           +-- smu-compatible-with?   string
+    |           |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |           |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |           |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |           |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |           |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |           |           +-- smu-fixes-list*        string
+    |           |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |           |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |           +--:(install-pkg-subpkg)
+    |           |  +-- subpkg-attr
+    |           |     +-- package-state?   install-ios-xe-oper:install-package-state
+    |           |     +-- pkg-info-data
+    |           |        +-- common-data
+    |           |        |  +-- generic-info
+    |           |        |     +-- name?           string
+    |           |        |     +-- build-time?     yang:date-and-time
+    |           |        |     +-- release-date?   yang:date-and-time
+    |           |        |     +-- user-name?      string
+    |           |        |     +-- package-name?   string
+    |           |        |     +-- build-name?     string
+    |           |        +-- subpkg-type?   string
+    |           |        +-- smu-data
+    |           |           +-- smu-id?                uint32
+    |           |           +-- smu-mode?              install-ios-xe-oper:install-mode
+    |           |           +-- smu-supersedes-list*   uint32
+    |           |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |           |           +-- smu-compatible-with?   string
+    |           |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |           |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |           |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |           |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |           |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |           |           +-- smu-fixes-list*        string
+    |           |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |           |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |           +--:(install-pkg-dmp)
+    |           |  +-- dmp-attr
+    |           |     +-- package-state?   install-ios-xe-oper:install-package-state
+    |           |     +-- pkg-info-data
+    |           |        +-- common-data
+    |           |        |  +-- generic-info
+    |           |        |     +-- name?           string
+    |           |        |     +-- build-time?     yang:date-and-time
+    |           |        |     +-- release-date?   yang:date-and-time
+    |           |        |     +-- user-name?      string
+    |           |        |     +-- package-name?   string
+    |           |        |     +-- build-name?     string
+    |           |        +-- defect?        string
+    |           |        +-- smu-data
+    |           |           +-- smu-id?                uint32
+    |           |           +-- smu-mode?              install-ios-xe-oper:install-mode
+    |           |           +-- smu-supersedes-list*   uint32
+    |           |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |           |           +-- smu-compatible-with?   string
+    |           |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |           |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |           |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |           |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |           |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |           |           +-- smu-fixes-list*        string
+    |           |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |           |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |           +--:(install-pkg-apsp)
+    |           |  +-- apsp-attr
+    |           |     +-- package-state?   install-ios-xe-oper:install-package-state
+    |           |     +-- pkg-info-data
+    |           |        +-- common-data
+    |           |        |  +-- generic-info
+    |           |        |     +-- name?           string
+    |           |        |     +-- build-time?     yang:date-and-time
+    |           |        |     +-- release-date?   yang:date-and-time
+    |           |        |     +-- user-name?      string
+    |           |        |     +-- package-name?   string
+    |           |        |     +-- build-name?     string
+    |           |        +-- defect?        string
+    |           |        +-- smu-data
+    |           |           +-- smu-id?                uint32
+    |           |           +-- smu-mode?              install-ios-xe-oper:install-mode
+    |           |           +-- smu-supersedes-list*   uint32
+    |           |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |           |           +-- smu-compatible-with?   string
+    |           |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |           |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |           |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |           |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |           |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |           |           +-- smu-fixes-list*        string
+    |           |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |           |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |           +--:(install-pkg-apdp)
+    |              +-- apdp-attr
+    |                 +-- package-state?   install-ios-xe-oper:install-package-state
+    |                 +-- pkg-info-data
+    |                    +-- common-data
+    |                    |  +-- generic-info
+    |                    |     +-- name?           string
+    |                    |     +-- build-time?     yang:date-and-time
+    |                    |     +-- release-date?   yang:date-and-time
+    |                    |     +-- user-name?      string
+    |                    |     +-- package-name?   string
+    |                    |     +-- build-name?     string
+    |                    +-- defect?        string
+    |                    +-- smu-data
+    |                       +-- smu-id?                uint32
+    |                       +-- smu-mode?              install-ios-xe-oper:install-mode
+    |                       +-- smu-supersedes-list*   uint32
+    |                       +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |                       +-- smu-compatible-with?   string
+    |                       +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |                       +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |                       +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |                       +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |                       +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |                       +-- smu-fixes-list*        string
+    |                       +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |                       +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    +-- install-version-info* [version version-extension]
+    |  +-- version?                      string
+    |  +-- version-extension?            string
+    |  +-- is-default?                   boolean
+    |  +-- previous?                     install-ios-xe-oper:install-version-state
+    |  +-- current?                      install-ios-xe-oper:install-version-state
+    |  +-- src-filename?                 string
+    |  +-- src-checksum?                 string
+    |  +-- install-package-state-info* [package-type pkg-dir pkg-name]
+    |     +-- package-type?    install-ios-xe-oper:install-package-type
+    |     +-- pkg-dir?         string
+    |     +-- pkg-name?        string
+    |     +-- package-state?   install-ios-xe-oper:install-package-state
+    +-- install-version-state-info* [version-state]
+    |  +-- version-state?       install-ios-xe-oper:install-version-state
+    |  +-- version?             string
+    |  +-- version-extension?   string
+    +-- oper-state
+       +-- auto-abort-timer
+          +-- state?      install-ios-xe-oper:install-timer-state
+          +-- end-time?   yang:date-and-time
+  grouping install-package-path
+    +-- pkg-dir?    string
+    +-- pkg-name?   string
+  grouping install-package-data
+    +-- pkg-name?            string
+    +-- version?             string
+    +-- checksum?            string
+    +-- pkg-size?            uint64
+    +-- verify-status?       install-ios-xe-oper:install-package-verify-status
+    +--ro pkg-type?            install-ios-xe-oper:install-package-type
+    +-- (pkg-type-choice)?
+       +--:(install-pkg-img)
+       |  +-- img-attr
+       |     +-- timestamp?             yang:date-and-time
+       |     +-- header-size?           uint32
+       |     +-- header-package-type?   install-ios-xe-oper:install-header-package-type
+       |     +-- pkg-info-data
+       |        +-- common-data
+       |           +-- generic-info
+       |              +-- name?           string
+       |              +-- build-time?     yang:date-and-time
+       |              +-- release-date?   yang:date-and-time
+       |              +-- user-name?      string
+       |              +-- package-name?   string
+       |              +-- build-name?     string
+       +--:(install-pkg-smu)
+       |  +-- smu-attr
+       |     +-- package-state?   install-ios-xe-oper:install-package-state
+       |     +-- pkg-info-data
+       |        +-- common-data
+       |        |  +-- generic-info
+       |        |     +-- name?           string
+       |        |     +-- build-time?     yang:date-and-time
+       |        |     +-- release-date?   yang:date-and-time
+       |        |     +-- user-name?      string
+       |        |     +-- package-name?   string
+       |        |     +-- build-name?     string
+       |        +-- defect?        string
+       |        +-- smu-data
+       |           +-- smu-id?                uint32
+       |           +-- smu-mode?              install-ios-xe-oper:install-mode
+       |           +-- smu-supersedes-list*   uint32
+       |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+       |           +-- smu-compatible-with?   string
+       |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+       |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+       |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+       |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+       |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+       |           +-- smu-fixes-list*        string
+       |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+       |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+       +--:(install-pkg-subpkg)
+       |  +-- subpkg-attr
+       |     +-- package-state?   install-ios-xe-oper:install-package-state
+       |     +-- pkg-info-data
+       |        +-- common-data
+       |        |  +-- generic-info
+       |        |     +-- name?           string
+       |        |     +-- build-time?     yang:date-and-time
+       |        |     +-- release-date?   yang:date-and-time
+       |        |     +-- user-name?      string
+       |        |     +-- package-name?   string
+       |        |     +-- build-name?     string
+       |        +-- subpkg-type?   string
+       |        +-- smu-data
+       |           +-- smu-id?                uint32
+       |           +-- smu-mode?              install-ios-xe-oper:install-mode
+       |           +-- smu-supersedes-list*   uint32
+       |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+       |           +-- smu-compatible-with?   string
+       |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+       |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+       |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+       |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+       |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+       |           +-- smu-fixes-list*        string
+       |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+       |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+       +--:(install-pkg-dmp)
+       |  +-- dmp-attr
+       |     +-- package-state?   install-ios-xe-oper:install-package-state
+       |     +-- pkg-info-data
+       |        +-- common-data
+       |        |  +-- generic-info
+       |        |     +-- name?           string
+       |        |     +-- build-time?     yang:date-and-time
+       |        |     +-- release-date?   yang:date-and-time
+       |        |     +-- user-name?      string
+       |        |     +-- package-name?   string
+       |        |     +-- build-name?     string
+       |        +-- defect?        string
+       |        +-- smu-data
+       |           +-- smu-id?                uint32
+       |           +-- smu-mode?              install-ios-xe-oper:install-mode
+       |           +-- smu-supersedes-list*   uint32
+       |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+       |           +-- smu-compatible-with?   string
+       |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+       |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+       |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+       |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+       |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+       |           +-- smu-fixes-list*        string
+       |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+       |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+       +--:(install-pkg-apsp)
+       |  +-- apsp-attr
+       |     +-- package-state?   install-ios-xe-oper:install-package-state
+       |     +-- pkg-info-data
+       |        +-- common-data
+       |        |  +-- generic-info
+       |        |     +-- name?           string
+       |        |     +-- build-time?     yang:date-and-time
+       |        |     +-- release-date?   yang:date-and-time
+       |        |     +-- user-name?      string
+       |        |     +-- package-name?   string
+       |        |     +-- build-name?     string
+       |        +-- defect?        string
+       |        +-- smu-data
+       |           +-- smu-id?                uint32
+       |           +-- smu-mode?              install-ios-xe-oper:install-mode
+       |           +-- smu-supersedes-list*   uint32
+       |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+       |           +-- smu-compatible-with?   string
+       |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+       |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+       |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+       |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+       |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+       |           +-- smu-fixes-list*        string
+       |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+       |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+       +--:(install-pkg-apdp)
+          +-- apdp-attr
+             +-- package-state?   install-ios-xe-oper:install-package-state
+             +-- pkg-info-data
+                +-- common-data
+                |  +-- generic-info
+                |     +-- name?           string
+                |     +-- build-time?     yang:date-and-time
+                |     +-- release-date?   yang:date-and-time
+                |     +-- user-name?      string
+                |     +-- package-name?   string
+                |     +-- build-name?     string
+                +-- defect?        string
+                +-- smu-data
+                   +-- smu-id?                uint32
+                   +-- smu-mode?              install-ios-xe-oper:install-mode
+                   +-- smu-supersedes-list*   uint32
+                   +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+                   +-- smu-compatible-with?   string
+                   +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+                   +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+                   +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+                   +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+                   +-- smu-class?             install-ios-xe-oper:install-smu-class
+                   +-- smu-fixes-list*        string
+                   +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+                   +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  grouping install-packages
+    +-- pkg-data
+    |  +-- pkg-name?            string
+    |  +-- version?             string
+    |  +-- checksum?            string
+    |  +-- pkg-size?            uint64
+    |  +-- verify-status?       install-ios-xe-oper:install-package-verify-status
+    |  +--ro pkg-type?            install-ios-xe-oper:install-package-type
+    |  +-- (pkg-type-choice)?
+    |     +--:(install-pkg-img)
+    |     |  +-- img-attr
+    |     |     +-- timestamp?             yang:date-and-time
+    |     |     +-- header-size?           uint32
+    |     |     +-- header-package-type?   install-ios-xe-oper:install-header-package-type
+    |     |     +-- pkg-info-data
+    |     |        +-- common-data
+    |     |           +-- generic-info
+    |     |              +-- name?           string
+    |     |              +-- build-time?     yang:date-and-time
+    |     |              +-- release-date?   yang:date-and-time
+    |     |              +-- user-name?      string
+    |     |              +-- package-name?   string
+    |     |              +-- build-name?     string
+    |     +--:(install-pkg-smu)
+    |     |  +-- smu-attr
+    |     |     +-- package-state?   install-ios-xe-oper:install-package-state
+    |     |     +-- pkg-info-data
+    |     |        +-- common-data
+    |     |        |  +-- generic-info
+    |     |        |     +-- name?           string
+    |     |        |     +-- build-time?     yang:date-and-time
+    |     |        |     +-- release-date?   yang:date-and-time
+    |     |        |     +-- user-name?      string
+    |     |        |     +-- package-name?   string
+    |     |        |     +-- build-name?     string
+    |     |        +-- defect?        string
+    |     |        +-- smu-data
+    |     |           +-- smu-id?                uint32
+    |     |           +-- smu-mode?              install-ios-xe-oper:install-mode
+    |     |           +-- smu-supersedes-list*   uint32
+    |     |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |     |           +-- smu-compatible-with?   string
+    |     |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |     |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |     |           +-- smu-fixes-list*        string
+    |     |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |     |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |     +--:(install-pkg-subpkg)
+    |     |  +-- subpkg-attr
+    |     |     +-- package-state?   install-ios-xe-oper:install-package-state
+    |     |     +-- pkg-info-data
+    |     |        +-- common-data
+    |     |        |  +-- generic-info
+    |     |        |     +-- name?           string
+    |     |        |     +-- build-time?     yang:date-and-time
+    |     |        |     +-- release-date?   yang:date-and-time
+    |     |        |     +-- user-name?      string
+    |     |        |     +-- package-name?   string
+    |     |        |     +-- build-name?     string
+    |     |        +-- subpkg-type?   string
+    |     |        +-- smu-data
+    |     |           +-- smu-id?                uint32
+    |     |           +-- smu-mode?              install-ios-xe-oper:install-mode
+    |     |           +-- smu-supersedes-list*   uint32
+    |     |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |     |           +-- smu-compatible-with?   string
+    |     |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |     |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |     |           +-- smu-fixes-list*        string
+    |     |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |     |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |     +--:(install-pkg-dmp)
+    |     |  +-- dmp-attr
+    |     |     +-- package-state?   install-ios-xe-oper:install-package-state
+    |     |     +-- pkg-info-data
+    |     |        +-- common-data
+    |     |        |  +-- generic-info
+    |     |        |     +-- name?           string
+    |     |        |     +-- build-time?     yang:date-and-time
+    |     |        |     +-- release-date?   yang:date-and-time
+    |     |        |     +-- user-name?      string
+    |     |        |     +-- package-name?   string
+    |     |        |     +-- build-name?     string
+    |     |        +-- defect?        string
+    |     |        +-- smu-data
+    |     |           +-- smu-id?                uint32
+    |     |           +-- smu-mode?              install-ios-xe-oper:install-mode
+    |     |           +-- smu-supersedes-list*   uint32
+    |     |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |     |           +-- smu-compatible-with?   string
+    |     |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |     |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |     |           +-- smu-fixes-list*        string
+    |     |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |     |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |     +--:(install-pkg-apsp)
+    |     |  +-- apsp-attr
+    |     |     +-- package-state?   install-ios-xe-oper:install-package-state
+    |     |     +-- pkg-info-data
+    |     |        +-- common-data
+    |     |        |  +-- generic-info
+    |     |        |     +-- name?           string
+    |     |        |     +-- build-time?     yang:date-and-time
+    |     |        |     +-- release-date?   yang:date-and-time
+    |     |        |     +-- user-name?      string
+    |     |        |     +-- package-name?   string
+    |     |        |     +-- build-name?     string
+    |     |        +-- defect?        string
+    |     |        +-- smu-data
+    |     |           +-- smu-id?                uint32
+    |     |           +-- smu-mode?              install-ios-xe-oper:install-mode
+    |     |           +-- smu-supersedes-list*   uint32
+    |     |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |     |           +-- smu-compatible-with?   string
+    |     |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |     |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |     |           +-- smu-fixes-list*        string
+    |     |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |     |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |     +--:(install-pkg-apdp)
+    |        +-- apdp-attr
+    |           +-- package-state?   install-ios-xe-oper:install-package-state
+    |           +-- pkg-info-data
+    |              +-- common-data
+    |              |  +-- generic-info
+    |              |     +-- name?           string
+    |              |     +-- build-time?     yang:date-and-time
+    |              |     +-- release-date?   yang:date-and-time
+    |              |     +-- user-name?      string
+    |              |     +-- package-name?   string
+    |              |     +-- build-name?     string
+    |              +-- defect?        string
+    |              +-- smu-data
+    |                 +-- smu-id?                uint32
+    |                 +-- smu-mode?              install-ios-xe-oper:install-mode
+    |                 +-- smu-supersedes-list*   uint32
+    |                 +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |                 +-- smu-compatible-with?   string
+    |                 +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |                 +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |                 +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |                 +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |                 +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |                 +-- smu-fixes-list*        string
+    |                 +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |                 +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    +-- install-included-packages* [inc-version inc-pkg-name]
+       +-- inc-version?         string
+       +-- inc-pkg-name?        string
+       +-- pkg-name?            string
+       +-- version?             string
+       +-- checksum?            string
+       +-- pkg-size?            uint64
+       +-- verify-status?       install-ios-xe-oper:install-package-verify-status
+       +--ro pkg-type?            install-ios-xe-oper:install-package-type
+       +-- (pkg-type-choice)?
+          +--:(install-pkg-img)
+          |  +-- img-attr
+          |     +-- timestamp?             yang:date-and-time
+          |     +-- header-size?           uint32
+          |     +-- header-package-type?   install-ios-xe-oper:install-header-package-type
+          |     +-- pkg-info-data
+          |        +-- common-data
+          |           +-- generic-info
+          |              +-- name?           string
+          |              +-- build-time?     yang:date-and-time
+          |              +-- release-date?   yang:date-and-time
+          |              +-- user-name?      string
+          |              +-- package-name?   string
+          |              +-- build-name?     string
+          +--:(install-pkg-smu)
+          |  +-- smu-attr
+          |     +-- package-state?   install-ios-xe-oper:install-package-state
+          |     +-- pkg-info-data
+          |        +-- common-data
+          |        |  +-- generic-info
+          |        |     +-- name?           string
+          |        |     +-- build-time?     yang:date-and-time
+          |        |     +-- release-date?   yang:date-and-time
+          |        |     +-- user-name?      string
+          |        |     +-- package-name?   string
+          |        |     +-- build-name?     string
+          |        +-- defect?        string
+          |        +-- smu-data
+          |           +-- smu-id?                uint32
+          |           +-- smu-mode?              install-ios-xe-oper:install-mode
+          |           +-- smu-supersedes-list*   uint32
+          |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+          |           +-- smu-compatible-with?   string
+          |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+          |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+          |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+          |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+          |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+          |           +-- smu-fixes-list*        string
+          |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+          |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+          +--:(install-pkg-subpkg)
+          |  +-- subpkg-attr
+          |     +-- package-state?   install-ios-xe-oper:install-package-state
+          |     +-- pkg-info-data
+          |        +-- common-data
+          |        |  +-- generic-info
+          |        |     +-- name?           string
+          |        |     +-- build-time?     yang:date-and-time
+          |        |     +-- release-date?   yang:date-and-time
+          |        |     +-- user-name?      string
+          |        |     +-- package-name?   string
+          |        |     +-- build-name?     string
+          |        +-- subpkg-type?   string
+          |        +-- smu-data
+          |           +-- smu-id?                uint32
+          |           +-- smu-mode?              install-ios-xe-oper:install-mode
+          |           +-- smu-supersedes-list*   uint32
+          |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+          |           +-- smu-compatible-with?   string
+          |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+          |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+          |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+          |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+          |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+          |           +-- smu-fixes-list*        string
+          |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+          |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+          +--:(install-pkg-dmp)
+          |  +-- dmp-attr
+          |     +-- package-state?   install-ios-xe-oper:install-package-state
+          |     +-- pkg-info-data
+          |        +-- common-data
+          |        |  +-- generic-info
+          |        |     +-- name?           string
+          |        |     +-- build-time?     yang:date-and-time
+          |        |     +-- release-date?   yang:date-and-time
+          |        |     +-- user-name?      string
+          |        |     +-- package-name?   string
+          |        |     +-- build-name?     string
+          |        +-- defect?        string
+          |        +-- smu-data
+          |           +-- smu-id?                uint32
+          |           +-- smu-mode?              install-ios-xe-oper:install-mode
+          |           +-- smu-supersedes-list*   uint32
+          |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+          |           +-- smu-compatible-with?   string
+          |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+          |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+          |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+          |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+          |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+          |           +-- smu-fixes-list*        string
+          |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+          |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+          +--:(install-pkg-apsp)
+          |  +-- apsp-attr
+          |     +-- package-state?   install-ios-xe-oper:install-package-state
+          |     +-- pkg-info-data
+          |        +-- common-data
+          |        |  +-- generic-info
+          |        |     +-- name?           string
+          |        |     +-- build-time?     yang:date-and-time
+          |        |     +-- release-date?   yang:date-and-time
+          |        |     +-- user-name?      string
+          |        |     +-- package-name?   string
+          |        |     +-- build-name?     string
+          |        +-- defect?        string
+          |        +-- smu-data
+          |           +-- smu-id?                uint32
+          |           +-- smu-mode?              install-ios-xe-oper:install-mode
+          |           +-- smu-supersedes-list*   uint32
+          |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+          |           +-- smu-compatible-with?   string
+          |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+          |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+          |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+          |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+          |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+          |           +-- smu-fixes-list*        string
+          |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+          |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+          +--:(install-pkg-apdp)
+             +-- apdp-attr
+                +-- package-state?   install-ios-xe-oper:install-package-state
+                +-- pkg-info-data
+                   +-- common-data
+                   |  +-- generic-info
+                   |     +-- name?           string
+                   |     +-- build-time?     yang:date-and-time
+                   |     +-- release-date?   yang:date-and-time
+                   |     +-- user-name?      string
+                   |     +-- package-name?   string
+                   |     +-- build-name?     string
+                   +-- defect?        string
+                   +-- smu-data
+                      +-- smu-id?                uint32
+                      +-- smu-mode?              install-ios-xe-oper:install-mode
+                      +-- smu-supersedes-list*   uint32
+                      +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+                      +-- smu-compatible-with?   string
+                      +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+                      +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+                      +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+                      +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+                      +-- smu-class?             install-ios-xe-oper:install-smu-class
+                      +-- smu-fixes-list*        string
+                      +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+                      +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  grouping install-package-data-key
+    +-- version?    string
+    +-- pkg-name?   string
+  grouping install-include-pkg-key
+    +-- inc-version?    string
+    +-- inc-pkg-name?   string
+  grouping install-package-info
+    +-- ios-dir?                    string
+    +-- pkg-data
+    |  +-- pkg-name?            string
+    |  +-- version?             string
+    |  +-- checksum?            string
+    |  +-- pkg-size?            uint64
+    |  +-- verify-status?       install-ios-xe-oper:install-package-verify-status
+    |  +--ro pkg-type?            install-ios-xe-oper:install-package-type
+    |  +-- (pkg-type-choice)?
+    |     +--:(install-pkg-img)
+    |     |  +-- img-attr
+    |     |     +-- timestamp?             yang:date-and-time
+    |     |     +-- header-size?           uint32
+    |     |     +-- header-package-type?   install-ios-xe-oper:install-header-package-type
+    |     |     +-- pkg-info-data
+    |     |        +-- common-data
+    |     |           +-- generic-info
+    |     |              +-- name?           string
+    |     |              +-- build-time?     yang:date-and-time
+    |     |              +-- release-date?   yang:date-and-time
+    |     |              +-- user-name?      string
+    |     |              +-- package-name?   string
+    |     |              +-- build-name?     string
+    |     +--:(install-pkg-smu)
+    |     |  +-- smu-attr
+    |     |     +-- package-state?   install-ios-xe-oper:install-package-state
+    |     |     +-- pkg-info-data
+    |     |        +-- common-data
+    |     |        |  +-- generic-info
+    |     |        |     +-- name?           string
+    |     |        |     +-- build-time?     yang:date-and-time
+    |     |        |     +-- release-date?   yang:date-and-time
+    |     |        |     +-- user-name?      string
+    |     |        |     +-- package-name?   string
+    |     |        |     +-- build-name?     string
+    |     |        +-- defect?        string
+    |     |        +-- smu-data
+    |     |           +-- smu-id?                uint32
+    |     |           +-- smu-mode?              install-ios-xe-oper:install-mode
+    |     |           +-- smu-supersedes-list*   uint32
+    |     |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |     |           +-- smu-compatible-with?   string
+    |     |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |     |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |     |           +-- smu-fixes-list*        string
+    |     |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |     |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |     +--:(install-pkg-subpkg)
+    |     |  +-- subpkg-attr
+    |     |     +-- package-state?   install-ios-xe-oper:install-package-state
+    |     |     +-- pkg-info-data
+    |     |        +-- common-data
+    |     |        |  +-- generic-info
+    |     |        |     +-- name?           string
+    |     |        |     +-- build-time?     yang:date-and-time
+    |     |        |     +-- release-date?   yang:date-and-time
+    |     |        |     +-- user-name?      string
+    |     |        |     +-- package-name?   string
+    |     |        |     +-- build-name?     string
+    |     |        +-- subpkg-type?   string
+    |     |        +-- smu-data
+    |     |           +-- smu-id?                uint32
+    |     |           +-- smu-mode?              install-ios-xe-oper:install-mode
+    |     |           +-- smu-supersedes-list*   uint32
+    |     |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |     |           +-- smu-compatible-with?   string
+    |     |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |     |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |     |           +-- smu-fixes-list*        string
+    |     |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |     |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |     +--:(install-pkg-dmp)
+    |     |  +-- dmp-attr
+    |     |     +-- package-state?   install-ios-xe-oper:install-package-state
+    |     |     +-- pkg-info-data
+    |     |        +-- common-data
+    |     |        |  +-- generic-info
+    |     |        |     +-- name?           string
+    |     |        |     +-- build-time?     yang:date-and-time
+    |     |        |     +-- release-date?   yang:date-and-time
+    |     |        |     +-- user-name?      string
+    |     |        |     +-- package-name?   string
+    |     |        |     +-- build-name?     string
+    |     |        +-- defect?        string
+    |     |        +-- smu-data
+    |     |           +-- smu-id?                uint32
+    |     |           +-- smu-mode?              install-ios-xe-oper:install-mode
+    |     |           +-- smu-supersedes-list*   uint32
+    |     |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |     |           +-- smu-compatible-with?   string
+    |     |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |     |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |     |           +-- smu-fixes-list*        string
+    |     |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |     |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |     +--:(install-pkg-apsp)
+    |     |  +-- apsp-attr
+    |     |     +-- package-state?   install-ios-xe-oper:install-package-state
+    |     |     +-- pkg-info-data
+    |     |        +-- common-data
+    |     |        |  +-- generic-info
+    |     |        |     +-- name?           string
+    |     |        |     +-- build-time?     yang:date-and-time
+    |     |        |     +-- release-date?   yang:date-and-time
+    |     |        |     +-- user-name?      string
+    |     |        |     +-- package-name?   string
+    |     |        |     +-- build-name?     string
+    |     |        +-- defect?        string
+    |     |        +-- smu-data
+    |     |           +-- smu-id?                uint32
+    |     |           +-- smu-mode?              install-ios-xe-oper:install-mode
+    |     |           +-- smu-supersedes-list*   uint32
+    |     |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |     |           +-- smu-compatible-with?   string
+    |     |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |     |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |     |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |     |           +-- smu-fixes-list*        string
+    |     |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |     |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    |     +--:(install-pkg-apdp)
+    |        +-- apdp-attr
+    |           +-- package-state?   install-ios-xe-oper:install-package-state
+    |           +-- pkg-info-data
+    |              +-- common-data
+    |              |  +-- generic-info
+    |              |     +-- name?           string
+    |              |     +-- build-time?     yang:date-and-time
+    |              |     +-- release-date?   yang:date-and-time
+    |              |     +-- user-name?      string
+    |              |     +-- package-name?   string
+    |              |     +-- build-name?     string
+    |              +-- defect?        string
+    |              +-- smu-data
+    |                 +-- smu-id?                uint32
+    |                 +-- smu-mode?              install-ios-xe-oper:install-mode
+    |                 +-- smu-supersedes-list*   uint32
+    |                 +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+    |                 +-- smu-compatible-with?   string
+    |                 +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+    |                 +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+    |                 +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+    |                 +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+    |                 +-- smu-class?             install-ios-xe-oper:install-smu-class
+    |                 +-- smu-fixes-list*        string
+    |                 +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+    |                 +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+    +-- install-related-packages* [version pkg-name]
+       +-- version?                     string
+       +-- pkg-name?                    string
+       +-- pkg-data
+       |  +-- pkg-name?            string
+       |  +-- version?             string
+       |  +-- checksum?            string
+       |  +-- pkg-size?            uint64
+       |  +-- verify-status?       install-ios-xe-oper:install-package-verify-status
+       |  +--ro pkg-type?            install-ios-xe-oper:install-package-type
+       |  +-- (pkg-type-choice)?
+       |     +--:(install-pkg-img)
+       |     |  +-- img-attr
+       |     |     +-- timestamp?             yang:date-and-time
+       |     |     +-- header-size?           uint32
+       |     |     +-- header-package-type?   install-ios-xe-oper:install-header-package-type
+       |     |     +-- pkg-info-data
+       |     |        +-- common-data
+       |     |           +-- generic-info
+       |     |              +-- name?           string
+       |     |              +-- build-time?     yang:date-and-time
+       |     |              +-- release-date?   yang:date-and-time
+       |     |              +-- user-name?      string
+       |     |              +-- package-name?   string
+       |     |              +-- build-name?     string
+       |     +--:(install-pkg-smu)
+       |     |  +-- smu-attr
+       |     |     +-- package-state?   install-ios-xe-oper:install-package-state
+       |     |     +-- pkg-info-data
+       |     |        +-- common-data
+       |     |        |  +-- generic-info
+       |     |        |     +-- name?           string
+       |     |        |     +-- build-time?     yang:date-and-time
+       |     |        |     +-- release-date?   yang:date-and-time
+       |     |        |     +-- user-name?      string
+       |     |        |     +-- package-name?   string
+       |     |        |     +-- build-name?     string
+       |     |        +-- defect?        string
+       |     |        +-- smu-data
+       |     |           +-- smu-id?                uint32
+       |     |           +-- smu-mode?              install-ios-xe-oper:install-mode
+       |     |           +-- smu-supersedes-list*   uint32
+       |     |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+       |     |           +-- smu-compatible-with?   string
+       |     |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+       |     |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+       |     |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+       |     |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+       |     |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+       |     |           +-- smu-fixes-list*        string
+       |     |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+       |     |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+       |     +--:(install-pkg-subpkg)
+       |     |  +-- subpkg-attr
+       |     |     +-- package-state?   install-ios-xe-oper:install-package-state
+       |     |     +-- pkg-info-data
+       |     |        +-- common-data
+       |     |        |  +-- generic-info
+       |     |        |     +-- name?           string
+       |     |        |     +-- build-time?     yang:date-and-time
+       |     |        |     +-- release-date?   yang:date-and-time
+       |     |        |     +-- user-name?      string
+       |     |        |     +-- package-name?   string
+       |     |        |     +-- build-name?     string
+       |     |        +-- subpkg-type?   string
+       |     |        +-- smu-data
+       |     |           +-- smu-id?                uint32
+       |     |           +-- smu-mode?              install-ios-xe-oper:install-mode
+       |     |           +-- smu-supersedes-list*   uint32
+       |     |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+       |     |           +-- smu-compatible-with?   string
+       |     |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+       |     |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+       |     |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+       |     |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+       |     |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+       |     |           +-- smu-fixes-list*        string
+       |     |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+       |     |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+       |     +--:(install-pkg-dmp)
+       |     |  +-- dmp-attr
+       |     |     +-- package-state?   install-ios-xe-oper:install-package-state
+       |     |     +-- pkg-info-data
+       |     |        +-- common-data
+       |     |        |  +-- generic-info
+       |     |        |     +-- name?           string
+       |     |        |     +-- build-time?     yang:date-and-time
+       |     |        |     +-- release-date?   yang:date-and-time
+       |     |        |     +-- user-name?      string
+       |     |        |     +-- package-name?   string
+       |     |        |     +-- build-name?     string
+       |     |        +-- defect?        string
+       |     |        +-- smu-data
+       |     |           +-- smu-id?                uint32
+       |     |           +-- smu-mode?              install-ios-xe-oper:install-mode
+       |     |           +-- smu-supersedes-list*   uint32
+       |     |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+       |     |           +-- smu-compatible-with?   string
+       |     |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+       |     |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+       |     |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+       |     |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+       |     |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+       |     |           +-- smu-fixes-list*        string
+       |     |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+       |     |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+       |     +--:(install-pkg-apsp)
+       |     |  +-- apsp-attr
+       |     |     +-- package-state?   install-ios-xe-oper:install-package-state
+       |     |     +-- pkg-info-data
+       |     |        +-- common-data
+       |     |        |  +-- generic-info
+       |     |        |     +-- name?           string
+       |     |        |     +-- build-time?     yang:date-and-time
+       |     |        |     +-- release-date?   yang:date-and-time
+       |     |        |     +-- user-name?      string
+       |     |        |     +-- package-name?   string
+       |     |        |     +-- build-name?     string
+       |     |        +-- defect?        string
+       |     |        +-- smu-data
+       |     |           +-- smu-id?                uint32
+       |     |           +-- smu-mode?              install-ios-xe-oper:install-mode
+       |     |           +-- smu-supersedes-list*   uint32
+       |     |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+       |     |           +-- smu-compatible-with?   string
+       |     |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+       |     |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+       |     |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+       |     |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+       |     |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+       |     |           +-- smu-fixes-list*        string
+       |     |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+       |     |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+       |     +--:(install-pkg-apdp)
+       |        +-- apdp-attr
+       |           +-- package-state?   install-ios-xe-oper:install-package-state
+       |           +-- pkg-info-data
+       |              +-- common-data
+       |              |  +-- generic-info
+       |              |     +-- name?           string
+       |              |     +-- build-time?     yang:date-and-time
+       |              |     +-- release-date?   yang:date-and-time
+       |              |     +-- user-name?      string
+       |              |     +-- package-name?   string
+       |              |     +-- build-name?     string
+       |              +-- defect?        string
+       |              +-- smu-data
+       |                 +-- smu-id?                uint32
+       |                 +-- smu-mode?              install-ios-xe-oper:install-mode
+       |                 +-- smu-supersedes-list*   uint32
+       |                 +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+       |                 +-- smu-compatible-with?   string
+       |                 +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+       |                 +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+       |                 +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+       |                 +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+       |                 +-- smu-class?             install-ios-xe-oper:install-smu-class
+       |                 +-- smu-fixes-list*        string
+       |                 +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+       |                 +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+       +-- install-included-packages* [inc-version inc-pkg-name]
+          +-- inc-version?         string
+          +-- inc-pkg-name?        string
+          +-- pkg-name?            string
+          +-- version?             string
+          +-- checksum?            string
+          +-- pkg-size?            uint64
+          +-- verify-status?       install-ios-xe-oper:install-package-verify-status
+          +--ro pkg-type?            install-ios-xe-oper:install-package-type
+          +-- (pkg-type-choice)?
+             +--:(install-pkg-img)
+             |  +-- img-attr
+             |     +-- timestamp?             yang:date-and-time
+             |     +-- header-size?           uint32
+             |     +-- header-package-type?   install-ios-xe-oper:install-header-package-type
+             |     +-- pkg-info-data
+             |        +-- common-data
+             |           +-- generic-info
+             |              +-- name?           string
+             |              +-- build-time?     yang:date-and-time
+             |              +-- release-date?   yang:date-and-time
+             |              +-- user-name?      string
+             |              +-- package-name?   string
+             |              +-- build-name?     string
+             +--:(install-pkg-smu)
+             |  +-- smu-attr
+             |     +-- package-state?   install-ios-xe-oper:install-package-state
+             |     +-- pkg-info-data
+             |        +-- common-data
+             |        |  +-- generic-info
+             |        |     +-- name?           string
+             |        |     +-- build-time?     yang:date-and-time
+             |        |     +-- release-date?   yang:date-and-time
+             |        |     +-- user-name?      string
+             |        |     +-- package-name?   string
+             |        |     +-- build-name?     string
+             |        +-- defect?        string
+             |        +-- smu-data
+             |           +-- smu-id?                uint32
+             |           +-- smu-mode?              install-ios-xe-oper:install-mode
+             |           +-- smu-supersedes-list*   uint32
+             |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+             |           +-- smu-compatible-with?   string
+             |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+             |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+             |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+             |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+             |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+             |           +-- smu-fixes-list*        string
+             |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+             |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+             +--:(install-pkg-subpkg)
+             |  +-- subpkg-attr
+             |     +-- package-state?   install-ios-xe-oper:install-package-state
+             |     +-- pkg-info-data
+             |        +-- common-data
+             |        |  +-- generic-info
+             |        |     +-- name?           string
+             |        |     +-- build-time?     yang:date-and-time
+             |        |     +-- release-date?   yang:date-and-time
+             |        |     +-- user-name?      string
+             |        |     +-- package-name?   string
+             |        |     +-- build-name?     string
+             |        +-- subpkg-type?   string
+             |        +-- smu-data
+             |           +-- smu-id?                uint32
+             |           +-- smu-mode?              install-ios-xe-oper:install-mode
+             |           +-- smu-supersedes-list*   uint32
+             |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+             |           +-- smu-compatible-with?   string
+             |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+             |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+             |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+             |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+             |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+             |           +-- smu-fixes-list*        string
+             |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+             |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+             +--:(install-pkg-dmp)
+             |  +-- dmp-attr
+             |     +-- package-state?   install-ios-xe-oper:install-package-state
+             |     +-- pkg-info-data
+             |        +-- common-data
+             |        |  +-- generic-info
+             |        |     +-- name?           string
+             |        |     +-- build-time?     yang:date-and-time
+             |        |     +-- release-date?   yang:date-and-time
+             |        |     +-- user-name?      string
+             |        |     +-- package-name?   string
+             |        |     +-- build-name?     string
+             |        +-- defect?        string
+             |        +-- smu-data
+             |           +-- smu-id?                uint32
+             |           +-- smu-mode?              install-ios-xe-oper:install-mode
+             |           +-- smu-supersedes-list*   uint32
+             |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+             |           +-- smu-compatible-with?   string
+             |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+             |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+             |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+             |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+             |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+             |           +-- smu-fixes-list*        string
+             |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+             |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+             +--:(install-pkg-apsp)
+             |  +-- apsp-attr
+             |     +-- package-state?   install-ios-xe-oper:install-package-state
+             |     +-- pkg-info-data
+             |        +-- common-data
+             |        |  +-- generic-info
+             |        |     +-- name?           string
+             |        |     +-- build-time?     yang:date-and-time
+             |        |     +-- release-date?   yang:date-and-time
+             |        |     +-- user-name?      string
+             |        |     +-- package-name?   string
+             |        |     +-- build-name?     string
+             |        +-- defect?        string
+             |        +-- smu-data
+             |           +-- smu-id?                uint32
+             |           +-- smu-mode?              install-ios-xe-oper:install-mode
+             |           +-- smu-supersedes-list*   uint32
+             |           +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+             |           +-- smu-compatible-with?   string
+             |           +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+             |           +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+             |           +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+             |           +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+             |           +-- smu-class?             install-ios-xe-oper:install-smu-class
+             |           +-- smu-fixes-list*        string
+             |           +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+             |           +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+             +--:(install-pkg-apdp)
+                +-- apdp-attr
+                   +-- package-state?   install-ios-xe-oper:install-package-state
+                   +-- pkg-info-data
+                      +-- common-data
+                      |  +-- generic-info
+                      |     +-- name?           string
+                      |     +-- build-time?     yang:date-and-time
+                      |     +-- release-date?   yang:date-and-time
+                      |     +-- user-name?      string
+                      |     +-- package-name?   string
+                      |     +-- build-name?     string
+                      +-- defect?        string
+                      +-- smu-data
+                         +-- smu-id?                uint32
+                         +-- smu-mode?              install-ios-xe-oper:install-mode
+                         +-- smu-supersedes-list*   uint32
+                         +-- smu-subcategory?       install-ios-xe-oper:install-smu-subcategory
+                         +-- smu-compatible-with?   string
+                         +-- smu-type?              install-ios-xe-oper:install-pkg-reload-condition
+                         +-- activation-type?       install-ios-xe-oper:install-pkg-reload-condition
+                         +-- deactivation-type?     install-ios-xe-oper:install-pkg-reload-condition
+                         +-- smu-impact?            install-ios-xe-oper:install-smu-impact-type
+                         +-- smu-class?             install-ios-xe-oper:install-smu-class
+                         +-- smu-fixes-list*        string
+                         +-- smu-license-level?     install-ios-xe-oper:install-smu-license-level
+                         +-- crdu-attr?             install-ios-xe-oper:install-crdu-attr
+  grouping install-pkg-state-key
+    +-- package-type?   install-ios-xe-oper:install-package-type
+    +-- pkg-dir?        string
+    +-- pkg-name?       string
+  grouping install-pkg-state-info
+    +-- package-state?   install-ios-xe-oper:install-package-state
+  grouping install-version-key
+    +-- version?             string
+    +-- version-extension?   string
+  grouping install-version-file
+    +-- is-default?                   boolean
+    +-- previous?                     install-ios-xe-oper:install-version-state
+    +-- current?                      install-ios-xe-oper:install-version-state
+    +-- src-filename?                 string
+    +-- src-checksum?                 string
+    +-- install-package-state-info* [package-type pkg-dir pkg-name]
+       +-- package-type?    install-ios-xe-oper:install-package-type
+       +-- pkg-dir?         string
+       +-- pkg-name?        string
+       +-- package-state?   install-ios-xe-oper:install-package-state
+  grouping install-version-state-key
+    +-- version-state?   install-ios-xe-oper:install-version-state
+  grouping __yangpp_metadata
+    +-- json-metadata-leaf?          empty
+    +-- Cisco-IOS-XE-common-types
+       +-- json-metadata-leaf?   empty

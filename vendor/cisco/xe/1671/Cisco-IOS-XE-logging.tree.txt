@@ -1,0 +1,176 @@
+submodule: Cisco-IOS-XE-logging (belongs-to Cisco-IOS-XE-native)
+
+  grouping logging-host-option-group
+    +-- discriminator?   string
+  grouping logging-host-transport-group
+    +-- transport
+       +-- udp
+       |  +-- port*   uint16
+       +-- tcp
+          +-- port*   uint16
+  grouping logging-rate-limit-common-group
+    +-- ranges* [range]
+       +-- range?    uint16
+       +-- except!
+          +-- range?   logging-level-type
+  grouping config-logging-grouping
+    +-- logging
+       +-- discriminator* [name]
+       |  +-- name?       string
+       |  +-- severity?   logging-level-type
+       |  +-- msg-body
+       |     +-- drops?      string
+       |     +-- includes?   string
+       +-- persistent!
+       |  +-- file
+       |     +-- url?         string
+       |     +-- size?        string
+       |     +-- threshold?   string
+       |     +-- protected?   empty
+       +-- monitor-conf
+       |  +-- monitor?   boolean
+       +-- monitor!
+       |  +-- severity?        logging-level-type
+       |  +-- discriminator* [name]
+       |     +-- name?       string
+       |     +-- severity?   logging-level-type
+       +-- alarm?              union
+       +-- buffered!
+       |  +-- (buffered-param)?
+       |     +--:(discriminator-param)
+       |     |  +-- discriminator* [name]
+       |     |     +-- name?         string
+       |     |     +-- size-value?   uint32
+       |     |     +-- severity?     logging-level-type
+       |     +--:(size-param)
+       |     |  +-- size
+       |     |     +-- size-value?   uint32
+       |     |     +-- severity?     logging-level-type
+       |     +--:(severity-level)
+       |     |  +-- severity?        logging-level-type
+       |     +--:(xxml-buffer)
+       |        +-- xxml?            uint32
+       +-- console-conf
+       |  +-- console?   boolean
+       +-- console!
+       |  +-- discriminator* [name]
+       |  |  +-- name?       string
+       |  |  +-- severity?   logging-level-type
+       |  +-- filtered?        empty
+       |  +-- guaranteed?      empty
+       |  +-- xxml?            logging-level-type
+       |  +-- severity?        logging-level-type
+       +-- event
+       |  +-- link-status
+       |     +-- boot?      empty
+       |     +-- global?    empty
+       |     +-- default?   empty
+       +-- esm
+       |  +-- config?   empty
+       +-- facility?           enumeration
+       +-- history
+       |  +-- size?             uint16
+       |  +-- severity-level?   union
+       +-- host
+       |  +-- ipv4-host-list* [ipv4-host]
+       |  |  +-- ipv4-host?   inet:host
+       |  +-- ipv4-host-transport-list* [ipv4-host]
+       |  |  +-- ipv4-host?       inet:host
+       |  |  +-- transport
+       |  |  |  +-- udp
+       |  |  |  |  +-- port*   uint16
+       |  |  |  +-- tcp
+       |  |  |     +-- port*   uint16
+       |  |  +-- discriminator?   string
+       |  +-- ipv4-host-vrf-list* [ipv4-host vrf]
+       |  |  +-- ipv4-host?       inet:host
+       |  |  +-- vrf?             string
+       |  |  +-- discriminator?   string
+       |  +-- ipv4-host-vrf-transport-list* [ipv4-host vrf]
+       |  |  +-- ipv4-host?       inet:host
+       |  |  +-- vrf?             string
+       |  |  +-- transport
+       |  |  |  +-- udp
+       |  |  |  |  +-- port*   uint16
+       |  |  |  +-- tcp
+       |  |  |     +-- port*   uint16
+       |  |  +-- discriminator?   string
+       |  +-- ipv6
+       |     +-- ipv6-host-list* [ipv6-host]
+       |     |  +-- ipv6-host?   ios-types:ipv6-host
+       |     +-- ipv6-host-transport-list* [ipv6-host]
+       |     |  +-- ipv6-host?       ios-types:ipv6-host
+       |     |  +-- transport
+       |     |  |  +-- udp
+       |     |  |  |  +-- port*   uint16
+       |     |  |  +-- tcp
+       |     |  |     +-- port*   uint16
+       |     |  +-- discriminator?   string
+       |     +-- ipv6-host-vrf-list* [ipv6-host vrf]
+       |     |  +-- ipv6-host?       ios-types:ipv6-host
+       |     |  +-- vrf?             string
+       |     |  +-- discriminator?   string
+       |     +-- ipv6-host-vrf-transport-list* [ipv6-host vrf]
+       |        +-- ipv6-host?       ios-types:ipv6-host
+       |        +-- vrf?             string
+       |        +-- transport
+       |        |  +-- udp
+       |        |  |  +-- port*   uint16
+       |        |  +-- tcp
+       |        |     +-- port*   uint16
+       |        +-- discriminator?   string
+       +-- origin-id
+       |  +-- (origin-choice)?
+       |     +--:(origin-type)
+       |     |  +-- type-value?   enumeration
+       |     +--:(origin-name)
+       |        +-- string?       string
+       +-- rate-limit-conf
+       |  +-- rate-limit?   boolean
+       +-- rate-limit!
+       |  +-- ranges* [range]
+       |  |  +-- range?    uint16
+       |  |  +-- except!
+       |  |     +-- range?   logging-level-type
+       |  +-- console
+       |  |  +-- ranges* [range]
+       |  |  |  +-- range?    uint16
+       |  |  |  +-- except!
+       |  |  |     +-- range?   logging-level-type
+       |  |  +-- all
+       |  |     +-- ranges* [range]
+       |  |        +-- range?    uint16
+       |  |        +-- except!
+       |  |           +-- range?   logging-level-type
+       |  +-- all
+       |     +-- ranges* [range]
+       |        +-- range?    uint16
+       |        +-- except!
+       |           +-- range?   logging-level-type
+       +-- source-interface* [interface-name]
+       |  +-- interface-name?   string
+       |  +-- vrf?              string
+       +-- snmp-trap
+       |  +-- alerts?          empty
+       |  +-- critical?        empty
+       |  +-- debugging?       empty
+       |  +-- emergencies?     empty
+       |  +-- errors?          empty
+       |  +-- informational?   empty
+       |  +-- notifications?   empty
+       |  +-- warnings?        empty
+       +-- trap!
+       |  +-- (level)?
+       |     +--:(set-default)
+       |     |  +-- trap-default?   empty
+       |     +--:(set-level)
+       |        +-- severity?       union
+       +-- hostip?             inet:host
+       +-- file
+       |  +-- name?       string
+       |  +-- max-size?   uint32
+       |  +-- min-size?   uint32
+       |  +-- severity?   logging-level-type
+       +-- snmp-authfail?      empty
+       +-- buginf?             empty
+       +-- userinfo?           empty

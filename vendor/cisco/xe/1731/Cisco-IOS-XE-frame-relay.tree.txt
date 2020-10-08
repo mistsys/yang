@@ -1,0 +1,103 @@
+
+module: Cisco-IOS-XE-frame-relay
+  augment /ios:native/ios:interface/ios:Serial:
+    +--rw frame-relay
+       +--rw lmi-type?         enumeration
+       +--rw intf-type?        enumeration
+       +--rw interface-dlci* [name]
+       |  +--rw name    uint16
+       +--rw route* [name]
+          +--rw name         uint16
+          +--rw interface
+             +--rw (interface-choice)?
+             |  +--:(Serial)
+             |  |  +--rw Serial?   string
+             |  +--:(Tunnel)
+             |  |  +--rw Tunnel?   uint32
+             |  +--:(MFR)
+             |     +--rw MFR?      uint32
+             +--rw dlci-number?    uint16
+  augment /ios:native/ios:interface/ios:MFR:
+    +--rw frame-relay
+       +--rw multilink
+       |  +--rw bandwidth-class
+       |     +--rw (class-choice)?
+       |        +--:(a)
+       |        |  +--rw a?   empty
+       |        +--:(b)
+       |        |  +--rw b?   empty
+       |        +--:(c)
+       |           +--rw c?   uint16
+       +--rw intf-type?        enumeration
+       +--rw interface-dlci* [name]
+       |  +--rw name    uint16
+       +--rw lmi-type?         enumeration
+       +--rw map
+          +--rw ip* [name]
+             +--rw name           inet:ipv4-address
+             +--rw dlci-number?   uint16
+  augment /ios:native/ios:interface/ios:Serial-subinterface/ios:Serial:
+    +--rw frame-relay
+       +--rw interface-dlci
+          +--rw name?   uint16
+  augment /ios:native/ios:interface/ios:MFR-subinterface/ios:MFR:
+    +--rw frame-relay
+       +--rw interface-dlci
+          +--rw name?   uint16
+  augment /ios:native/ios:frame-relay:
+    +--rw switching?   empty
+
+  grouping config-global-frame-relay-grouping
+    +-- switching?   empty
+  grouping frame-relay-switch-interface-grouping
+    +-- (interface-choice)?
+       +--:(Serial)
+       |  +-- Serial?   string
+       +--:(Tunnel)
+       |  +-- Tunnel?   uint32
+       +--:(MFR)
+          +-- MFR?      uint32
+  grouping config-interface-serial-frame-relay-grouping
+    +-- frame-relay
+       +-- lmi-type?         enumeration
+       +-- intf-type?        enumeration
+       +-- interface-dlci* [name]
+       |  +-- name?   uint16
+       +-- route* [name]
+          +-- name?        uint16
+          +-- interface
+             +-- (interface-choice)?
+             |  +--:(Serial)
+             |  |  +-- Serial?   string
+             |  +--:(Tunnel)
+             |  |  +-- Tunnel?   uint32
+             |  +--:(MFR)
+             |     +-- MFR?      uint32
+             +-- dlci-number?    uint16
+  grouping config-MFR-bandwidth-grouping
+    +-- frame-relay
+       +-- multilink
+       |  +-- bandwidth-class
+       |     +-- (class-choice)?
+       |        +--:(a)
+       |        |  +-- a?   empty
+       |        +--:(b)
+       |        |  +-- b?   empty
+       |        +--:(c)
+       |           +-- c?   uint16
+       +-- intf-type?        enumeration
+       +-- interface-dlci* [name]
+       |  +-- name?   uint16
+       +-- lmi-type?         enumeration
+       +-- map
+          +-- ip* [name]
+             +-- name?          inet:ipv4-address
+             +-- dlci-number?   uint16
+  grouping config-interface-dlci-grouping
+    +-- frame-relay
+       +-- interface-dlci
+          +-- name?   uint16
+  grouping config-frame-relay-grouping
+    +-- frame-relay
+       +-- encapsulation?   empty
+       +-- intf-type?       enumeration

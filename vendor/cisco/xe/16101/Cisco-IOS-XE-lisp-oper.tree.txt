@@ -1,0 +1,1148 @@
+module: Cisco-IOS-XE-lisp-oper
+  +--ro lisp-state
+     +--ro lisp-routers* [top-id]
+        +--ro top-id          uint32
+        +--ro site-id?        uint64
+        +--ro xtr-id*         uint8
+        +--ro instances* [iid]
+        |  +--ro iid                   uint32
+        |  +--ro af* [iaftype]
+        |  |  +--ro iaftype                                         lisp-ios-xe-oper:lisp-iaftype-type
+        |  |  +--ro role
+        |  |  |  +--ro is-ms?     boolean
+        |  |  |  +--ro is-mr?     boolean
+        |  |  |  +--ro is-itr?    boolean
+        |  |  |  +--ro is-etr?    boolean
+        |  |  |  +--ro is-pitr?   boolean
+        |  |  |  +--ro is-petr?   boolean
+        |  |  +--ro map-cache* [afi prefix]
+        |  |  |  +--ro up-time?                  yang:date-and-time
+        |  |  |  +--ro last-modified-time?       yang:date-and-time
+        |  |  |  +--ro last-update-time?         yang:date-and-time
+        |  |  |  +--ro ttl?                      uint32
+        |  |  |  +--ro is-authoritative?         boolean
+        |  |  |  +--ro is-static?                boolean
+        |  |  |  +--ro is-negative?              boolean
+        |  |  |  +--ro nmr-action?               lisp-ios-xe-oper:lisp-map-reply-action-type
+        |  |  |  +--ro expiry-time?              yang:date-and-time
+        |  |  |  +--ro encapsulated-packets?     uint64
+        |  |  |  +--ro encapsulated-octets?      uint64
+        |  |  |  +--ro is-active?                boolean
+        |  |  |  +--ro map-cache-rloc* [afi address]
+        |  |  |  |  +--ro state?                    lisp-ios-xe-oper:lisp-rloc-state-type
+        |  |  |  |  +--ro creation-time?            yang:date-and-time
+        |  |  |  |  +--ro last-state-change-time?   yang:date-and-time
+        |  |  |  |  +--ro rloc-probe-rtt?           uint32
+        |  |  |  |  +--ro params
+        |  |  |  |  |  +--ro priority?         uint8
+        |  |  |  |  |  +--ro weight?           uint8
+        |  |  |  |  |  +--ro mcast-priority?   uint8
+        |  |  |  |  |  +--ro mcast-weight?     uint8
+        |  |  |  |  +--ro encap-iid?                uint32
+        |  |  |  |  +--ro is-encap-iid-present?     boolean
+        |  |  |  |  +--ro afi                       lisp-ios-xe-oper:lisp-address-family-type
+        |  |  |  |  +--ro address                   string
+        |  |  |  +--ro info-best-source?         lisp-ios-xe-oper:lisp-map-cache-information-best-source-type
+        |  |  |  +--ro info-best-trans-source?   lisp-ios-xe-oper:lisp-map-cache-information-best-source-trans-type
+        |  |  |  +--ro afi                       lisp-ios-xe-oper:lisp-address-family-type
+        |  |  |  +--ro prefix                    string
+        |  |  +--ro l2-domain-id?                                   uint32
+        |  |  +--ro map-cache-size?                                 uint32
+        |  |  +--ro map-cache-limit?                                uint32
+        |  |  +--ro etr-map-cache-ttl?                              uint32
+        |  |  +--ro registration-more-specific?                     uint32
+        |  |  +--ro registration-more-specific-warning-threshold?   uint32
+        |  |  +--ro registration-more-specific-limit?               uint32
+        |  |  +--ro map-cache-threshold?                            uint32
+        |  |  +--ro map-requests-in?                                uint64
+        |  |  +--ro map-requests-out?                               uint64
+        |  |  +--ro encapsulated-map-requests-in?                   uint64
+        |  |  +--ro encapsulated-map-requests-out?                  uint64
+        |  |  +--ro rloc-probe-map-requests-in?                     uint64
+        |  |  +--ro rloc-probe-map-requests-out?                    uint64
+        |  |  +--ro map-requests-expired-on-queue?                  uint64
+        |  |  +--ro map-requests-no-reply?                          uint64
+        |  |  +--ro map-requests-from-disallowed-locators?          uint64
+        |  |  +--ro smr-map-requests-in?                            uint64
+        |  |  +--ro smr-map-requests-out?                           uint64
+        |  |  +--ro ddt-itr-map-requests-dropped?                   uint64
+        |  |  +--ro ddt-itr-map-requests-nonce-collision?           uint64
+        |  |  +--ro ddt-itr-map-requests-bad-xtr-nonce?             uint64
+        |  |  +--ro mr-map-requests-forwarded?                      uint64
+        |  |  +--ro ms-map-requests-forwarded?                      uint64
+        |  |  +--ro to-alt-map-requests-out?                        uint64
+        |  |  +--ro map-reply-records-in?                           uint64
+        |  |  +--ro map-reply-records-out?                          uint64
+        |  |  +--ro authoritative-records-in?                       uint64
+        |  |  +--ro authoritative-records-out?                      uint64
+        |  |  +--ro non-authoritative-records-in?                   uint64
+        |  |  +--ro non-authoritative-records-out?                  uint64
+        |  |  +--ro negative-records-in?                            uint64
+        |  |  +--ro negative-records-out?                           uint64
+        |  |  +--ro rloc-probe-records-in?                          uint64
+        |  |  +--ro rloc-probe-records-out?                         uint64
+        |  |  +--ro ms-proxy-reply-records-out?                     uint64
+        |  |  +--ro wlc-subscribe-in?                               uint64
+        |  |  +--ro wlc-subscribe-out?                              uint64
+        |  |  +--ro wlc-subscribe-in-failure?                       uint64
+        |  |  +--ro wlc-subscribe-out-failure?                      uint64
+        |  |  +--ro wlc-unsubscribe-in?                             uint64
+        |  |  +--ro wlc-unsubscribe-out?                            uint64
+        |  |  +--ro wlc-unsubscribe-in-failure?                     uint64
+        |  |  +--ro wlc-unsubscribe-out-failure?                    uint64
+        |  |  +--ro map-register-records-in?                        uint64
+        |  |  +--ro map-register-records-out?                       uint64
+        |  |  +--ro map-registers-ms-disabled?                      uint64
+        |  |  +--ro map-registers-auth-failed?                      uint64
+        |  |  +--ro map-registers-from-disallowed-locators?         uint64
+        |  |  +--ro wlc-map-register-records-in?                    uint64
+        |  |  +--ro wlc-map-register-records-out?                   uint64
+        |  |  +--ro wlc-map-register-records-in-ap?                 uint64
+        |  |  +--ro wlc-map-register-records-out-ap?                uint64
+        |  |  +--ro wlc-map-register-records-in-client?             uint64
+        |  |  +--ro wlc-map-register-records-out-client?            uint64
+        |  |  +--ro wlc-map-register-records-in-failure?            uint64
+        |  |  +--ro wlc-map-register-records-out-failure?           uint64
+        |  |  +--ro map-notify-records-in?                          uint64
+        |  |  +--ro map-notify-records-out?                         uint64
+        |  |  +--ro map-notify-auth-failed?                         uint64
+        |  |  +--ro wlc-map-notify-records-in?                      uint64
+        |  |  +--ro wlc-map-notify-records-out?                     uint64
+        |  |  +--ro wlc-map-notify-records-in-ap?                   uint64
+        |  |  +--ro wlc-map-notify-records-out-ap?                  uint64
+        |  |  +--ro wlc-map-notify-records-in-client?               uint64
+        |  |  +--ro wlc-map-notify-records-out-client?              uint64
+        |  |  +--ro wlc-map-notify-records-in-failure?              uint64
+        |  |  +--ro wlc-map-notify-records-out-failure?             uint64
+        |  |  +--ro mapping-record-ttl-alerts?                      uint64
+        |  |  +--ro remote-eid-entries-created?                     uint64
+        |  |  +--ro remote-eid-entries-deleted?                     uint64
+        |  |  +--ro remote-eid-nsf-replay-entries-created?          uint64
+        |  |  +--ro forwarding-data-signals-processed?              uint64
+        |  |  +--ro forwarding-data-signals-dropped?                uint64
+        |  |  +--ro forwarding-reachability-reports-processed?      uint64
+        |  |  +--ro forwarding-reachability-reports-dropped?        uint64
+        |  |  +--ro is-etr-accept-mapping?                          boolean
+        |  |  +--ro is-etr-accept-mapping-verify?                   boolean
+        |  |  +--ro local-dbase* [afi prefix]
+        |  |  |  +--ro lsb?                uint32
+        |  |  |  +--ro is-reachable?       boolean
+        |  |  |  +--ro local-dbase-rloc* [afi address]
+        |  |  |  |  +--ro params
+        |  |  |  |  |  +--ro priority?         uint8
+        |  |  |  |  |  +--ro weight?           uint8
+        |  |  |  |  |  +--ro mcast-priority?   uint8
+        |  |  |  |  |  +--ro mcast-weight?     uint8
+        |  |  |  |  +--ro state?      lisp-ios-xe-oper:lisp-rloc-state-type
+        |  |  |  |  +--ro is-local?   boolean
+        |  |  |  |  +--ro afi         lisp-ios-xe-oper:lisp-address-family-type
+        |  |  |  |  +--ro address     string
+        |  |  |  +--ro is-proxy?           boolean
+        |  |  |  +--ro afi                 lisp-ios-xe-oper:lisp-address-family-type
+        |  |  |  +--ro prefix              string
+        |  |  +--ro ms-registrations* [afi prefix]
+        |  |  |  +--ro last-registration-source
+        |  |  |  |  +--ro afi?       lisp-ios-xe-oper:lisp-address-family-type
+        |  |  |  |  +--ro address?   string
+        |  |  |  +--ro last-registration-source-port?   uint16
+        |  |  |  +--ro creation-time?                   yang:date-and-time
+        |  |  |  +--ro last-registration-time?          yang:date-and-time
+        |  |  |  +--ro site-name?                       string
+        |  |  |  +--ro site-description?                string
+        |  |  |  +--ro is-registered?                   boolean
+        |  |  |  +--ro authentication-error?            uint64
+        |  |  |  +--ro rloc-mismatch-error?             uint64
+        |  |  |  +--ro etr-registrations* [source-address source-port]
+        |  |  |  |  +--ro last-registration-time?   yang:date-and-time
+        |  |  |  |  +--ro ttl?                      uint32
+        |  |  |  |  +--ro proxy-reply?              boolean
+        |  |  |  |  +--ro wants-map-notify?         boolean
+        |  |  |  |  +--ro ms-registration-rloc* [afi address]
+        |  |  |  |  |  +--ro params
+        |  |  |  |  |  |  +--ro priority?         uint8
+        |  |  |  |  |  |  +--ro weight?           uint8
+        |  |  |  |  |  |  +--ro mcast-priority?   uint8
+        |  |  |  |  |  |  +--ro mcast-weight?     uint8
+        |  |  |  |  |  +--ro state?      lisp-ios-xe-oper:lisp-rloc-state-type
+        |  |  |  |  |  +--ro is-local?   boolean
+        |  |  |  |  |  +--ro afi         lisp-ios-xe-oper:lisp-address-family-type
+        |  |  |  |  |  +--ro address     string
+        |  |  |  |  +--ro source-address            inet:ip-address
+        |  |  |  |  +--ro source-port               uint16
+        |  |  |  +--ro afi                              lisp-ios-xe-oper:lisp-address-family-type
+        |  |  |  +--ro prefix                           string
+        |  |  +--ro map-servers* [afi address]
+        |  |  |  +--ro state?          lisp-ios-xe-oper:lisp-rloc-state-type
+        |  |  |  +--ro avg-rtt-5sec?   uint32
+        |  |  |  +--ro avg-rtt-1min?   uint32
+        |  |  |  +--ro avg-rtt-5min?   uint32
+        |  |  |  +--ro afi             lisp-ios-xe-oper:lisp-address-family-type
+        |  |  |  +--ro address         string
+        |  |  +--ro map-resolvers* [afi address]
+        |  |  |  +--ro state?          lisp-ios-xe-oper:lisp-rloc-state-type
+        |  |  |  +--ro avg-rtt-5sec?   uint32
+        |  |  |  +--ro avg-rtt-1min?   uint32
+        |  |  |  +--ro avg-rtt-5min?   uint32
+        |  |  |  +--ro afi             lisp-ios-xe-oper:lisp-address-family-type
+        |  |  |  +--ro address         string
+        |  |  +--ro proxy-etrs* [afi address]
+        |  |  |  +--ro params
+        |  |  |  |  +--ro priority?         uint8
+        |  |  |  |  +--ro weight?           uint8
+        |  |  |  |  +--ro mcast-priority?   uint8
+        |  |  |  |  +--ro mcast-weight?     uint8
+        |  |  |  +--ro state?                            lisp-ios-xe-oper:lisp-rloc-state-type
+        |  |  |  +--ro iid?                              uint32
+        |  |  |  +--ro is-iid-present?                   boolean
+        |  |  |  +--ro is-proxy-etr-learned-from-msmr?   boolean
+        |  |  |  +--ro afi                               lisp-ios-xe-oper:lisp-address-family-type
+        |  |  |  +--ro address                           string
+        |  |  +--ro extranet-eids* [afi prefix]
+        |  |  |  +--ro is-configured?   boolean
+        |  |  |  +--ro afi              lisp-ios-xe-oper:lisp-address-family-type
+        |  |  |  +--ro prefix           string
+        |  |  +--ro map-resolver-receive-count-last-5sec?           uint64
+        |  |  +--ro map-resolver-receive-count-last-1min?           uint64
+        |  |  +--ro map-resolver-receive-count-last-5min?           uint64
+        |  |  +--ro map-server-receive-count-last-5sec?             uint64
+        |  |  +--ro map-server-receive-count-last-1min?             uint64
+        |  |  +--ro map-server-receive-count-last-5min?             uint64
+        |  |  +--ro is-mr-use-petr-enabled?                         boolean
+        |  |  +--ro mr-use-petr-locator-set-name?                   string
+        |  |  +--ro remote-eid-entries-rejected?                    uint64
+        |  +--ro vrf-name?             string
+        |  +--ro is-rloc-probing?      boolean
+        |  +--ro ms-eid-membership* [rloc]
+        |  |  +--ro rloc             inet:ip-address
+        |  |  +--ro member-since?    yang:date-and-time
+        |  |  +--ro is-gleaned?      boolean
+        |  |  +--ro is-configured?   boolean
+        |  +--ro etr-eid-membership* [rloc]
+        |  |  +--ro rloc                  inet:ip-address
+        |  |  +--ro member-since?         yang:date-and-time
+        |  |  +--ro is-learned-from-ms?   boolean
+        |  |  +--ro is-configured?        boolean
+        |  +--ro extranets* [extranet-name]
+        |     +--ro extranet-name                string
+        |     +--ro extranet-inst-count?         uint32
+        |     +--ro extranet-member-instances* [iid]
+        |        +--ro iid            uint32
+        |        +--ro is-provider?   boolean
+        +--ro sessions* [local-address peer-address local-port peer-port]
+        |  +--ro state?                    lisp-ios-xe-oper:lisp-session-state-type
+        |  +--ro last-state-change-time?   yang:date-and-time
+        |  +--ro is-role-active?           boolean
+        |  +--ro is-routable?              boolean
+        |  +--ro messages-in?              uint64
+        |  +--ro messages-out?             uint64
+        |  +--ro bytes-in?                 uint64
+        |  +--ro bytes-out?                uint64
+        |  +--ro local-address             inet:ip-address
+        |  +--ro peer-address              inet:ip-address
+        |  +--ro local-port                uint16
+        |  +--ro peer-port                 uint16
+        +--ro local-rlocs* [afi address]
+        |  +--ro state?      lisp-ios-xe-oper:lisp-rloc-state-type
+        |  +--ro is-local?   boolean
+        |  +--ro afi         lisp-ios-xe-oper:lisp-address-family-type
+        |  +--ro address     string
+        +--ro prefix-lists* [name]
+           +--ro name                 string
+           +--ro count?               uint64
+           +--ro prefix-list-entry* [afi prefix]
+              +--ro source-has-static?     boolean
+              +--ro source-has-rib?        boolean
+              +--ro source-has-site-reg?   boolean
+              +--ro afi                    lisp-ios-xe-oper:lisp-address-family-type
+              +--ro prefix                 string
+
+  grouping lisp-address-type
+    +-- afi?       lisp-ios-xe-oper:lisp-address-family-type
+    +-- address?   string
+  grouping lisp-prefix-type
+    +-- afi?      lisp-ios-xe-oper:lisp-address-family-type
+    +-- prefix?   string
+  grouping lisp-rloc-parameters-type
+    +-- priority?         uint8
+    +-- weight?           uint8
+    +-- mcast-priority?   uint8
+    +-- mcast-weight?     uint8
+  grouping lisp-local-dbase-rloc-type
+    +-- params
+    |  +-- priority?         uint8
+    |  +-- weight?           uint8
+    |  +-- mcast-priority?   uint8
+    |  +-- mcast-weight?     uint8
+    +-- state?      lisp-ios-xe-oper:lisp-rloc-state-type
+    +-- is-local?   boolean
+  grouping lisp-local-dbase-mapping-type
+    +-- lsb?                uint32
+    +-- is-reachable?       boolean
+    +-- local-dbase-rloc* [afi address]
+    |  +-- params
+    |  |  +-- priority?         uint8
+    |  |  +-- weight?           uint8
+    |  |  +-- mcast-priority?   uint8
+    |  |  +-- mcast-weight?     uint8
+    |  +-- state?      lisp-ios-xe-oper:lisp-rloc-state-type
+    |  +-- is-local?   boolean
+    |  +-- afi?        lisp-ios-xe-oper:lisp-address-family-type
+    |  +-- address?    string
+    +-- is-proxy?           boolean
+  grouping lisp-ms-registration-rloc-type
+    +-- params
+    |  +-- priority?         uint8
+    |  +-- weight?           uint8
+    |  +-- mcast-priority?   uint8
+    |  +-- mcast-weight?     uint8
+    +-- state?      lisp-ios-xe-oper:lisp-rloc-state-type
+    +-- is-local?   boolean
+  grouping lisp-ms-registration-type
+    +-- last-registration-time?   yang:date-and-time
+    +-- ttl?                      uint32
+    +-- proxy-reply?              boolean
+    +-- wants-map-notify?         boolean
+    +-- ms-registration-rloc* [afi address]
+       +-- params
+       |  +-- priority?         uint8
+       |  +-- weight?           uint8
+       |  +-- mcast-priority?   uint8
+       |  +-- mcast-weight?     uint8
+       +-- state?      lisp-ios-xe-oper:lisp-rloc-state-type
+       +-- is-local?   boolean
+       +-- afi?        lisp-ios-xe-oper:lisp-address-family-type
+       +-- address?    string
+  grouping lisp-ms-registration-source-type
+    +-- source-address?   inet:ip-address
+    +-- source-port?      uint16
+  grouping lisp-ms-mapping-type
+    +-- last-registration-source
+    |  +-- afi?       lisp-ios-xe-oper:lisp-address-family-type
+    |  +-- address?   string
+    +-- last-registration-source-port?   uint16
+    +-- creation-time?                   yang:date-and-time
+    +-- last-registration-time?          yang:date-and-time
+    +-- site-name?                       string
+    +-- site-description?                string
+    +-- is-registered?                   boolean
+    +-- authentication-error?            uint64
+    +-- rloc-mismatch-error?             uint64
+    +-- etr-registrations* [source-address source-port]
+       +-- last-registration-time?   yang:date-and-time
+       +-- ttl?                      uint32
+       +-- proxy-reply?              boolean
+       +-- wants-map-notify?         boolean
+       +-- ms-registration-rloc* [afi address]
+       |  +-- params
+       |  |  +-- priority?         uint8
+       |  |  +-- weight?           uint8
+       |  |  +-- mcast-priority?   uint8
+       |  |  +-- mcast-weight?     uint8
+       |  +-- state?      lisp-ios-xe-oper:lisp-rloc-state-type
+       |  +-- is-local?   boolean
+       |  +-- afi?        lisp-ios-xe-oper:lisp-address-family-type
+       |  +-- address?    string
+       +-- source-address?           inet:ip-address
+       +-- source-port?              uint16
+  grouping lisp-etr-map-server-type
+    +-- state?          lisp-ios-xe-oper:lisp-rloc-state-type
+    +-- avg-rtt-5sec?   uint32
+    +-- avg-rtt-1min?   uint32
+    +-- avg-rtt-5min?   uint32
+  grouping lisp-itr-map-resolver-type
+    +-- state?          lisp-ios-xe-oper:lisp-rloc-state-type
+    +-- avg-rtt-5sec?   uint32
+    +-- avg-rtt-1min?   uint32
+    +-- avg-rtt-5min?   uint32
+  grouping lisp-proxy-etr-type
+    +-- params
+    |  +-- priority?         uint8
+    |  +-- weight?           uint8
+    |  +-- mcast-priority?   uint8
+    |  +-- mcast-weight?     uint8
+    +-- state?                            lisp-ios-xe-oper:lisp-rloc-state-type
+    +-- iid?                              uint32
+    +-- is-iid-present?                   boolean
+    +-- is-proxy-etr-learned-from-msmr?   boolean
+  grouping lisp-extranet-eid-type
+    +-- is-configured?   boolean
+  grouping lisp-map-cache-rloc-type
+    +-- state?                    lisp-ios-xe-oper:lisp-rloc-state-type
+    +-- creation-time?            yang:date-and-time
+    +-- last-state-change-time?   yang:date-and-time
+    +-- rloc-probe-rtt?           uint32
+    +-- params
+    |  +-- priority?         uint8
+    |  +-- weight?           uint8
+    |  +-- mcast-priority?   uint8
+    |  +-- mcast-weight?     uint8
+    +-- encap-iid?                uint32
+    +-- is-encap-iid-present?     boolean
+  grouping lisp-map-cache-mapping-type
+    +-- up-time?                  yang:date-and-time
+    +-- last-modified-time?       yang:date-and-time
+    +-- last-update-time?         yang:date-and-time
+    +-- ttl?                      uint32
+    +-- is-authoritative?         boolean
+    +-- is-static?                boolean
+    +-- is-negative?              boolean
+    +-- nmr-action?               lisp-ios-xe-oper:lisp-map-reply-action-type
+    +-- expiry-time?              yang:date-and-time
+    +-- encapsulated-packets?     uint64
+    +-- encapsulated-octets?      uint64
+    +-- is-active?                boolean
+    +-- map-cache-rloc* [afi address]
+    |  +-- state?                    lisp-ios-xe-oper:lisp-rloc-state-type
+    |  +-- creation-time?            yang:date-and-time
+    |  +-- last-state-change-time?   yang:date-and-time
+    |  +-- rloc-probe-rtt?           uint32
+    |  +-- params
+    |  |  +-- priority?         uint8
+    |  |  +-- weight?           uint8
+    |  |  +-- mcast-priority?   uint8
+    |  |  +-- mcast-weight?     uint8
+    |  +-- encap-iid?                uint32
+    |  +-- is-encap-iid-present?     boolean
+    |  +-- afi?                      lisp-ios-xe-oper:lisp-address-family-type
+    |  +-- address?                  string
+    +-- info-best-source?         lisp-ios-xe-oper:lisp-map-cache-information-best-source-type
+    +-- info-best-trans-source?   lisp-ios-xe-oper:lisp-map-cache-information-best-source-trans-type
+  grouping lisp-role-type
+    +-- is-ms?     boolean
+    +-- is-mr?     boolean
+    +-- is-itr?    boolean
+    +-- is-etr?    boolean
+    +-- is-pitr?   boolean
+    +-- is-petr?   boolean
+  grouping lisp-instance-af-type
+    +-- iaftype?                                        lisp-ios-xe-oper:lisp-iaftype-type
+    +-- role
+    |  +-- is-ms?     boolean
+    |  +-- is-mr?     boolean
+    |  +-- is-itr?    boolean
+    |  +-- is-etr?    boolean
+    |  +-- is-pitr?   boolean
+    |  +-- is-petr?   boolean
+    +-- map-cache* [afi prefix]
+    |  +-- up-time?                  yang:date-and-time
+    |  +-- last-modified-time?       yang:date-and-time
+    |  +-- last-update-time?         yang:date-and-time
+    |  +-- ttl?                      uint32
+    |  +-- is-authoritative?         boolean
+    |  +-- is-static?                boolean
+    |  +-- is-negative?              boolean
+    |  +-- nmr-action?               lisp-ios-xe-oper:lisp-map-reply-action-type
+    |  +-- expiry-time?              yang:date-and-time
+    |  +-- encapsulated-packets?     uint64
+    |  +-- encapsulated-octets?      uint64
+    |  +-- is-active?                boolean
+    |  +-- map-cache-rloc* [afi address]
+    |  |  +-- state?                    lisp-ios-xe-oper:lisp-rloc-state-type
+    |  |  +-- creation-time?            yang:date-and-time
+    |  |  +-- last-state-change-time?   yang:date-and-time
+    |  |  +-- rloc-probe-rtt?           uint32
+    |  |  +-- params
+    |  |  |  +-- priority?         uint8
+    |  |  |  +-- weight?           uint8
+    |  |  |  +-- mcast-priority?   uint8
+    |  |  |  +-- mcast-weight?     uint8
+    |  |  +-- encap-iid?                uint32
+    |  |  +-- is-encap-iid-present?     boolean
+    |  |  +-- afi?                      lisp-ios-xe-oper:lisp-address-family-type
+    |  |  +-- address?                  string
+    |  +-- info-best-source?         lisp-ios-xe-oper:lisp-map-cache-information-best-source-type
+    |  +-- info-best-trans-source?   lisp-ios-xe-oper:lisp-map-cache-information-best-source-trans-type
+    |  +-- afi?                      lisp-ios-xe-oper:lisp-address-family-type
+    |  +-- prefix?                   string
+    +-- l2-domain-id?                                   uint32
+    +-- map-cache-size?                                 uint32
+    +-- map-cache-limit?                                uint32
+    +-- etr-map-cache-ttl?                              uint32
+    +-- registration-more-specific?                     uint32
+    +-- registration-more-specific-warning-threshold?   uint32
+    +-- registration-more-specific-limit?               uint32
+    +-- map-cache-threshold?                            uint32
+    +-- map-requests-in?                                uint64
+    +-- map-requests-out?                               uint64
+    +-- encapsulated-map-requests-in?                   uint64
+    +-- encapsulated-map-requests-out?                  uint64
+    +-- rloc-probe-map-requests-in?                     uint64
+    +-- rloc-probe-map-requests-out?                    uint64
+    +-- map-requests-expired-on-queue?                  uint64
+    +-- map-requests-no-reply?                          uint64
+    +-- map-requests-from-disallowed-locators?          uint64
+    +-- smr-map-requests-in?                            uint64
+    +-- smr-map-requests-out?                           uint64
+    +-- ddt-itr-map-requests-dropped?                   uint64
+    +-- ddt-itr-map-requests-nonce-collision?           uint64
+    +-- ddt-itr-map-requests-bad-xtr-nonce?             uint64
+    +-- mr-map-requests-forwarded?                      uint64
+    +-- ms-map-requests-forwarded?                      uint64
+    +-- to-alt-map-requests-out?                        uint64
+    +-- map-reply-records-in?                           uint64
+    +-- map-reply-records-out?                          uint64
+    +-- authoritative-records-in?                       uint64
+    +-- authoritative-records-out?                      uint64
+    +-- non-authoritative-records-in?                   uint64
+    +-- non-authoritative-records-out?                  uint64
+    +-- negative-records-in?                            uint64
+    +-- negative-records-out?                           uint64
+    +-- rloc-probe-records-in?                          uint64
+    +-- rloc-probe-records-out?                         uint64
+    +-- ms-proxy-reply-records-out?                     uint64
+    +-- wlc-subscribe-in?                               uint64
+    +-- wlc-subscribe-out?                              uint64
+    +-- wlc-subscribe-in-failure?                       uint64
+    +-- wlc-subscribe-out-failure?                      uint64
+    +-- wlc-unsubscribe-in?                             uint64
+    +-- wlc-unsubscribe-out?                            uint64
+    +-- wlc-unsubscribe-in-failure?                     uint64
+    +-- wlc-unsubscribe-out-failure?                    uint64
+    +-- map-register-records-in?                        uint64
+    +-- map-register-records-out?                       uint64
+    +-- map-registers-ms-disabled?                      uint64
+    +-- map-registers-auth-failed?                      uint64
+    +-- map-registers-from-disallowed-locators?         uint64
+    +-- wlc-map-register-records-in?                    uint64
+    +-- wlc-map-register-records-out?                   uint64
+    +-- wlc-map-register-records-in-ap?                 uint64
+    +-- wlc-map-register-records-out-ap?                uint64
+    +-- wlc-map-register-records-in-client?             uint64
+    +-- wlc-map-register-records-out-client?            uint64
+    +-- wlc-map-register-records-in-failure?            uint64
+    +-- wlc-map-register-records-out-failure?           uint64
+    +-- map-notify-records-in?                          uint64
+    +-- map-notify-records-out?                         uint64
+    +-- map-notify-auth-failed?                         uint64
+    +-- wlc-map-notify-records-in?                      uint64
+    +-- wlc-map-notify-records-out?                     uint64
+    +-- wlc-map-notify-records-in-ap?                   uint64
+    +-- wlc-map-notify-records-out-ap?                  uint64
+    +-- wlc-map-notify-records-in-client?               uint64
+    +-- wlc-map-notify-records-out-client?              uint64
+    +-- wlc-map-notify-records-in-failure?              uint64
+    +-- wlc-map-notify-records-out-failure?             uint64
+    +-- mapping-record-ttl-alerts?                      uint64
+    +-- remote-eid-entries-created?                     uint64
+    +-- remote-eid-entries-deleted?                     uint64
+    +-- remote-eid-nsf-replay-entries-created?          uint64
+    +-- forwarding-data-signals-processed?              uint64
+    +-- forwarding-data-signals-dropped?                uint64
+    +-- forwarding-reachability-reports-processed?      uint64
+    +-- forwarding-reachability-reports-dropped?        uint64
+    +-- is-etr-accept-mapping?                          boolean
+    +-- is-etr-accept-mapping-verify?                   boolean
+    +-- local-dbase* [afi prefix]
+    |  +-- lsb?                uint32
+    |  +-- is-reachable?       boolean
+    |  +-- local-dbase-rloc* [afi address]
+    |  |  +-- params
+    |  |  |  +-- priority?         uint8
+    |  |  |  +-- weight?           uint8
+    |  |  |  +-- mcast-priority?   uint8
+    |  |  |  +-- mcast-weight?     uint8
+    |  |  +-- state?      lisp-ios-xe-oper:lisp-rloc-state-type
+    |  |  +-- is-local?   boolean
+    |  |  +-- afi?        lisp-ios-xe-oper:lisp-address-family-type
+    |  |  +-- address?    string
+    |  +-- is-proxy?           boolean
+    |  +-- afi?                lisp-ios-xe-oper:lisp-address-family-type
+    |  +-- prefix?             string
+    +-- ms-registrations* [afi prefix]
+    |  +-- last-registration-source
+    |  |  +-- afi?       lisp-ios-xe-oper:lisp-address-family-type
+    |  |  +-- address?   string
+    |  +-- last-registration-source-port?   uint16
+    |  +-- creation-time?                   yang:date-and-time
+    |  +-- last-registration-time?          yang:date-and-time
+    |  +-- site-name?                       string
+    |  +-- site-description?                string
+    |  +-- is-registered?                   boolean
+    |  +-- authentication-error?            uint64
+    |  +-- rloc-mismatch-error?             uint64
+    |  +-- etr-registrations* [source-address source-port]
+    |  |  +-- last-registration-time?   yang:date-and-time
+    |  |  +-- ttl?                      uint32
+    |  |  +-- proxy-reply?              boolean
+    |  |  +-- wants-map-notify?         boolean
+    |  |  +-- ms-registration-rloc* [afi address]
+    |  |  |  +-- params
+    |  |  |  |  +-- priority?         uint8
+    |  |  |  |  +-- weight?           uint8
+    |  |  |  |  +-- mcast-priority?   uint8
+    |  |  |  |  +-- mcast-weight?     uint8
+    |  |  |  +-- state?      lisp-ios-xe-oper:lisp-rloc-state-type
+    |  |  |  +-- is-local?   boolean
+    |  |  |  +-- afi?        lisp-ios-xe-oper:lisp-address-family-type
+    |  |  |  +-- address?    string
+    |  |  +-- source-address?           inet:ip-address
+    |  |  +-- source-port?              uint16
+    |  +-- afi?                             lisp-ios-xe-oper:lisp-address-family-type
+    |  +-- prefix?                          string
+    +-- map-servers* [afi address]
+    |  +-- state?          lisp-ios-xe-oper:lisp-rloc-state-type
+    |  +-- avg-rtt-5sec?   uint32
+    |  +-- avg-rtt-1min?   uint32
+    |  +-- avg-rtt-5min?   uint32
+    |  +-- afi?            lisp-ios-xe-oper:lisp-address-family-type
+    |  +-- address?        string
+    +-- map-resolvers* [afi address]
+    |  +-- state?          lisp-ios-xe-oper:lisp-rloc-state-type
+    |  +-- avg-rtt-5sec?   uint32
+    |  +-- avg-rtt-1min?   uint32
+    |  +-- avg-rtt-5min?   uint32
+    |  +-- afi?            lisp-ios-xe-oper:lisp-address-family-type
+    |  +-- address?        string
+    +-- proxy-etrs* [afi address]
+    |  +-- params
+    |  |  +-- priority?         uint8
+    |  |  +-- weight?           uint8
+    |  |  +-- mcast-priority?   uint8
+    |  |  +-- mcast-weight?     uint8
+    |  +-- state?                            lisp-ios-xe-oper:lisp-rloc-state-type
+    |  +-- iid?                              uint32
+    |  +-- is-iid-present?                   boolean
+    |  +-- is-proxy-etr-learned-from-msmr?   boolean
+    |  +-- afi?                              lisp-ios-xe-oper:lisp-address-family-type
+    |  +-- address?                          string
+    +-- extranet-eids* [afi prefix]
+    |  +-- is-configured?   boolean
+    |  +-- afi?             lisp-ios-xe-oper:lisp-address-family-type
+    |  +-- prefix?          string
+    +-- map-resolver-receive-count-last-5sec?           uint64
+    +-- map-resolver-receive-count-last-1min?           uint64
+    +-- map-resolver-receive-count-last-5min?           uint64
+    +-- map-server-receive-count-last-5sec?             uint64
+    +-- map-server-receive-count-last-1min?             uint64
+    +-- map-server-receive-count-last-5min?             uint64
+    +-- is-mr-use-petr-enabled?                         boolean
+    +-- mr-use-petr-locator-set-name?                   string
+    +-- remote-eid-entries-rejected?                    uint64
+  grouping lisp-extranet-member-inst-type
+    +-- iid?           uint32
+    +-- is-provider?   boolean
+  grouping lisp-extranet-instance-type
+    +-- extranet-name?               string
+    +-- extranet-inst-count?         uint32
+    +-- extranet-member-instances* [iid]
+       +-- iid?           uint32
+       +-- is-provider?   boolean
+  grouping lisp-ms-eid-membership-rloc-type
+    +-- rloc?            inet:ip-address
+    +-- member-since?    yang:date-and-time
+    +-- is-gleaned?      boolean
+    +-- is-configured?   boolean
+  grouping lisp-etr-eid-membership-rloc-type
+    +-- rloc?                 inet:ip-address
+    +-- member-since?         yang:date-and-time
+    +-- is-learned-from-ms?   boolean
+    +-- is-configured?        boolean
+  grouping lisp-instance-type
+    +-- iid?                  uint32
+    +-- af* [iaftype]
+    |  +-- iaftype?                                        lisp-ios-xe-oper:lisp-iaftype-type
+    |  +-- role
+    |  |  +-- is-ms?     boolean
+    |  |  +-- is-mr?     boolean
+    |  |  +-- is-itr?    boolean
+    |  |  +-- is-etr?    boolean
+    |  |  +-- is-pitr?   boolean
+    |  |  +-- is-petr?   boolean
+    |  +-- map-cache* [afi prefix]
+    |  |  +-- up-time?                  yang:date-and-time
+    |  |  +-- last-modified-time?       yang:date-and-time
+    |  |  +-- last-update-time?         yang:date-and-time
+    |  |  +-- ttl?                      uint32
+    |  |  +-- is-authoritative?         boolean
+    |  |  +-- is-static?                boolean
+    |  |  +-- is-negative?              boolean
+    |  |  +-- nmr-action?               lisp-ios-xe-oper:lisp-map-reply-action-type
+    |  |  +-- expiry-time?              yang:date-and-time
+    |  |  +-- encapsulated-packets?     uint64
+    |  |  +-- encapsulated-octets?      uint64
+    |  |  +-- is-active?                boolean
+    |  |  +-- map-cache-rloc* [afi address]
+    |  |  |  +-- state?                    lisp-ios-xe-oper:lisp-rloc-state-type
+    |  |  |  +-- creation-time?            yang:date-and-time
+    |  |  |  +-- last-state-change-time?   yang:date-and-time
+    |  |  |  +-- rloc-probe-rtt?           uint32
+    |  |  |  +-- params
+    |  |  |  |  +-- priority?         uint8
+    |  |  |  |  +-- weight?           uint8
+    |  |  |  |  +-- mcast-priority?   uint8
+    |  |  |  |  +-- mcast-weight?     uint8
+    |  |  |  +-- encap-iid?                uint32
+    |  |  |  +-- is-encap-iid-present?     boolean
+    |  |  |  +-- afi?                      lisp-ios-xe-oper:lisp-address-family-type
+    |  |  |  +-- address?                  string
+    |  |  +-- info-best-source?         lisp-ios-xe-oper:lisp-map-cache-information-best-source-type
+    |  |  +-- info-best-trans-source?   lisp-ios-xe-oper:lisp-map-cache-information-best-source-trans-type
+    |  |  +-- afi?                      lisp-ios-xe-oper:lisp-address-family-type
+    |  |  +-- prefix?                   string
+    |  +-- l2-domain-id?                                   uint32
+    |  +-- map-cache-size?                                 uint32
+    |  +-- map-cache-limit?                                uint32
+    |  +-- etr-map-cache-ttl?                              uint32
+    |  +-- registration-more-specific?                     uint32
+    |  +-- registration-more-specific-warning-threshold?   uint32
+    |  +-- registration-more-specific-limit?               uint32
+    |  +-- map-cache-threshold?                            uint32
+    |  +-- map-requests-in?                                uint64
+    |  +-- map-requests-out?                               uint64
+    |  +-- encapsulated-map-requests-in?                   uint64
+    |  +-- encapsulated-map-requests-out?                  uint64
+    |  +-- rloc-probe-map-requests-in?                     uint64
+    |  +-- rloc-probe-map-requests-out?                    uint64
+    |  +-- map-requests-expired-on-queue?                  uint64
+    |  +-- map-requests-no-reply?                          uint64
+    |  +-- map-requests-from-disallowed-locators?          uint64
+    |  +-- smr-map-requests-in?                            uint64
+    |  +-- smr-map-requests-out?                           uint64
+    |  +-- ddt-itr-map-requests-dropped?                   uint64
+    |  +-- ddt-itr-map-requests-nonce-collision?           uint64
+    |  +-- ddt-itr-map-requests-bad-xtr-nonce?             uint64
+    |  +-- mr-map-requests-forwarded?                      uint64
+    |  +-- ms-map-requests-forwarded?                      uint64
+    |  +-- to-alt-map-requests-out?                        uint64
+    |  +-- map-reply-records-in?                           uint64
+    |  +-- map-reply-records-out?                          uint64
+    |  +-- authoritative-records-in?                       uint64
+    |  +-- authoritative-records-out?                      uint64
+    |  +-- non-authoritative-records-in?                   uint64
+    |  +-- non-authoritative-records-out?                  uint64
+    |  +-- negative-records-in?                            uint64
+    |  +-- negative-records-out?                           uint64
+    |  +-- rloc-probe-records-in?                          uint64
+    |  +-- rloc-probe-records-out?                         uint64
+    |  +-- ms-proxy-reply-records-out?                     uint64
+    |  +-- wlc-subscribe-in?                               uint64
+    |  +-- wlc-subscribe-out?                              uint64
+    |  +-- wlc-subscribe-in-failure?                       uint64
+    |  +-- wlc-subscribe-out-failure?                      uint64
+    |  +-- wlc-unsubscribe-in?                             uint64
+    |  +-- wlc-unsubscribe-out?                            uint64
+    |  +-- wlc-unsubscribe-in-failure?                     uint64
+    |  +-- wlc-unsubscribe-out-failure?                    uint64
+    |  +-- map-register-records-in?                        uint64
+    |  +-- map-register-records-out?                       uint64
+    |  +-- map-registers-ms-disabled?                      uint64
+    |  +-- map-registers-auth-failed?                      uint64
+    |  +-- map-registers-from-disallowed-locators?         uint64
+    |  +-- wlc-map-register-records-in?                    uint64
+    |  +-- wlc-map-register-records-out?                   uint64
+    |  +-- wlc-map-register-records-in-ap?                 uint64
+    |  +-- wlc-map-register-records-out-ap?                uint64
+    |  +-- wlc-map-register-records-in-client?             uint64
+    |  +-- wlc-map-register-records-out-client?            uint64
+    |  +-- wlc-map-register-records-in-failure?            uint64
+    |  +-- wlc-map-register-records-out-failure?           uint64
+    |  +-- map-notify-records-in?                          uint64
+    |  +-- map-notify-records-out?                         uint64
+    |  +-- map-notify-auth-failed?                         uint64
+    |  +-- wlc-map-notify-records-in?                      uint64
+    |  +-- wlc-map-notify-records-out?                     uint64
+    |  +-- wlc-map-notify-records-in-ap?                   uint64
+    |  +-- wlc-map-notify-records-out-ap?                  uint64
+    |  +-- wlc-map-notify-records-in-client?               uint64
+    |  +-- wlc-map-notify-records-out-client?              uint64
+    |  +-- wlc-map-notify-records-in-failure?              uint64
+    |  +-- wlc-map-notify-records-out-failure?             uint64
+    |  +-- mapping-record-ttl-alerts?                      uint64
+    |  +-- remote-eid-entries-created?                     uint64
+    |  +-- remote-eid-entries-deleted?                     uint64
+    |  +-- remote-eid-nsf-replay-entries-created?          uint64
+    |  +-- forwarding-data-signals-processed?              uint64
+    |  +-- forwarding-data-signals-dropped?                uint64
+    |  +-- forwarding-reachability-reports-processed?      uint64
+    |  +-- forwarding-reachability-reports-dropped?        uint64
+    |  +-- is-etr-accept-mapping?                          boolean
+    |  +-- is-etr-accept-mapping-verify?                   boolean
+    |  +-- local-dbase* [afi prefix]
+    |  |  +-- lsb?                uint32
+    |  |  +-- is-reachable?       boolean
+    |  |  +-- local-dbase-rloc* [afi address]
+    |  |  |  +-- params
+    |  |  |  |  +-- priority?         uint8
+    |  |  |  |  +-- weight?           uint8
+    |  |  |  |  +-- mcast-priority?   uint8
+    |  |  |  |  +-- mcast-weight?     uint8
+    |  |  |  +-- state?      lisp-ios-xe-oper:lisp-rloc-state-type
+    |  |  |  +-- is-local?   boolean
+    |  |  |  +-- afi?        lisp-ios-xe-oper:lisp-address-family-type
+    |  |  |  +-- address?    string
+    |  |  +-- is-proxy?           boolean
+    |  |  +-- afi?                lisp-ios-xe-oper:lisp-address-family-type
+    |  |  +-- prefix?             string
+    |  +-- ms-registrations* [afi prefix]
+    |  |  +-- last-registration-source
+    |  |  |  +-- afi?       lisp-ios-xe-oper:lisp-address-family-type
+    |  |  |  +-- address?   string
+    |  |  +-- last-registration-source-port?   uint16
+    |  |  +-- creation-time?                   yang:date-and-time
+    |  |  +-- last-registration-time?          yang:date-and-time
+    |  |  +-- site-name?                       string
+    |  |  +-- site-description?                string
+    |  |  +-- is-registered?                   boolean
+    |  |  +-- authentication-error?            uint64
+    |  |  +-- rloc-mismatch-error?             uint64
+    |  |  +-- etr-registrations* [source-address source-port]
+    |  |  |  +-- last-registration-time?   yang:date-and-time
+    |  |  |  +-- ttl?                      uint32
+    |  |  |  +-- proxy-reply?              boolean
+    |  |  |  +-- wants-map-notify?         boolean
+    |  |  |  +-- ms-registration-rloc* [afi address]
+    |  |  |  |  +-- params
+    |  |  |  |  |  +-- priority?         uint8
+    |  |  |  |  |  +-- weight?           uint8
+    |  |  |  |  |  +-- mcast-priority?   uint8
+    |  |  |  |  |  +-- mcast-weight?     uint8
+    |  |  |  |  +-- state?      lisp-ios-xe-oper:lisp-rloc-state-type
+    |  |  |  |  +-- is-local?   boolean
+    |  |  |  |  +-- afi?        lisp-ios-xe-oper:lisp-address-family-type
+    |  |  |  |  +-- address?    string
+    |  |  |  +-- source-address?           inet:ip-address
+    |  |  |  +-- source-port?              uint16
+    |  |  +-- afi?                             lisp-ios-xe-oper:lisp-address-family-type
+    |  |  +-- prefix?                          string
+    |  +-- map-servers* [afi address]
+    |  |  +-- state?          lisp-ios-xe-oper:lisp-rloc-state-type
+    |  |  +-- avg-rtt-5sec?   uint32
+    |  |  +-- avg-rtt-1min?   uint32
+    |  |  +-- avg-rtt-5min?   uint32
+    |  |  +-- afi?            lisp-ios-xe-oper:lisp-address-family-type
+    |  |  +-- address?        string
+    |  +-- map-resolvers* [afi address]
+    |  |  +-- state?          lisp-ios-xe-oper:lisp-rloc-state-type
+    |  |  +-- avg-rtt-5sec?   uint32
+    |  |  +-- avg-rtt-1min?   uint32
+    |  |  +-- avg-rtt-5min?   uint32
+    |  |  +-- afi?            lisp-ios-xe-oper:lisp-address-family-type
+    |  |  +-- address?        string
+    |  +-- proxy-etrs* [afi address]
+    |  |  +-- params
+    |  |  |  +-- priority?         uint8
+    |  |  |  +-- weight?           uint8
+    |  |  |  +-- mcast-priority?   uint8
+    |  |  |  +-- mcast-weight?     uint8
+    |  |  +-- state?                            lisp-ios-xe-oper:lisp-rloc-state-type
+    |  |  +-- iid?                              uint32
+    |  |  +-- is-iid-present?                   boolean
+    |  |  +-- is-proxy-etr-learned-from-msmr?   boolean
+    |  |  +-- afi?                              lisp-ios-xe-oper:lisp-address-family-type
+    |  |  +-- address?                          string
+    |  +-- extranet-eids* [afi prefix]
+    |  |  +-- is-configured?   boolean
+    |  |  +-- afi?             lisp-ios-xe-oper:lisp-address-family-type
+    |  |  +-- prefix?          string
+    |  +-- map-resolver-receive-count-last-5sec?           uint64
+    |  +-- map-resolver-receive-count-last-1min?           uint64
+    |  +-- map-resolver-receive-count-last-5min?           uint64
+    |  +-- map-server-receive-count-last-5sec?             uint64
+    |  +-- map-server-receive-count-last-1min?             uint64
+    |  +-- map-server-receive-count-last-5min?             uint64
+    |  +-- is-mr-use-petr-enabled?                         boolean
+    |  +-- mr-use-petr-locator-set-name?                   string
+    |  +-- remote-eid-entries-rejected?                    uint64
+    +-- vrf-name?             string
+    +-- is-rloc-probing?      boolean
+    +-- ms-eid-membership* [rloc]
+    |  +-- rloc?            inet:ip-address
+    |  +-- member-since?    yang:date-and-time
+    |  +-- is-gleaned?      boolean
+    |  +-- is-configured?   boolean
+    +-- etr-eid-membership* [rloc]
+    |  +-- rloc?                 inet:ip-address
+    |  +-- member-since?         yang:date-and-time
+    |  +-- is-learned-from-ms?   boolean
+    |  +-- is-configured?        boolean
+    +-- extranets* [extranet-name]
+       +-- extranet-name?               string
+       +-- extranet-inst-count?         uint32
+       +-- extranet-member-instances* [iid]
+          +-- iid?           uint32
+          +-- is-provider?   boolean
+  grouping lisp-session-source-destination-type
+    +-- local-address?   inet:ip-address
+    +-- peer-address?    inet:ip-address
+    +-- local-port?      uint16
+    +-- peer-port?       uint16
+  grouping lisp-session-type
+    +-- state?                    lisp-ios-xe-oper:lisp-session-state-type
+    +-- last-state-change-time?   yang:date-and-time
+    +-- is-role-active?           boolean
+    +-- is-routable?              boolean
+    +-- messages-in?              uint64
+    +-- messages-out?             uint64
+    +-- bytes-in?                 uint64
+    +-- bytes-out?                uint64
+  grouping lisp-local-rloc-type
+    +-- state?      lisp-ios-xe-oper:lisp-rloc-state-type
+    +-- is-local?   boolean
+  grouping lisp-prefix-list-entry-type
+    +-- source-has-static?     boolean
+    +-- source-has-rib?        boolean
+    +-- source-has-site-reg?   boolean
+  grouping lisp-prefix-list-type
+    +-- name?                string
+    +-- count?               uint64
+    +-- prefix-list-entry* [afi prefix]
+       +-- source-has-static?     boolean
+       +-- source-has-rib?        boolean
+       +-- source-has-site-reg?   boolean
+       +-- afi?                   lisp-ios-xe-oper:lisp-address-family-type
+       +-- prefix?                string
+  grouping lisp-router-type
+    +-- top-id?         uint32
+    +-- site-id?        uint64
+    +-- xtr-id*         uint8
+    +-- instances* [iid]
+    |  +-- iid?                  uint32
+    |  +-- af* [iaftype]
+    |  |  +-- iaftype?                                        lisp-ios-xe-oper:lisp-iaftype-type
+    |  |  +-- role
+    |  |  |  +-- is-ms?     boolean
+    |  |  |  +-- is-mr?     boolean
+    |  |  |  +-- is-itr?    boolean
+    |  |  |  +-- is-etr?    boolean
+    |  |  |  +-- is-pitr?   boolean
+    |  |  |  +-- is-petr?   boolean
+    |  |  +-- map-cache* [afi prefix]
+    |  |  |  +-- up-time?                  yang:date-and-time
+    |  |  |  +-- last-modified-time?       yang:date-and-time
+    |  |  |  +-- last-update-time?         yang:date-and-time
+    |  |  |  +-- ttl?                      uint32
+    |  |  |  +-- is-authoritative?         boolean
+    |  |  |  +-- is-static?                boolean
+    |  |  |  +-- is-negative?              boolean
+    |  |  |  +-- nmr-action?               lisp-ios-xe-oper:lisp-map-reply-action-type
+    |  |  |  +-- expiry-time?              yang:date-and-time
+    |  |  |  +-- encapsulated-packets?     uint64
+    |  |  |  +-- encapsulated-octets?      uint64
+    |  |  |  +-- is-active?                boolean
+    |  |  |  +-- map-cache-rloc* [afi address]
+    |  |  |  |  +-- state?                    lisp-ios-xe-oper:lisp-rloc-state-type
+    |  |  |  |  +-- creation-time?            yang:date-and-time
+    |  |  |  |  +-- last-state-change-time?   yang:date-and-time
+    |  |  |  |  +-- rloc-probe-rtt?           uint32
+    |  |  |  |  +-- params
+    |  |  |  |  |  +-- priority?         uint8
+    |  |  |  |  |  +-- weight?           uint8
+    |  |  |  |  |  +-- mcast-priority?   uint8
+    |  |  |  |  |  +-- mcast-weight?     uint8
+    |  |  |  |  +-- encap-iid?                uint32
+    |  |  |  |  +-- is-encap-iid-present?     boolean
+    |  |  |  |  +-- afi?                      lisp-ios-xe-oper:lisp-address-family-type
+    |  |  |  |  +-- address?                  string
+    |  |  |  +-- info-best-source?         lisp-ios-xe-oper:lisp-map-cache-information-best-source-type
+    |  |  |  +-- info-best-trans-source?   lisp-ios-xe-oper:lisp-map-cache-information-best-source-trans-type
+    |  |  |  +-- afi?                      lisp-ios-xe-oper:lisp-address-family-type
+    |  |  |  +-- prefix?                   string
+    |  |  +-- l2-domain-id?                                   uint32
+    |  |  +-- map-cache-size?                                 uint32
+    |  |  +-- map-cache-limit?                                uint32
+    |  |  +-- etr-map-cache-ttl?                              uint32
+    |  |  +-- registration-more-specific?                     uint32
+    |  |  +-- registration-more-specific-warning-threshold?   uint32
+    |  |  +-- registration-more-specific-limit?               uint32
+    |  |  +-- map-cache-threshold?                            uint32
+    |  |  +-- map-requests-in?                                uint64
+    |  |  +-- map-requests-out?                               uint64
+    |  |  +-- encapsulated-map-requests-in?                   uint64
+    |  |  +-- encapsulated-map-requests-out?                  uint64
+    |  |  +-- rloc-probe-map-requests-in?                     uint64
+    |  |  +-- rloc-probe-map-requests-out?                    uint64
+    |  |  +-- map-requests-expired-on-queue?                  uint64
+    |  |  +-- map-requests-no-reply?                          uint64
+    |  |  +-- map-requests-from-disallowed-locators?          uint64
+    |  |  +-- smr-map-requests-in?                            uint64
+    |  |  +-- smr-map-requests-out?                           uint64
+    |  |  +-- ddt-itr-map-requests-dropped?                   uint64
+    |  |  +-- ddt-itr-map-requests-nonce-collision?           uint64
+    |  |  +-- ddt-itr-map-requests-bad-xtr-nonce?             uint64
+    |  |  +-- mr-map-requests-forwarded?                      uint64
+    |  |  +-- ms-map-requests-forwarded?                      uint64
+    |  |  +-- to-alt-map-requests-out?                        uint64
+    |  |  +-- map-reply-records-in?                           uint64
+    |  |  +-- map-reply-records-out?                          uint64
+    |  |  +-- authoritative-records-in?                       uint64
+    |  |  +-- authoritative-records-out?                      uint64
+    |  |  +-- non-authoritative-records-in?                   uint64
+    |  |  +-- non-authoritative-records-out?                  uint64
+    |  |  +-- negative-records-in?                            uint64
+    |  |  +-- negative-records-out?                           uint64
+    |  |  +-- rloc-probe-records-in?                          uint64
+    |  |  +-- rloc-probe-records-out?                         uint64
+    |  |  +-- ms-proxy-reply-records-out?                     uint64
+    |  |  +-- wlc-subscribe-in?                               uint64
+    |  |  +-- wlc-subscribe-out?                              uint64
+    |  |  +-- wlc-subscribe-in-failure?                       uint64
+    |  |  +-- wlc-subscribe-out-failure?                      uint64
+    |  |  +-- wlc-unsubscribe-in?                             uint64
+    |  |  +-- wlc-unsubscribe-out?                            uint64
+    |  |  +-- wlc-unsubscribe-in-failure?                     uint64
+    |  |  +-- wlc-unsubscribe-out-failure?                    uint64
+    |  |  +-- map-register-records-in?                        uint64
+    |  |  +-- map-register-records-out?                       uint64
+    |  |  +-- map-registers-ms-disabled?                      uint64
+    |  |  +-- map-registers-auth-failed?                      uint64
+    |  |  +-- map-registers-from-disallowed-locators?         uint64
+    |  |  +-- wlc-map-register-records-in?                    uint64
+    |  |  +-- wlc-map-register-records-out?                   uint64
+    |  |  +-- wlc-map-register-records-in-ap?                 uint64
+    |  |  +-- wlc-map-register-records-out-ap?                uint64
+    |  |  +-- wlc-map-register-records-in-client?             uint64
+    |  |  +-- wlc-map-register-records-out-client?            uint64
+    |  |  +-- wlc-map-register-records-in-failure?            uint64
+    |  |  +-- wlc-map-register-records-out-failure?           uint64
+    |  |  +-- map-notify-records-in?                          uint64
+    |  |  +-- map-notify-records-out?                         uint64
+    |  |  +-- map-notify-auth-failed?                         uint64
+    |  |  +-- wlc-map-notify-records-in?                      uint64
+    |  |  +-- wlc-map-notify-records-out?                     uint64
+    |  |  +-- wlc-map-notify-records-in-ap?                   uint64
+    |  |  +-- wlc-map-notify-records-out-ap?                  uint64
+    |  |  +-- wlc-map-notify-records-in-client?               uint64
+    |  |  +-- wlc-map-notify-records-out-client?              uint64
+    |  |  +-- wlc-map-notify-records-in-failure?              uint64
+    |  |  +-- wlc-map-notify-records-out-failure?             uint64
+    |  |  +-- mapping-record-ttl-alerts?                      uint64
+    |  |  +-- remote-eid-entries-created?                     uint64
+    |  |  +-- remote-eid-entries-deleted?                     uint64
+    |  |  +-- remote-eid-nsf-replay-entries-created?          uint64
+    |  |  +-- forwarding-data-signals-processed?              uint64
+    |  |  +-- forwarding-data-signals-dropped?                uint64
+    |  |  +-- forwarding-reachability-reports-processed?      uint64
+    |  |  +-- forwarding-reachability-reports-dropped?        uint64
+    |  |  +-- is-etr-accept-mapping?                          boolean
+    |  |  +-- is-etr-accept-mapping-verify?                   boolean
+    |  |  +-- local-dbase* [afi prefix]
+    |  |  |  +-- lsb?                uint32
+    |  |  |  +-- is-reachable?       boolean
+    |  |  |  +-- local-dbase-rloc* [afi address]
+    |  |  |  |  +-- params
+    |  |  |  |  |  +-- priority?         uint8
+    |  |  |  |  |  +-- weight?           uint8
+    |  |  |  |  |  +-- mcast-priority?   uint8
+    |  |  |  |  |  +-- mcast-weight?     uint8
+    |  |  |  |  +-- state?      lisp-ios-xe-oper:lisp-rloc-state-type
+    |  |  |  |  +-- is-local?   boolean
+    |  |  |  |  +-- afi?        lisp-ios-xe-oper:lisp-address-family-type
+    |  |  |  |  +-- address?    string
+    |  |  |  +-- is-proxy?           boolean
+    |  |  |  +-- afi?                lisp-ios-xe-oper:lisp-address-family-type
+    |  |  |  +-- prefix?             string
+    |  |  +-- ms-registrations* [afi prefix]
+    |  |  |  +-- last-registration-source
+    |  |  |  |  +-- afi?       lisp-ios-xe-oper:lisp-address-family-type
+    |  |  |  |  +-- address?   string
+    |  |  |  +-- last-registration-source-port?   uint16
+    |  |  |  +-- creation-time?                   yang:date-and-time
+    |  |  |  +-- last-registration-time?          yang:date-and-time
+    |  |  |  +-- site-name?                       string
+    |  |  |  +-- site-description?                string
+    |  |  |  +-- is-registered?                   boolean
+    |  |  |  +-- authentication-error?            uint64
+    |  |  |  +-- rloc-mismatch-error?             uint64
+    |  |  |  +-- etr-registrations* [source-address source-port]
+    |  |  |  |  +-- last-registration-time?   yang:date-and-time
+    |  |  |  |  +-- ttl?                      uint32
+    |  |  |  |  +-- proxy-reply?              boolean
+    |  |  |  |  +-- wants-map-notify?         boolean
+    |  |  |  |  +-- ms-registration-rloc* [afi address]
+    |  |  |  |  |  +-- params
+    |  |  |  |  |  |  +-- priority?         uint8
+    |  |  |  |  |  |  +-- weight?           uint8
+    |  |  |  |  |  |  +-- mcast-priority?   uint8
+    |  |  |  |  |  |  +-- mcast-weight?     uint8
+    |  |  |  |  |  +-- state?      lisp-ios-xe-oper:lisp-rloc-state-type
+    |  |  |  |  |  +-- is-local?   boolean
+    |  |  |  |  |  +-- afi?        lisp-ios-xe-oper:lisp-address-family-type
+    |  |  |  |  |  +-- address?    string
+    |  |  |  |  +-- source-address?           inet:ip-address
+    |  |  |  |  +-- source-port?              uint16
+    |  |  |  +-- afi?                             lisp-ios-xe-oper:lisp-address-family-type
+    |  |  |  +-- prefix?                          string
+    |  |  +-- map-servers* [afi address]
+    |  |  |  +-- state?          lisp-ios-xe-oper:lisp-rloc-state-type
+    |  |  |  +-- avg-rtt-5sec?   uint32
+    |  |  |  +-- avg-rtt-1min?   uint32
+    |  |  |  +-- avg-rtt-5min?   uint32
+    |  |  |  +-- afi?            lisp-ios-xe-oper:lisp-address-family-type
+    |  |  |  +-- address?        string
+    |  |  +-- map-resolvers* [afi address]
+    |  |  |  +-- state?          lisp-ios-xe-oper:lisp-rloc-state-type
+    |  |  |  +-- avg-rtt-5sec?   uint32
+    |  |  |  +-- avg-rtt-1min?   uint32
+    |  |  |  +-- avg-rtt-5min?   uint32
+    |  |  |  +-- afi?            lisp-ios-xe-oper:lisp-address-family-type
+    |  |  |  +-- address?        string
+    |  |  +-- proxy-etrs* [afi address]
+    |  |  |  +-- params
+    |  |  |  |  +-- priority?         uint8
+    |  |  |  |  +-- weight?           uint8
+    |  |  |  |  +-- mcast-priority?   uint8
+    |  |  |  |  +-- mcast-weight?     uint8
+    |  |  |  +-- state?                            lisp-ios-xe-oper:lisp-rloc-state-type
+    |  |  |  +-- iid?                              uint32
+    |  |  |  +-- is-iid-present?                   boolean
+    |  |  |  +-- is-proxy-etr-learned-from-msmr?   boolean
+    |  |  |  +-- afi?                              lisp-ios-xe-oper:lisp-address-family-type
+    |  |  |  +-- address?                          string
+    |  |  +-- extranet-eids* [afi prefix]
+    |  |  |  +-- is-configured?   boolean
+    |  |  |  +-- afi?             lisp-ios-xe-oper:lisp-address-family-type
+    |  |  |  +-- prefix?          string
+    |  |  +-- map-resolver-receive-count-last-5sec?           uint64
+    |  |  +-- map-resolver-receive-count-last-1min?           uint64
+    |  |  +-- map-resolver-receive-count-last-5min?           uint64
+    |  |  +-- map-server-receive-count-last-5sec?             uint64
+    |  |  +-- map-server-receive-count-last-1min?             uint64
+    |  |  +-- map-server-receive-count-last-5min?             uint64
+    |  |  +-- is-mr-use-petr-enabled?                         boolean
+    |  |  +-- mr-use-petr-locator-set-name?                   string
+    |  |  +-- remote-eid-entries-rejected?                    uint64
+    |  +-- vrf-name?             string
+    |  +-- is-rloc-probing?      boolean
+    |  +-- ms-eid-membership* [rloc]
+    |  |  +-- rloc?            inet:ip-address
+    |  |  +-- member-since?    yang:date-and-time
+    |  |  +-- is-gleaned?      boolean
+    |  |  +-- is-configured?   boolean
+    |  +-- etr-eid-membership* [rloc]
+    |  |  +-- rloc?                 inet:ip-address
+    |  |  +-- member-since?         yang:date-and-time
+    |  |  +-- is-learned-from-ms?   boolean
+    |  |  +-- is-configured?        boolean
+    |  +-- extranets* [extranet-name]
+    |     +-- extranet-name?               string
+    |     +-- extranet-inst-count?         uint32
+    |     +-- extranet-member-instances* [iid]
+    |        +-- iid?           uint32
+    |        +-- is-provider?   boolean
+    +-- sessions* [local-address peer-address local-port peer-port]
+    |  +-- state?                    lisp-ios-xe-oper:lisp-session-state-type
+    |  +-- last-state-change-time?   yang:date-and-time
+    |  +-- is-role-active?           boolean
+    |  +-- is-routable?              boolean
+    |  +-- messages-in?              uint64
+    |  +-- messages-out?             uint64
+    |  +-- bytes-in?                 uint64
+    |  +-- bytes-out?                uint64
+    |  +-- local-address?            inet:ip-address
+    |  +-- peer-address?             inet:ip-address
+    |  +-- local-port?               uint16
+    |  +-- peer-port?                uint16
+    +-- local-rlocs* [afi address]
+    |  +-- state?      lisp-ios-xe-oper:lisp-rloc-state-type
+    |  +-- is-local?   boolean
+    |  +-- afi?        lisp-ios-xe-oper:lisp-address-family-type
+    |  +-- address?    string
+    +-- prefix-lists* [name]
+       +-- name?                string
+       +-- count?               uint64
+       +-- prefix-list-entry* [afi prefix]
+          +-- source-has-static?     boolean
+          +-- source-has-rib?        boolean
+          +-- source-has-site-reg?   boolean
+          +-- afi?                   lisp-ios-xe-oper:lisp-address-family-type
+          +-- prefix?                string

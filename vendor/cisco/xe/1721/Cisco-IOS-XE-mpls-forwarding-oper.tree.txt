@@ -1,0 +1,282 @@
+module: Cisco-IOS-XE-mpls-forwarding-oper
+  +--ro mpls-forwarding-oper-data
+     +--ro mpls-local-label* [local-label]
+     |  +--ro local-label               uint32
+     |  +--ro connection-information
+     |  |  +--ro (discrim-choice)?
+     |  |     +--:(information-string)
+     |  |     |  +--ro info-str?    string
+     |  |     +--:(ip-prefix)
+     |  |        +--ro ip-prefix?   inet:ip-prefix
+     |  +--ro forwarding-paths* []
+     |     +--ro outgoing-interface
+     |     |  +--ro (discrim-choice)?
+     |     |     +--:(interface-type)
+     |     |     |  +--ro interface-type?    mpls-forwarding-ios-xe-oper:outgoing-interface-type
+     |     |     +--:(interface-value)
+     |     |        +--ro interface-value?   string
+     |     +--ro outgoing-label
+     |     |  +--ro (discrim-choice)?
+     |     |     +--:(no-label)
+     |     |     |  +--ro no-label?             boolean
+     |     |     +--:(pop-label)
+     |     |     |  +--ro pop-label?            uint32
+     |     |     +--:(ipv4-explicit-null)
+     |     |     |  +--ro ipv4-explicit-null?   uint32
+     |     |     +--:(ipv6-explicit-null)
+     |     |     |  +--ro ipv6-explicit-null?   uint32
+     |     |     +--:(regular-label)
+     |     |     |  +--ro regular-label?        uint32
+     |     |     +--:(invalid-label)
+     |     |        +--ro invalid-label?        boolean
+     |     +--ro next-hop
+     |        +--ro (discrim-choice)?
+     |           +--:(point2point)
+     |           |  +--ro p2p?           boolean
+     |           +--:(next-hop-ip-address)
+     |           |  +--ro ip-address?    inet:ip-address
+     |           +--:(next-hop-mac-address)
+     |              +--ro mac-address?   yang:mac-address
+     +--ro mpls-local-label-statistics* [local-label forwarding-path-index]
+     |  +--ro local-label               uint32
+     |  +--ro forwarding-path-index     uint8
+     |  +--ro label-switched-bytes?     uint64
+     |  +--ro label-switched-packets?   uint64
+     +--ro ecmp-local-label* [local-label]
+        +--ro local-label      uint32
+        +--ro stats-summary
+        |  +--ro total-label-switched-bytes?     uint64
+        |  +--ro total-label-switched-packets?   uint64
+        +--ro ecmp-index* [ecmp-idx]
+           +--ro ecmp-idx                  uint64
+           +--ro connection-information
+           |  +--ro (discrim-choice)?
+           |     +--:(information-string)
+           |     |  +--ro info-str?    string
+           |     +--:(ip-prefix)
+           |        +--ro ip-prefix?   inet:ip-prefix
+           +--ro outgoing-interface
+           |  +--ro (discrim-choice)?
+           |     +--:(interface-type)
+           |     |  +--ro interface-type?    mpls-forwarding-ios-xe-oper:outgoing-interface-type
+           |     +--:(interface-value)
+           |        +--ro interface-value?   string
+           +--ro outgoing-label
+           |  +--ro (discrim-choice)?
+           |     +--:(no-label)
+           |     |  +--ro no-label?             boolean
+           |     +--:(pop-label)
+           |     |  +--ro pop-label?            uint32
+           |     +--:(ipv4-explicit-null)
+           |     |  +--ro ipv4-explicit-null?   uint32
+           |     +--:(ipv6-explicit-null)
+           |     |  +--ro ipv6-explicit-null?   uint32
+           |     +--:(regular-label)
+           |     |  +--ro regular-label?        uint32
+           |     +--:(invalid-label)
+           |        +--ro invalid-label?        boolean
+           +--ro next-hop
+           |  +--ro (discrim-choice)?
+           |     +--:(point2point)
+           |     |  +--ro p2p?           boolean
+           |     +--:(next-hop-ip-address)
+           |     |  +--ro ip-address?    inet:ip-address
+           |     +--:(next-hop-mac-address)
+           |        +--ro mac-address?   yang:mac-address
+           +--ro label-stats
+              +--ro label-switched-bytes?     uint64
+              +--ro label-switched-packets?   uint64
+
+  grouping outgoing-interface-info
+    +-- (discrim-choice)?
+       +--:(interface-type)
+       |  +-- interface-type?    mpls-forwarding-ios-xe-oper:outgoing-interface-type
+       +--:(interface-value)
+          +-- interface-value?   string
+  grouping outgoing-label-info
+    +-- (discrim-choice)?
+       +--:(no-label)
+       |  +-- no-label?             boolean
+       +--:(pop-label)
+       |  +-- pop-label?            uint32
+       +--:(ipv4-explicit-null)
+       |  +-- ipv4-explicit-null?   uint32
+       +--:(ipv6-explicit-null)
+       |  +-- ipv6-explicit-null?   uint32
+       +--:(regular-label)
+       |  +-- regular-label?        uint32
+       +--:(invalid-label)
+          +-- invalid-label?        boolean
+  grouping connection-info
+    +-- (discrim-choice)?
+       +--:(information-string)
+       |  +-- info-str?    string
+       +--:(ip-prefix)
+          +-- ip-prefix?   inet:ip-prefix
+  grouping forwarding-next-hop
+    +-- (discrim-choice)?
+       +--:(point2point)
+       |  +-- p2p?           boolean
+       +--:(next-hop-ip-address)
+       |  +-- ip-address?    inet:ip-address
+       +--:(next-hop-mac-address)
+          +-- mac-address?   yang:mac-address
+  grouping local-label-forwarding-info
+    +-- outgoing-interface
+    |  +-- (discrim-choice)?
+    |     +--:(interface-type)
+    |     |  +-- interface-type?    mpls-forwarding-ios-xe-oper:outgoing-interface-type
+    |     +--:(interface-value)
+    |        +-- interface-value?   string
+    +-- outgoing-label
+    |  +-- (discrim-choice)?
+    |     +--:(no-label)
+    |     |  +-- no-label?             boolean
+    |     +--:(pop-label)
+    |     |  +-- pop-label?            uint32
+    |     +--:(ipv4-explicit-null)
+    |     |  +-- ipv4-explicit-null?   uint32
+    |     +--:(ipv6-explicit-null)
+    |     |  +-- ipv6-explicit-null?   uint32
+    |     +--:(regular-label)
+    |     |  +-- regular-label?        uint32
+    |     +--:(invalid-label)
+    |        +-- invalid-label?        boolean
+    +-- next-hop
+       +-- (discrim-choice)?
+          +--:(point2point)
+          |  +-- p2p?           boolean
+          +--:(next-hop-ip-address)
+          |  +-- ip-address?    inet:ip-address
+          +--:(next-hop-mac-address)
+             +-- mac-address?   yang:mac-address
+  grouping local-label-entry
+    +-- connection-information
+    |  +-- (discrim-choice)?
+    |     +--:(information-string)
+    |     |  +-- info-str?    string
+    |     +--:(ip-prefix)
+    |        +-- ip-prefix?   inet:ip-prefix
+    +-- forwarding-paths* []
+       +-- outgoing-interface
+       |  +-- (discrim-choice)?
+       |     +--:(interface-type)
+       |     |  +-- interface-type?    mpls-forwarding-ios-xe-oper:outgoing-interface-type
+       |     +--:(interface-value)
+       |        +-- interface-value?   string
+       +-- outgoing-label
+       |  +-- (discrim-choice)?
+       |     +--:(no-label)
+       |     |  +-- no-label?             boolean
+       |     +--:(pop-label)
+       |     |  +-- pop-label?            uint32
+       |     +--:(ipv4-explicit-null)
+       |     |  +-- ipv4-explicit-null?   uint32
+       |     +--:(ipv6-explicit-null)
+       |     |  +-- ipv6-explicit-null?   uint32
+       |     +--:(regular-label)
+       |     |  +-- regular-label?        uint32
+       |     +--:(invalid-label)
+       |        +-- invalid-label?        boolean
+       +-- next-hop
+          +-- (discrim-choice)?
+             +--:(point2point)
+             |  +-- p2p?           boolean
+             +--:(next-hop-ip-address)
+             |  +-- ip-address?    inet:ip-address
+             +--:(next-hop-mac-address)
+                +-- mac-address?   yang:mac-address
+  grouping local-label-key
+    +-- local-label?   uint32
+  grouping local-label-forwarding-path-statistics
+    +-- label-switched-bytes?     uint64
+    +-- label-switched-packets?   uint64
+  grouping local-label-forwarding-path-key
+    +-- local-label?             uint32
+    +-- forwarding-path-index?   uint8
+  grouping ecmp-local-label-entry
+    +-- connection-information
+    |  +-- (discrim-choice)?
+    |     +--:(information-string)
+    |     |  +-- info-str?    string
+    |     +--:(ip-prefix)
+    |        +-- ip-prefix?   inet:ip-prefix
+    +-- outgoing-interface
+    |  +-- (discrim-choice)?
+    |     +--:(interface-type)
+    |     |  +-- interface-type?    mpls-forwarding-ios-xe-oper:outgoing-interface-type
+    |     +--:(interface-value)
+    |        +-- interface-value?   string
+    +-- outgoing-label
+    |  +-- (discrim-choice)?
+    |     +--:(no-label)
+    |     |  +-- no-label?             boolean
+    |     +--:(pop-label)
+    |     |  +-- pop-label?            uint32
+    |     +--:(ipv4-explicit-null)
+    |     |  +-- ipv4-explicit-null?   uint32
+    |     +--:(ipv6-explicit-null)
+    |     |  +-- ipv6-explicit-null?   uint32
+    |     +--:(regular-label)
+    |     |  +-- regular-label?        uint32
+    |     +--:(invalid-label)
+    |        +-- invalid-label?        boolean
+    +-- next-hop
+    |  +-- (discrim-choice)?
+    |     +--:(point2point)
+    |     |  +-- p2p?           boolean
+    |     +--:(next-hop-ip-address)
+    |     |  +-- ip-address?    inet:ip-address
+    |     +--:(next-hop-mac-address)
+    |        +-- mac-address?   yang:mac-address
+    +-- label-stats
+       +-- label-switched-bytes?     uint64
+       +-- label-switched-packets?   uint64
+  grouping ecmp-index-key
+    +-- ecmp-idx?   uint64
+  grouping ecmp-stats-summary
+    +-- total-label-switched-bytes?     uint64
+    +-- total-label-switched-packets?   uint64
+  grouping ecmp-stats
+    +-- stats-summary
+    |  +-- total-label-switched-bytes?     uint64
+    |  +-- total-label-switched-packets?   uint64
+    +-- ecmp-index* [ecmp-idx]
+       +-- ecmp-idx?                 uint64
+       +-- connection-information
+       |  +-- (discrim-choice)?
+       |     +--:(information-string)
+       |     |  +-- info-str?    string
+       |     +--:(ip-prefix)
+       |        +-- ip-prefix?   inet:ip-prefix
+       +-- outgoing-interface
+       |  +-- (discrim-choice)?
+       |     +--:(interface-type)
+       |     |  +-- interface-type?    mpls-forwarding-ios-xe-oper:outgoing-interface-type
+       |     +--:(interface-value)
+       |        +-- interface-value?   string
+       +-- outgoing-label
+       |  +-- (discrim-choice)?
+       |     +--:(no-label)
+       |     |  +-- no-label?             boolean
+       |     +--:(pop-label)
+       |     |  +-- pop-label?            uint32
+       |     +--:(ipv4-explicit-null)
+       |     |  +-- ipv4-explicit-null?   uint32
+       |     +--:(ipv6-explicit-null)
+       |     |  +-- ipv6-explicit-null?   uint32
+       |     +--:(regular-label)
+       |     |  +-- regular-label?        uint32
+       |     +--:(invalid-label)
+       |        +-- invalid-label?        boolean
+       +-- next-hop
+       |  +-- (discrim-choice)?
+       |     +--:(point2point)
+       |     |  +-- p2p?           boolean
+       |     +--:(next-hop-ip-address)
+       |     |  +-- ip-address?    inet:ip-address
+       |     +--:(next-hop-mac-address)
+       |        +-- mac-address?   yang:mac-address
+       +-- label-stats
+          +-- label-switched-bytes?     uint64
+          +-- label-switched-packets?   uint64

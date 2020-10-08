@@ -1,0 +1,69 @@
+module: openconfig-optical-amplifier
+  +--rw optical-amplifiers
+     +--rw amplifier* [name]
+     |  +--rw name      -> ../config/name
+     |  +--rw config
+     |  |  +--rw name?               string
+     |  |  +--rw type?               identityref
+     |  |  +--rw target-gain?        decimal64
+     |  |  +--rw target-gain-tilt?   decimal64
+     |  |  +--rw gain-range?         identityref
+     |  |  +--rw amp-mode?           identityref
+     |  |  +--rw output-power?       decimal64
+     |  +--ro state
+     |     +--ro name?               string
+     |     +--ro type?               identityref
+     |     +--ro target-gain?        decimal64
+     |     +--ro target-gain-tilt?   decimal64
+     |     +--ro gain-range?         identityref
+     |     +--ro amp-mode?           identityref
+     |     +--ro output-power?       decimal64
+     |     +--ro actual-gain?        decimal64
+     |     +--ro actual-gain-tilt?   decimal64
+     |     +--ro input-power?        decimal64
+     +--rw supervisory-channels
+        +--rw config
+        |  +--rw interface*   oc-if:base-interface-ref
+        +--ro state
+           +--ro interface*   oc-if:base-interface-ref
+
+  grouping optical-amplifier-config
+    +-- name?               string
+    +-- type?               identityref
+    +-- target-gain?        decimal64
+    +-- target-gain-tilt?   decimal64
+    +-- gain-range?         identityref
+    +-- amp-mode?           identityref
+    +-- output-power?       decimal64
+  grouping optical-amplifier-state
+    +-- actual-gain?        decimal64
+    +-- actual-gain-tilt?   decimal64
+    +-- input-power?        decimal64
+  grouping optical-amplifier-top
+    +-- optical-amplifiers
+       +-- amplifier* [name]
+       |  +-- name?     -> ../config/name
+       |  +-- config
+       |  |  +-- name?               string
+       |  |  +-- type?               identityref
+       |  |  +-- target-gain?        decimal64
+       |  |  +-- target-gain-tilt?   decimal64
+       |  |  +-- gain-range?         identityref
+       |  |  +-- amp-mode?           identityref
+       |  |  +-- output-power?       decimal64
+       |  +--ro state
+       |     +--ro name?               string
+       |     +--ro type?               identityref
+       |     +--ro target-gain?        decimal64
+       |     +--ro target-gain-tilt?   decimal64
+       |     +--ro gain-range?         identityref
+       |     +--ro amp-mode?           identityref
+       |     +--ro output-power?       decimal64
+       |     +--ro actual-gain?        decimal64
+       |     +--ro actual-gain-tilt?   decimal64
+       |     +--ro input-power?        decimal64
+       +-- supervisory-channels
+          +-- config
+          |  +-- interface*   oc-if:base-interface-ref
+          +--ro state
+             +--ro interface*   oc-if:base-interface-ref

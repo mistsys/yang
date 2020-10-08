@@ -1,0 +1,176 @@
+module: Cisco-IOS-XE-platform-oper
+  +--ro components
+     +--ro component* [cname]
+        +--ro cname                     string
+        +--ro state
+        |  +--ro type?              platform-ios-xe-oper:platform-comp-type
+        |  +--ro id?                string
+        |  +--ro description?       string
+        |  +--ro mfg-name?          string
+        |  +--ro version?           string
+        |  +--ro serial-no?         string
+        |  +--ro part-no?           string
+        |  +--ro temp
+        |  |  +--ro temp-instant?   decimal64
+        |  |  +--ro temp-avg?       decimal64
+        |  |  +--ro temp-max?       decimal64
+        |  |  +--ro temp-min?       decimal64
+        |  +--ro location?          string
+        |  +--ro empty?             boolean
+        |  +--ro mfg-date?          yang:date-and-time
+        |  +--ro firmware-ver?      string
+        |  +--ro removable?         boolean
+        |  +--ro status?            platform-ios-xe-oper:platform-comp-status
+        |  +--ro comp-alarm-data
+        |  |  +--ro alarm-status?      boolean
+        |  |  +--ro alarm-threshold?   uint32
+        |  |  +--ro severity?          platform-ios-xe-oper:temp-alarm-severity
+        |  +--ro parent?            string
+        |  +--ro comp-mem-data
+        |  |  +--ro mem-available?   uint64
+        |  |  +--ro mem-utilized?    uint64
+        |  +--ro alloc-pwr?         uint32
+        |  +--ro used-pwr?          uint32
+        |  +--ro status-desc?       platform-ios-xe-oper:status-description
+        +--ro platform-properties
+        |  +--ro platform-property* [name]
+        |     +--ro name            string
+        |     +--ro value
+        |     |  +--ro (property-value-choice)?
+        |     |     +--:(property-string)
+        |     |     |  +--ro string?        string
+        |     |     +--:(property-boolean)
+        |     |     |  +--ro boolean?       boolean
+        |     |     +--:(property-int64)
+        |     |     |  +--ro intsixfour?    int64
+        |     |     +--:(property-uint64)
+        |     |     |  +--ro uintsixfour?   uint64
+        |     |     +--:(property-decimal64)
+        |     |        +--ro decimal?       decimal64
+        |     +--ro configurable?   boolean
+        +--ro platform-subcomponents
+           +--ro platform-subcomponent* [name]
+              +--ro name    string
+
+  grouping platform-comp-temp
+    +-- temp-instant?   decimal64
+    +-- temp-avg?       decimal64
+    +-- temp-max?       decimal64
+    +-- temp-min?       decimal64
+  grouping temp-alarm-data
+    +-- alarm-status?      boolean
+    +-- alarm-threshold?   uint32
+    +-- severity?          platform-ios-xe-oper:temp-alarm-severity
+  grouping platform-memory-state
+    +-- mem-available?   uint64
+    +-- mem-utilized?    uint64
+  grouping platform-property-value
+    +-- (property-value-choice)?
+       +--:(property-string)
+       |  +-- string?        string
+       +--:(property-boolean)
+       |  +-- boolean?       boolean
+       +--:(property-int64)
+       |  +-- intsixfour?    int64
+       +--:(property-uint64)
+       |  +-- uintsixfour?   uint64
+       +--:(property-decimal64)
+          +-- decimal?       decimal64
+  grouping platform-state
+    +-- type?              platform-ios-xe-oper:platform-comp-type
+    +-- id?                string
+    +-- description?       string
+    +-- mfg-name?          string
+    +-- version?           string
+    +-- serial-no?         string
+    +-- part-no?           string
+    +-- temp
+    |  +-- temp-instant?   decimal64
+    |  +-- temp-avg?       decimal64
+    |  +-- temp-max?       decimal64
+    |  +-- temp-min?       decimal64
+    +-- location?          string
+    +-- empty?             boolean
+    +-- mfg-date?          yang:date-and-time
+    +-- firmware-ver?      string
+    +-- removable?         boolean
+    +-- status?            platform-ios-xe-oper:platform-comp-status
+    +-- comp-alarm-data
+    |  +-- alarm-status?      boolean
+    |  +-- alarm-threshold?   uint32
+    |  +-- severity?          platform-ios-xe-oper:temp-alarm-severity
+    +-- parent?            string
+    +-- comp-mem-data
+    |  +-- mem-available?   uint64
+    |  +-- mem-utilized?    uint64
+    +-- alloc-pwr?         uint32
+    +-- used-pwr?          uint32
+    +-- status-desc?       platform-ios-xe-oper:status-description
+  grouping platform-component
+    +-- cname?                    string
+    +-- state
+    |  +-- type?              platform-ios-xe-oper:platform-comp-type
+    |  +-- id?                string
+    |  +-- description?       string
+    |  +-- mfg-name?          string
+    |  +-- version?           string
+    |  +-- serial-no?         string
+    |  +-- part-no?           string
+    |  +-- temp
+    |  |  +-- temp-instant?   decimal64
+    |  |  +-- temp-avg?       decimal64
+    |  |  +-- temp-max?       decimal64
+    |  |  +-- temp-min?       decimal64
+    |  +-- location?          string
+    |  +-- empty?             boolean
+    |  +-- mfg-date?          yang:date-and-time
+    |  +-- firmware-ver?      string
+    |  +-- removable?         boolean
+    |  +-- status?            platform-ios-xe-oper:platform-comp-status
+    |  +-- comp-alarm-data
+    |  |  +-- alarm-status?      boolean
+    |  |  +-- alarm-threshold?   uint32
+    |  |  +-- severity?          platform-ios-xe-oper:temp-alarm-severity
+    |  +-- parent?            string
+    |  +-- comp-mem-data
+    |  |  +-- mem-available?   uint64
+    |  |  +-- mem-utilized?    uint64
+    |  +-- alloc-pwr?         uint32
+    |  +-- used-pwr?          uint32
+    |  +-- status-desc?       platform-ios-xe-oper:status-description
+    +-- platform-properties
+    |  +-- platform-property* [name]
+    |     +-- name?           string
+    |     +-- value
+    |     |  +-- (property-value-choice)?
+    |     |     +--:(property-string)
+    |     |     |  +-- string?        string
+    |     |     +--:(property-boolean)
+    |     |     |  +-- boolean?       boolean
+    |     |     +--:(property-int64)
+    |     |     |  +-- intsixfour?    int64
+    |     |     +--:(property-uint64)
+    |     |     |  +-- uintsixfour?   uint64
+    |     |     +--:(property-decimal64)
+    |     |        +-- decimal?       decimal64
+    |     +-- configurable?   boolean
+    +-- platform-subcomponents
+       +-- platform-subcomponent* [name]
+          +-- name?   string
+  grouping platform-subcomponents
+    +-- name?   string
+  grouping platform-properties
+    +-- name?           string
+    +-- value
+    |  +-- (property-value-choice)?
+    |     +--:(property-string)
+    |     |  +-- string?        string
+    |     +--:(property-boolean)
+    |     |  +-- boolean?       boolean
+    |     +--:(property-int64)
+    |     |  +-- intsixfour?    int64
+    |     +--:(property-uint64)
+    |     |  +-- uintsixfour?   uint64
+    |     +--:(property-decimal64)
+    |        +-- decimal?       decimal64
+    +-- configurable?   boolean

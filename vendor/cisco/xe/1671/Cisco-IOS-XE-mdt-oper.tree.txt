@@ -1,0 +1,106 @@
+module: Cisco-IOS-XE-mdt-oper
+  +--ro mdt-oper-data
+     +--ro mdt-streams
+     |  +--ro stream*   string
+     +--ro mdt-subscriptions* [subscription-id]
+     |  +--ro subscription-id     uint32
+     |  +--ro base
+     |  |  +--ro stream?                    string
+     |  |  +--ro encoding?                  string
+     |  |  +--ro source-vrf?                string
+     |  |  +--ro source-address?            inet:ip-address
+     |  |  +--ro (update-trigger-choice)?
+     |  |  |  +--:(sub-upd-trig-none)
+     |  |  |  |  +--ro no-trigger?          uint32
+     |  |  |  +--:(sub-upd-trig-periodic)
+     |  |  |  |  +--ro period               uint32
+     |  |  |  +--:(sub-upd-trig-on-change)
+     |  |  |     +--ro no-synch-on-start?   boolean
+     |  |  +--ro (filter-type-choice)?
+     |  |     +--:(sub-filter-type-none)
+     |  |     |  +--ro no-filter?           uint32
+     |  |     +--:(sub-filter-type-xpath)
+     |  |     |  +--ro xpath?               string
+     |  |     +--:(sub-filter-type-tdl-uri)
+     |  |        +--ro tdl-uri?             string
+     |  +--ro type?               mdt-oper:mdt-sub-type
+     |  +--ro state?              mdt-oper:mdt-sub-state
+     |  +--ro comments?           string
+     |  +--ro updates-in?         uint64
+     |  +--ro updates-dampened?   uint64
+     |  +--ro updates-dropped?    uint64
+     |  +--ro mdt-receivers* [address port]
+     |     +--ro protocol?   string
+     |     +--ro state?      mdt-oper:mdt-receiver-state
+     |     +--ro comments?   string
+     |     +--ro address     inet:ip-address
+     |     +--ro port        uint16
+     +--ro mdt-connections* [address port source-vrf source-address]
+        +--ro transport?           string
+        +--ro peer-id?             string
+        +--ro state?               mdt-oper:mdt-con-state
+        +--ro mdt-sub-con-stats* [sub-id]
+        |  +--ro sub-id             uint32
+        |  +--ro updates-sent?      uint64
+        |  +--ro updates-dropped?   uint64
+        +--ro address              inet:ip-address
+        +--ro port                 uint16
+        +--ro source-vrf           string
+        +--ro source-address       inet:ip-address
+
+  grouping mdt-stream
+    +-- stream*   string
+  grouping mdt-subscription-oper
+    +-- subscription-id?    uint32
+    +-- base
+    |  +-- stream?                    string
+    |  +-- encoding?                  string
+    |  +-- source-vrf?                string
+    |  +-- source-address?            inet:ip-address
+    |  +-- (update-trigger-choice)?
+    |  |  +--:(sub-upd-trig-none)
+    |  |  |  +-- no-trigger?          uint32
+    |  |  +--:(sub-upd-trig-periodic)
+    |  |  |  +-- period               uint32
+    |  |  +--:(sub-upd-trig-on-change)
+    |  |     +-- no-synch-on-start?   boolean
+    |  +-- (filter-type-choice)?
+    |     +--:(sub-filter-type-none)
+    |     |  +-- no-filter?           uint32
+    |     +--:(sub-filter-type-xpath)
+    |     |  +-- xpath?               string
+    |     +--:(sub-filter-type-tdl-uri)
+    |        +-- tdl-uri?             string
+    +-- type?               mdt-oper:mdt-sub-type
+    +-- state?              mdt-oper:mdt-sub-state
+    +-- comments?           string
+    +-- updates-in?         uint64
+    +-- updates-dampened?   uint64
+    +-- updates-dropped?    uint64
+    +-- mdt-receivers* [address port]
+       +-- protocol?   string
+       +-- state?      mdt-oper:mdt-receiver-state
+       +-- comments?   string
+       +-- address     inet:ip-address
+       +-- port        uint16
+  grouping mdt-receiver-oper
+    +-- protocol?   string
+    +-- state?      mdt-oper:mdt-receiver-state
+    +-- comments?   string
+  grouping mdt-connection-id
+    +-- address?          inet:ip-address
+    +-- port?             uint16
+    +-- source-vrf?       string
+    +-- source-address?   inet:ip-address
+  grouping mdt-connection-data
+    +-- transport?           string
+    +-- peer-id?             string
+    +-- state?               mdt-oper:mdt-con-state
+    +-- mdt-sub-con-stats* [sub-id]
+       +-- sub-id?            uint32
+       +-- updates-sent?      uint64
+       +-- updates-dropped?   uint64
+  grouping mdt-sub-con-stats
+    +-- sub-id?            uint32
+    +-- updates-sent?      uint64
+    +-- updates-dropped?   uint64

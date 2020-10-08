@@ -1,0 +1,399 @@
+submodule: openconfig-bgp-common-multiprotocol (belongs-to openconfig-bgp)
+
+  grouping bgp-common-mp-afi-safi-graceful-restart-config
+    +-- enabled?   boolean
+  grouping bgp-common-mp-afi-safi-config
+    +-- afi-safi-name?   identityref
+    +-- enabled?         boolean
+  grouping bgp-common-mp-all-afi-safi-list-contents
+    +-- apply-policy
+    |  +-- config
+    |  |  +-- import-policy*           -> /oc-rpol:routing-policy/policy-definitions/policy-definition/name
+    |  |  +-- default-import-policy?   default-policy-type
+    |  |  +-- export-policy*           -> /oc-rpol:routing-policy/policy-definitions/policy-definition/name
+    |  |  +-- default-export-policy?   default-policy-type
+    |  +--ro state
+    |     +--ro import-policy*           -> /oc-rpol:routing-policy/policy-definitions/policy-definition/name
+    |     +--ro default-import-policy?   default-policy-type
+    |     +--ro export-policy*           -> /oc-rpol:routing-policy/policy-definitions/policy-definition/name
+    |     +--ro default-export-policy?   default-policy-type
+    +-- ipv4-unicast
+    |  +-- prefix-limit
+    |  |  +-- config
+    |  |  |  +-- max-prefixes?             uint32
+    |  |  |  +-- shutdown-threshold-pct?   oc-types:percentage
+    |  |  |  +-- restart-timer?            decimal64
+    |  |  +--ro state
+    |  |     +--ro max-prefixes?             uint32
+    |  |     +--ro shutdown-threshold-pct?   oc-types:percentage
+    |  |     +--ro restart-timer?            decimal64
+    |  +-- config
+    |  |  +-- send-default-route?   boolean
+    |  +--ro state
+    |     +--ro send-default-route?   boolean
+    +-- ipv6-unicast
+    |  +-- prefix-limit
+    |  |  +-- config
+    |  |  |  +-- max-prefixes?             uint32
+    |  |  |  +-- shutdown-threshold-pct?   oc-types:percentage
+    |  |  |  +-- restart-timer?            decimal64
+    |  |  +--ro state
+    |  |     +--ro max-prefixes?             uint32
+    |  |     +--ro shutdown-threshold-pct?   oc-types:percentage
+    |  |     +--ro restart-timer?            decimal64
+    |  +-- config
+    |  |  +-- send-default-route?   boolean
+    |  +--ro state
+    |     +--ro send-default-route?   boolean
+    +-- ipv4-labeled-unicast
+    |  +-- prefix-limit
+    |     +-- config
+    |     |  +-- max-prefixes?             uint32
+    |     |  +-- shutdown-threshold-pct?   oc-types:percentage
+    |     |  +-- restart-timer?            decimal64
+    |     +--ro state
+    |        +--ro max-prefixes?             uint32
+    |        +--ro shutdown-threshold-pct?   oc-types:percentage
+    |        +--ro restart-timer?            decimal64
+    +-- ipv6-labeled-unicast
+    |  +-- prefix-limit
+    |     +-- config
+    |     |  +-- max-prefixes?             uint32
+    |     |  +-- shutdown-threshold-pct?   oc-types:percentage
+    |     |  +-- restart-timer?            decimal64
+    |     +--ro state
+    |        +--ro max-prefixes?             uint32
+    |        +--ro shutdown-threshold-pct?   oc-types:percentage
+    |        +--ro restart-timer?            decimal64
+    +-- l3vpn-ipv4-unicast
+    |  +-- prefix-limit
+    |     +-- config
+    |     |  +-- max-prefixes?             uint32
+    |     |  +-- shutdown-threshold-pct?   oc-types:percentage
+    |     |  +-- restart-timer?            decimal64
+    |     +--ro state
+    |        +--ro max-prefixes?             uint32
+    |        +--ro shutdown-threshold-pct?   oc-types:percentage
+    |        +--ro restart-timer?            decimal64
+    +-- l3vpn-ipv6-unicast
+    |  +-- prefix-limit
+    |     +-- config
+    |     |  +-- max-prefixes?             uint32
+    |     |  +-- shutdown-threshold-pct?   oc-types:percentage
+    |     |  +-- restart-timer?            decimal64
+    |     +--ro state
+    |        +--ro max-prefixes?             uint32
+    |        +--ro shutdown-threshold-pct?   oc-types:percentage
+    |        +--ro restart-timer?            decimal64
+    +-- l3vpn-ipv4-multicast
+    |  +-- prefix-limit
+    |     +-- config
+    |     |  +-- max-prefixes?             uint32
+    |     |  +-- shutdown-threshold-pct?   oc-types:percentage
+    |     |  +-- restart-timer?            decimal64
+    |     +--ro state
+    |        +--ro max-prefixes?             uint32
+    |        +--ro shutdown-threshold-pct?   oc-types:percentage
+    |        +--ro restart-timer?            decimal64
+    +-- l3vpn-ipv6-multicast
+    |  +-- prefix-limit
+    |     +-- config
+    |     |  +-- max-prefixes?             uint32
+    |     |  +-- shutdown-threshold-pct?   oc-types:percentage
+    |     |  +-- restart-timer?            decimal64
+    |     +--ro state
+    |        +--ro max-prefixes?             uint32
+    |        +--ro shutdown-threshold-pct?   oc-types:percentage
+    |        +--ro restart-timer?            decimal64
+    +-- l2vpn-vpls
+    |  +-- prefix-limit
+    |     +-- config
+    |     |  +-- max-prefixes?             uint32
+    |     |  +-- shutdown-threshold-pct?   oc-types:percentage
+    |     |  +-- restart-timer?            decimal64
+    |     +--ro state
+    |        +--ro max-prefixes?             uint32
+    |        +--ro shutdown-threshold-pct?   oc-types:percentage
+    |        +--ro restart-timer?            decimal64
+    +-- l2vpn-evpn
+       +-- prefix-limit
+          +-- config
+          |  +-- max-prefixes?             uint32
+          |  +-- shutdown-threshold-pct?   oc-types:percentage
+          |  +-- restart-timer?            decimal64
+          +--ro state
+             +--ro max-prefixes?             uint32
+             +--ro shutdown-threshold-pct?   oc-types:percentage
+             +--ro restart-timer?            decimal64
+  grouping bgp-common-mp-ipv4-unicast-group
+    +-- ipv4-unicast
+       +-- prefix-limit
+       |  +-- config
+       |  |  +-- max-prefixes?             uint32
+       |  |  +-- shutdown-threshold-pct?   oc-types:percentage
+       |  |  +-- restart-timer?            decimal64
+       |  +--ro state
+       |     +--ro max-prefixes?             uint32
+       |     +--ro shutdown-threshold-pct?   oc-types:percentage
+       |     +--ro restart-timer?            decimal64
+       +-- config
+       |  +-- send-default-route?   boolean
+       +--ro state
+          +--ro send-default-route?   boolean
+  grouping bgp-common-mp-ipv6-unicast-group
+    +-- ipv6-unicast
+       +-- prefix-limit
+       |  +-- config
+       |  |  +-- max-prefixes?             uint32
+       |  |  +-- shutdown-threshold-pct?   oc-types:percentage
+       |  |  +-- restart-timer?            decimal64
+       |  +--ro state
+       |     +--ro max-prefixes?             uint32
+       |     +--ro shutdown-threshold-pct?   oc-types:percentage
+       |     +--ro restart-timer?            decimal64
+       +-- config
+       |  +-- send-default-route?   boolean
+       +--ro state
+          +--ro send-default-route?   boolean
+  grouping bgp-common-mp-ipv4-labeled-unicast-group
+    +-- ipv4-labeled-unicast
+       +-- prefix-limit
+          +-- config
+          |  +-- max-prefixes?             uint32
+          |  +-- shutdown-threshold-pct?   oc-types:percentage
+          |  +-- restart-timer?            decimal64
+          +--ro state
+             +--ro max-prefixes?             uint32
+             +--ro shutdown-threshold-pct?   oc-types:percentage
+             +--ro restart-timer?            decimal64
+  grouping bgp-common-mp-ipv6-labeled-unicast-group
+    +-- ipv6-labeled-unicast
+       +-- prefix-limit
+          +-- config
+          |  +-- max-prefixes?             uint32
+          |  +-- shutdown-threshold-pct?   oc-types:percentage
+          |  +-- restart-timer?            decimal64
+          +--ro state
+             +--ro max-prefixes?             uint32
+             +--ro shutdown-threshold-pct?   oc-types:percentage
+             +--ro restart-timer?            decimal64
+  grouping bgp-common-mp-l3vpn-ipv4-unicast-group
+    +-- l3vpn-ipv4-unicast
+       +-- prefix-limit
+          +-- config
+          |  +-- max-prefixes?             uint32
+          |  +-- shutdown-threshold-pct?   oc-types:percentage
+          |  +-- restart-timer?            decimal64
+          +--ro state
+             +--ro max-prefixes?             uint32
+             +--ro shutdown-threshold-pct?   oc-types:percentage
+             +--ro restart-timer?            decimal64
+  grouping bgp-common-mp-l3vpn-ipv6-unicast-group
+    +-- l3vpn-ipv6-unicast
+       +-- prefix-limit
+          +-- config
+          |  +-- max-prefixes?             uint32
+          |  +-- shutdown-threshold-pct?   oc-types:percentage
+          |  +-- restart-timer?            decimal64
+          +--ro state
+             +--ro max-prefixes?             uint32
+             +--ro shutdown-threshold-pct?   oc-types:percentage
+             +--ro restart-timer?            decimal64
+  grouping bgp-common-mp-l3vpn-ipv4-multicast-group
+    +-- l3vpn-ipv4-multicast
+       +-- prefix-limit
+          +-- config
+          |  +-- max-prefixes?             uint32
+          |  +-- shutdown-threshold-pct?   oc-types:percentage
+          |  +-- restart-timer?            decimal64
+          +--ro state
+             +--ro max-prefixes?             uint32
+             +--ro shutdown-threshold-pct?   oc-types:percentage
+             +--ro restart-timer?            decimal64
+  grouping bgp-common-mp-l3vpn-ipv6-multicast-group
+    +-- l3vpn-ipv6-multicast
+       +-- prefix-limit
+          +-- config
+          |  +-- max-prefixes?             uint32
+          |  +-- shutdown-threshold-pct?   oc-types:percentage
+          |  +-- restart-timer?            decimal64
+          +--ro state
+             +--ro max-prefixes?             uint32
+             +--ro shutdown-threshold-pct?   oc-types:percentage
+             +--ro restart-timer?            decimal64
+  grouping bgp-common-mp-l2vpn-vpls-group
+    +-- l2vpn-vpls
+       +-- prefix-limit
+          +-- config
+          |  +-- max-prefixes?             uint32
+          |  +-- shutdown-threshold-pct?   oc-types:percentage
+          |  +-- restart-timer?            decimal64
+          +--ro state
+             +--ro max-prefixes?             uint32
+             +--ro shutdown-threshold-pct?   oc-types:percentage
+             +--ro restart-timer?            decimal64
+  grouping bgp-common-mp-l2vpn-evpn-group
+    +-- l2vpn-evpn
+       +-- prefix-limit
+          +-- config
+          |  +-- max-prefixes?             uint32
+          |  +-- shutdown-threshold-pct?   oc-types:percentage
+          |  +-- restart-timer?            decimal64
+          +--ro state
+             +--ro max-prefixes?             uint32
+             +--ro shutdown-threshold-pct?   oc-types:percentage
+             +--ro restart-timer?            decimal64
+  grouping bgp-common-mp-all-afi-safi-common
+    +-- prefix-limit
+       +-- config
+       |  +-- max-prefixes?             uint32
+       |  +-- shutdown-threshold-pct?   oc-types:percentage
+       |  +-- restart-timer?            decimal64
+       +--ro state
+          +--ro max-prefixes?             uint32
+          +--ro shutdown-threshold-pct?   oc-types:percentage
+          +--ro restart-timer?            decimal64
+  grouping bgp-common-mp-ipv4-ipv6-unicast-common
+    +-- prefix-limit
+    |  +-- config
+    |  |  +-- max-prefixes?             uint32
+    |  |  +-- shutdown-threshold-pct?   oc-types:percentage
+    |  |  +-- restart-timer?            decimal64
+    |  +--ro state
+    |     +--ro max-prefixes?             uint32
+    |     +--ro shutdown-threshold-pct?   oc-types:percentage
+    |     +--ro restart-timer?            decimal64
+    +-- config
+    |  +-- send-default-route?   boolean
+    +--ro state
+       +--ro send-default-route?   boolean
+  grouping bgp-common-mp-l3vpn-ipv4-ipv6-unicast-common
+    +-- prefix-limit
+       +-- config
+       |  +-- max-prefixes?             uint32
+       |  +-- shutdown-threshold-pct?   oc-types:percentage
+       |  +-- restart-timer?            decimal64
+       +--ro state
+          +--ro max-prefixes?             uint32
+          +--ro shutdown-threshold-pct?   oc-types:percentage
+          +--ro restart-timer?            decimal64
+  grouping bgp-common-mp-l3vpn-ipv4-ipv6-multicast-common
+    +-- prefix-limit
+       +-- config
+       |  +-- max-prefixes?             uint32
+       |  +-- shutdown-threshold-pct?   oc-types:percentage
+       |  +-- restart-timer?            decimal64
+       +--ro state
+          +--ro max-prefixes?             uint32
+          +--ro shutdown-threshold-pct?   oc-types:percentage
+          +--ro restart-timer?            decimal64
+  grouping bgp-common-mp-l2vpn-common
+    +-- prefix-limit
+       +-- config
+       |  +-- max-prefixes?             uint32
+       |  +-- shutdown-threshold-pct?   oc-types:percentage
+       |  +-- restart-timer?            decimal64
+       +--ro state
+          +--ro max-prefixes?             uint32
+          +--ro shutdown-threshold-pct?   oc-types:percentage
+          +--ro restart-timer?            decimal64
+  grouping bgp-common-mp-all-afi-safi-common-prefix-limit-config
+    +-- max-prefixes?             uint32
+    +-- shutdown-threshold-pct?   oc-types:percentage
+    +-- restart-timer?            decimal64
+  grouping bgp-common-mp-ipv4-ipv6-unicast-common-config
+    +-- send-default-route?   boolean
+  grouping bgp-common-neighbor-group-timers-config
+    +-- connect-retry?                    decimal64
+    +-- hold-time?                        decimal64
+    +-- keepalive-interval?               decimal64
+    +-- minimum-advertisement-interval?   decimal64
+  grouping bgp-common-neighbor-group-config
+    +-- peer-as?              inet:as-number
+    +-- local-as?             inet:as-number
+    +-- peer-type?            oc-bgp-types:peer-type
+    +-- auth-password?        string
+    +-- remove-private-as?    oc-bgp-types:remove-private-as-option
+    +-- route-flap-damping?   boolean
+    +-- send-community?       oc-bgp-types:community-type
+    +-- description?          string
+  grouping bgp-common-neighbor-group-transport-config
+    +-- tcp-mss?         uint16
+    +-- mtu-discovery?   boolean
+    +-- passive-mode?    boolean
+    +-- local-address?   union
+  grouping bgp-common-neighbor-group-error-handling-config
+    +-- treat-as-withdraw?   boolean
+  grouping bgp-common-neighbor-group-logging-options-config
+    +-- log-neighbor-state-changes?   boolean
+  grouping bgp-common-neighbor-group-multihop-config
+    +-- enabled?        boolean
+    +-- multihop-ttl?   uint8
+  grouping bgp-common-neighbor-group-route-reflector-config
+    +-- route-reflector-cluster-id?   oc-bgp-types:rr-cluster-id-type
+    +-- route-reflector-client?       boolean
+  grouping bgp-common-neighbor-group-as-path-options-config
+    +-- allow-own-as?      uint8
+    +-- replace-peer-as?   boolean
+  grouping bgp-common-neighbor-group-add-paths-config
+    +-- receive?                  boolean
+    +-- send-max?                 uint8
+    +-- eligible-prefix-policy?   -> /oc-rpol:routing-policy/policy-definitions/policy-definition/name
+  grouping bgp-common-graceful-restart-config
+    +-- enabled?             boolean
+    +-- restart-time?        uint16
+    +-- stale-routes-time?   decimal64
+    +-- helper-only?         boolean
+  grouping bgp-common-use-multiple-paths-config
+    +-- enabled?   boolean
+  grouping bgp-common-use-multiple-paths-ebgp-as-options-config
+    +-- allow-multiple-as?   boolean
+  grouping bgp-common-global-group-use-multiple-paths
+    +-- use-multiple-paths
+       +-- config
+       |  +-- enabled?   boolean
+       +--ro state
+       |  +--ro enabled?   boolean
+       +-- ebgp
+       |  +-- config
+       |  |  +-- allow-multiple-as?   boolean
+       |  |  +-- maximum-paths?       uint32
+       |  +--ro state
+       |     +--ro allow-multiple-as?   boolean
+       |     +--ro maximum-paths?       uint32
+       +-- ibgp
+          +-- config
+          |  +-- maximum-paths?   uint32
+          +--ro state
+             +--ro maximum-paths?   uint32
+  grouping bgp-common-use-multiple-paths-ebgp-config
+    +-- allow-multiple-as?   boolean
+    +-- maximum-paths?       uint32
+  grouping bgp-common-use-multiple-paths-ibgp-config
+    +-- maximum-paths?   uint32
+  grouping bgp-common-route-selection-options-config
+    +-- always-compare-med?           boolean
+    +-- ignore-as-path-length?        boolean
+    +-- external-compare-router-id?   boolean
+    +-- advertise-inactive-routes?    boolean
+    +-- enable-aigp?                  boolean
+    +-- ignore-next-hop-igp-metric?   boolean
+  grouping bgp-common-route-selection-options
+    +-- route-selection-options
+       +-- config
+       |  +-- always-compare-med?           boolean
+       |  +-- ignore-as-path-length?        boolean
+       |  +-- external-compare-router-id?   boolean
+       |  +-- advertise-inactive-routes?    boolean
+       |  +-- enable-aigp?                  boolean
+       |  +-- ignore-next-hop-igp-metric?   boolean
+       +--ro state
+          +--ro always-compare-med?           boolean
+          +--ro ignore-as-path-length?        boolean
+          +--ro external-compare-router-id?   boolean
+          +--ro advertise-inactive-routes?    boolean
+          +--ro enable-aigp?                  boolean
+          +--ro ignore-next-hop-igp-metric?   boolean
+  grouping bgp-common-state
+    +-- total-paths?      uint32
+    +-- total-prefixes?   uint32

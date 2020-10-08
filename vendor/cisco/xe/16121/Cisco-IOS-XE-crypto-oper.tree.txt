@@ -1,0 +1,339 @@
+module: Cisco-IOS-XE-crypto-oper
+  +--ro crypto-oper-data
+     +--ro crypto-ipsec-ident* [interface]
+     |  +--ro interface     string
+     |  +--ro ident-data
+     |     +--ro protected-vrf?           uint32
+     |     +--ro local-ident-addr?        inet:ip-address
+     |     +--ro local-ident-mask?        inet:ip-address
+     |     +--ro local-ident-protocol?    uint32
+     |     +--ro remote-ident-addr?       inet:ip-address
+     |     +--ro remote-ident-mask?       inet:ip-address
+     |     +--ro remote-ident-protocol?   uint32
+     |     +--ro plaintext-mtu?           uint16
+     |     +--ro local-endpt-addr?        inet:ip-address
+     |     +--ro remote-endpt-addr?       inet:ip-address
+     |     +--ro dh-group?                crypto-ios-xe-oper:crypto-dh-group-type
+     |     +--ro inbound-esp-sa
+     |     |  +--ro spi?             uint32
+     |     |  +--ro dir?             crypto-ios-xe-oper:crypto-dir-type
+     |     |  +--ro protocol?        crypto-ios-xe-oper:crypto-prot-type
+     |     |  +--ro flow-id?         uint32
+     |     |  +--ro sa-status?       crypto-ios-xe-oper:crypto-sa-status
+     |     |  +--ro transform-set?   crypto-ios-xe-oper:crypto-transform-options
+     |     +--ro inbound-ah-sa
+     |     |  +--ro spi?             uint32
+     |     |  +--ro dir?             crypto-ios-xe-oper:crypto-dir-type
+     |     |  +--ro protocol?        crypto-ios-xe-oper:crypto-prot-type
+     |     |  +--ro flow-id?         uint32
+     |     |  +--ro sa-status?       crypto-ios-xe-oper:crypto-sa-status
+     |     |  +--ro transform-set?   crypto-ios-xe-oper:crypto-transform-options
+     |     +--ro inbound-pcp-sa
+     |     |  +--ro spi?             uint32
+     |     |  +--ro dir?             crypto-ios-xe-oper:crypto-dir-type
+     |     |  +--ro protocol?        crypto-ios-xe-oper:crypto-prot-type
+     |     |  +--ro flow-id?         uint32
+     |     |  +--ro sa-status?       crypto-ios-xe-oper:crypto-sa-status
+     |     |  +--ro transform-set?   crypto-ios-xe-oper:crypto-transform-options
+     |     +--ro outbound-esp-sa
+     |     |  +--ro spi?             uint32
+     |     |  +--ro dir?             crypto-ios-xe-oper:crypto-dir-type
+     |     |  +--ro protocol?        crypto-ios-xe-oper:crypto-prot-type
+     |     |  +--ro flow-id?         uint32
+     |     |  +--ro sa-status?       crypto-ios-xe-oper:crypto-sa-status
+     |     |  +--ro transform-set?   crypto-ios-xe-oper:crypto-transform-options
+     |     +--ro outbound-ah-sa
+     |     |  +--ro spi?             uint32
+     |     |  +--ro dir?             crypto-ios-xe-oper:crypto-dir-type
+     |     |  +--ro protocol?        crypto-ios-xe-oper:crypto-prot-type
+     |     |  +--ro flow-id?         uint32
+     |     |  +--ro sa-status?       crypto-ios-xe-oper:crypto-sa-status
+     |     |  +--ro transform-set?   crypto-ios-xe-oper:crypto-transform-options
+     |     +--ro outbound-pcp-sa
+     |        +--ro spi?             uint32
+     |        +--ro dir?             crypto-ios-xe-oper:crypto-dir-type
+     |        +--ro protocol?        crypto-ios-xe-oper:crypto-prot-type
+     |        +--ro flow-id?         uint32
+     |        +--ro sa-status?       crypto-ios-xe-oper:crypto-sa-status
+     |        +--ro transform-set?   crypto-ios-xe-oper:crypto-transform-options
+     +--ro crypto-ikev2-sa* [sa-id]
+     |  +--ro sa-id      uint32
+     |  +--ro sa-data
+     |     +--ro sa-id?              uint32
+     |     +--ro sa-status?          crypto-ios-xe-oper:crypto-sa-status
+     |     +--ro local-ip-addr?      inet:ip-address
+     |     +--ro local-port?         uint16
+     |     +--ro remote-ip-addr?     inet:ip-address
+     |     +--ro remote-port?        uint16
+     |     +--ro dh-group?           crypto-ios-xe-oper:crypto-dh-group-type
+     |     +--ro init-spi?           binary
+     |     +--ro resp-spi?           binary
+     |     +--ro ivrf?               string
+     |     +--ro fvrf?               string
+     |     +--ro lifetime?           uint32
+     |     +--ro hash-algo?          crypto-ios-xe-oper:crypto-hash-alg
+     |     +--ro encr-alg?           crypto-ios-xe-oper:crypto-encryption-alg
+     |     +--ro my-auth-method?     crypto-ios-xe-oper:crypto-auth-method
+     |     +--ro peer-auth-method?   crypto-ios-xe-oper:crypto-auth-method
+     +--ro crypto-ikev1-sa* [sa-id]
+     |  +--ro sa-id      uint32
+     |  +--ro sa-data
+     |     +--ro sa-id?              uint32
+     |     +--ro sa-status?          crypto-ios-xe-oper:crypto-sa-status
+     |     +--ro local-ip-addr?      inet:ip-address
+     |     +--ro local-port?         uint16
+     |     +--ro remote-ip-addr?     inet:ip-address
+     |     +--ro remote-port?        uint16
+     |     +--ro dh-group?           crypto-ios-xe-oper:crypto-dh-group-type
+     |     +--ro init-spi?           binary
+     |     +--ro resp-spi?           binary
+     |     +--ro ivrf?               string
+     |     +--ro fvrf?               string
+     |     +--ro lifetime?           uint32
+     |     +--ro hash-algo?          crypto-ios-xe-oper:crypto-hash-alg
+     |     +--ro encr-alg?           crypto-ios-xe-oper:crypto-encryption-alg
+     |     +--ro my-auth-method?     crypto-ios-xe-oper:crypto-auth-method
+     |     +--ro peer-auth-method?   crypto-ios-xe-oper:crypto-auth-method
+     +--ro crypto-cerm-info!
+        +--ro enabled?         boolean
+        +--ro resource-info
+        |  +--ro ipsec-tunnels
+        |  |  +--ro maximum?     uint32
+        |  |  +--ro available?   uint32
+        |  +--ro tls-sessions
+        |     +--ro maximum?     uint32
+        |     +--ro available?   uint32
+        +--ro resv-info
+        |  +--ro voice
+        |  |  +--ro tunnels?        uint32
+        |  |  +--ro tls-sessions?   uint32
+        |  +--ro ipsec
+        |  |  +--ro tunnels?        uint32
+        |  |  +--ro tls-sessions?   uint32
+        |  +--ro sslvpn
+        |     +--ro tunnels?        uint32
+        |     +--ro tls-sessions?   uint32
+        +--ro stats-info
+           +--ro failed-tunnels?    uint32
+           +--ro failed-sessions?   uint32
+
+  grouping crypto-ike-sa-data
+    +-- sa-id?              uint32
+    +-- sa-status?          crypto-ios-xe-oper:crypto-sa-status
+    +-- local-ip-addr?      inet:ip-address
+    +-- local-port?         uint16
+    +-- remote-ip-addr?     inet:ip-address
+    +-- remote-port?        uint16
+    +-- dh-group?           crypto-ios-xe-oper:crypto-dh-group-type
+    +-- init-spi?           binary
+    +-- resp-spi?           binary
+    +-- ivrf?               string
+    +-- fvrf?               string
+    +-- lifetime?           uint32
+    +-- hash-algo?          crypto-ios-xe-oper:crypto-hash-alg
+    +-- encr-alg?           crypto-ios-xe-oper:crypto-encryption-alg
+    +-- my-auth-method?     crypto-ios-xe-oper:crypto-auth-method
+    +-- peer-auth-method?   crypto-ios-xe-oper:crypto-auth-method
+  grouping crypto-ikev2-sa-entry
+    +-- sa-id?     uint32
+    +-- sa-data
+       +-- sa-id?              uint32
+       +-- sa-status?          crypto-ios-xe-oper:crypto-sa-status
+       +-- local-ip-addr?      inet:ip-address
+       +-- local-port?         uint16
+       +-- remote-ip-addr?     inet:ip-address
+       +-- remote-port?        uint16
+       +-- dh-group?           crypto-ios-xe-oper:crypto-dh-group-type
+       +-- init-spi?           binary
+       +-- resp-spi?           binary
+       +-- ivrf?               string
+       +-- fvrf?               string
+       +-- lifetime?           uint32
+       +-- hash-algo?          crypto-ios-xe-oper:crypto-hash-alg
+       +-- encr-alg?           crypto-ios-xe-oper:crypto-encryption-alg
+       +-- my-auth-method?     crypto-ios-xe-oper:crypto-auth-method
+       +-- peer-auth-method?   crypto-ios-xe-oper:crypto-auth-method
+  grouping crypto-ikev1-sa-entry
+    +-- sa-id?     uint32
+    +-- sa-data
+       +-- sa-id?              uint32
+       +-- sa-status?          crypto-ios-xe-oper:crypto-sa-status
+       +-- local-ip-addr?      inet:ip-address
+       +-- local-port?         uint16
+       +-- remote-ip-addr?     inet:ip-address
+       +-- remote-port?        uint16
+       +-- dh-group?           crypto-ios-xe-oper:crypto-dh-group-type
+       +-- init-spi?           binary
+       +-- resp-spi?           binary
+       +-- ivrf?               string
+       +-- fvrf?               string
+       +-- lifetime?           uint32
+       +-- hash-algo?          crypto-ios-xe-oper:crypto-hash-alg
+       +-- encr-alg?           crypto-ios-xe-oper:crypto-encryption-alg
+       +-- my-auth-method?     crypto-ios-xe-oper:crypto-auth-method
+       +-- peer-auth-method?   crypto-ios-xe-oper:crypto-auth-method
+  grouping crypto-ipsec-sa-entry
+    +-- spi?             uint32
+    +-- dir?             crypto-ios-xe-oper:crypto-dir-type
+    +-- protocol?        crypto-ios-xe-oper:crypto-prot-type
+    +-- flow-id?         uint32
+    +-- sa-status?       crypto-ios-xe-oper:crypto-sa-status
+    +-- transform-set?   crypto-ios-xe-oper:crypto-transform-options
+  grouping crypto-ipsec-ident-data
+    +-- protected-vrf?           uint32
+    +-- local-ident-addr?        inet:ip-address
+    +-- local-ident-mask?        inet:ip-address
+    +-- local-ident-protocol?    uint32
+    +-- remote-ident-addr?       inet:ip-address
+    +-- remote-ident-mask?       inet:ip-address
+    +-- remote-ident-protocol?   uint32
+    +-- plaintext-mtu?           uint16
+    +-- local-endpt-addr?        inet:ip-address
+    +-- remote-endpt-addr?       inet:ip-address
+    +-- dh-group?                crypto-ios-xe-oper:crypto-dh-group-type
+    +-- inbound-esp-sa
+    |  +-- spi?             uint32
+    |  +-- dir?             crypto-ios-xe-oper:crypto-dir-type
+    |  +-- protocol?        crypto-ios-xe-oper:crypto-prot-type
+    |  +-- flow-id?         uint32
+    |  +-- sa-status?       crypto-ios-xe-oper:crypto-sa-status
+    |  +-- transform-set?   crypto-ios-xe-oper:crypto-transform-options
+    +-- inbound-ah-sa
+    |  +-- spi?             uint32
+    |  +-- dir?             crypto-ios-xe-oper:crypto-dir-type
+    |  +-- protocol?        crypto-ios-xe-oper:crypto-prot-type
+    |  +-- flow-id?         uint32
+    |  +-- sa-status?       crypto-ios-xe-oper:crypto-sa-status
+    |  +-- transform-set?   crypto-ios-xe-oper:crypto-transform-options
+    +-- inbound-pcp-sa
+    |  +-- spi?             uint32
+    |  +-- dir?             crypto-ios-xe-oper:crypto-dir-type
+    |  +-- protocol?        crypto-ios-xe-oper:crypto-prot-type
+    |  +-- flow-id?         uint32
+    |  +-- sa-status?       crypto-ios-xe-oper:crypto-sa-status
+    |  +-- transform-set?   crypto-ios-xe-oper:crypto-transform-options
+    +-- outbound-esp-sa
+    |  +-- spi?             uint32
+    |  +-- dir?             crypto-ios-xe-oper:crypto-dir-type
+    |  +-- protocol?        crypto-ios-xe-oper:crypto-prot-type
+    |  +-- flow-id?         uint32
+    |  +-- sa-status?       crypto-ios-xe-oper:crypto-sa-status
+    |  +-- transform-set?   crypto-ios-xe-oper:crypto-transform-options
+    +-- outbound-ah-sa
+    |  +-- spi?             uint32
+    |  +-- dir?             crypto-ios-xe-oper:crypto-dir-type
+    |  +-- protocol?        crypto-ios-xe-oper:crypto-prot-type
+    |  +-- flow-id?         uint32
+    |  +-- sa-status?       crypto-ios-xe-oper:crypto-sa-status
+    |  +-- transform-set?   crypto-ios-xe-oper:crypto-transform-options
+    +-- outbound-pcp-sa
+       +-- spi?             uint32
+       +-- dir?             crypto-ios-xe-oper:crypto-dir-type
+       +-- protocol?        crypto-ios-xe-oper:crypto-prot-type
+       +-- flow-id?         uint32
+       +-- sa-status?       crypto-ios-xe-oper:crypto-sa-status
+       +-- transform-set?   crypto-ios-xe-oper:crypto-transform-options
+  grouping crypto-ipsec-ident-entry
+    +-- interface?    string
+    +-- ident-data
+       +-- protected-vrf?           uint32
+       +-- local-ident-addr?        inet:ip-address
+       +-- local-ident-mask?        inet:ip-address
+       +-- local-ident-protocol?    uint32
+       +-- remote-ident-addr?       inet:ip-address
+       +-- remote-ident-mask?       inet:ip-address
+       +-- remote-ident-protocol?   uint32
+       +-- plaintext-mtu?           uint16
+       +-- local-endpt-addr?        inet:ip-address
+       +-- remote-endpt-addr?       inet:ip-address
+       +-- dh-group?                crypto-ios-xe-oper:crypto-dh-group-type
+       +-- inbound-esp-sa
+       |  +-- spi?             uint32
+       |  +-- dir?             crypto-ios-xe-oper:crypto-dir-type
+       |  +-- protocol?        crypto-ios-xe-oper:crypto-prot-type
+       |  +-- flow-id?         uint32
+       |  +-- sa-status?       crypto-ios-xe-oper:crypto-sa-status
+       |  +-- transform-set?   crypto-ios-xe-oper:crypto-transform-options
+       +-- inbound-ah-sa
+       |  +-- spi?             uint32
+       |  +-- dir?             crypto-ios-xe-oper:crypto-dir-type
+       |  +-- protocol?        crypto-ios-xe-oper:crypto-prot-type
+       |  +-- flow-id?         uint32
+       |  +-- sa-status?       crypto-ios-xe-oper:crypto-sa-status
+       |  +-- transform-set?   crypto-ios-xe-oper:crypto-transform-options
+       +-- inbound-pcp-sa
+       |  +-- spi?             uint32
+       |  +-- dir?             crypto-ios-xe-oper:crypto-dir-type
+       |  +-- protocol?        crypto-ios-xe-oper:crypto-prot-type
+       |  +-- flow-id?         uint32
+       |  +-- sa-status?       crypto-ios-xe-oper:crypto-sa-status
+       |  +-- transform-set?   crypto-ios-xe-oper:crypto-transform-options
+       +-- outbound-esp-sa
+       |  +-- spi?             uint32
+       |  +-- dir?             crypto-ios-xe-oper:crypto-dir-type
+       |  +-- protocol?        crypto-ios-xe-oper:crypto-prot-type
+       |  +-- flow-id?         uint32
+       |  +-- sa-status?       crypto-ios-xe-oper:crypto-sa-status
+       |  +-- transform-set?   crypto-ios-xe-oper:crypto-transform-options
+       +-- outbound-ah-sa
+       |  +-- spi?             uint32
+       |  +-- dir?             crypto-ios-xe-oper:crypto-dir-type
+       |  +-- protocol?        crypto-ios-xe-oper:crypto-prot-type
+       |  +-- flow-id?         uint32
+       |  +-- sa-status?       crypto-ios-xe-oper:crypto-sa-status
+       |  +-- transform-set?   crypto-ios-xe-oper:crypto-transform-options
+       +-- outbound-pcp-sa
+          +-- spi?             uint32
+          +-- dir?             crypto-ios-xe-oper:crypto-dir-type
+          +-- protocol?        crypto-ios-xe-oper:crypto-prot-type
+          +-- flow-id?         uint32
+          +-- sa-status?       crypto-ios-xe-oper:crypto-sa-status
+          +-- transform-set?   crypto-ios-xe-oper:crypto-transform-options
+  grouping crypto-cerm-tunnels-entry
+    +-- maximum?     uint32
+    +-- available?   uint32
+  grouping crypto-cerm-resource-info-entry
+    +-- ipsec-tunnels
+    |  +-- maximum?     uint32
+    |  +-- available?   uint32
+    +-- tls-sessions
+       +-- maximum?     uint32
+       +-- available?   uint32
+  grouping crypto-cerm-resv-entry
+    +-- tunnels?        uint32
+    +-- tls-sessions?   uint32
+  grouping crypto-cerm-client-info-entry
+    +-- voice
+    |  +-- tunnels?        uint32
+    |  +-- tls-sessions?   uint32
+    +-- ipsec
+    |  +-- tunnels?        uint32
+    |  +-- tls-sessions?   uint32
+    +-- sslvpn
+       +-- tunnels?        uint32
+       +-- tls-sessions?   uint32
+  grouping crypto-cerm-stats-entry
+    +-- failed-tunnels?    uint32
+    +-- failed-sessions?   uint32
+  grouping crypto-cerm-info-entry
+    +-- enabled?         boolean
+    +-- resource-info
+    |  +-- ipsec-tunnels
+    |  |  +-- maximum?     uint32
+    |  |  +-- available?   uint32
+    |  +-- tls-sessions
+    |     +-- maximum?     uint32
+    |     +-- available?   uint32
+    +-- resv-info
+    |  +-- voice
+    |  |  +-- tunnels?        uint32
+    |  |  +-- tls-sessions?   uint32
+    |  +-- ipsec
+    |  |  +-- tunnels?        uint32
+    |  |  +-- tls-sessions?   uint32
+    |  +-- sslvpn
+    |     +-- tunnels?        uint32
+    |     +-- tls-sessions?   uint32
+    +-- stats-info
+       +-- failed-tunnels?    uint32
+       +-- failed-sessions?   uint32

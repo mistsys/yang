@@ -1,0 +1,113 @@
+submodule: openconfig-isis-routing (belongs-to openconfig-isis)
+
+  grouping rt-admin-config
+    +-- enabled?   boolean
+  grouping isis-afi-safi-config
+    +-- afi-name?    identityref
+    +-- safi-name?   identityref
+  grouping isis-shortcuts-afi-config
+    +-- afi-name?   identityref
+    +-- nh-type*    identityref
+  grouping isis-shortcuts-config
+    +-- config
+    |  +-- enabled?   boolean
+    +--ro state
+       +--ro enabled?   boolean
+  grouping isis-mt-config
+    +-- afi-name?    identityref
+    +-- safi-name?   identityref
+  grouping isis-metric-config
+    +-- metric?   uint32
+  grouping isis-afi-safi-list
+    +-- af* [afi-name safi-name]
+       +-- afi-name?         -> ../config/afi-name
+       +-- safi-name?        -> ../config/safi-name
+       +-- config
+       |  +-- afi-name?    identityref
+       |  +-- safi-name?   identityref
+       |  +-- metric?      uint32
+       |  +-- enabled?     boolean
+       +--ro state
+       |  +--ro afi-name?    identityref
+       |  +--ro safi-name?   identityref
+       |  +--ro metric?      uint32
+       |  +--ro enabled?     boolean
+       +-- multi-topology
+          +-- config
+          |  +-- afi-name?    identityref
+          |  +-- safi-name?   identityref
+          +--ro state
+             +--ro afi-name?    identityref
+             +--ro safi-name?   identityref
+             +--ro enabled?     boolean
+  grouping isis-if-afi-safi-list
+    +-- af* [afi-name safi-name]
+       +-- afi-name?          -> ../config/afi-name
+       +-- safi-name?         -> ../config/safi-name
+       +-- config
+       |  +-- afi-name?    identityref
+       |  +-- safi-name?   identityref
+       |  +-- metric?      uint32
+       |  +-- enabled?     boolean
+       +--ro state
+       |  +--ro afi-name?    identityref
+       |  +--ro safi-name?   identityref
+       |  +--ro metric?      uint32
+       |  +--ro enabled?     boolean
+       +-- segment-routing
+          +-- prefix-sids
+          |  +-- prefix-sid* [prefix]
+          |     +-- prefix?   -> ../config/prefix
+          |     +-- config
+          |     |  +-- prefix?          inet:ip-prefix
+          |     |  +-- sid-id?          sr-sid-type
+          |     |  +-- label-options?   enumeration
+          |     +--ro state
+          |        +--ro prefix?          inet:ip-prefix
+          |        +--ro sid-id?          sr-sid-type
+          |        +--ro label-options?   enumeration
+          +-- adjacency-sids
+             +-- adjacency-sid* [neighbor sid-id]
+                +-- sid-id?     -> ../config/sid-id
+                +-- neighbor?   -> ../config/neighbor
+                +-- config
+                |  +-- sid-id?                union
+                |  +-- protection-eligible?   boolean
+                |  +-- group?                 boolean
+                |  +-- neighbor?              inet:ip-address
+                +--ro state
+                   +--ro sid-id?                    union
+                   +--ro protection-eligible?       boolean
+                   +--ro group?                     boolean
+                   +--ro neighbor?                  inet:ip-address
+                   +--ro allocated-dynamic-local?   sr-sid-type
+  grouping isis-if-global-afi-safi-list
+    +-- af* [afi-name safi-name]
+       +-- afi-name?    -> ../config/afi-name
+       +-- safi-name?   -> ../config/safi-name
+       +-- config
+       |  +-- afi-name?    identityref
+       |  +-- safi-name?   identityref
+       |  +-- enabled?     boolean
+       +--ro state
+          +--ro afi-name?    identityref
+          +--ro safi-name?   identityref
+          +--ro enabled?     boolean
+  grouping isis-shortcuts-afi-list
+    +-- afi* [afi-name]
+       +-- afi-name?   -> ../config/afi-name
+       +-- config
+       |  +-- afi-name?   identityref
+       |  +-- nh-type*    identityref
+       +--ro state
+          +--ro afi-name?   identityref
+          +--ro nh-type*    identityref
+  grouping isis-mt-list
+    +-- multi-topology
+       +-- config
+       |  +-- afi-name?    identityref
+       |  +-- safi-name?   identityref
+       +--ro state
+          +--ro afi-name?    identityref
+          +--ro safi-name?   identityref
+          +--ro enabled?     boolean

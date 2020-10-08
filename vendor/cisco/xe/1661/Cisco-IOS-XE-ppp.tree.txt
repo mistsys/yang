@@ -1,0 +1,163 @@
+
+module: Cisco-IOS-XE-ppp
+  augment /ios:native/ios:ppp:
+    +--rw packet
+       +--rw throttle?     uint32
+       +--rw allow_time?   uint32
+       +--rw block_time?   uint32
+  augment /ios:native/ios:multilink:
+    +--rw bundle-name?        enumeration {ios-features:multilink}?
+    +--rw virtual-template?   uint16 {ios-features:multilink}?
+  augment /ios:native/ios:interface/ios:Multilink:
+    +--rw ppp {ios-features:multilink}?
+       +--rw accounting?       union
+       +--rw chap
+       |  +--rw hostname?           string
+       |  +--rw challenge-length?   uint8
+       +--rw authentication
+       |  +--rw method?       enumeration
+       |  +--rw list-name?    string
+       |  +--rw chap?         empty
+       |  +--rw callback?     empty
+       |  +--rw callin?       empty
+       |  +--rw callout?      empty
+       |  +--rw default?      empty
+       |  +--rw eap?          empty
+       |  +--rw ms-chap?      empty
+       |  +--rw ms-chap-v2?   empty
+       |  +--rw one-time?     empty
+       |  +--rw optional?     empty
+       |  +--rw pap?          empty
+       +--rw authorization?    union
+       +--rw ipcp
+       |  +--rw dns
+       |     +--rw primary?   inet:ipv4-address
+       +--rw multilink!
+          +--rw links
+          |  +--rw minimum
+          |     +--rw minimum-value?   uint8
+          |     +--rw mandatory?       empty
+          +--rw group?      uint32
+          +--rw endpoint
+          |  +--rw string?   string
+          +--rw fragment
+             +--rw delay
+                +--rw delay-value?              uint16
+                +--rw additional-delay-value?   uint16
+  augment /ios:native/ios:interface/ios:Serial:
+    +--rw ppp {ios-features:multilink}?
+       +--rw accounting?       union
+       +--rw chap
+       |  +--rw hostname?           string
+       |  +--rw challenge-length?   uint8
+       +--rw authentication
+       |  +--rw method?       enumeration
+       |  +--rw list-name?    string
+       |  +--rw chap?         empty
+       |  +--rw callback?     empty
+       |  +--rw callin?       empty
+       |  +--rw callout?      empty
+       |  +--rw default?      empty
+       |  +--rw eap?          empty
+       |  +--rw ms-chap?      empty
+       |  +--rw ms-chap-v2?   empty
+       |  +--rw one-time?     empty
+       |  +--rw optional?     empty
+       |  +--rw pap?          empty
+       +--rw authorization?    union
+       +--rw ipcp
+       |  +--rw dns
+       |     +--rw primary?   inet:ipv4-address
+       +--rw multilink!
+          +--rw links
+          |  +--rw minimum
+          |     +--rw minimum-value?   uint8
+          |     +--rw mandatory?       empty
+          +--rw group?      uint32
+          +--rw endpoint
+          |  +--rw string?   string
+          +--rw fragment
+             +--rw delay
+                +--rw delay-value?              uint16
+                +--rw additional-delay-value?   uint16
+  augment /ios:native/ios:interface/ios:Virtual-Template:
+    +--rw ppp {ios-features:multilink}?
+       +--rw accounting?       union
+       +--rw chap
+       |  +--rw hostname?           string
+       |  +--rw challenge-length?   uint8
+       +--rw authentication
+       |  +--rw method?       enumeration
+       |  +--rw list-name?    string
+       |  +--rw chap?         empty
+       |  +--rw callback?     empty
+       |  +--rw callin?       empty
+       |  +--rw callout?      empty
+       |  +--rw default?      empty
+       |  +--rw eap?          empty
+       |  +--rw ms-chap?      empty
+       |  +--rw ms-chap-v2?   empty
+       |  +--rw one-time?     empty
+       |  +--rw optional?     empty
+       |  +--rw pap?          empty
+       +--rw authorization?    union
+       +--rw ipcp
+       |  +--rw dns
+       |     +--rw primary?   inet:ipv4-address
+       +--rw multilink!
+          +--rw links
+          |  +--rw minimum
+          |     +--rw minimum-value?   uint8
+          |     +--rw mandatory?       empty
+          +--rw group?      uint32
+          +--rw endpoint
+          |  +--rw string?   string
+          +--rw fragment
+             +--rw delay
+                +--rw delay-value?              uint16
+                +--rw additional-delay-value?   uint16
+
+  grouping config-ppp-grouping
+    +-- packet
+       +-- throttle?     uint32
+       +-- allow_time?   uint32
+       +-- block_time?   uint32
+  grouping config-multilink-grouping
+    +-- bundle-name?        enumeration
+    +-- virtual-template?   uint16
+  grouping config-interface-p2p-grouping
+    +-- ppp
+       +-- accounting?       union
+       +-- chap
+       |  +-- hostname?           string
+       |  +-- challenge-length?   uint8
+       +-- authentication
+       |  +-- method?       enumeration
+       |  +-- list-name?    string
+       |  +-- chap?         empty
+       |  +-- callback?     empty
+       |  +-- callin?       empty
+       |  +-- callout?      empty
+       |  +-- default?      empty
+       |  +-- eap?          empty
+       |  +-- ms-chap?      empty
+       |  +-- ms-chap-v2?   empty
+       |  +-- one-time?     empty
+       |  +-- optional?     empty
+       |  +-- pap?          empty
+       +-- authorization?    union
+       +-- ipcp
+       |  +-- dns
+       |     +-- primary?   inet:ipv4-address
+       +-- multilink!
+          +-- links
+          |  +-- minimum
+          |     +-- minimum-value?   uint8
+          |     +-- mandatory?       empty
+          +-- group?      uint32
+          +-- endpoint
+          |  +-- string?   string
+          +-- fragment
+             +-- delay
+                +-- delay-value?              uint16
+                +-- additional-delay-value?   uint16

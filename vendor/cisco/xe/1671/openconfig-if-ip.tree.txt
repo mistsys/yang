@@ -1,0 +1,454 @@
+
+module: openconfig-if-ip
+  augment /oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface:
+    +--rw ipv4
+       +--rw addresses
+       |  +--rw address* [ip]
+       |     +--rw ip        -> ../config/ip
+       |     +--rw config
+       |     |  +--rw ip?              inet:ipv4-address-no-zone
+       |     |  +--rw prefix-length?   uint8
+       |     +--ro state
+       |     |  +--ro ip?              inet:ipv4-address-no-zone
+       |     |  +--ro prefix-length?   uint8
+       |     |  +--ro origin?          ip-address-origin
+       |     +--rw vrrp
+       |        +--rw vrrp-group* [virtual-router-id]
+       |           +--rw virtual-router-id     -> ../config/virtual-router-id
+       |           +--rw config
+       |           |  +--rw virtual-router-id?        uint8
+       |           |  +--rw virtual-address*          inet:ip-address
+       |           |  +--rw priority?                 uint8
+       |           |  +--rw preempt?                  boolean
+       |           |  +--rw preempt-delay?            uint16
+       |           |  +--rw accept-mode?              boolean
+       |           |  +--rw advertisement-interval?   uint16
+       |           +--ro state
+       |           |  +--ro virtual-router-id?        uint8
+       |           |  +--ro virtual-address*          inet:ip-address
+       |           |  +--ro priority?                 uint8
+       |           |  +--ro preempt?                  boolean
+       |           |  +--ro preempt-delay?            uint16
+       |           |  +--ro accept-mode?              boolean
+       |           |  +--ro advertisement-interval?   uint16
+       |           |  +--ro current-priority?         uint8
+       |           +--rw interface-tracking
+       |              +--rw config
+       |              |  +--rw track-interface?      -> /oc-if:interfaces/interface/name
+       |              |  +--rw priority-decrement?   uint8
+       |              +--ro state
+       |                 +--ro track-interface?      -> /oc-if:interfaces/interface/name
+       |                 +--ro priority-decrement?   uint8
+       +--rw neighbors
+       |  +--rw neighbor* [ip]
+       |     +--rw ip        -> ../config/ip
+       |     +--rw config
+       |     |  +--rw ip?                   inet:ipv4-address-no-zone
+       |     |  +--rw link-layer-address    yang:phys-address
+       |     +--ro state
+       |        +--ro ip?                   inet:ipv4-address-no-zone
+       |        +--ro link-layer-address    yang:phys-address
+       |        +--ro origin?               neighbor-origin
+       +--rw unnumbered
+       |  +--rw config
+       |  |  +--rw enabled?   boolean
+       |  +--ro state
+       |  |  +--ro enabled?   boolean
+       |  +--rw interface-ref
+       |     +--rw config
+       |     |  +--rw interface?      -> /oc-if:interfaces/interface/name
+       |     |  +--rw subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+       |     +--ro state
+       |        +--ro interface?      -> /oc-if:interfaces/interface/name
+       |        +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+       +--rw config
+       |  +--rw enabled?   boolean
+       |  +--rw mtu?       uint16
+       +--ro state
+          +--ro enabled?   boolean
+          +--ro mtu?       uint16
+  augment /oc-if:interfaces/oc-if:interface/oc-if:subinterfaces/oc-if:subinterface:
+    +--rw ipv6
+       +--rw addresses
+       |  +--rw address* [ip]
+       |     +--rw ip        -> ../config/ip
+       |     +--rw config
+       |     |  +--rw ip?              inet:ipv6-address-no-zone
+       |     |  +--rw prefix-length    uint8
+       |     +--ro state
+       |     |  +--ro ip?              inet:ipv6-address-no-zone
+       |     |  +--ro prefix-length    uint8
+       |     |  +--ro origin?          ip-address-origin
+       |     |  +--ro status?          enumeration
+       |     +--rw vrrp
+       |        +--rw vrrp-group* [virtual-router-id]
+       |           +--rw virtual-router-id     -> ../config/virtual-router-id
+       |           +--rw config
+       |           |  +--rw virtual-router-id?        uint8
+       |           |  +--rw virtual-address*          inet:ip-address
+       |           |  +--rw priority?                 uint8
+       |           |  +--rw preempt?                  boolean
+       |           |  +--rw preempt-delay?            uint16
+       |           |  +--rw accept-mode?              boolean
+       |           |  +--rw advertisement-interval?   uint16
+       |           |  +--rw virtual-link-local?       inet:ip-address
+       |           +--ro state
+       |           |  +--ro virtual-router-id?        uint8
+       |           |  +--ro virtual-address*          inet:ip-address
+       |           |  +--ro priority?                 uint8
+       |           |  +--ro preempt?                  boolean
+       |           |  +--ro preempt-delay?            uint16
+       |           |  +--ro accept-mode?              boolean
+       |           |  +--ro advertisement-interval?   uint16
+       |           |  +--ro current-priority?         uint8
+       |           |  +--ro virtual-link-local?       inet:ip-address
+       |           +--rw interface-tracking
+       |              +--rw config
+       |              |  +--rw track-interface?      -> /oc-if:interfaces/interface/name
+       |              |  +--rw priority-decrement?   uint8
+       |              +--ro state
+       |                 +--ro track-interface?      -> /oc-if:interfaces/interface/name
+       |                 +--ro priority-decrement?   uint8
+       +--rw neighbors
+       |  +--rw neighbor* [ip]
+       |     +--rw ip        -> ../config/ip
+       |     +--rw config
+       |     |  +--rw ip?                   inet:ipv6-address-no-zone
+       |     |  +--rw link-layer-address    yang:phys-address
+       |     +--ro state
+       |        +--ro ip?                   inet:ipv6-address-no-zone
+       |        +--ro link-layer-address    yang:phys-address
+       |        +--ro origin?               neighbor-origin
+       |        +--ro is-router?            empty
+       |        +--ro neighbor-state?       enumeration
+       +--rw unnumbered
+       |  +--rw config
+       |  |  +--rw enabled?   boolean
+       |  +--ro state
+       |  |  +--ro enabled?   boolean
+       |  +--rw interface-ref
+       |     +--rw config
+       |     |  +--rw interface?      -> /oc-if:interfaces/interface/name
+       |     |  +--rw subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+       |     +--ro state
+       |        +--ro interface?      -> /oc-if:interfaces/interface/name
+       |        +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+       +--rw config
+       |  +--rw enabled?                     boolean
+       |  +--rw mtu?                         uint32
+       |  +--rw dup-addr-detect-transmits?   uint32
+       +--ro state
+          +--ro enabled?                     boolean
+          +--ro mtu?                         uint32
+          +--ro dup-addr-detect-transmits?   uint32
+  augment /oc-if:interfaces/oc-if:interface/oc-vlan:routed-vlan:
+    +--rw ipv4
+       +--rw addresses
+       |  +--rw address* [ip]
+       |     +--rw ip        -> ../config/ip
+       |     +--rw config
+       |     |  +--rw ip?              inet:ipv4-address-no-zone
+       |     |  +--rw prefix-length?   uint8
+       |     +--ro state
+       |     |  +--ro ip?              inet:ipv4-address-no-zone
+       |     |  +--ro prefix-length?   uint8
+       |     |  +--ro origin?          ip-address-origin
+       |     +--rw vrrp
+       |        +--rw vrrp-group* [virtual-router-id]
+       |           +--rw virtual-router-id     -> ../config/virtual-router-id
+       |           +--rw config
+       |           |  +--rw virtual-router-id?        uint8
+       |           |  +--rw virtual-address*          inet:ip-address
+       |           |  +--rw priority?                 uint8
+       |           |  +--rw preempt?                  boolean
+       |           |  +--rw preempt-delay?            uint16
+       |           |  +--rw accept-mode?              boolean
+       |           |  +--rw advertisement-interval?   uint16
+       |           +--ro state
+       |           |  +--ro virtual-router-id?        uint8
+       |           |  +--ro virtual-address*          inet:ip-address
+       |           |  +--ro priority?                 uint8
+       |           |  +--ro preempt?                  boolean
+       |           |  +--ro preempt-delay?            uint16
+       |           |  +--ro accept-mode?              boolean
+       |           |  +--ro advertisement-interval?   uint16
+       |           |  +--ro current-priority?         uint8
+       |           +--rw interface-tracking
+       |              +--rw config
+       |              |  +--rw track-interface?      -> /oc-if:interfaces/interface/name
+       |              |  +--rw priority-decrement?   uint8
+       |              +--ro state
+       |                 +--ro track-interface?      -> /oc-if:interfaces/interface/name
+       |                 +--ro priority-decrement?   uint8
+       +--rw neighbors
+       |  +--rw neighbor* [ip]
+       |     +--rw ip        -> ../config/ip
+       |     +--rw config
+       |     |  +--rw ip?                   inet:ipv4-address-no-zone
+       |     |  +--rw link-layer-address    yang:phys-address
+       |     +--ro state
+       |        +--ro ip?                   inet:ipv4-address-no-zone
+       |        +--ro link-layer-address    yang:phys-address
+       |        +--ro origin?               neighbor-origin
+       +--rw unnumbered
+       |  +--rw config
+       |  |  +--rw enabled?   boolean
+       |  +--ro state
+       |  |  +--ro enabled?   boolean
+       |  +--rw interface-ref
+       |     +--rw config
+       |     |  +--rw interface?      -> /oc-if:interfaces/interface/name
+       |     |  +--rw subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+       |     +--ro state
+       |        +--ro interface?      -> /oc-if:interfaces/interface/name
+       |        +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+       +--rw config
+       |  +--rw enabled?   boolean
+       |  +--rw mtu?       uint16
+       +--ro state
+          +--ro enabled?   boolean
+          +--ro mtu?       uint16
+  augment /oc-if:interfaces/oc-if:interface/oc-vlan:routed-vlan:
+    +--rw ipv6
+       +--rw addresses
+       |  +--rw address* [ip]
+       |     +--rw ip        -> ../config/ip
+       |     +--rw config
+       |     |  +--rw ip?              inet:ipv6-address-no-zone
+       |     |  +--rw prefix-length    uint8
+       |     +--ro state
+       |     |  +--ro ip?              inet:ipv6-address-no-zone
+       |     |  +--ro prefix-length    uint8
+       |     |  +--ro origin?          ip-address-origin
+       |     |  +--ro status?          enumeration
+       |     +--rw vrrp
+       |        +--rw vrrp-group* [virtual-router-id]
+       |           +--rw virtual-router-id     -> ../config/virtual-router-id
+       |           +--rw config
+       |           |  +--rw virtual-router-id?        uint8
+       |           |  +--rw virtual-address*          inet:ip-address
+       |           |  +--rw priority?                 uint8
+       |           |  +--rw preempt?                  boolean
+       |           |  +--rw preempt-delay?            uint16
+       |           |  +--rw accept-mode?              boolean
+       |           |  +--rw advertisement-interval?   uint16
+       |           |  +--rw virtual-link-local?       inet:ip-address
+       |           +--ro state
+       |           |  +--ro virtual-router-id?        uint8
+       |           |  +--ro virtual-address*          inet:ip-address
+       |           |  +--ro priority?                 uint8
+       |           |  +--ro preempt?                  boolean
+       |           |  +--ro preempt-delay?            uint16
+       |           |  +--ro accept-mode?              boolean
+       |           |  +--ro advertisement-interval?   uint16
+       |           |  +--ro current-priority?         uint8
+       |           |  +--ro virtual-link-local?       inet:ip-address
+       |           +--rw interface-tracking
+       |              +--rw config
+       |              |  +--rw track-interface?      -> /oc-if:interfaces/interface/name
+       |              |  +--rw priority-decrement?   uint8
+       |              +--ro state
+       |                 +--ro track-interface?      -> /oc-if:interfaces/interface/name
+       |                 +--ro priority-decrement?   uint8
+       +--rw neighbors
+       |  +--rw neighbor* [ip]
+       |     +--rw ip        -> ../config/ip
+       |     +--rw config
+       |     |  +--rw ip?                   inet:ipv6-address-no-zone
+       |     |  +--rw link-layer-address    yang:phys-address
+       |     +--ro state
+       |        +--ro ip?                   inet:ipv6-address-no-zone
+       |        +--ro link-layer-address    yang:phys-address
+       |        +--ro origin?               neighbor-origin
+       |        +--ro is-router?            empty
+       |        +--ro neighbor-state?       enumeration
+       +--rw unnumbered
+       |  +--rw config
+       |  |  +--rw enabled?   boolean
+       |  +--ro state
+       |  |  +--ro enabled?   boolean
+       |  +--rw interface-ref
+       |     +--rw config
+       |     |  +--rw interface?      -> /oc-if:interfaces/interface/name
+       |     |  +--rw subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+       |     +--ro state
+       |        +--ro interface?      -> /oc-if:interfaces/interface/name
+       |        +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+       +--rw config
+       |  +--rw enabled?                     boolean
+       |  +--rw mtu?                         uint32
+       |  +--rw dup-addr-detect-transmits?   uint32
+       +--ro state
+          +--ro enabled?                     boolean
+          +--ro mtu?                         uint32
+          +--ro dup-addr-detect-transmits?   uint32
+
+  grouping ipv4-global-config
+    +-- enabled?   boolean
+    +-- mtu?       uint16
+  grouping ipv4-address-config
+    +-- ip?              inet:ipv4-address-no-zone
+    +-- prefix-length?   uint8
+  grouping ipv4-neighbor-config
+    +-- ip?                   inet:ipv4-address-no-zone
+    +-- link-layer-address    yang:phys-address
+  grouping ipv4-address-state
+    +-- origin?   ip-address-origin
+  grouping ipv4-neighbor-state
+    +-- origin?   neighbor-origin
+  grouping ipv6-global-config
+    +-- enabled?                     boolean
+    +-- mtu?                         uint32
+    +-- dup-addr-detect-transmits?   uint32
+  grouping ipv6-address-config
+    +-- ip?              inet:ipv6-address-no-zone
+    +-- prefix-length    uint8
+  grouping ipv6-address-state
+    +-- origin?   ip-address-origin
+    +-- status?   enumeration
+  grouping ipv6-neighbor-config
+    +-- ip?                   inet:ipv6-address-no-zone
+    +-- link-layer-address    yang:phys-address
+  grouping ipv6-neighbor-state
+    +-- origin?           neighbor-origin
+    +-- is-router?        empty
+    +-- neighbor-state?   enumeration
+  grouping ip-vrrp-ipv6-config
+    +-- virtual-link-local?   inet:ip-address
+  grouping ip-vrrp-ipv6-state
+    +-- virtual-link-local?   inet:ip-address
+  grouping ip-vrrp-tracking-config
+    +-- track-interface?      -> /oc-if:interfaces/interface/name
+    +-- priority-decrement?   uint8
+  grouping ip-vrrp-tracking-state
+  grouping ip-vrrp-tracking-top
+    +-- interface-tracking
+       +-- config
+       |  +-- track-interface?      -> /oc-if:interfaces/interface/name
+       |  +-- priority-decrement?   uint8
+       +--ro state
+          +--ro track-interface?      -> /oc-if:interfaces/interface/name
+          +--ro priority-decrement?   uint8
+  grouping ip-vrrp-config
+    +-- virtual-router-id?        uint8
+    +-- virtual-address*          inet:ip-address
+    +-- priority?                 uint8
+    +-- preempt?                  boolean
+    +-- preempt-delay?            uint16
+    +-- accept-mode?              boolean
+    +-- advertisement-interval?   uint16
+  grouping ip-vrrp-state
+    +-- current-priority?   uint8
+  grouping ip-vrrp-top
+    +-- vrrp
+       +-- vrrp-group* [virtual-router-id]
+          +-- virtual-router-id?    -> ../config/virtual-router-id
+          +-- config
+          |  +-- virtual-router-id?        uint8
+          |  +-- virtual-address*          inet:ip-address
+          |  +-- priority?                 uint8
+          |  +-- preempt?                  boolean
+          |  +-- preempt-delay?            uint16
+          |  +-- accept-mode?              boolean
+          |  +-- advertisement-interval?   uint16
+          +--ro state
+          |  +--ro virtual-router-id?        uint8
+          |  +--ro virtual-address*          inet:ip-address
+          |  +--ro priority?                 uint8
+          |  +--ro preempt?                  boolean
+          |  +--ro preempt-delay?            uint16
+          |  +--ro accept-mode?              boolean
+          |  +--ro advertisement-interval?   uint16
+          |  +--ro current-priority?         uint8
+          +-- interface-tracking
+             +-- config
+             |  +-- track-interface?      -> /oc-if:interfaces/interface/name
+             |  +-- priority-decrement?   uint8
+             +--ro state
+                +--ro track-interface?      -> /oc-if:interfaces/interface/name
+                +--ro priority-decrement?   uint8
+  grouping ipv4-top
+    +-- ipv4
+       +-- addresses
+       |  +-- address* [ip]
+       |     +-- ip?       -> ../config/ip
+       |     +-- config
+       |     |  +-- ip?              inet:ipv4-address-no-zone
+       |     |  +-- prefix-length?   uint8
+       |     +--ro state
+       |        +--ro ip?              inet:ipv4-address-no-zone
+       |        +--ro prefix-length?   uint8
+       |        +--ro origin?          ip-address-origin
+       +-- neighbors
+       |  +-- neighbor* [ip]
+       |     +-- ip?       -> ../config/ip
+       |     +-- config
+       |     |  +-- ip?                   inet:ipv4-address-no-zone
+       |     |  +-- link-layer-address    yang:phys-address
+       |     +--ro state
+       |        +--ro ip?                   inet:ipv4-address-no-zone
+       |        +--ro link-layer-address    yang:phys-address
+       |        +--ro origin?               neighbor-origin
+       +-- unnumbered
+       |  +-- config
+       |  |  +-- enabled?   boolean
+       |  +--ro state
+       |  |  +--ro enabled?   boolean
+       |  +-- interface-ref
+       |     +-- config
+       |     |  +-- interface?      -> /oc-if:interfaces/interface/name
+       |     |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+       |     +--ro state
+       |        +--ro interface?      -> /oc-if:interfaces/interface/name
+       |        +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+       +-- config
+       |  +-- enabled?   boolean
+       |  +-- mtu?       uint16
+       +--ro state
+          +--ro enabled?   boolean
+          +--ro mtu?       uint16
+  grouping ipv6-top
+    +-- ipv6
+       +-- addresses
+       |  +-- address* [ip]
+       |     +-- ip?       -> ../config/ip
+       |     +-- config
+       |     |  +-- ip?              inet:ipv6-address-no-zone
+       |     |  +-- prefix-length    uint8
+       |     +--ro state
+       |        +--ro ip?              inet:ipv6-address-no-zone
+       |        +--ro prefix-length    uint8
+       |        +--ro origin?          ip-address-origin
+       |        +--ro status?          enumeration
+       +-- neighbors
+       |  +-- neighbor* [ip]
+       |     +-- ip?       -> ../config/ip
+       |     +-- config
+       |     |  +-- ip?                   inet:ipv6-address-no-zone
+       |     |  +-- link-layer-address    yang:phys-address
+       |     +--ro state
+       |        +--ro ip?                   inet:ipv6-address-no-zone
+       |        +--ro link-layer-address    yang:phys-address
+       |        +--ro origin?               neighbor-origin
+       |        +--ro is-router?            empty
+       |        +--ro neighbor-state?       enumeration
+       +-- unnumbered
+       |  +-- config
+       |  |  +-- enabled?   boolean
+       |  +--ro state
+       |  |  +--ro enabled?   boolean
+       |  +-- interface-ref
+       |     +-- config
+       |     |  +-- interface?      -> /oc-if:interfaces/interface/name
+       |     |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+       |     +--ro state
+       |        +--ro interface?      -> /oc-if:interfaces/interface/name
+       |        +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+       +-- config
+       |  +-- enabled?                     boolean
+       |  +-- mtu?                         uint32
+       |  +-- dup-addr-detect-transmits?   uint32
+       +--ro state
+          +--ro enabled?                     boolean
+          +--ro mtu?                         uint32
+          +--ro dup-addr-detect-transmits?   uint32

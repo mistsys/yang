@@ -1,0 +1,304 @@
+module: openconfig-interfaces
+  +--rw interfaces
+     +--rw interface* [name]
+        +--rw name             -> ../config/name
+        +--rw config
+        |  +--rw name?            string
+        |  +--rw type             identityref
+        |  +--rw mtu?             uint16
+        |  +--rw loopback-mode?   boolean
+        |  +--rw description?     string
+        |  +--rw enabled?         boolean
+        +--ro state
+        |  +--ro name?            string
+        |  +--ro type             identityref
+        |  +--ro mtu?             uint16
+        |  +--ro loopback-mode?   boolean
+        |  +--ro description?     string
+        |  +--ro enabled?         boolean
+        |  +--ro ifindex?         uint32
+        |  +--ro admin-status     enumeration
+        |  +--ro oper-status      enumeration
+        |  +--ro last-change?     oc-types:timeticks64
+        |  +--ro counters
+        |     +--ro in-octets?             oc-yang:counter64
+        |     +--ro in-unicast-pkts?       oc-yang:counter64
+        |     +--ro in-broadcast-pkts?     oc-yang:counter64
+        |     +--ro in-multicast-pkts?     oc-yang:counter64
+        |     +--ro in-discards?           oc-yang:counter64
+        |     +--ro in-errors?             oc-yang:counter64
+        |     +--ro in-unknown-protos?     oc-yang:counter64
+        |     +--ro in-fcs-errors?         oc-yang:counter64
+        |     +--ro out-octets?            oc-yang:counter64
+        |     +--ro out-unicast-pkts?      oc-yang:counter64
+        |     +--ro out-broadcast-pkts?    oc-yang:counter64
+        |     +--ro out-multicast-pkts?    oc-yang:counter64
+        |     +--ro out-discards?          oc-yang:counter64
+        |     +--ro out-errors?            oc-yang:counter64
+        |     +--ro carrier-transitions?   oc-yang:counter64
+        |     +--ro last-clear?            oc-types:timeticks64
+        +--rw hold-time
+        |  +--rw config
+        |  |  +--rw up?     uint32
+        |  |  +--rw down?   uint32
+        |  +--ro state
+        |     +--ro up?     uint32
+        |     +--ro down?   uint32
+        +--rw subinterfaces
+           +--rw subinterface* [index]
+              +--rw index     -> ../config/index
+              +--rw config
+              |  +--rw index?         uint32
+              |  +--rw description?   string
+              |  +--rw enabled?       boolean
+              +--ro state
+                 +--ro index?          uint32
+                 +--ro description?    string
+                 +--ro enabled?        boolean
+                 +--ro name?           string
+                 +--ro ifindex?        uint32
+                 +--ro admin-status    enumeration
+                 +--ro oper-status     enumeration
+                 +--ro last-change?    oc-types:timeticks64
+                 +--ro counters
+                    +--ro in-octets?             oc-yang:counter64
+                    +--ro in-unicast-pkts?       oc-yang:counter64
+                    +--ro in-broadcast-pkts?     oc-yang:counter64
+                    +--ro in-multicast-pkts?     oc-yang:counter64
+                    +--ro in-discards?           oc-yang:counter64
+                    +--ro in-errors?             oc-yang:counter64
+                    +--ro in-unknown-protos?     oc-yang:counter64
+                    +--ro in-fcs-errors?         oc-yang:counter64
+                    +--ro out-octets?            oc-yang:counter64
+                    +--ro out-unicast-pkts?      oc-yang:counter64
+                    +--ro out-broadcast-pkts?    oc-yang:counter64
+                    +--ro out-multicast-pkts?    oc-yang:counter64
+                    +--ro out-discards?          oc-yang:counter64
+                    +--ro out-errors?            oc-yang:counter64
+                    +--ro carrier-transitions?   oc-yang:counter64
+                    +--ro last-clear?            oc-types:timeticks64
+
+  grouping interface-ref-common
+    +-- interface?      -> /interfaces/interface/name
+    +-- subinterface?   -> /interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+  grouping interface-ref-state-container
+    +--ro state
+       +--ro interface?      -> /interfaces/interface/name
+       +--ro subinterface?   -> /interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+  grouping interface-ref
+    +-- interface-ref
+       +-- config
+       |  +-- interface?      -> /interfaces/interface/name
+       |  +-- subinterface?   -> /interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+       +--ro state
+          +--ro interface?      -> /interfaces/interface/name
+          +--ro subinterface?   -> /interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+  grouping interface-ref-state
+    +-- interface-ref
+       +--ro state
+          +--ro interface?      -> /interfaces/interface/name
+          +--ro subinterface?   -> /interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+  grouping base-interface-ref-state
+    +--ro state
+       +--ro interface?   base-interface-ref
+  grouping interface-common-config
+    +-- description?   string
+    +-- enabled?       boolean
+  grouping interface-phys-config
+    +-- name?            string
+    +-- type             identityref
+    +-- mtu?             uint16
+    +-- loopback-mode?   boolean
+    +-- description?     string
+    +-- enabled?         boolean
+  grouping interface-phys-holdtime-config
+    +-- up?     uint32
+    +-- down?   uint32
+  grouping interface-phys-holdtime-state
+  grouping interface-phys-holdtime-top
+    +-- hold-time
+       +-- config
+       |  +-- up?     uint32
+       |  +-- down?   uint32
+       +--ro state
+          +--ro up?     uint32
+          +--ro down?   uint32
+  grouping interface-common-state
+    +-- ifindex?        uint32
+    +-- admin-status    enumeration
+    +-- oper-status     enumeration
+    +-- last-change?    oc-types:timeticks64
+  grouping interface-counters-state
+    +-- counters
+       +-- in-octets?             oc-yang:counter64
+       +-- in-unicast-pkts?       oc-yang:counter64
+       +-- in-broadcast-pkts?     oc-yang:counter64
+       +-- in-multicast-pkts?     oc-yang:counter64
+       +-- in-discards?           oc-yang:counter64
+       +-- in-errors?             oc-yang:counter64
+       +-- in-unknown-protos?     oc-yang:counter64
+       +-- in-fcs-errors?         oc-yang:counter64
+       +-- out-octets?            oc-yang:counter64
+       +-- out-unicast-pkts?      oc-yang:counter64
+       +-- out-broadcast-pkts?    oc-yang:counter64
+       +-- out-multicast-pkts?    oc-yang:counter64
+       +-- out-discards?          oc-yang:counter64
+       +-- out-errors?            oc-yang:counter64
+       +-- carrier-transitions?   oc-yang:counter64
+       +-- last-clear?            oc-types:timeticks64
+  grouping sub-unnumbered-config
+    +-- enabled?   boolean
+  grouping sub-unnumbered-state
+  grouping sub-unnumbered-top
+    +-- unnumbered
+       +-- config
+       |  +-- enabled?   boolean
+       +--ro state
+       |  +--ro enabled?   boolean
+       +-- interface-ref
+          +-- config
+          |  +-- interface?      -> /interfaces/interface/name
+          |  +-- subinterface?   -> /interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+          +--ro state
+             +--ro interface?      -> /interfaces/interface/name
+             +--ro subinterface?   -> /interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+  grouping subinterfaces-config
+    +-- index?         uint32
+    +-- description?   string
+    +-- enabled?       boolean
+  grouping subinterfaces-state
+    +-- name?           string
+    +-- ifindex?        uint32
+    +-- admin-status    enumeration
+    +-- oper-status     enumeration
+    +-- last-change?    oc-types:timeticks64
+    +-- counters
+       +-- in-octets?             oc-yang:counter64
+       +-- in-unicast-pkts?       oc-yang:counter64
+       +-- in-broadcast-pkts?     oc-yang:counter64
+       +-- in-multicast-pkts?     oc-yang:counter64
+       +-- in-discards?           oc-yang:counter64
+       +-- in-errors?             oc-yang:counter64
+       +-- in-unknown-protos?     oc-yang:counter64
+       +-- in-fcs-errors?         oc-yang:counter64
+       +-- out-octets?            oc-yang:counter64
+       +-- out-unicast-pkts?      oc-yang:counter64
+       +-- out-broadcast-pkts?    oc-yang:counter64
+       +-- out-multicast-pkts?    oc-yang:counter64
+       +-- out-discards?          oc-yang:counter64
+       +-- out-errors?            oc-yang:counter64
+       +-- carrier-transitions?   oc-yang:counter64
+       +-- last-clear?            oc-types:timeticks64
+  grouping subinterfaces-top
+    +-- subinterfaces
+       +-- subinterface* [index]
+          +-- index?    -> ../config/index
+          +-- config
+          |  +-- index?         uint32
+          |  +-- description?   string
+          |  +-- enabled?       boolean
+          +--ro state
+             +--ro index?          uint32
+             +--ro description?    string
+             +--ro enabled?        boolean
+             +--ro name?           string
+             +--ro ifindex?        uint32
+             +--ro admin-status    enumeration
+             +--ro oper-status     enumeration
+             +--ro last-change?    oc-types:timeticks64
+             +--ro counters
+                +--ro in-octets?             oc-yang:counter64
+                +--ro in-unicast-pkts?       oc-yang:counter64
+                +--ro in-broadcast-pkts?     oc-yang:counter64
+                +--ro in-multicast-pkts?     oc-yang:counter64
+                +--ro in-discards?           oc-yang:counter64
+                +--ro in-errors?             oc-yang:counter64
+                +--ro in-unknown-protos?     oc-yang:counter64
+                +--ro in-fcs-errors?         oc-yang:counter64
+                +--ro out-octets?            oc-yang:counter64
+                +--ro out-unicast-pkts?      oc-yang:counter64
+                +--ro out-broadcast-pkts?    oc-yang:counter64
+                +--ro out-multicast-pkts?    oc-yang:counter64
+                +--ro out-discards?          oc-yang:counter64
+                +--ro out-errors?            oc-yang:counter64
+                +--ro carrier-transitions?   oc-yang:counter64
+                +--ro last-clear?            oc-types:timeticks64
+  grouping interfaces-top
+    +-- interfaces
+       +-- interface* [name]
+          +-- name?            -> ../config/name
+          +-- config
+          |  +-- name?            string
+          |  +-- type             identityref
+          |  +-- mtu?             uint16
+          |  +-- loopback-mode?   boolean
+          |  +-- description?     string
+          |  +-- enabled?         boolean
+          +--ro state
+          |  +--ro name?            string
+          |  +--ro type             identityref
+          |  +--ro mtu?             uint16
+          |  +--ro loopback-mode?   boolean
+          |  +--ro description?     string
+          |  +--ro enabled?         boolean
+          |  +--ro ifindex?         uint32
+          |  +--ro admin-status     enumeration
+          |  +--ro oper-status      enumeration
+          |  +--ro last-change?     oc-types:timeticks64
+          |  +--ro counters
+          |     +--ro in-octets?             oc-yang:counter64
+          |     +--ro in-unicast-pkts?       oc-yang:counter64
+          |     +--ro in-broadcast-pkts?     oc-yang:counter64
+          |     +--ro in-multicast-pkts?     oc-yang:counter64
+          |     +--ro in-discards?           oc-yang:counter64
+          |     +--ro in-errors?             oc-yang:counter64
+          |     +--ro in-unknown-protos?     oc-yang:counter64
+          |     +--ro in-fcs-errors?         oc-yang:counter64
+          |     +--ro out-octets?            oc-yang:counter64
+          |     +--ro out-unicast-pkts?      oc-yang:counter64
+          |     +--ro out-broadcast-pkts?    oc-yang:counter64
+          |     +--ro out-multicast-pkts?    oc-yang:counter64
+          |     +--ro out-discards?          oc-yang:counter64
+          |     +--ro out-errors?            oc-yang:counter64
+          |     +--ro carrier-transitions?   oc-yang:counter64
+          |     +--ro last-clear?            oc-types:timeticks64
+          +-- hold-time
+          |  +-- config
+          |  |  +-- up?     uint32
+          |  |  +-- down?   uint32
+          |  +--ro state
+          |     +--ro up?     uint32
+          |     +--ro down?   uint32
+          +-- subinterfaces
+             +-- subinterface* [index]
+                +-- index?    -> ../config/index
+                +-- config
+                |  +-- index?         uint32
+                |  +-- description?   string
+                |  +-- enabled?       boolean
+                +--ro state
+                   +--ro index?          uint32
+                   +--ro description?    string
+                   +--ro enabled?        boolean
+                   +--ro name?           string
+                   +--ro ifindex?        uint32
+                   +--ro admin-status    enumeration
+                   +--ro oper-status     enumeration
+                   +--ro last-change?    oc-types:timeticks64
+                   +--ro counters
+                      +--ro in-octets?             oc-yang:counter64
+                      +--ro in-unicast-pkts?       oc-yang:counter64
+                      +--ro in-broadcast-pkts?     oc-yang:counter64
+                      +--ro in-multicast-pkts?     oc-yang:counter64
+                      +--ro in-discards?           oc-yang:counter64
+                      +--ro in-errors?             oc-yang:counter64
+                      +--ro in-unknown-protos?     oc-yang:counter64
+                      +--ro in-fcs-errors?         oc-yang:counter64
+                      +--ro out-octets?            oc-yang:counter64
+                      +--ro out-unicast-pkts?      oc-yang:counter64
+                      +--ro out-broadcast-pkts?    oc-yang:counter64
+                      +--ro out-multicast-pkts?    oc-yang:counter64
+                      +--ro out-discards?          oc-yang:counter64
+                      +--ro out-errors?            oc-yang:counter64
+                      +--ro carrier-transitions?   oc-yang:counter64
+                      +--ro last-clear?            oc-types:timeticks64

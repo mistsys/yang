@@ -1,0 +1,148 @@
+
+module: ned-switching-augs
+  augment /ned:native/ned:interface/ned:FastEthernet:
+    +--rw auto
+       +--rw qos
+          +--rw classify!
+          |  +--rw police?   empty
+          +--rw trust!
+          |  +--rw cos?    empty
+          |  +--rw dscp?   empty
+          +--rw video
+          |  +--rw cts?            empty
+          |  +--rw ip-camera?      empty
+          |  +--rw media-player?   empty
+          +--rw voip!
+             +--rw cisco-phone?       empty
+             +--rw cisco-softphone?   empty
+             +--rw trust?             empty
+  augment /ned:native/ned:interface/ned:GigabitEthernet:
+    +--rw auto
+       +--rw qos
+          +--rw classify!
+          |  +--rw police?   empty
+          +--rw trust!
+          |  +--rw cos?    empty
+          |  +--rw dscp?   empty
+          +--rw video
+          |  +--rw cts?            empty
+          |  +--rw ip-camera?      empty
+          |  +--rw media-player?   empty
+          +--rw voip!
+             +--rw cisco-phone?       empty
+             +--rw cisco-softphone?   empty
+             +--rw trust?             empty
+  augment /ned:native/ned:interface/ned:TenGigabitEthernet:
+    +--rw auto
+       +--rw qos
+          +--rw classify!
+          |  +--rw police?   empty
+          +--rw trust!
+          |  +--rw cos?    empty
+          |  +--rw dscp?   empty
+          +--rw video
+          |  +--rw cts?            empty
+          |  +--rw ip-camera?      empty
+          |  +--rw media-player?   empty
+          +--rw voip!
+             +--rw cisco-phone?       empty
+             +--rw cisco-softphone?   empty
+             +--rw trust?             empty
+  augment /ned:native/ned:interface/ned:Port-channel:
+    +--rw auto
+       +--rw qos
+          +--rw classify!
+          |  +--rw police?   empty
+          +--rw trust!
+          |  +--rw cos?    empty
+          |  +--rw dscp?   empty
+          +--rw video
+          |  +--rw cts?            empty
+          |  +--rw ip-camera?      empty
+          |  +--rw media-player?   empty
+          +--rw voip!
+             +--rw cisco-phone?       empty
+             +--rw cisco-softphone?   empty
+             +--rw trust?             empty
+  augment /ned:native/ned:interface/ned:Port-channel-subinterface/ned:Port-channel:
+    +--rw auto
+       +--rw qos
+          +--rw classify!
+          |  +--rw police?   empty
+          +--rw trust!
+          |  +--rw cos?    empty
+          |  +--rw dscp?   empty
+          +--rw video
+          |  +--rw cts?            empty
+          |  +--rw ip-camera?      empty
+          |  +--rw media-player?   empty
+          +--rw voip!
+             +--rw cisco-phone?       empty
+             +--rw cisco-softphone?   empty
+             +--rw trust?             empty
+  augment /ned:native/ned:ip/ned:igmp/ned:snooping:
+    +--rw vlan
+       +--rw range* [range]
+          +--rw range                         uint16
+          +--rw immediate-leave?              empty
+          +--rw last-member-query-count?      uint8
+          +--rw last-member-query-interval?   uint16
+          +--rw mrouter
+          |  +--rw interface?   string
+          |  +--rw learn
+          |     +--rw cgmp?        empty
+          |     +--rw pim-dvmrp?   empty
+          +--rw querier!
+          |  +--rw address?             inet:ipv4-address
+          |  +--rw max-response-time?   uint8
+          |  +--rw query-interval?      uint16
+          |  +--rw tcn
+          |  |  +--rw query
+          |  |     +--rw count?      uint8
+          |  |     +--rw interval?   uint8
+          |  +--rw timer
+          |  |  +--rw expiry?   uint16
+          |  +--rw version?             uint8
+          +--rw robustness-variable?          uint8
+          +--rw static
+             +--rw ipv4* [ipv4]
+                +--rw ipv4         inet:ipv4-address
+                +--rw interface?   string
+  augment /ned:native/ned:vlan:
+    +--rw vlan-id?         string
+    +--rw configuration?   string
+    +--rw access-map* [map_tag]
+    |  +--rw map_tag    string
+    |  +--rw action
+    |  |  +--rw drop?      empty
+    |  |  +--rw forward?   empty
+    |  +--rw match
+    |     +--rw ip
+    |     |  +--rw address*   ned:exp-acl-type
+    |     +--rw ipv6
+    |     |  +--rw address*   string
+    |     +--rw mac
+    |        +--rw address*   string
+    +--rw filter
+    |  +--rw map-name?    string
+    |  +--rw vlan-list*   union
+    +--rw group* [group_name]
+       +--rw group_name    string
+       +--rw vlan-list*    union
+
+  grouping auto-qos-grouping
+    +-- auto
+       +-- qos
+          +-- classify!
+          |  +-- police?   empty
+          +-- trust!
+          |  +-- cos?    empty
+          |  +-- dscp?   empty
+          +-- video
+          |  +-- cts?            empty
+          |  +-- ip-camera?      empty
+          |  +-- media-player?   empty
+          +-- voip!
+             +-- cisco-phone?       empty
+             +-- cisco-softphone?   empty
+             +-- trust?             empty

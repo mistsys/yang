@@ -1,0 +1,1753 @@
+submodule: Cisco-IOS-XE-eigrp-obsolete (belongs-to Cisco-IOS-XE-eigrp)
+
+  grouping eigrp-af-topo-redist-grouping
+    x-- route-map
+    |  x-- rmap-name* [rmap-name]
+    |     x-- rmap-name?   string
+    o-- metric
+       o-- bandwith?      uint32
+       o-- delay?         uint32
+       o-- reliability?   uint8
+       o-- Effective?     uint8
+       o-- mtu?           uint16
+  grouping ipv6-router-distribute-list-grouping
+    +-- distribute-list
+       +-- prefix-list* [name]
+          +-- name?   string
+          +-- in?     empty
+          +-- out?    empty
+  grouping config-interface-ipv6-eigrp-grouping
+    o-- eigrp
+       o-- as-number?   uint16
+  grouping eigrp-topology-base-grouping
+    x-- topology
+       x-- base!
+          o-- distance
+          |  o-- eigrp
+          |     o-- distance-list* [internal-route]
+          |        o-- internal-route?   uint8
+          |        o-- external-route?   uint8
+          x-- table-map
+          |  x-- name?     string
+          |  x-- filter?   empty
+          o-- distribute-list
+          |  o-- prefix-list* [prefix-list]
+          |  |  o-- prefix-list?   string
+          |  |  o-- gateway?       empty
+          |  |  o-- in?            empty
+          |  |  o-- out?           empty
+          |  o-- route-map* [name]
+          |     o-- name?   string
+          |     o-- in?     string
+          |     o-- out?    string
+          x-- redistribute
+          |  o-- eigrp
+          |  |  o-- as-list* [autonomous-system]
+          |  |     o-- autonomous-system?   uint16
+          |  |     x-- route-map
+          |  |     |  x-- rmap-name* [rmap-name]
+          |  |     |     x-- rmap-name?   string
+          |  |     o-- metric
+          |  |        o-- bandwith?      uint32
+          |  |        o-- delay?         uint32
+          |  |        o-- reliability?   uint8
+          |  |        o-- Effective?     uint8
+          |  |        o-- mtu?           uint16
+          |  x-- omp! {ios-features:omp}?
+          |  |  x-- route-map
+          |  |  |  x-- rmap-name* [rmap-name]
+          |  |  |     x-- rmap-name?   string
+          |  |  o-- metric
+          |  |     o-- bandwith?      uint32
+          |  |     o-- delay?         uint32
+          |  |     o-- reliability?   uint8
+          |  |     o-- Effective?     uint8
+          |  |     o-- mtu?           uint16
+          |  x-- nat-route {ios-features:sdwan}?
+          |  |  x-- dia?         empty
+          |  |  x-- outside?     empty
+          |  |  x-- route-map
+          |  |  |  x-- rmap-name* [rmap-name]
+          |  |  |     x-- rmap-name?   string
+          |  |  o-- metric
+          |  |     o-- bandwith?      uint32
+          |  |     o-- delay?         uint32
+          |  |     o-- reliability?   uint8
+          |  |     o-- Effective?     uint8
+          |  |     o-- mtu?           uint16
+          |  x-- ospf
+          |  |  x-- process-id?   uint16
+          |  |  x-- route-map
+          |  |  |  x-- rmap-name* [rmap-name]
+          |  |  |     x-- rmap-name?   string
+          |  |  o-- metric
+          |  |     o-- bandwith?      uint32
+          |  |     o-- delay?         uint32
+          |  |     o-- reliability?   uint8
+          |  |     o-- Effective?     uint8
+          |  |     o-- mtu?           uint16
+          |  x-- connected!
+          |  |  x-- route-map
+          |  |  |  x-- rmap-name* [rmap-name]
+          |  |  |     x-- rmap-name?   string
+          |  |  o-- metric
+          |  |     o-- bandwith?      uint32
+          |  |     o-- delay?         uint32
+          |  |     o-- reliability?   uint8
+          |  |     o-- Effective?     uint8
+          |  |     o-- mtu?           uint16
+          |  x-- static!
+          |  |  x-- route-map
+          |  |  |  x-- rmap-name* [rmap-name]
+          |  |  |     x-- rmap-name?   string
+          |  |  o-- metric
+          |  |     o-- bandwith?      uint32
+          |  |     o-- delay?         uint32
+          |  |     o-- reliability?   uint8
+          |  |     o-- Effective?     uint8
+          |  |     o-- mtu?           uint16
+          |  x-- bgp
+          |     x-- as-number?   ios-types:bgp-as-number-type
+          |     x-- route-map
+          |     |  x-- rmap-name* [rmap-name]
+          |     |     x-- rmap-name?   string
+          |     o-- metric
+          |        o-- bandwith?      uint32
+          |        o-- delay?         uint32
+          |        o-- reliability?   uint8
+          |        o-- Effective?     uint8
+          |        o-- mtu?           uint16
+          o-- summary-metric* [ipv4-addr-slash-prefix-len]
+             o-- ipv4-addr-slash-prefix-len?   inet:ipv4-prefix
+             o-- metric
+             |  o-- bandwidth-metric?             uint32
+             |  o-- delay-metric?                 uint32
+             |  o-- reliability-metric?           uint8
+             |  o-- effective-bandwidth-metric?   uint8
+             |  o-- mtu?                          uint16
+             o-- distance?                     uint8
+  grouping eigrp-address-family-grouping
+    x-- af-interface* [name]
+    |  x-- name?                string
+    |  o-- bandwidth-percent?   uint32
+    |  x-- shutdown?            empty
+    |  x-- bfd?                 empty
+    |  x-- hello-interval?      uint16
+    |  x-- hold-time?           uint16
+    |  x-- passive-interface?   boolean
+    |  x-- split-horizon?       boolean
+    |  o-- stub-site
+    |  |  o-- wan-interface?   empty
+    |  x-- authentication
+    |  |  x-- mode
+    |  |  |  x-- md5?            empty
+    |  |  |  x-- hmac-sha-256
+    |  |  |     x-- auth-type?   uint8
+    |  |  |     x-- auth-key?    string
+    |  |  x-- key-chain?   string
+    |  x-- summary-address* [prefix]
+    |     x-- prefix?   union
+    o-- set-as-in-submode
+    |  o-- autonomous-system?   uint16
+    x-- auto-summary?          empty
+    o-- bfd
+    |  o-- all-interfaces?   empty
+    |  o-- interface
+    |     +-- (interface-choice)?
+    |        +--:(AppNav-Compress)
+    |        |  +-- AppNav-Compress?             uint16
+    |        +--:(AppNav-UnCompress)
+    |        |  +-- AppNav-UnCompress?           uint16
+    |        +--:(ATM)
+    |        |  +-- ATM?                         string
+    |        +--:(ATM-subinterface)
+    |        |  +-- ATM-subinterface
+    |        |     +-- ATM?   string
+    |        +--:(ATM-ACR)
+    |        |  +-- ATM-ACR?                     string
+    |        +--:(ATM-ACRsubinterface)
+    |        |  +-- ATM-ACRsubinterface
+    |        |     +-- ATM-ACR?   string
+    |        +--:(BDI)
+    |        |  +-- BDI?                         string
+    |        +--:(CEM)
+    |        |  +-- CEM?                         string
+    |        +--:(CEM-ACR)
+    |        |  +-- CEM-ACR?                     uint8
+    |        +--:(Embedded-Service-Engine)
+    |        |  +-- Embedded-Service-Engine?     string
+    |        +--:(Ethernet)
+    |        |  +-- Ethernet?                    string
+    |        +--:(FastEthernet)
+    |        |  +-- FastEthernet?                string
+    |        +--:(GigabitEthernet)
+    |        |  +-- GigabitEthernet?             string
+    |        +--:(FiveGigabitEthernet)
+    |        |  +-- FiveGigabitEthernet?         string
+    |        +--:(AppGigabitEthernet)
+    |        |  +-- AppGigabitEthernet?          string
+    |        +--:(TwentyFiveGigabitEthernet)
+    |        |  o-- TwentyFiveGigabitEthernet?   string
+    |        +--:(TwentyFiveGigE)
+    |        |  +-- TwentyFiveGigE?              string
+    |        +--:(TwoGigabitEthernet)
+    |        |  +-- TwoGigabitEthernet?          string
+    |        +--:(FortyGigabitEthernet)
+    |        |  +-- FortyGigabitEthernet?        string
+    |        +--:(HundredGigE)
+    |        |  +-- HundredGigE?                 string
+    |        +--:(LISP)
+    |        |  +-- LISP?                        string
+    |        +--:(LISP-subinterface)
+    |        |  +-- LISP-subinterface
+    |        |     +-- LISP?   string
+    |        +--:(Loopback)
+    |        |  +-- Loopback?                    uint32
+    |        +--:(Multilink)
+    |        |  +-- Multilink?                   uint16
+    |        +--:(nve)
+    |        |  +-- nve?                         uint16
+    |        +--:(overlay)
+    |        |  +-- overlay?                     uint16
+    |        +--:(Port-channel)
+    |        |  +-- Port-channel?                uint32
+    |        +--:(Port-channel-subinterface)
+    |        |  +-- Port-channel-subinterface
+    |        |     +-- Port-channel?   string
+    |        +--:(pseudowire)
+    |        |  +-- pseudowire?                  uint32
+    |        +--:(SM)
+    |        |  +-- SM?                          string
+    |        +--:(Cellular)
+    |        |  +-- Cellular?                    string
+    |        +--:(Dialer)
+    |        |  +-- Dialer?                      string
+    |        +--:(Serial)
+    |        |  +-- Serial?                      string
+    |        +--:(TenGigabitEthernet)
+    |        |  +-- TenGigabitEthernet?          string
+    |        +--:(Tunnel)
+    |        |  +-- Tunnel?                      uint32
+    |        +--:(Virtual-Template)
+    |        |  +-- Virtual-Template?            uint16
+    |        +--:(Vlan)
+    |        |  +-- Vlan?                        uint16
+    |        +--:(VirtualPortGroup)
+    |        |  +-- VirtualPortGroup?            uint16
+    |        +--:(vasileft)
+    |        |  +-- vasileft?                    uint16
+    |        +--:(vasiright)
+    |        |  +-- vasiright?                   uint16
+    |        +--:(BD-VIF)
+    |           +-- BD-VIF?                      string
+    o-- default-information
+    |  o-- in!
+    |  |  o-- sa-num?    uint16
+    |  |  o-- sa-name?   string
+    |  o-- out!
+    |     o-- sa-out-num?    uint16
+    |     o-- sa-out-name?   string
+    o-- default-metric
+    |  o-- dm-rdr* [dm-rdr]
+    |     o-- dm-rdr?    uint32
+    |     o-- dm-rdr0* [dm-rdr0]
+    |        o-- dm-rdr0?      uint32
+    |        o-- dm-rdr-pct?   uint8
+    o-- distance
+    |  o-- rad-dis* [rad-dis]
+    |  |  o-- rad-dis?   uint8
+    |  |  o-- ipv4* [ipv4]
+    |  |     o-- ipv4?    inet:ipv4-address
+    |  |     o-- ipv40?   inet:ipv4-address
+    |  o-- eigrp
+    |     o-- di-rt* [di-rt]
+    |        o-- di-rt?    uint8
+    |        o-- di-rt0?   uint8
+    o-- distribute-list
+    |  o-- eig-filt* [eig-filt]
+    |  |  o-- eig-filt?   ios-types:exp-acl-type
+    |  |  o-- in!
+    |  |  |  o-- interface_name*   string
+    |  |  o-- out!
+    |  |     o-- interface_name*   string
+    |  o-- gateway
+    |  |  o-- gw-list* [gw-list]
+    |  |     o-- gw-list?   string
+    |  |     o-- in?        empty
+    |  |     o-- out?       empty
+    |  o-- prefix
+    |  |  o-- pl-name* [pl-name]
+    |  |     o-- pl-name?   string
+    |  |     o-- gateway?   empty
+    |  |     o-- in?        empty
+    |  |     o-- out?       empty
+    |  o-- route-map
+    |     o-- rmap-name* [rmap-name]
+    |        o-- rmap-name?   string
+    |        o-- in?          empty
+    |        o-- out?         empty
+    x-- eigrp
+    |  x-- router-id?   inet:ipv4-address
+    |  o-- stub!
+    |  |  o-- connected?       empty
+    |  |  o-- summary?         empty
+    |  |  o-- redistributed?   empty
+    |  |  o-- leak-map?        string
+    |  |  o-- receive-only?    empty
+    |  |  o-- static?          empty
+    |  o-- stub-site?   string
+    o-- maximum-paths?         uint8
+    o-- metric
+    |  o-- maximum-hops?   uint8
+    |  o-- weights?        uint8
+    o-- neighbor
+    |  o-- ipv4* [ipv4]
+    |     o-- ipv4?        inet:ipv4-address
+    |     o-- interface
+    |        +-- (interface-choice)?
+    |           +--:(AppNav-Compress)
+    |           |  +-- AppNav-Compress?             uint16
+    |           +--:(AppNav-UnCompress)
+    |           |  +-- AppNav-UnCompress?           uint16
+    |           +--:(ATM)
+    |           |  +-- ATM?                         string
+    |           +--:(ATM-subinterface)
+    |           |  +-- ATM-subinterface
+    |           |     +-- ATM?   string
+    |           +--:(ATM-ACR)
+    |           |  +-- ATM-ACR?                     string
+    |           +--:(ATM-ACRsubinterface)
+    |           |  +-- ATM-ACRsubinterface
+    |           |     +-- ATM-ACR?   string
+    |           +--:(BDI)
+    |           |  +-- BDI?                         string
+    |           +--:(CEM)
+    |           |  +-- CEM?                         string
+    |           +--:(CEM-ACR)
+    |           |  +-- CEM-ACR?                     uint8
+    |           +--:(Embedded-Service-Engine)
+    |           |  +-- Embedded-Service-Engine?     string
+    |           +--:(Ethernet)
+    |           |  +-- Ethernet?                    string
+    |           +--:(FastEthernet)
+    |           |  +-- FastEthernet?                string
+    |           +--:(GigabitEthernet)
+    |           |  +-- GigabitEthernet?             string
+    |           +--:(FiveGigabitEthernet)
+    |           |  +-- FiveGigabitEthernet?         string
+    |           +--:(AppGigabitEthernet)
+    |           |  +-- AppGigabitEthernet?          string
+    |           +--:(TwentyFiveGigabitEthernet)
+    |           |  o-- TwentyFiveGigabitEthernet?   string
+    |           +--:(TwentyFiveGigE)
+    |           |  +-- TwentyFiveGigE?              string
+    |           +--:(TwoGigabitEthernet)
+    |           |  +-- TwoGigabitEthernet?          string
+    |           +--:(FortyGigabitEthernet)
+    |           |  +-- FortyGigabitEthernet?        string
+    |           +--:(HundredGigE)
+    |           |  +-- HundredGigE?                 string
+    |           +--:(LISP)
+    |           |  +-- LISP?                        string
+    |           +--:(LISP-subinterface)
+    |           |  +-- LISP-subinterface
+    |           |     +-- LISP?   string
+    |           +--:(Loopback)
+    |           |  +-- Loopback?                    uint32
+    |           +--:(Multilink)
+    |           |  +-- Multilink?                   uint16
+    |           +--:(nve)
+    |           |  +-- nve?                         uint16
+    |           +--:(overlay)
+    |           |  +-- overlay?                     uint16
+    |           +--:(Port-channel)
+    |           |  +-- Port-channel?                uint32
+    |           +--:(Port-channel-subinterface)
+    |           |  +-- Port-channel-subinterface
+    |           |     +-- Port-channel?   string
+    |           +--:(pseudowire)
+    |           |  +-- pseudowire?                  uint32
+    |           +--:(SM)
+    |           |  +-- SM?                          string
+    |           +--:(Cellular)
+    |           |  +-- Cellular?                    string
+    |           +--:(Dialer)
+    |           |  +-- Dialer?                      string
+    |           +--:(Serial)
+    |           |  +-- Serial?                      string
+    |           +--:(TenGigabitEthernet)
+    |           |  +-- TenGigabitEthernet?          string
+    |           +--:(Tunnel)
+    |           |  +-- Tunnel?                      uint32
+    |           +--:(Virtual-Template)
+    |           |  +-- Virtual-Template?            uint16
+    |           +--:(Vlan)
+    |           |  +-- Vlan?                        uint16
+    |           +--:(VirtualPortGroup)
+    |           |  +-- VirtualPortGroup?            uint16
+    |           +--:(vasileft)
+    |           |  +-- vasileft?                    uint16
+    |           +--:(vasiright)
+    |           |  +-- vasiright?                   uint16
+    |           +--:(BD-VIF)
+    |              +-- BD-VIF?                      string
+    x-- network* [number]
+    |  x-- number?      inet:ipv4-address
+    |  x-- wild-card?   inet:ipv4-address
+    o-- nsf?                   empty
+    o-- offset-list
+    |  o-- nsr-list* [nsr-list]
+    |  |  o-- nsr-list?   uint16
+    |  |  o-- in?         empty
+    |  |  o-- out?        empty
+    |  o-- ol-acl* [ol-acl]
+    |     o-- ol-acl?   string
+    |     o-- in?       empty
+    |     o-- out?      empty
+    o-- redistribute
+    |  o-- bgp* [rdr-as]
+    |  |  o-- rdr-as?                                       ios-types:bgp-as-number-type
+    |  |  o-- metric
+    |  |  |  o-- bandwith?      uint32
+    |  |  |  o-- delay?         uint32
+    |  |  |  o-- reliability?   uint8
+    |  |  |  o-- Effective?     uint8
+    |  |  |  o-- mtu?           uint16
+    |  |  o-- route-map?                                    string
+    |  |  o-- rd-LESSER_1_PERIOD_0-XX_PERIOD_YY_GREATER_?   empty
+    |  o-- connected!
+    |  |  o-- metric?      empty
+    |  |  o-- route-map?   empty
+    |  o-- eigrp?       uint16
+    |  o-- isis!
+    |  |  o-- is-tag?      string
+    |  |  o-- level-1?     empty
+    |  |  o-- level-1-2?   empty
+    |  |  o-- level-2?     empty
+    |  |  o-- metric?      empty
+    |  |  o-- route-map?   empty
+    |  o-- lisp!
+    |  |  o-- metric?      empty
+    |  |  o-- route-map?   empty
+    |  o-- mobile!
+    |  |  o-- metric?      empty
+    |  |  o-- route-map?   empty
+    |  o-- odr!
+    |  |  o-- metric?      empty
+    |  |  o-- route-map?   empty
+    |  o-- ospf?        uint16
+    |  o-- rip!
+    |  |  o-- metric?      empty
+    |  |  o-- route-map?   empty
+    |  o-- static!
+    |  |  o-- metric?      empty
+    |  |  o-- route-map?   empty
+    |  o-- vrf
+    |     o-- name?     string
+    |     o-- global?   empty
+    o-- shutdown?              empty
+    o-- summary-metric
+    |  o-- ipv4* [ipv4]
+    |  |  o-- ipv4?   inet:ipv4-address
+    |  |  o-- mask?   inet:ipv4-address
+    |  o-- A_PERIOD_B_PERIOD_C_PERIOD_D_SLASH_nn?   empty
+    o-- timers
+    |  o-- active-time
+    |  |  o-- atimer?     uint16
+    |  |  o-- disabled?   empty
+    |  o-- graceful-restart
+    |  |  o-- purge-time?   empty
+    |  o-- nsf
+    |     o-- converge?   empty
+    |     o-- signal?     empty
+    o-- traffic-share
+    |  o-- balanced?   empty
+    |  o-- min
+    |     o-- across-interfaces?   empty
+    o-- variance?              uint8
+  grouping config-router-eigrp-grouping
+    x-- eigrp* [id]
+       x-- id?                    union
+       o-- passive-interface
+       |  o-- interface?   string
+       |  o-- Tunnel?      uint32
+       |  o-- Vlan?        uint16
+       |  o-- default?     empty
+       x-- address-family* [type]
+       |  x-- type?             enumeration
+       |  o-- af-ip-list* [unicast-multicast]
+       |  |  o-- unicast-multicast?     enumeration
+       |  |  o-- autonomous-system?     uint16
+       |  |  x-- af-interface* [name]
+       |  |  |  x-- name?                string
+       |  |  |  o-- bandwidth-percent?   uint32
+       |  |  |  x-- shutdown?            empty
+       |  |  |  x-- bfd?                 empty
+       |  |  |  x-- hello-interval?      uint16
+       |  |  |  x-- hold-time?           uint16
+       |  |  |  x-- passive-interface?   boolean
+       |  |  |  x-- split-horizon?       boolean
+       |  |  |  o-- stub-site
+       |  |  |  |  o-- wan-interface?   empty
+       |  |  |  x-- authentication
+       |  |  |  |  x-- mode
+       |  |  |  |  |  x-- md5?            empty
+       |  |  |  |  |  x-- hmac-sha-256
+       |  |  |  |  |     x-- auth-type?   uint8
+       |  |  |  |  |     x-- auth-key?    string
+       |  |  |  |  x-- key-chain?   string
+       |  |  |  x-- summary-address* [prefix]
+       |  |  |     x-- prefix?   union
+       |  |  o-- set-as-in-submode
+       |  |  |  o-- autonomous-system?   uint16
+       |  |  x-- auto-summary?          empty
+       |  |  o-- bfd
+       |  |  |  o-- all-interfaces?   empty
+       |  |  |  o-- interface
+       |  |  |     +-- (interface-choice)?
+       |  |  |        +--:(AppNav-Compress)
+       |  |  |        |  +-- AppNav-Compress?             uint16
+       |  |  |        +--:(AppNav-UnCompress)
+       |  |  |        |  +-- AppNav-UnCompress?           uint16
+       |  |  |        +--:(ATM)
+       |  |  |        |  +-- ATM?                         string
+       |  |  |        +--:(ATM-subinterface)
+       |  |  |        |  +-- ATM-subinterface
+       |  |  |        |     +-- ATM?   string
+       |  |  |        +--:(ATM-ACR)
+       |  |  |        |  +-- ATM-ACR?                     string
+       |  |  |        +--:(ATM-ACRsubinterface)
+       |  |  |        |  +-- ATM-ACRsubinterface
+       |  |  |        |     +-- ATM-ACR?   string
+       |  |  |        +--:(BDI)
+       |  |  |        |  +-- BDI?                         string
+       |  |  |        +--:(CEM)
+       |  |  |        |  +-- CEM?                         string
+       |  |  |        +--:(CEM-ACR)
+       |  |  |        |  +-- CEM-ACR?                     uint8
+       |  |  |        +--:(Embedded-Service-Engine)
+       |  |  |        |  +-- Embedded-Service-Engine?     string
+       |  |  |        +--:(Ethernet)
+       |  |  |        |  +-- Ethernet?                    string
+       |  |  |        +--:(FastEthernet)
+       |  |  |        |  +-- FastEthernet?                string
+       |  |  |        +--:(GigabitEthernet)
+       |  |  |        |  +-- GigabitEthernet?             string
+       |  |  |        +--:(FiveGigabitEthernet)
+       |  |  |        |  +-- FiveGigabitEthernet?         string
+       |  |  |        +--:(AppGigabitEthernet)
+       |  |  |        |  +-- AppGigabitEthernet?          string
+       |  |  |        +--:(TwentyFiveGigabitEthernet)
+       |  |  |        |  o-- TwentyFiveGigabitEthernet?   string
+       |  |  |        +--:(TwentyFiveGigE)
+       |  |  |        |  +-- TwentyFiveGigE?              string
+       |  |  |        +--:(TwoGigabitEthernet)
+       |  |  |        |  +-- TwoGigabitEthernet?          string
+       |  |  |        +--:(FortyGigabitEthernet)
+       |  |  |        |  +-- FortyGigabitEthernet?        string
+       |  |  |        +--:(HundredGigE)
+       |  |  |        |  +-- HundredGigE?                 string
+       |  |  |        +--:(LISP)
+       |  |  |        |  +-- LISP?                        string
+       |  |  |        +--:(LISP-subinterface)
+       |  |  |        |  +-- LISP-subinterface
+       |  |  |        |     +-- LISP?   string
+       |  |  |        +--:(Loopback)
+       |  |  |        |  +-- Loopback?                    uint32
+       |  |  |        +--:(Multilink)
+       |  |  |        |  +-- Multilink?                   uint16
+       |  |  |        +--:(nve)
+       |  |  |        |  +-- nve?                         uint16
+       |  |  |        +--:(overlay)
+       |  |  |        |  +-- overlay?                     uint16
+       |  |  |        +--:(Port-channel)
+       |  |  |        |  +-- Port-channel?                uint32
+       |  |  |        +--:(Port-channel-subinterface)
+       |  |  |        |  +-- Port-channel-subinterface
+       |  |  |        |     +-- Port-channel?   string
+       |  |  |        +--:(pseudowire)
+       |  |  |        |  +-- pseudowire?                  uint32
+       |  |  |        +--:(SM)
+       |  |  |        |  +-- SM?                          string
+       |  |  |        +--:(Cellular)
+       |  |  |        |  +-- Cellular?                    string
+       |  |  |        +--:(Dialer)
+       |  |  |        |  +-- Dialer?                      string
+       |  |  |        +--:(Serial)
+       |  |  |        |  +-- Serial?                      string
+       |  |  |        +--:(TenGigabitEthernet)
+       |  |  |        |  +-- TenGigabitEthernet?          string
+       |  |  |        +--:(Tunnel)
+       |  |  |        |  +-- Tunnel?                      uint32
+       |  |  |        +--:(Virtual-Template)
+       |  |  |        |  +-- Virtual-Template?            uint16
+       |  |  |        +--:(Vlan)
+       |  |  |        |  +-- Vlan?                        uint16
+       |  |  |        +--:(VirtualPortGroup)
+       |  |  |        |  +-- VirtualPortGroup?            uint16
+       |  |  |        +--:(vasileft)
+       |  |  |        |  +-- vasileft?                    uint16
+       |  |  |        +--:(vasiright)
+       |  |  |        |  +-- vasiright?                   uint16
+       |  |  |        +--:(BD-VIF)
+       |  |  |           +-- BD-VIF?                      string
+       |  |  o-- default-information
+       |  |  |  o-- in!
+       |  |  |  |  o-- sa-num?    uint16
+       |  |  |  |  o-- sa-name?   string
+       |  |  |  o-- out!
+       |  |  |     o-- sa-out-num?    uint16
+       |  |  |     o-- sa-out-name?   string
+       |  |  o-- default-metric
+       |  |  |  o-- dm-rdr* [dm-rdr]
+       |  |  |     o-- dm-rdr?    uint32
+       |  |  |     o-- dm-rdr0* [dm-rdr0]
+       |  |  |        o-- dm-rdr0?      uint32
+       |  |  |        o-- dm-rdr-pct?   uint8
+       |  |  o-- distance
+       |  |  |  o-- rad-dis* [rad-dis]
+       |  |  |  |  o-- rad-dis?   uint8
+       |  |  |  |  o-- ipv4* [ipv4]
+       |  |  |  |     o-- ipv4?    inet:ipv4-address
+       |  |  |  |     o-- ipv40?   inet:ipv4-address
+       |  |  |  o-- eigrp
+       |  |  |     o-- di-rt* [di-rt]
+       |  |  |        o-- di-rt?    uint8
+       |  |  |        o-- di-rt0?   uint8
+       |  |  o-- distribute-list
+       |  |  |  o-- eig-filt* [eig-filt]
+       |  |  |  |  o-- eig-filt?   ios-types:exp-acl-type
+       |  |  |  |  o-- in!
+       |  |  |  |  |  o-- interface_name*   string
+       |  |  |  |  o-- out!
+       |  |  |  |     o-- interface_name*   string
+       |  |  |  o-- gateway
+       |  |  |  |  o-- gw-list* [gw-list]
+       |  |  |  |     o-- gw-list?   string
+       |  |  |  |     o-- in?        empty
+       |  |  |  |     o-- out?       empty
+       |  |  |  o-- prefix
+       |  |  |  |  o-- pl-name* [pl-name]
+       |  |  |  |     o-- pl-name?   string
+       |  |  |  |     o-- gateway?   empty
+       |  |  |  |     o-- in?        empty
+       |  |  |  |     o-- out?       empty
+       |  |  |  o-- route-map
+       |  |  |     o-- rmap-name* [rmap-name]
+       |  |  |        o-- rmap-name?   string
+       |  |  |        o-- in?          empty
+       |  |  |        o-- out?         empty
+       |  |  x-- eigrp
+       |  |  |  x-- router-id?   inet:ipv4-address
+       |  |  |  o-- stub!
+       |  |  |  |  o-- connected?       empty
+       |  |  |  |  o-- summary?         empty
+       |  |  |  |  o-- redistributed?   empty
+       |  |  |  |  o-- leak-map?        string
+       |  |  |  |  o-- receive-only?    empty
+       |  |  |  |  o-- static?          empty
+       |  |  |  o-- stub-site?   string
+       |  |  o-- maximum-paths?         uint8
+       |  |  o-- metric
+       |  |  |  o-- maximum-hops?   uint8
+       |  |  |  o-- weights?        uint8
+       |  |  o-- neighbor
+       |  |  |  o-- ipv4* [ipv4]
+       |  |  |     o-- ipv4?        inet:ipv4-address
+       |  |  |     o-- interface
+       |  |  |        +-- (interface-choice)?
+       |  |  |           +--:(AppNav-Compress)
+       |  |  |           |  +-- AppNav-Compress?             uint16
+       |  |  |           +--:(AppNav-UnCompress)
+       |  |  |           |  +-- AppNav-UnCompress?           uint16
+       |  |  |           +--:(ATM)
+       |  |  |           |  +-- ATM?                         string
+       |  |  |           +--:(ATM-subinterface)
+       |  |  |           |  +-- ATM-subinterface
+       |  |  |           |     +-- ATM?   string
+       |  |  |           +--:(ATM-ACR)
+       |  |  |           |  +-- ATM-ACR?                     string
+       |  |  |           +--:(ATM-ACRsubinterface)
+       |  |  |           |  +-- ATM-ACRsubinterface
+       |  |  |           |     +-- ATM-ACR?   string
+       |  |  |           +--:(BDI)
+       |  |  |           |  +-- BDI?                         string
+       |  |  |           +--:(CEM)
+       |  |  |           |  +-- CEM?                         string
+       |  |  |           +--:(CEM-ACR)
+       |  |  |           |  +-- CEM-ACR?                     uint8
+       |  |  |           +--:(Embedded-Service-Engine)
+       |  |  |           |  +-- Embedded-Service-Engine?     string
+       |  |  |           +--:(Ethernet)
+       |  |  |           |  +-- Ethernet?                    string
+       |  |  |           +--:(FastEthernet)
+       |  |  |           |  +-- FastEthernet?                string
+       |  |  |           +--:(GigabitEthernet)
+       |  |  |           |  +-- GigabitEthernet?             string
+       |  |  |           +--:(FiveGigabitEthernet)
+       |  |  |           |  +-- FiveGigabitEthernet?         string
+       |  |  |           +--:(AppGigabitEthernet)
+       |  |  |           |  +-- AppGigabitEthernet?          string
+       |  |  |           +--:(TwentyFiveGigabitEthernet)
+       |  |  |           |  o-- TwentyFiveGigabitEthernet?   string
+       |  |  |           +--:(TwentyFiveGigE)
+       |  |  |           |  +-- TwentyFiveGigE?              string
+       |  |  |           +--:(TwoGigabitEthernet)
+       |  |  |           |  +-- TwoGigabitEthernet?          string
+       |  |  |           +--:(FortyGigabitEthernet)
+       |  |  |           |  +-- FortyGigabitEthernet?        string
+       |  |  |           +--:(HundredGigE)
+       |  |  |           |  +-- HundredGigE?                 string
+       |  |  |           +--:(LISP)
+       |  |  |           |  +-- LISP?                        string
+       |  |  |           +--:(LISP-subinterface)
+       |  |  |           |  +-- LISP-subinterface
+       |  |  |           |     +-- LISP?   string
+       |  |  |           +--:(Loopback)
+       |  |  |           |  +-- Loopback?                    uint32
+       |  |  |           +--:(Multilink)
+       |  |  |           |  +-- Multilink?                   uint16
+       |  |  |           +--:(nve)
+       |  |  |           |  +-- nve?                         uint16
+       |  |  |           +--:(overlay)
+       |  |  |           |  +-- overlay?                     uint16
+       |  |  |           +--:(Port-channel)
+       |  |  |           |  +-- Port-channel?                uint32
+       |  |  |           +--:(Port-channel-subinterface)
+       |  |  |           |  +-- Port-channel-subinterface
+       |  |  |           |     +-- Port-channel?   string
+       |  |  |           +--:(pseudowire)
+       |  |  |           |  +-- pseudowire?                  uint32
+       |  |  |           +--:(SM)
+       |  |  |           |  +-- SM?                          string
+       |  |  |           +--:(Cellular)
+       |  |  |           |  +-- Cellular?                    string
+       |  |  |           +--:(Dialer)
+       |  |  |           |  +-- Dialer?                      string
+       |  |  |           +--:(Serial)
+       |  |  |           |  +-- Serial?                      string
+       |  |  |           +--:(TenGigabitEthernet)
+       |  |  |           |  +-- TenGigabitEthernet?          string
+       |  |  |           +--:(Tunnel)
+       |  |  |           |  +-- Tunnel?                      uint32
+       |  |  |           +--:(Virtual-Template)
+       |  |  |           |  +-- Virtual-Template?            uint16
+       |  |  |           +--:(Vlan)
+       |  |  |           |  +-- Vlan?                        uint16
+       |  |  |           +--:(VirtualPortGroup)
+       |  |  |           |  +-- VirtualPortGroup?            uint16
+       |  |  |           +--:(vasileft)
+       |  |  |           |  +-- vasileft?                    uint16
+       |  |  |           +--:(vasiright)
+       |  |  |           |  +-- vasiright?                   uint16
+       |  |  |           +--:(BD-VIF)
+       |  |  |              +-- BD-VIF?                      string
+       |  |  x-- network* [number]
+       |  |  |  x-- number?      inet:ipv4-address
+       |  |  |  x-- wild-card?   inet:ipv4-address
+       |  |  o-- nsf?                   empty
+       |  |  o-- offset-list
+       |  |  |  o-- nsr-list* [nsr-list]
+       |  |  |  |  o-- nsr-list?   uint16
+       |  |  |  |  o-- in?         empty
+       |  |  |  |  o-- out?        empty
+       |  |  |  o-- ol-acl* [ol-acl]
+       |  |  |     o-- ol-acl?   string
+       |  |  |     o-- in?       empty
+       |  |  |     o-- out?      empty
+       |  |  o-- redistribute
+       |  |  |  o-- bgp* [rdr-as]
+       |  |  |  |  o-- rdr-as?                                       ios-types:bgp-as-number-type
+       |  |  |  |  o-- metric
+       |  |  |  |  |  o-- bandwith?      uint32
+       |  |  |  |  |  o-- delay?         uint32
+       |  |  |  |  |  o-- reliability?   uint8
+       |  |  |  |  |  o-- Effective?     uint8
+       |  |  |  |  |  o-- mtu?           uint16
+       |  |  |  |  o-- route-map?                                    string
+       |  |  |  |  o-- rd-LESSER_1_PERIOD_0-XX_PERIOD_YY_GREATER_?   empty
+       |  |  |  o-- connected!
+       |  |  |  |  o-- metric?      empty
+       |  |  |  |  o-- route-map?   empty
+       |  |  |  o-- eigrp?       uint16
+       |  |  |  o-- isis!
+       |  |  |  |  o-- is-tag?      string
+       |  |  |  |  o-- level-1?     empty
+       |  |  |  |  o-- level-1-2?   empty
+       |  |  |  |  o-- level-2?     empty
+       |  |  |  |  o-- metric?      empty
+       |  |  |  |  o-- route-map?   empty
+       |  |  |  o-- lisp!
+       |  |  |  |  o-- metric?      empty
+       |  |  |  |  o-- route-map?   empty
+       |  |  |  o-- mobile!
+       |  |  |  |  o-- metric?      empty
+       |  |  |  |  o-- route-map?   empty
+       |  |  |  o-- odr!
+       |  |  |  |  o-- metric?      empty
+       |  |  |  |  o-- route-map?   empty
+       |  |  |  o-- ospf?        uint16
+       |  |  |  o-- rip!
+       |  |  |  |  o-- metric?      empty
+       |  |  |  |  o-- route-map?   empty
+       |  |  |  o-- static!
+       |  |  |  |  o-- metric?      empty
+       |  |  |  |  o-- route-map?   empty
+       |  |  |  o-- vrf
+       |  |  |     o-- name?     string
+       |  |  |     o-- global?   empty
+       |  |  o-- shutdown?              empty
+       |  |  o-- summary-metric
+       |  |  |  o-- ipv4* [ipv4]
+       |  |  |  |  o-- ipv4?   inet:ipv4-address
+       |  |  |  |  o-- mask?   inet:ipv4-address
+       |  |  |  o-- A_PERIOD_B_PERIOD_C_PERIOD_D_SLASH_nn?   empty
+       |  |  o-- timers
+       |  |  |  o-- active-time
+       |  |  |  |  o-- atimer?     uint16
+       |  |  |  |  o-- disabled?   empty
+       |  |  |  o-- graceful-restart
+       |  |  |  |  o-- purge-time?   empty
+       |  |  |  o-- nsf
+       |  |  |     o-- converge?   empty
+       |  |  |     o-- signal?     empty
+       |  |  o-- traffic-share
+       |  |  |  o-- balanced?   empty
+       |  |  |  o-- min
+       |  |  |     o-- across-interfaces?   empty
+       |  |  o-- variance?              uint8
+       |  |  x-- topology
+       |  |     x-- base!
+       |  |        o-- distance
+       |  |        |  o-- eigrp
+       |  |        |     o-- distance-list* [internal-route]
+       |  |        |        o-- internal-route?   uint8
+       |  |        |        o-- external-route?   uint8
+       |  |        x-- table-map
+       |  |        |  x-- name?     string
+       |  |        |  x-- filter?   empty
+       |  |        o-- distribute-list
+       |  |        |  o-- prefix-list* [prefix-list]
+       |  |        |  |  o-- prefix-list?   string
+       |  |        |  |  o-- gateway?       empty
+       |  |        |  |  o-- in?            empty
+       |  |        |  |  o-- out?           empty
+       |  |        |  o-- route-map* [name]
+       |  |        |     o-- name?   string
+       |  |        |     o-- in?     string
+       |  |        |     o-- out?    string
+       |  |        x-- redistribute
+       |  |        |  o-- eigrp
+       |  |        |  |  o-- as-list* [autonomous-system]
+       |  |        |  |     o-- autonomous-system?   uint16
+       |  |        |  |     x-- route-map
+       |  |        |  |     |  x-- rmap-name* [rmap-name]
+       |  |        |  |     |     x-- rmap-name?   string
+       |  |        |  |     o-- metric
+       |  |        |  |        o-- bandwith?      uint32
+       |  |        |  |        o-- delay?         uint32
+       |  |        |  |        o-- reliability?   uint8
+       |  |        |  |        o-- Effective?     uint8
+       |  |        |  |        o-- mtu?           uint16
+       |  |        |  x-- omp! {ios-features:omp}?
+       |  |        |  |  x-- route-map
+       |  |        |  |  |  x-- rmap-name* [rmap-name]
+       |  |        |  |  |     x-- rmap-name?   string
+       |  |        |  |  o-- metric
+       |  |        |  |     o-- bandwith?      uint32
+       |  |        |  |     o-- delay?         uint32
+       |  |        |  |     o-- reliability?   uint8
+       |  |        |  |     o-- Effective?     uint8
+       |  |        |  |     o-- mtu?           uint16
+       |  |        |  x-- nat-route {ios-features:sdwan}?
+       |  |        |  |  x-- dia?         empty
+       |  |        |  |  x-- outside?     empty
+       |  |        |  |  x-- route-map
+       |  |        |  |  |  x-- rmap-name* [rmap-name]
+       |  |        |  |  |     x-- rmap-name?   string
+       |  |        |  |  o-- metric
+       |  |        |  |     o-- bandwith?      uint32
+       |  |        |  |     o-- delay?         uint32
+       |  |        |  |     o-- reliability?   uint8
+       |  |        |  |     o-- Effective?     uint8
+       |  |        |  |     o-- mtu?           uint16
+       |  |        |  x-- ospf
+       |  |        |  |  x-- process-id?   uint16
+       |  |        |  |  x-- route-map
+       |  |        |  |  |  x-- rmap-name* [rmap-name]
+       |  |        |  |  |     x-- rmap-name?   string
+       |  |        |  |  o-- metric
+       |  |        |  |     o-- bandwith?      uint32
+       |  |        |  |     o-- delay?         uint32
+       |  |        |  |     o-- reliability?   uint8
+       |  |        |  |     o-- Effective?     uint8
+       |  |        |  |     o-- mtu?           uint16
+       |  |        |  x-- connected!
+       |  |        |  |  x-- route-map
+       |  |        |  |  |  x-- rmap-name* [rmap-name]
+       |  |        |  |  |     x-- rmap-name?   string
+       |  |        |  |  o-- metric
+       |  |        |  |     o-- bandwith?      uint32
+       |  |        |  |     o-- delay?         uint32
+       |  |        |  |     o-- reliability?   uint8
+       |  |        |  |     o-- Effective?     uint8
+       |  |        |  |     o-- mtu?           uint16
+       |  |        |  x-- static!
+       |  |        |  |  x-- route-map
+       |  |        |  |  |  x-- rmap-name* [rmap-name]
+       |  |        |  |  |     x-- rmap-name?   string
+       |  |        |  |  o-- metric
+       |  |        |  |     o-- bandwith?      uint32
+       |  |        |  |     o-- delay?         uint32
+       |  |        |  |     o-- reliability?   uint8
+       |  |        |  |     o-- Effective?     uint8
+       |  |        |  |     o-- mtu?           uint16
+       |  |        |  x-- bgp
+       |  |        |     x-- as-number?   ios-types:bgp-as-number-type
+       |  |        |     x-- route-map
+       |  |        |     |  x-- rmap-name* [rmap-name]
+       |  |        |     |     x-- rmap-name?   string
+       |  |        |     o-- metric
+       |  |        |        o-- bandwith?      uint32
+       |  |        |        o-- delay?         uint32
+       |  |        |        o-- reliability?   uint8
+       |  |        |        o-- Effective?     uint8
+       |  |        |        o-- mtu?           uint16
+       |  |        o-- summary-metric* [ipv4-addr-slash-prefix-len]
+       |  |           o-- ipv4-addr-slash-prefix-len?   inet:ipv4-prefix
+       |  |           o-- metric
+       |  |           |  o-- bandwidth-metric?             uint32
+       |  |           |  o-- delay-metric?                 uint32
+       |  |           |  o-- reliability-metric?           uint8
+       |  |           |  o-- effective-bandwidth-metric?   uint8
+       |  |           |  o-- mtu?                          uint16
+       |  |           o-- distance?                     uint8
+       |  x-- af-ip-vrf-list* [vrf]
+       |     x-- vrf?                   string
+       |     x-- unicast-multicast?     enumeration
+       |     x-- autonomous-system?     uint16
+       |     x-- af-interface* [name]
+       |     |  x-- name?                string
+       |     |  o-- bandwidth-percent?   uint32
+       |     |  x-- shutdown?            empty
+       |     |  x-- bfd?                 empty
+       |     |  x-- hello-interval?      uint16
+       |     |  x-- hold-time?           uint16
+       |     |  x-- passive-interface?   boolean
+       |     |  x-- split-horizon?       boolean
+       |     |  o-- stub-site
+       |     |  |  o-- wan-interface?   empty
+       |     |  x-- authentication
+       |     |  |  x-- mode
+       |     |  |  |  x-- md5?            empty
+       |     |  |  |  x-- hmac-sha-256
+       |     |  |  |     x-- auth-type?   uint8
+       |     |  |  |     x-- auth-key?    string
+       |     |  |  x-- key-chain?   string
+       |     |  x-- summary-address* [prefix]
+       |     |     x-- prefix?   union
+       |     o-- set-as-in-submode
+       |     |  o-- autonomous-system?   uint16
+       |     x-- auto-summary?          empty
+       |     o-- bfd
+       |     |  o-- all-interfaces?   empty
+       |     |  o-- interface
+       |     |     +-- (interface-choice)?
+       |     |        +--:(AppNav-Compress)
+       |     |        |  +-- AppNav-Compress?             uint16
+       |     |        +--:(AppNav-UnCompress)
+       |     |        |  +-- AppNav-UnCompress?           uint16
+       |     |        +--:(ATM)
+       |     |        |  +-- ATM?                         string
+       |     |        +--:(ATM-subinterface)
+       |     |        |  +-- ATM-subinterface
+       |     |        |     +-- ATM?   string
+       |     |        +--:(ATM-ACR)
+       |     |        |  +-- ATM-ACR?                     string
+       |     |        +--:(ATM-ACRsubinterface)
+       |     |        |  +-- ATM-ACRsubinterface
+       |     |        |     +-- ATM-ACR?   string
+       |     |        +--:(BDI)
+       |     |        |  +-- BDI?                         string
+       |     |        +--:(CEM)
+       |     |        |  +-- CEM?                         string
+       |     |        +--:(CEM-ACR)
+       |     |        |  +-- CEM-ACR?                     uint8
+       |     |        +--:(Embedded-Service-Engine)
+       |     |        |  +-- Embedded-Service-Engine?     string
+       |     |        +--:(Ethernet)
+       |     |        |  +-- Ethernet?                    string
+       |     |        +--:(FastEthernet)
+       |     |        |  +-- FastEthernet?                string
+       |     |        +--:(GigabitEthernet)
+       |     |        |  +-- GigabitEthernet?             string
+       |     |        +--:(FiveGigabitEthernet)
+       |     |        |  +-- FiveGigabitEthernet?         string
+       |     |        +--:(AppGigabitEthernet)
+       |     |        |  +-- AppGigabitEthernet?          string
+       |     |        +--:(TwentyFiveGigabitEthernet)
+       |     |        |  o-- TwentyFiveGigabitEthernet?   string
+       |     |        +--:(TwentyFiveGigE)
+       |     |        |  +-- TwentyFiveGigE?              string
+       |     |        +--:(TwoGigabitEthernet)
+       |     |        |  +-- TwoGigabitEthernet?          string
+       |     |        +--:(FortyGigabitEthernet)
+       |     |        |  +-- FortyGigabitEthernet?        string
+       |     |        +--:(HundredGigE)
+       |     |        |  +-- HundredGigE?                 string
+       |     |        +--:(LISP)
+       |     |        |  +-- LISP?                        string
+       |     |        +--:(LISP-subinterface)
+       |     |        |  +-- LISP-subinterface
+       |     |        |     +-- LISP?   string
+       |     |        +--:(Loopback)
+       |     |        |  +-- Loopback?                    uint32
+       |     |        +--:(Multilink)
+       |     |        |  +-- Multilink?                   uint16
+       |     |        +--:(nve)
+       |     |        |  +-- nve?                         uint16
+       |     |        +--:(overlay)
+       |     |        |  +-- overlay?                     uint16
+       |     |        +--:(Port-channel)
+       |     |        |  +-- Port-channel?                uint32
+       |     |        +--:(Port-channel-subinterface)
+       |     |        |  +-- Port-channel-subinterface
+       |     |        |     +-- Port-channel?   string
+       |     |        +--:(pseudowire)
+       |     |        |  +-- pseudowire?                  uint32
+       |     |        +--:(SM)
+       |     |        |  +-- SM?                          string
+       |     |        +--:(Cellular)
+       |     |        |  +-- Cellular?                    string
+       |     |        +--:(Dialer)
+       |     |        |  +-- Dialer?                      string
+       |     |        +--:(Serial)
+       |     |        |  +-- Serial?                      string
+       |     |        +--:(TenGigabitEthernet)
+       |     |        |  +-- TenGigabitEthernet?          string
+       |     |        +--:(Tunnel)
+       |     |        |  +-- Tunnel?                      uint32
+       |     |        +--:(Virtual-Template)
+       |     |        |  +-- Virtual-Template?            uint16
+       |     |        +--:(Vlan)
+       |     |        |  +-- Vlan?                        uint16
+       |     |        +--:(VirtualPortGroup)
+       |     |        |  +-- VirtualPortGroup?            uint16
+       |     |        +--:(vasileft)
+       |     |        |  +-- vasileft?                    uint16
+       |     |        +--:(vasiright)
+       |     |        |  +-- vasiright?                   uint16
+       |     |        +--:(BD-VIF)
+       |     |           +-- BD-VIF?                      string
+       |     o-- default-information
+       |     |  o-- in!
+       |     |  |  o-- sa-num?    uint16
+       |     |  |  o-- sa-name?   string
+       |     |  o-- out!
+       |     |     o-- sa-out-num?    uint16
+       |     |     o-- sa-out-name?   string
+       |     o-- default-metric
+       |     |  o-- dm-rdr* [dm-rdr]
+       |     |     o-- dm-rdr?    uint32
+       |     |     o-- dm-rdr0* [dm-rdr0]
+       |     |        o-- dm-rdr0?      uint32
+       |     |        o-- dm-rdr-pct?   uint8
+       |     o-- distance
+       |     |  o-- rad-dis* [rad-dis]
+       |     |  |  o-- rad-dis?   uint8
+       |     |  |  o-- ipv4* [ipv4]
+       |     |  |     o-- ipv4?    inet:ipv4-address
+       |     |  |     o-- ipv40?   inet:ipv4-address
+       |     |  o-- eigrp
+       |     |     o-- di-rt* [di-rt]
+       |     |        o-- di-rt?    uint8
+       |     |        o-- di-rt0?   uint8
+       |     o-- distribute-list
+       |     |  o-- eig-filt* [eig-filt]
+       |     |  |  o-- eig-filt?   ios-types:exp-acl-type
+       |     |  |  o-- in!
+       |     |  |  |  o-- interface_name*   string
+       |     |  |  o-- out!
+       |     |  |     o-- interface_name*   string
+       |     |  o-- gateway
+       |     |  |  o-- gw-list* [gw-list]
+       |     |  |     o-- gw-list?   string
+       |     |  |     o-- in?        empty
+       |     |  |     o-- out?       empty
+       |     |  o-- prefix
+       |     |  |  o-- pl-name* [pl-name]
+       |     |  |     o-- pl-name?   string
+       |     |  |     o-- gateway?   empty
+       |     |  |     o-- in?        empty
+       |     |  |     o-- out?       empty
+       |     |  o-- route-map
+       |     |     o-- rmap-name* [rmap-name]
+       |     |        o-- rmap-name?   string
+       |     |        o-- in?          empty
+       |     |        o-- out?         empty
+       |     x-- eigrp
+       |     |  x-- router-id?   inet:ipv4-address
+       |     |  o-- stub!
+       |     |  |  o-- connected?       empty
+       |     |  |  o-- summary?         empty
+       |     |  |  o-- redistributed?   empty
+       |     |  |  o-- leak-map?        string
+       |     |  |  o-- receive-only?    empty
+       |     |  |  o-- static?          empty
+       |     |  o-- stub-site?   string
+       |     o-- maximum-paths?         uint8
+       |     o-- metric
+       |     |  o-- maximum-hops?   uint8
+       |     |  o-- weights?        uint8
+       |     o-- neighbor
+       |     |  o-- ipv4* [ipv4]
+       |     |     o-- ipv4?        inet:ipv4-address
+       |     |     o-- interface
+       |     |        +-- (interface-choice)?
+       |     |           +--:(AppNav-Compress)
+       |     |           |  +-- AppNav-Compress?             uint16
+       |     |           +--:(AppNav-UnCompress)
+       |     |           |  +-- AppNav-UnCompress?           uint16
+       |     |           +--:(ATM)
+       |     |           |  +-- ATM?                         string
+       |     |           +--:(ATM-subinterface)
+       |     |           |  +-- ATM-subinterface
+       |     |           |     +-- ATM?   string
+       |     |           +--:(ATM-ACR)
+       |     |           |  +-- ATM-ACR?                     string
+       |     |           +--:(ATM-ACRsubinterface)
+       |     |           |  +-- ATM-ACRsubinterface
+       |     |           |     +-- ATM-ACR?   string
+       |     |           +--:(BDI)
+       |     |           |  +-- BDI?                         string
+       |     |           +--:(CEM)
+       |     |           |  +-- CEM?                         string
+       |     |           +--:(CEM-ACR)
+       |     |           |  +-- CEM-ACR?                     uint8
+       |     |           +--:(Embedded-Service-Engine)
+       |     |           |  +-- Embedded-Service-Engine?     string
+       |     |           +--:(Ethernet)
+       |     |           |  +-- Ethernet?                    string
+       |     |           +--:(FastEthernet)
+       |     |           |  +-- FastEthernet?                string
+       |     |           +--:(GigabitEthernet)
+       |     |           |  +-- GigabitEthernet?             string
+       |     |           +--:(FiveGigabitEthernet)
+       |     |           |  +-- FiveGigabitEthernet?         string
+       |     |           +--:(AppGigabitEthernet)
+       |     |           |  +-- AppGigabitEthernet?          string
+       |     |           +--:(TwentyFiveGigabitEthernet)
+       |     |           |  o-- TwentyFiveGigabitEthernet?   string
+       |     |           +--:(TwentyFiveGigE)
+       |     |           |  +-- TwentyFiveGigE?              string
+       |     |           +--:(TwoGigabitEthernet)
+       |     |           |  +-- TwoGigabitEthernet?          string
+       |     |           +--:(FortyGigabitEthernet)
+       |     |           |  +-- FortyGigabitEthernet?        string
+       |     |           +--:(HundredGigE)
+       |     |           |  +-- HundredGigE?                 string
+       |     |           +--:(LISP)
+       |     |           |  +-- LISP?                        string
+       |     |           +--:(LISP-subinterface)
+       |     |           |  +-- LISP-subinterface
+       |     |           |     +-- LISP?   string
+       |     |           +--:(Loopback)
+       |     |           |  +-- Loopback?                    uint32
+       |     |           +--:(Multilink)
+       |     |           |  +-- Multilink?                   uint16
+       |     |           +--:(nve)
+       |     |           |  +-- nve?                         uint16
+       |     |           +--:(overlay)
+       |     |           |  +-- overlay?                     uint16
+       |     |           +--:(Port-channel)
+       |     |           |  +-- Port-channel?                uint32
+       |     |           +--:(Port-channel-subinterface)
+       |     |           |  +-- Port-channel-subinterface
+       |     |           |     +-- Port-channel?   string
+       |     |           +--:(pseudowire)
+       |     |           |  +-- pseudowire?                  uint32
+       |     |           +--:(SM)
+       |     |           |  +-- SM?                          string
+       |     |           +--:(Cellular)
+       |     |           |  +-- Cellular?                    string
+       |     |           +--:(Dialer)
+       |     |           |  +-- Dialer?                      string
+       |     |           +--:(Serial)
+       |     |           |  +-- Serial?                      string
+       |     |           +--:(TenGigabitEthernet)
+       |     |           |  +-- TenGigabitEthernet?          string
+       |     |           +--:(Tunnel)
+       |     |           |  +-- Tunnel?                      uint32
+       |     |           +--:(Virtual-Template)
+       |     |           |  +-- Virtual-Template?            uint16
+       |     |           +--:(Vlan)
+       |     |           |  +-- Vlan?                        uint16
+       |     |           +--:(VirtualPortGroup)
+       |     |           |  +-- VirtualPortGroup?            uint16
+       |     |           +--:(vasileft)
+       |     |           |  +-- vasileft?                    uint16
+       |     |           +--:(vasiright)
+       |     |           |  +-- vasiright?                   uint16
+       |     |           +--:(BD-VIF)
+       |     |              +-- BD-VIF?                      string
+       |     x-- network* [number]
+       |     |  x-- number?      inet:ipv4-address
+       |     |  x-- wild-card?   inet:ipv4-address
+       |     o-- nsf?                   empty
+       |     o-- offset-list
+       |     |  o-- nsr-list* [nsr-list]
+       |     |  |  o-- nsr-list?   uint16
+       |     |  |  o-- in?         empty
+       |     |  |  o-- out?        empty
+       |     |  o-- ol-acl* [ol-acl]
+       |     |     o-- ol-acl?   string
+       |     |     o-- in?       empty
+       |     |     o-- out?      empty
+       |     o-- redistribute
+       |     |  o-- bgp* [rdr-as]
+       |     |  |  o-- rdr-as?                                       ios-types:bgp-as-number-type
+       |     |  |  o-- metric
+       |     |  |  |  o-- bandwith?      uint32
+       |     |  |  |  o-- delay?         uint32
+       |     |  |  |  o-- reliability?   uint8
+       |     |  |  |  o-- Effective?     uint8
+       |     |  |  |  o-- mtu?           uint16
+       |     |  |  o-- route-map?                                    string
+       |     |  |  o-- rd-LESSER_1_PERIOD_0-XX_PERIOD_YY_GREATER_?   empty
+       |     |  o-- connected!
+       |     |  |  o-- metric?      empty
+       |     |  |  o-- route-map?   empty
+       |     |  o-- eigrp?       uint16
+       |     |  o-- isis!
+       |     |  |  o-- is-tag?      string
+       |     |  |  o-- level-1?     empty
+       |     |  |  o-- level-1-2?   empty
+       |     |  |  o-- level-2?     empty
+       |     |  |  o-- metric?      empty
+       |     |  |  o-- route-map?   empty
+       |     |  o-- lisp!
+       |     |  |  o-- metric?      empty
+       |     |  |  o-- route-map?   empty
+       |     |  o-- mobile!
+       |     |  |  o-- metric?      empty
+       |     |  |  o-- route-map?   empty
+       |     |  o-- odr!
+       |     |  |  o-- metric?      empty
+       |     |  |  o-- route-map?   empty
+       |     |  o-- ospf?        uint16
+       |     |  o-- rip!
+       |     |  |  o-- metric?      empty
+       |     |  |  o-- route-map?   empty
+       |     |  o-- static!
+       |     |  |  o-- metric?      empty
+       |     |  |  o-- route-map?   empty
+       |     |  o-- vrf
+       |     |     o-- name?     string
+       |     |     o-- global?   empty
+       |     o-- shutdown?              empty
+       |     o-- summary-metric
+       |     |  o-- ipv4* [ipv4]
+       |     |  |  o-- ipv4?   inet:ipv4-address
+       |     |  |  o-- mask?   inet:ipv4-address
+       |     |  o-- A_PERIOD_B_PERIOD_C_PERIOD_D_SLASH_nn?   empty
+       |     o-- timers
+       |     |  o-- active-time
+       |     |  |  o-- atimer?     uint16
+       |     |  |  o-- disabled?   empty
+       |     |  o-- graceful-restart
+       |     |  |  o-- purge-time?   empty
+       |     |  o-- nsf
+       |     |     o-- converge?   empty
+       |     |     o-- signal?     empty
+       |     o-- traffic-share
+       |     |  o-- balanced?   empty
+       |     |  o-- min
+       |     |     o-- across-interfaces?   empty
+       |     o-- variance?              uint8
+       |     x-- topology
+       |        x-- base!
+       |           o-- distance
+       |           |  o-- eigrp
+       |           |     o-- distance-list* [internal-route]
+       |           |        o-- internal-route?   uint8
+       |           |        o-- external-route?   uint8
+       |           x-- table-map
+       |           |  x-- name?     string
+       |           |  x-- filter?   empty
+       |           o-- distribute-list
+       |           |  o-- prefix-list* [prefix-list]
+       |           |  |  o-- prefix-list?   string
+       |           |  |  o-- gateway?       empty
+       |           |  |  o-- in?            empty
+       |           |  |  o-- out?           empty
+       |           |  o-- route-map* [name]
+       |           |     o-- name?   string
+       |           |     o-- in?     string
+       |           |     o-- out?    string
+       |           x-- redistribute
+       |           |  o-- eigrp
+       |           |  |  o-- as-list* [autonomous-system]
+       |           |  |     o-- autonomous-system?   uint16
+       |           |  |     x-- route-map
+       |           |  |     |  x-- rmap-name* [rmap-name]
+       |           |  |     |     x-- rmap-name?   string
+       |           |  |     o-- metric
+       |           |  |        o-- bandwith?      uint32
+       |           |  |        o-- delay?         uint32
+       |           |  |        o-- reliability?   uint8
+       |           |  |        o-- Effective?     uint8
+       |           |  |        o-- mtu?           uint16
+       |           |  x-- omp! {ios-features:omp}?
+       |           |  |  x-- route-map
+       |           |  |  |  x-- rmap-name* [rmap-name]
+       |           |  |  |     x-- rmap-name?   string
+       |           |  |  o-- metric
+       |           |  |     o-- bandwith?      uint32
+       |           |  |     o-- delay?         uint32
+       |           |  |     o-- reliability?   uint8
+       |           |  |     o-- Effective?     uint8
+       |           |  |     o-- mtu?           uint16
+       |           |  x-- nat-route {ios-features:sdwan}?
+       |           |  |  x-- dia?         empty
+       |           |  |  x-- outside?     empty
+       |           |  |  x-- route-map
+       |           |  |  |  x-- rmap-name* [rmap-name]
+       |           |  |  |     x-- rmap-name?   string
+       |           |  |  o-- metric
+       |           |  |     o-- bandwith?      uint32
+       |           |  |     o-- delay?         uint32
+       |           |  |     o-- reliability?   uint8
+       |           |  |     o-- Effective?     uint8
+       |           |  |     o-- mtu?           uint16
+       |           |  x-- ospf
+       |           |  |  x-- process-id?   uint16
+       |           |  |  x-- route-map
+       |           |  |  |  x-- rmap-name* [rmap-name]
+       |           |  |  |     x-- rmap-name?   string
+       |           |  |  o-- metric
+       |           |  |     o-- bandwith?      uint32
+       |           |  |     o-- delay?         uint32
+       |           |  |     o-- reliability?   uint8
+       |           |  |     o-- Effective?     uint8
+       |           |  |     o-- mtu?           uint16
+       |           |  x-- connected!
+       |           |  |  x-- route-map
+       |           |  |  |  x-- rmap-name* [rmap-name]
+       |           |  |  |     x-- rmap-name?   string
+       |           |  |  o-- metric
+       |           |  |     o-- bandwith?      uint32
+       |           |  |     o-- delay?         uint32
+       |           |  |     o-- reliability?   uint8
+       |           |  |     o-- Effective?     uint8
+       |           |  |     o-- mtu?           uint16
+       |           |  x-- static!
+       |           |  |  x-- route-map
+       |           |  |  |  x-- rmap-name* [rmap-name]
+       |           |  |  |     x-- rmap-name?   string
+       |           |  |  o-- metric
+       |           |  |     o-- bandwith?      uint32
+       |           |  |     o-- delay?         uint32
+       |           |  |     o-- reliability?   uint8
+       |           |  |     o-- Effective?     uint8
+       |           |  |     o-- mtu?           uint16
+       |           |  x-- bgp
+       |           |     x-- as-number?   ios-types:bgp-as-number-type
+       |           |     x-- route-map
+       |           |     |  x-- rmap-name* [rmap-name]
+       |           |     |     x-- rmap-name?   string
+       |           |     o-- metric
+       |           |        o-- bandwith?      uint32
+       |           |        o-- delay?         uint32
+       |           |        o-- reliability?   uint8
+       |           |        o-- Effective?     uint8
+       |           |        o-- mtu?           uint16
+       |           o-- summary-metric* [ipv4-addr-slash-prefix-len]
+       |              o-- ipv4-addr-slash-prefix-len?   inet:ipv4-prefix
+       |              o-- metric
+       |              |  o-- bandwidth-metric?             uint32
+       |              |  o-- delay-metric?                 uint32
+       |              |  o-- reliability-metric?           uint8
+       |              |  o-- effective-bandwidth-metric?   uint8
+       |              |  o-- mtu?                          uint16
+       |              o-- distance?                     uint8
+       x-- af-interface* [name]
+       |  x-- name?                string
+       |  o-- bandwidth-percent?   uint32
+       |  x-- shutdown?            empty
+       |  x-- bfd?                 empty
+       |  x-- hello-interval?      uint16
+       |  x-- hold-time?           uint16
+       |  x-- passive-interface?   boolean
+       |  x-- split-horizon?       boolean
+       |  o-- stub-site
+       |  |  o-- wan-interface?   empty
+       |  x-- authentication
+       |  |  x-- mode
+       |  |  |  x-- md5?            empty
+       |  |  |  x-- hmac-sha-256
+       |  |  |     x-- auth-type?   uint8
+       |  |  |     x-- auth-key?    string
+       |  |  x-- key-chain?   string
+       |  x-- summary-address* [prefix]
+       |     x-- prefix?   union
+       o-- set-as-in-submode
+       |  o-- autonomous-system?   uint16
+       x-- auto-summary?          empty
+       o-- bfd
+       |  o-- all-interfaces?   empty
+       |  o-- interface
+       |     +-- (interface-choice)?
+       |        +--:(AppNav-Compress)
+       |        |  +-- AppNav-Compress?             uint16
+       |        +--:(AppNav-UnCompress)
+       |        |  +-- AppNav-UnCompress?           uint16
+       |        +--:(ATM)
+       |        |  +-- ATM?                         string
+       |        +--:(ATM-subinterface)
+       |        |  +-- ATM-subinterface
+       |        |     +-- ATM?   string
+       |        +--:(ATM-ACR)
+       |        |  +-- ATM-ACR?                     string
+       |        +--:(ATM-ACRsubinterface)
+       |        |  +-- ATM-ACRsubinterface
+       |        |     +-- ATM-ACR?   string
+       |        +--:(BDI)
+       |        |  +-- BDI?                         string
+       |        +--:(CEM)
+       |        |  +-- CEM?                         string
+       |        +--:(CEM-ACR)
+       |        |  +-- CEM-ACR?                     uint8
+       |        +--:(Embedded-Service-Engine)
+       |        |  +-- Embedded-Service-Engine?     string
+       |        +--:(Ethernet)
+       |        |  +-- Ethernet?                    string
+       |        +--:(FastEthernet)
+       |        |  +-- FastEthernet?                string
+       |        +--:(GigabitEthernet)
+       |        |  +-- GigabitEthernet?             string
+       |        +--:(FiveGigabitEthernet)
+       |        |  +-- FiveGigabitEthernet?         string
+       |        +--:(AppGigabitEthernet)
+       |        |  +-- AppGigabitEthernet?          string
+       |        +--:(TwentyFiveGigabitEthernet)
+       |        |  o-- TwentyFiveGigabitEthernet?   string
+       |        +--:(TwentyFiveGigE)
+       |        |  +-- TwentyFiveGigE?              string
+       |        +--:(TwoGigabitEthernet)
+       |        |  +-- TwoGigabitEthernet?          string
+       |        +--:(FortyGigabitEthernet)
+       |        |  +-- FortyGigabitEthernet?        string
+       |        +--:(HundredGigE)
+       |        |  +-- HundredGigE?                 string
+       |        +--:(LISP)
+       |        |  +-- LISP?                        string
+       |        +--:(LISP-subinterface)
+       |        |  +-- LISP-subinterface
+       |        |     +-- LISP?   string
+       |        +--:(Loopback)
+       |        |  +-- Loopback?                    uint32
+       |        +--:(Multilink)
+       |        |  +-- Multilink?                   uint16
+       |        +--:(nve)
+       |        |  +-- nve?                         uint16
+       |        +--:(overlay)
+       |        |  +-- overlay?                     uint16
+       |        +--:(Port-channel)
+       |        |  +-- Port-channel?                uint32
+       |        +--:(Port-channel-subinterface)
+       |        |  +-- Port-channel-subinterface
+       |        |     +-- Port-channel?   string
+       |        +--:(pseudowire)
+       |        |  +-- pseudowire?                  uint32
+       |        +--:(SM)
+       |        |  +-- SM?                          string
+       |        +--:(Cellular)
+       |        |  +-- Cellular?                    string
+       |        +--:(Dialer)
+       |        |  +-- Dialer?                      string
+       |        +--:(Serial)
+       |        |  +-- Serial?                      string
+       |        +--:(TenGigabitEthernet)
+       |        |  +-- TenGigabitEthernet?          string
+       |        +--:(Tunnel)
+       |        |  +-- Tunnel?                      uint32
+       |        +--:(Virtual-Template)
+       |        |  +-- Virtual-Template?            uint16
+       |        +--:(Vlan)
+       |        |  +-- Vlan?                        uint16
+       |        +--:(VirtualPortGroup)
+       |        |  +-- VirtualPortGroup?            uint16
+       |        +--:(vasileft)
+       |        |  +-- vasileft?                    uint16
+       |        +--:(vasiright)
+       |        |  +-- vasiright?                   uint16
+       |        +--:(BD-VIF)
+       |           +-- BD-VIF?                      string
+       o-- default-information
+       |  o-- in!
+       |  |  o-- sa-num?    uint16
+       |  |  o-- sa-name?   string
+       |  o-- out!
+       |     o-- sa-out-num?    uint16
+       |     o-- sa-out-name?   string
+       o-- default-metric
+       |  o-- dm-rdr* [dm-rdr]
+       |     o-- dm-rdr?    uint32
+       |     o-- dm-rdr0* [dm-rdr0]
+       |        o-- dm-rdr0?      uint32
+       |        o-- dm-rdr-pct?   uint8
+       o-- distance
+       |  o-- rad-dis* [rad-dis]
+       |  |  o-- rad-dis?   uint8
+       |  |  o-- ipv4* [ipv4]
+       |  |     o-- ipv4?    inet:ipv4-address
+       |  |     o-- ipv40?   inet:ipv4-address
+       |  o-- eigrp
+       |     o-- di-rt* [di-rt]
+       |        o-- di-rt?    uint8
+       |        o-- di-rt0?   uint8
+       o-- distribute-list
+       |  o-- eig-filt* [eig-filt]
+       |  |  o-- eig-filt?   ios-types:exp-acl-type
+       |  |  o-- in!
+       |  |  |  o-- interface_name*   string
+       |  |  o-- out!
+       |  |     o-- interface_name*   string
+       |  o-- gateway
+       |  |  o-- gw-list* [gw-list]
+       |  |     o-- gw-list?   string
+       |  |     o-- in?        empty
+       |  |     o-- out?       empty
+       |  o-- prefix
+       |  |  o-- pl-name* [pl-name]
+       |  |     o-- pl-name?   string
+       |  |     o-- gateway?   empty
+       |  |     o-- in?        empty
+       |  |     o-- out?       empty
+       |  o-- route-map
+       |     o-- rmap-name* [rmap-name]
+       |        o-- rmap-name?   string
+       |        o-- in?          empty
+       |        o-- out?         empty
+       x-- eigrp
+       |  x-- router-id?   inet:ipv4-address
+       |  o-- stub!
+       |  |  o-- connected?       empty
+       |  |  o-- summary?         empty
+       |  |  o-- redistributed?   empty
+       |  |  o-- leak-map?        string
+       |  |  o-- receive-only?    empty
+       |  |  o-- static?          empty
+       |  o-- stub-site?   string
+       o-- maximum-paths?         uint8
+       o-- metric
+       |  o-- maximum-hops?   uint8
+       |  o-- weights?        uint8
+       o-- neighbor
+       |  o-- ipv4* [ipv4]
+       |     o-- ipv4?        inet:ipv4-address
+       |     o-- interface
+       |        +-- (interface-choice)?
+       |           +--:(AppNav-Compress)
+       |           |  +-- AppNav-Compress?             uint16
+       |           +--:(AppNav-UnCompress)
+       |           |  +-- AppNav-UnCompress?           uint16
+       |           +--:(ATM)
+       |           |  +-- ATM?                         string
+       |           +--:(ATM-subinterface)
+       |           |  +-- ATM-subinterface
+       |           |     +-- ATM?   string
+       |           +--:(ATM-ACR)
+       |           |  +-- ATM-ACR?                     string
+       |           +--:(ATM-ACRsubinterface)
+       |           |  +-- ATM-ACRsubinterface
+       |           |     +-- ATM-ACR?   string
+       |           +--:(BDI)
+       |           |  +-- BDI?                         string
+       |           +--:(CEM)
+       |           |  +-- CEM?                         string
+       |           +--:(CEM-ACR)
+       |           |  +-- CEM-ACR?                     uint8
+       |           +--:(Embedded-Service-Engine)
+       |           |  +-- Embedded-Service-Engine?     string
+       |           +--:(Ethernet)
+       |           |  +-- Ethernet?                    string
+       |           +--:(FastEthernet)
+       |           |  +-- FastEthernet?                string
+       |           +--:(GigabitEthernet)
+       |           |  +-- GigabitEthernet?             string
+       |           +--:(FiveGigabitEthernet)
+       |           |  +-- FiveGigabitEthernet?         string
+       |           +--:(AppGigabitEthernet)
+       |           |  +-- AppGigabitEthernet?          string
+       |           +--:(TwentyFiveGigabitEthernet)
+       |           |  o-- TwentyFiveGigabitEthernet?   string
+       |           +--:(TwentyFiveGigE)
+       |           |  +-- TwentyFiveGigE?              string
+       |           +--:(TwoGigabitEthernet)
+       |           |  +-- TwoGigabitEthernet?          string
+       |           +--:(FortyGigabitEthernet)
+       |           |  +-- FortyGigabitEthernet?        string
+       |           +--:(HundredGigE)
+       |           |  +-- HundredGigE?                 string
+       |           +--:(LISP)
+       |           |  +-- LISP?                        string
+       |           +--:(LISP-subinterface)
+       |           |  +-- LISP-subinterface
+       |           |     +-- LISP?   string
+       |           +--:(Loopback)
+       |           |  +-- Loopback?                    uint32
+       |           +--:(Multilink)
+       |           |  +-- Multilink?                   uint16
+       |           +--:(nve)
+       |           |  +-- nve?                         uint16
+       |           +--:(overlay)
+       |           |  +-- overlay?                     uint16
+       |           +--:(Port-channel)
+       |           |  +-- Port-channel?                uint32
+       |           +--:(Port-channel-subinterface)
+       |           |  +-- Port-channel-subinterface
+       |           |     +-- Port-channel?   string
+       |           +--:(pseudowire)
+       |           |  +-- pseudowire?                  uint32
+       |           +--:(SM)
+       |           |  +-- SM?                          string
+       |           +--:(Cellular)
+       |           |  +-- Cellular?                    string
+       |           +--:(Dialer)
+       |           |  +-- Dialer?                      string
+       |           +--:(Serial)
+       |           |  +-- Serial?                      string
+       |           +--:(TenGigabitEthernet)
+       |           |  +-- TenGigabitEthernet?          string
+       |           +--:(Tunnel)
+       |           |  +-- Tunnel?                      uint32
+       |           +--:(Virtual-Template)
+       |           |  +-- Virtual-Template?            uint16
+       |           +--:(Vlan)
+       |           |  +-- Vlan?                        uint16
+       |           +--:(VirtualPortGroup)
+       |           |  +-- VirtualPortGroup?            uint16
+       |           +--:(vasileft)
+       |           |  +-- vasileft?                    uint16
+       |           +--:(vasiright)
+       |           |  +-- vasiright?                   uint16
+       |           +--:(BD-VIF)
+       |              +-- BD-VIF?                      string
+       x-- network* [number]
+       |  x-- number?      inet:ipv4-address
+       |  x-- wild-card?   inet:ipv4-address
+       o-- nsf?                   empty
+       o-- offset-list
+       |  o-- nsr-list* [nsr-list]
+       |  |  o-- nsr-list?   uint16
+       |  |  o-- in?         empty
+       |  |  o-- out?        empty
+       |  o-- ol-acl* [ol-acl]
+       |     o-- ol-acl?   string
+       |     o-- in?       empty
+       |     o-- out?      empty
+       o-- redistribute
+       |  o-- bgp* [rdr-as]
+       |  |  o-- rdr-as?                                       ios-types:bgp-as-number-type
+       |  |  o-- metric
+       |  |  |  o-- bandwith?      uint32
+       |  |  |  o-- delay?         uint32
+       |  |  |  o-- reliability?   uint8
+       |  |  |  o-- Effective?     uint8
+       |  |  |  o-- mtu?           uint16
+       |  |  o-- route-map?                                    string
+       |  |  o-- rd-LESSER_1_PERIOD_0-XX_PERIOD_YY_GREATER_?   empty
+       |  o-- connected!
+       |  |  o-- metric?      empty
+       |  |  o-- route-map?   empty
+       |  o-- eigrp?       uint16
+       |  o-- isis!
+       |  |  o-- is-tag?      string
+       |  |  o-- level-1?     empty
+       |  |  o-- level-1-2?   empty
+       |  |  o-- level-2?     empty
+       |  |  o-- metric?      empty
+       |  |  o-- route-map?   empty
+       |  o-- lisp!
+       |  |  o-- metric?      empty
+       |  |  o-- route-map?   empty
+       |  o-- mobile!
+       |  |  o-- metric?      empty
+       |  |  o-- route-map?   empty
+       |  o-- odr!
+       |  |  o-- metric?      empty
+       |  |  o-- route-map?   empty
+       |  o-- ospf?        uint16
+       |  o-- rip!
+       |  |  o-- metric?      empty
+       |  |  o-- route-map?   empty
+       |  o-- static!
+       |  |  o-- metric?      empty
+       |  |  o-- route-map?   empty
+       |  o-- vrf
+       |     o-- name?     string
+       |     o-- global?   empty
+       o-- shutdown?              empty
+       o-- summary-metric
+       |  o-- ipv4* [ipv4]
+       |  |  o-- ipv4?   inet:ipv4-address
+       |  |  o-- mask?   inet:ipv4-address
+       |  o-- A_PERIOD_B_PERIOD_C_PERIOD_D_SLASH_nn?   empty
+       o-- timers
+       |  o-- active-time
+       |  |  o-- atimer?     uint16
+       |  |  o-- disabled?   empty
+       |  o-- graceful-restart
+       |  |  o-- purge-time?   empty
+       |  o-- nsf
+       |     o-- converge?   empty
+       |     o-- signal?     empty
+       o-- traffic-share
+       |  o-- balanced?   empty
+       |  o-- min
+       |     o-- across-interfaces?   empty
+       o-- variance?              uint8
+  grouping config-router-ipv6-eigrp-grouping
+    o-- default-metric
+    |  o-- dm-rdr?                      uint32
+    |  o-- dm-rdr0?                     uint32
+    |  o-- dm-rdr-pct?                  uint8
+    |  o-- effective-bandwith-metric?   uint8
+    |  o-- mtu?                         uint16
+    o-- distance
+    |  o-- eigrp
+    |     o-- internal-route?   uint8
+    |     o-- external-route?   uint8
+    +-- distribute-list
+    |  +-- prefix-list* [name]
+    |     +-- name?   string
+    |     +-- in?     empty
+    |     +-- out?    empty
+    o-- eigrp
+    |  o-- router-id?   inet:ipv4-address
+    o-- passive-interface* [name]
+       o-- name?   union
+  grouping config-route-tag-grouping
+    +-- list
+    |  +-- rt-name* [rt-name]
+    |     +-- rt-name?   string
+    |     +-- deny
+    |     |  +-- ipv4* [ipv4]
+    |     |     +-- ipv4?   inet:ipv4-address
+    |     |     +-- mask?   inet:ipv4-address
+    |     +-- permit
+    |     |  +-- ipv4* [ipv4]
+    |     |     +-- ipv4?   inet:ipv4-address
+    |     |     +-- mask?   inet:ipv4-address
+    |     +-- seq
+    |        +-- seq-num* [seq-num]
+    |           +-- seq-num?   uint32
+    |           +-- deny
+    |           |  +-- ipv4?   inet:ipv4-address
+    |           |  +-- mask?   inet:ipv4-address
+    |           +-- permit
+    |              +-- ipv4?   inet:ipv4-address
+    |              +-- mask?   inet:ipv4-address
+    +-- notation
+       +-- dotted-decimal?   empty

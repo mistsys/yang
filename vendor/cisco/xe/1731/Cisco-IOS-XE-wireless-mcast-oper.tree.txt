@@ -1,0 +1,248 @@
+module: Cisco-IOS-XE-wireless-mcast-oper
+  +--ro mcast-oper-data
+     +--ro rrc-history-client-record-data* [user-time-stamp]
+     |  +--ro user-time-stamp            yang:date-and-time
+     |  +--ro client-mac?                yang:mac-address
+     |  +--ro qos?                       uint16
+     |  +--ro decision?                  wireless-enum-types:media-stream-decision-status
+     |  +--ro reason-code?               uint32
+     |  +--ro ap-mac?                    yang:mac-address
+     |  +--ro vap-id?                    uint16
+     |  +--ro slot-id?                   uint32
+     |  +--ro cac-enabled?               uint32
+     |  +--ro stream-name?               string
+     |  +--ro dst-ip-address?            inet:ip-address
+     |  +--ro cfg-stream-bw?             uint32
+     |  +--ro current-rate?              uint32
+     |  +--ro video-pkt-size?            uint32
+     |  +--ro curr-video-util?           uint32
+     |  +--ro curr-voice-util?           uint32
+     |  +--ro curr-channel-util?         uint32
+     |  +--ro curr-queue-util?           uint32
+     |  +--ro curr-video-pps?            uint32
+     |  +--ro video-delay-hist-severe?   uint32
+     |  +--ro video-pkt-loss-discard?    uint32
+     |  +--ro video-pkt-loss-fail?       uint32
+     |  +--ro num-video-streams?         uint32
+     +--ro rrc-sr-radio-record* [ap-mac slot-id]
+     |  +--ro ap-mac                   yang:mac-address
+     |  +--ro slot-id                  uint32
+     |  +--ro radio-type?              uint32
+     |  +--ro duplicated-band-width?   uint32
+     |  +--ro last-re-rrc?             yang:date-and-time
+     |  +--ro number-of-admitted?      uint16
+     |  +--ro rrc-groups-in-radio* [dest-ip]
+     |     +--ro dest-ip          inet:ip-address
+     |     +--ro no-of-streams?   uint16
+     +--ro rrc-stream-record* [stream-name-str group-ip cl-mac]
+     |  +--ro vap-id?             uint32
+     |  +--ro vlan?               uint32
+     |  +--ro wlan-id?            uint32
+     |  +--ro mgid?               uint16
+     |  +--ro priority?           uint16
+     |  +--ro rerrc-enable?       boolean
+     |  +--ro rerrc-drop?         boolean
+     |  +--ro decision?           wireless-enum-types:media-stream-decision-status
+     |  +--ro qos?                wireless-enum-types:media-stream-qos
+     |  +--ro kbps-bandwidth?     uint32
+     |  +--ro radio?              wireless-enum-types:enm-radio-type
+     |  +--ro stream-name?        string
+     |  +--ro ap-name?            string
+     |  +--ro start-time?         yang:date-and-time
+     |  +--ro last-updated?       yang:date-and-time
+     |  +--ro rrc-radio-record
+     |  |  +--ro ap-mac?    yang:mac-address
+     |  |  +--ro slot-id?   uint32
+     |  +--ro stream-name-str     string
+     |  +--ro group-ip            inet:ip-address
+     |  +--ro cl-mac              yang:mac-address
+     |  +--ro client-mac?         yang:mac-address
+     |  +--ro dest-ip?            inet:ip-address
+     +--ro rrc-stream-admit-record* [last-updated client-mac dest-ip]
+     |  +--ro last-updated    yang:date-and-time
+     |  +--ro client-mac      yang:mac-address
+     |  +--ro dest-ip         inet:ip-address
+     +--ro rrc-stream-deny-record* [last-updated client-mac dest-ip]
+     |  +--ro last-updated    yang:date-and-time
+     |  +--ro client-mac      yang:mac-address
+     |  +--ro dest-ip         inet:ip-address
+     +--ro flex-mediastream-client-summary* [client-mac]
+     |  +--ro client-mac                 yang:mac-address
+     |  +--ro vlan-id?                   uint16
+     |  +--ro flex-mcast-client-group* [mcast-ip]
+     |     +--ro mcast-ip       inet:ip-address
+     |     +--ro stream-name?   string
+     |     +--ro ap-mac?        yang:mac-address
+     |     +--ro is-direct?     boolean
+     +--ro fabric-media-stream-client-summary* [client-mac]
+     |  +--ro client-mac                   yang:mac-address
+     |  +--ro vlan-id?                     uint16
+     |  +--ro fabric-mcast-client-group* [mcast-ip]
+     |     +--ro mcast-ip       inet:ip-address
+     |     +--ro stream-name?   string
+     |     +--ro ap-mac?        yang:mac-address
+     |     +--ro is-direct?     boolean
+     +--ro mcast-mgid-info* [mgid]
+     |  +--ro mgid                         uint16
+     |  +--ro vlan?                        uint16
+     |  +--ro mc-only-num-clients?         uint32
+     |  +--ro mc2uc-num-clients?           uint32
+     |  +--ro mc2uc-num-deny-clients?      uint32
+     |  +--ro mc2uc-num-pending-clients?   uint32
+     |  +--ro group?                       inet:ip-address
+     |  +--ro mcast-mgid-client-list* [client-mac-addr]
+     |     +--ro client-mac-addr    yang:mac-address
+     |     +--ro client-ip-addr?    inet:ip-address
+     |     +--ro client-status?     wireless-enum-types:enm-mcast-client-status
+     +--ro vlan-l2-mgid-op* [vlan-index]
+     |  +--ro vlan-index                    uint32
+     |  +--ro is-nonip-multicast-enabled?   boolean
+     |  +--ro is-broadcast-enable?          boolean
+     +--ro multicast-oper-data* [ms-mac-address]
+        +--ro ms-mac-address    yang:mac-address
+        +--ro num-entries?      uint8
+        +--ro entry* []
+        |  +--ro vlan?            uint16
+        |  +--ro mgid?            uint16
+        |  +--ro group?           inet:ip-address
+        |  +--ro client-status?   wireless-enum-types:enm-mcast-client-status
+        |  +--ro qos?             wireless-enum-types:media-stream-qos
+        |  +--ro used?            boolean
+        +--ro client-ipv6?      inet:ipv6-address
+        +--ro capwap-iif-id?    uint64
+        +--ro client-ip?        inet:ipv4-address
+
+  grouping mcast-client-entry
+    +-- vlan?            uint16
+    +-- mgid?            uint16
+    +-- group?           inet:ip-address
+    +-- client-status?   wireless-enum-types:enm-mcast-client-status
+    +-- qos?             wireless-enum-types:media-stream-qos
+    +-- used?            boolean
+  grouping ewlc-multicast-oper-data
+    +-- ms-mac-address?   yang:mac-address
+    +-- num-entries?      uint8
+    +-- entry* []
+    |  +-- vlan?            uint16
+    |  +-- mgid?            uint16
+    |  +-- group?           inet:ip-address
+    |  +-- client-status?   wireless-enum-types:enm-mcast-client-status
+    |  +-- qos?             wireless-enum-types:media-stream-qos
+    |  +-- used?            boolean
+    +-- client-ipv6?      inet:ipv6-address
+    +-- capwap-iif-id?    uint64
+    +-- client-ip?        inet:ipv4-address
+  grouping mcast-mgid-client-entry
+    +-- client-mac-addr?   yang:mac-address
+    +-- client-ip-addr?    inet:ip-address
+    +-- client-status?     wireless-enum-types:enm-mcast-client-status
+  grouping mcast-mgid-entry
+    +-- mgid?                        uint16
+    +-- vlan?                        uint16
+    +-- mc-only-num-clients?         uint32
+    +-- mc2uc-num-clients?           uint32
+    +-- mc2uc-num-deny-clients?      uint32
+    +-- mc2uc-num-pending-clients?   uint32
+    +-- group?                       inet:ip-address
+    +-- mcast-mgid-client-list* [client-mac-addr]
+       +-- client-mac-addr?   yang:mac-address
+       +-- client-ip-addr?    inet:ip-address
+       +-- client-status?     wireless-enum-types:enm-mcast-client-status
+  grouping mcast-flex-client-grp-info
+    +-- mcast-ip?      inet:ip-address
+    +-- stream-name?   string
+    +-- ap-mac?        yang:mac-address
+    +-- is-direct?     boolean
+  grouping mcast-flex-client-info
+    +-- client-mac?                yang:mac-address
+    +-- vlan-id?                   uint16
+    +-- flex-mcast-client-group* [mcast-ip]
+       +-- mcast-ip?      inet:ip-address
+       +-- stream-name?   string
+       +-- ap-mac?        yang:mac-address
+       +-- is-direct?     boolean
+  grouping mcast-fabric-client-grp-info
+    +-- mcast-ip?      inet:ip-address
+    +-- stream-name?   string
+    +-- ap-mac?        yang:mac-address
+    +-- is-direct?     boolean
+  grouping mcast-fabric-client-info
+    +-- client-mac?                  yang:mac-address
+    +-- vlan-id?                     uint16
+    +-- fabric-mcast-client-group* [mcast-ip]
+       +-- mcast-ip?      inet:ip-address
+       +-- stream-name?   string
+       +-- ap-mac?        yang:mac-address
+       +-- is-direct?     boolean
+  grouping vlan-l2-mgid-op
+    +-- vlan-index?                   uint32
+    +-- is-nonip-multicast-enabled?   boolean
+    +-- is-broadcast-enable?          boolean
+  grouping st-rrc-history-client-record-data-op
+    +-- user-time-stamp?           yang:date-and-time
+    +-- client-mac?                yang:mac-address
+    +-- qos?                       uint16
+    +-- decision?                  wireless-enum-types:media-stream-decision-status
+    +-- reason-code?               uint32
+    +-- ap-mac?                    yang:mac-address
+    +-- vap-id?                    uint16
+    +-- slot-id?                   uint32
+    +-- cac-enabled?               uint32
+    +-- stream-name?               string
+    +-- dst-ip-address?            inet:ip-address
+    +-- cfg-stream-bw?             uint32
+    +-- current-rate?              uint32
+    +-- video-pkt-size?            uint32
+    +-- curr-video-util?           uint32
+    +-- curr-voice-util?           uint32
+    +-- curr-channel-util?         uint32
+    +-- curr-queue-util?           uint32
+    +-- curr-video-pps?            uint32
+    +-- video-delay-hist-severe?   uint32
+    +-- video-pkt-loss-discard?    uint32
+    +-- video-pkt-loss-fail?       uint32
+    +-- num-video-streams?         uint32
+  grouping st-mstream-client-entry-key
+    +-- stream-name-str?   string
+    +-- group-ip?          inet:ip-address
+    +-- cl-mac?            yang:mac-address
+  grouping st-rrc-sr-radio-record-key
+    +-- ap-mac?    yang:mac-address
+    +-- slot-id?   uint32
+  grouping st-groups
+    +-- dest-ip?         inet:ip-address
+    +-- no-of-streams?   uint16
+  grouping st-rrc-sr-radio-record
+    +-- radio-type?              uint32
+    +-- duplicated-band-width?   uint32
+    +-- last-re-rrc?             yang:date-and-time
+    +-- number-of-admitted?      uint16
+    +-- rrc-groups-in-radio* [dest-ip]
+       +-- dest-ip?         inet:ip-address
+       +-- no-of-streams?   uint16
+  grouping st-rrc-stream-record-key
+    +-- client-mac?   yang:mac-address
+    +-- dest-ip?      inet:ip-address
+  grouping st-rrc-stream-record-time
+    +-- last-updated?   yang:date-and-time
+    +-- client-mac?     yang:mac-address
+    +-- dest-ip?        inet:ip-address
+  grouping st-rrc-stream-record
+    +-- vap-id?             uint32
+    +-- vlan?               uint32
+    +-- wlan-id?            uint32
+    +-- mgid?               uint16
+    +-- priority?           uint16
+    +-- rerrc-enable?       boolean
+    +-- rerrc-drop?         boolean
+    +-- decision?           wireless-enum-types:media-stream-decision-status
+    +-- qos?                wireless-enum-types:media-stream-qos
+    +-- kbps-bandwidth?     uint32
+    +-- radio?              wireless-enum-types:enm-radio-type
+    +-- stream-name?        string
+    +-- ap-name?            string
+    +-- start-time?         yang:date-and-time
+    +-- last-updated?       yang:date-and-time
+    +-- rrc-radio-record
+       +-- ap-mac?    yang:mac-address
+       +-- slot-id?   uint32

@@ -1,0 +1,44 @@
+module: cisco-bfd-state
+  +--ro bfd-state
+     +--ro sessions* [type]
+        +--ro type            enumeration
+        +--ro tunnel-path* [interface lsp-type]
+        |  +--ro interface       string
+        |  +--ro lsp-type        enumeration
+        |  +--ro ld?             uint32
+        |  +--ro rd?             uint32
+        |  +--ro remote-state?   enumeration
+        |  +--ro state?          enumeration
+        +--ro circuit* [interface vcid]
+        |  +--ro interface       string
+        |  +--ro vcid            uint32
+        |  +--ro ld?             uint32
+        |  +--ro rd?             uint32
+        |  +--ro remote-state?   enumeration
+        |  +--ro state?          enumeration
+        +--ro nbr* [ip interface]
+        |  +--ro ip              inet:ip-address
+        |  +--ro interface       string
+        |  +--ro ld?             uint32
+        |  +--ro rd?             uint32
+        |  +--ro remote-state?   enumeration
+        |  +--ro state?          enumeration
+        +--ro mhop-nbr* [ip]
+        |  +--ro ip              inet:ip-address
+        |  +--ro ld?             uint32
+        |  +--ro rd?             uint32
+        |  +--ro remote-state?   enumeration
+        |  +--ro state?          enumeration
+        +--ro mhop-vrf-nbr* [ip vrf]
+           +--ro ip              inet:ip-address
+           +--ro vrf             string
+           +--ro ld?             uint32
+           +--ro rd?             uint32
+           +--ro remote-state?   enumeration
+           +--ro state?          enumeration
+
+  grouping bfd-neighbor-params
+    +-- ld?             uint32
+    +-- rd?             uint32
+    +-- remote-state?   enumeration
+    +-- state?          enumeration

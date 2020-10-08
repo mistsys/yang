@@ -1,0 +1,651 @@
+
+module: Cisco-IOS-XE-dhcp
+  augment /ios:native/ios:ip/ios:dhcp:
+    +--rw bootp
+    |  +--rw ignore?   empty
+    +--rw class* [id]
+    |  +--rw id        string
+    |  +--rw relay
+    |  |  +--rw agent
+    |  |     +--rw information?   empty
+    |  +--rw remark?   string
+    +--rw conflict
+    |  +--rw logging?      boolean
+    |  +--rw resolution!
+    |     +--rw interval?   uint32
+    +--rw excluded-address* [low-address]
+    |  +--rw low-address     inet:ipv4-address
+    |  +--rw vrf?            string
+    |  +--rw high-address?   inet:ipv4-address
+    +--rw relay
+    |  +--rw information
+    |     +--rw trust-all?   empty
+    |     +--rw option
+    |        +--rw option-default?   empty
+    |        +--rw vpn?              empty
+    +--rw pool* [id]
+    |  +--rw id                string
+    |  +--rw option
+    |  |  +--rw option-range* [option-range]
+    |  |     +--rw option-range    uint8
+    |  |     +--rw ascii?          string
+    |  |     +--rw hex
+    |  |     |  +--rw hex-line?   string
+    |  |     |  +--rw none?       empty
+    |  |     +--rw ip*             inet:host
+    |  +--rw class* [name]
+    |  |  +--rw name       string
+    |  |  +--rw address
+    |  |     +--rw range
+    |  |        +--rw ipv4-start?   inet:ipv4-address
+    |  |        +--rw ipv4-end?     inet:ipv4-address
+    |  +--rw vrf?              string
+    |  +--rw lease* [Days]
+    |  |  +--rw Days       uint16
+    |  |  +--rw Hours?     uint8
+    |  |  +--rw Minutes?   uint8
+    |  +--rw default-router*   union
+    |  +--rw dns-server*       union
+    |  +--rw domain-name?      string
+    |  +--rw network
+    |     +--rw number?      inet:ipv4-address
+    |     +--rw mask?        union
+    |     +--rw secondary?   empty
+    +--rw smart-relay?        empty
+    +--rw snooping-conf
+    |  +--rw snooping?   empty
+    +--rw snooping
+       +--rw database
+       |  +--rw url?           string
+       |  +--rw timeout?       uint32
+       |  +--rw write-delay?   uint32
+       +--rw information
+       |  +--rw option-conf?   boolean
+       |  +--rw option!
+       |     +--rw allow-untrusted?   empty
+       |     +--rw format
+       |        +--rw remote-id
+       |           +--rw (remote-id-choice)?
+       |              +--:(hostname)
+       |              |  +--rw hostname?   empty
+       |              +--:(string)
+       |                 +--rw string?     string
+       +--rw track
+       |  +--rw host?   empty
+       +--rw verify
+       |  +--rw mac-address?              empty
+       |  +--rw no-relay-agent-address?   empty
+       +--rw vlan?          string
+  augment /ios:native/ios:ipv6/ios:dhcp:
+    +--rw server
+    |  +--rw vrf
+    |     +--rw enable?   empty
+    +--rw guard
+    |  +--rw policy* [dhcp-guard-policy-name]
+    |     +--rw dhcp-guard-policy-name    string
+    |     +--rw device-role
+    |     |  +--rw server?   empty
+    |     |  +--rw client?   empty
+    |     +--rw match
+    |        +--rw server
+    |           +--rw access-list?   string
+    +--rw pool* [name]
+       +--rw name            string
+       +--rw vrf?            string
+       +--rw address
+       |  +--rw prefix* [ipv6-address]
+       |     +--rw ipv6-address    ios-types:ipv6-prefix
+       |     +--rw lifetime
+       |        +--rw valid-lifetime?       union
+       |        +--rw preferred-lifetime?   union
+       +--rw dns-server*     union
+       +--rw domain-name?    string
+       +--rw link-address* [address]
+          +--rw address    ios-types:ipv6-prefix
+  augment /ios:native/ios:interface/ios:FastEthernet/ios:ip/ios:dhcp:
+    +--rw client
+    |  +--rw hostname?   string
+    +--rw relay
+    |  +--rw information
+    |  |  +--rw check-reply!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw option
+    |  |  |  +--rw subscriber-id?   string
+    |  |  +--rw option-insert!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw policy-action?   enumeration
+    |  |  +--rw trusted?         empty
+    |  +--rw source-interface?   string
+    +--rw snooping
+       +--rw limit
+       |  +--rw rate?   uint16
+       +--rw trust?   empty
+       +--rw vlan* [id]
+          +--rw id             uint16
+          +--rw information
+             +--rw option
+                +--rw format-type
+                   +--rw circuit-id
+                      +--rw string?   string
+  augment /ios:native/ios:interface/ios:GigabitEthernet/ios:ip/ios:dhcp:
+    +--rw client
+    |  +--rw hostname?   string
+    +--rw relay
+    |  +--rw information
+    |  |  +--rw check-reply!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw option
+    |  |  |  +--rw subscriber-id?   string
+    |  |  +--rw option-insert!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw policy-action?   enumeration
+    |  |  +--rw trusted?         empty
+    |  +--rw source-interface?   string
+    +--rw snooping
+       +--rw limit
+       |  +--rw rate?   uint16
+       +--rw trust?   empty
+       +--rw vlan* [id]
+          +--rw id             uint16
+          +--rw information
+             +--rw option
+                +--rw format-type
+                   +--rw circuit-id
+                      +--rw string?   string
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet/ios:ip/ios:dhcp:
+    +--rw client
+    |  +--rw hostname?   string
+    +--rw relay
+    |  +--rw information
+    |  |  +--rw check-reply!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw option
+    |  |  |  +--rw subscriber-id?   string
+    |  |  +--rw option-insert!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw policy-action?   enumeration
+    |  |  +--rw trusted?         empty
+    |  +--rw source-interface?   string
+    +--rw snooping
+       +--rw limit
+       |  +--rw rate?   uint16
+       +--rw trust?   empty
+       +--rw vlan* [id]
+          +--rw id             uint16
+          +--rw information
+             +--rw option
+                +--rw format-type
+                   +--rw circuit-id
+                      +--rw string?   string
+  augment /ios:native/ios:interface/ios:FiveGigabitEthernet/ios:ip/ios:dhcp:
+    +--rw client
+    |  +--rw hostname?   string
+    +--rw relay
+    |  +--rw information
+    |  |  +--rw check-reply!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw option
+    |  |  |  +--rw subscriber-id?   string
+    |  |  +--rw option-insert!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw policy-action?   enumeration
+    |  |  +--rw trusted?         empty
+    |  +--rw source-interface?   string
+    +--rw snooping
+       +--rw limit
+       |  +--rw rate?   uint16
+       +--rw trust?   empty
+       +--rw vlan* [id]
+          +--rw id             uint16
+          +--rw information
+             +--rw option
+                +--rw format-type
+                   +--rw circuit-id
+                      +--rw string?   string
+  augment /ios:native/ios:interface/ios:TwentyFiveGigabitEthernet/ios:ip/ios:dhcp:
+    +--rw client
+    |  +--rw hostname?   string
+    +--rw relay
+    |  +--rw information
+    |  |  +--rw check-reply!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw option
+    |  |  |  +--rw subscriber-id?   string
+    |  |  +--rw option-insert!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw policy-action?   enumeration
+    |  |  +--rw trusted?         empty
+    |  +--rw source-interface?   string
+    +--rw snooping
+       +--rw limit
+       |  +--rw rate?   uint16
+       +--rw trust?   empty
+       +--rw vlan* [id]
+          +--rw id             uint16
+          +--rw information
+             +--rw option
+                +--rw format-type
+                   +--rw circuit-id
+                      +--rw string?   string
+  augment /ios:native/ios:interface/ios:Port-channel/ios:ip/ios:dhcp:
+    +--rw client
+    |  +--rw hostname?   string
+    +--rw relay
+    |  +--rw information
+    |  |  +--rw check-reply!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw option
+    |  |  |  +--rw subscriber-id?   string
+    |  |  +--rw option-insert!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw policy-action?   enumeration
+    |  |  +--rw trusted?         empty
+    |  +--rw source-interface?   string
+    +--rw snooping
+       +--rw limit
+       |  +--rw rate?   uint16
+       +--rw trust?   empty
+       +--rw vlan* [id]
+          +--rw id             uint16
+          +--rw information
+             +--rw option
+                +--rw format-type
+                   +--rw circuit-id
+                      +--rw string?   string
+  augment /ios:native/ios:interface/ios:Loopback/ios:ip/ios:dhcp:
+    +--rw client
+    |  +--rw hostname?   string
+    +--rw relay
+    |  +--rw information
+    |  |  +--rw check-reply!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw option
+    |  |  |  +--rw subscriber-id?   string
+    |  |  +--rw option-insert!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw policy-action?   enumeration
+    |  |  +--rw trusted?         empty
+    |  +--rw source-interface?   string
+    +--rw snooping
+       +--rw limit
+       |  +--rw rate?   uint16
+       +--rw trust?   empty
+       +--rw vlan* [id]
+          +--rw id             uint16
+          +--rw information
+             +--rw option
+                +--rw format-type
+                   +--rw circuit-id
+                      +--rw string?   string
+  augment /ios:native/ios:interface/ios:Tunnel/ios:ip/ios:dhcp:
+    +--rw client
+    |  +--rw hostname?   string
+    +--rw relay
+    |  +--rw information
+    |  |  +--rw check-reply!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw option
+    |  |  |  +--rw subscriber-id?   string
+    |  |  +--rw option-insert!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw policy-action?   enumeration
+    |  |  +--rw trusted?         empty
+    |  +--rw source-interface?   string
+    +--rw snooping
+       +--rw limit
+       |  +--rw rate?   uint16
+       +--rw trust?   empty
+       +--rw vlan* [id]
+          +--rw id             uint16
+          +--rw information
+             +--rw option
+                +--rw format-type
+                   +--rw circuit-id
+                      +--rw string?   string
+  augment /ios:native/ios:interface/ios:Vlan/ios:ip/ios:dhcp:
+    +--rw client
+    |  +--rw hostname?   string
+    +--rw relay
+    |  +--rw information
+    |  |  +--rw check-reply!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw option
+    |  |  |  +--rw subscriber-id?   string
+    |  |  +--rw option-insert!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw policy-action?   enumeration
+    |  |  +--rw trusted?         empty
+    |  +--rw source-interface?   string
+    +--rw snooping
+       +--rw limit
+       |  +--rw rate?   uint16
+       +--rw trust?   empty
+       +--rw vlan* [id]
+          +--rw id             uint16
+          +--rw information
+             +--rw option
+                +--rw format-type
+                   +--rw circuit-id
+                      +--rw string?   string
+  augment /ios:native/ios:interface/ios:vasileft/ios:ip/ios:dhcp:
+    +--rw client
+    |  +--rw hostname?   string
+    +--rw relay
+    |  +--rw information
+    |  |  +--rw check-reply!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw option
+    |  |  |  +--rw subscriber-id?   string
+    |  |  +--rw option-insert!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw policy-action?   enumeration
+    |  |  +--rw trusted?         empty
+    |  +--rw source-interface?   string
+    +--rw snooping
+       +--rw limit
+       |  +--rw rate?   uint16
+       +--rw trust?   empty
+       +--rw vlan* [id]
+          +--rw id             uint16
+          +--rw information
+             +--rw option
+                +--rw format-type
+                   +--rw circuit-id
+                      +--rw string?   string
+  augment /ios:native/ios:interface/ios:vasiright/ios:ip/ios:dhcp:
+    +--rw client
+    |  +--rw hostname?   string
+    +--rw relay
+    |  +--rw information
+    |  |  +--rw check-reply!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw option
+    |  |  |  +--rw subscriber-id?   string
+    |  |  +--rw option-insert!
+    |  |  |  +--rw none?   empty
+    |  |  +--rw policy-action?   enumeration
+    |  |  +--rw trusted?         empty
+    |  +--rw source-interface?   string
+    +--rw snooping
+       +--rw limit
+       |  +--rw rate?   uint16
+       +--rw trust?   empty
+       +--rw vlan* [id]
+          +--rw id             uint16
+          +--rw information
+             +--rw option
+                +--rw format-type
+                   +--rw circuit-id
+                      +--rw string?   string
+  augment /ios:native/ios:interface/ios:FastEthernet/ios:ipv6/ios:dhcp:
+    +--rw (client-server-choice)?
+    |  +--:(client)
+    |  |  +--rw client
+    |  |     +--rw request
+    |  |        +--rw vendor?   empty
+    |  +--:(server)
+    |     +--rw server* [word]
+    |        +--rw word          string
+    |        +--rw preference?   uint8
+    +--rw guard!
+       +--rw attach-policy?   string
+  augment /ios:native/ios:interface/ios:GigabitEthernet/ios:ipv6/ios:dhcp:
+    +--rw (client-server-choice)?
+    |  +--:(client)
+    |  |  +--rw client
+    |  |     +--rw request
+    |  |        +--rw vendor?   empty
+    |  +--:(server)
+    |     +--rw server* [word]
+    |        +--rw word          string
+    |        +--rw preference?   uint8
+    +--rw guard!
+       +--rw attach-policy?   string
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet/ios:ipv6/ios:dhcp:
+    +--rw (client-server-choice)?
+    |  +--:(client)
+    |  |  +--rw client
+    |  |     +--rw request
+    |  |        +--rw vendor?   empty
+    |  +--:(server)
+    |     +--rw server* [word]
+    |        +--rw word          string
+    |        +--rw preference?   uint8
+    +--rw guard!
+       +--rw attach-policy?   string
+  augment /ios:native/ios:interface/ios:FiveGigabitEthernet/ios:ipv6/ios:dhcp:
+    +--rw (client-server-choice)?
+    |  +--:(client)
+    |  |  +--rw client
+    |  |     +--rw request
+    |  |        +--rw vendor?   empty
+    |  +--:(server)
+    |     +--rw server* [word]
+    |        +--rw word          string
+    |        +--rw preference?   uint8
+    +--rw guard!
+       +--rw attach-policy?   string
+  augment /ios:native/ios:interface/ios:TwentyFiveGigabitEthernet/ios:ipv6/ios:dhcp:
+    +--rw (client-server-choice)?
+    |  +--:(client)
+    |  |  +--rw client
+    |  |     +--rw request
+    |  |        +--rw vendor?   empty
+    |  +--:(server)
+    |     +--rw server* [word]
+    |        +--rw word          string
+    |        +--rw preference?   uint8
+    +--rw guard!
+       +--rw attach-policy?   string
+  augment /ios:native/ios:interface/ios:Port-channel/ios:ipv6/ios:dhcp:
+    +--rw (client-server-choice)?
+    |  +--:(client)
+    |  |  +--rw client
+    |  |     +--rw request
+    |  |        +--rw vendor?   empty
+    |  +--:(server)
+    |     +--rw server* [word]
+    |        +--rw word          string
+    |        +--rw preference?   uint8
+    +--rw guard!
+       +--rw attach-policy?   string
+  augment /ios:native/ios:interface/ios:Loopback/ios:ipv6/ios:dhcp:
+    +--rw (client-server-choice)?
+    |  +--:(client)
+    |  |  +--rw client
+    |  |     +--rw request
+    |  |        +--rw vendor?   empty
+    |  +--:(server)
+    |     +--rw server* [word]
+    |        +--rw word          string
+    |        +--rw preference?   uint8
+    +--rw guard!
+       +--rw attach-policy?   string
+  augment /ios:native/ios:interface/ios:Tunnel/ios:ipv6/ios:dhcp:
+    +--rw (client-server-choice)?
+    |  +--:(client)
+    |  |  +--rw client
+    |  |     +--rw request
+    |  |        +--rw vendor?   empty
+    |  +--:(server)
+    |     +--rw server* [word]
+    |        +--rw word          string
+    |        +--rw preference?   uint8
+    +--rw guard!
+       +--rw attach-policy?   string
+  augment /ios:native/ios:interface/ios:Vlan/ios:ipv6/ios:dhcp:
+    +--rw (client-server-choice)?
+    |  +--:(client)
+    |  |  +--rw client
+    |  |     +--rw request
+    |  |        +--rw vendor?   empty
+    |  +--:(server)
+    |     +--rw server* [word]
+    |        +--rw word          string
+    |        +--rw preference?   uint8
+    +--rw guard!
+       +--rw attach-policy?   string
+  augment /ios:native/ios:interface/ios:vasileft/ios:ipv6/ios:dhcp:
+    +--rw (client-server-choice)?
+    |  +--:(client)
+    |  |  +--rw client
+    |  |     +--rw request
+    |  |        +--rw vendor?   empty
+    |  +--:(server)
+    |     +--rw server* [word]
+    |        +--rw word          string
+    |        +--rw preference?   uint8
+    +--rw guard!
+       +--rw attach-policy?   string
+  augment /ios:native/ios:interface/ios:vasiright/ios:ipv6/ios:dhcp:
+    +--rw (client-server-choice)?
+    |  +--:(client)
+    |  |  +--rw client
+    |  |     +--rw request
+    |  |        +--rw vendor?   empty
+    |  +--:(server)
+    |     +--rw server* [word]
+    |        +--rw word          string
+    |        +--rw preference?   uint8
+    +--rw guard!
+       +--rw attach-policy?   string
+
+  grouping config-interface-ip-dhcp-grouping
+    +-- client
+    |  +-- hostname?   string
+    +-- relay
+    |  +-- information
+    |  |  +-- check-reply!
+    |  |  |  +-- none?   empty
+    |  |  +-- option
+    |  |  |  +-- subscriber-id?   string
+    |  |  +-- option-insert!
+    |  |  |  +-- none?   empty
+    |  |  +-- policy-action?   enumeration
+    |  |  +-- trusted?         empty
+    |  +-- source-interface?   string
+    +-- snooping
+       +-- limit
+       |  +-- rate?   uint16
+       +-- trust?   empty
+       +-- vlan* [id]
+          +-- id?            uint16
+          +-- information
+             +-- option
+                +-- format-type
+                   +-- circuit-id
+                      +-- string?   string
+  grouping config-interface-ipv6-dhcp-grouping
+    +-- (client-server-choice)?
+    |  +--:(client)
+    |  |  +-- client
+    |  |     +-- request
+    |  |        +-- vendor?   empty
+    |  +--:(server)
+    |     +-- server* [word]
+    |        +-- word?         string
+    |        +-- preference?   uint8
+    +-- guard!
+       +-- attach-policy?   string
+  grouping ip-dhcp-grouping
+    +-- bootp
+    |  +-- ignore?   empty
+    +-- class* [id]
+    |  +-- id?       string
+    |  +-- relay
+    |  |  +-- agent
+    |  |     +-- information?   empty
+    |  +-- remark?   string
+    +-- conflict
+    |  +-- logging?      boolean
+    |  +-- resolution!
+    |     +-- interval?   uint32
+    +-- excluded-address* [low-address]
+    |  +-- low-address?    inet:ipv4-address
+    |  +-- vrf?            string
+    |  +-- high-address?   inet:ipv4-address
+    +-- relay
+    |  +-- information
+    |     +-- trust-all?   empty
+    |     +-- option
+    |        +-- option-default?   empty
+    |        +-- vpn?              empty
+    +-- pool* [id]
+    |  +-- id?               string
+    |  +-- option
+    |  |  +-- option-range* [option-range]
+    |  |     +-- option-range?   uint8
+    |  |     +-- ascii?          string
+    |  |     +-- hex
+    |  |     |  +-- hex-line?   string
+    |  |     |  +-- none?       empty
+    |  |     +-- ip*             inet:host
+    |  +-- class* [name]
+    |  |  +-- name?      string
+    |  |  +-- address
+    |  |     +-- range
+    |  |        +-- ipv4-start?   inet:ipv4-address
+    |  |        +-- ipv4-end?     inet:ipv4-address
+    |  +-- vrf?              string
+    |  +-- lease* [Days]
+    |  |  +-- Days?      uint16
+    |  |  +-- Hours?     uint8
+    |  |  +-- Minutes?   uint8
+    |  +-- default-router*   union
+    |  +-- dns-server*       union
+    |  +-- domain-name?      string
+    |  +-- network
+    |     +-- number?      inet:ipv4-address
+    |     +-- mask?        union
+    |     +-- secondary?   empty
+    +-- smart-relay?        empty
+    +-- snooping-conf
+    |  +-- snooping?   empty
+    +-- snooping
+       +-- database
+       |  +-- url?           string
+       |  +-- timeout?       uint32
+       |  +-- write-delay?   uint32
+       +-- information
+       |  +-- option-conf?   boolean
+       |  +-- option!
+       |     +-- allow-untrusted?   empty
+       |     +-- format
+       |        +-- remote-id
+       |           +-- (remote-id-choice)?
+       |              +--:(hostname)
+       |              |  +-- hostname?   empty
+       |              +--:(string)
+       |                 +-- string?     string
+       +-- track
+       |  +-- host?   empty
+       +-- verify
+       |  +-- mac-address?              empty
+       |  +-- no-relay-agent-address?   empty
+       +-- vlan?          string
+  grouping ipv6-dhcp-grouping
+    +-- server
+    |  +-- vrf
+    |     +-- enable?   empty
+    +-- guard
+    |  +-- policy* [dhcp-guard-policy-name]
+    |     +-- dhcp-guard-policy-name?   string
+    |     +-- device-role
+    |     |  +-- server?   empty
+    |     |  +-- client?   empty
+    |     +-- match
+    |        +-- server
+    |           +-- access-list?   string
+    +-- pool* [name]
+       +-- name?           string
+       +-- vrf?            string
+       +-- address
+       |  +-- prefix* [ipv6-address]
+       |     +-- ipv6-address?   ios-types:ipv6-prefix
+       |     +-- lifetime
+       |        +-- valid-lifetime?       union
+       |        +-- preferred-lifetime?   union
+       +-- dns-server*     union
+       +-- domain-name?    string
+       +-- link-address* [address]
+          +-- address?   ios-types:ipv6-prefix

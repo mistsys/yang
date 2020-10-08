@@ -1,0 +1,67 @@
+submodule: openconfig-network-instance-l2 (belongs-to openconfig-network-instance)
+
+  grouping l2ni-instance
+    +-- fdb
+       +-- config
+       |  +-- mac-learning?      boolean
+       |  +-- mac-aging-time?    uint16
+       |  +-- maximum-entries?   uint16
+       +--ro state
+       |  +--ro mac-learning?      boolean
+       |  +--ro mac-aging-time?    uint16
+       |  +--ro maximum-entries?   uint16
+       +-- mac-table
+          +-- entries
+             +-- entry* [mac-address]
+                +-- mac-address?   -> ../config/mac-address
+                +-- config
+                |  +-- mac-address?   yang:mac-address
+                |  +-- vlan?          -> ../../../../../../vlans/vlan/config/vlan-id
+                +--ro state
+                |  +--ro mac-address?   yang:mac-address
+                |  +--ro vlan?          -> ../../../../../../vlans/vlan/config/vlan-id
+                |  +--ro age?           uint64
+                |  +--ro entry-type?    enumeration
+                +-- interface
+                   +-- interface-ref
+                      +-- config
+                      |  +-- interface?      -> /oc-if:interfaces/interface/name
+                      |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+                      +--ro state
+                         +--ro interface?      -> /oc-if:interfaces/interface/name
+                         +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+  grouping l2ni-instance-common-config
+    +-- mtu?   uint16
+  grouping l2ni-fdb-mac-config
+    +-- mac-learning?      boolean
+    +-- mac-aging-time?    uint16
+    +-- maximum-entries?   uint16
+  grouping l2ni-encapsulation-config
+    +-- control-word?   boolean
+  grouping l2ni-mac-table-config
+    +-- mac-address?   yang:mac-address
+    +-- vlan?          -> ../../../../../../vlans/vlan/config/vlan-id
+  grouping l2ni-mac-table-state
+    +-- age?          uint64
+    +-- entry-type?   enumeration
+  grouping l2ni-mac-table-top
+    +-- mac-table
+       +-- entries
+          +-- entry* [mac-address]
+             +-- mac-address?   -> ../config/mac-address
+             +-- config
+             |  +-- mac-address?   yang:mac-address
+             |  +-- vlan?          -> ../../../../../../vlans/vlan/config/vlan-id
+             +--ro state
+             |  +--ro mac-address?   yang:mac-address
+             |  +--ro vlan?          -> ../../../../../../vlans/vlan/config/vlan-id
+             |  +--ro age?           uint64
+             |  +--ro entry-type?    enumeration
+             +-- interface
+                +-- interface-ref
+                   +-- config
+                   |  +-- interface?      -> /oc-if:interfaces/interface/name
+                   |  +-- subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index
+                   +--ro state
+                      +--ro interface?      -> /oc-if:interfaces/interface/name
+                      +--ro subinterface?   -> /oc-if:interfaces/interface[oc-if:name=current()/../interface]/subinterfaces/subinterface/index

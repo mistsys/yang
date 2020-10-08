@@ -1,0 +1,105 @@
+module: openconfig-platform
+  +--rw components
+     +--rw component* [name]
+        +--rw name             -> ../config/name
+        +--rw config
+        |  +--rw name?   string
+        +--ro state
+        |  +--ro name?          string
+        |  +--ro type?          union
+        |  +--ro id?            string
+        |  +--ro description?   string
+        |  +--ro mfg-name?      string
+        |  +--ro version?       string
+        |  +--ro serial-no?     string
+        |  +--ro part-no?       string
+        +--rw properties
+        |  +--rw property* [name]
+        |     +--rw name      -> ../config/name
+        |     +--rw config
+        |     |  +--rw name?    string
+        |     |  +--rw value?   union
+        |     +--ro state
+        |        +--ro name?           string
+        |        +--ro value?          union
+        |        +--ro configurable?   boolean
+        +--rw subcomponents
+           +--rw subcomponent* [name]
+              +--rw name      -> ../config/name
+              +--rw config
+              |  +--rw name?   -> ../../../../../component/config/name
+              +--ro state
+                 +--ro name?   -> ../../../../../component/config/name
+
+  augment /oc-if:interfaces/oc-if:interface/oc-if:state:
+    +--ro hardware-port?   -> /components/component/name
+
+  grouping platform-component-properties-config
+    +-- name?    string
+    +-- value?   union
+  grouping platform-component-properties-state
+    +-- configurable?   boolean
+  grouping platform-component-properties-top
+    +-- properties
+       +-- property* [name]
+          +-- name?     -> ../config/name
+          +-- config
+          |  +-- name?    string
+          |  +-- value?   union
+          +--ro state
+             +--ro name?           string
+             +--ro value?          union
+             +--ro configurable?   boolean
+  grouping platform-subcomponent-ref-config
+    +-- name?   -> ../../../../../component/config/name
+  grouping platform-subcomponent-ref-state
+  grouping platform-subcomponent-ref-top
+    +-- subcomponents
+       +-- subcomponent* [name]
+          +-- name?     -> ../config/name
+          +-- config
+          |  +-- name?   -> ../../../../../component/config/name
+          +--ro state
+             +--ro name?   -> ../../../../../component/config/name
+  grouping platform-component-config
+    +-- name?   string
+  grouping platform-component-state
+    +-- type?          union
+    +-- id?            string
+    +-- description?   string
+    +-- mfg-name?      string
+    +-- version?       string
+    +-- serial-no?     string
+    +-- part-no?       string
+  grouping platform-component-top
+    +-- components
+       +-- component* [name]
+          +-- name?            -> ../config/name
+          +-- config
+          |  +-- name?   string
+          +--ro state
+          |  +--ro name?          string
+          |  +--ro type?          union
+          |  +--ro id?            string
+          |  +--ro description?   string
+          |  +--ro mfg-name?      string
+          |  +--ro version?       string
+          |  +--ro serial-no?     string
+          |  +--ro part-no?       string
+          +-- properties
+          |  +-- property* [name]
+          |     +-- name?     -> ../config/name
+          |     +-- config
+          |     |  +-- name?    string
+          |     |  +-- value?   union
+          |     +--ro state
+          |        +--ro name?           string
+          |        +--ro value?          union
+          |        +--ro configurable?   boolean
+          +-- subcomponents
+             +-- subcomponent* [name]
+                +-- name?     -> ../config/name
+                +-- config
+                |  +-- name?   -> ../../../../../component/config/name
+                +--ro state
+                   +--ro name?   -> ../../../../../component/config/name

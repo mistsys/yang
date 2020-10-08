@@ -1,0 +1,29 @@
+module: cisco-mpls-fwd
+  +--ro mpls-forwarding-table
+     +--ro local-label-entry* [local-label]
+        +--ro local-label        uint32
+        +--ro forwarding-info* [outgoing-interface]
+           +--ro outgoing-interface      union
+           +--ro outgoing-label?         union
+           +--ro connection-info
+           |  +--ro type?        enumeration
+           |  +--ro ip?          inet:ip-address
+           |  +--ro mask?        uint16
+           |  +--ro tunnel-id?   uint32
+           |  +--ro vrf-id?      uint32
+           |  +--ro nh-id?       uint32
+           |  +--ro l2ckt-id?    uint32
+           |  +--ro tunnel-tp
+           |     +--ro tunnel?   uint32
+           |     +--ro src-id
+           |     |  +--ro global?   uint32
+           |     |  +--ro node?     inet:ip-address
+           |     +--ro dst-id
+           |        +--ro global?   uint32
+           |        +--ro node?     inet:ip-address
+           +--ro label-switched-bytes?   uint64
+           +--ro next-hop?               union
+
+  grouping tunnel-tp-info
+    +-- global?   uint32
+    +-- node?     inet:ip-address

@@ -1,0 +1,533 @@
+
+module: Cisco-IOS-XE-bfd
+  augment /ios:native/ios:bfd:
+    +--rw fast-timers-on-slow-interface?   empty
+    +--rw l2cos?                           uint8
+    +--rw l3cos
+    |  +--rw ipv6?   uint8
+    +--rw map
+    |  +--rw ipv4-list-with-both-vrf
+    |  |  +--rw ipv4* [dst-vrf dest-ip src-vrf src-ip]
+    |  |     +--rw dst-vrf          string
+    |  |     +--rw dest-ip          ios-types:ipv4-address-slash-prefix-len
+    |  |     +--rw src-vrf          string
+    |  |     +--rw src-ip           ios-types:ipv4-address-slash-prefix-len
+    |  |     +--rw template-name    string
+    |  +--rw ipv4-list-without-vrf
+    |  |  +--rw ipv4* [dest-ip src-ip]
+    |  |     +--rw dest-ip          ios-types:ipv4-address-slash-prefix-len
+    |  |     +--rw src-ip           ios-types:ipv4-address-slash-prefix-len
+    |  |     +--rw template-name    string
+    |  +--rw ipv4-list-with-src-vrf
+    |  |  +--rw ipv4* [dest-ip src-vrf src-ip]
+    |  |     +--rw dest-ip          ios-types:ipv4-address-slash-prefix-len
+    |  |     +--rw src-vrf          string
+    |  |     +--rw src-ip           ios-types:ipv4-address-slash-prefix-len
+    |  |     +--rw template-name    string
+    |  +--rw ipv4-list-with-dst-vrf
+    |  |  +--rw ipv4* [dst-vrf dest-ip src-ip]
+    |  |     +--rw dst-vrf          string
+    |  |     +--rw dest-ip          ios-types:ipv4-address-slash-prefix-len
+    |  |     +--rw src-ip           ios-types:ipv4-address-slash-prefix-len
+    |  |     +--rw template-name    string
+    |  +--rw ipv6-list-with-both-vrf
+    |  |  +--rw ipv6* [dst-vrf dest-ipv6 src-vrf src-ipv6]
+    |  |     +--rw dst-vrf          string
+    |  |     +--rw dest-ipv6        ios-types:ipv6-prefix
+    |  |     +--rw src-vrf          string
+    |  |     +--rw src-ipv6         ios-types:ipv6-prefix
+    |  |     +--rw template-name    string
+    |  +--rw ipv6-list-without-vrf
+    |  |  +--rw ipv6* [dest-ipv6 src-ipv6]
+    |  |     +--rw dest-ipv6        ios-types:ipv6-prefix
+    |  |     +--rw src-ipv6         ios-types:ipv6-prefix
+    |  |     +--rw template-name    string
+    |  +--rw ipv6-list-with-src-vrf
+    |  |  +--rw ipv6* [dest-ipv6 src-vrf src-ipv6]
+    |  |     +--rw dest-ipv6        ios-types:ipv6-prefix
+    |  |     +--rw src-vrf          string
+    |  |     +--rw src-ipv6         ios-types:ipv6-prefix
+    |  |     +--rw template-name    string
+    |  +--rw ipv6-list-with-dst-vrf
+    |  |  +--rw ipv6* [dst-vrf dest-ipv6 src-ipv6]
+    |  |     +--rw dst-vrf          string
+    |  |     +--rw dest-ipv6        ios-types:ipv6-prefix
+    |  |     +--rw src-ipv6         ios-types:ipv6-prefix
+    |  |     +--rw template-name    string
+    |  o--rw ipv4
+    |  |  o--rw no-vrf
+    |  |  |  o--rw dest-ip?         inet:ipv4-prefix
+    |  |  |  o--rw src-ip?          inet:ipv4-prefix
+    |  |  |  o--rw template-name?   string
+    |  |  o--rw vrf
+    |  |     o--rw dst-vrf* [dst-vrf]
+    |  |        o--rw dst-vrf                                  string
+    |  |        o--rw A_PERIOD_B_PERIOD_C_PERIOD_D_SLASH_nn?   empty
+    |  o--rw ipv6
+    |     o--rw dp-ipv6_prefix* [dp-ipv6_prefix]
+    |     |  o--rw dp-ipv6_prefix      ios-types:ipv6-prefix
+    |     |  o--rw bfd-nm?             string
+    |     |  o--rw src-ipv6_prefix0* [src-ipv6_prefix0]
+    |     |  |  o--rw src-ipv6_prefix0    ios-types:ipv6-prefix
+    |     |  |  o--rw bfd-name?           string
+    |     |  o--rw vrf
+    |     |     o--rw src-vrf* [src-vrf]
+    |     |        o--rw src-vrf            string
+    |     |        o--rw src-ipv6_prefix?   ios-types:ipv6-prefix
+    |     o--rw vrf
+    |        o--rw dst-vrf* [dst-vrf]
+    |           o--rw dst-vrf            string
+    |           o--rw dst-ipv6_prefix?   ios-types:ipv6-prefix
+    +--rw slow-timers?                     uint16
+    +--rw snmp
+       +--rw traps
+          +--rw more?   empty
+  augment /ios:native/ios:bfd-template:
+    +--rw single-hop* [name]
+    |  +--rw name                  string
+    |  +--rw interval-singlehop!
+    |  |  +--rw microseconds?   empty
+    |  |  +--rw min-tx          range-type
+    |  |  +--rw min-rx          range-type
+    |  |  +--rw multiplier?     uint8
+    |  x--rw interval
+    |  |  x--rw microseconds?   empty
+    |  |  x--rw (both-or-tx-rx)?
+    |  |  |  x--:(both)
+    |  |  |  |  x--rw both?     range-type
+    |  |  |  x--:(tx-rx)
+    |  |  |     x--rw min-tx?   range-type
+    |  |  |     x--rw min-rx?   range-type
+    |  |  x--rw multiplier?     uint8
+    |  +--rw authentication
+    |  |  +--rw (auth-type)?
+    |  |     +--:(md5)
+    |  |     |  +--rw md5
+    |  |     |     +--rw keychain?   string
+    |  |     +--:(meticulous-md5)
+    |  |     |  +--rw meticulous-md5
+    |  |     |     +--rw keychain?   string
+    |  |     +--:(meticulous-sha-1)
+    |  |     |  +--rw meticulous-sha-1
+    |  |     |     +--rw keychain?   string
+    |  |     +--:(sha-1)
+    |  |        +--rw sha-1
+    |  |           +--rw keychain?   string
+    |  +--rw dampening!
+    |  |  +--rw half-time?              uint8
+    |  |  +--rw unsuppress-time?        uint16
+    |  |  +--rw suppress-time?          uint16
+    |  |  +--rw max-suppressing-time?   uint16
+    |  |  +--rw threshold?              uint16 {ios-features:bfd-dm}?
+    |  |  +--rw down-monitoring?        empty {ios-features:bfd-dm}?
+    |  +--rw echo?                 empty
+    +--rw multi-hop* [name]
+       +--rw name                 string
+       +--rw interval-multihop!
+       |  +--rw microseconds?   empty
+       |  +--rw min-tx          range-type
+       |  +--rw min-rx          range-type
+       |  +--rw multiplier?     uint8
+       x--rw interval
+       |  x--rw microseconds?   empty
+       |  x--rw (both-or-tx-rx)?
+       |  |  x--:(both)
+       |  |  |  x--rw both?     range-type
+       |  |  x--:(tx-rx)
+       |  |     x--rw min-tx?   range-type
+       |  |     x--rw min-rx?   range-type
+       |  x--rw multiplier?     uint8
+       +--rw authentication
+       |  +--rw (auth-type)?
+       |     +--:(md5)
+       |     |  +--rw md5
+       |     |     +--rw keychain?   string
+       |     +--:(meticulous-md5)
+       |     |  +--rw meticulous-md5
+       |     |     +--rw keychain?   string
+       |     +--:(meticulous-sha-1)
+       |     |  +--rw meticulous-sha-1
+       |     |     +--rw keychain?   string
+       |     +--:(sha-1)
+       |        +--rw sha-1
+       |           +--rw keychain?   string
+       +--rw dampening!
+       |  +--rw half-time?              uint8
+       |  +--rw unsuppress-time?        uint16
+       |  +--rw suppress-time?          uint16
+       |  +--rw max-suppressing-time?   uint16
+       |  +--rw threshold?              uint16 {ios-features:bfd-dm}?
+       |  +--rw down-monitoring?        empty {ios-features:bfd-dm}?
+       +--rw echo?                empty
+  augment /ios:native/ios:interface/ios:FastEthernet/ios:bfd:
+    +--rw template?             string
+    +--rw interval-interface!
+    |  +--rw msecs         uint16
+    |  +--rw min_rx        uint16
+    |  +--rw multiplier    uint8
+    x--rw interval
+    |  x--rw msecs?        uint16
+    |  x--rw min_rx?       uint16
+    |  x--rw multiplier?   uint8
+    +--rw echo?                 boolean
+  augment /ios:native/ios:interface/ios:GigabitEthernet/ios:bfd:
+    +--rw template?             string
+    +--rw interval-interface!
+    |  +--rw msecs         uint16
+    |  +--rw min_rx        uint16
+    |  +--rw multiplier    uint8
+    x--rw interval
+    |  x--rw msecs?        uint16
+    |  x--rw min_rx?       uint16
+    |  x--rw multiplier?   uint8
+    +--rw echo?                 boolean
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet/ios:bfd:
+    +--rw template?             string
+    +--rw interval-interface!
+    |  +--rw msecs         uint16
+    |  +--rw min_rx        uint16
+    |  +--rw multiplier    uint8
+    x--rw interval
+    |  x--rw msecs?        uint16
+    |  x--rw min_rx?       uint16
+    |  x--rw multiplier?   uint8
+    +--rw echo?                 boolean
+  augment /ios:native/ios:interface/ios:TwoGigabitEthernet/ios:bfd:
+    +--rw template?             string
+    +--rw interval-interface!
+    |  +--rw msecs         uint16
+    |  +--rw min_rx        uint16
+    |  +--rw multiplier    uint8
+    x--rw interval
+    |  x--rw msecs?        uint16
+    |  x--rw min_rx?       uint16
+    |  x--rw multiplier?   uint8
+    +--rw echo?                 boolean
+  augment /ios:native/ios:interface/ios:FiveGigabitEthernet/ios:bfd:
+    +--rw template?             string
+    +--rw interval-interface!
+    |  +--rw msecs         uint16
+    |  +--rw min_rx        uint16
+    |  +--rw multiplier    uint8
+    x--rw interval
+    |  x--rw msecs?        uint16
+    |  x--rw min_rx?       uint16
+    |  x--rw multiplier?   uint8
+    +--rw echo?                 boolean
+  augment /ios:native/ios:interface/ios:AppGigabitEthernet/ios:bfd:
+    +--rw template?             string
+    +--rw interval-interface!
+    |  +--rw msecs         uint16
+    |  +--rw min_rx        uint16
+    |  +--rw multiplier    uint8
+    x--rw interval
+    |  x--rw msecs?        uint16
+    |  x--rw min_rx?       uint16
+    |  x--rw multiplier?   uint8
+    +--rw echo?                 boolean
+  augment /ios:native/ios:interface/ios:TwentyFiveGigE/ios:bfd:
+    +--rw template?             string
+    +--rw interval-interface!
+    |  +--rw msecs         uint16
+    |  +--rw min_rx        uint16
+    |  +--rw multiplier    uint8
+    x--rw interval
+    |  x--rw msecs?        uint16
+    |  x--rw min_rx?       uint16
+    |  x--rw multiplier?   uint8
+    +--rw echo?                 boolean
+  augment /ios:native/ios:interface/ios:FortyGigabitEthernet/ios:bfd:
+    +--rw template?             string
+    +--rw interval-interface!
+    |  +--rw msecs         uint16
+    |  +--rw min_rx        uint16
+    |  +--rw multiplier    uint8
+    x--rw interval
+    |  x--rw msecs?        uint16
+    |  x--rw min_rx?       uint16
+    |  x--rw multiplier?   uint8
+    +--rw echo?                 boolean
+  augment /ios:native/ios:interface/ios:HundredGigE/ios:bfd:
+    +--rw template?             string
+    +--rw interval-interface!
+    |  +--rw msecs         uint16
+    |  +--rw min_rx        uint16
+    |  +--rw multiplier    uint8
+    x--rw interval
+    |  x--rw msecs?        uint16
+    |  x--rw min_rx?       uint16
+    |  x--rw multiplier?   uint8
+    +--rw echo?                 boolean
+  augment /ios:native/ios:interface/ios:Vlan/ios:bfd:
+    +--rw template?             string
+    +--rw interval-interface!
+    |  +--rw msecs         uint16
+    |  +--rw min_rx        uint16
+    |  +--rw multiplier    uint8
+    x--rw interval
+    |  x--rw msecs?        uint16
+    |  x--rw min_rx?       uint16
+    |  x--rw multiplier?   uint8
+    +--rw echo?                 boolean
+  augment /ios:native/ios:interface/ios:Tunnel/ios:bfd:
+    +--rw template?             string
+    +--rw interval-interface!
+    |  +--rw msecs         uint16
+    |  +--rw min_rx        uint16
+    |  +--rw multiplier    uint8
+    x--rw interval
+    |  x--rw msecs?        uint16
+    |  x--rw min_rx?       uint16
+    |  x--rw multiplier?   uint8
+    +--rw echo?                 boolean
+  augment /ios:native/ios:interface/ios:Port-channel/ios:bfd:
+    +--rw template?             string
+    +--rw interval-interface!
+    |  +--rw msecs         uint16
+    |  +--rw min_rx        uint16
+    |  +--rw multiplier    uint8
+    x--rw interval
+    |  x--rw msecs?        uint16
+    |  x--rw min_rx?       uint16
+    |  x--rw multiplier?   uint8
+    +--rw echo?                 boolean
+  augment /ios:native/ios:interface/ios:Port-channel-subinterface/ios:Port-channel/ios:bfd:
+    +--rw template?             string
+    +--rw interval-interface!
+    |  +--rw msecs         uint16
+    |  +--rw min_rx        uint16
+    |  +--rw multiplier    uint8
+    x--rw interval
+    |  x--rw msecs?        uint16
+    |  x--rw min_rx?       uint16
+    |  x--rw multiplier?   uint8
+    +--rw echo?                 boolean
+  augment /ios:native/ios:interface/ios:VirtualPortGroup/ios:bfd:
+    +--rw template?             string
+    +--rw interval-interface!
+    |  +--rw msecs         uint16
+    |  +--rw min_rx        uint16
+    |  +--rw multiplier    uint8
+    x--rw interval
+    |  x--rw msecs?        uint16
+    |  x--rw min_rx?       uint16
+    |  x--rw multiplier?   uint8
+    +--rw echo?                 boolean
+  augment /ios:native/ios:interface/ios:BDI/ios:bfd:
+    +--rw template?             string
+    +--rw interval-interface!
+    |  +--rw msecs         uint16
+    |  +--rw min_rx        uint16
+    |  +--rw multiplier    uint8
+    x--rw interval
+    |  x--rw msecs?        uint16
+    |  x--rw min_rx?       uint16
+    |  x--rw multiplier?   uint8
+    +--rw echo?                 boolean
+  augment /ios:native/ios:interface/ios:BD-VIF/ios:bfd:
+    +--rw template?             string
+    +--rw interval-interface!
+    |  +--rw msecs         uint16
+    |  +--rw min_rx        uint16
+    |  +--rw multiplier    uint8
+    x--rw interval
+    |  x--rw msecs?        uint16
+    |  x--rw min_rx?       uint16
+    |  x--rw multiplier?   uint8
+    +--rw echo?                 boolean
+
+  grouping config-interface-bfd-grouping
+    +-- template?             string
+    +-- interval-interface!
+    |  +-- msecs         uint16
+    |  +-- min_rx        uint16
+    |  +-- multiplier    uint8
+    x-- interval
+    |  x-- msecs?        uint16
+    |  x-- min_rx?       uint16
+    |  x-- multiplier?   uint8
+    +-- echo?                 boolean
+  grouping config-bfd-grouping
+    +-- fast-timers-on-slow-interface?   empty
+    +-- l2cos?                           uint8
+    +-- l3cos
+    |  +-- ipv6?   uint8
+    +-- map
+    |  +-- ipv4-list-with-both-vrf
+    |  |  +-- ipv4* [dst-vrf dest-ip src-vrf src-ip]
+    |  |     +-- dst-vrf?         string
+    |  |     +-- dest-ip?         ios-types:ipv4-address-slash-prefix-len
+    |  |     +-- src-vrf?         string
+    |  |     +-- src-ip?          ios-types:ipv4-address-slash-prefix-len
+    |  |     +-- template-name    string
+    |  +-- ipv4-list-without-vrf
+    |  |  +-- ipv4* [dest-ip src-ip]
+    |  |     +-- dest-ip?         ios-types:ipv4-address-slash-prefix-len
+    |  |     +-- src-ip?          ios-types:ipv4-address-slash-prefix-len
+    |  |     +-- template-name    string
+    |  +-- ipv4-list-with-src-vrf
+    |  |  +-- ipv4* [dest-ip src-vrf src-ip]
+    |  |     +-- dest-ip?         ios-types:ipv4-address-slash-prefix-len
+    |  |     +-- src-vrf?         string
+    |  |     +-- src-ip?          ios-types:ipv4-address-slash-prefix-len
+    |  |     +-- template-name    string
+    |  +-- ipv4-list-with-dst-vrf
+    |  |  +-- ipv4* [dst-vrf dest-ip src-ip]
+    |  |     +-- dst-vrf?         string
+    |  |     +-- dest-ip?         ios-types:ipv4-address-slash-prefix-len
+    |  |     +-- src-ip?          ios-types:ipv4-address-slash-prefix-len
+    |  |     +-- template-name    string
+    |  +-- ipv6-list-with-both-vrf
+    |  |  +-- ipv6* [dst-vrf dest-ipv6 src-vrf src-ipv6]
+    |  |     +-- dst-vrf?         string
+    |  |     +-- dest-ipv6?       ios-types:ipv6-prefix
+    |  |     +-- src-vrf?         string
+    |  |     +-- src-ipv6?        ios-types:ipv6-prefix
+    |  |     +-- template-name    string
+    |  +-- ipv6-list-without-vrf
+    |  |  +-- ipv6* [dest-ipv6 src-ipv6]
+    |  |     +-- dest-ipv6?       ios-types:ipv6-prefix
+    |  |     +-- src-ipv6?        ios-types:ipv6-prefix
+    |  |     +-- template-name    string
+    |  +-- ipv6-list-with-src-vrf
+    |  |  +-- ipv6* [dest-ipv6 src-vrf src-ipv6]
+    |  |     +-- dest-ipv6?       ios-types:ipv6-prefix
+    |  |     +-- src-vrf?         string
+    |  |     +-- src-ipv6?        ios-types:ipv6-prefix
+    |  |     +-- template-name    string
+    |  +-- ipv6-list-with-dst-vrf
+    |  |  +-- ipv6* [dst-vrf dest-ipv6 src-ipv6]
+    |  |     +-- dst-vrf?         string
+    |  |     +-- dest-ipv6?       ios-types:ipv6-prefix
+    |  |     +-- src-ipv6?        ios-types:ipv6-prefix
+    |  |     +-- template-name    string
+    |  o-- ipv4
+    |  |  o-- no-vrf
+    |  |  |  o-- dest-ip?         inet:ipv4-prefix
+    |  |  |  o-- src-ip?          inet:ipv4-prefix
+    |  |  |  o-- template-name?   string
+    |  |  o-- vrf
+    |  |     o-- dst-vrf* [dst-vrf]
+    |  |        o-- dst-vrf?                                 string
+    |  |        o-- A_PERIOD_B_PERIOD_C_PERIOD_D_SLASH_nn?   empty
+    |  o-- ipv6
+    |     o-- dp-ipv6_prefix* [dp-ipv6_prefix]
+    |     |  o-- dp-ipv6_prefix?     ios-types:ipv6-prefix
+    |     |  o-- bfd-nm?             string
+    |     |  o-- src-ipv6_prefix0* [src-ipv6_prefix0]
+    |     |  |  o-- src-ipv6_prefix0?   ios-types:ipv6-prefix
+    |     |  |  o-- bfd-name?           string
+    |     |  o-- vrf
+    |     |     o-- src-vrf* [src-vrf]
+    |     |        o-- src-vrf?           string
+    |     |        o-- src-ipv6_prefix?   ios-types:ipv6-prefix
+    |     o-- vrf
+    |        o-- dst-vrf* [dst-vrf]
+    |           o-- dst-vrf?           string
+    |           o-- dst-ipv6_prefix?   ios-types:ipv6-prefix
+    +-- slow-timers?                     uint16
+    +-- snmp
+       +-- traps
+          +-- more?   empty
+  grouping config-bfd-template-authentication-grouping
+    +-- authentication
+       +-- (auth-type)?
+          +--:(md5)
+          |  +-- md5
+          |     +-- keychain?   string
+          +--:(meticulous-md5)
+          |  +-- meticulous-md5
+          |     +-- keychain?   string
+          +--:(meticulous-sha-1)
+          |  +-- meticulous-sha-1
+          |     +-- keychain?   string
+          +--:(sha-1)
+             +-- sha-1
+                +-- keychain?   string
+  grouping config-bfd-template-dampening-grouping
+    +-- dampening!
+       +-- half-time?              uint8
+       +-- unsuppress-time?        uint16
+       +-- suppress-time?          uint16
+       +-- max-suppressing-time?   uint16
+       +-- threshold?              uint16 {ios-features:bfd-dm}?
+       +-- down-monitoring?        empty {ios-features:bfd-dm}?
+  grouping config-bfd-template-echo-grouping
+    +-- echo?   empty
+  grouping config-bfd-template-grouping
+    +-- single-hop* [name]
+    |  +-- name?                 string
+    |  +-- interval-singlehop!
+    |  |  +-- microseconds?   empty
+    |  |  +-- min-tx          range-type
+    |  |  +-- min-rx          range-type
+    |  |  +-- multiplier?     uint8
+    |  x-- interval
+    |  |  x-- microseconds?   empty
+    |  |  x-- (both-or-tx-rx)?
+    |  |  |  x--:(both)
+    |  |  |  |  x-- both?     range-type
+    |  |  |  x--:(tx-rx)
+    |  |  |     x-- min-tx?   range-type
+    |  |  |     x-- min-rx?   range-type
+    |  |  x-- multiplier?     uint8
+    |  +-- authentication
+    |  |  +-- (auth-type)?
+    |  |     +--:(md5)
+    |  |     |  +-- md5
+    |  |     |     +-- keychain?   string
+    |  |     +--:(meticulous-md5)
+    |  |     |  +-- meticulous-md5
+    |  |     |     +-- keychain?   string
+    |  |     +--:(meticulous-sha-1)
+    |  |     |  +-- meticulous-sha-1
+    |  |     |     +-- keychain?   string
+    |  |     +--:(sha-1)
+    |  |        +-- sha-1
+    |  |           +-- keychain?   string
+    |  +-- dampening!
+    |  |  +-- half-time?              uint8
+    |  |  +-- unsuppress-time?        uint16
+    |  |  +-- suppress-time?          uint16
+    |  |  +-- max-suppressing-time?   uint16
+    |  |  +-- threshold?              uint16 {ios-features:bfd-dm}?
+    |  |  +-- down-monitoring?        empty {ios-features:bfd-dm}?
+    |  +-- echo?                 empty
+    +-- multi-hop* [name]
+       +-- name?                string
+       +-- interval-multihop!
+       |  +-- microseconds?   empty
+       |  +-- min-tx          range-type
+       |  +-- min-rx          range-type
+       |  +-- multiplier?     uint8
+       x-- interval
+       |  x-- microseconds?   empty
+       |  x-- (both-or-tx-rx)?
+       |  |  x--:(both)
+       |  |  |  x-- both?     range-type
+       |  |  x--:(tx-rx)
+       |  |     x-- min-tx?   range-type
+       |  |     x-- min-rx?   range-type
+       |  x-- multiplier?     uint8
+       +-- authentication
+       |  +-- (auth-type)?
+       |     +--:(md5)
+       |     |  +-- md5
+       |     |     +-- keychain?   string
+       |     +--:(meticulous-md5)
+       |     |  +-- meticulous-md5
+       |     |     +-- keychain?   string
+       |     +--:(meticulous-sha-1)
+       |     |  +-- meticulous-sha-1
+       |     |     +-- keychain?   string
+       |     +--:(sha-1)
+       |        +-- sha-1
+       |           +-- keychain?   string
+       +-- dampening!
+       |  +-- half-time?              uint8
+       |  +-- unsuppress-time?        uint16
+       |  +-- suppress-time?          uint16
+       |  +-- max-suppressing-time?   uint16
+       |  +-- threshold?              uint16 {ios-features:bfd-dm}?
+       |  +-- down-monitoring?        empty {ios-features:bfd-dm}?
+       +-- echo?                empty

@@ -1,0 +1,413 @@
+
+module: Cisco-IOS-XE-scada-gw
+  augment /ios:native/ios:interface/ios:Async/ios:encapsulation:
+    +--rw scada?   empty {ios-features:scada-gw}?
+  augment /ios:native/ios:scada-gw:
+    +--rw protocol
+    |  +--rw clock
+    |  |  +--rw passthru?   empty
+    |  +--rw dnp3-serial
+    |  |  +--rw config-dnp3s
+    |  |     +--rw channel* [name]
+    |  |     |  +--rw name                    string
+    |  |     |  +--rw config-dnp3s-channel
+    |  |     |     +--rw bind-to-interface?      string
+    |  |     |     +--rw link-addr
+    |  |     |     |  +--rw source?   uint16
+    |  |     |     +--rw link-timeout?           uint8
+    |  |     |     +--rw protocol
+    |  |     |     |  +--rw test-link?   empty
+    |  |     |     +--rw request-timeout?        uint8
+    |  |     |     +--rw unsolicited-response
+    |  |     |     |  +--rw enable?   empty
+    |  |     |     +--rw default
+    |  |     |        +--rw bind-to-interface?      string
+    |  |     |        +--rw link-addr
+    |  |     |        |  +--rw source?   uint16
+    |  |     |        +--rw link-timeout?           uint8
+    |  |     |        +--rw protocol
+    |  |     |        |  +--rw test-link?   empty
+    |  |     |        +--rw request-timeout?        uint8
+    |  |     |        +--rw unsolicited-response
+    |  |     |           +--rw enable?   empty
+    |  |     +--rw session* [name]
+    |  |        +--rw name                    string
+    |  |        +--rw config-dnp3s-session
+    |  |           +--rw attach-to-channel?   -> /ios:native/scada-gw/ios-scada-gw:protocol/dnp3-serial/config-dnp3s/channel/name
+    |  |           +--rw link-addr
+    |  |           |  +--rw dest?   uint16
+    |  |           +--rw request* [id]
+    |  |           |  +--rw id          uint8
+    |  |           |  +--rw function?   enumeration
+    |  |           |  +--rw object?     enumeration
+    |  |           |  +--rw period?     uint16
+    |  |           |  +--rw timeout?    uint8
+    |  |           |  +--rw retry?      uint8
+    |  |           +--rw default
+    |  |              +--rw attach-to-channel?   -> /ios:native/scada-gw/ios-scada-gw:protocol/dnp3-serial/config-dnp3s/channel/name
+    |  |              +--rw link-addr
+    |  |              |  +--rw dest?   uint16
+    |  |              +--rw request* [id]
+    |  |                 +--rw id          uint8
+    |  |                 +--rw function?   enumeration
+    |  |                 +--rw object?     enumeration
+    |  |                 +--rw period?     uint16
+    |  |                 +--rw timeout?    uint8
+    |  |                 +--rw retry?      uint8
+    |  +--rw dnp3-ip
+    |  |  +--rw config-dnp3n
+    |  |     +--rw channel* [name]
+    |  |     |  +--rw name                    string
+    |  |     |  +--rw config-dnp3n-channel
+    |  |     |     +--rw link-addr
+    |  |     |     |  +--rw dest?   uint16
+    |  |     |     +--rw send-unsolicited-msg
+    |  |     |     |  +--rw enable?   empty
+    |  |     |     +--rw tcp-connection
+    |  |     |     |  +--rw local-port
+    |  |     |     |  |  +--rw (local-port-choice)?
+    |  |     |     |  |     +--:(port)
+    |  |     |     |  |     |  +--rw port?      inet:port-number
+    |  |     |     |  |     +--:(default)
+    |  |     |     |  |        +--rw default?   empty
+    |  |     |     |  +--rw remote-ip?    union
+    |  |     |     +--rw default
+    |  |     |        +--rw link-addr
+    |  |     |        |  +--rw dest?   uint16
+    |  |     |        +--rw send-unsolicited-msg
+    |  |     |        |  +--rw enable?   empty
+    |  |     |        +--rw tcp-connection
+    |  |     |           +--rw local-port
+    |  |     |           |  +--rw (local-port-choice)?
+    |  |     |           |     +--:(port)
+    |  |     |           |     |  +--rw port?      inet:port-number
+    |  |     |           |     +--:(default)
+    |  |     |           |        +--rw default?   empty
+    |  |     |           +--rw remote-ip?    union
+    |  |     +--rw session* [name]
+    |  |        +--rw name                    string
+    |  |        +--rw config-dnp3n-session
+    |  |           +--rw attach-to-channel?   -> /ios:native/scada-gw/ios-scada-gw:protocol/dnp3-ip/config-dnp3n/channel/name
+    |  |           +--rw link-addr
+    |  |           |  +--rw source?   uint16
+    |  |           +--rw map-to-session?      -> /ios:native/scada-gw/ios-scada-gw:protocol/dnp3-serial/config-dnp3s/session/name
+    |  |           +--rw default
+    |  |              +--rw attach-to-channel?   -> /ios:native/scada-gw/ios-scada-gw:protocol/dnp3-ip/config-dnp3n/channel/name
+    |  |              +--rw link-addr
+    |  |              |  +--rw source?   uint16
+    |  |              +--rw map-to-session?      -> /ios:native/scada-gw/ios-scada-gw:protocol/dnp3-serial/config-dnp3s/session/name
+    |  +--rw event
+    |  |  +--rw persist?   empty
+    |  +--rw ignore
+    |  |  +--rw error
+    |  |     +--rw address?   empty
+    |  +--rw interlock?     empty
+    |  +--rw t101
+    |  |  +--rw config-t101
+    |  |     +--rw channel* [name]
+    |  |     |  +--rw name                   string
+    |  |     |  +--rw config-t101-channel
+    |  |     |     +--rw bind-to-interface?   string
+    |  |     |     +--rw day-of-week
+    |  |     |     |  +--rw enable?   empty
+    |  |     |     +--rw link-addr-size?      enumeration
+    |  |     |     +--rw link-mode?           enumeration
+    |  |     +--rw session* [name]
+    |  |     |  +--rw name                   string
+    |  |     |  +--rw config-t101-session
+    |  |     |     +--rw attach-to-channel?    -> /ios:native/scada-gw/ios-scada-gw:protocol/t101/config-t101/channel/name
+    |  |     |     +--rw common-addr-size?     enumeration
+    |  |     |     +--rw cot-size?             enumeration
+    |  |     |     +--rw info-obj-addr-size?   enumeration
+    |  |     |     +--rw link-addr?            uint16
+    |  |     |     +--rw request* [id]
+    |  |     |        +--rw id          uint8
+    |  |     |        +--rw function?   enumeration
+    |  |     |        +--rw period?     uint16
+    |  |     |        +--rw timeout?    uint8
+    |  |     |        +--rw retry?      uint8
+    |  |     +--rw sector* [name]
+    |  |        +--rw name                  string
+    |  |        +--rw config-t101-sector
+    |  |           +--rw attach-to-session?   -> /ios:native/scada-gw/ios-scada-gw:protocol/t101/config-t101/session/name
+    |  |           +--rw asdu-addr?           uint16
+    |  |           +--rw request* [id]
+    |  |              +--rw id          uint8
+    |  |              +--rw function?   enumeration
+    |  |              +--rw period?     uint16
+    |  |              +--rw timeout?    uint8
+    |  |              +--rw retry?      uint8
+    |  +--rw t104
+    |     +--rw config-t104
+    |        +--rw channel* [name]
+    |        |  +--rw name                   string
+    |        |  +--rw config-t104-channel
+    |        |     +--rw day-of-week
+    |        |     |  +--rw enable?   empty
+    |        |     +--rw k-value?          uint16
+    |        |     +--rw send-ei
+    |        |     |  +--rw enable?   empty
+    |        |     +--rw t0-timeout?       uint8
+    |        |     +--rw t1-timeout?       uint8
+    |        |     +--rw t2-timeout?       uint8
+    |        |     +--rw t3-timeout?       uint8
+    |        |     +--rw tcp-connection* [num-connection]
+    |        |     |  +--rw num-connection    uint8
+    |        |     |  +--rw local-port
+    |        |     |  |  +--rw (local-port-choice)?
+    |        |     |  |     +--:(port)
+    |        |     |  |     |  +--rw port?      inet:port-number
+    |        |     |  |     +--:(default)
+    |        |     |  |        +--rw default?   empty
+    |        |     |  +--rw remote-ip?        union
+    |        |     +--rw w-value?          uint16
+    |        +--rw session* [name]
+    |        |  +--rw name                   string
+    |        |  +--rw config-t104-session
+    |        |     +--rw attach-to-channel?   -> /ios:native/scada-gw/ios-scada-gw:protocol/t104/config-t104/channel/name
+    |        +--rw sector* [name]
+    |           +--rw name                  string
+    |           +--rw config-t104-sector
+    |              +--rw attach-to-session?   -> /ios:native/scada-gw/ios-scada-gw:protocol/t104/config-t104/session/name
+    |              +--rw map-to-sector?       -> /ios:native/scada-gw/ios-scada-gw:protocol/t101/config-t101/sector/name
+    |              +--rw asdu-addr?           uint16
+    +--rw enable?     empty
+
+  grouping config-t101-sector-grouping
+    +-- attach-to-session?   -> /ios:native/scada-gw/ios-scada-gw:protocol/t101/config-t101/session/name
+    +-- asdu-addr?           uint16
+    +-- request* [id]
+       +-- id?         uint8
+       +-- function?   enumeration
+       +-- period?     uint16
+       +-- timeout?    uint8
+       +-- retry?      uint8
+  grouping config-t101-session-grouping
+    +-- attach-to-channel?    -> /ios:native/scada-gw/ios-scada-gw:protocol/t101/config-t101/channel/name
+    +-- common-addr-size?     enumeration
+    +-- cot-size?             enumeration
+    +-- info-obj-addr-size?   enumeration
+    +-- link-addr?            uint16
+    +-- request* [id]
+       +-- id?         uint8
+       +-- function?   enumeration
+       +-- period?     uint16
+       +-- timeout?    uint8
+       +-- retry?      uint8
+  grouping config-t104-session-grouping
+    +-- attach-to-channel?   -> /ios:native/scada-gw/ios-scada-gw:protocol/t104/config-t104/channel/name
+  grouping config-t101-channel-grouping
+    +-- bind-to-interface?   string
+    +-- day-of-week
+    |  +-- enable?   empty
+    +-- link-addr-size?      enumeration
+    +-- link-mode?           enumeration
+  grouping config-dnp3n-session-grouping
+    +-- attach-to-channel?   -> /ios:native/scada-gw/ios-scada-gw:protocol/dnp3-ip/config-dnp3n/channel/name
+    +-- link-addr
+    |  +-- source?   uint16
+    +-- map-to-session?      -> /ios:native/scada-gw/ios-scada-gw:protocol/dnp3-serial/config-dnp3s/session/name
+  grouping config-dnp3s-session-grouping
+    +-- attach-to-channel?   -> /ios:native/scada-gw/ios-scada-gw:protocol/dnp3-serial/config-dnp3s/channel/name
+    +-- link-addr
+    |  +-- dest?   uint16
+    +-- request* [id]
+       +-- id?         uint8
+       +-- function?   enumeration
+       +-- object?     enumeration
+       +-- period?     uint16
+       +-- timeout?    uint8
+       +-- retry?      uint8
+  grouping config-dnp3n-channel-grouping
+    +-- link-addr
+    |  +-- dest?   uint16
+    +-- send-unsolicited-msg
+    |  +-- enable?   empty
+    +-- tcp-connection
+       +-- local-port
+       |  +-- (local-port-choice)?
+       |     +--:(port)
+       |     |  +-- port?      inet:port-number
+       |     +--:(default)
+       |        +-- default?   empty
+       +-- remote-ip?    union
+  grouping config-dnp3s-channel-grouping
+    +-- bind-to-interface?      string
+    +-- link-addr
+    |  +-- source?   uint16
+    +-- link-timeout?           uint8
+    +-- protocol
+    |  +-- test-link?   empty
+    +-- request-timeout?        uint8
+    +-- unsolicited-response
+       +-- enable?   empty
+  grouping config-scada-gw-grouping
+    +-- protocol
+    |  +-- clock
+    |  |  +-- passthru?   empty
+    |  +-- dnp3-serial
+    |  |  +-- config-dnp3s
+    |  |     +-- channel* [name]
+    |  |     |  +-- name?                   string
+    |  |     |  +-- config-dnp3s-channel
+    |  |     |     +-- bind-to-interface?      string
+    |  |     |     +-- link-addr
+    |  |     |     |  +-- source?   uint16
+    |  |     |     +-- link-timeout?           uint8
+    |  |     |     +-- protocol
+    |  |     |     |  +-- test-link?   empty
+    |  |     |     +-- request-timeout?        uint8
+    |  |     |     +-- unsolicited-response
+    |  |     |     |  +-- enable?   empty
+    |  |     |     +-- default
+    |  |     |        +-- bind-to-interface?      string
+    |  |     |        +-- link-addr
+    |  |     |        |  +-- source?   uint16
+    |  |     |        +-- link-timeout?           uint8
+    |  |     |        +-- protocol
+    |  |     |        |  +-- test-link?   empty
+    |  |     |        +-- request-timeout?        uint8
+    |  |     |        +-- unsolicited-response
+    |  |     |           +-- enable?   empty
+    |  |     +-- session* [name]
+    |  |        +-- name?                   string
+    |  |        +-- config-dnp3s-session
+    |  |           +-- attach-to-channel?   -> /ios:native/scada-gw/ios-scada-gw:protocol/dnp3-serial/config-dnp3s/channel/name
+    |  |           +-- link-addr
+    |  |           |  +-- dest?   uint16
+    |  |           +-- request* [id]
+    |  |           |  +-- id?         uint8
+    |  |           |  +-- function?   enumeration
+    |  |           |  +-- object?     enumeration
+    |  |           |  +-- period?     uint16
+    |  |           |  +-- timeout?    uint8
+    |  |           |  +-- retry?      uint8
+    |  |           +-- default
+    |  |              +-- attach-to-channel?   -> /ios:native/scada-gw/ios-scada-gw:protocol/dnp3-serial/config-dnp3s/channel/name
+    |  |              +-- link-addr
+    |  |              |  +-- dest?   uint16
+    |  |              +-- request* [id]
+    |  |                 +-- id?         uint8
+    |  |                 +-- function?   enumeration
+    |  |                 +-- object?     enumeration
+    |  |                 +-- period?     uint16
+    |  |                 +-- timeout?    uint8
+    |  |                 +-- retry?      uint8
+    |  +-- dnp3-ip
+    |  |  +-- config-dnp3n
+    |  |     +-- channel* [name]
+    |  |     |  +-- name?                   string
+    |  |     |  +-- config-dnp3n-channel
+    |  |     |     +-- link-addr
+    |  |     |     |  +-- dest?   uint16
+    |  |     |     +-- send-unsolicited-msg
+    |  |     |     |  +-- enable?   empty
+    |  |     |     +-- tcp-connection
+    |  |     |     |  +-- local-port
+    |  |     |     |  |  +-- (local-port-choice)?
+    |  |     |     |  |     +--:(port)
+    |  |     |     |  |     |  +-- port?      inet:port-number
+    |  |     |     |  |     +--:(default)
+    |  |     |     |  |        +-- default?   empty
+    |  |     |     |  +-- remote-ip?    union
+    |  |     |     +-- default
+    |  |     |        +-- link-addr
+    |  |     |        |  +-- dest?   uint16
+    |  |     |        +-- send-unsolicited-msg
+    |  |     |        |  +-- enable?   empty
+    |  |     |        +-- tcp-connection
+    |  |     |           +-- local-port
+    |  |     |           |  +-- (local-port-choice)?
+    |  |     |           |     +--:(port)
+    |  |     |           |     |  +-- port?      inet:port-number
+    |  |     |           |     +--:(default)
+    |  |     |           |        +-- default?   empty
+    |  |     |           +-- remote-ip?    union
+    |  |     +-- session* [name]
+    |  |        +-- name?                   string
+    |  |        +-- config-dnp3n-session
+    |  |           +-- attach-to-channel?   -> /ios:native/scada-gw/ios-scada-gw:protocol/dnp3-ip/config-dnp3n/channel/name
+    |  |           +-- link-addr
+    |  |           |  +-- source?   uint16
+    |  |           +-- map-to-session?      -> /ios:native/scada-gw/ios-scada-gw:protocol/dnp3-serial/config-dnp3s/session/name
+    |  |           +-- default
+    |  |              +-- attach-to-channel?   -> /ios:native/scada-gw/ios-scada-gw:protocol/dnp3-ip/config-dnp3n/channel/name
+    |  |              +-- link-addr
+    |  |              |  +-- source?   uint16
+    |  |              +-- map-to-session?      -> /ios:native/scada-gw/ios-scada-gw:protocol/dnp3-serial/config-dnp3s/session/name
+    |  +-- event
+    |  |  +-- persist?   empty
+    |  +-- ignore
+    |  |  +-- error
+    |  |     +-- address?   empty
+    |  +-- interlock?     empty
+    |  +-- t101
+    |  |  +-- config-t101
+    |  |     +-- channel* [name]
+    |  |     |  +-- name?                  string
+    |  |     |  +-- config-t101-channel
+    |  |     |     +-- bind-to-interface?   string
+    |  |     |     +-- day-of-week
+    |  |     |     |  +-- enable?   empty
+    |  |     |     +-- link-addr-size?      enumeration
+    |  |     |     +-- link-mode?           enumeration
+    |  |     +-- session* [name]
+    |  |     |  +-- name?                  string
+    |  |     |  +-- config-t101-session
+    |  |     |     +-- attach-to-channel?    -> /ios:native/scada-gw/ios-scada-gw:protocol/t101/config-t101/channel/name
+    |  |     |     +-- common-addr-size?     enumeration
+    |  |     |     +-- cot-size?             enumeration
+    |  |     |     +-- info-obj-addr-size?   enumeration
+    |  |     |     +-- link-addr?            uint16
+    |  |     |     +-- request* [id]
+    |  |     |        +-- id?         uint8
+    |  |     |        +-- function?   enumeration
+    |  |     |        +-- period?     uint16
+    |  |     |        +-- timeout?    uint8
+    |  |     |        +-- retry?      uint8
+    |  |     +-- sector* [name]
+    |  |        +-- name?                 string
+    |  |        +-- config-t101-sector
+    |  |           +-- attach-to-session?   -> /ios:native/scada-gw/ios-scada-gw:protocol/t101/config-t101/session/name
+    |  |           +-- asdu-addr?           uint16
+    |  |           +-- request* [id]
+    |  |              +-- id?         uint8
+    |  |              +-- function?   enumeration
+    |  |              +-- period?     uint16
+    |  |              +-- timeout?    uint8
+    |  |              +-- retry?      uint8
+    |  +-- t104
+    |     +-- config-t104
+    |        +-- channel* [name]
+    |        |  +-- name?                  string
+    |        |  +-- config-t104-channel
+    |        |     +-- day-of-week
+    |        |     |  +-- enable?   empty
+    |        |     +-- k-value?          uint16
+    |        |     +-- send-ei
+    |        |     |  +-- enable?   empty
+    |        |     +-- t0-timeout?       uint8
+    |        |     +-- t1-timeout?       uint8
+    |        |     +-- t2-timeout?       uint8
+    |        |     +-- t3-timeout?       uint8
+    |        |     +-- tcp-connection* [num-connection]
+    |        |     |  +-- num-connection?   uint8
+    |        |     |  +-- local-port
+    |        |     |  |  +-- (local-port-choice)?
+    |        |     |  |     +--:(port)
+    |        |     |  |     |  +-- port?      inet:port-number
+    |        |     |  |     +--:(default)
+    |        |     |  |        +-- default?   empty
+    |        |     |  +-- remote-ip?        union
+    |        |     +-- w-value?          uint16
+    |        +-- session* [name]
+    |        |  +-- name?                  string
+    |        |  +-- config-t104-session
+    |        |     +-- attach-to-channel?   -> /ios:native/scada-gw/ios-scada-gw:protocol/t104/config-t104/channel/name
+    |        +-- sector* [name]
+    |           +-- name?                 string
+    |           +-- config-t104-sector
+    |              +-- attach-to-session?   -> /ios:native/scada-gw/ios-scada-gw:protocol/t104/config-t104/session/name
+    |              +-- map-to-sector?       -> /ios:native/scada-gw/ios-scada-gw:protocol/t101/config-t101/sector/name
+    |              +-- asdu-addr?           uint16
+    +-- enable?     empty

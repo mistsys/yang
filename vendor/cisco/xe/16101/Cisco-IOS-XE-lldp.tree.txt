@@ -1,0 +1,98 @@
+
+module: Cisco-IOS-XE-lldp
+  augment /ios:native:
+    +--rw lldp
+       +--rw holdtime?     uint32
+       +--rw reinit?       uint8
+       +--rw run?          empty
+       +--rw timer?        uint16
+       +--rw tlv-select
+          +--rw four-wire-power-management?   enumeration
+          +--rw mac-phy-cfg?                  boolean
+          +--rw management-address?           boolean
+          +--rw port-description?             boolean
+          +--rw port-vlan?                    boolean
+          +--rw power-management?             boolean
+          +--rw system-capabilities?          boolean
+          +--rw system-description?           boolean
+          +--rw system-name?                  boolean
+  augment /ios:native/ios:interface/ios:FastEthernet:
+    +--rw lldp
+       +--rw receive?      boolean
+       +--rw tlv-select
+       |  +--rw four-wire-power-management?   enumeration
+       |  +--rw power-management?             empty
+       +--rw transmit?     boolean
+  augment /ios:native/ios:interface/ios:GigabitEthernet:
+    +--rw lldp
+       +--rw receive?      boolean
+       +--rw tlv-select
+       |  +--rw four-wire-power-management?   enumeration
+       |  +--rw power-management?             empty
+       +--rw transmit?     boolean
+  augment /ios:native/ios:interface/ios:TwoGigabitEthernet:
+    +--rw lldp
+       +--rw receive?      boolean
+       +--rw tlv-select
+       |  +--rw four-wire-power-management?   enumeration
+       |  +--rw power-management?             empty
+       +--rw transmit?     boolean
+  augment /ios:native/ios:interface/ios:FiveGigabitEthernet:
+    +--rw lldp
+       +--rw receive?      boolean
+       +--rw tlv-select
+       |  +--rw four-wire-power-management?   enumeration
+       |  +--rw power-management?             empty
+       +--rw transmit?     boolean
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet:
+    +--rw lldp
+       +--rw receive?      boolean
+       +--rw tlv-select
+       |  +--rw four-wire-power-management?   enumeration
+       |  +--rw power-management?             empty
+       +--rw transmit?     boolean
+  augment /ios:native/ios:interface/ios:TwentyFiveGigE:
+    +--rw lldp
+       +--rw receive?      boolean
+       +--rw tlv-select
+       |  +--rw four-wire-power-management?   enumeration
+       |  +--rw power-management?             empty
+       +--rw transmit?     boolean
+  augment /ios:native/ios:interface/ios:FortyGigabitEthernet:
+    +--rw lldp
+       +--rw receive?      boolean
+       +--rw tlv-select
+       |  +--rw four-wire-power-management?   enumeration
+       |  +--rw power-management?             empty
+       +--rw transmit?     boolean
+  augment /ios:native/ios:interface/ios:HundredGigE:
+    +--rw lldp
+       +--rw receive?      boolean
+       +--rw tlv-select
+       |  +--rw four-wire-power-management?   enumeration
+       |  +--rw power-management?             empty
+       +--rw transmit?     boolean
+
+  grouping config-lldp-grouping
+    +-- lldp
+       +-- holdtime?     uint32
+       +-- reinit?       uint8
+       +-- run?          empty
+       +-- timer?        uint16
+       +-- tlv-select
+          +-- four-wire-power-management?   enumeration
+          +-- mac-phy-cfg?                  boolean
+          +-- management-address?           boolean
+          +-- port-description?             boolean
+          +-- port-vlan?                    boolean
+          +-- power-management?             boolean
+          +-- system-capabilities?          boolean
+          +-- system-description?           boolean
+          +-- system-name?                  boolean
+  grouping config-interface-lldp-grouping
+    +-- lldp
+       +-- receive?      boolean
+       +-- tlv-select
+       |  +-- four-wire-power-management?   enumeration
+       |  +-- power-management?             empty
+       +-- transmit?     boolean

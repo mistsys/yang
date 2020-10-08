@@ -1,0 +1,39 @@
+module: Cisco-IOS-XE-wireless-awips-oper
+  +--ro awips-oper-data
+     +--ro awips-alarm* [alarm-timestamp ap-mac alarm-id client-mac-addr msg-indx]
+     |  +--ro version?           uint32
+     |  +--ro signature-id?      uint32
+     |  +--ro alarm-string?      string
+     |  +--ro dev-context
+     |  |  +--ro context-id?       wireless-oper-awips:ap-awips-context-id
+     |  |  +--ro context-string?   binary
+     |  +--ro alarm-timestamp    yang:date-and-time
+     |  +--ro ap-mac             yang:mac-address
+     |  +--ro alarm-id           uint32
+     |  +--ro client-mac-addr    yang:mac-address
+     |  +--ro msg-indx           uint32
+     +--ro awips-per-ap-info* [ap-mac]
+        +--ro ap-mac          yang:mac-address
+        +--ro awips-status?   wireless-oper-awips:ap-awips-status
+        +--ro alarm-count?    uint64
+
+  grouping st-device-context
+    +-- context-id?       wireless-oper-awips:ap-awips-context-id
+    +-- context-string?   binary
+  grouping st-awips-per-ap-alarm
+    +-- version?        uint32
+    +-- signature-id?   uint32
+    +-- alarm-string?   string
+    +-- dev-context
+       +-- context-id?       wireless-oper-awips:ap-awips-context-id
+       +-- context-string?   binary
+  grouping awips-alarm-key
+    +-- alarm-timestamp?   yang:date-and-time
+    +-- ap-mac?            yang:mac-address
+    +-- alarm-id?          uint32
+    +-- client-mac-addr?   yang:mac-address
+    +-- msg-indx?          uint32
+  grouping st-awips-per-ap-info
+    +-- ap-mac?         yang:mac-address
+    +-- awips-status?   wireless-oper-awips:ap-awips-status
+    +-- alarm-count?    uint64

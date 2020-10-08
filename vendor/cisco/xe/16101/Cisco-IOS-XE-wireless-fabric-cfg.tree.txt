@@ -1,0 +1,64 @@
+module: Cisco-IOS-XE-wireless-fabric-cfg
+  +--rw fabric-cfg-data
+     +--rw fabric-profiles
+     |  +--rw fabric-profile* [fabric-profile-name]
+     |     +--rw fabric-profile-name    string
+     |     +--rw description?           string
+     |     +--rw encap-type?            wireless-fabric-cfg:enm-fabric-profile-encap-type
+     |     +--rw sgt-tag?               uint16
+     |     +--rw client-l2-vnid?        uint32
+     +--rw fabric!
+     |  +--rw fabric-enabled?             boolean
+     |  +--rw fabric-name-vnid-entries
+     |     +--rw fabric-name-vnid-entry* [name]
+     |        +--rw name                  string
+     |        +--rw netmask?              inet:ip-address
+     |        +--rw l2-vnid               uint32
+     |        +--rw l3-vnid?              uint32
+     |        +--rw network-ip?           inet:ip-address
+     |        +--rw control-plane-name?   string
+     +--rw fabric-controlplane-names
+        +--rw fabric-controlplane-name* [control-plane-name]
+           +--rw control-plane-name                 string
+           +--rw description?                       string
+           +--rw fabric-control-plane-ip-configs
+              +--rw fabric-control-plane-ip-config* [control-plane-ip]
+                 +--rw control-plane-ip    inet:ip-address
+                 +--rw psk-key?            string
+                 +--rw psk-key-type?       wireless-enum-types:crypt-type
+
+  grouping fabric
+    +-- fabric-profile-name?   string
+    +-- description?           string
+    +-- encap-type?            wireless-fabric-cfg:enm-fabric-profile-encap-type
+    +-- sgt-tag?               uint16
+    +-- client-l2-vnid?        uint32
+  grouping fabric-name-vnid
+    +-- name?                 string
+    +-- netmask?              inet:ip-address
+    +-- l2-vnid?              uint32
+    +-- l3-vnid?              uint32
+    +-- network-ip?           inet:ip-address
+    +-- control-plane-name?   string
+  grouping fabric-control-plane
+    +-- control-plane-ip?   inet:ip-address
+    +-- psk-key?            string
+    +-- psk-key-type?       wireless-enum-types:crypt-type
+  grouping fabric-control-plane-name
+    +-- control-plane-name?                string
+    +-- description?                       string
+    +-- fabric-control-plane-ip-configs
+       +-- fabric-control-plane-ip-config* [control-plane-ip]
+          +-- control-plane-ip?   inet:ip-address
+          +-- psk-key?            string
+          +-- psk-key-type?       wireless-enum-types:crypt-type
+  grouping fabric-cfg
+    +-- fabric-enabled?             boolean
+    +-- fabric-name-vnid-entries
+       +-- fabric-name-vnid-entry* [name]
+          +-- name?                 string
+          +-- netmask?              inet:ip-address
+          +-- l2-vnid               uint32
+          +-- l3-vnid?              uint32
+          +-- network-ip?           inet:ip-address
+          +-- control-plane-name?   string

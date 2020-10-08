@@ -1,0 +1,1629 @@
+submodule: Cisco-IOS-XE-ip (belongs-to Cisco-IOS-XE-native)
+
+  grouping vrf-default-route-target-grouping
+    +-- (export-choice)?
+    |  +--:(export)
+    |  |  +-- export?       empty
+    |  +--:(export-asn)
+    |     +-- export-asn
+    |        +-- export* [asn-ip]
+    |           +-- asn-ip?   ios-types:asn-ip-type
+    +-- (import-choice)?
+       +--:(import)
+       |  +-- import?       empty
+       +--:(import-asn)
+          +-- import-asn
+             +-- import* [asn-ip]
+                +-- asn-ip?   ios-types:asn-ip-type
+  grouping vrf-af-route-target-grouping
+    +-- export-route-target
+    |  +-- without-stitching* [asn-ip]
+    |  |  +-- asn-ip?   ios-types:asn-ip-type
+    |  +-- with-stitching* [asn-ip]
+    |     +-- asn-ip?      ios-types:asn-ip-type
+    |     +-- stitching    empty
+    +-- import-route-target
+    |  +-- without-stitching* [asn-ip]
+    |  |  +-- asn-ip?   ios-types:asn-ip-type
+    |  +-- with-stitching* [asn-ip]
+    |     +-- asn-ip?      ios-types:asn-ip-type
+    |     +-- stitching    empty
+    o-- export* [asn-ip]
+    |  o-- asn-ip?      ios-types:asn-ip-type
+    |  o-- stitching?   empty
+    o-- import* [asn-ip]
+       o-- asn-ip?      ios-types:asn-ip-type
+       o-- stitching?   empty
+  grouping vrf-route-target-grouping
+    +-- export* [asn-ip]
+    |  +-- asn-ip?      ios-types:asn-ip-type
+    |  +-- stitching?   empty
+    +-- import* [asn-ip]
+       +-- asn-ip?      ios-types:asn-ip-type
+       +-- stitching?   empty
+  grouping vrf-maximum-grouping
+    +-- maximum!
+       +-- routes?               uint32
+       +-- (maximum-choice)
+          +--:(threshold-case)
+          |  +-- threshold?      uint16
+          |  +-- reinstall?      uint16
+          +--:(warning-case)
+             +-- warning-only?   empty
+  grouping vrf-loopback-grouping
+    +-- Loopback?   uint32
+  grouping conf-vrf-definition-default-grouping
+    +-- description?      empty
+    +-- ipv4
+    |  +-- multicast
+    |     +-- multitopology?   empty
+    +-- ipv6
+    |  +-- multicast
+    |     +-- multitopology?   empty
+    +-- rd?               union
+    +-- address-family
+    |  +-- ipv4!
+    |  |  +-- (modifier)?
+    |  |     +--:(unicast)
+    |  |     |  +-- unicast?     empty
+    |  |     +--:(multicast)
+    |  |        +-- multicast?   empty
+    |  +-- ipv6!
+    |     +-- (modifier)?
+    |        +--:(unicast)
+    |        |  +-- unicast?     empty
+    |        +--:(multicast)
+    |           +-- multicast?   empty
+    +-- route-target
+    |  +-- (def-route-target)?
+    |     +--:(emtpy-rt-case)
+    |     |  +-- empty-rt?           empty
+    |     +--:(default-rt)
+    |        +-- (export-choice)?
+    |        |  +--:(export)
+    |        |  |  +-- export?       empty
+    |        |  +--:(export-asn)
+    |        |     +-- export-asn
+    |        |        +-- export* [asn-ip]
+    |        |           +-- asn-ip?   ios-types:asn-ip-type
+    |        +-- (import-choice)?
+    |           +--:(import)
+    |           |  +-- import?       empty
+    |           +--:(import-asn)
+    |              +-- import-asn
+    |                 +-- import* [asn-ip]
+    |                    +-- asn-ip?   ios-types:asn-ip-type
+    +-- vnet
+    |  +-- tag?   empty
+    +-- vpn
+       +-- id?   empty
+  grouping config-mvpn-mdt-grouping
+    +-- mdt
+       +-- default
+       |  +-- address?               inet:ipv4-address
+       |  +-- ingress-replication?   empty
+       |  +-- mpls
+       |  |  +-- mldp-config
+       |  |  |  +-- mp2mp-root-address*   inet:ipv4-address
+       |  |  |  +-- p2mp?                 empty
+       |  |  o-- mldp?          inet:ipv4-address
+       |  +-- vxlan?                 inet:ipv4-address
+       +-- auto-discovery
+       |  +-- (auto-discovery)?
+       |  |  +--:(pim-options)
+       |  |  |  +-- pim-options
+       |  |  |     +-- pim                 empty
+       |  |  |     +-- pim-tlv-announce?   empty
+       |  |  |     +-- mdt-hello-enable?   empty
+       |  |  +--:(ingress-replication)
+       |  |  |  +-- ingress-replication
+       |  |  |     +-- ingress-replication    empty
+       |  |  |     +-- inter-as?              empty
+       |  |  |     +-- mdt-hello-enable?      empty
+       |  |  +--:(mldp)
+       |  |  |  +-- mldp
+       |  |  |     +-- mldp                empty
+       |  |  |     +-- inter-as?           empty
+       |  |  |     +-- pim-tlv-announce?   empty
+       |  |  |     +-- mdt-hello-enable?   empty
+       |  |  +--:(vxlan)
+       |  |     +-- vxlan-config
+       |  |        +-- vxlan       empty
+       |  |        +-- inter-as?   empty
+       |  +-- receiver-site?               empty
+       |  x-- pim?                         empty
+       +-- data
+       |  +-- multicast* [address wildcard]
+       |  |  +-- address?    inet:ipv4-address
+       |  |  +-- wildcard?   inet:ipv4-address
+       |  |  +-- list?       ios-types:ext-acl-type
+       |  +-- list?                  ios-types:ext-acl-type
+       |  +-- threshold?             uint32
+       |  +-- mpls
+       |  |  +-- mldp
+       |  |     +-- default-scope
+       |  |     |  +-- mdt-instances?      uint16
+       |  |     |  +-- list?               ios-types:ext-acl-type
+       |  |     |  +-- immediate-switch?   empty
+       |  |     +-- user-defined-scope* [scope]
+       |  |        +-- mdt-instances?      uint16
+       |  |        +-- list?               ios-types:ext-acl-type
+       |  |        +-- scope?              uint8
+       |  |        +-- immediate-switch?   empty
+       |  +-- ingress-replication!
+       |     +-- mdt-instances?      uint16
+       |     +-- list?               ios-types:ext-acl-type
+       |     +-- immediate-switch?   empty
+       +-- direct?           empty
+       +-- log-reuse?        empty
+       +-- mtu?              uint16
+       +-- overlay
+       |  +-- use-bgp-config!
+       |  |  +-- spt-only?   empty
+       |  x-- use-bgp?          empty
+       |  +-- bgp
+       |     +-- shared-tree-prune-delay?   uint16
+       |     +-- source-tree-prune-delay?   uint16
+       +-- partitioned
+       |  +-- ingress-replication?   empty
+       |  +-- mldp?                  enumeration
+       +-- mdt-preference?   enumeration
+       o-- preference*       enumeration
+       +-- strict-rpf
+          +-- interface?   empty
+  grouping config-vrf-definition-grouping
+    +-- vrf
+       +-- definition* [name]
+          +-- name?             string
+          +-- default
+          |  +-- description?      empty
+          |  +-- ipv4
+          |  |  +-- multicast
+          |  |     +-- multitopology?   empty
+          |  +-- ipv6
+          |  |  +-- multicast
+          |  |     +-- multitopology?   empty
+          |  +-- rd?               union
+          |  +-- address-family
+          |  |  +-- ipv4!
+          |  |  |  +-- (modifier)?
+          |  |  |     +--:(unicast)
+          |  |  |     |  +-- unicast?     empty
+          |  |  |     +--:(multicast)
+          |  |  |        +-- multicast?   empty
+          |  |  +-- ipv6!
+          |  |     +-- (modifier)?
+          |  |        +--:(unicast)
+          |  |        |  +-- unicast?     empty
+          |  |        +--:(multicast)
+          |  |           +-- multicast?   empty
+          |  +-- route-target
+          |  |  +-- (def-route-target)?
+          |  |     +--:(emtpy-rt-case)
+          |  |     |  +-- empty-rt?           empty
+          |  |     +--:(default-rt)
+          |  |        +-- (export-choice)?
+          |  |        |  +--:(export)
+          |  |        |  |  +-- export?       empty
+          |  |        |  +--:(export-asn)
+          |  |        |     +-- export-asn
+          |  |        |        +-- export* [asn-ip]
+          |  |        |           +-- asn-ip?   ios-types:asn-ip-type
+          |  |        +-- (import-choice)?
+          |  |           +--:(import)
+          |  |           |  +-- import?       empty
+          |  |           +--:(import-asn)
+          |  |              +-- import-asn
+          |  |                 +-- import* [asn-ip]
+          |  |                    +-- asn-ip?   ios-types:asn-ip-type
+          |  +-- vnet
+          |  |  +-- tag?   empty
+          |  +-- vpn
+          |     +-- id?   empty
+          +-- description?      string
+          +-- ipv4
+          |  +-- multicast
+          |     +-- multitopology?   empty
+          +-- ipv6
+          |  +-- multicast
+          |     +-- multitopology?   empty
+          +-- rd?               ios-types:asn-ip-type
+          +-- address-family
+          |  +-- ipv4!
+          |  |  +-- export
+          |  |  |  +-- map?    string
+          |  |  |  +-- ipv4
+          |  |  |     +-- ipv4-type?     enumeration
+          |  |  |     +-- upper-limit?   uint32
+          |  |  |     +-- map?           string
+          |  |  +-- maximum!
+          |  |  |  +-- routes?               uint32
+          |  |  |  +-- (maximum-choice)
+          |  |  |     +--:(threshold-case)
+          |  |  |     |  +-- threshold?      uint16
+          |  |  |     |  +-- reinstall?      uint16
+          |  |  |     +--:(warning-case)
+          |  |  |        +-- warning-only?   empty
+          |  |  +-- mdt
+          |  |  |  +-- default
+          |  |  |  |  +-- address?               inet:ipv4-address
+          |  |  |  |  +-- ingress-replication?   empty
+          |  |  |  |  +-- mpls
+          |  |  |  |  |  +-- mldp-config
+          |  |  |  |  |  |  +-- mp2mp-root-address*   inet:ipv4-address
+          |  |  |  |  |  |  +-- p2mp?                 empty
+          |  |  |  |  |  o-- mldp?          inet:ipv4-address
+          |  |  |  |  +-- vxlan?                 inet:ipv4-address
+          |  |  |  +-- auto-discovery
+          |  |  |  |  +-- (auto-discovery)?
+          |  |  |  |  |  +--:(pim-options)
+          |  |  |  |  |  |  +-- pim-options
+          |  |  |  |  |  |     +-- pim                 empty
+          |  |  |  |  |  |     +-- pim-tlv-announce?   empty
+          |  |  |  |  |  |     +-- mdt-hello-enable?   empty
+          |  |  |  |  |  +--:(ingress-replication)
+          |  |  |  |  |  |  +-- ingress-replication
+          |  |  |  |  |  |     +-- ingress-replication    empty
+          |  |  |  |  |  |     +-- inter-as?              empty
+          |  |  |  |  |  |     +-- mdt-hello-enable?      empty
+          |  |  |  |  |  +--:(mldp)
+          |  |  |  |  |  |  +-- mldp
+          |  |  |  |  |  |     +-- mldp                empty
+          |  |  |  |  |  |     +-- inter-as?           empty
+          |  |  |  |  |  |     +-- pim-tlv-announce?   empty
+          |  |  |  |  |  |     +-- mdt-hello-enable?   empty
+          |  |  |  |  |  +--:(vxlan)
+          |  |  |  |  |     +-- vxlan-config
+          |  |  |  |  |        +-- vxlan       empty
+          |  |  |  |  |        +-- inter-as?   empty
+          |  |  |  |  +-- receiver-site?               empty
+          |  |  |  |  x-- pim?                         empty
+          |  |  |  +-- data
+          |  |  |  |  +-- multicast* [address wildcard]
+          |  |  |  |  |  +-- address?    inet:ipv4-address
+          |  |  |  |  |  +-- wildcard?   inet:ipv4-address
+          |  |  |  |  |  +-- list?       ios-types:ext-acl-type
+          |  |  |  |  +-- list?                  ios-types:ext-acl-type
+          |  |  |  |  +-- threshold?             uint32
+          |  |  |  |  +-- mpls
+          |  |  |  |  |  +-- mldp
+          |  |  |  |  |     +-- default-scope
+          |  |  |  |  |     |  +-- mdt-instances?      uint16
+          |  |  |  |  |     |  +-- list?               ios-types:ext-acl-type
+          |  |  |  |  |     |  +-- immediate-switch?   empty
+          |  |  |  |  |     +-- user-defined-scope* [scope]
+          |  |  |  |  |        +-- mdt-instances?      uint16
+          |  |  |  |  |        +-- list?               ios-types:ext-acl-type
+          |  |  |  |  |        +-- scope?              uint8
+          |  |  |  |  |        +-- immediate-switch?   empty
+          |  |  |  |  +-- ingress-replication!
+          |  |  |  |     +-- mdt-instances?      uint16
+          |  |  |  |     +-- list?               ios-types:ext-acl-type
+          |  |  |  |     +-- immediate-switch?   empty
+          |  |  |  +-- direct?           empty
+          |  |  |  +-- log-reuse?        empty
+          |  |  |  +-- mtu?              uint16
+          |  |  |  +-- overlay
+          |  |  |  |  +-- use-bgp-config!
+          |  |  |  |  |  +-- spt-only?   empty
+          |  |  |  |  x-- use-bgp?          empty
+          |  |  |  |  +-- bgp
+          |  |  |  |     +-- shared-tree-prune-delay?   uint16
+          |  |  |  |     +-- source-tree-prune-delay?   uint16
+          |  |  |  +-- partitioned
+          |  |  |  |  +-- ingress-replication?   empty
+          |  |  |  |  +-- mldp?                  enumeration
+          |  |  |  +-- mdt-preference?   enumeration
+          |  |  |  o-- preference*       enumeration
+          |  |  |  +-- strict-rpf
+          |  |  |     +-- interface?   empty
+          |  |  +-- route-target
+          |  |  |  +-- export-route-target
+          |  |  |  |  +-- without-stitching* [asn-ip]
+          |  |  |  |  |  +-- asn-ip?   ios-types:asn-ip-type
+          |  |  |  |  +-- with-stitching* [asn-ip]
+          |  |  |  |     +-- asn-ip?      ios-types:asn-ip-type
+          |  |  |  |     +-- stitching    empty
+          |  |  |  +-- import-route-target
+          |  |  |  |  +-- without-stitching* [asn-ip]
+          |  |  |  |  |  +-- asn-ip?   ios-types:asn-ip-type
+          |  |  |  |  +-- with-stitching* [asn-ip]
+          |  |  |  |     +-- asn-ip?      ios-types:asn-ip-type
+          |  |  |  |     +-- stitching    empty
+          |  |  |  o-- export* [asn-ip]
+          |  |  |  |  o-- asn-ip?      ios-types:asn-ip-type
+          |  |  |  |  o-- stitching?   empty
+          |  |  |  o-- import* [asn-ip]
+          |  |  |     o-- asn-ip?      ios-types:asn-ip-type
+          |  |  |     o-- stitching?   empty
+          |  |  +-- bgp
+          |  |  |  +-- next-hop
+          |  |  |     +-- Loopback?   uint32
+          |  |  +-- import
+          |  |     +-- map?    string
+          |  |     +-- ipv4
+          |  |        +-- ipv4-type?     enumeration
+          |  |        +-- upper-limit?   uint32
+          |  |        +-- map?           string
+          |  +-- ipv6!
+          |     +-- mdt
+          |     |  +-- default
+          |     |  |  +-- address?               inet:ipv4-address
+          |     |  |  +-- ingress-replication?   empty
+          |     |  |  +-- mpls
+          |     |  |  |  +-- mldp-config
+          |     |  |  |  |  +-- mp2mp-root-address*   inet:ipv4-address
+          |     |  |  |  |  +-- p2mp?                 empty
+          |     |  |  |  o-- mldp?          inet:ipv4-address
+          |     |  |  +-- vxlan?                 inet:ipv4-address
+          |     |  +-- auto-discovery
+          |     |  |  +-- (auto-discovery)?
+          |     |  |  |  +--:(pim-options)
+          |     |  |  |  |  +-- pim-options
+          |     |  |  |  |     +-- pim                 empty
+          |     |  |  |  |     +-- pim-tlv-announce?   empty
+          |     |  |  |  |     +-- mdt-hello-enable?   empty
+          |     |  |  |  +--:(ingress-replication)
+          |     |  |  |  |  +-- ingress-replication
+          |     |  |  |  |     +-- ingress-replication    empty
+          |     |  |  |  |     +-- inter-as?              empty
+          |     |  |  |  |     +-- mdt-hello-enable?      empty
+          |     |  |  |  +--:(mldp)
+          |     |  |  |  |  +-- mldp
+          |     |  |  |  |     +-- mldp                empty
+          |     |  |  |  |     +-- inter-as?           empty
+          |     |  |  |  |     +-- pim-tlv-announce?   empty
+          |     |  |  |  |     +-- mdt-hello-enable?   empty
+          |     |  |  |  +--:(vxlan)
+          |     |  |  |     +-- vxlan-config
+          |     |  |  |        +-- vxlan       empty
+          |     |  |  |        +-- inter-as?   empty
+          |     |  |  +-- receiver-site?               empty
+          |     |  |  x-- pim?                         empty
+          |     |  +-- data
+          |     |  |  +-- multicast* [address wildcard]
+          |     |  |  |  +-- address?    inet:ipv4-address
+          |     |  |  |  +-- wildcard?   inet:ipv4-address
+          |     |  |  |  +-- list?       ios-types:ext-acl-type
+          |     |  |  +-- list?                  ios-types:ext-acl-type
+          |     |  |  +-- threshold?             uint32
+          |     |  |  +-- mpls
+          |     |  |  |  +-- mldp
+          |     |  |  |     +-- default-scope
+          |     |  |  |     |  +-- mdt-instances?      uint16
+          |     |  |  |     |  +-- list?               ios-types:ext-acl-type
+          |     |  |  |     |  +-- immediate-switch?   empty
+          |     |  |  |     +-- user-defined-scope* [scope]
+          |     |  |  |        +-- mdt-instances?      uint16
+          |     |  |  |        +-- list?               ios-types:ext-acl-type
+          |     |  |  |        +-- scope?              uint8
+          |     |  |  |        +-- immediate-switch?   empty
+          |     |  |  +-- ingress-replication!
+          |     |  |     +-- mdt-instances?      uint16
+          |     |  |     +-- list?               ios-types:ext-acl-type
+          |     |  |     +-- immediate-switch?   empty
+          |     |  +-- direct?           empty
+          |     |  +-- log-reuse?        empty
+          |     |  +-- mtu?              uint16
+          |     |  +-- overlay
+          |     |  |  +-- use-bgp-config!
+          |     |  |  |  +-- spt-only?   empty
+          |     |  |  x-- use-bgp?          empty
+          |     |  |  +-- bgp
+          |     |  |     +-- shared-tree-prune-delay?   uint16
+          |     |  |     +-- source-tree-prune-delay?   uint16
+          |     |  +-- partitioned
+          |     |  |  +-- ingress-replication?   empty
+          |     |  |  +-- mldp?                  enumeration
+          |     |  +-- mdt-preference?   enumeration
+          |     |  o-- preference*       enumeration
+          |     |  +-- strict-rpf
+          |     |     +-- interface?   empty
+          |     +-- route-target
+          |     |  +-- export-route-target
+          |     |  |  +-- without-stitching* [asn-ip]
+          |     |  |  |  +-- asn-ip?   ios-types:asn-ip-type
+          |     |  |  +-- with-stitching* [asn-ip]
+          |     |  |     +-- asn-ip?      ios-types:asn-ip-type
+          |     |  |     +-- stitching    empty
+          |     |  +-- import-route-target
+          |     |  |  +-- without-stitching* [asn-ip]
+          |     |  |  |  +-- asn-ip?   ios-types:asn-ip-type
+          |     |  |  +-- with-stitching* [asn-ip]
+          |     |  |     +-- asn-ip?      ios-types:asn-ip-type
+          |     |  |     +-- stitching    empty
+          |     |  o-- export* [asn-ip]
+          |     |  |  o-- asn-ip?      ios-types:asn-ip-type
+          |     |  |  o-- stitching?   empty
+          |     |  o-- import* [asn-ip]
+          |     |     o-- asn-ip?      ios-types:asn-ip-type
+          |     |     o-- stitching?   empty
+          |     +-- bgp
+          |     |  +-- next-hop
+          |     |     +-- (ipv4-ipv6)?
+          |     |        +--:(ipv4)
+          |     |        |  +-- ipv4
+          |     |        |     +-- Loopback?   uint32
+          |     |        +--:(ipv6)
+          |     |           +-- ipv6
+          |     |              +-- Loopback?   uint32
+          |     +-- import
+          |     |  +-- map?    string
+          |     |  +-- ipv6
+          |     |     +-- ipv6-type?     enumeration
+          |     |     +-- upper-limit?   uint32
+          |     |     +-- map?           string
+          |     +-- export
+          |        +-- map?    string
+          |        +-- ipv6
+          |           +-- ipv6-type?     enumeration
+          |           +-- upper-limit?   uint32
+          |           +-- map?           string
+          +-- route-target
+          |  +-- export* [asn-ip]
+          |  |  +-- asn-ip?      ios-types:asn-ip-type
+          |  |  +-- stitching?   empty
+          |  +-- import* [asn-ip]
+          |     +-- asn-ip?      ios-types:asn-ip-type
+          |     +-- stitching?   empty
+          +-- vnet
+          |  +-- tag?   uint16
+          +-- vpn
+             +-- id?   vpn-id-type
+  grouping password-grouping
+    +-- password-container
+       +-- encryption?   uint8
+       +-- password?     string
+  grouping ip-route-static-bfd-group-grouping
+    +-- group?         string
+    +-- passive?       empty
+    +-- log?           empty
+    +-- unassociate?   empty
+  grouping ip-route-static-bfd-ip-grouping
+    +-- multihop* [destination_ip]
+       +-- destination_ip?   inet:ipv4-address
+       +-- vrf* [name source_ip]
+       |  +-- name?          string
+       |  +-- source_ip?     inet:ipv4-address
+       |  +-- group?         string
+       |  +-- passive?       empty
+       |  +-- log?           empty
+       |  +-- unassociate?   empty
+       +-- source_ip* [ip]
+          +-- ip?            inet:ipv4-address
+          +-- group?         string
+          +-- passive?       empty
+          +-- log?           empty
+          +-- unassociate?   empty
+  grouping ip-route-dhcp-grouping
+    +-- dhcp?   empty
+  grouping ip-route-dhcp-only-options-grouping
+    +-- dhcp?     empty
+    +-- metric?   uint8
+  grouping ip-route-options-grouping
+    +-- metric?      uint8
+    +-- global?      empty
+    +-- name?        string
+    +-- permanent?   empty
+    +-- multicast?   empty
+    +-- tag?         uint32
+    +-- track?       uint16
+  grouping ip-route-grouping-min-elements
+    +-- ip-route-interface-forwarding-list* [prefix mask]
+       +-- prefix?     inet:ipv4-address
+       +-- mask?       inet:ipv4-address
+       +-- dhcp?       empty
+       +-- metric?     uint8
+       +-- fwd-list* [fwd]
+          +-- fwd?                  union
+          +-- interface-next-hop* [ip-address]
+          |  +-- ip-address?   inet:ipv4-address
+          |  +-- metric?       uint8
+          |  +-- global?       empty
+          |  +-- name?         string
+          |  +-- permanent?    empty
+          |  +-- multicast?    empty
+          |  +-- tag?          uint32
+          |  +-- track?        uint16
+          +-- metric?               uint8
+          +-- global?               empty
+          +-- name?                 string
+          +-- permanent?            empty
+          +-- multicast?            empty
+          +-- tag?                  uint32
+          +-- track?                uint16
+  grouping ip-route-grouping
+    +-- ip-route-interface-forwarding-list* [prefix mask]
+       +-- prefix?     inet:ipv4-address
+       +-- mask?       inet:ipv4-address
+       +-- dhcp?       empty
+       +-- metric?     uint8
+       +-- fwd-list* [fwd]
+          +-- fwd?                  union
+          +-- interface-next-hop* [ip-address]
+          |  +-- ip-address?   inet:ipv4-address
+          |  +-- metric?       uint8
+          |  +-- global?       empty
+          |  +-- name?         string
+          |  +-- permanent?    empty
+          |  +-- multicast?    empty
+          |  +-- tag?          uint32
+          |  +-- track?        uint16
+          +-- dhcp?                 empty
+          +-- metric?               uint8
+          +-- global?               empty
+          +-- name?                 string
+          +-- permanent?            empty
+          +-- multicast?            empty
+          +-- tag?                  uint32
+          +-- track?                uint16
+  grouping ip-exp-path-mode-cfg-grouping
+    +-- index* [idx]
+       +-- idx?                     uint32
+       +-- (ip-exp-path-option)?
+          +--:(next-address)
+          |  +-- next-address
+          |     +-- loose?   empty
+          |     +-- ipv4?    inet:ipv4-address
+          +--:(next-label)
+          |  +-- next-label?        uint32
+          +--:(exclude-address)
+          |  +-- exclude-address?   inet:ipv4-address
+          +--:(exclude-srlg)
+             +-- exclude-srlg?      inet:ipv4-address
+  grouping config-ip-ssh-algorithm-grouping
+    +-- algorithm
+       +-- encryption
+          +-- aes128-ctr?   empty
+          +-- aes192-ctr?   empty
+          +-- aes256-ctr?   empty
+  grouping config-ip-grouping
+    +-- ip
+       +-- ospf
+       |  +-- name-lookup?   empty
+       +-- admission
+       |  +-- watch-list
+       |  |  +-- expiry-time?   uint16
+       |  +-- name
+       |     +-- webauth
+       |        +-- proxy
+       |           +-- http?   empty
+       +-- arp
+       |  +-- incomplete
+       |  |  +-- entries?   uint32
+       |  +-- inspection
+       |  |  +-- filter* [arpacl]
+       |  |  |  +-- arpacl?   string
+       |  |  |  +-- vlan* [vlan-range]
+       |  |  |     +-- vlan-range?   string
+       |  |  |     +-- static?       empty
+       |  |  +-- validate
+       |  |  |  +-- src-mac?   empty
+       |  |  |  +-- dst-mac?   empty
+       |  |  |  +-- ip?        empty
+       |  |  |  +-- allow
+       |  |  |     +-- zeros?   empty
+       |  |  +-- log-buffer
+       |  |  |  +-- entries?   uint16
+       |  |  |  +-- logs
+       |  |  |     +-- entries?    uint16
+       |  |  |     +-- interval?   uint32
+       |  |  +-- vlan?         string
+       |  +-- proxy
+       |  |  +-- disable?   empty
+       |  +-- entry
+       |     +-- learn?   uint32
+       o-- domain-list
+       |  o-- domain-name?   string
+       |  o-- vrf
+       |     o-- vrf-name?      string
+       |     o-- domain-name?   string
+       +-- finger!
+       +-- rcmd
+       |  +-- rcp-enable?   empty
+       |  +-- rsh-enable?   empty
+       +-- subnet-zero?            boolean
+       +-- bgp-community
+       |  +-- new-format?   empty
+       +-- host-routing?           empty
+       +-- vrf* [name]
+       |  +-- name?           string
+       |  +-- bgp
+       |  |  +-- next-hop
+       |  |     +-- Loopback?   uint32
+       |  +-- context?        string
+       |  +-- description?    string
+       |  +-- rd?             rd-type
+       |  +-- export
+       |  |  +-- map?    string
+       |  |  +-- ipv4
+       |  |     +-- ipv4-type?           enumeration
+       |  |     +-- (map-choice)?
+       |  |        +--:(upper-limit-case)
+       |  |        |  +-- upper-limit?   uint32
+       |  |        |  +-- map?           string
+       |  |        +--:(map-only-case)
+       |  |           +-- map-only?      string
+       |  +-- import
+       |  |  +-- (import-choice)?
+       |  |     +--:(map)
+       |  |     |  +-- map?    string
+       |  |     +--:(ipv4)
+       |  |        +-- ipv4
+       |  |           +-- ipv4-type?     enumeration
+       |  |           +-- upper-limit?   uint32
+       |  |           +-- map?           string
+       |  +-- maximum!
+       |  |  +-- routes?               uint32
+       |  |  +-- (maximum-choice)
+       |  |     +--:(threshold-case)
+       |  |     |  +-- threshold?      uint16
+       |  |     |  +-- reinstall?      uint16
+       |  |     +--:(warning-case)
+       |  |        +-- warning-only?   empty
+       |  +-- mdt!
+       |  |  +-- default?     inet:ipv4-address
+       |  |  +-- log-reuse?   empty
+       |  |  +-- data
+       |  |     +-- mulicast-address?       inet:ipv4-address
+       |  |     +-- wildcard-bits?          inet:ipv4-address
+       |  |     +-- (mdt-data-choice)?
+       |  |        +--:(mdt-data-threshold)
+       |  |        |  +-- threshold?        uint32
+       |  |        |  +-- threshold-list?   mdt-data-list-type
+       |  |        +--:(mdt-data-list)
+       |  |           +-- list?             mdt-data-list-type
+       |  +-- route-target* [direction target]
+       |  |  +-- direction?   enumeration
+       |  |  +-- target?      rd-type
+       |  +-- vpn
+       |     +-- id?   vpn-id-type
+       +-- as-path
+       +-- local
+       |  +-- policy
+       |  |  +-- route-map?   string
+       |  +-- pool* [id]
+       |     +-- id?      union
+       |     +-- start?   inet:ipv4-address
+       |     +-- last?    inet:ipv4-address
+       |     +-- group?   string
+       +-- cef!
+       +-- classless?              empty
+       +-- domain
+       |  +-- list
+       |  |  +-- domain-name*   string
+       |  |  +-- vrf
+       |  |     +-- vrf-name?      string
+       |  |     +-- domain-name?   string
+       |  +-- lookup?             boolean
+       |  +-- lookup-settings
+       |  |  +-- lookup
+       |  |  |  +-- nsap?               empty
+       |  |  |  +-- recursive?          empty
+       |  |  |  +-- vrf* [vrf-name]
+       |  |  |  |  +-- vrf-name?           string
+       |  |  |  |  +-- source-interface
+       |  |  |  |     +-- (interface-choice)?
+       |  |  |  |        +--:(AppNav-Compress)
+       |  |  |  |        |  +-- AppNav-Compress?             uint16
+       |  |  |  |        +--:(AppNav-UnCompress)
+       |  |  |  |        |  +-- AppNav-UnCompress?           uint16
+       |  |  |  |        +--:(ATM)
+       |  |  |  |        |  +-- ATM?                         string
+       |  |  |  |        +--:(ATM-subinterface)
+       |  |  |  |        |  +-- ATM-subinterface
+       |  |  |  |        |     +-- ATM?   string
+       |  |  |  |        +--:(ATM-ACR)
+       |  |  |  |        |  +-- ATM-ACR?                     string
+       |  |  |  |        +--:(ATM-ACRsubinterface)
+       |  |  |  |        |  +-- ATM-ACRsubinterface
+       |  |  |  |        |     +-- ATM-ACR?   string
+       |  |  |  |        +--:(BDI)
+       |  |  |  |        |  +-- BDI?                         string
+       |  |  |  |        +--:(CEM)
+       |  |  |  |        |  +-- CEM?                         string
+       |  |  |  |        +--:(CEM-ACR)
+       |  |  |  |        |  +-- CEM-ACR?                     uint8
+       |  |  |  |        +--:(Embedded-Service-Engine)
+       |  |  |  |        |  +-- Embedded-Service-Engine?     string
+       |  |  |  |        +--:(Ethernet)
+       |  |  |  |        |  +-- Ethernet?                    string
+       |  |  |  |        +--:(FastEthernet)
+       |  |  |  |        |  +-- FastEthernet?                string
+       |  |  |  |        +--:(GigabitEthernet)
+       |  |  |  |        |  +-- GigabitEthernet?             string
+       |  |  |  |        +--:(FiveGigabitEthernet)
+       |  |  |  |        |  +-- FiveGigabitEthernet?         string
+       |  |  |  |        +--:(AppGigabitEthernet)
+       |  |  |  |        |  +-- AppGigabitEthernet?          string
+       |  |  |  |        +--:(TwentyFiveGigabitEthernet)
+       |  |  |  |        |  o-- TwentyFiveGigabitEthernet?   string
+       |  |  |  |        +--:(TwentyFiveGigE)
+       |  |  |  |        |  +-- TwentyFiveGigE?              string
+       |  |  |  |        +--:(TwoGigabitEthernet)
+       |  |  |  |        |  +-- TwoGigabitEthernet?          string
+       |  |  |  |        +--:(FortyGigabitEthernet)
+       |  |  |  |        |  +-- FortyGigabitEthernet?        string
+       |  |  |  |        +--:(HundredGigE)
+       |  |  |  |        |  +-- HundredGigE?                 string
+       |  |  |  |        +--:(LISP)
+       |  |  |  |        |  +-- LISP?                        string
+       |  |  |  |        +--:(LISP-subinterface)
+       |  |  |  |        |  +-- LISP-subinterface
+       |  |  |  |        |     +-- LISP?   string
+       |  |  |  |        +--:(Loopback)
+       |  |  |  |        |  +-- Loopback?                    uint32
+       |  |  |  |        +--:(Multilink)
+       |  |  |  |        |  +-- Multilink?                   uint16
+       |  |  |  |        +--:(nve)
+       |  |  |  |        |  +-- nve?                         uint16
+       |  |  |  |        +--:(overlay)
+       |  |  |  |        |  +-- overlay?                     uint16
+       |  |  |  |        +--:(Port-channel)
+       |  |  |  |        |  +-- Port-channel?                uint32
+       |  |  |  |        +--:(Port-channel-subinterface)
+       |  |  |  |        |  +-- Port-channel-subinterface
+       |  |  |  |        |     +-- Port-channel?   string
+       |  |  |  |        +--:(pseudowire)
+       |  |  |  |        |  +-- pseudowire?                  uint32
+       |  |  |  |        +--:(SM)
+       |  |  |  |        |  +-- SM?                          string
+       |  |  |  |        +--:(Cellular)
+       |  |  |  |        |  +-- Cellular?                    string
+       |  |  |  |        +--:(Dialer)
+       |  |  |  |        |  +-- Dialer?                      string
+       |  |  |  |        +--:(Serial)
+       |  |  |  |        |  +-- Serial?                      string
+       |  |  |  |        +--:(Async)
+       |  |  |  |        |  +-- Async?                       string
+       |  |  |  |        +--:(TenGigabitEthernet)
+       |  |  |  |        |  +-- TenGigabitEthernet?          string
+       |  |  |  |        +--:(Tunnel)
+       |  |  |  |        |  +-- Tunnel?                      uint32
+       |  |  |  |        +--:(Virtual-Template)
+       |  |  |  |        |  +-- Virtual-Template?            uint16
+       |  |  |  |        +--:(Vlan)
+       |  |  |  |        |  +-- Vlan?                        uint16
+       |  |  |  |        +--:(VirtualPortGroup)
+       |  |  |  |        |  +-- VirtualPortGroup?            uint16
+       |  |  |  |        +--:(vasileft)
+       |  |  |  |        |  +-- vasileft?                    uint16
+       |  |  |  |        +--:(vasiright)
+       |  |  |  |        |  +-- vasiright?                   uint16
+       |  |  |  |        +--:(BD-VIF)
+       |  |  |  |           +-- BD-VIF?                      string
+       |  |  |  +-- source-interface
+       |  |  |     +-- (interface-choice)?
+       |  |  |        +--:(AppNav-Compress)
+       |  |  |        |  +-- AppNav-Compress?             uint16
+       |  |  |        +--:(AppNav-UnCompress)
+       |  |  |        |  +-- AppNav-UnCompress?           uint16
+       |  |  |        +--:(ATM)
+       |  |  |        |  +-- ATM?                         string
+       |  |  |        +--:(ATM-subinterface)
+       |  |  |        |  +-- ATM-subinterface
+       |  |  |        |     +-- ATM?   string
+       |  |  |        +--:(ATM-ACR)
+       |  |  |        |  +-- ATM-ACR?                     string
+       |  |  |        +--:(ATM-ACRsubinterface)
+       |  |  |        |  +-- ATM-ACRsubinterface
+       |  |  |        |     +-- ATM-ACR?   string
+       |  |  |        +--:(BDI)
+       |  |  |        |  +-- BDI?                         string
+       |  |  |        +--:(CEM)
+       |  |  |        |  +-- CEM?                         string
+       |  |  |        +--:(CEM-ACR)
+       |  |  |        |  +-- CEM-ACR?                     uint8
+       |  |  |        +--:(Embedded-Service-Engine)
+       |  |  |        |  +-- Embedded-Service-Engine?     string
+       |  |  |        +--:(Ethernet)
+       |  |  |        |  +-- Ethernet?                    string
+       |  |  |        +--:(FastEthernet)
+       |  |  |        |  +-- FastEthernet?                string
+       |  |  |        +--:(GigabitEthernet)
+       |  |  |        |  +-- GigabitEthernet?             string
+       |  |  |        +--:(FiveGigabitEthernet)
+       |  |  |        |  +-- FiveGigabitEthernet?         string
+       |  |  |        +--:(AppGigabitEthernet)
+       |  |  |        |  +-- AppGigabitEthernet?          string
+       |  |  |        +--:(TwentyFiveGigabitEthernet)
+       |  |  |        |  o-- TwentyFiveGigabitEthernet?   string
+       |  |  |        +--:(TwentyFiveGigE)
+       |  |  |        |  +-- TwentyFiveGigE?              string
+       |  |  |        +--:(TwoGigabitEthernet)
+       |  |  |        |  +-- TwoGigabitEthernet?          string
+       |  |  |        +--:(FortyGigabitEthernet)
+       |  |  |        |  +-- FortyGigabitEthernet?        string
+       |  |  |        +--:(HundredGigE)
+       |  |  |        |  +-- HundredGigE?                 string
+       |  |  |        +--:(LISP)
+       |  |  |        |  +-- LISP?                        string
+       |  |  |        +--:(LISP-subinterface)
+       |  |  |        |  +-- LISP-subinterface
+       |  |  |        |     +-- LISP?   string
+       |  |  |        +--:(Loopback)
+       |  |  |        |  +-- Loopback?                    uint32
+       |  |  |        +--:(Multilink)
+       |  |  |        |  +-- Multilink?                   uint16
+       |  |  |        +--:(nve)
+       |  |  |        |  +-- nve?                         uint16
+       |  |  |        +--:(overlay)
+       |  |  |        |  +-- overlay?                     uint16
+       |  |  |        +--:(Port-channel)
+       |  |  |        |  +-- Port-channel?                uint32
+       |  |  |        +--:(Port-channel-subinterface)
+       |  |  |        |  +-- Port-channel-subinterface
+       |  |  |        |     +-- Port-channel?   string
+       |  |  |        +--:(pseudowire)
+       |  |  |        |  +-- pseudowire?                  uint32
+       |  |  |        +--:(SM)
+       |  |  |        |  +-- SM?                          string
+       |  |  |        +--:(Cellular)
+       |  |  |        |  +-- Cellular?                    string
+       |  |  |        +--:(Dialer)
+       |  |  |        |  +-- Dialer?                      string
+       |  |  |        +--:(Serial)
+       |  |  |        |  +-- Serial?                      string
+       |  |  |        +--:(Async)
+       |  |  |        |  +-- Async?                       string
+       |  |  |        +--:(TenGigabitEthernet)
+       |  |  |        |  +-- TenGigabitEthernet?          string
+       |  |  |        +--:(Tunnel)
+       |  |  |        |  +-- Tunnel?                      uint32
+       |  |  |        +--:(Virtual-Template)
+       |  |  |        |  +-- Virtual-Template?            uint16
+       |  |  |        +--:(Vlan)
+       |  |  |        |  +-- Vlan?                        uint16
+       |  |  |        +--:(VirtualPortGroup)
+       |  |  |        |  +-- VirtualPortGroup?            uint16
+       |  |  |        +--:(vasileft)
+       |  |  |        |  +-- vasileft?                    uint16
+       |  |  |        +--:(vasiright)
+       |  |  |        |  +-- vasiright?                   uint16
+       |  |  |        +--:(BD-VIF)
+       |  |  |           +-- BD-VIF?                      string
+       |  |  +-- name?     string
+       |  +-- name?               string
+       |  +-- periodic-resolve?   uint32
+       |  +-- timeout?            uint16
+       o-- domain-lookup-conf
+       |  o-- domain-lookup?   boolean
+       o-- domain-lookup!
+       |  o-- nsap?               empty
+       |  o-- source-interface
+       |     +-- (interface-choice)?
+       |        +--:(AppNav-Compress)
+       |        |  +-- AppNav-Compress?             uint16
+       |        +--:(AppNav-UnCompress)
+       |        |  +-- AppNav-UnCompress?           uint16
+       |        +--:(ATM)
+       |        |  +-- ATM?                         string
+       |        +--:(ATM-subinterface)
+       |        |  +-- ATM-subinterface
+       |        |     +-- ATM?   string
+       |        +--:(ATM-ACR)
+       |        |  +-- ATM-ACR?                     string
+       |        +--:(ATM-ACRsubinterface)
+       |        |  +-- ATM-ACRsubinterface
+       |        |     +-- ATM-ACR?   string
+       |        +--:(BDI)
+       |        |  +-- BDI?                         string
+       |        +--:(CEM)
+       |        |  +-- CEM?                         string
+       |        +--:(CEM-ACR)
+       |        |  +-- CEM-ACR?                     uint8
+       |        +--:(Embedded-Service-Engine)
+       |        |  +-- Embedded-Service-Engine?     string
+       |        +--:(Ethernet)
+       |        |  +-- Ethernet?                    string
+       |        +--:(FastEthernet)
+       |        |  +-- FastEthernet?                string
+       |        +--:(GigabitEthernet)
+       |        |  +-- GigabitEthernet?             string
+       |        +--:(FiveGigabitEthernet)
+       |        |  +-- FiveGigabitEthernet?         string
+       |        +--:(AppGigabitEthernet)
+       |        |  +-- AppGigabitEthernet?          string
+       |        +--:(TwentyFiveGigabitEthernet)
+       |        |  o-- TwentyFiveGigabitEthernet?   string
+       |        +--:(TwentyFiveGigE)
+       |        |  +-- TwentyFiveGigE?              string
+       |        +--:(TwoGigabitEthernet)
+       |        |  +-- TwoGigabitEthernet?          string
+       |        +--:(FortyGigabitEthernet)
+       |        |  +-- FortyGigabitEthernet?        string
+       |        +--:(HundredGigE)
+       |        |  +-- HundredGigE?                 string
+       |        +--:(LISP)
+       |        |  +-- LISP?                        string
+       |        +--:(LISP-subinterface)
+       |        |  +-- LISP-subinterface
+       |        |     +-- LISP?   string
+       |        +--:(Loopback)
+       |        |  +-- Loopback?                    uint32
+       |        +--:(Multilink)
+       |        |  +-- Multilink?                   uint16
+       |        +--:(nve)
+       |        |  +-- nve?                         uint16
+       |        +--:(overlay)
+       |        |  +-- overlay?                     uint16
+       |        +--:(Port-channel)
+       |        |  +-- Port-channel?                uint32
+       |        +--:(Port-channel-subinterface)
+       |        |  +-- Port-channel-subinterface
+       |        |     +-- Port-channel?   string
+       |        +--:(pseudowire)
+       |        |  +-- pseudowire?                  uint32
+       |        +--:(SM)
+       |        |  +-- SM?                          string
+       |        +--:(Cellular)
+       |        |  +-- Cellular?                    string
+       |        +--:(Dialer)
+       |        |  +-- Dialer?                      string
+       |        +--:(Serial)
+       |        |  +-- Serial?                      string
+       |        +--:(Async)
+       |        |  +-- Async?                       string
+       |        +--:(TenGigabitEthernet)
+       |        |  +-- TenGigabitEthernet?          string
+       |        +--:(Tunnel)
+       |        |  +-- Tunnel?                      uint32
+       |        +--:(Virtual-Template)
+       |        |  +-- Virtual-Template?            uint16
+       |        +--:(Vlan)
+       |        |  +-- Vlan?                        uint16
+       |        +--:(VirtualPortGroup)
+       |        |  +-- VirtualPortGroup?            uint16
+       |        +--:(vasileft)
+       |        |  +-- vasileft?                    uint16
+       |        +--:(vasiright)
+       |        |  +-- vasiright?                   uint16
+       |        +--:(BD-VIF)
+       |           +-- BD-VIF?                      string
+       +-- dns
+       |  +-- server!
+       +-- default-gateway?        inet:ipv4-address
+       +-- dhcp
+       +-- forward-protocol
+       |  +-- (protocol-choice)?
+       |     +--:(protocol)
+       |     |  +-- protocol?        enumeration
+       |     +--:(spanning-tree)
+       |     |  +-- spanning-tree!
+       |     |     +-- any-local-broadcast?   empty
+       |     +--:(udp)
+       |        +-- udp
+       |           +-- biff?            boolean
+       |           +-- bootpc?          boolean
+       |           +-- bootps?          boolean
+       |           +-- discard?         boolean
+       |           +-- dnsix?           boolean
+       |           +-- domain?          boolean
+       |           +-- echo?            boolean
+       |           +-- isakmp?          boolean
+       |           +-- mobile-ip?       boolean
+       |           +-- nameserver?      boolean
+       |           +-- netbios-dgm?     boolean
+       |           +-- netbios-ns?      boolean
+       |           +-- netbios-ss?      boolean
+       |           +-- non500-isakmp?   boolean
+       |           +-- ntp?             boolean
+       |           +-- pim-auto-rp?     boolean
+       |           +-- rip?             boolean
+       |           +-- snmp?            boolean
+       |           +-- snmptrap?        boolean
+       |           +-- sunrpc?          boolean
+       |           +-- syslog?          boolean
+       |           +-- tacacs?          boolean
+       |           +-- talk?            boolean
+       |           +-- tftp?            boolean
+       |           +-- time?            boolean
+       |           +-- who?             boolean
+       |           +-- xdmcp?           boolean
+       +-- gratuitous-arps-conf
+       |  +-- gratuitous-arps?   boolean
+       +-- ftp
+       |  +-- source-interface
+       |  |  +-- (interface-choice)?
+       |  |     +--:(AppNav-Compress)
+       |  |     |  +-- AppNav-Compress?             uint16
+       |  |     +--:(AppNav-UnCompress)
+       |  |     |  +-- AppNav-UnCompress?           uint16
+       |  |     +--:(ATM)
+       |  |     |  +-- ATM?                         string
+       |  |     +--:(ATM-subinterface)
+       |  |     |  +-- ATM-subinterface
+       |  |     |     +-- ATM?   string
+       |  |     +--:(ATM-ACR)
+       |  |     |  +-- ATM-ACR?                     string
+       |  |     +--:(ATM-ACRsubinterface)
+       |  |     |  +-- ATM-ACRsubinterface
+       |  |     |     +-- ATM-ACR?   string
+       |  |     +--:(BDI)
+       |  |     |  +-- BDI?                         string
+       |  |     +--:(CEM)
+       |  |     |  +-- CEM?                         string
+       |  |     +--:(CEM-ACR)
+       |  |     |  +-- CEM-ACR?                     uint8
+       |  |     +--:(Embedded-Service-Engine)
+       |  |     |  +-- Embedded-Service-Engine?     string
+       |  |     +--:(Ethernet)
+       |  |     |  +-- Ethernet?                    string
+       |  |     +--:(FastEthernet)
+       |  |     |  +-- FastEthernet?                string
+       |  |     +--:(GigabitEthernet)
+       |  |     |  +-- GigabitEthernet?             string
+       |  |     +--:(FiveGigabitEthernet)
+       |  |     |  +-- FiveGigabitEthernet?         string
+       |  |     +--:(AppGigabitEthernet)
+       |  |     |  +-- AppGigabitEthernet?          string
+       |  |     +--:(TwentyFiveGigabitEthernet)
+       |  |     |  o-- TwentyFiveGigabitEthernet?   string
+       |  |     +--:(TwentyFiveGigE)
+       |  |     |  +-- TwentyFiveGigE?              string
+       |  |     +--:(TwoGigabitEthernet)
+       |  |     |  +-- TwoGigabitEthernet?          string
+       |  |     +--:(FortyGigabitEthernet)
+       |  |     |  +-- FortyGigabitEthernet?        string
+       |  |     +--:(HundredGigE)
+       |  |     |  +-- HundredGigE?                 string
+       |  |     +--:(LISP)
+       |  |     |  +-- LISP?                        string
+       |  |     +--:(LISP-subinterface)
+       |  |     |  +-- LISP-subinterface
+       |  |     |     +-- LISP?   string
+       |  |     +--:(Loopback)
+       |  |     |  +-- Loopback?                    uint32
+       |  |     +--:(Multilink)
+       |  |     |  +-- Multilink?                   uint16
+       |  |     +--:(nve)
+       |  |     |  +-- nve?                         uint16
+       |  |     +--:(overlay)
+       |  |     |  +-- overlay?                     uint16
+       |  |     +--:(Port-channel)
+       |  |     |  +-- Port-channel?                uint32
+       |  |     +--:(Port-channel-subinterface)
+       |  |     |  +-- Port-channel-subinterface
+       |  |     |     +-- Port-channel?   string
+       |  |     +--:(pseudowire)
+       |  |     |  +-- pseudowire?                  uint32
+       |  |     +--:(SM)
+       |  |     |  +-- SM?                          string
+       |  |     +--:(Cellular)
+       |  |     |  +-- Cellular?                    string
+       |  |     +--:(Dialer)
+       |  |     |  +-- Dialer?                      string
+       |  |     +--:(Serial)
+       |  |     |  +-- Serial?                      string
+       |  |     +--:(Async)
+       |  |     |  +-- Async?                       string
+       |  |     +--:(TenGigabitEthernet)
+       |  |     |  +-- TenGigabitEthernet?          string
+       |  |     +--:(Tunnel)
+       |  |     |  +-- Tunnel?                      uint32
+       |  |     +--:(Virtual-Template)
+       |  |     |  +-- Virtual-Template?            uint16
+       |  |     +--:(Vlan)
+       |  |     |  +-- Vlan?                        uint16
+       |  |     +--:(VirtualPortGroup)
+       |  |     |  +-- VirtualPortGroup?            uint16
+       |  |     +--:(vasileft)
+       |  |     |  +-- vasileft?                    uint16
+       |  |     +--:(vasiright)
+       |  |     |  +-- vasiright?                   uint16
+       |  |     +--:(BD-VIF)
+       |  |        +-- BD-VIF?                      string
+       |  +-- passive?            empty
+       |  +-- password
+       |  |  +-- password-container
+       |  |     +-- encryption?   uint8
+       |  |     +-- password?     string
+       |  +-- username?           string
+       +-- telnet
+       |  +-- source-interface?   string
+       +-- host
+       |  +-- host-list* [name]
+       |  |  +-- name?      string
+       |  |  +-- ip-list*   inet:ip-address
+       |  +-- vrf* [vrf-name]
+       |     +-- vrf-name?    string
+       |     +-- host-name* [host-name]
+       |        +-- host-name?   string
+       |        +-- ip-list*     inet:ip-address
+       +-- multicast
+       +-- name-server
+       |  +-- no-vrf*   union
+       |  +-- vrf* [word]
+       |     +-- word?             string
+       |     +-- server-ip-list*   union
+       |     x-- server-ip?        union
+       +-- pim
+       +-- prefix-lists
+       |  +-- prefixes* [name no]
+       |  |  +-- name?     string
+       |  |  +-- no?       uint32
+       |  |  +-- action?   enumeration
+       |  |  +-- ip?       inet:ipv4-prefix
+       |  |  +-- ge?       uint8
+       |  |  +-- le?       uint8
+       |  +-- prefix-list-description* [name]
+       |  |  +-- name?          string
+       |  |  +-- description?   string
+       |  +-- sequence-number?           empty
+       x-- prefix-list
+       |  x-- prefixes* [name]
+       |  |  x-- name?          string
+       |  |  x-- description?   string
+       |  |  x-- seq* [no]
+       |  |     x-- no?       uint32
+       |  |     x-- action?   enumeration
+       |  |     x-- ip?       inet:ipv4-prefix
+       |  |     x-- ge?       uint8
+       |  |     x-- le?       uint8
+       |  x-- sequence-number?   empty
+       +-- route
+       |  +-- ip-route-interface-forwarding-list* [prefix mask]
+       |  |  +-- prefix?     inet:ipv4-address
+       |  |  +-- mask?       inet:ipv4-address
+       |  |  +-- dhcp?       empty
+       |  |  +-- metric?     uint8
+       |  |  +-- fwd-list* [fwd]
+       |  |     +-- fwd?                  union
+       |  |     +-- interface-next-hop* [ip-address]
+       |  |     |  +-- ip-address?   inet:ipv4-address
+       |  |     |  +-- metric?       uint8
+       |  |     |  +-- global?       empty
+       |  |     |  +-- name?         string
+       |  |     |  +-- permanent?    empty
+       |  |     |  +-- multicast?    empty
+       |  |     |  +-- tag?          uint32
+       |  |     |  +-- track?        uint16
+       |  |     +-- dhcp?                 empty
+       |  |     +-- metric?               uint8
+       |  |     +-- global?               empty
+       |  |     +-- name?                 string
+       |  |     +-- permanent?            empty
+       |  |     +-- multicast?            empty
+       |  |     +-- tag?                  uint32
+       |  |     +-- track?                uint16
+       |  +-- profile?                              empty
+       |  +-- static
+       |  |  +-- adjust-time?                          uint8
+       |  |  +-- bfd
+       |  |  |  +-- interface* [name gateway_ip]
+       |  |  |  |  +-- name?          union
+       |  |  |  |  +-- gateway_ip?    inet:ipv4-address
+       |  |  |  |  +-- group?         string
+       |  |  |  |  +-- passive?       empty
+       |  |  |  |  +-- log?           empty
+       |  |  |  |  +-- unassociate?   empty
+       |  |  |  +-- multihop* [destination_ip]
+       |  |  |  |  +-- destination_ip?   inet:ipv4-address
+       |  |  |  |  +-- vrf* [name source_ip]
+       |  |  |  |  |  +-- name?          string
+       |  |  |  |  |  +-- source_ip?     inet:ipv4-address
+       |  |  |  |  |  +-- group?         string
+       |  |  |  |  |  +-- passive?       empty
+       |  |  |  |  |  +-- log?           empty
+       |  |  |  |  |  +-- unassociate?   empty
+       |  |  |  |  +-- source_ip* [ip]
+       |  |  |  |     +-- ip?            inet:ipv4-address
+       |  |  |  |     +-- group?         string
+       |  |  |  |     +-- passive?       empty
+       |  |  |  |     +-- log?           empty
+       |  |  |  |     +-- unassociate?   empty
+       |  |  |  +-- vrf* [name]
+       |  |  |     +-- name?       string
+       |  |  |     +-- multihop* [destination_ip]
+       |  |  |        +-- destination_ip?   inet:ipv4-address
+       |  |  |        +-- vrf* [name source_ip]
+       |  |  |        |  +-- name?          string
+       |  |  |        |  +-- source_ip?     inet:ipv4-address
+       |  |  |        |  +-- group?         string
+       |  |  |        |  +-- passive?       empty
+       |  |  |        |  +-- log?           empty
+       |  |  |        |  +-- unassociate?   empty
+       |  |  |        +-- source_ip* [ip]
+       |  |  |           +-- ip?            inet:ipv4-address
+       |  |  |           +-- group?         string
+       |  |  |           +-- passive?       empty
+       |  |  |           +-- log?           empty
+       |  |  |           +-- unassociate?   empty
+       |  |  +-- install-routes-recurse-via-nexthop
+       |  |  |  +-- all?                                  empty
+       |  |  |  +-- recurse-nexthop
+       |  |  |  |  +-- topology* [topology-id]
+       |  |  |  |  |  +-- topology-id?   string
+       |  |  |  |  |  +-- route-map?     string
+       |  |  |  |  |  +-- multicast?     empty
+       |  |  |  |  +-- vrf* [vrf-id]
+       |  |  |  |  |  +-- vrf-id?      string
+       |  |  |  |  |  +-- route-map?   string
+       |  |  |  |  |  +-- multicast?   empty
+       |  |  |  |  +-- route-map?   string
+       |  |  |  |  +-- multicast?   empty
+       |  |  |  +-- install-routes-recurse-via-nexthop?   empty
+       |  |  +-- inter-vrf?                            empty
+       |  +-- vrf* [name]
+       |  |  +-- name?                                 string
+       |  |  +-- topology* [name]
+       |  |  |  +-- name?                                 string
+       |  |  |  +-- ip-route-interface-forwarding-list* [prefix mask]
+       |  |  |     +-- prefix?     inet:ipv4-address
+       |  |  |     +-- mask?       inet:ipv4-address
+       |  |  |     +-- dhcp?       empty
+       |  |  |     +-- metric?     uint8
+       |  |  |     +-- fwd-list* [fwd]
+       |  |  |        +-- fwd?                  union
+       |  |  |        +-- interface-next-hop* [ip-address]
+       |  |  |        |  +-- ip-address?   inet:ipv4-address
+       |  |  |        |  +-- metric?       uint8
+       |  |  |        |  +-- global?       empty
+       |  |  |        |  +-- name?         string
+       |  |  |        |  +-- permanent?    empty
+       |  |  |        |  +-- multicast     empty
+       |  |  |        |  +-- tag?          uint32
+       |  |  |        |  +-- track?        uint16
+       |  |  |        +-- metric?               uint8
+       |  |  |        +-- global?               empty
+       |  |  |        +-- name?                 string
+       |  |  |        +-- permanent?            empty
+       |  |  |        +-- multicast             empty
+       |  |  |        +-- tag?                  uint32
+       |  |  |        +-- track?                uint16
+       |  |  +-- ip-route-interface-forwarding-list* [prefix mask]
+       |  |     +-- prefix?     inet:ipv4-address
+       |  |     +-- mask?       inet:ipv4-address
+       |  |     +-- dhcp?       empty
+       |  |     +-- metric?     uint8
+       |  |     +-- fwd-list* [fwd]
+       |  |        +-- fwd?                  union
+       |  |        +-- interface-next-hop* [ip-address]
+       |  |        |  +-- ip-address?   inet:ipv4-address
+       |  |        |  +-- metric?       uint8
+       |  |        |  +-- global?       empty
+       |  |        |  +-- name?         string
+       |  |        |  +-- permanent?    empty
+       |  |        |  +-- multicast?    empty
+       |  |        |  +-- tag?          uint32
+       |  |        |  +-- track?        uint16
+       |  |        +-- metric?               uint8
+       |  |        +-- global?               empty
+       |  |        +-- name?                 string
+       |  |        +-- permanent?            empty
+       |  |        +-- multicast?            empty
+       |  |        +-- tag?                  uint32
+       |  |        +-- track?                uint16
+       |  +-- topology* [name]
+       |     +-- name?                                 string
+       |     +-- ip-route-interface-forwarding-list* [prefix mask]
+       |        +-- prefix?     inet:ipv4-address
+       |        +-- mask?       inet:ipv4-address
+       |        +-- dhcp?       empty
+       |        +-- metric?     uint8
+       |        +-- fwd-list* [fwd]
+       |           +-- fwd?                  union
+       |           +-- interface-next-hop* [ip-address]
+       |           |  +-- ip-address?   inet:ipv4-address
+       |           |  +-- metric?       uint8
+       |           |  +-- global?       empty
+       |           |  +-- name?         string
+       |           |  +-- permanent?    empty
+       |           |  +-- multicast?    empty
+       |           |  +-- tag?          uint32
+       |           |  +-- track?        uint16
+       |           +-- dhcp?                 empty
+       |           +-- metric?               uint8
+       |           +-- global?               empty
+       |           +-- name?                 string
+       |           +-- permanent?            empty
+       |           +-- multicast?            empty
+       |           +-- tag?                  uint32
+       |           +-- track?                uint16
+       +-- routing-conf
+       |  +-- routing?   boolean
+       +-- routing-new
+       |  +-- routing
+       |     +-- protocol
+       |        +-- purge
+       |           +-- interface?   boolean
+       o-- routing!
+       |  o-- protocol
+       |     o-- purge
+       |        o-- interface?   boolean
+       +-- explicit-path
+       |  +-- identifier* [pnum]
+       |  |  +-- pnum?    uint16
+       |  |  +-- mode?    enumeration
+       |  |  +-- index* [idx]
+       |  |     +-- idx?                     uint32
+       |  |     +-- (ip-exp-path-option)?
+       |  |        +--:(next-address)
+       |  |        |  +-- next-address
+       |  |        |     +-- loose?   empty
+       |  |        |     +-- ipv4?    inet:ipv4-address
+       |  |        +--:(next-label)
+       |  |        |  +-- next-label?        uint32
+       |  |        +--:(exclude-address)
+       |  |        |  +-- exclude-address?   inet:ipv4-address
+       |  |        +--:(exclude-srlg)
+       |  |           +-- exclude-srlg?      inet:ipv4-address
+       |  +-- name* [pname]
+       |     +-- pname?   string
+       |     +-- mode?    enumeration
+       |     +-- index* [idx]
+       |        +-- idx?                     uint32
+       |        +-- (ip-exp-path-option)?
+       |           +--:(next-address)
+       |           |  +-- next-address
+       |           |     +-- loose?   empty
+       |           |     +-- ipv4?    inet:ipv4-address
+       |           +--:(next-label)
+       |           |  +-- next-label?        uint32
+       |           +--:(exclude-address)
+       |           |  +-- exclude-address?   inet:ipv4-address
+       |           +--:(exclude-srlg)
+       |              +-- exclude-srlg?      inet:ipv4-address
+       +-- scp
+       |  +-- server
+       |     +-- enable?   empty
+       +-- spd
+       |  +-- mode?    enumeration
+       |  +-- queue
+       |     +-- max-threshold?   uint16
+       |     +-- min-threshold?   uint16
+       +-- bootp
+       |  +-- server?   boolean
+       +-- source-route?           boolean
+       +-- ssh
+       |  +-- authentication-retries?   uint8
+       |  +-- client
+       |  |  +-- algorithm
+       |  |     +-- encryption
+       |  |        +-- aes128-ctr?   empty
+       |  |        +-- aes192-ctr?   empty
+       |  |        +-- aes256-ctr?   empty
+       |  +-- dscp?                     uint8
+       |  +-- dh
+       |  |  +-- min
+       |  |     +-- size?   enumeration
+       |  +-- logging
+       |  |  +-- events?   empty
+       |  +-- pubkey-chain
+       |  |  +-- username* [name]
+       |  |     +-- name?       string
+       |  |     +-- key-hash* [key-type key-hash-value]
+       |  |        +-- key-type?         enumeration
+       |  |        +-- key-hash-value?   string
+       |  +-- precedence?               uint8
+       |  +-- rsa
+       |  |  +-- keypair-name?   string
+       |  +-- server
+       |  |  +-- algorithm
+       |  |  |  +-- encryption
+       |  |  |     +-- aes128-ctr?   empty
+       |  |  |     +-- aes192-ctr?   empty
+       |  |  |     +-- aes256-ctr?   empty
+       |  |  +-- peruser
+       |  |     +-- session
+       |  |        +-- limit?   uint8
+       |  +-- source-interface?         string
+       |  +-- time-out?                 uint8
+       |  +-- version?                  uint8
+       |  +-- maxstartups?              uint8
+       |  +-- port* [port-no]
+       |     +-- port-no?       uint16
+       |     +-- low-rotary?    uint8
+       |     +-- high-rotary?   uint8
+       +-- tcp
+       |  +-- mss?                  uint16
+       |  +-- path-mtu-discovery!
+       |  |  +-- age-timer?   union
+       |  +-- selective-ack?        empty
+       |  +-- synwait-time?         uint16
+       |  +-- timestamp?            empty
+       |  +-- window-size?          uint32
+       +-- tftp
+       |  +-- boot-interface
+       |  |  +-- (interface-choice)?
+       |  |     +--:(AppNav-Compress)
+       |  |     |  +-- AppNav-Compress?             uint16
+       |  |     +--:(AppNav-UnCompress)
+       |  |     |  +-- AppNav-UnCompress?           uint16
+       |  |     +--:(ATM)
+       |  |     |  +-- ATM?                         string
+       |  |     +--:(ATM-subinterface)
+       |  |     |  +-- ATM-subinterface
+       |  |     |     +-- ATM?   string
+       |  |     +--:(ATM-ACR)
+       |  |     |  +-- ATM-ACR?                     string
+       |  |     +--:(ATM-ACRsubinterface)
+       |  |     |  +-- ATM-ACRsubinterface
+       |  |     |     +-- ATM-ACR?   string
+       |  |     +--:(BDI)
+       |  |     |  +-- BDI?                         string
+       |  |     +--:(CEM)
+       |  |     |  +-- CEM?                         string
+       |  |     +--:(CEM-ACR)
+       |  |     |  +-- CEM-ACR?                     uint8
+       |  |     +--:(Embedded-Service-Engine)
+       |  |     |  +-- Embedded-Service-Engine?     string
+       |  |     +--:(Ethernet)
+       |  |     |  +-- Ethernet?                    string
+       |  |     +--:(FastEthernet)
+       |  |     |  +-- FastEthernet?                string
+       |  |     +--:(GigabitEthernet)
+       |  |     |  +-- GigabitEthernet?             string
+       |  |     +--:(FiveGigabitEthernet)
+       |  |     |  +-- FiveGigabitEthernet?         string
+       |  |     +--:(AppGigabitEthernet)
+       |  |     |  +-- AppGigabitEthernet?          string
+       |  |     +--:(TwentyFiveGigabitEthernet)
+       |  |     |  o-- TwentyFiveGigabitEthernet?   string
+       |  |     +--:(TwentyFiveGigE)
+       |  |     |  +-- TwentyFiveGigE?              string
+       |  |     +--:(TwoGigabitEthernet)
+       |  |     |  +-- TwoGigabitEthernet?          string
+       |  |     +--:(FortyGigabitEthernet)
+       |  |     |  +-- FortyGigabitEthernet?        string
+       |  |     +--:(HundredGigE)
+       |  |     |  +-- HundredGigE?                 string
+       |  |     +--:(LISP)
+       |  |     |  +-- LISP?                        string
+       |  |     +--:(LISP-subinterface)
+       |  |     |  +-- LISP-subinterface
+       |  |     |     +-- LISP?   string
+       |  |     +--:(Loopback)
+       |  |     |  +-- Loopback?                    uint32
+       |  |     +--:(Multilink)
+       |  |     |  +-- Multilink?                   uint16
+       |  |     +--:(nve)
+       |  |     |  +-- nve?                         uint16
+       |  |     +--:(overlay)
+       |  |     |  +-- overlay?                     uint16
+       |  |     +--:(Port-channel)
+       |  |     |  +-- Port-channel?                uint32
+       |  |     +--:(Port-channel-subinterface)
+       |  |     |  +-- Port-channel-subinterface
+       |  |     |     +-- Port-channel?   string
+       |  |     +--:(pseudowire)
+       |  |     |  +-- pseudowire?                  uint32
+       |  |     +--:(SM)
+       |  |     |  +-- SM?                          string
+       |  |     +--:(Cellular)
+       |  |     |  +-- Cellular?                    string
+       |  |     +--:(Dialer)
+       |  |     |  +-- Dialer?                      string
+       |  |     +--:(Serial)
+       |  |     |  +-- Serial?                      string
+       |  |     +--:(Async)
+       |  |     |  +-- Async?                       string
+       |  |     +--:(TenGigabitEthernet)
+       |  |     |  +-- TenGigabitEthernet?          string
+       |  |     +--:(Tunnel)
+       |  |     |  +-- Tunnel?                      uint32
+       |  |     +--:(Virtual-Template)
+       |  |     |  +-- Virtual-Template?            uint16
+       |  |     +--:(Vlan)
+       |  |     |  +-- Vlan?                        uint16
+       |  |     +--:(VirtualPortGroup)
+       |  |     |  +-- VirtualPortGroup?            uint16
+       |  |     +--:(vasileft)
+       |  |     |  +-- vasileft?                    uint16
+       |  |     +--:(vasiright)
+       |  |     |  +-- vasiright?                   uint16
+       |  |     +--:(BD-VIF)
+       |  |        +-- BD-VIF?                      string
+       |  +-- source-interface
+       |  |  +-- (interface-choice)?
+       |  |     +--:(AppNav-Compress)
+       |  |     |  +-- AppNav-Compress?             uint16
+       |  |     +--:(AppNav-UnCompress)
+       |  |     |  +-- AppNav-UnCompress?           uint16
+       |  |     +--:(ATM)
+       |  |     |  +-- ATM?                         string
+       |  |     +--:(ATM-subinterface)
+       |  |     |  +-- ATM-subinterface
+       |  |     |     +-- ATM?   string
+       |  |     +--:(ATM-ACR)
+       |  |     |  +-- ATM-ACR?                     string
+       |  |     +--:(ATM-ACRsubinterface)
+       |  |     |  +-- ATM-ACRsubinterface
+       |  |     |     +-- ATM-ACR?   string
+       |  |     +--:(BDI)
+       |  |     |  +-- BDI?                         string
+       |  |     +--:(CEM)
+       |  |     |  +-- CEM?                         string
+       |  |     +--:(CEM-ACR)
+       |  |     |  +-- CEM-ACR?                     uint8
+       |  |     +--:(Embedded-Service-Engine)
+       |  |     |  +-- Embedded-Service-Engine?     string
+       |  |     +--:(Ethernet)
+       |  |     |  +-- Ethernet?                    string
+       |  |     +--:(FastEthernet)
+       |  |     |  +-- FastEthernet?                string
+       |  |     +--:(GigabitEthernet)
+       |  |     |  +-- GigabitEthernet?             string
+       |  |     +--:(FiveGigabitEthernet)
+       |  |     |  +-- FiveGigabitEthernet?         string
+       |  |     +--:(AppGigabitEthernet)
+       |  |     |  +-- AppGigabitEthernet?          string
+       |  |     +--:(TwentyFiveGigabitEthernet)
+       |  |     |  o-- TwentyFiveGigabitEthernet?   string
+       |  |     +--:(TwentyFiveGigE)
+       |  |     |  +-- TwentyFiveGigE?              string
+       |  |     +--:(TwoGigabitEthernet)
+       |  |     |  +-- TwoGigabitEthernet?          string
+       |  |     +--:(FortyGigabitEthernet)
+       |  |     |  +-- FortyGigabitEthernet?        string
+       |  |     +--:(HundredGigE)
+       |  |     |  +-- HundredGigE?                 string
+       |  |     +--:(LISP)
+       |  |     |  +-- LISP?                        string
+       |  |     +--:(LISP-subinterface)
+       |  |     |  +-- LISP-subinterface
+       |  |     |     +-- LISP?   string
+       |  |     +--:(Loopback)
+       |  |     |  +-- Loopback?                    uint32
+       |  |     +--:(Multilink)
+       |  |     |  +-- Multilink?                   uint16
+       |  |     +--:(nve)
+       |  |     |  +-- nve?                         uint16
+       |  |     +--:(overlay)
+       |  |     |  +-- overlay?                     uint16
+       |  |     +--:(Port-channel)
+       |  |     |  +-- Port-channel?                uint32
+       |  |     +--:(Port-channel-subinterface)
+       |  |     |  +-- Port-channel-subinterface
+       |  |     |     +-- Port-channel?   string
+       |  |     +--:(pseudowire)
+       |  |     |  +-- pseudowire?                  uint32
+       |  |     +--:(SM)
+       |  |     |  +-- SM?                          string
+       |  |     +--:(Cellular)
+       |  |     |  +-- Cellular?                    string
+       |  |     +--:(Dialer)
+       |  |     |  +-- Dialer?                      string
+       |  |     +--:(Serial)
+       |  |     |  +-- Serial?                      string
+       |  |     +--:(Async)
+       |  |     |  +-- Async?                       string
+       |  |     +--:(TenGigabitEthernet)
+       |  |     |  +-- TenGigabitEthernet?          string
+       |  |     +--:(Tunnel)
+       |  |     |  +-- Tunnel?                      uint32
+       |  |     +--:(Virtual-Template)
+       |  |     |  +-- Virtual-Template?            uint16
+       |  |     +--:(Vlan)
+       |  |     |  +-- Vlan?                        uint16
+       |  |     +--:(VirtualPortGroup)
+       |  |     |  +-- VirtualPortGroup?            uint16
+       |  |     +--:(vasileft)
+       |  |     |  +-- vasileft?                    uint16
+       |  |     +--:(vasiright)
+       |  |     |  +-- vasiright?                   uint16
+       |  |     +--:(BD-VIF)
+       |  |        +-- BD-VIF?                      string
+       |  +-- blocksize?          uint16
+       +-- access-list
+       +-- device
+       +-- visibility
+       +-- sdwan
+          +-- route* [vrf ipaddr]
+             +-- vrf?             string
+             +-- ipaddr?          ios-types:ipv4-address-slash-prefix-len
+             +-- (tunnel-or-service)?
+                +--:(tunnel-based)
+                |  +-- tunnel
+                |     +-- active
+                |        +-- Tunnel?   -> /native/interface/Tunnel/name
+                |        +-- backup
+                |           +-- Tunnel?   -> /native/interface/Tunnel/name
+                +--:(service-based)
+                   +-- service
+                      +-- (service-based)?
+                         +--:(sig-based)
+                            +-- sig?   empty
+  grouping routes-recurse-grouping
+    +-- route-map?   string
+    +-- multicast?   empty

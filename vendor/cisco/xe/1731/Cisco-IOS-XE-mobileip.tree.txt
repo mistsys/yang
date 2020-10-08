@@ -1,0 +1,778 @@
+
+module: Cisco-IOS-XE-mobileip
+  augment /ios:native/ios:ipv6:
+    +--rw mobile
+       +--rw pmipv6-domain* [domain]
+       |  +--rw domain            string
+       |  +--rw domain-options
+       |     +--rw auth-option
+       |     |  +--rw spi
+       |     |     +--rw (spi-option)?
+       |     |     |  +--:(hex-val)
+       |     |     |  |  +--rw hex-val?   string
+       |     |     |  +--:(decimal)
+       |     |     |     +--rw decimal?   uint32
+       |     |     +--rw key
+       |     |        +--rw (key-options)?
+       |     |           +--:(key-opts)
+       |     |           |  +--rw key-opts
+       |     |           |     +--rw enc-type?   uint8
+       |     |           |     +--rw ascii?      string
+       |     |           +--:(hex)
+       |     |              +--rw hex?        string
+       |     +--rw encap
+       |     |  +--rw encap_type?   enumeration
+       |     +--rw lma* [identifier]
+       |     |  +--rw identifier      string
+       |     |  +--rw ipv4-address?   inet:ipv4-address
+       |     |  +--rw ipv6-address?   inet:ipv6-address
+       |     +--rw local-routing-mag?     empty
+       |     +--rw mag* [identifier]
+       |     |  +--rw identifier      string
+       |     |  +--rw ipv4-address?   inet:ipv4-address
+       |     |  +--rw ipv6-address?   inet:ipv6-address
+       |     +--rw mn-profile-load-aaa?   empty
+       |     +--rw mobile-map* [map-name sequence]
+       |     |  +--rw map-name           string
+       |     |  +--rw sequence           uint8
+       |     |  +--rw ip
+       |     |  |  +--rw df?   uint8
+       |     |  +--rw loadbalance?       empty
+       |     |  +--rw match
+       |     |  |  +--rw access-list?   string
+       |     |  +--rw setlink
+       |     |  |  +--rw link-type
+       |     |  |     +--rw link1?   string
+       |     |  |     +--rw link2?   string
+       |     |  |     +--rw link3?   string
+       |     |  |     +--rw link4?   enumeration
+       |     |  +--rw traffic-profile
+       |     |     +--rw prof-name?   string
+       |     +--rw nai* [realm]
+       |     |  +--rw realm               string
+       |     |  +--rw apn?                string
+       |     |  +--rw auth-option
+       |     |  |  +--rw spi
+       |     |  |     +--rw (spi-option)?
+       |     |  |     |  +--:(hex-val)
+       |     |  |     |  |  +--rw hex-val?   string
+       |     |  |     |  +--:(decimal)
+       |     |  |     |     +--rw decimal?   uint32
+       |     |  |     +--rw key
+       |     |  |        +--rw (key-options)?
+       |     |  |           +--:(key-opts)
+       |     |  |           |  +--rw key-opts
+       |     |  |           |     +--rw enc-type?   uint8
+       |     |  |           |     +--rw ascii?      string
+       |     |  |           +--:(hex)
+       |     |  |              +--rw hex?        string
+       |     |  +--rw customer?           string
+       |     |  +--rw gre-encap-key
+       |     |  |  +--rw down?   uint32
+       |     |  |  +--rw up?     uint32
+       |     |  +--rw lma?                string
+       |     |  +--rw mobility-service
+       |     |  |  +--rw mobile-local-loop?   empty
+       |     |  +--rw network?            string
+       |     |  +--rw service
+       |     |     +--rw service-type?   enumeration
+       |     +--rw replay-protection
+       |        +--rw timestamp
+       |           +--rw window?   uint8
+       +--rw pmipv6-lma* [lma-name domain]
+       |  +--rw lma-name             string
+       |  +--rw domain               string
+       |  +--rw ani?                 empty
+       |  +--rw bri
+       |  |  +--rw delay
+       |  |  |  +--rw max?   uint16
+       |  |  |  +--rw min?   uint16
+       |  |  +--rw retries?   uint8
+       |  +--rw generate
+       |  |  +--rw grekey?   boolean
+       |  +--rw heartbeat-default
+       |  |  +--rw heartbeat
+       |  |     +--rw interval?   uint16
+       |  |     +--rw retries?    uint8
+       |  |     +--rw timeout?    uint16
+       |  +--rw heartbeat* [label]
+       |  |  +--rw interval?    uint16
+       |  |  +--rw retries?     uint8
+       |  |  +--rw label        string
+       |  |  +--rw natreboot?   empty
+       |  |  +--rw timeout      uint16
+       |  +--rw ignore
+       |  |  +--rw grekey?         empty
+       |  |  +--rw home-address?   empty
+       |  +--rw multipath?           empty
+       |  +--rw dscp
+       |  |  +--rw control-plane?   uint8
+       |  |  +--rw force?           empty
+       |  +--rw address
+       |  |  +--rw ipv4* [address]
+       |  |  |  +--rw address    inet:ipv4-address
+       |  |  +--rw ipv6* [address]
+       |  |     +--rw address    inet:ipv6-address
+       |  +--rw mobile-route
+       |  |  +--rw admin-distance?   uint8
+       |  +--rw bce
+       |  |  +--rw create-wait-time?   uint16
+       |  |  +--rw delete-wait-time?   uint16
+       |  |  +--rw lifetime?           uint16
+       |  |  +--rw maximum?            uint32
+       |  +--rw default
+       |  |  +--rw profile?   string
+       |  +--rw dynamic
+       |  |  +--rw mag
+       |  |     +--rw learning?   empty
+       |  +--rw enable
+       |  |  +--rw aaa
+       |  |     +--rw accounting?   empty
+       |  +--rw enforce
+       |  |  +--rw heartbeat-to-mag?   empty
+       |  +--rw interface* [interface-name]
+       |  |  +--rw interface-name    string
+       |  +--rw mobile-map?          string
+       |  +--rw mobile-network
+       |  |  +--rw mobile-network-type?   enumeration
+       |  +--rw rat* [rat-type]
+       |  |  +--rw rat-type    enumeration
+       |  |  +--rw priority?   uint8
+       |  +--rw replay-protection
+       |  |  +--rw timestamp
+       |  |     +--rw window?   union
+       |  +--rw tunnel
+       |  |  +--rw acl?   string
+       |  |  +--rw mtu?   uint16
+       |  +--rw mag* [mag-id domain-name]
+       |  |  +--rw mag-id          string
+       |  |  +--rw domain-name     string
+       |  |  +--rw auth-option
+       |  |  |  +--rw spi
+       |  |  |     +--rw (spi-option)?
+       |  |  |     |  +--:(hex-val)
+       |  |  |     |  |  +--rw hex-val?   string
+       |  |  |     |  +--:(decimal)
+       |  |  |     |     +--rw decimal?   uint32
+       |  |  |     +--rw key
+       |  |  |        +--rw (key-options)?
+       |  |  |           +--:(key-opts)
+       |  |  |           |  +--rw key-opts
+       |  |  |           |     +--rw enc-type?   uint8
+       |  |  |           |     +--rw ascii?      string
+       |  |  |           +--:(hex)
+       |  |  |              +--rw hex?        string
+       |  |  +--rw dscp
+       |  |  |  +--rw control-plane?   uint8
+       |  |  |  +--rw force?           empty
+       |  |  +--rw encap
+       |  |  |  +--rw (encap-type)?
+       |  |  |     +--:(gre-ipv4)
+       |  |  |     |  +--rw gre-ipv4?   empty
+       |  |  |     +--:(gre-ipv6)
+       |  |  |        +--rw gre-ipv6?   empty
+       |  |  +--rw ipv4-address?   inet:ipv4-address
+       |  |  +--rw ipv6-address?   inet:ipv6-address
+       |  +--rw network* [nw-name]
+       |  |  +--rw nw-name           string
+       |  |  +--rw pool
+       |  |  |  +--rw ipv4
+       |  |  |  |  +--rw name?     string
+       |  |  |  |  +--rw pfxlen?   uint8
+       |  |  |  +--rw ipv6
+       |  |  |     +--rw name?     string
+       |  |  |     +--rw pfxlen?   uint8
+       |  |  +--rw mobile-network
+       |  |  |  +--rw pool* [pool-ip-add]
+       |  |  |  |  +--rw pool-ip-add       inet:ipv4-address
+       |  |  |  |  +--rw pool-prefix?      uint8
+       |  |  |  |  +--rw network-prefix?   uint8
+       |  |  |  +--rw v6pool* [pool-ipv6-add]
+       |  |  |     +--rw pool-ipv6-add     inet:ipv6-address
+       |  |  |     +--rw pool-prefix?      uint8
+       |  |  |     +--rw network-prefix?   uint8
+       |  |  +--rw dns
+       |  |     +--rw ip
+       |  |        +--rw pri-ip-add?   inet:ipv4-address
+       |  |        +--rw sec-ip-add?   inet:ipv4-address
+       |  +--rw mobility-service
+       |     +--rw hybrid-access!
+       |     |  +--rw disable-sla?          boolean
+       |     |  +--rw enable-sla* [sla-type name]
+       |     |  |  +--rw sla-type       enumeration
+       |     |  |  +--rw name           string
+       |     |  |  +--rw frequency?     uint32
+       |     |  |  +--rw interval?      uint16
+       |     |  |  +--rw num-packets?   uint32
+       |     |  +--rw sla
+       |     |  |  +--rw frequency?     uint32
+       |     |  |  +--rw interval?      uint16
+       |     |  |  +--rw num-packets?   uint32
+       |     |  +--rw bandwidth-ratio!
+       |     |  |  +--rw label* [label-name]
+       |     |  |  |  +--rw label-name         string
+       |     |  |  |  +--rw bandwidth-ratio?   uint8
+       |     |  |  +--rw mag* [mag-name]
+       |     |  |     +--rw mag-name    string
+       |     |  |     +--rw label* [label-name]
+       |     |  |        +--rw label-name         string
+       |     |  |        +--rw bandwidth-ratio?   uint8
+       |     |  +--rw profile-definition* [name]
+       |     |     +--rw name           string
+       |     |     +--rw loadbalance?   empty
+       |     |     +--rw jitter
+       |     |     |  +--rw value?           uint16
+       |     |     |  +--rw low-threshold?   uint16
+       |     |     +--rw mos
+       |     |     |  +--rw value?           uint16
+       |     |     |  +--rw low-threshold?   uint16
+       |     |     +--rw packet-loss
+       |     |     |  +--rw value?           uint16
+       |     |     |  +--rw low-threshold?   uint16
+       |     |     +--rw rtt
+       |     |        +--rw value?           uint16
+       |     |        +--rw low-threshold?   uint16
+       |     +--rw mobile-local-loop!
+       |        +--rw customer* [name vrf]
+       |        |  +--rw name                 string
+       |        |  +--rw vrf                  string
+       |        |  +--rw auth-option
+       |        |  |  +--rw spi
+       |        |  |     +--rw (spi-option)?
+       |        |  |     |  +--:(hex-val)
+       |        |  |     |  |  +--rw hex-val?   string
+       |        |  |     |  +--:(decimal)
+       |        |  |     |     +--rw decimal?   uint32
+       |        |  |     +--rw key
+       |        |  |        +--rw (key-options)?
+       |        |  |           +--:(key-opts)
+       |        |  |           |  +--rw key-opts
+       |        |  |           |     +--rw enc-type?   uint8
+       |        |  |           |     +--rw ascii?      string
+       |        |  |           +--:(hex)
+       |        |  |              +--rw hex?        string
+       |        |  +--rw gre-key-default
+       |        |  |  +--rw gre-key
+       |        |  |     +--rw symmetric?   uint32
+       |        |  +--rw gre-key* [label]
+       |        |  |  +--rw symmetric?   uint32
+       |        |  |  +--rw label        string
+       |        |  +--rw heartbeat-default
+       |        |  |  +--rw heartbeat
+       |        |  |     +--rw interval?   uint16
+       |        |  |     +--rw retries?    uint8
+       |        |  |     +--rw timeout?    uint16
+       |        |  +--rw interface* [interface-name]
+       |        |  |  +--rw interface-name    string
+       |        |  +--rw mnp
+       |        |  |  +--rw afi-all
+       |        |  |  |  +--rw customer
+       |        |  |  |  |  +--rw maximum?   uint32
+       |        |  |  |  +--rw logical-mn
+       |        |  |  |     +--rw maximum?   uint8
+       |        |  |  +--rw ipv4
+       |        |  |  |  +--rw customer
+       |        |  |  |  |  +--rw maximum?   uint32
+       |        |  |  |  +--rw logical-mn
+       |        |  |  |     +--rw maximum?   uint8
+       |        |  |  +--rw ipv6
+       |        |  |     +--rw customer
+       |        |  |     |  +--rw maximum?   uint32
+       |        |  |     +--rw logical-mn
+       |        |  |        +--rw maximum?   uint8
+       |        |  +--rw mobile-map?          string
+       |        |  +--rw mobile-route
+       |        |  |  +--rw admin-distance?   uint8
+       |        |  +--rw network
+       |        |     +--rw unauthorized?   empty
+       |        +--rw mnp
+       |           +--rw afi-all
+       |           |  +--rw customer
+       |           |  |  +--rw maximum?   uint32
+       |           |  +--rw logical-mn
+       |           |     +--rw maximum?   uint8
+       |           +--rw ipv4
+       |           |  +--rw customer
+       |           |  |  +--rw maximum?   uint32
+       |           |  +--rw logical-mn
+       |           |     +--rw maximum?   uint8
+       |           +--rw ipv6
+       |              +--rw customer
+       |              |  +--rw maximum?   uint32
+       |              +--rw logical-mn
+       |                 +--rw maximum?   uint8
+       +--rw pmipv6-mag* [mag-name domain]
+          +--rw mag-name      string
+          +--rw domain        string
+          +--rw address
+          |  +--rw dynamic!
+          |     +--rw roaming* [interface]
+          |        +--rw interface     string
+          |        +--rw priority?     uint8
+          |        +--rw egress-att?   enumeration
+          |        +--rw label?        string
+          +--rw multipath?    empty
+          +--rw mobile-map?   string
+          +--rw interface* [interface-name]
+          |  +--rw interface-name    string
+          +--rw logical-mn* [mn-id]
+          |  +--rw mn-id     string
+          |  +--rw home
+          |  |  +--rw interface?   string
+          |  +--rw mobile
+          |     +--rw network* [interface]
+          |        +--rw interface        string
+          |        +--rw label?           string
+          |        +--rw learn-prefix?    empty
+          |        +--rw skip-register?   empty
+          +--rw lma* [lma-id domain]
+             +--rw lma-id          string
+             +--rw domain          string
+             +--rw ipv4-address*   inet:ipv4-address
+             +--rw ipv6-address*   inet:ipv6-address
+             +--rw encap?          enumeration
+
+  grouping dscp-option-grouping
+    +-- dscp
+       +-- control-plane?   uint8
+       +-- force?           empty
+  grouping ignore-option-grouping
+    +-- ignore
+       +-- grekey?         empty
+       +-- home-address?   empty
+  grouping heartbeat-default-grouping
+    +-- heartbeat-default
+       +-- heartbeat
+          +-- interval?   uint16
+          +-- retries?    uint8
+          +-- timeout?    uint16
+  grouping heartbeat-label-grouping
+    +-- heartbeat* [label]
+       +-- interval?    uint16
+       +-- retries?     uint8
+       +-- label?       string
+       +-- natreboot?   empty
+       +-- timeout      uint16
+  grouping pool-ipv6-grouping
+    +-- ipv6
+       +-- name?     string
+       +-- pfxlen?   uint8
+  grouping pool-ipv4-grouping
+    +-- ipv4
+       +-- name?     string
+       +-- pfxlen?   uint8
+  grouping tracing-option-grouping
+    +-- tracing?   empty
+  grouping multipath-option-grouping
+    +-- multipath?   empty
+  grouping generate-option-grouping
+    +-- generate
+       +-- grekey?   boolean
+  grouping bri-option-grouping
+    +-- bri
+       +-- delay
+       |  +-- max?   uint16
+       |  +-- min?   uint16
+       +-- retries?   uint8
+  grouping ani-option-grouping
+    +-- ani?   empty
+  grouping auth-key-options-grouping
+    +-- key
+       +-- (key-options)?
+          +--:(key-opts)
+          |  +-- key-opts
+          |     +-- enc-type?   uint8
+          |     +-- ascii?      string
+          +--:(hex)
+             +-- hex?        string
+  grouping auth-option-grouping
+    +-- auth-option
+       +-- spi
+          +-- (spi-option)?
+          |  +--:(hex-val)
+          |  |  +-- hex-val?   string
+          |  +--:(decimal)
+          |     +-- decimal?   uint32
+          +-- key
+             +-- (key-options)?
+                +--:(key-opts)
+                |  +-- key-opts
+                |     +-- enc-type?   uint8
+                |     +-- ascii?      string
+                +--:(hex)
+                   +-- hex?        string
+  grouping label-bandwidth-grouping
+    +-- label* [label-name]
+       +-- label-name?        string
+       +-- bandwidth-ratio?   uint8
+  grouping sla-option-grouping
+    +-- frequency?     uint32
+    +-- interval?      uint16
+    +-- num-packets?   uint32
+  grouping mobility-service-mobile-local-loop-mnp-grouping
+    +-- customer
+    |  +-- maximum?   uint32
+    +-- logical-mn
+       +-- maximum?   uint8
+  grouping mobility-service-mobile-local-loop-mnp
+    +-- mnp
+       +-- afi-all
+       |  +-- customer
+       |  |  +-- maximum?   uint32
+       |  +-- logical-mn
+       |     +-- maximum?   uint8
+       +-- ipv4
+       |  +-- customer
+       |  |  +-- maximum?   uint32
+       |  +-- logical-mn
+       |     +-- maximum?   uint8
+       +-- ipv6
+          +-- customer
+          |  +-- maximum?   uint32
+          +-- logical-mn
+             +-- maximum?   uint8
+  grouping lma-address-grouping
+    +-- address
+       +-- ipv4* [address]
+       |  +-- address?   inet:ipv4-address
+       +-- ipv6* [address]
+          +-- address?   inet:ipv6-address
+  grouping customer-key-default-grouping
+    +-- gre-key-default
+       +-- gre-key
+          +-- symmetric?   uint32
+  grouping customer-key-label-grouping
+    +-- gre-key* [label]
+       +-- symmetric?   uint32
+       +-- label?       string
+  grouping config-ipv6-mobileip-grouping
+    +-- mobile
+       +-- pmipv6-domain* [domain]
+       |  +-- domain?           string
+       |  +-- domain-options
+       |     +-- auth-option
+       |     |  +-- spi
+       |     |     +-- (spi-option)?
+       |     |     |  +--:(hex-val)
+       |     |     |  |  +-- hex-val?   string
+       |     |     |  +--:(decimal)
+       |     |     |     +-- decimal?   uint32
+       |     |     +-- key
+       |     |        +-- (key-options)?
+       |     |           +--:(key-opts)
+       |     |           |  +-- key-opts
+       |     |           |     +-- enc-type?   uint8
+       |     |           |     +-- ascii?      string
+       |     |           +--:(hex)
+       |     |              +-- hex?        string
+       |     +-- encap
+       |     |  +-- encap_type?   enumeration
+       |     +-- lma* [identifier]
+       |     |  +-- identifier?     string
+       |     |  +-- ipv4-address?   inet:ipv4-address
+       |     |  +-- ipv6-address?   inet:ipv6-address
+       |     +-- local-routing-mag?     empty
+       |     +-- mag* [identifier]
+       |     |  +-- identifier?     string
+       |     |  +-- ipv4-address?   inet:ipv4-address
+       |     |  +-- ipv6-address?   inet:ipv6-address
+       |     +-- mn-profile-load-aaa?   empty
+       |     +-- mobile-map* [map-name sequence]
+       |     |  +-- map-name?          string
+       |     |  +-- sequence?          uint8
+       |     |  +-- ip
+       |     |  |  +-- df?   uint8
+       |     |  +-- loadbalance?       empty
+       |     |  +-- match
+       |     |  |  +-- access-list?   string
+       |     |  +-- setlink
+       |     |  |  +-- link-type
+       |     |  |     +-- link1?   string
+       |     |  |     +-- link2?   string
+       |     |  |     +-- link3?   string
+       |     |  |     +-- link4?   enumeration
+       |     |  +-- traffic-profile
+       |     |     +-- prof-name?   string
+       |     +-- nai* [realm]
+       |     |  +-- realm?              string
+       |     |  +-- apn?                string
+       |     |  +-- auth-option
+       |     |  |  +-- spi
+       |     |  |     +-- (spi-option)?
+       |     |  |     |  +--:(hex-val)
+       |     |  |     |  |  +-- hex-val?   string
+       |     |  |     |  +--:(decimal)
+       |     |  |     |     +-- decimal?   uint32
+       |     |  |     +-- key
+       |     |  |        +-- (key-options)?
+       |     |  |           +--:(key-opts)
+       |     |  |           |  +-- key-opts
+       |     |  |           |     +-- enc-type?   uint8
+       |     |  |           |     +-- ascii?      string
+       |     |  |           +--:(hex)
+       |     |  |              +-- hex?        string
+       |     |  +-- customer?           string
+       |     |  +-- gre-encap-key
+       |     |  |  +-- down?   uint32
+       |     |  |  +-- up?     uint32
+       |     |  +-- lma?                string
+       |     |  +-- mobility-service
+       |     |  |  +-- mobile-local-loop?   empty
+       |     |  +-- network?            string
+       |     |  +-- service
+       |     |     +-- service-type?   enumeration
+       |     +-- replay-protection
+       |        +-- timestamp
+       |           +-- window?   uint8
+       +-- pmipv6-lma* [lma-name domain]
+       |  +-- lma-name?            string
+       |  +-- domain?              string
+       |  +-- ani?                 empty
+       |  +-- bri
+       |  |  +-- delay
+       |  |  |  +-- max?   uint16
+       |  |  |  +-- min?   uint16
+       |  |  +-- retries?   uint8
+       |  +-- generate
+       |  |  +-- grekey?   boolean
+       |  +-- heartbeat-default
+       |  |  +-- heartbeat
+       |  |     +-- interval?   uint16
+       |  |     +-- retries?    uint8
+       |  |     +-- timeout?    uint16
+       |  +-- heartbeat* [label]
+       |  |  +-- interval?    uint16
+       |  |  +-- retries?     uint8
+       |  |  +-- label?       string
+       |  |  +-- natreboot?   empty
+       |  |  +-- timeout      uint16
+       |  +-- ignore
+       |  |  +-- grekey?         empty
+       |  |  +-- home-address?   empty
+       |  +-- multipath?           empty
+       |  +-- dscp
+       |  |  +-- control-plane?   uint8
+       |  |  +-- force?           empty
+       |  +-- address
+       |  |  +-- ipv4* [address]
+       |  |  |  +-- address?   inet:ipv4-address
+       |  |  +-- ipv6* [address]
+       |  |     +-- address?   inet:ipv6-address
+       |  +-- mobile-route
+       |  |  +-- admin-distance?   uint8
+       |  +-- bce
+       |  |  +-- create-wait-time?   uint16
+       |  |  +-- delete-wait-time?   uint16
+       |  |  +-- lifetime?           uint16
+       |  |  +-- maximum?            uint32
+       |  +-- default
+       |  |  +-- profile?   string
+       |  +-- dynamic
+       |  |  +-- mag
+       |  |     +-- learning?   empty
+       |  +-- enable
+       |  |  +-- aaa
+       |  |     +-- accounting?   empty
+       |  +-- enforce
+       |  |  +-- heartbeat-to-mag?   empty
+       |  +-- interface* [interface-name]
+       |  |  +-- interface-name?   string
+       |  +-- mobile-map?          string
+       |  +-- mobile-network
+       |  |  +-- mobile-network-type?   enumeration
+       |  +-- rat* [rat-type]
+       |  |  +-- rat-type?   enumeration
+       |  |  +-- priority?   uint8
+       |  +-- replay-protection
+       |  |  +-- timestamp
+       |  |     +-- window?   union
+       |  +-- tunnel
+       |  |  +-- acl?   string
+       |  |  +-- mtu?   uint16
+       |  +-- mag* [mag-id domain-name]
+       |  |  +-- mag-id?         string
+       |  |  +-- domain-name?    string
+       |  |  +-- auth-option
+       |  |  |  +-- spi
+       |  |  |     +-- (spi-option)?
+       |  |  |     |  +--:(hex-val)
+       |  |  |     |  |  +-- hex-val?   string
+       |  |  |     |  +--:(decimal)
+       |  |  |     |     +-- decimal?   uint32
+       |  |  |     +-- key
+       |  |  |        +-- (key-options)?
+       |  |  |           +--:(key-opts)
+       |  |  |           |  +-- key-opts
+       |  |  |           |     +-- enc-type?   uint8
+       |  |  |           |     +-- ascii?      string
+       |  |  |           +--:(hex)
+       |  |  |              +-- hex?        string
+       |  |  +-- dscp
+       |  |  |  +-- control-plane?   uint8
+       |  |  |  +-- force?           empty
+       |  |  +-- encap
+       |  |  |  +-- (encap-type)?
+       |  |  |     +--:(gre-ipv4)
+       |  |  |     |  +-- gre-ipv4?   empty
+       |  |  |     +--:(gre-ipv6)
+       |  |  |        +-- gre-ipv6?   empty
+       |  |  +-- ipv4-address?   inet:ipv4-address
+       |  |  +-- ipv6-address?   inet:ipv6-address
+       |  +-- network* [nw-name]
+       |  |  +-- nw-name?          string
+       |  |  +-- pool
+       |  |  |  +-- ipv4
+       |  |  |  |  +-- name?     string
+       |  |  |  |  +-- pfxlen?   uint8
+       |  |  |  +-- ipv6
+       |  |  |     +-- name?     string
+       |  |  |     +-- pfxlen?   uint8
+       |  |  +-- mobile-network
+       |  |  |  +-- pool* [pool-ip-add]
+       |  |  |  |  +-- pool-ip-add?      inet:ipv4-address
+       |  |  |  |  +-- pool-prefix?      uint8
+       |  |  |  |  +-- network-prefix?   uint8
+       |  |  |  +-- v6pool* [pool-ipv6-add]
+       |  |  |     +-- pool-ipv6-add?    inet:ipv6-address
+       |  |  |     +-- pool-prefix?      uint8
+       |  |  |     +-- network-prefix?   uint8
+       |  |  +-- dns
+       |  |     +-- ip
+       |  |        +-- pri-ip-add?   inet:ipv4-address
+       |  |        +-- sec-ip-add?   inet:ipv4-address
+       |  +-- mobility-service
+       |     +-- hybrid-access!
+       |     |  +-- disable-sla?          boolean
+       |     |  +-- enable-sla* [sla-type name]
+       |     |  |  +-- sla-type?      enumeration
+       |     |  |  +-- name?          string
+       |     |  |  +-- frequency?     uint32
+       |     |  |  +-- interval?      uint16
+       |     |  |  +-- num-packets?   uint32
+       |     |  +-- sla
+       |     |  |  +-- frequency?     uint32
+       |     |  |  +-- interval?      uint16
+       |     |  |  +-- num-packets?   uint32
+       |     |  +-- bandwidth-ratio!
+       |     |  |  +-- label* [label-name]
+       |     |  |  |  +-- label-name?        string
+       |     |  |  |  +-- bandwidth-ratio?   uint8
+       |     |  |  +-- mag* [mag-name]
+       |     |  |     +-- mag-name?   string
+       |     |  |     +-- label* [label-name]
+       |     |  |        +-- label-name?        string
+       |     |  |        +-- bandwidth-ratio?   uint8
+       |     |  +-- profile-definition* [name]
+       |     |     +-- name?          string
+       |     |     +-- loadbalance?   empty
+       |     |     +-- jitter
+       |     |     |  +-- value?           uint16
+       |     |     |  +-- low-threshold?   uint16
+       |     |     +-- mos
+       |     |     |  +-- value?           uint16
+       |     |     |  +-- low-threshold?   uint16
+       |     |     +-- packet-loss
+       |     |     |  +-- value?           uint16
+       |     |     |  +-- low-threshold?   uint16
+       |     |     +-- rtt
+       |     |        +-- value?           uint16
+       |     |        +-- low-threshold?   uint16
+       |     +-- mobile-local-loop!
+       |        +-- customer* [name vrf]
+       |        |  +-- name?                string
+       |        |  +-- vrf?                 string
+       |        |  +-- auth-option
+       |        |  |  +-- spi
+       |        |  |     +-- (spi-option)?
+       |        |  |     |  +--:(hex-val)
+       |        |  |     |  |  +-- hex-val?   string
+       |        |  |     |  +--:(decimal)
+       |        |  |     |     +-- decimal?   uint32
+       |        |  |     +-- key
+       |        |  |        +-- (key-options)?
+       |        |  |           +--:(key-opts)
+       |        |  |           |  +-- key-opts
+       |        |  |           |     +-- enc-type?   uint8
+       |        |  |           |     +-- ascii?      string
+       |        |  |           +--:(hex)
+       |        |  |              +-- hex?        string
+       |        |  +-- gre-key-default
+       |        |  |  +-- gre-key
+       |        |  |     +-- symmetric?   uint32
+       |        |  +-- gre-key* [label]
+       |        |  |  +-- symmetric?   uint32
+       |        |  |  +-- label?       string
+       |        |  +-- heartbeat-default
+       |        |  |  +-- heartbeat
+       |        |  |     +-- interval?   uint16
+       |        |  |     +-- retries?    uint8
+       |        |  |     +-- timeout?    uint16
+       |        |  +-- interface* [interface-name]
+       |        |  |  +-- interface-name?   string
+       |        |  +-- mnp
+       |        |  |  +-- afi-all
+       |        |  |  |  +-- customer
+       |        |  |  |  |  +-- maximum?   uint32
+       |        |  |  |  +-- logical-mn
+       |        |  |  |     +-- maximum?   uint8
+       |        |  |  +-- ipv4
+       |        |  |  |  +-- customer
+       |        |  |  |  |  +-- maximum?   uint32
+       |        |  |  |  +-- logical-mn
+       |        |  |  |     +-- maximum?   uint8
+       |        |  |  +-- ipv6
+       |        |  |     +-- customer
+       |        |  |     |  +-- maximum?   uint32
+       |        |  |     +-- logical-mn
+       |        |  |        +-- maximum?   uint8
+       |        |  +-- mobile-map?          string
+       |        |  +-- mobile-route
+       |        |  |  +-- admin-distance?   uint8
+       |        |  +-- network
+       |        |     +-- unauthorized?   empty
+       |        +-- mnp
+       |           +-- afi-all
+       |           |  +-- customer
+       |           |  |  +-- maximum?   uint32
+       |           |  +-- logical-mn
+       |           |     +-- maximum?   uint8
+       |           +-- ipv4
+       |           |  +-- customer
+       |           |  |  +-- maximum?   uint32
+       |           |  +-- logical-mn
+       |           |     +-- maximum?   uint8
+       |           +-- ipv6
+       |              +-- customer
+       |              |  +-- maximum?   uint32
+       |              +-- logical-mn
+       |                 +-- maximum?   uint8
+       +-- pmipv6-mag* [mag-name domain]
+          +-- mag-name?     string
+          +-- domain?       string
+          +-- address
+          |  +-- dynamic!
+          |     +-- roaming* [interface]
+          |        +-- interface?    string
+          |        +-- priority?     uint8
+          |        +-- egress-att?   enumeration
+          |        +-- label?        string
+          +-- multipath?    empty
+          +-- mobile-map?   string
+          +-- interface* [interface-name]
+          |  +-- interface-name?   string
+          +-- logical-mn* [mn-id]
+          |  +-- mn-id?    string
+          |  +-- home
+          |  |  +-- interface?   string
+          |  +-- mobile
+          |     +-- network* [interface]
+          |        +-- interface?       string
+          |        +-- label?           string
+          |        +-- learn-prefix?    empty
+          |        +-- skip-register?   empty
+          +-- lma* [lma-id domain]
+             +-- lma-id?         string
+             +-- domain?         string
+             +-- ipv4-address*   inet:ipv4-address
+             +-- ipv6-address*   inet:ipv6-address
+             +-- encap?          enumeration

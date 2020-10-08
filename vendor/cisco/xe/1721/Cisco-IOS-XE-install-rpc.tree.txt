@@ -1,0 +1,112 @@
+module: Cisco-IOS-XE-install-rpc
+
+  rpcs:
+    +---x install
+    |  +---w input
+    |     +---w uuid          string
+    |     +---w path          string
+    |     +---w one-shot?     boolean
+    |     +---w reloadfast?   boolean
+    +---x activate
+    |  +---w input
+    |     +---w uuid                    string
+    |     +---w smuid?                  uint32
+    |     +---w auto-abort-timer-val?   uint32
+    |     +---w (activate-type-by-choice)
+    |        +--:(activate-use-version)
+    |        |  +---w version           string
+    |        +--:(activate-use-path)
+    |        |  +---w path              string
+    |        +--:(activate-use-profile)
+    |           +---w name              string
+    +---x install-commit
+    |  +---w input
+    |     +---w uuid    string
+    +---x remove
+    |  +---w input
+    |     +---w uuid              string
+    |     +---w smuid?            uint32
+    |     +---w (remove-type-by-choice)
+    |        +--:(remove-use-version)
+    |        |  +---w version     string
+    |        +--:(remove-use-path)
+    |        |  +---w path        string
+    |        +--:(remove-use-inactive)
+    |        |  +---w inactive    boolean
+    |        +--:(remove-use-profile)
+    |           +---w name        string
+    +---x deactivate
+    |  +---w input
+    |     +---w uuid                    string
+    |     +---w auto-abort-timer-val?   uint32
+    |     +---w path                    string
+    +---x abort
+    |  +---w input
+    |     +---w uuid    string
+    +---x auto-abort-timer
+    |  +---w input
+    |     +---w uuid    string
+    +---x rollback
+       +---w input
+          +---w uuid                    string
+          +---w issu?                   boolean
+          +---w (rollback-type-to-choice)
+             +--:(rollback-to-base)
+             |  +---w base              boolean
+             +--:(rollback-to-committed)
+             |  +---w commited          boolean
+             +--:(rollback-to-id)
+             |  +---w rollback-id       uint32
+             +--:(rollback-to-label)
+                +---w rollback-label    string
+
+  grouping install
+    +-- uuid          string
+    +-- path          string
+    +-- one-shot?     boolean
+    +-- reloadfast?   boolean
+  grouping activate
+    +-- uuid                    string
+    +-- smuid?                  uint32
+    +-- auto-abort-timer-val?   uint32
+    +-- (activate-type-by-choice)
+       +--:(activate-use-version)
+       |  +-- version           string
+       +--:(activate-use-path)
+       |  +-- path              string
+       +--:(activate-use-profile)
+          +-- name              string
+  grouping install-commit
+    +-- uuid    string
+  grouping remove
+    +-- uuid              string
+    +-- smuid?            uint32
+    +-- (remove-type-by-choice)
+       +--:(remove-use-version)
+       |  +-- version     string
+       +--:(remove-use-path)
+       |  +-- path        string
+       +--:(remove-use-inactive)
+       |  +-- inactive    boolean
+       +--:(remove-use-profile)
+          +-- name        string
+  grouping deactivate
+    +-- uuid                    string
+    +-- auto-abort-timer-val?   uint32
+    +-- path                    string
+  grouping abort
+    +-- uuid    string
+  grouping auto-abort-timer
+    +-- uuid    string
+  grouping rollback
+    +-- uuid                    string
+    +-- issu?                   boolean
+    +-- (rollback-type-to-choice)
+       +--:(rollback-to-base)
+       |  +-- base              boolean
+       +--:(rollback-to-committed)
+       |  +-- commited          boolean
+       +--:(rollback-to-id)
+       |  +-- rollback-id       uint32
+       +--:(rollback-to-label)
+          +-- rollback-label    string

@@ -1,0 +1,1108 @@
+module: Cisco-IOS-XE-acl-oper
+  +--ro access-lists
+  |  +--ro access-list* [access-control-list-name]
+  |     +--ro access-control-list-name          string
+  |     +--ro access-list-entries
+  |     |  +--ro access-list-entry* [rule-name]
+  |     |     +--ro rule-name                        uint32
+  |     |     +--ro access-list-entries-oper-data
+  |     |     |  +--ro match-counter?   yang:counter64
+  |     |     +--ro access-list-entries-rule-data
+  |     |        +--ro acl-rule?                       acl-ios-xe-oper:access-list-type
+  |     |        +--ro (acl-rule-choice)?
+  |     |           +--:(v4-standard-acl)
+  |     |           |  +--ro v4-standard-ace-rule
+  |     |           |     +--ro action?           acl-ios-xe-oper:acl-action-type
+  |     |           |     +--ro source-address
+  |     |           |        +--ro v4-address?               acl-ios-xe-oper:acl-v4-address-type
+  |     |           |        +--ro (v4-address-choice)?
+  |     |           |           +--:(v4-address-wildcard)
+  |     |           |           |  +--ro address-wildcard
+  |     |           |           |     +--ro address?    inet:ipv4-address
+  |     |           |           |     +--ro wildcard?   inet:ipv4-address
+  |     |           |           +--:(v4-host)
+  |     |           |           |  +--ro host?               inet:ipv4-address
+  |     |           |           +--:(v4-object-group)
+  |     |           |           |  +--ro object-group?       string
+  |     |           |           +--:(v4-fqdn-group)
+  |     |           |           |  +--ro fqdn-group?         string
+  |     |           |           +--:(v4-any)
+  |     |           |              +--ro any?                empty
+  |     |           +--:(v4-extended-acl)
+  |     |           |  +--ro v4-extended-ace-rule
+  |     |           |     +--ro action?                acl-ios-xe-oper:acl-action-type
+  |     |           |     +--ro protocol
+  |     |           |     |  +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+  |     |           |     |  +--ro (protocol-choice)?
+  |     |           |     |     +--:(protocol-any)
+  |     |           |     |     |  +--ro any?            empty
+  |     |           |     |     +--:(protocol-number)
+  |     |           |     |     |  +--ro number?         uint8
+  |     |           |     |     +--:(protocol-object-group)
+  |     |           |     |        +--ro object-group?   string
+  |     |           |     +--ro source-address
+  |     |           |     |  +--ro v4-address?               acl-ios-xe-oper:acl-v4-address-type
+  |     |           |     |  +--ro (v4-address-choice)?
+  |     |           |     |     +--:(v4-address-wildcard)
+  |     |           |     |     |  +--ro address-wildcard
+  |     |           |     |     |     +--ro address?    inet:ipv4-address
+  |     |           |     |     |     +--ro wildcard?   inet:ipv4-address
+  |     |           |     |     +--:(v4-host)
+  |     |           |     |     |  +--ro host?               inet:ipv4-address
+  |     |           |     |     +--:(v4-object-group)
+  |     |           |     |     |  +--ro object-group?       string
+  |     |           |     |     +--:(v4-fqdn-group)
+  |     |           |     |     |  +--ro fqdn-group?         string
+  |     |           |     |     +--:(v4-any)
+  |     |           |     |        +--ro any?                empty
+  |     |           |     +--ro source-port
+  |     |           |     |  +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+  |     |           |     |  +--ro (port-option-choice)?
+  |     |           |     |     +--:(port-any)
+  |     |           |     |     |  +--ro any?         empty
+  |     |           |     |     +--:(port-configured)
+  |     |           |     |        +--ro port-data
+  |     |           |     |           +--ro port-operator?   acl-ios-xe-oper:acl-port-operator-type
+  |     |           |     |           +--ro ports*           uint16
+  |     |           |     +--ro destination-address
+  |     |           |     |  +--ro v4-address?               acl-ios-xe-oper:acl-v4-address-type
+  |     |           |     |  +--ro (v4-address-choice)?
+  |     |           |     |     +--:(v4-address-wildcard)
+  |     |           |     |     |  +--ro address-wildcard
+  |     |           |     |     |     +--ro address?    inet:ipv4-address
+  |     |           |     |     |     +--ro wildcard?   inet:ipv4-address
+  |     |           |     |     +--:(v4-host)
+  |     |           |     |     |  +--ro host?               inet:ipv4-address
+  |     |           |     |     +--:(v4-object-group)
+  |     |           |     |     |  +--ro object-group?       string
+  |     |           |     |     +--:(v4-fqdn-group)
+  |     |           |     |     |  +--ro fqdn-group?         string
+  |     |           |     |     +--:(v4-any)
+  |     |           |     |        +--ro any?                empty
+  |     |           |     +--ro destination-port
+  |     |           |        +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+  |     |           |        +--ro (port-option-choice)?
+  |     |           |           +--:(port-any)
+  |     |           |           |  +--ro any?         empty
+  |     |           |           +--:(port-configured)
+  |     |           |              +--ro port-data
+  |     |           |                 +--ro port-operator?   acl-ios-xe-oper:acl-port-operator-type
+  |     |           |                 +--ro ports*           uint16
+  |     |           +--:(v4-role-based-acl)
+  |     |           |  +--ro v4-role-based-ace-rule
+  |     |           |     +--ro action?             acl-ios-xe-oper:acl-action-type
+  |     |           |     +--ro protocol
+  |     |           |     |  +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+  |     |           |     |  +--ro (protocol-choice)?
+  |     |           |     |     +--:(protocol-any)
+  |     |           |     |     |  +--ro any?            empty
+  |     |           |     |     +--:(protocol-number)
+  |     |           |     |     |  +--ro number?         uint8
+  |     |           |     |     +--:(protocol-object-group)
+  |     |           |     |        +--ro object-group?   string
+  |     |           |     +--ro source-port
+  |     |           |     |  +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+  |     |           |     |  +--ro (port-option-choice)?
+  |     |           |     |     +--:(port-any)
+  |     |           |     |     |  +--ro any?         empty
+  |     |           |     |     +--:(port-configured)
+  |     |           |     |        +--ro port-data
+  |     |           |     |           +--ro port-operator?   acl-ios-xe-oper:acl-port-operator-type
+  |     |           |     |           +--ro ports*           uint16
+  |     |           |     +--ro destination-port
+  |     |           |        +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+  |     |           |        +--ro (port-option-choice)?
+  |     |           |           +--:(port-any)
+  |     |           |           |  +--ro any?         empty
+  |     |           |           +--:(port-configured)
+  |     |           |              +--ro port-data
+  |     |           |                 +--ro port-operator?   acl-ios-xe-oper:acl-port-operator-type
+  |     |           |                 +--ro ports*           uint16
+  |     |           +--:(v6-acl)
+  |     |           |  +--ro v6-ace-rule
+  |     |           |     +--ro action?                acl-ios-xe-oper:acl-action-type
+  |     |           |     +--ro protocol
+  |     |           |     |  +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+  |     |           |     |  +--ro (protocol-choice)?
+  |     |           |     |     +--:(protocol-any)
+  |     |           |     |     |  +--ro any?            empty
+  |     |           |     |     +--:(protocol-number)
+  |     |           |     |     |  +--ro number?         uint8
+  |     |           |     |     +--:(protocol-object-group)
+  |     |           |     |        +--ro object-group?   string
+  |     |           |     +--ro source-address
+  |     |           |     |  +--ro v6-address?               acl-ios-xe-oper:acl-v6-address-type
+  |     |           |     |  +--ro (v6-address-choice)?
+  |     |           |     |     +--:(v6-address-prefix)
+  |     |           |     |     |  +--ro address-prefix?     inet:ip-prefix
+  |     |           |     |     +--:(v6-address-wildcard)
+  |     |           |     |     |  +--ro address-wildcard
+  |     |           |     |     |     +--ro address?    inet:ipv6-address
+  |     |           |     |     |     +--ro wildcard?   inet:ipv6-address
+  |     |           |     |     +--:(v6-host)
+  |     |           |     |     |  +--ro host?               inet:ipv6-address
+  |     |           |     |     +--:(v6-object-group)
+  |     |           |     |     |  +--ro object-group?       string
+  |     |           |     |     +--:(v6-fqdn-group)
+  |     |           |     |     |  +--ro fqdn-group?         string
+  |     |           |     |     +--:(v6-any)
+  |     |           |     |        +--ro any?                empty
+  |     |           |     +--ro source-port
+  |     |           |     |  +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+  |     |           |     |  +--ro (port-option-choice)?
+  |     |           |     |     +--:(port-any)
+  |     |           |     |     |  +--ro any?         empty
+  |     |           |     |     +--:(port-configured)
+  |     |           |     |        +--ro port-data
+  |     |           |     |           +--ro port-operator?   acl-ios-xe-oper:acl-port-operator-type
+  |     |           |     |           +--ro ports*           uint16
+  |     |           |     +--ro destination-address
+  |     |           |     |  +--ro v6-address?               acl-ios-xe-oper:acl-v6-address-type
+  |     |           |     |  +--ro (v6-address-choice)?
+  |     |           |     |     +--:(v6-address-prefix)
+  |     |           |     |     |  +--ro address-prefix?     inet:ip-prefix
+  |     |           |     |     +--:(v6-address-wildcard)
+  |     |           |     |     |  +--ro address-wildcard
+  |     |           |     |     |     +--ro address?    inet:ipv6-address
+  |     |           |     |     |     +--ro wildcard?   inet:ipv6-address
+  |     |           |     |     +--:(v6-host)
+  |     |           |     |     |  +--ro host?               inet:ipv6-address
+  |     |           |     |     +--:(v6-object-group)
+  |     |           |     |     |  +--ro object-group?       string
+  |     |           |     |     +--:(v6-fqdn-group)
+  |     |           |     |     |  +--ro fqdn-group?         string
+  |     |           |     |     +--:(v6-any)
+  |     |           |     |        +--ro any?                empty
+  |     |           |     +--ro destination-port
+  |     |           |        +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+  |     |           |        +--ro (port-option-choice)?
+  |     |           |           +--:(port-any)
+  |     |           |           |  +--ro any?         empty
+  |     |           |           +--:(port-configured)
+  |     |           |              +--ro port-data
+  |     |           |                 +--ro port-operator?   acl-ios-xe-oper:acl-port-operator-type
+  |     |           |                 +--ro ports*           uint16
+  |     |           +--:(v6-role-based-acl)
+  |     |              +--ro v6-role-based-ace-rule
+  |     |                 +--ro action?             acl-ios-xe-oper:acl-action-type
+  |     |                 +--ro protocol
+  |     |                 |  +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+  |     |                 |  +--ro (protocol-choice)?
+  |     |                 |     +--:(protocol-any)
+  |     |                 |     |  +--ro any?            empty
+  |     |                 |     +--:(protocol-number)
+  |     |                 |     |  +--ro number?         uint8
+  |     |                 |     +--:(protocol-object-group)
+  |     |                 |        +--ro object-group?   string
+  |     |                 +--ro source-port
+  |     |                 |  +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+  |     |                 |  +--ro (port-option-choice)?
+  |     |                 |     +--:(port-any)
+  |     |                 |     |  +--ro any?         empty
+  |     |                 |     +--:(port-configured)
+  |     |                 |        +--ro port-data
+  |     |                 |           +--ro port-operator?   acl-ios-xe-oper:acl-port-operator-type
+  |     |                 |           +--ro ports*           uint16
+  |     |                 +--ro destination-port
+  |     |                    +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+  |     |                    +--ro (port-option-choice)?
+  |     |                       +--:(port-any)
+  |     |                       |  +--ro any?         empty
+  |     |                       +--:(port-configured)
+  |     |                          +--ro port-data
+  |     |                             +--ro port-operator?   acl-ios-xe-oper:acl-port-operator-type
+  |     |                             +--ro ports*           uint16
+  |     +--ro access-control-list-type?         acl-ios-xe-oper:access-list-type
+  |     +--ro access-control-list-type-flags?   acl-ios-xe-oper:access-list-type-flags
+  +--rw schema-metadata-Cisco-IOS-XE-acl-oper
+  |  +--rw json-metadata-leaf?   empty
+  +--rw gnmi-model-data
+
+  grouping acl-protocol
+    +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+    +-- (protocol-choice)?
+       +--:(protocol-any)
+       |  +-- any?            empty
+       +--:(protocol-number)
+       |  +-- number?         uint8
+       +--:(protocol-object-group)
+          +-- object-group?   string
+  grouping acl-port-data
+    +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+    +-- ports*           uint16
+  grouping acl-port
+    +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+    +-- (port-option-choice)?
+       +--:(port-any)
+       |  +-- any?         empty
+       +--:(port-configured)
+          +-- port-data
+             +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+             +-- ports*           uint16
+  grouping acl-v4-address-wildcard
+    +-- address?    inet:ipv4-address
+    +-- wildcard?   inet:ipv4-address
+  grouping acl-v4-address
+    +--ro v4-address?               acl-ios-xe-oper:acl-v4-address-type
+    +-- (v4-address-choice)?
+       +--:(v4-address-wildcard)
+       |  +-- address-wildcard
+       |     +-- address?    inet:ipv4-address
+       |     +-- wildcard?   inet:ipv4-address
+       +--:(v4-host)
+       |  +-- host?               inet:ipv4-address
+       +--:(v4-object-group)
+       |  +-- object-group?       string
+       +--:(v4-fqdn-group)
+       |  +-- fqdn-group?         string
+       +--:(v4-any)
+          +-- any?                empty
+  grouping acl-v4-standard-ace-data
+    +-- action?           acl-ios-xe-oper:acl-action-type
+    +-- source-address
+       +--ro v4-address?               acl-ios-xe-oper:acl-v4-address-type
+       +-- (v4-address-choice)?
+          +--:(v4-address-wildcard)
+          |  +-- address-wildcard
+          |     +-- address?    inet:ipv4-address
+          |     +-- wildcard?   inet:ipv4-address
+          +--:(v4-host)
+          |  +-- host?               inet:ipv4-address
+          +--:(v4-object-group)
+          |  +-- object-group?       string
+          +--:(v4-fqdn-group)
+          |  +-- fqdn-group?         string
+          +--:(v4-any)
+             +-- any?                empty
+  grouping acl-v4-extended-ace-data
+    +-- action?                acl-ios-xe-oper:acl-action-type
+    +-- protocol
+    |  +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+    |  +-- (protocol-choice)?
+    |     +--:(protocol-any)
+    |     |  +-- any?            empty
+    |     +--:(protocol-number)
+    |     |  +-- number?         uint8
+    |     +--:(protocol-object-group)
+    |        +-- object-group?   string
+    +-- source-address
+    |  +--ro v4-address?               acl-ios-xe-oper:acl-v4-address-type
+    |  +-- (v4-address-choice)?
+    |     +--:(v4-address-wildcard)
+    |     |  +-- address-wildcard
+    |     |     +-- address?    inet:ipv4-address
+    |     |     +-- wildcard?   inet:ipv4-address
+    |     +--:(v4-host)
+    |     |  +-- host?               inet:ipv4-address
+    |     +--:(v4-object-group)
+    |     |  +-- object-group?       string
+    |     +--:(v4-fqdn-group)
+    |     |  +-- fqdn-group?         string
+    |     +--:(v4-any)
+    |        +-- any?                empty
+    +-- source-port
+    |  +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+    |  +-- (port-option-choice)?
+    |     +--:(port-any)
+    |     |  +-- any?         empty
+    |     +--:(port-configured)
+    |        +-- port-data
+    |           +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+    |           +-- ports*           uint16
+    +-- destination-address
+    |  +--ro v4-address?               acl-ios-xe-oper:acl-v4-address-type
+    |  +-- (v4-address-choice)?
+    |     +--:(v4-address-wildcard)
+    |     |  +-- address-wildcard
+    |     |     +-- address?    inet:ipv4-address
+    |     |     +-- wildcard?   inet:ipv4-address
+    |     +--:(v4-host)
+    |     |  +-- host?               inet:ipv4-address
+    |     +--:(v4-object-group)
+    |     |  +-- object-group?       string
+    |     +--:(v4-fqdn-group)
+    |     |  +-- fqdn-group?         string
+    |     +--:(v4-any)
+    |        +-- any?                empty
+    +-- destination-port
+       +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+       +-- (port-option-choice)?
+          +--:(port-any)
+          |  +-- any?         empty
+          +--:(port-configured)
+             +-- port-data
+                +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+                +-- ports*           uint16
+  grouping acl-v4-role-based-ace-data
+    +-- action?             acl-ios-xe-oper:acl-action-type
+    +-- protocol
+    |  +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+    |  +-- (protocol-choice)?
+    |     +--:(protocol-any)
+    |     |  +-- any?            empty
+    |     +--:(protocol-number)
+    |     |  +-- number?         uint8
+    |     +--:(protocol-object-group)
+    |        +-- object-group?   string
+    +-- source-port
+    |  +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+    |  +-- (port-option-choice)?
+    |     +--:(port-any)
+    |     |  +-- any?         empty
+    |     +--:(port-configured)
+    |        +-- port-data
+    |           +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+    |           +-- ports*           uint16
+    +-- destination-port
+       +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+       +-- (port-option-choice)?
+          +--:(port-any)
+          |  +-- any?         empty
+          +--:(port-configured)
+             +-- port-data
+                +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+                +-- ports*           uint16
+  grouping acl-v6-address-wildcard
+    +-- address?    inet:ipv6-address
+    +-- wildcard?   inet:ipv6-address
+  grouping acl-v6-address
+    +--ro v6-address?               acl-ios-xe-oper:acl-v6-address-type
+    +-- (v6-address-choice)?
+       +--:(v6-address-prefix)
+       |  +-- address-prefix?     inet:ip-prefix
+       +--:(v6-address-wildcard)
+       |  +-- address-wildcard
+       |     +-- address?    inet:ipv6-address
+       |     +-- wildcard?   inet:ipv6-address
+       +--:(v6-host)
+       |  +-- host?               inet:ipv6-address
+       +--:(v6-object-group)
+       |  +-- object-group?       string
+       +--:(v6-fqdn-group)
+       |  +-- fqdn-group?         string
+       +--:(v6-any)
+          +-- any?                empty
+  grouping acl-v6-ace-data
+    +-- action?                acl-ios-xe-oper:acl-action-type
+    +-- protocol
+    |  +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+    |  +-- (protocol-choice)?
+    |     +--:(protocol-any)
+    |     |  +-- any?            empty
+    |     +--:(protocol-number)
+    |     |  +-- number?         uint8
+    |     +--:(protocol-object-group)
+    |        +-- object-group?   string
+    +-- source-address
+    |  +--ro v6-address?               acl-ios-xe-oper:acl-v6-address-type
+    |  +-- (v6-address-choice)?
+    |     +--:(v6-address-prefix)
+    |     |  +-- address-prefix?     inet:ip-prefix
+    |     +--:(v6-address-wildcard)
+    |     |  +-- address-wildcard
+    |     |     +-- address?    inet:ipv6-address
+    |     |     +-- wildcard?   inet:ipv6-address
+    |     +--:(v6-host)
+    |     |  +-- host?               inet:ipv6-address
+    |     +--:(v6-object-group)
+    |     |  +-- object-group?       string
+    |     +--:(v6-fqdn-group)
+    |     |  +-- fqdn-group?         string
+    |     +--:(v6-any)
+    |        +-- any?                empty
+    +-- source-port
+    |  +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+    |  +-- (port-option-choice)?
+    |     +--:(port-any)
+    |     |  +-- any?         empty
+    |     +--:(port-configured)
+    |        +-- port-data
+    |           +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+    |           +-- ports*           uint16
+    +-- destination-address
+    |  +--ro v6-address?               acl-ios-xe-oper:acl-v6-address-type
+    |  +-- (v6-address-choice)?
+    |     +--:(v6-address-prefix)
+    |     |  +-- address-prefix?     inet:ip-prefix
+    |     +--:(v6-address-wildcard)
+    |     |  +-- address-wildcard
+    |     |     +-- address?    inet:ipv6-address
+    |     |     +-- wildcard?   inet:ipv6-address
+    |     +--:(v6-host)
+    |     |  +-- host?               inet:ipv6-address
+    |     +--:(v6-object-group)
+    |     |  +-- object-group?       string
+    |     +--:(v6-fqdn-group)
+    |     |  +-- fqdn-group?         string
+    |     +--:(v6-any)
+    |        +-- any?                empty
+    +-- destination-port
+       +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+       +-- (port-option-choice)?
+          +--:(port-any)
+          |  +-- any?         empty
+          +--:(port-configured)
+             +-- port-data
+                +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+                +-- ports*           uint16
+  grouping acl-v6-role-based-ace-data
+    +-- action?             acl-ios-xe-oper:acl-action-type
+    +-- protocol
+    |  +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+    |  +-- (protocol-choice)?
+    |     +--:(protocol-any)
+    |     |  +-- any?            empty
+    |     +--:(protocol-number)
+    |     |  +-- number?         uint8
+    |     +--:(protocol-object-group)
+    |        +-- object-group?   string
+    +-- source-port
+    |  +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+    |  +-- (port-option-choice)?
+    |     +--:(port-any)
+    |     |  +-- any?         empty
+    |     +--:(port-configured)
+    |        +-- port-data
+    |           +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+    |           +-- ports*           uint16
+    +-- destination-port
+       +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+       +-- (port-option-choice)?
+          +--:(port-any)
+          |  +-- any?         empty
+          +--:(port-configured)
+             +-- port-data
+                +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+                +-- ports*           uint16
+  grouping ace-rule-data
+    +--ro acl-rule?                       acl-ios-xe-oper:access-list-type
+    +-- (acl-rule-choice)?
+       +--:(v4-standard-acl)
+       |  +-- v4-standard-ace-rule
+       |     +-- action?           acl-ios-xe-oper:acl-action-type
+       |     +-- source-address
+       |        +--ro v4-address?               acl-ios-xe-oper:acl-v4-address-type
+       |        +-- (v4-address-choice)?
+       |           +--:(v4-address-wildcard)
+       |           |  +-- address-wildcard
+       |           |     +-- address?    inet:ipv4-address
+       |           |     +-- wildcard?   inet:ipv4-address
+       |           +--:(v4-host)
+       |           |  +-- host?               inet:ipv4-address
+       |           +--:(v4-object-group)
+       |           |  +-- object-group?       string
+       |           +--:(v4-fqdn-group)
+       |           |  +-- fqdn-group?         string
+       |           +--:(v4-any)
+       |              +-- any?                empty
+       +--:(v4-extended-acl)
+       |  +-- v4-extended-ace-rule
+       |     +-- action?                acl-ios-xe-oper:acl-action-type
+       |     +-- protocol
+       |     |  +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+       |     |  +-- (protocol-choice)?
+       |     |     +--:(protocol-any)
+       |     |     |  +-- any?            empty
+       |     |     +--:(protocol-number)
+       |     |     |  +-- number?         uint8
+       |     |     +--:(protocol-object-group)
+       |     |        +-- object-group?   string
+       |     +-- source-address
+       |     |  +--ro v4-address?               acl-ios-xe-oper:acl-v4-address-type
+       |     |  +-- (v4-address-choice)?
+       |     |     +--:(v4-address-wildcard)
+       |     |     |  +-- address-wildcard
+       |     |     |     +-- address?    inet:ipv4-address
+       |     |     |     +-- wildcard?   inet:ipv4-address
+       |     |     +--:(v4-host)
+       |     |     |  +-- host?               inet:ipv4-address
+       |     |     +--:(v4-object-group)
+       |     |     |  +-- object-group?       string
+       |     |     +--:(v4-fqdn-group)
+       |     |     |  +-- fqdn-group?         string
+       |     |     +--:(v4-any)
+       |     |        +-- any?                empty
+       |     +-- source-port
+       |     |  +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+       |     |  +-- (port-option-choice)?
+       |     |     +--:(port-any)
+       |     |     |  +-- any?         empty
+       |     |     +--:(port-configured)
+       |     |        +-- port-data
+       |     |           +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+       |     |           +-- ports*           uint16
+       |     +-- destination-address
+       |     |  +--ro v4-address?               acl-ios-xe-oper:acl-v4-address-type
+       |     |  +-- (v4-address-choice)?
+       |     |     +--:(v4-address-wildcard)
+       |     |     |  +-- address-wildcard
+       |     |     |     +-- address?    inet:ipv4-address
+       |     |     |     +-- wildcard?   inet:ipv4-address
+       |     |     +--:(v4-host)
+       |     |     |  +-- host?               inet:ipv4-address
+       |     |     +--:(v4-object-group)
+       |     |     |  +-- object-group?       string
+       |     |     +--:(v4-fqdn-group)
+       |     |     |  +-- fqdn-group?         string
+       |     |     +--:(v4-any)
+       |     |        +-- any?                empty
+       |     +-- destination-port
+       |        +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+       |        +-- (port-option-choice)?
+       |           +--:(port-any)
+       |           |  +-- any?         empty
+       |           +--:(port-configured)
+       |              +-- port-data
+       |                 +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+       |                 +-- ports*           uint16
+       +--:(v4-role-based-acl)
+       |  +-- v4-role-based-ace-rule
+       |     +-- action?             acl-ios-xe-oper:acl-action-type
+       |     +-- protocol
+       |     |  +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+       |     |  +-- (protocol-choice)?
+       |     |     +--:(protocol-any)
+       |     |     |  +-- any?            empty
+       |     |     +--:(protocol-number)
+       |     |     |  +-- number?         uint8
+       |     |     +--:(protocol-object-group)
+       |     |        +-- object-group?   string
+       |     +-- source-port
+       |     |  +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+       |     |  +-- (port-option-choice)?
+       |     |     +--:(port-any)
+       |     |     |  +-- any?         empty
+       |     |     +--:(port-configured)
+       |     |        +-- port-data
+       |     |           +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+       |     |           +-- ports*           uint16
+       |     +-- destination-port
+       |        +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+       |        +-- (port-option-choice)?
+       |           +--:(port-any)
+       |           |  +-- any?         empty
+       |           +--:(port-configured)
+       |              +-- port-data
+       |                 +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+       |                 +-- ports*           uint16
+       +--:(v6-acl)
+       |  +-- v6-ace-rule
+       |     +-- action?                acl-ios-xe-oper:acl-action-type
+       |     +-- protocol
+       |     |  +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+       |     |  +-- (protocol-choice)?
+       |     |     +--:(protocol-any)
+       |     |     |  +-- any?            empty
+       |     |     +--:(protocol-number)
+       |     |     |  +-- number?         uint8
+       |     |     +--:(protocol-object-group)
+       |     |        +-- object-group?   string
+       |     +-- source-address
+       |     |  +--ro v6-address?               acl-ios-xe-oper:acl-v6-address-type
+       |     |  +-- (v6-address-choice)?
+       |     |     +--:(v6-address-prefix)
+       |     |     |  +-- address-prefix?     inet:ip-prefix
+       |     |     +--:(v6-address-wildcard)
+       |     |     |  +-- address-wildcard
+       |     |     |     +-- address?    inet:ipv6-address
+       |     |     |     +-- wildcard?   inet:ipv6-address
+       |     |     +--:(v6-host)
+       |     |     |  +-- host?               inet:ipv6-address
+       |     |     +--:(v6-object-group)
+       |     |     |  +-- object-group?       string
+       |     |     +--:(v6-fqdn-group)
+       |     |     |  +-- fqdn-group?         string
+       |     |     +--:(v6-any)
+       |     |        +-- any?                empty
+       |     +-- source-port
+       |     |  +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+       |     |  +-- (port-option-choice)?
+       |     |     +--:(port-any)
+       |     |     |  +-- any?         empty
+       |     |     +--:(port-configured)
+       |     |        +-- port-data
+       |     |           +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+       |     |           +-- ports*           uint16
+       |     +-- destination-address
+       |     |  +--ro v6-address?               acl-ios-xe-oper:acl-v6-address-type
+       |     |  +-- (v6-address-choice)?
+       |     |     +--:(v6-address-prefix)
+       |     |     |  +-- address-prefix?     inet:ip-prefix
+       |     |     +--:(v6-address-wildcard)
+       |     |     |  +-- address-wildcard
+       |     |     |     +-- address?    inet:ipv6-address
+       |     |     |     +-- wildcard?   inet:ipv6-address
+       |     |     +--:(v6-host)
+       |     |     |  +-- host?               inet:ipv6-address
+       |     |     +--:(v6-object-group)
+       |     |     |  +-- object-group?       string
+       |     |     +--:(v6-fqdn-group)
+       |     |     |  +-- fqdn-group?         string
+       |     |     +--:(v6-any)
+       |     |        +-- any?                empty
+       |     +-- destination-port
+       |        +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+       |        +-- (port-option-choice)?
+       |           +--:(port-any)
+       |           |  +-- any?         empty
+       |           +--:(port-configured)
+       |              +-- port-data
+       |                 +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+       |                 +-- ports*           uint16
+       +--:(v6-role-based-acl)
+          +-- v6-role-based-ace-rule
+             +-- action?             acl-ios-xe-oper:acl-action-type
+             +-- protocol
+             |  +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+             |  +-- (protocol-choice)?
+             |     +--:(protocol-any)
+             |     |  +-- any?            empty
+             |     +--:(protocol-number)
+             |     |  +-- number?         uint8
+             |     +--:(protocol-object-group)
+             |        +-- object-group?   string
+             +-- source-port
+             |  +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+             |  +-- (port-option-choice)?
+             |     +--:(port-any)
+             |     |  +-- any?         empty
+             |     +--:(port-configured)
+             |        +-- port-data
+             |           +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+             |           +-- ports*           uint16
+             +-- destination-port
+                +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+                +-- (port-option-choice)?
+                   +--:(port-any)
+                   |  +-- any?         empty
+                   +--:(port-configured)
+                      +-- port-data
+                         +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+                         +-- ports*           uint16
+  grouping ace-oper-data
+    +-- match-counter?   yang:counter64
+  grouping access-list-entry
+    +-- rule-name?                       uint32
+    +-- access-list-entries-oper-data
+    |  +-- match-counter?   yang:counter64
+    +-- access-list-entries-rule-data
+       +--ro acl-rule?                       acl-ios-xe-oper:access-list-type
+       +-- (acl-rule-choice)?
+          +--:(v4-standard-acl)
+          |  +-- v4-standard-ace-rule
+          |     +-- action?           acl-ios-xe-oper:acl-action-type
+          |     +-- source-address
+          |        +--ro v4-address?               acl-ios-xe-oper:acl-v4-address-type
+          |        +-- (v4-address-choice)?
+          |           +--:(v4-address-wildcard)
+          |           |  +-- address-wildcard
+          |           |     +-- address?    inet:ipv4-address
+          |           |     +-- wildcard?   inet:ipv4-address
+          |           +--:(v4-host)
+          |           |  +-- host?               inet:ipv4-address
+          |           +--:(v4-object-group)
+          |           |  +-- object-group?       string
+          |           +--:(v4-fqdn-group)
+          |           |  +-- fqdn-group?         string
+          |           +--:(v4-any)
+          |              +-- any?                empty
+          +--:(v4-extended-acl)
+          |  +-- v4-extended-ace-rule
+          |     +-- action?                acl-ios-xe-oper:acl-action-type
+          |     +-- protocol
+          |     |  +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+          |     |  +-- (protocol-choice)?
+          |     |     +--:(protocol-any)
+          |     |     |  +-- any?            empty
+          |     |     +--:(protocol-number)
+          |     |     |  +-- number?         uint8
+          |     |     +--:(protocol-object-group)
+          |     |        +-- object-group?   string
+          |     +-- source-address
+          |     |  +--ro v4-address?               acl-ios-xe-oper:acl-v4-address-type
+          |     |  +-- (v4-address-choice)?
+          |     |     +--:(v4-address-wildcard)
+          |     |     |  +-- address-wildcard
+          |     |     |     +-- address?    inet:ipv4-address
+          |     |     |     +-- wildcard?   inet:ipv4-address
+          |     |     +--:(v4-host)
+          |     |     |  +-- host?               inet:ipv4-address
+          |     |     +--:(v4-object-group)
+          |     |     |  +-- object-group?       string
+          |     |     +--:(v4-fqdn-group)
+          |     |     |  +-- fqdn-group?         string
+          |     |     +--:(v4-any)
+          |     |        +-- any?                empty
+          |     +-- source-port
+          |     |  +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+          |     |  +-- (port-option-choice)?
+          |     |     +--:(port-any)
+          |     |     |  +-- any?         empty
+          |     |     +--:(port-configured)
+          |     |        +-- port-data
+          |     |           +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+          |     |           +-- ports*           uint16
+          |     +-- destination-address
+          |     |  +--ro v4-address?               acl-ios-xe-oper:acl-v4-address-type
+          |     |  +-- (v4-address-choice)?
+          |     |     +--:(v4-address-wildcard)
+          |     |     |  +-- address-wildcard
+          |     |     |     +-- address?    inet:ipv4-address
+          |     |     |     +-- wildcard?   inet:ipv4-address
+          |     |     +--:(v4-host)
+          |     |     |  +-- host?               inet:ipv4-address
+          |     |     +--:(v4-object-group)
+          |     |     |  +-- object-group?       string
+          |     |     +--:(v4-fqdn-group)
+          |     |     |  +-- fqdn-group?         string
+          |     |     +--:(v4-any)
+          |     |        +-- any?                empty
+          |     +-- destination-port
+          |        +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+          |        +-- (port-option-choice)?
+          |           +--:(port-any)
+          |           |  +-- any?         empty
+          |           +--:(port-configured)
+          |              +-- port-data
+          |                 +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+          |                 +-- ports*           uint16
+          +--:(v4-role-based-acl)
+          |  +-- v4-role-based-ace-rule
+          |     +-- action?             acl-ios-xe-oper:acl-action-type
+          |     +-- protocol
+          |     |  +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+          |     |  +-- (protocol-choice)?
+          |     |     +--:(protocol-any)
+          |     |     |  +-- any?            empty
+          |     |     +--:(protocol-number)
+          |     |     |  +-- number?         uint8
+          |     |     +--:(protocol-object-group)
+          |     |        +-- object-group?   string
+          |     +-- source-port
+          |     |  +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+          |     |  +-- (port-option-choice)?
+          |     |     +--:(port-any)
+          |     |     |  +-- any?         empty
+          |     |     +--:(port-configured)
+          |     |        +-- port-data
+          |     |           +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+          |     |           +-- ports*           uint16
+          |     +-- destination-port
+          |        +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+          |        +-- (port-option-choice)?
+          |           +--:(port-any)
+          |           |  +-- any?         empty
+          |           +--:(port-configured)
+          |              +-- port-data
+          |                 +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+          |                 +-- ports*           uint16
+          +--:(v6-acl)
+          |  +-- v6-ace-rule
+          |     +-- action?                acl-ios-xe-oper:acl-action-type
+          |     +-- protocol
+          |     |  +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+          |     |  +-- (protocol-choice)?
+          |     |     +--:(protocol-any)
+          |     |     |  +-- any?            empty
+          |     |     +--:(protocol-number)
+          |     |     |  +-- number?         uint8
+          |     |     +--:(protocol-object-group)
+          |     |        +-- object-group?   string
+          |     +-- source-address
+          |     |  +--ro v6-address?               acl-ios-xe-oper:acl-v6-address-type
+          |     |  +-- (v6-address-choice)?
+          |     |     +--:(v6-address-prefix)
+          |     |     |  +-- address-prefix?     inet:ip-prefix
+          |     |     +--:(v6-address-wildcard)
+          |     |     |  +-- address-wildcard
+          |     |     |     +-- address?    inet:ipv6-address
+          |     |     |     +-- wildcard?   inet:ipv6-address
+          |     |     +--:(v6-host)
+          |     |     |  +-- host?               inet:ipv6-address
+          |     |     +--:(v6-object-group)
+          |     |     |  +-- object-group?       string
+          |     |     +--:(v6-fqdn-group)
+          |     |     |  +-- fqdn-group?         string
+          |     |     +--:(v6-any)
+          |     |        +-- any?                empty
+          |     +-- source-port
+          |     |  +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+          |     |  +-- (port-option-choice)?
+          |     |     +--:(port-any)
+          |     |     |  +-- any?         empty
+          |     |     +--:(port-configured)
+          |     |        +-- port-data
+          |     |           +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+          |     |           +-- ports*           uint16
+          |     +-- destination-address
+          |     |  +--ro v6-address?               acl-ios-xe-oper:acl-v6-address-type
+          |     |  +-- (v6-address-choice)?
+          |     |     +--:(v6-address-prefix)
+          |     |     |  +-- address-prefix?     inet:ip-prefix
+          |     |     +--:(v6-address-wildcard)
+          |     |     |  +-- address-wildcard
+          |     |     |     +-- address?    inet:ipv6-address
+          |     |     |     +-- wildcard?   inet:ipv6-address
+          |     |     +--:(v6-host)
+          |     |     |  +-- host?               inet:ipv6-address
+          |     |     +--:(v6-object-group)
+          |     |     |  +-- object-group?       string
+          |     |     +--:(v6-fqdn-group)
+          |     |     |  +-- fqdn-group?         string
+          |     |     +--:(v6-any)
+          |     |        +-- any?                empty
+          |     +-- destination-port
+          |        +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+          |        +-- (port-option-choice)?
+          |           +--:(port-any)
+          |           |  +-- any?         empty
+          |           +--:(port-configured)
+          |              +-- port-data
+          |                 +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+          |                 +-- ports*           uint16
+          +--:(v6-role-based-acl)
+             +-- v6-role-based-ace-rule
+                +-- action?             acl-ios-xe-oper:acl-action-type
+                +-- protocol
+                |  +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+                |  +-- (protocol-choice)?
+                |     +--:(protocol-any)
+                |     |  +-- any?            empty
+                |     +--:(protocol-number)
+                |     |  +-- number?         uint8
+                |     +--:(protocol-object-group)
+                |        +-- object-group?   string
+                +-- source-port
+                |  +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+                |  +-- (port-option-choice)?
+                |     +--:(port-any)
+                |     |  +-- any?         empty
+                |     +--:(port-configured)
+                |        +-- port-data
+                |           +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+                |           +-- ports*           uint16
+                +-- destination-port
+                   +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+                   +-- (port-option-choice)?
+                      +--:(port-any)
+                      |  +-- any?         empty
+                      +--:(port-configured)
+                         +-- port-data
+                            +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+                            +-- ports*           uint16
+  grouping access-list
+    +-- access-control-list-name?         string
+    +-- access-list-entries
+    |  +-- access-list-entry* [rule-name]
+    |     +-- rule-name?                       uint32
+    |     +-- access-list-entries-oper-data
+    |     |  +-- match-counter?   yang:counter64
+    |     +-- access-list-entries-rule-data
+    |        +--ro acl-rule?                       acl-ios-xe-oper:access-list-type
+    |        +-- (acl-rule-choice)?
+    |           +--:(v4-standard-acl)
+    |           |  +-- v4-standard-ace-rule
+    |           |     +-- action?           acl-ios-xe-oper:acl-action-type
+    |           |     +-- source-address
+    |           |        +--ro v4-address?               acl-ios-xe-oper:acl-v4-address-type
+    |           |        +-- (v4-address-choice)?
+    |           |           +--:(v4-address-wildcard)
+    |           |           |  +-- address-wildcard
+    |           |           |     +-- address?    inet:ipv4-address
+    |           |           |     +-- wildcard?   inet:ipv4-address
+    |           |           +--:(v4-host)
+    |           |           |  +-- host?               inet:ipv4-address
+    |           |           +--:(v4-object-group)
+    |           |           |  +-- object-group?       string
+    |           |           +--:(v4-fqdn-group)
+    |           |           |  +-- fqdn-group?         string
+    |           |           +--:(v4-any)
+    |           |              +-- any?                empty
+    |           +--:(v4-extended-acl)
+    |           |  +-- v4-extended-ace-rule
+    |           |     +-- action?                acl-ios-xe-oper:acl-action-type
+    |           |     +-- protocol
+    |           |     |  +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+    |           |     |  +-- (protocol-choice)?
+    |           |     |     +--:(protocol-any)
+    |           |     |     |  +-- any?            empty
+    |           |     |     +--:(protocol-number)
+    |           |     |     |  +-- number?         uint8
+    |           |     |     +--:(protocol-object-group)
+    |           |     |        +-- object-group?   string
+    |           |     +-- source-address
+    |           |     |  +--ro v4-address?               acl-ios-xe-oper:acl-v4-address-type
+    |           |     |  +-- (v4-address-choice)?
+    |           |     |     +--:(v4-address-wildcard)
+    |           |     |     |  +-- address-wildcard
+    |           |     |     |     +-- address?    inet:ipv4-address
+    |           |     |     |     +-- wildcard?   inet:ipv4-address
+    |           |     |     +--:(v4-host)
+    |           |     |     |  +-- host?               inet:ipv4-address
+    |           |     |     +--:(v4-object-group)
+    |           |     |     |  +-- object-group?       string
+    |           |     |     +--:(v4-fqdn-group)
+    |           |     |     |  +-- fqdn-group?         string
+    |           |     |     +--:(v4-any)
+    |           |     |        +-- any?                empty
+    |           |     +-- source-port
+    |           |     |  +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+    |           |     |  +-- (port-option-choice)?
+    |           |     |     +--:(port-any)
+    |           |     |     |  +-- any?         empty
+    |           |     |     +--:(port-configured)
+    |           |     |        +-- port-data
+    |           |     |           +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+    |           |     |           +-- ports*           uint16
+    |           |     +-- destination-address
+    |           |     |  +--ro v4-address?               acl-ios-xe-oper:acl-v4-address-type
+    |           |     |  +-- (v4-address-choice)?
+    |           |     |     +--:(v4-address-wildcard)
+    |           |     |     |  +-- address-wildcard
+    |           |     |     |     +-- address?    inet:ipv4-address
+    |           |     |     |     +-- wildcard?   inet:ipv4-address
+    |           |     |     +--:(v4-host)
+    |           |     |     |  +-- host?               inet:ipv4-address
+    |           |     |     +--:(v4-object-group)
+    |           |     |     |  +-- object-group?       string
+    |           |     |     +--:(v4-fqdn-group)
+    |           |     |     |  +-- fqdn-group?         string
+    |           |     |     +--:(v4-any)
+    |           |     |        +-- any?                empty
+    |           |     +-- destination-port
+    |           |        +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+    |           |        +-- (port-option-choice)?
+    |           |           +--:(port-any)
+    |           |           |  +-- any?         empty
+    |           |           +--:(port-configured)
+    |           |              +-- port-data
+    |           |                 +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+    |           |                 +-- ports*           uint16
+    |           +--:(v4-role-based-acl)
+    |           |  +-- v4-role-based-ace-rule
+    |           |     +-- action?             acl-ios-xe-oper:acl-action-type
+    |           |     +-- protocol
+    |           |     |  +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+    |           |     |  +-- (protocol-choice)?
+    |           |     |     +--:(protocol-any)
+    |           |     |     |  +-- any?            empty
+    |           |     |     +--:(protocol-number)
+    |           |     |     |  +-- number?         uint8
+    |           |     |     +--:(protocol-object-group)
+    |           |     |        +-- object-group?   string
+    |           |     +-- source-port
+    |           |     |  +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+    |           |     |  +-- (port-option-choice)?
+    |           |     |     +--:(port-any)
+    |           |     |     |  +-- any?         empty
+    |           |     |     +--:(port-configured)
+    |           |     |        +-- port-data
+    |           |     |           +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+    |           |     |           +-- ports*           uint16
+    |           |     +-- destination-port
+    |           |        +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+    |           |        +-- (port-option-choice)?
+    |           |           +--:(port-any)
+    |           |           |  +-- any?         empty
+    |           |           +--:(port-configured)
+    |           |              +-- port-data
+    |           |                 +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+    |           |                 +-- ports*           uint16
+    |           +--:(v6-acl)
+    |           |  +-- v6-ace-rule
+    |           |     +-- action?                acl-ios-xe-oper:acl-action-type
+    |           |     +-- protocol
+    |           |     |  +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+    |           |     |  +-- (protocol-choice)?
+    |           |     |     +--:(protocol-any)
+    |           |     |     |  +-- any?            empty
+    |           |     |     +--:(protocol-number)
+    |           |     |     |  +-- number?         uint8
+    |           |     |     +--:(protocol-object-group)
+    |           |     |        +-- object-group?   string
+    |           |     +-- source-address
+    |           |     |  +--ro v6-address?               acl-ios-xe-oper:acl-v6-address-type
+    |           |     |  +-- (v6-address-choice)?
+    |           |     |     +--:(v6-address-prefix)
+    |           |     |     |  +-- address-prefix?     inet:ip-prefix
+    |           |     |     +--:(v6-address-wildcard)
+    |           |     |     |  +-- address-wildcard
+    |           |     |     |     +-- address?    inet:ipv6-address
+    |           |     |     |     +-- wildcard?   inet:ipv6-address
+    |           |     |     +--:(v6-host)
+    |           |     |     |  +-- host?               inet:ipv6-address
+    |           |     |     +--:(v6-object-group)
+    |           |     |     |  +-- object-group?       string
+    |           |     |     +--:(v6-fqdn-group)
+    |           |     |     |  +-- fqdn-group?         string
+    |           |     |     +--:(v6-any)
+    |           |     |        +-- any?                empty
+    |           |     +-- source-port
+    |           |     |  +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+    |           |     |  +-- (port-option-choice)?
+    |           |     |     +--:(port-any)
+    |           |     |     |  +-- any?         empty
+    |           |     |     +--:(port-configured)
+    |           |     |        +-- port-data
+    |           |     |           +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+    |           |     |           +-- ports*           uint16
+    |           |     +-- destination-address
+    |           |     |  +--ro v6-address?               acl-ios-xe-oper:acl-v6-address-type
+    |           |     |  +-- (v6-address-choice)?
+    |           |     |     +--:(v6-address-prefix)
+    |           |     |     |  +-- address-prefix?     inet:ip-prefix
+    |           |     |     +--:(v6-address-wildcard)
+    |           |     |     |  +-- address-wildcard
+    |           |     |     |     +-- address?    inet:ipv6-address
+    |           |     |     |     +-- wildcard?   inet:ipv6-address
+    |           |     |     +--:(v6-host)
+    |           |     |     |  +-- host?               inet:ipv6-address
+    |           |     |     +--:(v6-object-group)
+    |           |     |     |  +-- object-group?       string
+    |           |     |     +--:(v6-fqdn-group)
+    |           |     |     |  +-- fqdn-group?         string
+    |           |     |     +--:(v6-any)
+    |           |     |        +-- any?                empty
+    |           |     +-- destination-port
+    |           |        +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+    |           |        +-- (port-option-choice)?
+    |           |           +--:(port-any)
+    |           |           |  +-- any?         empty
+    |           |           +--:(port-configured)
+    |           |              +-- port-data
+    |           |                 +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+    |           |                 +-- ports*           uint16
+    |           +--:(v6-role-based-acl)
+    |              +-- v6-role-based-ace-rule
+    |                 +-- action?             acl-ios-xe-oper:acl-action-type
+    |                 +-- protocol
+    |                 |  +--ro protocol?             acl-ios-xe-oper:acl-protocol-type
+    |                 |  +-- (protocol-choice)?
+    |                 |     +--:(protocol-any)
+    |                 |     |  +-- any?            empty
+    |                 |     +--:(protocol-number)
+    |                 |     |  +-- number?         uint8
+    |                 |     +--:(protocol-object-group)
+    |                 |        +-- object-group?   string
+    |                 +-- source-port
+    |                 |  +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+    |                 |  +-- (port-option-choice)?
+    |                 |     +--:(port-any)
+    |                 |     |  +-- any?         empty
+    |                 |     +--:(port-configured)
+    |                 |        +-- port-data
+    |                 |           +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+    |                 |           +-- ports*           uint16
+    |                 +-- destination-port
+    |                    +--ro port-option?       acl-ios-xe-oper:acl-port-option-type
+    |                    +-- (port-option-choice)?
+    |                       +--:(port-any)
+    |                       |  +-- any?         empty
+    |                       +--:(port-configured)
+    |                          +-- port-data
+    |                             +-- port-operator?   acl-ios-xe-oper:acl-port-operator-type
+    |                             +-- ports*           uint16
+    +-- access-control-list-type?         acl-ios-xe-oper:access-list-type
+    +-- access-control-list-type-flags?   acl-ios-xe-oper:access-list-type-flags
+  grouping __yangpp_metadata
+    +-- json-metadata-leaf?   empty

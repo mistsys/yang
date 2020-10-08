@@ -1,0 +1,798 @@
+module: Cisco-IOS-XE-wireless-mesh-oper
+  +--ro mesh-oper-data
+     +--ro mesh-q-stats* [wtp-mac q-type]
+     |  +--ro wtp-mac        yang:mac-address
+     |  +--ro q-type         wireless-types:mesh-node-pkt-queue-type
+     |  +--ro peak-length?   uint16
+     |  +--ro average-len?   uint16
+     |  +--ro overflows?     uint16
+     +--ro mesh-dr-stats* [wtp-mac neigh-ap-mac data-rate-index]
+     |  +--ro wtp-mac            yang:mac-address
+     |  +--ro neigh-ap-mac       yang:mac-address
+     |  +--ro data-rate-index    uint32
+     |  +--ro tx-success?        uint32
+     |  +--ro tx-attempts?       uint32
+     +--ro mesh-sec-stats* [wtp-mac]
+     |  +--ro wtp-mac          yang:mac-address
+     |  +--ro tx-pkts-total?   uint32
+     |  +--ro rx-pkts-total?   uint32
+     |  +--ro rx-pkts-error?   uint32
+     |  +--ro stats-parent
+     |  |  +--ro unknown-assoc-req?         uint32
+     |  |  +--ro invalid-assoc-req?         uint32
+     |  |  +--ro unknown-tgr-auth-req?      uint32
+     |  |  +--ro invalid-tgr-auth-req?      uint32
+     |  |  +--ro unknown-tgr-reassoc-req?   uint32
+     |  |  +--ro invalid-tgr-reassoc-req?   uint32
+     |  +--ro stats-child
+     |     +--ro assoc-failure?         uint32
+     |     +--ro assoc-timeout?         uint32
+     |     +--ro assoc-success?         uint32
+     |     +--ro auth-failure?          uint32
+     |     +--ro auth-timeout?          uint32
+     |     +--ro auth-success?          uint32
+     |     +--ro tgr-auth-failure?      uint32
+     |     +--ro tgr-auth-timeout?      uint32
+     |     +--ro tgr-auth-success?      uint32
+     |     +--ro tgr-reassoc-failure?   uint32
+     |     +--ro tgr-reassoc-timeout?   uint32
+     |     +--ro tgr-reassoc-success?   uint32
+     +--ro mesh-oper-data* [wtp-mac]
+     |  +--ro wtp-mac                        yang:mac-address
+     |  +--ro bhaul-slot-id?                 uint8
+     |  +--ro bhaul-rate-mcs-ss?             uint8
+     |  +--ro active-trunk-native-vlan?      uint16
+     |  +--ro configured-role?               wireless-types:ap-role
+     |  +--ro bhaul-radio-mode?              wireless-types:mesh-bhaul-mode
+     |  +--ro ap-mode?                       wireless-types:enm-ewlc-spam-ap-modes
+     |  +--ro ap-role?                       wireless-types:ap-role
+     |  +--ro bhaul-radio-type?              wireless-types:mesh-bhaul-radio-type
+     |  +--ro bhaul-data-rate-type?          wireless-types:mesh-bhaul-data-rate-type
+     |  +--ro bhaul-tx-rate?                 wireless-types:mesh-dot11abg-data-rate
+     |  +--ro bhaul-rate-mcs-index?          uint32
+     |  +--ro neigh-child-cnt?               uint32
+     |  +--ro ap-specific-bhaul-tx-rate?     boolean
+     |  +--ro trunk-vlan-enabled?            boolean
+     |  +--ro bhaul-child-presence?          boolean
+     |  +--ro bhaul-over-ethernet?           boolean
+     |  +--ro bgn-strict-match?              boolean
+     |  +--ro use-default-bgn?               boolean
+     |  +--ro daisy-chain-mode?              boolean
+     |  +--ro rap-strict-daisy-chain-mode?   boolean
+     |  +--ro block-child-enabled?           boolean
+     |  +--ro ethernet-bridging-enabled?     boolean
+     |  +--ro preferred-parent?              yang:mac-address
+     |  +--ro parent-ap-awpp-addr?           yang:mac-address
+     |  +--ro bridge-group-name?             string
+     |  +--ro psk-key-timestamp?             string
+     |  +--ro mesh-profile-configured?       string
+     |  +--ro mesh-profile-inuse?            string
+     +--ro mesh-gps-info* [wtp-mac]
+     |  +--ro wtp-mac           yang:mac-address
+     |  +--ro location-flags?   uint8
+     |  +--ro latitude?         uint32
+     |  +--ro longitude?        uint32
+     |  +--ro altitude?         uint32
+     +--ro mesh-ap-node-cac-info* [wtp-mac]
+     |  +--ro wtp-mac                        yang:mac-address
+     |  +--ro bw-in-use-24ghz?               uint16
+     |  +--ro bw-in-use-5ghz?                uint16
+     |  +--ro mesh-call-in-progress-24ghz?   uint16
+     |  +--ro mesh-call-in-progress-5ghz?    uint16
+     |  +--ro mesh-call-rejected?            uint16
+     |  +--ro voice-bw-allocated-24ghz?      uint32
+     |  +--ro voice-bw-allocated-5ghz?       uint32
+     |  +--ro mesh-wmm-data* [client-mac]
+     |     +--ro client-mac           yang:mac-address
+     |     +--ro radio-type?          wireless-enum-types:enm-radio-type
+     |     +--ro direction?           uint8
+     |     +--ro nominal-msdu-size?   uint16
+     |     +--ro bw-allocated?        uint16
+     |     +--ro mean-data-rate?      uint32
+     +--ro mesh-cm* [wtp-mac]
+     |  +--ro wtp-mac                  yang:mac-address
+     |  +--ro cm-mac-address?          yang:mac-address
+     |  +--ro ap-mac-address?          yang:mac-address
+     |  +--ro ap-cm-int-mac-address?   yang:mac-address
+     |  +--ro mask-bit?                uint32
+     |  +--ro cm-sw-version?           string
+     |  +--ro cm-status?               string
+     |  +--ro cm-serial-number?        string
+     +--ro mesh-neigh* [wtp-mac neigh-ap-mac]
+     |  +--ro wtp-mac            yang:mac-address
+     |  +--ro neigh-ap-mac       yang:mac-address
+     |  +--ro mesh-neighs
+     |  |  +--ro channel?                     uint8
+     |  |  +--ro potl-parent-timeouts-left?   uint8
+     |  |  +--ro timeouts-left-for-child?     uint8
+     |  |  +--ro snr?                         uint8
+     |  |  +--ro snr-up?                      uint8
+     |  |  +--ro snr-down?                    uint8
+     |  |  +--ro link-snr?                    uint8
+     |  |  +--ro slot-id?                     uint8
+     |  |  +--ro chan-width?                  uint8
+     |  |  +--ro blacklist-timeouts-left?     uint16
+     |  |  +--ro neigh-type?                  wireless-types:enm-mesh-node-neigh-type
+     |  |  +--ro neigh-state?                 wireless-types:enm-mesh-node-neigh-state
+     |  |  +--ro rate?                        uint32
+     |  |  +--ro adjusted-ease?               uint32
+     |  |  +--ro unadjusted-ease?             uint32
+     |  |  +--ro rap-ease?                    uint32
+     |  |  +--ro tx-pkts-parent?              uint32
+     |  |  +--ro rx-pkts-parent?              uint32
+     |  |  +--ro poor-snr?                    uint32
+     |  |  +--ro neigh-status?                wireless-mesh-oper:flag-neigh-status
+     |  |  +--ro neigh-mac-addr?              yang:mac-address
+     |  |  +--ro neigh-base-mac-addr?         yang:mac-address
+     |  |  +--ro ap-identity?                 yang:mac-address
+     |  |  +--ro neigh-ap-name?               string
+     |  |  +--ro bridge-group-name?           string
+     |  |  +--ro last-update?                 yang:date-and-time
+     |  |  +--ro parent-change-time?          yang:date-and-time
+     |  +--ro neigh-per-stats
+     |     +--ro tx-pkts-total?      uint32
+     |     +--ro tx-pkts-success?    uint32
+     |     +--ro retry-pkts-total?   uint32
+     |     +--ro rts-attempts?       uint32
+     |     +--ro rts-success?        uint32
+     +--ro mesh-ap-neigh* [wtp-mac]
+     |  +--ro wtp-mac        yang:mac-address
+     |  +--ro adj-modinfo
+     |  |  +--ro rap?                       uint8
+     |  |  +--ro current-sector-hops?       uint8
+     |  |  +--ro neigh-state?               wireless-types:mesh-adj-state
+     |  |  +--ro malformed-neigh-pkts?      uint32
+     |  |  +--ro poor-neigh-snr?            uint32
+     |  |  +--ro blacklist-pkts?            uint32
+     |  |  +--ro insufficient-memory?       uint32
+     |  |  +--ro rx-neigh-req?              uint32
+     |  |  +--ro rx-neigh-resp?             uint32
+     |  |  +--ro tx-neigh-req?              uint32
+     |  |  +--ro tx-neigh-resp?             uint32
+     |  |  +--ro authentication-failures?   uint32
+     |  |  +--ro parent-changes?            uint32
+     |  |  +--ro neigh-timeout?             uint32
+     |  |  +--ro rx-neigh-update?           uint32
+     |  |  +--ro tx-neigh-update?           uint32
+     |  |  +--ro current-best-neigh?        uint32
+     |  +--ro dr-stats
+     |     +--ro last-update?    uint8
+     |     +--ro rts-attempts?   uint32
+     |     +--ro rts-success?    uint32
+     +--ro mesh-subset-channel-list* [bgn channel]
+     |  +--ro bgn                string
+     |  +--ro channel            uint8
+     |  +--ro rap-local-count?   uint8
+     +--ro mesh-comp-info* [wtp-mac]
+     |  +--ro wtp-mac            yang:mac-address
+     |  +--ro env-info
+     |  |  +--ro number-of-ports?   uint32
+     |  |  +--ro bhaul-intf-name?   string
+     |  |  +--ro eth-if-status
+     |  |     +--ro buffer* []
+     |  |        +--ro intf-name?         string
+     |  |        +--ro port-number?       uint8
+     |  |        +--ro speed?             uint8
+     |  |        +--ro duplex?            uint8
+     |  |        +--ro status?            boolean
+     |  |        +--ro eth-stats
+     |  |        |  +--ro rx-ucast-pkts?     uint32
+     |  |        |  +--ro rx-n-ucast-pkts?   uint32
+     |  |        |  +--ro tx-ucast-pkts?     uint32
+     |  |        |  +--ro tx-n-ucast-pkts?   uint32
+     |  |        +--ro eth-vlan-config
+     |  |           +--ro current-config
+     |  |           |  +--ro mode?                    wireless-types:ethernet-port-type
+     |  |           |  +--ro vlan-id?                 uint16
+     |  |           |  +--ro trunk-vlan-list-count?   uint16
+     |  |           |  +--ro trunk-vlan-list
+     |  |           |     +--ro buffer*   uint16
+     |  |           +--ro stored-config
+     |  |              +--ro mode?                    wireless-types:ethernet-port-type
+     |  |              +--ro vlan-id?                 uint16
+     |  |              +--ro trunk-vlan-list-count?   uint16
+     |  |              +--ro trunk-vlan-list
+     |  |                 +--ro buffer*   uint16
+     |  +--ro battery-state
+     |  |  +--ro wtp-mac?            yang:mac-address
+     |  |  +--ro input-voltage?      uint16
+     |  |  +--ro output-voltage?     uint16
+     |  |  +--ro output-power?       uint16
+     |  |  +--ro internal-voltage?   uint16
+     |  |  +--ro temperature?        uint16
+     |  |  +--ro current?            uint16
+     |  |  +--ro charge?             uint16
+     |  |  +--ro alarms?             wireless-types:mesh-node-battery-alarm
+     |  |  +--ro sw-version?         string
+     |  |  +--ro serial-number?      string
+     |  +--ro peripheral-info
+     |     +--ro temperature
+     |     |  +--ro status?            uint32
+     |     |  +--ro degree?            uint32
+     |     |  +--ro heater-status?     uint32
+     |     |  +--ro temp-state?        uint32
+     |     |  +--ro temp-fahrenheit?   uint32
+     |     +--ro cm-installed?          boolean
+     |     +--ro fiber-sfp-installed?   boolean
+     |     +--ro poe-out-status?        boolean
+     |     +--ro orientation?           uint8
+     +--ro mesh-linktest-parameters* [linktest-id]
+        +--ro linktest-id        uint32
+        +--ro record-in-use?     boolean
+        x--ro started-at?        yang:date-and-time
+        +--ro config
+        |  +--ro data-rate?         wireless-types:mesh-linktest-rate
+        |  +--ro data-rate-index?   wireless-types:mesh-linktest-rate-idx
+        |  +--ro status?            wireless-types:mesh-linktest-cfg-status
+        |  +--ro packet-size?       uint16
+        |  +--ro duration?          uint16
+        |  +--ro pkts-per-sec?      uint32
+        +--ro results
+        |  +--ro elapsed-time?                        uint32
+        |  +--ro last-rx-rate?                        uint32
+        |  +--ro link-test-buffer-allocation-error?   uint32
+        |  +--ro link-test-queue-full-error?          uint32
+        |  +--ro total-tx-pkts?                       uint32
+        |  +--ro total-rx-pkts?                       uint32
+        |  +--ro good-rx-pkts?                        uint32
+        |  +--ro duplicate-rx-pkts?                   uint32
+        |  +--ro short-rx-pkts?                       uint32
+        |  +--ro big-rx-pkts?                         uint32
+        |  +--ro rx-pkts-physical-errors?             uint32
+        |  +--ro rx-pkts-crc-errors?                  uint32
+        |  +--ro rx-pkts-seq-errors?                  uint32
+        |  +--ro rx-pkts-unknown-errors?              uint32
+        |  +--ro rx-pkts-prev-seq?                    uint32
+        |  +--ro rx-pkts-lost?                        uint32
+        |  +--ro rx-pkts-average-snr?                 int32
+        |  +--ro rx-pkts-highest-snr?                 int32
+        |  +--ro rx-pkts-lowest-snr?                  int32
+        |  +--ro rx-pkts-average-nf?                  int32
+        |  +--ro rx-pkts-highest-nf?                  int32
+        |  +--ro rx-pkts-lowest-nf?                   int32
+        |  +--ro rx-pkts-average-rssi?                int32
+        |  +--ro rx-pkts-highest-rssi?                int32
+        |  +--ro rx-pkts-lowest-rssi?                 int32
+        |  +--ro last-elapsed-timestamp?              yang:date-and-time
+        |  +--ro last-rx-timestamp?                   yang:date-and-time
+        |  +--ro snr-profile
+        |  |  +--ro buffer-snr*   uint32
+        |  +--ro nf-profile
+        |  |  +--ro buffer-nf*   uint32
+        |  +--ro rssi-profile
+        |     +--ro buffer-rssi*   uint32
+        +--ro start-time?        yang:date-and-time
+        +--ro source-mac?        yang:mac-address
+        +--ro destination-mac?   yang:mac-address
+
+  grouping st-mesh-node-pkt-queue-stats
+    +-- peak-length?   uint16
+    +-- average-len?   uint16
+    +-- overflows?     uint16
+  grouping st-mesh-node-pkt-queue-stats-key
+    +-- wtp-mac?   yang:mac-address
+    +-- q-type?    wireless-types:mesh-node-pkt-queue-type
+  grouping st-mesh-node-data-rate-stats
+    +-- tx-success?    uint32
+    +-- tx-attempts?   uint32
+  grouping st-mesh-node-data-rate-stats-key
+    +-- wtp-mac?           yang:mac-address
+    +-- neigh-ap-mac?      yang:mac-address
+    +-- data-rate-index?   uint32
+  grouping st-mesh-ap-security-stats-parent
+    +-- unknown-assoc-req?         uint32
+    +-- invalid-assoc-req?         uint32
+    +-- unknown-tgr-auth-req?      uint32
+    +-- invalid-tgr-auth-req?      uint32
+    +-- unknown-tgr-reassoc-req?   uint32
+    +-- invalid-tgr-reassoc-req?   uint32
+  grouping st-mesh-ap-security-stats-child
+    +-- assoc-failure?         uint32
+    +-- assoc-timeout?         uint32
+    +-- assoc-success?         uint32
+    +-- auth-failure?          uint32
+    +-- auth-timeout?          uint32
+    +-- auth-success?          uint32
+    +-- tgr-auth-failure?      uint32
+    +-- tgr-auth-timeout?      uint32
+    +-- tgr-auth-success?      uint32
+    +-- tgr-reassoc-failure?   uint32
+    +-- tgr-reassoc-timeout?   uint32
+    +-- tgr-reassoc-success?   uint32
+  grouping st-mesh-ap-security-stats
+    +-- wtp-mac?         yang:mac-address
+    +-- tx-pkts-total?   uint32
+    +-- rx-pkts-total?   uint32
+    +-- rx-pkts-error?   uint32
+    +-- stats-parent
+    |  +-- unknown-assoc-req?         uint32
+    |  +-- invalid-assoc-req?         uint32
+    |  +-- unknown-tgr-auth-req?      uint32
+    |  +-- invalid-tgr-auth-req?      uint32
+    |  +-- unknown-tgr-reassoc-req?   uint32
+    |  +-- invalid-tgr-reassoc-req?   uint32
+    +-- stats-child
+       +-- assoc-failure?         uint32
+       +-- assoc-timeout?         uint32
+       +-- assoc-success?         uint32
+       +-- auth-failure?          uint32
+       +-- auth-timeout?          uint32
+       +-- auth-success?          uint32
+       +-- tgr-auth-failure?      uint32
+       +-- tgr-auth-timeout?      uint32
+       +-- tgr-auth-success?      uint32
+       +-- tgr-reassoc-failure?   uint32
+       +-- tgr-reassoc-timeout?   uint32
+       +-- tgr-reassoc-success?   uint32
+  grouping st-mesh-ap-oper-data
+    +-- wtp-mac?                       yang:mac-address
+    +-- bhaul-slot-id?                 uint8
+    +-- bhaul-rate-mcs-ss?             uint8
+    +-- active-trunk-native-vlan?      uint16
+    +-- configured-role?               wireless-types:ap-role
+    +-- bhaul-radio-mode?              wireless-types:mesh-bhaul-mode
+    +-- ap-mode?                       wireless-types:enm-ewlc-spam-ap-modes
+    +-- ap-role?                       wireless-types:ap-role
+    +-- bhaul-radio-type?              wireless-types:mesh-bhaul-radio-type
+    +-- bhaul-data-rate-type?          wireless-types:mesh-bhaul-data-rate-type
+    +-- bhaul-tx-rate?                 wireless-types:mesh-dot11abg-data-rate
+    +-- bhaul-rate-mcs-index?          uint32
+    +-- neigh-child-cnt?               uint32
+    +-- ap-specific-bhaul-tx-rate?     boolean
+    +-- trunk-vlan-enabled?            boolean
+    +-- bhaul-child-presence?          boolean
+    +-- bhaul-over-ethernet?           boolean
+    +-- bgn-strict-match?              boolean
+    +-- use-default-bgn?               boolean
+    +-- daisy-chain-mode?              boolean
+    +-- rap-strict-daisy-chain-mode?   boolean
+    +-- block-child-enabled?           boolean
+    +-- ethernet-bridging-enabled?     boolean
+    +-- preferred-parent?              yang:mac-address
+    +-- parent-ap-awpp-addr?           yang:mac-address
+    +-- bridge-group-name?             string
+    +-- psk-key-timestamp?             string
+    +-- mesh-profile-configured?       string
+    +-- mesh-profile-inuse?            string
+  grouping st-mesh-gps-info
+    +-- wtp-mac?          yang:mac-address
+    +-- location-flags?   uint8
+    +-- latitude?         uint32
+    +-- longitude?        uint32
+    +-- altitude?         uint32
+  grouping st-mesh-cable-modem
+    +-- wtp-mac?                 yang:mac-address
+    +-- cm-mac-address?          yang:mac-address
+    +-- ap-mac-address?          yang:mac-address
+    +-- ap-cm-int-mac-address?   yang:mac-address
+    +-- mask-bit?                uint32
+    +-- cm-sw-version?           string
+    +-- cm-status?               string
+    +-- cm-serial-number?        string
+  grouping st-mesh-node-neigh-key
+    +-- wtp-mac?        yang:mac-address
+    +-- neigh-ap-mac?   yang:mac-address
+  grouping st-mesh-adj-minfo
+    +-- channel?                     uint8
+    +-- potl-parent-timeouts-left?   uint8
+    +-- timeouts-left-for-child?     uint8
+    +-- snr?                         uint8
+    +-- snr-up?                      uint8
+    +-- snr-down?                    uint8
+    +-- link-snr?                    uint8
+    +-- slot-id?                     uint8
+    +-- chan-width?                  uint8
+    +-- blacklist-timeouts-left?     uint16
+    +-- neigh-type?                  wireless-types:enm-mesh-node-neigh-type
+    +-- neigh-state?                 wireless-types:enm-mesh-node-neigh-state
+    +-- rate?                        uint32
+    +-- adjusted-ease?               uint32
+    +-- unadjusted-ease?             uint32
+    +-- rap-ease?                    uint32
+    +-- tx-pkts-parent?              uint32
+    +-- rx-pkts-parent?              uint32
+    +-- poor-snr?                    uint32
+    +-- neigh-status?                wireless-mesh-oper:flag-neigh-status
+    +-- neigh-mac-addr?              yang:mac-address
+    +-- neigh-base-mac-addr?         yang:mac-address
+    +-- ap-identity?                 yang:mac-address
+    +-- neigh-ap-name?               string
+    +-- bridge-group-name?           string
+    +-- last-update?                 yang:date-and-time
+    +-- parent-change-time?          yang:date-and-time
+  grouping st-mesh-neigh-per-stats
+    +-- tx-pkts-total?      uint32
+    +-- tx-pkts-success?    uint32
+    +-- retry-pkts-total?   uint32
+    +-- rts-attempts?       uint32
+    +-- rts-success?        uint32
+  grouping st-mesh-node-dr-stats
+    +-- last-update?    uint8
+    +-- rts-attempts?   uint32
+    +-- rts-success?    uint32
+  grouping st-mesh-node-neigh-info
+    +-- mesh-neighs
+    |  +-- channel?                     uint8
+    |  +-- potl-parent-timeouts-left?   uint8
+    |  +-- timeouts-left-for-child?     uint8
+    |  +-- snr?                         uint8
+    |  +-- snr-up?                      uint8
+    |  +-- snr-down?                    uint8
+    |  +-- link-snr?                    uint8
+    |  +-- slot-id?                     uint8
+    |  +-- chan-width?                  uint8
+    |  +-- blacklist-timeouts-left?     uint16
+    |  +-- neigh-type?                  wireless-types:enm-mesh-node-neigh-type
+    |  +-- neigh-state?                 wireless-types:enm-mesh-node-neigh-state
+    |  +-- rate?                        uint32
+    |  +-- adjusted-ease?               uint32
+    |  +-- unadjusted-ease?             uint32
+    |  +-- rap-ease?                    uint32
+    |  +-- tx-pkts-parent?              uint32
+    |  +-- rx-pkts-parent?              uint32
+    |  +-- poor-snr?                    uint32
+    |  +-- neigh-status?                wireless-mesh-oper:flag-neigh-status
+    |  +-- neigh-mac-addr?              yang:mac-address
+    |  +-- neigh-base-mac-addr?         yang:mac-address
+    |  +-- ap-identity?                 yang:mac-address
+    |  +-- neigh-ap-name?               string
+    |  +-- bridge-group-name?           string
+    |  +-- last-update?                 yang:date-and-time
+    |  +-- parent-change-time?          yang:date-and-time
+    +-- neigh-per-stats
+       +-- tx-pkts-total?      uint32
+       +-- tx-pkts-success?    uint32
+       +-- retry-pkts-total?   uint32
+       +-- rts-attempts?       uint32
+       +-- rts-success?        uint32
+  grouping st-mesh-adj-modinfo
+    +-- rap?                       uint8
+    +-- current-sector-hops?       uint8
+    +-- neigh-state?               wireless-types:mesh-adj-state
+    +-- malformed-neigh-pkts?      uint32
+    +-- poor-neigh-snr?            uint32
+    +-- blacklist-pkts?            uint32
+    +-- insufficient-memory?       uint32
+    +-- rx-neigh-req?              uint32
+    +-- rx-neigh-resp?             uint32
+    +-- tx-neigh-req?              uint32
+    +-- tx-neigh-resp?             uint32
+    +-- authentication-failures?   uint32
+    +-- parent-changes?            uint32
+    +-- neigh-timeout?             uint32
+    +-- rx-neigh-update?           uint32
+    +-- tx-neigh-update?           uint32
+    +-- current-best-neigh?        uint32
+  grouping st-mesh-ap-node-neigh-info
+    +-- wtp-mac?       yang:mac-address
+    +-- adj-modinfo
+    |  +-- rap?                       uint8
+    |  +-- current-sector-hops?       uint8
+    |  +-- neigh-state?               wireless-types:mesh-adj-state
+    |  +-- malformed-neigh-pkts?      uint32
+    |  +-- poor-neigh-snr?            uint32
+    |  +-- blacklist-pkts?            uint32
+    |  +-- insufficient-memory?       uint32
+    |  +-- rx-neigh-req?              uint32
+    |  +-- rx-neigh-resp?             uint32
+    |  +-- tx-neigh-req?              uint32
+    |  +-- tx-neigh-resp?             uint32
+    |  +-- authentication-failures?   uint32
+    |  +-- parent-changes?            uint32
+    |  +-- neigh-timeout?             uint32
+    |  +-- rx-neigh-update?           uint32
+    |  +-- tx-neigh-update?           uint32
+    |  +-- current-best-neigh?        uint32
+    +-- dr-stats
+       +-- last-update?    uint8
+       +-- rts-attempts?   uint32
+       +-- rts-success?    uint32
+  grouping st-mesh-node-battery
+    +-- wtp-mac?            yang:mac-address
+    +-- input-voltage?      uint16
+    +-- output-voltage?     uint16
+    +-- output-power?       uint16
+    +-- internal-voltage?   uint16
+    +-- temperature?        uint16
+    +-- current?            uint16
+    +-- charge?             uint16
+    +-- alarms?             wireless-types:mesh-node-battery-alarm
+    +-- sw-version?         string
+    +-- serial-number?      string
+  grouping st-mesh-eth-intf-stats
+    +-- rx-ucast-pkts?     uint32
+    +-- rx-n-ucast-pkts?   uint32
+    +-- tx-ucast-pkts?     uint32
+    +-- tx-n-ucast-pkts?   uint32
+  grouping st-mesh-trunk-vlan-list
+    +-- buffer*   uint16
+  grouping st-mesh-eth-intf-vlan
+    +-- mode?                    wireless-types:ethernet-port-type
+    +-- vlan-id?                 uint16
+    +-- trunk-vlan-list-count?   uint16
+    +-- trunk-vlan-list
+       +-- buffer*   uint16
+  grouping st-mesh-eth-intf-vlan-config
+    +-- current-config
+    |  +-- mode?                    wireless-types:ethernet-port-type
+    |  +-- vlan-id?                 uint16
+    |  +-- trunk-vlan-list-count?   uint16
+    |  +-- trunk-vlan-list
+    |     +-- buffer*   uint16
+    +-- stored-config
+       +-- mode?                    wireless-types:ethernet-port-type
+       +-- vlan-id?                 uint16
+       +-- trunk-vlan-list-count?   uint16
+       +-- trunk-vlan-list
+          +-- buffer*   uint16
+  grouping st-mesh-eth-info
+    +-- intf-name?         string
+    +-- port-number?       uint8
+    +-- speed?             uint8
+    +-- duplex?            uint8
+    +-- status?            boolean
+    +-- eth-stats
+    |  +-- rx-ucast-pkts?     uint32
+    |  +-- rx-n-ucast-pkts?   uint32
+    |  +-- tx-ucast-pkts?     uint32
+    |  +-- tx-n-ucast-pkts?   uint32
+    +-- eth-vlan-config
+       +-- current-config
+       |  +-- mode?                    wireless-types:ethernet-port-type
+       |  +-- vlan-id?                 uint16
+       |  +-- trunk-vlan-list-count?   uint16
+       |  +-- trunk-vlan-list
+       |     +-- buffer*   uint16
+       +-- stored-config
+          +-- mode?                    wireless-types:ethernet-port-type
+          +-- vlan-id?                 uint16
+          +-- trunk-vlan-list-count?   uint16
+          +-- trunk-vlan-list
+             +-- buffer*   uint16
+  grouping st-mesh-eth-info-arr
+    +-- buffer* []
+       +-- intf-name?         string
+       +-- port-number?       uint8
+       +-- speed?             uint8
+       +-- duplex?            uint8
+       +-- status?            boolean
+       +-- eth-stats
+       |  +-- rx-ucast-pkts?     uint32
+       |  +-- rx-n-ucast-pkts?   uint32
+       |  +-- tx-ucast-pkts?     uint32
+       |  +-- tx-n-ucast-pkts?   uint32
+       +-- eth-vlan-config
+          +-- current-config
+          |  +-- mode?                    wireless-types:ethernet-port-type
+          |  +-- vlan-id?                 uint16
+          |  +-- trunk-vlan-list-count?   uint16
+          |  +-- trunk-vlan-list
+          |     +-- buffer*   uint16
+          +-- stored-config
+             +-- mode?                    wireless-types:ethernet-port-type
+             +-- vlan-id?                 uint16
+             +-- trunk-vlan-list-count?   uint16
+             +-- trunk-vlan-list
+                +-- buffer*   uint16
+  grouping st-mesh-node-env-info
+    +-- number-of-ports?   uint32
+    +-- bhaul-intf-name?   string
+    +-- eth-if-status
+       +-- buffer* []
+          +-- intf-name?         string
+          +-- port-number?       uint8
+          +-- speed?             uint8
+          +-- duplex?            uint8
+          +-- status?            boolean
+          +-- eth-stats
+          |  +-- rx-ucast-pkts?     uint32
+          |  +-- rx-n-ucast-pkts?   uint32
+          |  +-- tx-ucast-pkts?     uint32
+          |  +-- tx-n-ucast-pkts?   uint32
+          +-- eth-vlan-config
+             +-- current-config
+             |  +-- mode?                    wireless-types:ethernet-port-type
+             |  +-- vlan-id?                 uint16
+             |  +-- trunk-vlan-list-count?   uint16
+             |  +-- trunk-vlan-list
+             |     +-- buffer*   uint16
+             +-- stored-config
+                +-- mode?                    wireless-types:ethernet-port-type
+                +-- vlan-id?                 uint16
+                +-- trunk-vlan-list-count?   uint16
+                +-- trunk-vlan-list
+                   +-- buffer*   uint16
+  grouping st-mesh-temperature
+    +-- status?            uint32
+    +-- degree?            uint32
+    +-- heater-status?     uint32
+    +-- temp-state?        uint32
+    +-- temp-fahrenheit?   uint32
+  grouping st-mesh-peripheral-info
+    +-- temperature
+    |  +-- status?            uint32
+    |  +-- degree?            uint32
+    |  +-- heater-status?     uint32
+    |  +-- temp-state?        uint32
+    |  +-- temp-fahrenheit?   uint32
+    +-- cm-installed?          boolean
+    +-- fiber-sfp-installed?   boolean
+    +-- poe-out-status?        boolean
+    +-- orientation?           uint8
+  grouping st-mesh-node-component-info
+    +-- wtp-mac?           yang:mac-address
+    +-- env-info
+    |  +-- number-of-ports?   uint32
+    |  +-- bhaul-intf-name?   string
+    |  +-- eth-if-status
+    |     +-- buffer* []
+    |        +-- intf-name?         string
+    |        +-- port-number?       uint8
+    |        +-- speed?             uint8
+    |        +-- duplex?            uint8
+    |        +-- status?            boolean
+    |        +-- eth-stats
+    |        |  +-- rx-ucast-pkts?     uint32
+    |        |  +-- rx-n-ucast-pkts?   uint32
+    |        |  +-- tx-ucast-pkts?     uint32
+    |        |  +-- tx-n-ucast-pkts?   uint32
+    |        +-- eth-vlan-config
+    |           +-- current-config
+    |           |  +-- mode?                    wireless-types:ethernet-port-type
+    |           |  +-- vlan-id?                 uint16
+    |           |  +-- trunk-vlan-list-count?   uint16
+    |           |  +-- trunk-vlan-list
+    |           |     +-- buffer*   uint16
+    |           +-- stored-config
+    |              +-- mode?                    wireless-types:ethernet-port-type
+    |              +-- vlan-id?                 uint16
+    |              +-- trunk-vlan-list-count?   uint16
+    |              +-- trunk-vlan-list
+    |                 +-- buffer*   uint16
+    +-- battery-state
+    |  +-- wtp-mac?            yang:mac-address
+    |  +-- input-voltage?      uint16
+    |  +-- output-voltage?     uint16
+    |  +-- output-power?       uint16
+    |  +-- internal-voltage?   uint16
+    |  +-- temperature?        uint16
+    |  +-- current?            uint16
+    |  +-- charge?             uint16
+    |  +-- alarms?             wireless-types:mesh-node-battery-alarm
+    |  +-- sw-version?         string
+    |  +-- serial-number?      string
+    +-- peripheral-info
+       +-- temperature
+       |  +-- status?            uint32
+       |  +-- degree?            uint32
+       |  +-- heater-status?     uint32
+       |  +-- temp-state?        uint32
+       |  +-- temp-fahrenheit?   uint32
+       +-- cm-installed?          boolean
+       +-- fiber-sfp-installed?   boolean
+       +-- poe-out-status?        boolean
+       +-- orientation?           uint8
+  grouping st-bgn-channel-comp-key
+    +-- bgn?       string
+    +-- channel?   uint8
+  grouping st-subset-channel-list
+    +-- rap-local-count?   uint8
+  grouping mesh-linktest-snr-profile
+    +-- buffer-snr*   uint32
+  grouping mesh-link-test-nf-profile
+    +-- buffer-nf*   uint32
+  grouping mesh-link-test-rssi-profile
+    +-- buffer-rssi*   uint32
+  grouping mesh-link-test-result
+    +-- elapsed-time?                        uint32
+    +-- last-rx-rate?                        uint32
+    +-- link-test-buffer-allocation-error?   uint32
+    +-- link-test-queue-full-error?          uint32
+    +-- total-tx-pkts?                       uint32
+    +-- total-rx-pkts?                       uint32
+    +-- good-rx-pkts?                        uint32
+    +-- duplicate-rx-pkts?                   uint32
+    +-- short-rx-pkts?                       uint32
+    +-- big-rx-pkts?                         uint32
+    +-- rx-pkts-physical-errors?             uint32
+    +-- rx-pkts-crc-errors?                  uint32
+    +-- rx-pkts-seq-errors?                  uint32
+    +-- rx-pkts-unknown-errors?              uint32
+    +-- rx-pkts-prev-seq?                    uint32
+    +-- rx-pkts-lost?                        uint32
+    +-- rx-pkts-average-snr?                 int32
+    +-- rx-pkts-highest-snr?                 int32
+    +-- rx-pkts-lowest-snr?                  int32
+    +-- rx-pkts-average-nf?                  int32
+    +-- rx-pkts-highest-nf?                  int32
+    +-- rx-pkts-lowest-nf?                   int32
+    +-- rx-pkts-average-rssi?                int32
+    +-- rx-pkts-highest-rssi?                int32
+    +-- rx-pkts-lowest-rssi?                 int32
+    +-- last-elapsed-timestamp?              yang:date-and-time
+    +-- last-rx-timestamp?                   yang:date-and-time
+    +-- snr-profile
+    |  +-- buffer-snr*   uint32
+    +-- nf-profile
+    |  +-- buffer-nf*   uint32
+    +-- rssi-profile
+       +-- buffer-rssi*   uint32
+  grouping mesh-link-test-mac-endpoints
+    +-- source-mac?        yang:mac-address
+    +-- destination-mac?   yang:mac-address
+  grouping mesh-link-test-config
+    +-- data-rate?         wireless-types:mesh-linktest-rate
+    +-- data-rate-index?   wireless-types:mesh-linktest-rate-idx
+    +-- status?            wireless-types:mesh-linktest-cfg-status
+    +-- packet-size?       uint16
+    +-- duration?          uint16
+    +-- pkts-per-sec?      uint32
+  grouping mesh-link-test
+    +-- linktest-id?     uint32
+    +-- record-in-use?   boolean
+    x-- started-at?      yang:date-and-time
+    +-- config
+    |  +-- data-rate?         wireless-types:mesh-linktest-rate
+    |  +-- data-rate-index?   wireless-types:mesh-linktest-rate-idx
+    |  +-- status?            wireless-types:mesh-linktest-cfg-status
+    |  +-- packet-size?       uint16
+    |  +-- duration?          uint16
+    |  +-- pkts-per-sec?      uint32
+    +-- results
+    |  +-- elapsed-time?                        uint32
+    |  +-- last-rx-rate?                        uint32
+    |  +-- link-test-buffer-allocation-error?   uint32
+    |  +-- link-test-queue-full-error?          uint32
+    |  +-- total-tx-pkts?                       uint32
+    |  +-- total-rx-pkts?                       uint32
+    |  +-- good-rx-pkts?                        uint32
+    |  +-- duplicate-rx-pkts?                   uint32
+    |  +-- short-rx-pkts?                       uint32
+    |  +-- big-rx-pkts?                         uint32
+    |  +-- rx-pkts-physical-errors?             uint32
+    |  +-- rx-pkts-crc-errors?                  uint32
+    |  +-- rx-pkts-seq-errors?                  uint32
+    |  +-- rx-pkts-unknown-errors?              uint32
+    |  +-- rx-pkts-prev-seq?                    uint32
+    |  +-- rx-pkts-lost?                        uint32
+    |  +-- rx-pkts-average-snr?                 int32
+    |  +-- rx-pkts-highest-snr?                 int32
+    |  +-- rx-pkts-lowest-snr?                  int32
+    |  +-- rx-pkts-average-nf?                  int32
+    |  +-- rx-pkts-highest-nf?                  int32
+    |  +-- rx-pkts-lowest-nf?                   int32
+    |  +-- rx-pkts-average-rssi?                int32
+    |  +-- rx-pkts-highest-rssi?                int32
+    |  +-- rx-pkts-lowest-rssi?                 int32
+    |  +-- last-elapsed-timestamp?              yang:date-and-time
+    |  +-- last-rx-timestamp?                   yang:date-and-time
+    |  +-- snr-profile
+    |  |  +-- buffer-snr*   uint32
+    |  +-- nf-profile
+    |  |  +-- buffer-nf*   uint32
+    |  +-- rssi-profile
+    |     +-- buffer-rssi*   uint32
+    +-- start-time?      yang:date-and-time
+  grouping st-mesh-wmm-data
+    +-- client-mac?          yang:mac-address
+    +-- radio-type?          wireless-enum-types:enm-radio-type
+    +-- direction?           uint8
+    +-- nominal-msdu-size?   uint16
+    +-- bw-allocated?        uint16
+    +-- mean-data-rate?      uint32
+  grouping st-mesh-ap-node-cac-info
+    +-- wtp-mac?                       yang:mac-address
+    +-- bw-in-use-24ghz?               uint16
+    +-- bw-in-use-5ghz?                uint16
+    +-- mesh-call-in-progress-24ghz?   uint16
+    +-- mesh-call-in-progress-5ghz?    uint16
+    +-- mesh-call-rejected?            uint16
+    +-- voice-bw-allocated-24ghz?      uint32
+    +-- voice-bw-allocated-5ghz?       uint32
+    +-- mesh-wmm-data* [client-mac]
+       +-- client-mac?          yang:mac-address
+       +-- radio-type?          wireless-enum-types:enm-radio-type
+       +-- direction?           uint8
+       +-- nominal-msdu-size?   uint16
+       +-- bw-allocated?        uint16
+       +-- mean-data-rate?      uint32

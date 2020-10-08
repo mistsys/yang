@@ -1,0 +1,78 @@
+module: Cisco-IOS-XE-rpc
+
+  rpcs:
+    +---x switch
+    |  +---w input
+    |  |  +---w _switch-number    uint8
+    |  |  +---w (pri-renum-stack)
+    |  |     +--:(priority-case)
+    |  |     |  +---w priority?   uint8
+    |  |     +--:(renumver-case)
+    |  |     |  +---w renumber?   uint8
+    |  |     +--:(stack-case)
+    |  |        +---w statck
+    |  |           +---w port?   uint8
+    |  +--ro output
+    |     +--ro result?   string
+    +---x default
+    |  +---w input
+    |  |  +---w (default-choice)
+    |  |     +--:(interface-case)
+    |  |        +---w interface?   string
+    |  +--ro output
+    |     +--ro result?   string
+    +---x reload
+    |  +---w input
+    |  |  +---w force?   boolean
+    |  +--ro output
+    |     +--ro result?   string
+    +---x license
+    |  +---w input
+    |  |  +---w smart
+    |  |     +---w (smart-choice)
+    |  |        +--:(register-case)
+    |  |        |  +---w register
+    |  |        |     +---w idtoken?   empty
+    |  |        +--:(deregister-case)
+    |  |        |  +---w deregister?   empty
+    |  |        +--:(renew-case)
+    |  |           +---w renew
+    |  |              +---w id?     empty
+    |  |              +---w auth?   empty
+    |  +--ro output
+    |     +--ro result?   string
+    +---x service
+       +---w input
+       |  +---w sd-avc
+       |     +---w (sd-avc-choice)
+       |        +--:(activate-case)
+       |        |  +---w activate?      empty
+       |        +--:(configure-case)
+       |        |  +---w configure
+       |        |     +---w gateway
+       |        |        +---w interface?    string
+       |        |        +---w service-ip?   inet:ipv4-address
+       |        |        +---w activate?     empty
+       |        +--:(connect-case)
+       |        |  +---w connect?       empty
+       |        +--:(help-case)
+       |        |  +---w help?          empty
+       |        +--:(deactivate-case)
+       |        |  +---w deactivate?    empty
+       |        +--:(install-case)
+       |        |  +---w install
+       |        |     +---w package?   string
+       |        +--:(status-case)
+       |        |  +---w status?        empty
+       |        +--:(unconfigure-case)
+       |        |  +---w unconfigure?   empty
+       |        +--:(uninstall-case)
+       |        |  +---w uninstall?     empty
+       |        +--:(upgrade-case)
+       |           +---w upgrade
+       |              +---w package?   string
+       +--ro output
+          +--ro result?   string
+
+  grouping cisco-xe-rpc-output
+    +-- result?   string

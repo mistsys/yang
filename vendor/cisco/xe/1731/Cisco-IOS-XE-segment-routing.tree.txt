@@ -1,0 +1,901 @@
+
+module: Cisco-IOS-XE-segment-routing
+  augment /ios:native/ios:segment-routing:
+    +--rw mpls!
+    |  +--rw connected-prefix-sid-map
+    |  |  +--rw address-family
+    |  |     +--rw ipv4
+    |  |     |  +--rw prefixes* [ipprefix]
+    |  |     |     +--rw ipprefix          inet:ipv4-prefix
+    |  |     |     +--rw (label-type)?
+    |  |     |        +--:(index)
+    |  |     |        |  +--rw index
+    |  |     |        |     +--rw range-start?   uint32
+    |  |     |        |     +--rw range?         uint32
+    |  |     |        +--:(absolute)
+    |  |     |           +--rw absolute
+    |  |     |              +--rw range-start?   uint32
+    |  |     |              +--rw range?         uint32
+    |  |     +--rw ipv4-strict-spf
+    |  |     |  +--rw ipv4
+    |  |     |     +--rw strict-spf
+    |  |     |        +--rw prefixes* [ipprefix]
+    |  |     |           +--rw ipprefix          inet:ipv4-prefix
+    |  |     |           +--rw (label-type)?
+    |  |     |              +--:(index)
+    |  |     |              |  +--rw index
+    |  |     |              |     +--rw range-start?   uint32
+    |  |     |              |     +--rw range?         uint32
+    |  |     |              +--:(absolute)
+    |  |     |                 +--rw absolute
+    |  |     |                    +--rw range-start?   uint32
+    |  |     |                    +--rw range?         uint32
+    |  |     +--rw ipv4-algorithm
+    |  |        +--rw ipv4
+    |  |           +--rw algorithm* [flex-algo-number]
+    |  |              +--rw flex-algo-number    uint32
+    |  |              +--rw prefixes* [ipprefix]
+    |  |                 +--rw ipprefix          inet:ipv4-prefix
+    |  |                 +--rw (label-type)?
+    |  |                    +--:(index)
+    |  |                    |  +--rw index
+    |  |                    |     +--rw range-start?   uint32
+    |  |                    |     +--rw range?         uint32
+    |  |                    +--:(absolute)
+    |  |                       +--rw absolute
+    |  |                          +--rw range-start?   uint32
+    |  |                          +--rw range?         uint32
+    |  +--rw global-block
+    |  |  +--rw range-start?   uint32
+    |  |  +--rw range-end?     uint32
+    |  +--rw local-block
+    |  |  +--rw range-start?   uint32
+    |  |  +--rw range-end?     uint32
+    |  +--rw mapping-server
+    |  |  +--rw prefix-sid-map
+    |  |     +--rw address-family
+    |  |        +--rw ipv4
+    |  |        |  +--rw prefixes* [ipprefix]
+    |  |        |     +--rw ipprefix          inet:ipv4-prefix
+    |  |        |     +--rw (label-type)?
+    |  |        |        +--:(index)
+    |  |        |        |  +--rw index
+    |  |        |        |     +--rw range-start?   uint32
+    |  |        |        |     +--rw range?         uint32
+    |  |        |        |     +--rw attach?        empty
+    |  |        |        +--:(absolute)
+    |  |        |           +--rw absolute
+    |  |        |              +--rw range-start?   uint32
+    |  |        |              +--rw range?         uint32
+    |  |        |              +--rw attach?        empty
+    |  |        +--rw ipv4-strict-spf
+    |  |        |  +--rw ipv4
+    |  |        |     +--rw strict-spf
+    |  |        |        +--rw prefixes* [ipprefix]
+    |  |        |           +--rw ipprefix          inet:ipv4-prefix
+    |  |        |           +--rw (label-type)?
+    |  |        |              +--:(index)
+    |  |        |              |  +--rw index
+    |  |        |              |     +--rw range-start?   uint32
+    |  |        |              |     +--rw range?         uint32
+    |  |        |              |     +--rw attach?        empty
+    |  |        |              +--:(absolute)
+    |  |        |                 +--rw absolute
+    |  |        |                    +--rw range-start?   uint32
+    |  |        |                    +--rw range?         uint32
+    |  |        |                    +--rw attach?        empty
+    |  |        +--rw ipv4-algorithm
+    |  |           +--rw ipv4
+    |  |              +--rw algorithm* [flex-algo-number]
+    |  |                 +--rw flex-algo-number    uint32
+    |  |                 +--rw prefixes* [ipprefix]
+    |  |                    +--rw ipprefix          inet:ipv4-prefix
+    |  |                    +--rw (label-type)?
+    |  |                       +--:(index)
+    |  |                       |  +--rw index
+    |  |                       |     +--rw range-start?   uint32
+    |  |                       |     +--rw range?         uint32
+    |  |                       +--:(absolute)
+    |  |                          +--rw absolute
+    |  |                             +--rw range-start?   uint32
+    |  |                             +--rw range?         uint32
+    |  +--rw set-attributes
+    |  |  +--rw address-family
+    |  |     +--rw ipv4
+    |  |        +--rw explicit-null?        empty
+    |  |        +--rw sr-label-preferred?   empty
+    |  +--rw shutdown?                   empty
+    +--rw traffic-eng!
+       +--rw affinity-map
+       |  +--rw name* [color-name]
+       |     +--rw color-name      string
+       |     +--rw bit-position?   uint8
+       +--rw interface* [name]
+       |  +--rw name        string
+       |  +--rw metric?     uint32
+       |  +--rw affinity
+       |     +--rw name*   string
+       +--rw logging
+       |  +--rw policy
+       |     +--rw status?   empty
+       +--rw on-demand* [color]
+       |  +--rw color                      uint32
+       |  +--rw authorize!
+       |  |  +--rw restrict!
+       |  |     +--rw ipv4
+       |  |        +--rw prefix-list?   string
+       |  +--rw candidate-paths!
+       |  |  +--rw preference* [preference]
+       |  |     +--rw preference        uint32
+       |  |     +--rw constraints
+       |  |     |  +--rw affinity
+       |  |     |  |  +--rw exclude-any
+       |  |     |  |  |  +--rw name*   string
+       |  |     |  |  +--rw include-all
+       |  |     |  |  |  +--rw name*   string
+       |  |     |  |  +--rw include-any
+       |  |     |  |     +--rw name*   string
+       |  |     |  +--rw association-group!
+       |  |     |  |  +--rw disjointness
+       |  |     |  |  |  +--rw type?   enumeration
+       |  |     |  |  +--rw identifier?     uint16
+       |  |     |  |  +--rw source?         inet:ipv4-address
+       |  |     |  +--rw bandwidth?           uint32
+       |  |     |  +--rw segments
+       |  |     |     +--rw dataplane?   enumeration
+       |  |     |     +--rw type?        enumeration
+       |  |     |     +--rw algorithm?   uint32
+       |  |     +--rw description?      string
+       |  |     +--rw (path-choice)?
+       |  |        +--:(dynamic)
+       |  |        |  +--rw dynamic!
+       |  |        |     +--rw metric
+       |  |        |     |  +--rw type?   enumeration
+       |  |        |     +--rw pcep?     empty
+       |  |        +--:(explicit)
+       |  |        |  +--rw explicit
+       |  |        |     +--rw segment-list* [name]
+       |  |        |        +--rw name      string
+       |  |        |        +--rw weight?   uint32
+       |  |        +--:(per-flow)
+       |  |           +--rw per-flow!
+       |  |              +--rw forward-class
+       |  |                 +--rw value* [forward-class-value]
+       |  |                    +--rw forward-class-value    uint32
+       |  |                    +--rw color?                 uint32
+       |  +--rw performance-measurement
+       |  |  +--rw delay-measurement?   empty
+       |  +--rw description?               string
+       +--rw pcc
+       |  +--rw pce
+       |  |  +--rw (pce-address-choice)?
+       |  |     +--:(pce-ipv4-address)
+       |  |     |  +--rw pce-ipv4-list* [address]
+       |  |     |     +--rw address           inet:ipv4-address
+       |  |     |     +--rw source-address?   inet:ipv4-address
+       |  |     |     +--rw preference?       uint8
+       |  |     |     +--rw password
+       |  |     |        +--rw (password-choice)?
+       |  |     |           +--:(clear)
+       |  |     |           |  +--rw clear?       string
+       |  |     |           +--:(encrypted)
+       |  |     |              +--rw encrypted?   string
+       |  |     +--:(pce-ipv6-address)
+       |  |        +--rw pce-ipv6-list* [address]
+       |  |           +--rw address           inet:ipv6-address
+       |  |           +--rw source-address?   inet:ipv6-address
+       |  |           +--rw preference?       uint8
+       |  |           +--rw password
+       |  |              +--rw (password-choice)?
+       |  |                 +--:(clear)
+       |  |                 |  +--rw clear?       string
+       |  |                 +--:(encrypted)
+       |  |                    +--rw encrypted?   string
+       |  +--rw report-all?   empty
+       +--rw policy* [name]
+       |  +--rw name                       string
+       |  +--rw binding-sid
+       |  |  +--rw mpls?   uint32
+       |  +--rw candidate-paths!
+       |  |  +--rw preference* [preference]
+       |  |     +--rw preference        uint32
+       |  |     +--rw constraints
+       |  |     |  +--rw affinity
+       |  |     |  |  +--rw exclude-any
+       |  |     |  |  |  +--rw name*   string
+       |  |     |  |  +--rw include-all
+       |  |     |  |  |  +--rw name*   string
+       |  |     |  |  +--rw include-any
+       |  |     |  |     +--rw name*   string
+       |  |     |  +--rw association-group!
+       |  |     |  |  +--rw disjointness
+       |  |     |  |  |  +--rw type?   enumeration
+       |  |     |  |  +--rw identifier?     uint16
+       |  |     |  |  +--rw source?         inet:ipv4-address
+       |  |     |  +--rw bandwidth?           uint32
+       |  |     |  +--rw segments
+       |  |     |     +--rw dataplane?   enumeration
+       |  |     |     +--rw type?        enumeration
+       |  |     |     +--rw algorithm?   uint32
+       |  |     +--rw description?      string
+       |  |     +--rw (path-choice)?
+       |  |        +--:(dynamic)
+       |  |        |  +--rw dynamic!
+       |  |        |     +--rw metric
+       |  |        |     |  +--rw type?   enumeration
+       |  |        |     +--rw pcep?     empty
+       |  |        +--:(explicit)
+       |  |        |  +--rw explicit
+       |  |        |     +--rw segment-list* [name]
+       |  |        |        +--rw name      string
+       |  |        |        +--rw weight?   uint32
+       |  |        +--:(per-flow)
+       |  |           +--rw per-flow!
+       |  |              +--rw forward-class
+       |  |                 +--rw value* [forward-class-value]
+       |  |                    +--rw forward-class-value    uint32
+       |  |                    +--rw color?                 uint32
+       |  +--rw performance-measurement
+       |  |  +--rw delay-measurement?   empty
+       |  +--rw color-endpoint
+       |  |  +--rw color?       uint32
+       |  |  +--rw end-point?   inet:ipv4-address
+       |  +--rw description?               string
+       |  +--rw shutdown?                  empty
+       +--rw segment-list* [name]
+          +--rw name     string
+          +--rw index* [index]
+             +--rw index    uint32
+             +--rw mpls
+                +--rw (sid-type)?
+                   +--:(adjacency)
+                   |  +--rw adjacency?   inet:ipv4-address
+                   +--:(label)
+                   |  +--rw label?       uint32
+                   +--:(prefix)
+                      +--rw prefix
+                         +--rw ipv4-prefix?   inet:ipv4-address
+                         +--rw algorithm?     enumeration
+  augment /ios:native/ios:router/ios-isis:isis:
+    +--rw segment-routing
+       +--rw mpls?             empty
+       +--rw prefix-sid-map
+          +--rw advertise-local?   empty
+          +--rw receive!
+             +--rw disable?   empty
+  augment /ios:native/ios:router/ios-isis:isis-container/ios-isis:isis:
+    +--rw segment-routing
+       +--rw mpls?             empty
+       +--rw prefix-sid-map
+          +--rw advertise-local?   empty
+          +--rw receive!
+             +--rw disable?   empty
+
+  grouping mcfg-srmpls-sidmap
+    +-- address-family
+       +-- ipv4
+       |  +-- prefixes* [ipprefix]
+       |     +-- ipprefix?         inet:ipv4-prefix
+       |     +-- (label-type)?
+       |        +--:(index)
+       |        |  +-- index
+       |        |     +-- range-start?   uint32
+       |        |     +-- range?         uint32
+       |        +--:(absolute)
+       |           +-- absolute
+       |              +-- range-start?   uint32
+       |              +-- range?         uint32
+       +-- ipv4-strict-spf
+       |  +-- ipv4
+       |     +-- strict-spf
+       |        +-- prefixes* [ipprefix]
+       |           +-- ipprefix?         inet:ipv4-prefix
+       |           +-- (label-type)?
+       |              +--:(index)
+       |              |  +-- index
+       |              |     +-- range-start?   uint32
+       |              |     +-- range?         uint32
+       |              +--:(absolute)
+       |                 +-- absolute
+       |                    +-- range-start?   uint32
+       |                    +-- range?         uint32
+       +-- ipv4-algorithm
+          +-- ipv4
+             +-- algorithm* [flex-algo-number]
+                +-- flex-algo-number?   uint32
+                +-- prefixes* [ipprefix]
+                   +-- ipprefix?         inet:ipv4-prefix
+                   +-- (label-type)?
+                      +--:(index)
+                      |  +-- index
+                      |     +-- range-start?   uint32
+                      |     +-- range?         uint32
+                      +--:(absolute)
+                         +-- absolute
+                            +-- range-start?   uint32
+                            +-- range?         uint32
+  grouping mcfg-srmpls-sidmap-attach
+    +-- address-family
+       +-- ipv4
+       |  +-- prefixes* [ipprefix]
+       |     +-- ipprefix?         inet:ipv4-prefix
+       |     +-- (label-type)?
+       |        +--:(index)
+       |        |  +-- index
+       |        |     +-- range-start?   uint32
+       |        |     +-- range?         uint32
+       |        |     +-- attach?        empty
+       |        +--:(absolute)
+       |           +-- absolute
+       |              +-- range-start?   uint32
+       |              +-- range?         uint32
+       |              +-- attach?        empty
+       +-- ipv4-strict-spf
+       |  +-- ipv4
+       |     +-- strict-spf
+       |        +-- prefixes* [ipprefix]
+       |           +-- ipprefix?         inet:ipv4-prefix
+       |           +-- (label-type)?
+       |              +--:(index)
+       |              |  +-- index
+       |              |     +-- range-start?   uint32
+       |              |     +-- range?         uint32
+       |              |     +-- attach?        empty
+       |              +--:(absolute)
+       |                 +-- absolute
+       |                    +-- range-start?   uint32
+       |                    +-- range?         uint32
+       |                    +-- attach?        empty
+       +-- ipv4-algorithm
+          +-- ipv4
+             +-- algorithm* [flex-algo-number]
+                +-- flex-algo-number?   uint32
+                +-- prefixes* [ipprefix]
+                   +-- ipprefix?         inet:ipv4-prefix
+                   +-- (label-type)?
+                      +--:(index)
+                      |  +-- index
+                      |     +-- range-start?   uint32
+                      |     +-- range?         uint32
+                      +--:(absolute)
+                         +-- absolute
+                            +-- range-start?   uint32
+                            +-- range?         uint32
+  grouping srcfg-srmpls-attr-af
+    +-- explicit-null?        empty
+    +-- sr-label-preferred?   empty
+  grouping sr-range
+    +-- range-start?   uint32
+    +-- range?         uint32
+  grouping srcfg-srmpls-conn-af
+    +-- prefixes* [ipprefix]
+       +-- ipprefix?         inet:ipv4-prefix
+       +-- (label-type)?
+          +--:(index)
+          |  +-- index
+          |     +-- range-start?   uint32
+          |     +-- range?         uint32
+          +--:(absolute)
+             +-- absolute
+                +-- range-start?   uint32
+                +-- range?         uint32
+  grouping srcfg-srmpls-conn-af-attach
+    +-- prefixes* [ipprefix]
+       +-- ipprefix?         inet:ipv4-prefix
+       +-- (label-type)?
+          +--:(index)
+          |  +-- index
+          |     +-- range-start?   uint32
+          |     +-- range?         uint32
+          |     +-- attach?        empty
+          +--:(absolute)
+             +-- absolute
+                +-- range-start?   uint32
+                +-- range?         uint32
+                +-- attach?        empty
+  grouping affinity-map-config-grouping
+    +-- name* [color-name]
+       +-- color-name?     string
+       +-- bit-position?   uint8
+  grouping interface-config-grouping
+    +-- metric?     uint32
+    +-- affinity
+       +-- name*   string
+  grouping restrict-on-demand-color-config-grouping
+    +-- ipv4
+       +-- prefix-list?   string
+  grouping dynamic-on-demand-color-config-grouping
+    +-- metric
+    |  +-- type?   enumeration
+    +-- pcep?     empty
+  grouping per-flow-grouping
+    +-- per-flow!
+       +-- forward-class
+          +-- value* [forward-class-value]
+             +-- forward-class-value?   uint32
+             +-- color?                 uint32
+  grouping preference-config-grouping
+    +-- constraints
+    |  +-- affinity
+    |  |  +-- exclude-any
+    |  |  |  +-- name*   string
+    |  |  +-- include-all
+    |  |  |  +-- name*   string
+    |  |  +-- include-any
+    |  |     +-- name*   string
+    |  +-- association-group!
+    |  |  +-- disjointness
+    |  |  |  +-- type?   enumeration
+    |  |  +-- identifier?     uint16
+    |  |  +-- source?         inet:ipv4-address
+    |  +-- bandwidth?           uint32
+    |  +-- segments
+    |     +-- dataplane?   enumeration
+    |     +-- type?        enumeration
+    |     +-- algorithm?   uint32
+    +-- description?      string
+    +-- (path-choice)?
+       +--:(dynamic)
+       |  +-- dynamic!
+       |     +-- metric
+       |     |  +-- type?   enumeration
+       |     +-- pcep?     empty
+       +--:(explicit)
+       |  +-- explicit
+       |     +-- segment-list* [name]
+       |        +-- name?     string
+       |        +-- weight?   uint32
+       +--:(per-flow)
+          +-- per-flow!
+             +-- forward-class
+                +-- value* [forward-class-value]
+                   +-- forward-class-value?   uint32
+                   +-- color?                 uint32
+  grouping candidate-paths-grouping
+    +-- candidate-paths!
+       +-- preference* [preference]
+          +-- preference?       uint32
+          +-- constraints
+          |  +-- affinity
+          |  |  +-- exclude-any
+          |  |  |  +-- name*   string
+          |  |  +-- include-all
+          |  |  |  +-- name*   string
+          |  |  +-- include-any
+          |  |     +-- name*   string
+          |  +-- association-group!
+          |  |  +-- disjointness
+          |  |  |  +-- type?   enumeration
+          |  |  +-- identifier?     uint16
+          |  |  +-- source?         inet:ipv4-address
+          |  +-- bandwidth?           uint32
+          |  +-- segments
+          |     +-- dataplane?   enumeration
+          |     +-- type?        enumeration
+          |     +-- algorithm?   uint32
+          +-- description?      string
+          +-- (path-choice)?
+             +--:(dynamic)
+             |  +-- dynamic!
+             |     +-- metric
+             |     |  +-- type?   enumeration
+             |     +-- pcep?     empty
+             +--:(explicit)
+             |  +-- explicit
+             |     +-- segment-list* [name]
+             |        +-- name?     string
+             |        +-- weight?   uint32
+             +--:(per-flow)
+                +-- per-flow!
+                   +-- forward-class
+                      +-- value* [forward-class-value]
+                         +-- forward-class-value?   uint32
+                         +-- color?                 uint32
+  grouping performance-measurement-grouping
+    +-- performance-measurement
+       +-- delay-measurement?   empty
+  grouping on-demand-color-config-grouping
+    +-- authorize!
+    |  +-- restrict!
+    |     +-- ipv4
+    |        +-- prefix-list?   string
+    +-- candidate-paths!
+    |  +-- preference* [preference]
+    |     +-- preference?       uint32
+    |     +-- constraints
+    |     |  +-- affinity
+    |     |  |  +-- exclude-any
+    |     |  |  |  +-- name*   string
+    |     |  |  +-- include-all
+    |     |  |  |  +-- name*   string
+    |     |  |  +-- include-any
+    |     |  |     +-- name*   string
+    |     |  +-- association-group!
+    |     |  |  +-- disjointness
+    |     |  |  |  +-- type?   enumeration
+    |     |  |  +-- identifier?     uint16
+    |     |  |  +-- source?         inet:ipv4-address
+    |     |  +-- bandwidth?           uint32
+    |     |  +-- segments
+    |     |     +-- dataplane?   enumeration
+    |     |     +-- type?        enumeration
+    |     |     +-- algorithm?   uint32
+    |     +-- description?      string
+    |     +-- (path-choice)?
+    |        +--:(dynamic)
+    |        |  +-- dynamic!
+    |        |     +-- metric
+    |        |     |  +-- type?   enumeration
+    |        |     +-- pcep?     empty
+    |        +--:(explicit)
+    |        |  +-- explicit
+    |        |     +-- segment-list* [name]
+    |        |        +-- name?     string
+    |        |        +-- weight?   uint32
+    |        +--:(per-flow)
+    |           +-- per-flow!
+    |              +-- forward-class
+    |                 +-- value* [forward-class-value]
+    |                    +-- forward-class-value?   uint32
+    |                    +-- color?                 uint32
+    +-- performance-measurement
+    |  +-- delay-measurement?   empty
+    +-- description?               string
+  grouping policy-config-grouping
+    +-- binding-sid
+    |  +-- mpls?   uint32
+    +-- candidate-paths!
+    |  +-- preference* [preference]
+    |     +-- preference?       uint32
+    |     +-- constraints
+    |     |  +-- affinity
+    |     |  |  +-- exclude-any
+    |     |  |  |  +-- name*   string
+    |     |  |  +-- include-all
+    |     |  |  |  +-- name*   string
+    |     |  |  +-- include-any
+    |     |  |     +-- name*   string
+    |     |  +-- association-group!
+    |     |  |  +-- disjointness
+    |     |  |  |  +-- type?   enumeration
+    |     |  |  +-- identifier?     uint16
+    |     |  |  +-- source?         inet:ipv4-address
+    |     |  +-- bandwidth?           uint32
+    |     |  +-- segments
+    |     |     +-- dataplane?   enumeration
+    |     |     +-- type?        enumeration
+    |     |     +-- algorithm?   uint32
+    |     +-- description?      string
+    |     +-- (path-choice)?
+    |        +--:(dynamic)
+    |        |  +-- dynamic!
+    |        |     +-- metric
+    |        |     |  +-- type?   enumeration
+    |        |     +-- pcep?     empty
+    |        +--:(explicit)
+    |        |  +-- explicit
+    |        |     +-- segment-list* [name]
+    |        |        +-- name?     string
+    |        |        +-- weight?   uint32
+    |        +--:(per-flow)
+    |           +-- per-flow!
+    |              +-- forward-class
+    |                 +-- value* [forward-class-value]
+    |                    +-- forward-class-value?   uint32
+    |                    +-- color?                 uint32
+    +-- performance-measurement
+    |  +-- delay-measurement?   empty
+    +-- color-endpoint
+    |  +-- color?       uint32
+    |  +-- end-point?   inet:ipv4-address
+    +-- description?               string
+    +-- shutdown?                  empty
+  grouping password-grouping
+    +-- password
+       +-- (password-choice)?
+          +--:(clear)
+          |  +-- clear?       string
+          +--:(encrypted)
+             +-- encrypted?   string
+  grouping pcc-config-grouping
+    +-- pce
+    |  +-- (pce-address-choice)?
+    |     +--:(pce-ipv4-address)
+    |     |  +-- pce-ipv4-list* [address]
+    |     |     +-- address?          inet:ipv4-address
+    |     |     +-- source-address?   inet:ipv4-address
+    |     |     +-- preference?       uint8
+    |     |     +-- password
+    |     |        +-- (password-choice)?
+    |     |           +--:(clear)
+    |     |           |  +-- clear?       string
+    |     |           +--:(encrypted)
+    |     |              +-- encrypted?   string
+    |     +--:(pce-ipv6-address)
+    |        +-- pce-ipv6-list* [address]
+    |           +-- address?          inet:ipv6-address
+    |           +-- source-address?   inet:ipv6-address
+    |           +-- preference?       uint8
+    |           +-- password
+    |              +-- (password-choice)?
+    |                 +--:(clear)
+    |                 |  +-- clear?       string
+    |                 +--:(encrypted)
+    |                    +-- encrypted?   string
+    +-- report-all?   empty
+  grouping segment-list-config-grouping
+    +-- index* [index]
+       +-- index?   uint32
+       +-- mpls
+          +-- (sid-type)?
+             +--:(adjacency)
+             |  +-- adjacency?   inet:ipv4-address
+             +--:(label)
+             |  +-- label?       uint32
+             +--:(prefix)
+                +-- prefix
+                   +-- ipv4-prefix?   inet:ipv4-address
+                   +-- algorithm?     enumeration
+  grouping config-segment-routing-isis-grouping
+    +-- segment-routing
+       +-- mpls?             empty
+       +-- prefix-sid-map
+          +-- advertise-local?   empty
+          +-- receive!
+             +-- disable?   empty
+  grouping config-segment-routing-grouping
+    +-- mpls!
+    |  +-- connected-prefix-sid-map
+    |  |  +-- address-family
+    |  |     +-- ipv4
+    |  |     |  +-- prefixes* [ipprefix]
+    |  |     |     +-- ipprefix?         inet:ipv4-prefix
+    |  |     |     +-- (label-type)?
+    |  |     |        +--:(index)
+    |  |     |        |  +-- index
+    |  |     |        |     +-- range-start?   uint32
+    |  |     |        |     +-- range?         uint32
+    |  |     |        +--:(absolute)
+    |  |     |           +-- absolute
+    |  |     |              +-- range-start?   uint32
+    |  |     |              +-- range?         uint32
+    |  |     +-- ipv4-strict-spf
+    |  |     |  +-- ipv4
+    |  |     |     +-- strict-spf
+    |  |     |        +-- prefixes* [ipprefix]
+    |  |     |           +-- ipprefix?         inet:ipv4-prefix
+    |  |     |           +-- (label-type)?
+    |  |     |              +--:(index)
+    |  |     |              |  +-- index
+    |  |     |              |     +-- range-start?   uint32
+    |  |     |              |     +-- range?         uint32
+    |  |     |              +--:(absolute)
+    |  |     |                 +-- absolute
+    |  |     |                    +-- range-start?   uint32
+    |  |     |                    +-- range?         uint32
+    |  |     +-- ipv4-algorithm
+    |  |        +-- ipv4
+    |  |           +-- algorithm* [flex-algo-number]
+    |  |              +-- flex-algo-number?   uint32
+    |  |              +-- prefixes* [ipprefix]
+    |  |                 +-- ipprefix?         inet:ipv4-prefix
+    |  |                 +-- (label-type)?
+    |  |                    +--:(index)
+    |  |                    |  +-- index
+    |  |                    |     +-- range-start?   uint32
+    |  |                    |     +-- range?         uint32
+    |  |                    +--:(absolute)
+    |  |                       +-- absolute
+    |  |                          +-- range-start?   uint32
+    |  |                          +-- range?         uint32
+    |  +-- global-block
+    |  |  +-- range-start?   uint32
+    |  |  +-- range-end?     uint32
+    |  +-- local-block
+    |  |  +-- range-start?   uint32
+    |  |  +-- range-end?     uint32
+    |  +-- mapping-server
+    |  |  +-- prefix-sid-map
+    |  |     +-- address-family
+    |  |        +-- ipv4
+    |  |        |  +-- prefixes* [ipprefix]
+    |  |        |     +-- ipprefix?         inet:ipv4-prefix
+    |  |        |     +-- (label-type)?
+    |  |        |        +--:(index)
+    |  |        |        |  +-- index
+    |  |        |        |     +-- range-start?   uint32
+    |  |        |        |     +-- range?         uint32
+    |  |        |        |     +-- attach?        empty
+    |  |        |        +--:(absolute)
+    |  |        |           +-- absolute
+    |  |        |              +-- range-start?   uint32
+    |  |        |              +-- range?         uint32
+    |  |        |              +-- attach?        empty
+    |  |        +-- ipv4-strict-spf
+    |  |        |  +-- ipv4
+    |  |        |     +-- strict-spf
+    |  |        |        +-- prefixes* [ipprefix]
+    |  |        |           +-- ipprefix?         inet:ipv4-prefix
+    |  |        |           +-- (label-type)?
+    |  |        |              +--:(index)
+    |  |        |              |  +-- index
+    |  |        |              |     +-- range-start?   uint32
+    |  |        |              |     +-- range?         uint32
+    |  |        |              |     +-- attach?        empty
+    |  |        |              +--:(absolute)
+    |  |        |                 +-- absolute
+    |  |        |                    +-- range-start?   uint32
+    |  |        |                    +-- range?         uint32
+    |  |        |                    +-- attach?        empty
+    |  |        +-- ipv4-algorithm
+    |  |           +-- ipv4
+    |  |              +-- algorithm* [flex-algo-number]
+    |  |                 +-- flex-algo-number?   uint32
+    |  |                 +-- prefixes* [ipprefix]
+    |  |                    +-- ipprefix?         inet:ipv4-prefix
+    |  |                    +-- (label-type)?
+    |  |                       +--:(index)
+    |  |                       |  +-- index
+    |  |                       |     +-- range-start?   uint32
+    |  |                       |     +-- range?         uint32
+    |  |                       +--:(absolute)
+    |  |                          +-- absolute
+    |  |                             +-- range-start?   uint32
+    |  |                             +-- range?         uint32
+    |  +-- set-attributes
+    |  |  +-- address-family
+    |  |     +-- ipv4
+    |  |        +-- explicit-null?        empty
+    |  |        +-- sr-label-preferred?   empty
+    |  +-- shutdown?                   empty
+    +-- traffic-eng!
+       +-- affinity-map
+       |  +-- name* [color-name]
+       |     +-- color-name?     string
+       |     +-- bit-position?   uint8
+       +-- interface* [name]
+       |  +-- name?       string
+       |  +-- metric?     uint32
+       |  +-- affinity
+       |     +-- name*   string
+       +-- logging
+       |  +-- policy
+       |     +-- status?   empty
+       +-- on-demand* [color]
+       |  +-- color?                     uint32
+       |  +-- authorize!
+       |  |  +-- restrict!
+       |  |     +-- ipv4
+       |  |        +-- prefix-list?   string
+       |  +-- candidate-paths!
+       |  |  +-- preference* [preference]
+       |  |     +-- preference?       uint32
+       |  |     +-- constraints
+       |  |     |  +-- affinity
+       |  |     |  |  +-- exclude-any
+       |  |     |  |  |  +-- name*   string
+       |  |     |  |  +-- include-all
+       |  |     |  |  |  +-- name*   string
+       |  |     |  |  +-- include-any
+       |  |     |  |     +-- name*   string
+       |  |     |  +-- association-group!
+       |  |     |  |  +-- disjointness
+       |  |     |  |  |  +-- type?   enumeration
+       |  |     |  |  +-- identifier?     uint16
+       |  |     |  |  +-- source?         inet:ipv4-address
+       |  |     |  +-- bandwidth?           uint32
+       |  |     |  +-- segments
+       |  |     |     +-- dataplane?   enumeration
+       |  |     |     +-- type?        enumeration
+       |  |     |     +-- algorithm?   uint32
+       |  |     +-- description?      string
+       |  |     +-- (path-choice)?
+       |  |        +--:(dynamic)
+       |  |        |  +-- dynamic!
+       |  |        |     +-- metric
+       |  |        |     |  +-- type?   enumeration
+       |  |        |     +-- pcep?     empty
+       |  |        +--:(explicit)
+       |  |        |  +-- explicit
+       |  |        |     +-- segment-list* [name]
+       |  |        |        +-- name?     string
+       |  |        |        +-- weight?   uint32
+       |  |        +--:(per-flow)
+       |  |           +-- per-flow!
+       |  |              +-- forward-class
+       |  |                 +-- value* [forward-class-value]
+       |  |                    +-- forward-class-value?   uint32
+       |  |                    +-- color?                 uint32
+       |  +-- performance-measurement
+       |  |  +-- delay-measurement?   empty
+       |  +-- description?               string
+       +-- pcc
+       |  +-- pce
+       |  |  +-- (pce-address-choice)?
+       |  |     +--:(pce-ipv4-address)
+       |  |     |  +-- pce-ipv4-list* [address]
+       |  |     |     +-- address?          inet:ipv4-address
+       |  |     |     +-- source-address?   inet:ipv4-address
+       |  |     |     +-- preference?       uint8
+       |  |     |     +-- password
+       |  |     |        +-- (password-choice)?
+       |  |     |           +--:(clear)
+       |  |     |           |  +-- clear?       string
+       |  |     |           +--:(encrypted)
+       |  |     |              +-- encrypted?   string
+       |  |     +--:(pce-ipv6-address)
+       |  |        +-- pce-ipv6-list* [address]
+       |  |           +-- address?          inet:ipv6-address
+       |  |           +-- source-address?   inet:ipv6-address
+       |  |           +-- preference?       uint8
+       |  |           +-- password
+       |  |              +-- (password-choice)?
+       |  |                 +--:(clear)
+       |  |                 |  +-- clear?       string
+       |  |                 +--:(encrypted)
+       |  |                    +-- encrypted?   string
+       |  +-- report-all?   empty
+       +-- policy* [name]
+       |  +-- name?                      string
+       |  +-- binding-sid
+       |  |  +-- mpls?   uint32
+       |  +-- candidate-paths!
+       |  |  +-- preference* [preference]
+       |  |     +-- preference?       uint32
+       |  |     +-- constraints
+       |  |     |  +-- affinity
+       |  |     |  |  +-- exclude-any
+       |  |     |  |  |  +-- name*   string
+       |  |     |  |  +-- include-all
+       |  |     |  |  |  +-- name*   string
+       |  |     |  |  +-- include-any
+       |  |     |  |     +-- name*   string
+       |  |     |  +-- association-group!
+       |  |     |  |  +-- disjointness
+       |  |     |  |  |  +-- type?   enumeration
+       |  |     |  |  +-- identifier?     uint16
+       |  |     |  |  +-- source?         inet:ipv4-address
+       |  |     |  +-- bandwidth?           uint32
+       |  |     |  +-- segments
+       |  |     |     +-- dataplane?   enumeration
+       |  |     |     +-- type?        enumeration
+       |  |     |     +-- algorithm?   uint32
+       |  |     +-- description?      string
+       |  |     +-- (path-choice)?
+       |  |        +--:(dynamic)
+       |  |        |  +-- dynamic!
+       |  |        |     +-- metric
+       |  |        |     |  +-- type?   enumeration
+       |  |        |     +-- pcep?     empty
+       |  |        +--:(explicit)
+       |  |        |  +-- explicit
+       |  |        |     +-- segment-list* [name]
+       |  |        |        +-- name?     string
+       |  |        |        +-- weight?   uint32
+       |  |        +--:(per-flow)
+       |  |           +-- per-flow!
+       |  |              +-- forward-class
+       |  |                 +-- value* [forward-class-value]
+       |  |                    +-- forward-class-value?   uint32
+       |  |                    +-- color?                 uint32
+       |  +-- performance-measurement
+       |  |  +-- delay-measurement?   empty
+       |  +-- color-endpoint
+       |  |  +-- color?       uint32
+       |  |  +-- end-point?   inet:ipv4-address
+       |  +-- description?               string
+       |  +-- shutdown?                  empty
+       +-- segment-list* [name]
+          +-- name?    string
+          +-- index* [index]
+             +-- index?   uint32
+             +-- mpls
+                +-- (sid-type)?
+                   +--:(adjacency)
+                   |  +-- adjacency?   inet:ipv4-address
+                   +--:(label)
+                   |  +-- label?       uint32
+                   +--:(prefix)
+                      +-- prefix
+                         +-- ipv4-prefix?   inet:ipv4-address
+                         +-- algorithm?     enumeration

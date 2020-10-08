@@ -1,0 +1,187 @@
+
+module: Cisco-IOS-XE-platform
+  augment /ios:native/ios:platform:
+    +--rw atm-cdvt?            boolean
+    +--rw cfm?                 empty
+    +--rw icmp
+    |  +--rw rate-limit
+    |     +--rw packet?     uint32
+    |     +--rw duration?   uint32
+    +--rw ip-ports
+    |  +--rw ephemeral-max?   uint16
+    +--rw bfd
+    |  +--rw disable-offload?   empty
+    |  +--rw allow-svi?         empty
+    |  +--rw enable-offload?    empty
+    +--rw bfd-debug-trace?     uint8
+    +--rw console!
+    |  +--rw output?   enumeration
+    +--rw enable
+    |  +--rw controller* [SONET]
+    |     +--rw SONET    string
+    +--rw external-alarm
+    |  +--rw line?    uint32
+    |  +--rw alarm?   ios:logging-level-type
+    +--rw hardware
+    |  +--rw lite
+    |  |  +--rw license?   enumeration
+    |  +--rw throughput
+    |     +--rw (throughput-choice)?
+    |        +--:(disable)
+    |        |  +--rw disable?   enumeration
+    |        +--:(level)
+    |           +--rw level
+    |              +--rw kbps?        enumeration
+    |              +--rw eval-only?   empty
+    +--rw ipsec
+    |  +--rw arlog-supress?   empty
+    |  +--rw fips-mode?       empty
+    |  +--rw gdoi?            enumeration
+    |  +--rw llq
+    |  |  +--rw qos-group?   uint8
+    |  +--rw reassemble
+    |     +--rw transit?   empty
+    +--rw l2vpn
+    |  +--rw hdlc-pass-through?   empty
+    |  +--rw statistics
+    |     +--rw enable?   empty
+    +--rw multicast
+    |  +--rw mgre
+    |  |  +--rw injection?   empty
+    |  +--rw oce
+    |     +--rw flag
+    |        +--rw suppress?   empty
+    +--rw punt-keepalive!
+    |  +--rw disable-kernel-core?   boolean
+    |  +--rw settings
+    |     +--rw fatal-count?         uint16
+    |     +--rw transmit-interval?   uint16
+    |     +--rw warning-count?       uint16
+    +--rw punt-policer
+    |  +--rw punt-num* [cause] {ios-features:punt-num}?
+    |     +--rw cause       uint8
+    |     +--rw max-rate?   uint16
+    |     +--rw high?       empty
+    +--rw qos
+    |  +--rw cac-policer?           uint16
+    |  +--rw marker-statistics?     empty
+    |  +--rw match-statistics
+    |  |  +--rw per-filter?   empty
+    |  |  +--rw per-ace?      empty
+    |  +--rw performance-monitor?   empty
+    |  +--rw punt-path-matching?    empty
+    +--rw reload
+    |  +--rw immediate?   empty
+    +--rw shell?               boolean
+    +--rw tcam-parity-error?   enumeration
+    +--rw urpf
+    |  +--rw loose
+    |     +--rw counter
+    |        +--rw ipv4
+    |        |  +--rw supress
+    |        |     +--rw asymmetric_only?   empty
+    |        +--rw ipv6
+    |           +--rw supress
+    |              +--rw asymmetric_only?   empty
+    +--rw tcam-threshold
+    |  +--rw alarm-frequency?   uint32
+    +--rw trace
+       +--rw runtime* [slot bay]
+          +--rw slot       uint8
+          +--rw bay        uint8
+          +--rw process?   enumeration
+          +--rw module?    enumeration
+          +--rw level?     enumeration
+
+  grouping config-platform-grouping
+    +-- atm-cdvt?            boolean
+    +-- cfm?                 empty
+    +-- icmp
+    |  +-- rate-limit
+    |     +-- packet?     uint32
+    |     +-- duration?   uint32
+    +-- ip-ports
+    |  +-- ephemeral-max?   uint16
+    +-- bfd
+    |  +-- disable-offload?   empty
+    |  +-- allow-svi?         empty
+    |  +-- enable-offload?    empty
+    +-- bfd-debug-trace?     uint8
+    +-- console!
+    |  +-- output?   enumeration
+    +-- enable
+    |  +-- controller* [SONET]
+    |     +-- SONET?   string
+    +-- external-alarm
+    |  +-- line?    uint32
+    |  +-- alarm?   ios:logging-level-type
+    +-- hardware
+    |  +-- lite
+    |  |  +-- license?   enumeration
+    |  +-- throughput
+    |     +-- (throughput-choice)?
+    |        +--:(disable)
+    |        |  +-- disable?   enumeration
+    |        +--:(level)
+    |           +-- level
+    |              +-- kbps?        enumeration
+    |              +-- eval-only?   empty
+    +-- ipsec
+    |  +-- arlog-supress?   empty
+    |  +-- fips-mode?       empty
+    |  +-- gdoi?            enumeration
+    |  +-- llq
+    |  |  +-- qos-group?   uint8
+    |  +-- reassemble
+    |     +-- transit?   empty
+    +-- l2vpn
+    |  +-- hdlc-pass-through?   empty
+    |  +-- statistics
+    |     +-- enable?   empty
+    +-- multicast
+    |  +-- mgre
+    |  |  +-- injection?   empty
+    |  +-- oce
+    |     +-- flag
+    |        +-- suppress?   empty
+    +-- punt-keepalive!
+    |  +-- disable-kernel-core?   boolean
+    |  +-- settings
+    |     +-- fatal-count?         uint16
+    |     +-- transmit-interval?   uint16
+    |     +-- warning-count?       uint16
+    +-- punt-policer
+    |  +-- punt-num* [cause] {ios-features:punt-num}?
+    |     +-- cause?      uint8
+    |     +-- max-rate?   uint16
+    |     +-- high?       empty
+    +-- qos
+    |  +-- cac-policer?           uint16
+    |  +-- marker-statistics?     empty
+    |  +-- match-statistics
+    |  |  +-- per-filter?   empty
+    |  |  +-- per-ace?      empty
+    |  +-- performance-monitor?   empty
+    |  +-- punt-path-matching?    empty
+    +-- reload
+    |  +-- immediate?   empty
+    +-- shell?               boolean
+    +-- tcam-parity-error?   enumeration
+    +-- urpf
+    |  +-- loose
+    |     +-- counter
+    |        +-- ipv4
+    |        |  +-- supress
+    |        |     +-- asymmetric_only?   empty
+    |        +-- ipv6
+    |           +-- supress
+    |              +-- asymmetric_only?   empty
+    +-- tcam-threshold
+    |  +-- alarm-frequency?   uint32
+    +-- trace
+       +-- runtime* [slot bay]
+          +-- slot?      uint8
+          +-- bay?       uint8
+          +-- process?   enumeration
+          +-- module?    enumeration
+          +-- level?     enumeration

@@ -1,0 +1,74 @@
+
+module: Cisco-IOS-XE-service-discovery
+  augment /ios:native:
+    +--rw service-list
+       +--rw mdns-sd* [service-list-name]
+          +--rw service-list-name    string
+          +--rw deny* [deny-pack]
+          |  +--rw deny-pack    uint8
+          |  +--rw match
+          |     +--rw learnt-interface?   empty
+          |     +--rw location!
+          |     |  +--rw civic?   string
+          |     +--rw message-type!
+          |     |  +--rw announcement?   empty
+          |     |  +--rw query?          empty
+          |     |  +--rw any?            empty
+          |     +--rw service-instance?   string
+          |     +--rw service-type?       string
+          +--rw permit* [deny-pack]
+          |  +--rw deny-pack    uint8
+          |  +--rw match
+          |     +--rw learnt-interface?   empty
+          |     +--rw location!
+          |     |  +--rw civic?   string
+          |     +--rw message-type!
+          |     |  +--rw announcement?   empty
+          |     |  +--rw query?          empty
+          |     |  +--rw any?            empty
+          |     +--rw service-instance?   string
+          |     +--rw service-type?       string
+          +--rw query
+             +--rw service-type?   string
+
+  grouping service-list-match-grouping
+    +-- match
+       +-- learnt-interface?   empty
+       +-- location!
+       |  +-- civic?   string
+       +-- message-type!
+       |  +-- announcement?   empty
+       |  +-- query?          empty
+       |  +-- any?            empty
+       +-- service-instance?   string
+       +-- service-type?       string
+  grouping config-service-list-grouping
+    +-- service-list
+       +-- mdns-sd* [service-list-name]
+          +-- service-list-name?   string
+          +-- deny* [deny-pack]
+          |  +-- deny-pack?   uint8
+          |  +-- match
+          |     +-- learnt-interface?   empty
+          |     +-- location!
+          |     |  +-- civic?   string
+          |     +-- message-type!
+          |     |  +-- announcement?   empty
+          |     |  +-- query?          empty
+          |     |  +-- any?            empty
+          |     +-- service-instance?   string
+          |     +-- service-type?       string
+          +-- permit* [deny-pack]
+          |  +-- deny-pack?   uint8
+          |  +-- match
+          |     +-- learnt-interface?   empty
+          |     +-- location!
+          |     |  +-- civic?   string
+          |     +-- message-type!
+          |     |  +-- announcement?   empty
+          |     |  +-- query?          empty
+          |     |  +-- any?            empty
+          |     +-- service-instance?   string
+          |     +-- service-type?       string
+          +-- query
+             +-- service-type?   string

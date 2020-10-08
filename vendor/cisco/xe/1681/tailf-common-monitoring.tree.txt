@@ -1,0 +1,357 @@
+module: tailf-common-monitoring
+
+  grouping callpoint-entry
+    +-- id?             string
+    +-- (registration-type)?
+    |  +--:(daemon)
+    |  |  +-- daemon
+    |  |     +-- id?      uint32
+    |  |     +-- name?    string
+    |  |     +-- error?   enumeration
+    |  +--:(range)
+    |  |  +-- path?     string
+    |  |  +-- range* []
+    |  |     +-- lower?     string
+    |  |     +-- upper?     string
+    |  |     +-- default?   empty
+    |  |     +-- daemon
+    |  |        +-- id?      uint32
+    |  |        +-- name?    string
+    |  |        +-- error?   enumeration
+    |  +--:(file)
+    |     +-- file?     string
+    +-- error?          enumeration
+  grouping registration-info
+    +-- (registration-type)?
+    |  +--:(daemon)
+    |  |  +-- daemon
+    |  |     +-- id?      uint32
+    |  |     +-- name?    string
+    |  |     +-- error?   enumeration
+    |  +--:(range)
+    |  |  +-- path?     string
+    |  |  +-- range* []
+    |  |     +-- lower?     string
+    |  |     +-- upper?     string
+    |  |     +-- default?   empty
+    |  |     +-- daemon
+    |  |        +-- id?      uint32
+    |  |        +-- name?    string
+    |  |        +-- error?   enumeration
+    |  +--:(file)
+    |     +-- file?     string
+    +-- error?          enumeration
+  grouping common-monitoring-objects
+    +-- version?              string
+    +-- smp!
+    |  +-- number-of-threads?   uint16
+    +-- epoll?                boolean
+    +-- daemon-status?        enumeration
+    +-- read-only-mode?       empty
+    +-- upgrade-mode?         empty
+    +-- ha!
+    |  +-- mode?              enumeration
+    |  +-- node-id?           ha-node-id
+    |  +-- master-node-id?    string
+    |  +-- connected-slave*   string
+    |  +-- pending-slave*     string
+    +-- loaded-data-models
+    |  +-- data-model* [name]
+    |     +-- name?                    string
+    |     +-- revision?                string
+    |     +-- namespace?               inet:uri
+    |     +-- prefix?                  string
+    |     +-- (exported)?
+    |        +--:(exported-to-all)
+    |        |  +-- exported-to-all?   empty
+    |        +--:(exported-to)
+    |           +-- exported-to*       union
+    +-- netconf!
+    |  +-- listen
+    |     +-- tcp* []
+    |     |  +-- ip?     inet:ip-address
+    |     |  +-- port?   inet:port-number
+    |     +-- ssh* []
+    |        +-- ip?     inet:ip-address
+    |        +-- port?   inet:port-number
+    +-- cli!
+    |  +-- listen
+    |     +-- ssh* []
+    |        +-- ip?     inet:ip-address
+    |        +-- port?   inet:port-number
+    +-- webui!
+    |  +-- listen
+    |     +-- tcp* []
+    |     |  +-- ip?     inet:ip-address
+    |     |  +-- port?   inet:port-number
+    |     +-- ssl* []
+    |        +-- ip?     inet:ip-address
+    |        +-- port?   inet:port-number
+    +-- rest!
+    |  +-- listen
+    |     +-- tcp* []
+    |     |  +-- ip?     inet:ip-address
+    |     |  +-- port?   inet:port-number
+    |     +-- ssl* []
+    |        +-- ip?     inet:ip-address
+    |        +-- port?   inet:port-number
+    +-- snmp!
+    |  +-- listen
+    |  |  +-- udp* []
+    |  |     +-- ip?     inet:ip-address
+    |  |     +-- port?   inet:port-number
+    |  +-- mib*         string
+    |  +-- version
+    |  |  +-- v1?    empty
+    |  |  +-- v2c?   empty
+    |  |  +-- v3?    empty
+    |  +-- engine-id?   string
+    +-- internal
+       +-- callpoints
+       |  +-- callpoint* [id]
+       |  |  +-- id?             string
+       |  |  +-- (registration-type)?
+       |  |  |  +--:(daemon)
+       |  |  |  |  +-- daemon
+       |  |  |  |     +-- id?      uint32
+       |  |  |  |     +-- name?    string
+       |  |  |  |     +-- error?   enumeration
+       |  |  |  +--:(range)
+       |  |  |  |  +-- path?     string
+       |  |  |  |  +-- range* []
+       |  |  |  |     +-- lower?     string
+       |  |  |  |     +-- upper?     string
+       |  |  |  |     +-- default?   empty
+       |  |  |  |     +-- daemon
+       |  |  |  |        +-- id?      uint32
+       |  |  |  |        +-- name?    string
+       |  |  |  |        +-- error?   enumeration
+       |  |  |  +--:(file)
+       |  |  |     +-- file?     string
+       |  |  +-- error?          enumeration
+       |  +-- validationpoint* [id]
+       |  |  +-- id?             string
+       |  |  +-- (registration-type)?
+       |  |  |  +--:(daemon)
+       |  |  |  |  +-- daemon
+       |  |  |  |     +-- id?      uint32
+       |  |  |  |     +-- name?    string
+       |  |  |  |     +-- error?   enumeration
+       |  |  |  +--:(range)
+       |  |  |  |  +-- path?     string
+       |  |  |  |  +-- range* []
+       |  |  |  |     +-- lower?     string
+       |  |  |  |     +-- upper?     string
+       |  |  |  |     +-- default?   empty
+       |  |  |  |     +-- daemon
+       |  |  |  |        +-- id?      uint32
+       |  |  |  |        +-- name?    string
+       |  |  |  |        +-- error?   enumeration
+       |  |  |  +--:(file)
+       |  |  |     +-- file?     string
+       |  |  +-- error?          enumeration
+       |  +-- actionpoint* [id]
+       |  |  +-- id?             string
+       |  |  +-- (registration-type)?
+       |  |  |  +--:(daemon)
+       |  |  |  |  +-- daemon
+       |  |  |  |     +-- id?      uint32
+       |  |  |  |     +-- name?    string
+       |  |  |  |     +-- error?   enumeration
+       |  |  |  +--:(range)
+       |  |  |  |  +-- path?     string
+       |  |  |  |  +-- range* []
+       |  |  |  |     +-- lower?     string
+       |  |  |  |     +-- upper?     string
+       |  |  |  |     +-- default?   empty
+       |  |  |  |     +-- daemon
+       |  |  |  |        +-- id?      uint32
+       |  |  |  |        +-- name?    string
+       |  |  |  |        +-- error?   enumeration
+       |  |  |  +--:(file)
+       |  |  |     +-- file?     string
+       |  |  +-- error?          enumeration
+       |  +-- snmp-inform-callback* [id]
+       |  |  +-- id?             string
+       |  |  +-- (registration-type)?
+       |  |  |  +--:(daemon)
+       |  |  |  |  +-- daemon
+       |  |  |  |     +-- id?      uint32
+       |  |  |  |     +-- name?    string
+       |  |  |  |     +-- error?   enumeration
+       |  |  |  +--:(range)
+       |  |  |  |  +-- path?     string
+       |  |  |  |  +-- range* []
+       |  |  |  |     +-- lower?     string
+       |  |  |  |     +-- upper?     string
+       |  |  |  |     +-- default?   empty
+       |  |  |  |     +-- daemon
+       |  |  |  |        +-- id?      uint32
+       |  |  |  |        +-- name?    string
+       |  |  |  |        +-- error?   enumeration
+       |  |  |  +--:(file)
+       |  |  |     +-- file?     string
+       |  |  +-- error?          enumeration
+       |  +-- snmp-notification-subscription* [id]
+       |  |  +-- id?             string
+       |  |  +-- (registration-type)?
+       |  |  |  +--:(daemon)
+       |  |  |  |  +-- daemon
+       |  |  |  |     +-- id?      uint32
+       |  |  |  |     +-- name?    string
+       |  |  |  |     +-- error?   enumeration
+       |  |  |  +--:(range)
+       |  |  |  |  +-- path?     string
+       |  |  |  |  +-- range* []
+       |  |  |  |     +-- lower?     string
+       |  |  |  |     +-- upper?     string
+       |  |  |  |     +-- default?   empty
+       |  |  |  |     +-- daemon
+       |  |  |  |        +-- id?      uint32
+       |  |  |  |        +-- name?    string
+       |  |  |  |        +-- error?   enumeration
+       |  |  |  +--:(file)
+       |  |  |     +-- file?     string
+       |  |  +-- error?          enumeration
+       |  +-- error-formatting-callback* [id]
+       |  |  +-- id?             string
+       |  |  +-- (registration-type)?
+       |  |  |  +--:(daemon)
+       |  |  |  |  +-- daemon
+       |  |  |  |     +-- id?      uint32
+       |  |  |  |     +-- name?    string
+       |  |  |  |     +-- error?   enumeration
+       |  |  |  +--:(range)
+       |  |  |  |  +-- path?     string
+       |  |  |  |  +-- range* []
+       |  |  |  |     +-- lower?     string
+       |  |  |  |     +-- upper?     string
+       |  |  |  |     +-- default?   empty
+       |  |  |  |     +-- daemon
+       |  |  |  |        +-- id?      uint32
+       |  |  |  |        +-- name?    string
+       |  |  |  |        +-- error?   enumeration
+       |  |  |  +--:(file)
+       |  |  |     +-- file?     string
+       |  |  +-- error?          enumeration
+       |  +-- typepoint* [id]
+       |  |  +-- id?             string
+       |  |  +-- (registration-type)?
+       |  |  |  +--:(daemon)
+       |  |  |  |  +-- daemon
+       |  |  |  |     +-- id?      uint32
+       |  |  |  |     +-- name?    string
+       |  |  |  |     +-- error?   enumeration
+       |  |  |  +--:(range)
+       |  |  |  |  +-- path?     string
+       |  |  |  |  +-- range* []
+       |  |  |  |     +-- lower?     string
+       |  |  |  |     +-- upper?     string
+       |  |  |  |     +-- default?   empty
+       |  |  |  |     +-- daemon
+       |  |  |  |        +-- id?      uint32
+       |  |  |  |        +-- name?    string
+       |  |  |  |        +-- error?   enumeration
+       |  |  |  +--:(file)
+       |  |  |     +-- file?     string
+       |  |  +-- error?          enumeration
+       |  +-- notification-stream-replay* [name]
+       |  |  +-- name?             string
+       |  |  +-- replay-support?   enumeration
+       |  |  +-- (registration-type)?
+       |  |  |  +--:(daemon)
+       |  |  |  |  +-- daemon
+       |  |  |  |     +-- id?      uint32
+       |  |  |  |     +-- name?    string
+       |  |  |  |     +-- error?   enumeration
+       |  |  |  +--:(range)
+       |  |  |  |  +-- path?       string
+       |  |  |  |  +-- range* []
+       |  |  |  |     +-- lower?     string
+       |  |  |  |     +-- upper?     string
+       |  |  |  |     +-- default?   empty
+       |  |  |  |     +-- daemon
+       |  |  |  |        +-- id?      uint32
+       |  |  |  |        +-- name?    string
+       |  |  |  |        +-- error?   enumeration
+       |  |  |  +--:(file)
+       |  |  |     +-- file?       string
+       |  |  +-- error?            enumeration
+       |  +-- authentication-callback!
+       |  |  +-- enabled?        boolean
+       |  |  +-- (registration-type)?
+       |  |  |  +--:(daemon)
+       |  |  |  |  +-- daemon
+       |  |  |  |     +-- id?      uint32
+       |  |  |  |     +-- name?    string
+       |  |  |  |     +-- error?   enumeration
+       |  |  |  +--:(range)
+       |  |  |  |  +-- path?     string
+       |  |  |  |  +-- range* []
+       |  |  |  |     +-- lower?     string
+       |  |  |  |     +-- upper?     string
+       |  |  |  |     +-- default?   empty
+       |  |  |  |     +-- daemon
+       |  |  |  |        +-- id?      uint32
+       |  |  |  |        +-- name?    string
+       |  |  |  |        +-- error?   enumeration
+       |  |  |  +--:(file)
+       |  |  |     +-- file?     string
+       |  |  +-- error?          enumeration
+       |  +-- authorization-callbacks!
+       |     +-- enabled?        boolean
+       |     +-- (registration-type)?
+       |     |  +--:(daemon)
+       |     |  |  +-- daemon
+       |     |  |     +-- id?      uint32
+       |     |  |     +-- name?    string
+       |     |  |     +-- error?   enumeration
+       |     |  +--:(range)
+       |     |  |  +-- path?     string
+       |     |  |  +-- range* []
+       |     |  |     +-- lower?     string
+       |     |  |     +-- upper?     string
+       |     |  |     +-- default?   empty
+       |     |  |     +-- daemon
+       |     |  |        +-- id?      uint32
+       |     |  |        +-- name?    string
+       |     |  |        +-- error?   enumeration
+       |     |  +--:(file)
+       |     |     +-- file?     string
+       |     +-- error?          enumeration
+       +-- cdb
+          +-- datastore* [name]
+          |  +-- name?                           datastore-name
+          |  +-- transaction-id?                 string
+          |  +-- write-queue?                    uint32
+          |  +-- filename?                       string
+          |  +-- disk-size?                      size-in-bytes
+          |  +-- ram-size?                       size-in-bytes
+          |  +-- read-locks?                     uint32
+          |  +-- write-lock-set?                 boolean
+          |  +-- subscription-lock-set?          boolean
+          |  +-- waiting-for-replication-sync?   boolean
+          |  +-- pending-subscription-sync!
+          |  |  +-- priority?         subscription-priority
+          |  |  +-- notification* []
+          |  |  |  +-- client-name?        string
+          |  |  |  +-- subscription-ids*   subscription-id
+          |  |  +-- time-remaining?   union
+          |  +-- pending-notification-queue* []
+          |     +-- notification* []
+          |        +-- priority?           subscription-priority
+          |        +-- client-name?        string
+          |        +-- subscription-ids*   subscription-id
+          +-- client* []
+             +-- name?           string
+             +-- info?           string
+             +-- type?           enumeration
+             +-- datastore?      union
+             +-- lock?           enumeration
+             +-- subscription* []
+                +-- datastore?   datastore-name
+                +-- twophase?    empty
+                +-- priority?    subscription-priority
+                +-- id?          subscription-id
+                +-- path?        string
+                +-- error?       enumeration

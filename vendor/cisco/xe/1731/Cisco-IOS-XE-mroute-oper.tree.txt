@@ -1,0 +1,575 @@
+module: Cisco-IOS-XE-mroute-oper
+  +--ro mroute-oper-data
+  |  +--ro mroute-state* [source group vrf af]
+  |     +--ro source                    inet:ip-address
+  |     +--ro group                     inet:ip-address
+  |     +--ro vrf                       string
+  |     +--ro af                        mroute-ios-xe-oper:mroute-addr-family
+  |     +--ro ingress-if
+  |     |  +--ro if-name?              string
+  |     |  +--ro mfib-if-flags?        mroute-ios-xe-oper:mfib-if-flag-type
+  |     |  +--ro rpf-id?               uint32
+  |     |  +--ro mfib-next-hop-type?   mroute-ios-xe-oper:mfib-nh-type
+  |     |  +--ro mfib-next-hop-addr
+  |     |     +--ro next-hop-addr?                            mroute-ios-xe-oper:mfib-nh-type
+  |     |     +--ro (next-hop-addr-choice)?
+  |     |        +--:(mfib-nh-type-ipv4)
+  |     |        |  +--ro next-hop-addr-v4?                   inet:ip-address
+  |     |        +--:(mfib-nh-type-mdt-encap-ipv4)
+  |     |        |  +--ro next-hop-addr-encap-v4?             inet:ip-address
+  |     |        +--:(mfib-nh-type-lsm)
+  |     |        |  +--ro next-hop-lsm?                       uint32
+  |     |        +--:(mfib-nh-type-lsm-nbma)
+  |     |        |  +--ro next-hop-lsm-nbma?                  uint32
+  |     |        +--:(mfib-nh-type-cb)
+  |     |        |  +--ro next-hop-cb?                        uint32
+  |     |        +--:(mfib-nh-type-ipv6)
+  |     |        |  +--ro next-hop-addr-v6?                   inet:ip-address
+  |     |        +--:(mfib-nh-type-mdt-encap-ipv6)
+  |     |        |  +--ro next-hop-addr-encap-v6?             inet:ip-address
+  |     |        +--:(mfib-nh-type-mdt-encap-ipv4-mapped-ipv6)
+  |     |        |  +--ro next-hop-addr-encap-v4-mapped-v6?   inet:ip-address
+  |     |        +--:(mfib-nh-type-service-reflect)
+  |     |        |  +--ro sr-next-hop-addr
+  |     |        |     +--ro next-hop-source?   inet:ip-address
+  |     |        |     +--ro next-hop-group?    inet:ip-address
+  |     |        |     +--ro gr-index?          uint32
+  |     |        +--:(mfib-nh-type-amt-ipv4)
+  |     |        |  +--ro amt-next-hop-addr-v4
+  |     |        |     +--ro nh-ip-addr?     inet:ip-address
+  |     |        |     +--ro amt-udp-port?   uint16
+  |     |        +--:(mfib-nh-type-amt-ipv6)
+  |     |        |  +--ro amt-next-hop-addr-v6
+  |     |        |     +--ro nh-ip-addr?     inet:ip-address
+  |     |        |     +--ro amt-udp-port?   uint16
+  |     |        +--:(mfib-nh-type-lisp-ipv4)
+  |     |        |  +--ro lisp-next-hop
+  |     |        |     +--ro rloc-addr?    inet:ip-address
+  |     |        |     +--ro group-addr?   inet:ip-address
+  |     |        +--:(mfib-nh-type-vxlan-ipv4)
+  |     |        |  +--ro vxlan-next-hop-addr-v4
+  |     |        |     +--ro group-addr?   inet:ip-address
+  |     |        |     +--ro vni?          uint32
+  |     |        +--:(mfib-nh-type-vxlan-ipv6)
+  |     |           +--ro vxlan-next-hop-addr-v6
+  |     |              +--ro group-addr?   inet:ip-address
+  |     |              +--ro vni?          uint32
+  |     +--ro mcast-egress-if-entry* [if-name]
+  |     |  +--ro if-name                 string
+  |     |  +--ro mcast-egress-if-data
+  |     |     +--ro mfib-if-flags?        mroute-ios-xe-oper:mfib-if-flag-type
+  |     |     +--ro output-if-counters?   uint64
+  |     |     +--ro if-uptime?            yang:date-and-time
+  |     |     +--ro if-expiry-set?        empty
+  |     |     +--ro if-expires?           yang:date-and-time
+  |     |     +--ro is-static?            boolean
+  |     |     +--ro is-proxy?             boolean
+  |     |     +--ro next-hop?             inet:ip-address
+  |     |     +--ro outer-src?            inet:ip-address
+  |     |     +--ro aux-next-hop?         uint64
+  |     |     +--ro if-state?             mroute-ios-xe-oper:interface-state-type
+  |     |     +--ro blocked?              boolean
+  |     |     +--ro if-threshold?         uint64
+  |     |     +--ro out-rate-limit?       uint64
+  |     |     +--ro port-number?          uint32
+  |     |     +--ro if-flags?             mroute-ios-xe-oper:interface-flag-type
+  |     |     +--ro hw-packet-count?      uint64
+  |     |     +--ro fs-packet-count?      uint64
+  |     |     +--ro ps-packet-count?      uint64
+  |     |     +--ro egress-rate-pps?      uint64
+  |     |     +--ro rpf-id?               uint32
+  |     |     +--ro mfib-next-hop-type?   mroute-ios-xe-oper:mfib-nh-type
+  |     |     +--ro mfib-next-hop-addr
+  |     |     |  +--ro next-hop-addr?                            mroute-ios-xe-oper:mfib-nh-type
+  |     |     |  +--ro (next-hop-addr-choice)?
+  |     |     |     +--:(mfib-nh-type-ipv4)
+  |     |     |     |  +--ro next-hop-addr-v4?                   inet:ip-address
+  |     |     |     +--:(mfib-nh-type-mdt-encap-ipv4)
+  |     |     |     |  +--ro next-hop-addr-encap-v4?             inet:ip-address
+  |     |     |     +--:(mfib-nh-type-lsm)
+  |     |     |     |  +--ro next-hop-lsm?                       uint32
+  |     |     |     +--:(mfib-nh-type-lsm-nbma)
+  |     |     |     |  +--ro next-hop-lsm-nbma?                  uint32
+  |     |     |     +--:(mfib-nh-type-cb)
+  |     |     |     |  +--ro next-hop-cb?                        uint32
+  |     |     |     +--:(mfib-nh-type-ipv6)
+  |     |     |     |  +--ro next-hop-addr-v6?                   inet:ip-address
+  |     |     |     +--:(mfib-nh-type-mdt-encap-ipv6)
+  |     |     |     |  +--ro next-hop-addr-encap-v6?             inet:ip-address
+  |     |     |     +--:(mfib-nh-type-mdt-encap-ipv4-mapped-ipv6)
+  |     |     |     |  +--ro next-hop-addr-encap-v4-mapped-v6?   inet:ip-address
+  |     |     |     +--:(mfib-nh-type-service-reflect)
+  |     |     |     |  +--ro sr-next-hop-addr
+  |     |     |     |     +--ro next-hop-source?   inet:ip-address
+  |     |     |     |     +--ro next-hop-group?    inet:ip-address
+  |     |     |     |     +--ro gr-index?          uint32
+  |     |     |     +--:(mfib-nh-type-amt-ipv4)
+  |     |     |     |  +--ro amt-next-hop-addr-v4
+  |     |     |     |     +--ro nh-ip-addr?     inet:ip-address
+  |     |     |     |     +--ro amt-udp-port?   uint16
+  |     |     |     +--:(mfib-nh-type-amt-ipv6)
+  |     |     |     |  +--ro amt-next-hop-addr-v6
+  |     |     |     |     +--ro nh-ip-addr?     inet:ip-address
+  |     |     |     |     +--ro amt-udp-port?   uint16
+  |     |     |     +--:(mfib-nh-type-lisp-ipv4)
+  |     |     |     |  +--ro lisp-next-hop
+  |     |     |     |     +--ro rloc-addr?    inet:ip-address
+  |     |     |     |     +--ro group-addr?   inet:ip-address
+  |     |     |     +--:(mfib-nh-type-vxlan-ipv4)
+  |     |     |     |  +--ro vxlan-next-hop-addr-v4
+  |     |     |     |     +--ro group-addr?   inet:ip-address
+  |     |     |     |     +--ro vni?          uint32
+  |     |     |     +--:(mfib-nh-type-vxlan-ipv6)
+  |     |     |        +--ro vxlan-next-hop-addr-v6
+  |     |     |           +--ro group-addr?   inet:ip-address
+  |     |     |           +--ro vni?          uint32
+  |     |     +--ro cef-status?           mroute-ios-xe-oper:mcast-cef-status
+  |     |     +--ro cef-adjacency-mac?    binary
+  |     +--ro in-rate-limit?            uint64
+  |     +--ro port-number?              uint32
+  |     +--ro rp?                       inet:ip-address
+  |     +--ro rpf-nbr?                  inet:ip-address
+  |     +--ro mdt-join-timer-set?       empty
+  |     +--ro mdt-join-timer?           yang:date-and-time
+  |     +--ro mvpn-lsm-tree-num?        uint32
+  |     +--ro lsm-root?                 inet:ip-address
+  |     +--ro lsm-type?                 mroute-ios-xe-oper:mvpn-lsm-type
+  |     +--ro sec-if-name?              string
+  |     +--ro sec-rpf-nbr?              inet:ip-address
+  |     +--ro mofrr-primary?            boolean
+  |     +--ro mofrr-peer-group?         inet:ip-address
+  |     +--ro mofrr-peer-source?        inet:ip-address
+  |     +--ro mroute-uptime?            yang:date-and-time
+  |     +--ro mroute-expiry-set?        empty
+  |     +--ro mroute-expires?           yang:date-and-time
+  |     +--ro mroute-mode?              mroute-ios-xe-oper:mroute-mode-type
+  |     +--ro mroute-flags?             mroute-ios-xe-oper:mroute-flag-type
+  |     +--ro mroute-ext-flags?         mroute-ios-xe-oper:mroute-ext-flag-type
+  |     +--ro mfib-flags?               mroute-ios-xe-oper:mfib-flag-type
+  |     +--ro sw-packet-count?          uint64
+  |     +--ro sw-packets-per-second?    uint64
+  |     +--ro sw-average-packet-size?   uint64
+  |     +--ro sw-kbits-per-second?      uint64
+  |     +--ro sw-total?                 uint64
+  |     +--ro sw-rpf-failed?            uint64
+  |     +--ro sw-other-drops?           uint64
+  |     +--ro hw-packet-count?          uint64
+  |     +--ro hw-packets-per-second?    uint64
+  |     +--ro hw-average-packet-size?   uint64
+  |     +--ro hw-kbits-per-second?      uint64
+  |     +--ro hw-total?                 uint64
+  |     +--ro hw-rpf-failed?            uint64
+  |     +--ro hw-other-drops?           uint64
+  +--rw schema-metadata-Cisco-IOS-XE-mroute-oper
+  |  +--rw json-metadata-leaf?   empty
+  +--rw gnmi-model-data
+
+  grouping sr-next-hop-addr-type
+    +-- next-hop-source?   inet:ip-address
+    +-- next-hop-group?    inet:ip-address
+    +-- gr-index?          uint32
+  grouping amt-next-hop-addr-type
+    +-- nh-ip-addr?     inet:ip-address
+    +-- amt-udp-port?   uint16
+  grouping lisp-next-hop-type
+    +-- rloc-addr?    inet:ip-address
+    +-- group-addr?   inet:ip-address
+  grouping vxlan-next-hop-addr-type
+    +-- group-addr?   inet:ip-address
+    +-- vni?          uint32
+  grouping mfib-next-hop-addr-type
+    +--ro next-hop-addr?                            mroute-ios-xe-oper:mfib-nh-type
+    +-- (next-hop-addr-choice)?
+       +--:(mfib-nh-type-ipv4)
+       |  +-- next-hop-addr-v4?                   inet:ip-address
+       +--:(mfib-nh-type-mdt-encap-ipv4)
+       |  +-- next-hop-addr-encap-v4?             inet:ip-address
+       +--:(mfib-nh-type-lsm)
+       |  +-- next-hop-lsm?                       uint32
+       +--:(mfib-nh-type-lsm-nbma)
+       |  +-- next-hop-lsm-nbma?                  uint32
+       +--:(mfib-nh-type-cb)
+       |  +-- next-hop-cb?                        uint32
+       +--:(mfib-nh-type-ipv6)
+       |  +-- next-hop-addr-v6?                   inet:ip-address
+       +--:(mfib-nh-type-mdt-encap-ipv6)
+       |  +-- next-hop-addr-encap-v6?             inet:ip-address
+       +--:(mfib-nh-type-mdt-encap-ipv4-mapped-ipv6)
+       |  +-- next-hop-addr-encap-v4-mapped-v6?   inet:ip-address
+       +--:(mfib-nh-type-service-reflect)
+       |  +-- sr-next-hop-addr
+       |     +-- next-hop-source?   inet:ip-address
+       |     +-- next-hop-group?    inet:ip-address
+       |     +-- gr-index?          uint32
+       +--:(mfib-nh-type-amt-ipv4)
+       |  +-- amt-next-hop-addr-v4
+       |     +-- nh-ip-addr?     inet:ip-address
+       |     +-- amt-udp-port?   uint16
+       +--:(mfib-nh-type-amt-ipv6)
+       |  +-- amt-next-hop-addr-v6
+       |     +-- nh-ip-addr?     inet:ip-address
+       |     +-- amt-udp-port?   uint16
+       +--:(mfib-nh-type-lisp-ipv4)
+       |  +-- lisp-next-hop
+       |     +-- rloc-addr?    inet:ip-address
+       |     +-- group-addr?   inet:ip-address
+       +--:(mfib-nh-type-vxlan-ipv4)
+       |  +-- vxlan-next-hop-addr-v4
+       |     +-- group-addr?   inet:ip-address
+       |     +-- vni?          uint32
+       +--:(mfib-nh-type-vxlan-ipv6)
+          +-- vxlan-next-hop-addr-v6
+             +-- group-addr?   inet:ip-address
+             +-- vni?          uint32
+  grouping mcast-incoming-interface
+    +-- if-name?              string
+    +-- mfib-if-flags?        mroute-ios-xe-oper:mfib-if-flag-type
+    +-- rpf-id?               uint32
+    +-- mfib-next-hop-type?   mroute-ios-xe-oper:mfib-nh-type
+    +-- mfib-next-hop-addr
+       +--ro next-hop-addr?                            mroute-ios-xe-oper:mfib-nh-type
+       +-- (next-hop-addr-choice)?
+          +--:(mfib-nh-type-ipv4)
+          |  +-- next-hop-addr-v4?                   inet:ip-address
+          +--:(mfib-nh-type-mdt-encap-ipv4)
+          |  +-- next-hop-addr-encap-v4?             inet:ip-address
+          +--:(mfib-nh-type-lsm)
+          |  +-- next-hop-lsm?                       uint32
+          +--:(mfib-nh-type-lsm-nbma)
+          |  +-- next-hop-lsm-nbma?                  uint32
+          +--:(mfib-nh-type-cb)
+          |  +-- next-hop-cb?                        uint32
+          +--:(mfib-nh-type-ipv6)
+          |  +-- next-hop-addr-v6?                   inet:ip-address
+          +--:(mfib-nh-type-mdt-encap-ipv6)
+          |  +-- next-hop-addr-encap-v6?             inet:ip-address
+          +--:(mfib-nh-type-mdt-encap-ipv4-mapped-ipv6)
+          |  +-- next-hop-addr-encap-v4-mapped-v6?   inet:ip-address
+          +--:(mfib-nh-type-service-reflect)
+          |  +-- sr-next-hop-addr
+          |     +-- next-hop-source?   inet:ip-address
+          |     +-- next-hop-group?    inet:ip-address
+          |     +-- gr-index?          uint32
+          +--:(mfib-nh-type-amt-ipv4)
+          |  +-- amt-next-hop-addr-v4
+          |     +-- nh-ip-addr?     inet:ip-address
+          |     +-- amt-udp-port?   uint16
+          +--:(mfib-nh-type-amt-ipv6)
+          |  +-- amt-next-hop-addr-v6
+          |     +-- nh-ip-addr?     inet:ip-address
+          |     +-- amt-udp-port?   uint16
+          +--:(mfib-nh-type-lisp-ipv4)
+          |  +-- lisp-next-hop
+          |     +-- rloc-addr?    inet:ip-address
+          |     +-- group-addr?   inet:ip-address
+          +--:(mfib-nh-type-vxlan-ipv4)
+          |  +-- vxlan-next-hop-addr-v4
+          |     +-- group-addr?   inet:ip-address
+          |     +-- vni?          uint32
+          +--:(mfib-nh-type-vxlan-ipv6)
+             +-- vxlan-next-hop-addr-v6
+                +-- group-addr?   inet:ip-address
+                +-- vni?          uint32
+  grouping mcast-outgoing-interface
+    +-- mfib-if-flags?        mroute-ios-xe-oper:mfib-if-flag-type
+    +-- output-if-counters?   uint64
+    +-- if-uptime?            yang:date-and-time
+    +-- if-expiry-set?        empty
+    +-- if-expires?           yang:date-and-time
+    +-- is-static?            boolean
+    +-- is-proxy?             boolean
+    +-- next-hop?             inet:ip-address
+    +-- outer-src?            inet:ip-address
+    +-- aux-next-hop?         uint64
+    +-- if-state?             mroute-ios-xe-oper:interface-state-type
+    +-- blocked?              boolean
+    +-- if-threshold?         uint64
+    +-- out-rate-limit?       uint64
+    +-- port-number?          uint32
+    +-- if-flags?             mroute-ios-xe-oper:interface-flag-type
+    +-- hw-packet-count?      uint64
+    +-- fs-packet-count?      uint64
+    +-- ps-packet-count?      uint64
+    +-- egress-rate-pps?      uint64
+    +-- rpf-id?               uint32
+    +-- mfib-next-hop-type?   mroute-ios-xe-oper:mfib-nh-type
+    +-- mfib-next-hop-addr
+    |  +--ro next-hop-addr?                            mroute-ios-xe-oper:mfib-nh-type
+    |  +-- (next-hop-addr-choice)?
+    |     +--:(mfib-nh-type-ipv4)
+    |     |  +-- next-hop-addr-v4?                   inet:ip-address
+    |     +--:(mfib-nh-type-mdt-encap-ipv4)
+    |     |  +-- next-hop-addr-encap-v4?             inet:ip-address
+    |     +--:(mfib-nh-type-lsm)
+    |     |  +-- next-hop-lsm?                       uint32
+    |     +--:(mfib-nh-type-lsm-nbma)
+    |     |  +-- next-hop-lsm-nbma?                  uint32
+    |     +--:(mfib-nh-type-cb)
+    |     |  +-- next-hop-cb?                        uint32
+    |     +--:(mfib-nh-type-ipv6)
+    |     |  +-- next-hop-addr-v6?                   inet:ip-address
+    |     +--:(mfib-nh-type-mdt-encap-ipv6)
+    |     |  +-- next-hop-addr-encap-v6?             inet:ip-address
+    |     +--:(mfib-nh-type-mdt-encap-ipv4-mapped-ipv6)
+    |     |  +-- next-hop-addr-encap-v4-mapped-v6?   inet:ip-address
+    |     +--:(mfib-nh-type-service-reflect)
+    |     |  +-- sr-next-hop-addr
+    |     |     +-- next-hop-source?   inet:ip-address
+    |     |     +-- next-hop-group?    inet:ip-address
+    |     |     +-- gr-index?          uint32
+    |     +--:(mfib-nh-type-amt-ipv4)
+    |     |  +-- amt-next-hop-addr-v4
+    |     |     +-- nh-ip-addr?     inet:ip-address
+    |     |     +-- amt-udp-port?   uint16
+    |     +--:(mfib-nh-type-amt-ipv6)
+    |     |  +-- amt-next-hop-addr-v6
+    |     |     +-- nh-ip-addr?     inet:ip-address
+    |     |     +-- amt-udp-port?   uint16
+    |     +--:(mfib-nh-type-lisp-ipv4)
+    |     |  +-- lisp-next-hop
+    |     |     +-- rloc-addr?    inet:ip-address
+    |     |     +-- group-addr?   inet:ip-address
+    |     +--:(mfib-nh-type-vxlan-ipv4)
+    |     |  +-- vxlan-next-hop-addr-v4
+    |     |     +-- group-addr?   inet:ip-address
+    |     |     +-- vni?          uint32
+    |     +--:(mfib-nh-type-vxlan-ipv6)
+    |        +-- vxlan-next-hop-addr-v6
+    |           +-- group-addr?   inet:ip-address
+    |           +-- vni?          uint32
+    +-- cef-status?           mroute-ios-xe-oper:mcast-cef-status
+    +-- cef-adjacency-mac?    binary
+  grouping mcast-egress-if-entry
+    +-- if-name?                string
+    +-- mcast-egress-if-data
+       +-- mfib-if-flags?        mroute-ios-xe-oper:mfib-if-flag-type
+       +-- output-if-counters?   uint64
+       +-- if-uptime?            yang:date-and-time
+       +-- if-expiry-set?        empty
+       +-- if-expires?           yang:date-and-time
+       +-- is-static?            boolean
+       +-- is-proxy?             boolean
+       +-- next-hop?             inet:ip-address
+       +-- outer-src?            inet:ip-address
+       +-- aux-next-hop?         uint64
+       +-- if-state?             mroute-ios-xe-oper:interface-state-type
+       +-- blocked?              boolean
+       +-- if-threshold?         uint64
+       +-- out-rate-limit?       uint64
+       +-- port-number?          uint32
+       +-- if-flags?             mroute-ios-xe-oper:interface-flag-type
+       +-- hw-packet-count?      uint64
+       +-- fs-packet-count?      uint64
+       +-- ps-packet-count?      uint64
+       +-- egress-rate-pps?      uint64
+       +-- rpf-id?               uint32
+       +-- mfib-next-hop-type?   mroute-ios-xe-oper:mfib-nh-type
+       +-- mfib-next-hop-addr
+       |  +--ro next-hop-addr?                            mroute-ios-xe-oper:mfib-nh-type
+       |  +-- (next-hop-addr-choice)?
+       |     +--:(mfib-nh-type-ipv4)
+       |     |  +-- next-hop-addr-v4?                   inet:ip-address
+       |     +--:(mfib-nh-type-mdt-encap-ipv4)
+       |     |  +-- next-hop-addr-encap-v4?             inet:ip-address
+       |     +--:(mfib-nh-type-lsm)
+       |     |  +-- next-hop-lsm?                       uint32
+       |     +--:(mfib-nh-type-lsm-nbma)
+       |     |  +-- next-hop-lsm-nbma?                  uint32
+       |     +--:(mfib-nh-type-cb)
+       |     |  +-- next-hop-cb?                        uint32
+       |     +--:(mfib-nh-type-ipv6)
+       |     |  +-- next-hop-addr-v6?                   inet:ip-address
+       |     +--:(mfib-nh-type-mdt-encap-ipv6)
+       |     |  +-- next-hop-addr-encap-v6?             inet:ip-address
+       |     +--:(mfib-nh-type-mdt-encap-ipv4-mapped-ipv6)
+       |     |  +-- next-hop-addr-encap-v4-mapped-v6?   inet:ip-address
+       |     +--:(mfib-nh-type-service-reflect)
+       |     |  +-- sr-next-hop-addr
+       |     |     +-- next-hop-source?   inet:ip-address
+       |     |     +-- next-hop-group?    inet:ip-address
+       |     |     +-- gr-index?          uint32
+       |     +--:(mfib-nh-type-amt-ipv4)
+       |     |  +-- amt-next-hop-addr-v4
+       |     |     +-- nh-ip-addr?     inet:ip-address
+       |     |     +-- amt-udp-port?   uint16
+       |     +--:(mfib-nh-type-amt-ipv6)
+       |     |  +-- amt-next-hop-addr-v6
+       |     |     +-- nh-ip-addr?     inet:ip-address
+       |     |     +-- amt-udp-port?   uint16
+       |     +--:(mfib-nh-type-lisp-ipv4)
+       |     |  +-- lisp-next-hop
+       |     |     +-- rloc-addr?    inet:ip-address
+       |     |     +-- group-addr?   inet:ip-address
+       |     +--:(mfib-nh-type-vxlan-ipv4)
+       |     |  +-- vxlan-next-hop-addr-v4
+       |     |     +-- group-addr?   inet:ip-address
+       |     |     +-- vni?          uint32
+       |     +--:(mfib-nh-type-vxlan-ipv6)
+       |        +-- vxlan-next-hop-addr-v6
+       |           +-- group-addr?   inet:ip-address
+       |           +-- vni?          uint32
+       +-- cef-status?           mroute-ios-xe-oper:mcast-cef-status
+       +-- cef-adjacency-mac?    binary
+  grouping mroute-state
+    +-- ingress-if
+    |  +-- if-name?              string
+    |  +-- mfib-if-flags?        mroute-ios-xe-oper:mfib-if-flag-type
+    |  +-- rpf-id?               uint32
+    |  +-- mfib-next-hop-type?   mroute-ios-xe-oper:mfib-nh-type
+    |  +-- mfib-next-hop-addr
+    |     +--ro next-hop-addr?                            mroute-ios-xe-oper:mfib-nh-type
+    |     +-- (next-hop-addr-choice)?
+    |        +--:(mfib-nh-type-ipv4)
+    |        |  +-- next-hop-addr-v4?                   inet:ip-address
+    |        +--:(mfib-nh-type-mdt-encap-ipv4)
+    |        |  +-- next-hop-addr-encap-v4?             inet:ip-address
+    |        +--:(mfib-nh-type-lsm)
+    |        |  +-- next-hop-lsm?                       uint32
+    |        +--:(mfib-nh-type-lsm-nbma)
+    |        |  +-- next-hop-lsm-nbma?                  uint32
+    |        +--:(mfib-nh-type-cb)
+    |        |  +-- next-hop-cb?                        uint32
+    |        +--:(mfib-nh-type-ipv6)
+    |        |  +-- next-hop-addr-v6?                   inet:ip-address
+    |        +--:(mfib-nh-type-mdt-encap-ipv6)
+    |        |  +-- next-hop-addr-encap-v6?             inet:ip-address
+    |        +--:(mfib-nh-type-mdt-encap-ipv4-mapped-ipv6)
+    |        |  +-- next-hop-addr-encap-v4-mapped-v6?   inet:ip-address
+    |        +--:(mfib-nh-type-service-reflect)
+    |        |  +-- sr-next-hop-addr
+    |        |     +-- next-hop-source?   inet:ip-address
+    |        |     +-- next-hop-group?    inet:ip-address
+    |        |     +-- gr-index?          uint32
+    |        +--:(mfib-nh-type-amt-ipv4)
+    |        |  +-- amt-next-hop-addr-v4
+    |        |     +-- nh-ip-addr?     inet:ip-address
+    |        |     +-- amt-udp-port?   uint16
+    |        +--:(mfib-nh-type-amt-ipv6)
+    |        |  +-- amt-next-hop-addr-v6
+    |        |     +-- nh-ip-addr?     inet:ip-address
+    |        |     +-- amt-udp-port?   uint16
+    |        +--:(mfib-nh-type-lisp-ipv4)
+    |        |  +-- lisp-next-hop
+    |        |     +-- rloc-addr?    inet:ip-address
+    |        |     +-- group-addr?   inet:ip-address
+    |        +--:(mfib-nh-type-vxlan-ipv4)
+    |        |  +-- vxlan-next-hop-addr-v4
+    |        |     +-- group-addr?   inet:ip-address
+    |        |     +-- vni?          uint32
+    |        +--:(mfib-nh-type-vxlan-ipv6)
+    |           +-- vxlan-next-hop-addr-v6
+    |              +-- group-addr?   inet:ip-address
+    |              +-- vni?          uint32
+    +-- mcast-egress-if-entry* [if-name]
+    |  +-- if-name?                string
+    |  +-- mcast-egress-if-data
+    |     +-- mfib-if-flags?        mroute-ios-xe-oper:mfib-if-flag-type
+    |     +-- output-if-counters?   uint64
+    |     +-- if-uptime?            yang:date-and-time
+    |     +-- if-expiry-set?        empty
+    |     +-- if-expires?           yang:date-and-time
+    |     +-- is-static?            boolean
+    |     +-- is-proxy?             boolean
+    |     +-- next-hop?             inet:ip-address
+    |     +-- outer-src?            inet:ip-address
+    |     +-- aux-next-hop?         uint64
+    |     +-- if-state?             mroute-ios-xe-oper:interface-state-type
+    |     +-- blocked?              boolean
+    |     +-- if-threshold?         uint64
+    |     +-- out-rate-limit?       uint64
+    |     +-- port-number?          uint32
+    |     +-- if-flags?             mroute-ios-xe-oper:interface-flag-type
+    |     +-- hw-packet-count?      uint64
+    |     +-- fs-packet-count?      uint64
+    |     +-- ps-packet-count?      uint64
+    |     +-- egress-rate-pps?      uint64
+    |     +-- rpf-id?               uint32
+    |     +-- mfib-next-hop-type?   mroute-ios-xe-oper:mfib-nh-type
+    |     +-- mfib-next-hop-addr
+    |     |  +--ro next-hop-addr?                            mroute-ios-xe-oper:mfib-nh-type
+    |     |  +-- (next-hop-addr-choice)?
+    |     |     +--:(mfib-nh-type-ipv4)
+    |     |     |  +-- next-hop-addr-v4?                   inet:ip-address
+    |     |     +--:(mfib-nh-type-mdt-encap-ipv4)
+    |     |     |  +-- next-hop-addr-encap-v4?             inet:ip-address
+    |     |     +--:(mfib-nh-type-lsm)
+    |     |     |  +-- next-hop-lsm?                       uint32
+    |     |     +--:(mfib-nh-type-lsm-nbma)
+    |     |     |  +-- next-hop-lsm-nbma?                  uint32
+    |     |     +--:(mfib-nh-type-cb)
+    |     |     |  +-- next-hop-cb?                        uint32
+    |     |     +--:(mfib-nh-type-ipv6)
+    |     |     |  +-- next-hop-addr-v6?                   inet:ip-address
+    |     |     +--:(mfib-nh-type-mdt-encap-ipv6)
+    |     |     |  +-- next-hop-addr-encap-v6?             inet:ip-address
+    |     |     +--:(mfib-nh-type-mdt-encap-ipv4-mapped-ipv6)
+    |     |     |  +-- next-hop-addr-encap-v4-mapped-v6?   inet:ip-address
+    |     |     +--:(mfib-nh-type-service-reflect)
+    |     |     |  +-- sr-next-hop-addr
+    |     |     |     +-- next-hop-source?   inet:ip-address
+    |     |     |     +-- next-hop-group?    inet:ip-address
+    |     |     |     +-- gr-index?          uint32
+    |     |     +--:(mfib-nh-type-amt-ipv4)
+    |     |     |  +-- amt-next-hop-addr-v4
+    |     |     |     +-- nh-ip-addr?     inet:ip-address
+    |     |     |     +-- amt-udp-port?   uint16
+    |     |     +--:(mfib-nh-type-amt-ipv6)
+    |     |     |  +-- amt-next-hop-addr-v6
+    |     |     |     +-- nh-ip-addr?     inet:ip-address
+    |     |     |     +-- amt-udp-port?   uint16
+    |     |     +--:(mfib-nh-type-lisp-ipv4)
+    |     |     |  +-- lisp-next-hop
+    |     |     |     +-- rloc-addr?    inet:ip-address
+    |     |     |     +-- group-addr?   inet:ip-address
+    |     |     +--:(mfib-nh-type-vxlan-ipv4)
+    |     |     |  +-- vxlan-next-hop-addr-v4
+    |     |     |     +-- group-addr?   inet:ip-address
+    |     |     |     +-- vni?          uint32
+    |     |     +--:(mfib-nh-type-vxlan-ipv6)
+    |     |        +-- vxlan-next-hop-addr-v6
+    |     |           +-- group-addr?   inet:ip-address
+    |     |           +-- vni?          uint32
+    |     +-- cef-status?           mroute-ios-xe-oper:mcast-cef-status
+    |     +-- cef-adjacency-mac?    binary
+    +-- in-rate-limit?            uint64
+    +-- port-number?              uint32
+    +-- rp?                       inet:ip-address
+    +-- rpf-nbr?                  inet:ip-address
+    +-- mdt-join-timer-set?       empty
+    +-- mdt-join-timer?           yang:date-and-time
+    +-- mvpn-lsm-tree-num?        uint32
+    +-- lsm-root?                 inet:ip-address
+    +-- lsm-type?                 mroute-ios-xe-oper:mvpn-lsm-type
+    +-- sec-if-name?              string
+    +-- sec-rpf-nbr?              inet:ip-address
+    +-- mofrr-primary?            boolean
+    +-- mofrr-peer-group?         inet:ip-address
+    +-- mofrr-peer-source?        inet:ip-address
+    +-- mroute-uptime?            yang:date-and-time
+    +-- mroute-expiry-set?        empty
+    +-- mroute-expires?           yang:date-and-time
+    +-- mroute-mode?              mroute-ios-xe-oper:mroute-mode-type
+    +-- mroute-flags?             mroute-ios-xe-oper:mroute-flag-type
+    +-- mroute-ext-flags?         mroute-ios-xe-oper:mroute-ext-flag-type
+    +-- mfib-flags?               mroute-ios-xe-oper:mfib-flag-type
+    +-- sw-packet-count?          uint64
+    +-- sw-packets-per-second?    uint64
+    +-- sw-average-packet-size?   uint64
+    +-- sw-kbits-per-second?      uint64
+    +-- sw-total?                 uint64
+    +-- sw-rpf-failed?            uint64
+    +-- sw-other-drops?           uint64
+    +-- hw-packet-count?          uint64
+    +-- hw-packets-per-second?    uint64
+    +-- hw-average-packet-size?   uint64
+    +-- hw-kbits-per-second?      uint64
+    +-- hw-total?                 uint64
+    +-- hw-rpf-failed?            uint64
+    +-- hw-other-drops?           uint64
+  grouping mroute-key
+    +-- source?   inet:ip-address
+    +-- group?    inet:ip-address
+    +-- vrf?      string
+    +-- af?       mroute-ios-xe-oper:mroute-addr-family
+  grouping __yangpp_metadata
+    +-- json-metadata-leaf?   empty

@@ -1,0 +1,461 @@
+module: cisco-bgp-state
+  +--ro bgp-state
+     +--ro neighbors
+     |  +--ro neighbor* [afi-safi vrf-name neighbor-id]
+     |     +--ro afi-safi                       string
+     |     +--ro vrf-name                       string
+     |     +--ro neighbor-id                    string
+     |     +--ro description?                   string
+     |     +--ro bgp-version?                   uint16
+     |     +--ro link?                          enumeration
+     |     +--ro up-time?                       string
+     |     +--ro last-write?                    string
+     |     +--ro last-read?                     string
+     |     +--ro installed-prefixes?            uint32
+     |     +--ro session-state?                 bgp-fsm-state
+     |     +--ro negotiated-keepalive-timers
+     |     |  +--ro hold-time?            uint16
+     |     |  +--ro keepalive-interval?   uint16
+     |     +--ro negotiated-cap*                string
+     |     +--ro messages
+     |     |  +--ro sent
+     |     |  |  +--ro opens?             uint32
+     |     |  |  +--ro updates?           uint32
+     |     |  |  +--ro notifications?     uint32
+     |     |  |  +--ro keepalives?        uint32
+     |     |  |  +--ro route-refreshes?   uint32
+     |     |  +--ro received
+     |     |     +--ro opens?             uint32
+     |     |     +--ro updates?           uint32
+     |     |     +--ro notifications?     uint32
+     |     |     +--ro keepalives?        uint32
+     |     |     +--ro route-refreshes?   uint32
+     |     +--ro queue
+     |     |  +--ro inq-depth?    uint32
+     |     |  +--ro outq-depth?   uint32
+     |     +--ro connection
+     |     |  +--ro state?               tcp-fsm-state
+     |     |  +--ro mode?                enumeration
+     |     |  +--ro total_established?   uint32
+     |     |  +--ro total_dropped?       uint32
+     |     |  +--ro last-reset?          string
+     |     |  +--ro reset-reason?        string
+     |     +--ro transport
+     |     |  +--ro path-mtu-discovery?   boolean
+     |     |  +--ro local-port?           uint32
+     |     |  +--ro local-host?           inet:ip-address
+     |     |  +--ro foreign-port?         uint32
+     |     |  +--ro foreign-host?         inet:ip-address
+     |     |  +--ro mss?                  uint32
+     |     +--ro prefix-activity
+     |        +--ro sent
+     |        |  +--ro current-prefixes?    uint64
+     |        |  +--ro total-prefixes?      uint64
+     |        |  +--ro implicit-withdraw?   uint64
+     |        |  +--ro explicit-withdraw?   uint64
+     |        |  +--ro bestpaths?           uint64
+     |        |  +--ro multipaths?          uint64
+     |        +--ro received
+     |           +--ro current-prefixes?    uint64
+     |           +--ro total-prefixes?      uint64
+     |           +--ro implicit-withdraw?   uint64
+     |           +--ro explicit-withdraw?   uint64
+     |           +--ro bestpaths?           uint64
+     |           +--ro multipaths?          uint64
+     +--ro address-families
+     |  +--ro address-family* [afi-safi vrf-name]
+     |     +--ro afi-safi      identityref
+     |     +--ro vrf-name      string
+     |     +--ro af-summary
+     |        +--ro router-id?      inet:ip-address
+     |        +--ro version
+     |        |  +--ro bgp-table?       uint64
+     |        |  +--ro routing-table?   uint64
+     |        +--ro prefixes
+     |        |  +--ro total-entries?   uint64
+     |        |  +--ro memory-usage?    uint64
+     |        +--ro path
+     |        |  +--ro total-entries?   uint64
+     |        |  +--ro memory-usage?    uint64
+     |        +--ro as-path
+     |        |  +--ro total-entries?   uint64
+     |        |  +--ro memory-usage?    uint64
+     |        +--ro route-map
+     |        |  +--ro total-entries?   uint64
+     |        |  +--ro memory-usage?    uint64
+     |        +--ro filter-list
+     |        |  +--ro total-entries?   uint64
+     |        |  +--ro memory-usage?    uint64
+     |        +--ro activities
+     |        |  +--ro prefixes?        uint64
+     |        |  +--ro paths?           uint64
+     |        |  +--ro scan-interval?   string
+     |        +--ro total-memory?   uint64
+     |        +--ro neighbors
+     |           +--ro neighbor-state* [id]
+     |              +--ro id                   string
+     |              +--ro bgp-version?         uint32
+     |              +--ro messages-received?   uint64
+     |              +--ro messages-sent?       uint64
+     |              +--ro table-version?       uint64
+     |              +--ro input-queue?         uint64
+     |              +--ro output-queue?        uint64
+     |              +--ro up-time?             string
+     |              +--ro state?               bgp-fsm-state
+     |              +--ro prefixes-received?   uint64
+     +--ro bgp-routes
+        +--ro route-entries* [afi-safi route-option vrf-name]
+           +--ro afi-safi        identityref
+           +--ro route-option    bgp-route-option
+           +--ro vrf-name        string
+           +--ro networks
+              +--ro network* [prefix]
+                 +--ro prefix              string
+                 +--ro next-hop?           string
+                 +--ro metric?             uint32
+                 +--ro local-preference?   uint32
+                 +--ro weight?             uint32
+                 +--ro path?               string
+                 +--ro origin-code?        enumeration
+                 +--ro status-codes
+                    +--ro suppressed?        empty
+                    +--ro damped?            empty
+                    +--ro history?           empty
+                    +--ro valid?             empty
+                    +--ro best?              empty
+                    +--ro internal?          empty
+                    +--ro rib-failure?       empty
+                    +--ro stale?             empty
+                    +--ro multipath?         empty
+                    +--ro backup-path?       empty
+                    +--ro rt-filter?         empty
+                    +--ro best-external?     empty
+                    +--ro additional-path?   empty
+                    +--ro rib-compressed?    empty
+                    +--ro rpki-status?       enumeration
+
+  grouping route-entries
+    +-- networks
+       +-- network* [prefix]
+          +-- prefix?             string
+          +-- next-hop?           string
+          +-- metric?             uint32
+          +-- local-preference?   uint32
+          +-- weight?             uint32
+          +-- path?               string
+          +-- origin-code?        enumeration
+          +-- status-codes
+             +-- suppressed?        empty
+             +-- damped?            empty
+             +-- history?           empty
+             +-- valid?             empty
+             +-- best?              empty
+             +-- internal?          empty
+             +-- rib-failure?       empty
+             +-- stale?             empty
+             +-- multipath?         empty
+             +-- backup-path?       empty
+             +-- rt-filter?         empty
+             +-- best-external?     empty
+             +-- additional-path?   empty
+             +-- rib-compressed?    empty
+             +-- rpki-status?       enumeration
+  grouping bgp-prefix-counters
+    +-- current-prefixes?    uint64
+    +-- total-prefixes?      uint64
+    +-- implicit-withdraw?   uint64
+    +-- explicit-withdraw?   uint64
+    +-- bestpaths?           uint64
+    +-- multipaths?          uint64
+  grouping bgp-af-prefix-activity
+    +-- prefix-activity
+       +-- sent
+       |  +-- current-prefixes?    uint64
+       |  +-- total-prefixes?      uint64
+       |  +-- implicit-withdraw?   uint64
+       |  +-- explicit-withdraw?   uint64
+       |  +-- bestpaths?           uint64
+       |  +-- multipaths?          uint64
+       +-- received
+          +-- current-prefixes?    uint64
+          +-- total-prefixes?      uint64
+          +-- implicit-withdraw?   uint64
+          +-- explicit-withdraw?   uint64
+          +-- bestpaths?           uint64
+          +-- multipaths?          uint64
+  grouping bgp-negotiated-capabilities
+    +-- negotiated-cap*   string
+  grouping bgp-message-counters
+    +-- opens?             uint32
+    +-- updates?           uint32
+    +-- notifications?     uint32
+    +-- keepalives?        uint32
+    +-- route-refreshes?   uint32
+  grouping bgp-negotiated-keepalive-timers
+    +-- negotiated-keepalive-timers
+       +-- hold-time?            uint16
+       +-- keepalive-interval?   uint16
+  grouping bgp-neighbor-counters
+    +-- messages
+    |  +-- sent
+    |  |  +-- opens?             uint32
+    |  |  +-- updates?           uint32
+    |  |  +-- notifications?     uint32
+    |  |  +-- keepalives?        uint32
+    |  |  +-- route-refreshes?   uint32
+    |  +-- received
+    |     +-- opens?             uint32
+    |     +-- updates?           uint32
+    |     +-- notifications?     uint32
+    |     +-- keepalives?        uint32
+    |     +-- route-refreshes?   uint32
+    +-- queue
+       +-- inq-depth?    uint32
+       +-- outq-depth?   uint32
+  grouping bgp-session-transport
+    +-- connection
+    |  +-- state?               tcp-fsm-state
+    |  +-- mode?                enumeration
+    |  +-- total_established?   uint32
+    |  +-- total_dropped?       uint32
+    |  +-- last-reset?          string
+    |  +-- reset-reason?        string
+    +-- transport
+       +-- path-mtu-discovery?   boolean
+       +-- local-port?           uint32
+       +-- local-host?           inet:ip-address
+       +-- foreign-port?         uint32
+       +-- foreign-host?         inet:ip-address
+       +-- mss?                  uint32
+  grouping bgp-session-state
+    +-- session-state?   bgp-fsm-state
+  grouping bgp-neighbor-summary
+    +-- neighbors
+       +-- neighbor-state* [id]
+          +-- id?                  string
+          +-- bgp-version?         uint32
+          +-- messages-received?   uint64
+          +-- messages-sent?       uint64
+          +-- table-version?       uint64
+          +-- input-queue?         uint64
+          +-- output-queue?        uint64
+          +-- up-time?             string
+          +-- state?               bgp-fsm-state
+          +-- prefixes-received?   uint64
+  grouping bgp-neighbor-state
+    +-- description?                   string
+    +-- bgp-version?                   uint16
+    +-- link?                          enumeration
+    +-- up-time?                       string
+    +-- last-write?                    string
+    +-- last-read?                     string
+    +-- installed-prefixes?            uint32
+    +-- session-state?                 bgp-fsm-state
+    +-- negotiated-keepalive-timers
+    |  +-- hold-time?            uint16
+    |  +-- keepalive-interval?   uint16
+    +-- negotiated-cap*                string
+    +-- messages
+    |  +-- sent
+    |  |  +-- opens?             uint32
+    |  |  +-- updates?           uint32
+    |  |  +-- notifications?     uint32
+    |  |  +-- keepalives?        uint32
+    |  |  +-- route-refreshes?   uint32
+    |  +-- received
+    |     +-- opens?             uint32
+    |     +-- updates?           uint32
+    |     +-- notifications?     uint32
+    |     +-- keepalives?        uint32
+    |     +-- route-refreshes?   uint32
+    +-- queue
+    |  +-- inq-depth?    uint32
+    |  +-- outq-depth?   uint32
+    +-- connection
+    |  +-- state?               tcp-fsm-state
+    |  +-- mode?                enumeration
+    |  +-- total_established?   uint32
+    |  +-- total_dropped?       uint32
+    |  +-- last-reset?          string
+    |  +-- reset-reason?        string
+    +-- transport
+       +-- path-mtu-discovery?   boolean
+       +-- local-port?           uint32
+       +-- local-host?           inet:ip-address
+       +-- foreign-port?         uint32
+       +-- foreign-host?         inet:ip-address
+       +-- mss?                  uint32
+  grouping bgp-af-route-entries
+    +-- bgp-routes
+       +-- route-entries* [afi-safi route-option vrf-name]
+          +-- afi-safi?       identityref
+          +-- route-option?   bgp-route-option
+          +-- vrf-name?       string
+          +-- networks
+             +-- network* [prefix]
+                +-- prefix?             string
+                +-- next-hop?           string
+                +-- metric?             uint32
+                +-- local-preference?   uint32
+                +-- weight?             uint32
+                +-- path?               string
+                +-- origin-code?        enumeration
+                +-- status-codes
+                   +-- suppressed?        empty
+                   +-- damped?            empty
+                   +-- history?           empty
+                   +-- valid?             empty
+                   +-- best?              empty
+                   +-- internal?          empty
+                   +-- rib-failure?       empty
+                   +-- stale?             empty
+                   +-- multipath?         empty
+                   +-- backup-path?       empty
+                   +-- rt-filter?         empty
+                   +-- best-external?     empty
+                   +-- additional-path?   empty
+                   +-- rib-compressed?    empty
+                   +-- rpki-status?       enumeration
+  grouping bgp-address-family-summary
+    +-- af-summary
+       +-- router-id?      inet:ip-address
+       +-- version
+       |  +-- bgp-table?       uint64
+       |  +-- routing-table?   uint64
+       +-- prefixes
+       |  +-- total-entries?   uint64
+       |  +-- memory-usage?    uint64
+       +-- path
+       |  +-- total-entries?   uint64
+       |  +-- memory-usage?    uint64
+       +-- as-path
+       |  +-- total-entries?   uint64
+       |  +-- memory-usage?    uint64
+       +-- route-map
+       |  +-- total-entries?   uint64
+       |  +-- memory-usage?    uint64
+       +-- filter-list
+       |  +-- total-entries?   uint64
+       |  +-- memory-usage?    uint64
+       +-- activities
+       |  +-- prefixes?        uint64
+       |  +-- paths?           uint64
+       |  +-- scan-interval?   string
+       +-- total-memory?   uint64
+       +-- neighbors
+          +-- neighbor-state* [id]
+             +-- id?                  string
+             +-- bgp-version?         uint32
+             +-- messages-received?   uint64
+             +-- messages-sent?       uint64
+             +-- table-version?       uint64
+             +-- input-queue?         uint64
+             +-- output-queue?        uint64
+             +-- up-time?             string
+             +-- state?               bgp-fsm-state
+             +-- prefixes-received?   uint64
+  grouping bgp-address-family-state
+    +-- address-families
+       +-- address-family* [afi-safi vrf-name]
+          +-- afi-safi?     identityref
+          +-- vrf-name?     string
+          +-- af-summary
+             +-- router-id?      inet:ip-address
+             +-- version
+             |  +-- bgp-table?       uint64
+             |  +-- routing-table?   uint64
+             +-- prefixes
+             |  +-- total-entries?   uint64
+             |  +-- memory-usage?    uint64
+             +-- path
+             |  +-- total-entries?   uint64
+             |  +-- memory-usage?    uint64
+             +-- as-path
+             |  +-- total-entries?   uint64
+             |  +-- memory-usage?    uint64
+             +-- route-map
+             |  +-- total-entries?   uint64
+             |  +-- memory-usage?    uint64
+             +-- filter-list
+             |  +-- total-entries?   uint64
+             |  +-- memory-usage?    uint64
+             +-- activities
+             |  +-- prefixes?        uint64
+             |  +-- paths?           uint64
+             |  +-- scan-interval?   string
+             +-- total-memory?   uint64
+             +-- neighbors
+                +-- neighbor-state* [id]
+                   +-- id?                  string
+                   +-- bgp-version?         uint32
+                   +-- messages-received?   uint64
+                   +-- messages-sent?       uint64
+                   +-- table-version?       uint64
+                   +-- input-queue?         uint64
+                   +-- output-queue?        uint64
+                   +-- up-time?             string
+                   +-- state?               bgp-fsm-state
+                   +-- prefixes-received?   uint64
+  grouping bgp-global-neighbor-state
+    +-- neighbors
+       +-- neighbor* [afi-safi vrf-name neighbor-id]
+          +-- afi-safi?                      string
+          +-- vrf-name?                      string
+          +-- neighbor-id?                   string
+          +-- description?                   string
+          +-- bgp-version?                   uint16
+          +-- link?                          enumeration
+          +-- up-time?                       string
+          +-- last-write?                    string
+          +-- last-read?                     string
+          +-- installed-prefixes?            uint32
+          +-- session-state?                 bgp-fsm-state
+          +-- negotiated-keepalive-timers
+          |  +-- hold-time?            uint16
+          |  +-- keepalive-interval?   uint16
+          +-- negotiated-cap*                string
+          +-- messages
+          |  +-- sent
+          |  |  +-- opens?             uint32
+          |  |  +-- updates?           uint32
+          |  |  +-- notifications?     uint32
+          |  |  +-- keepalives?        uint32
+          |  |  +-- route-refreshes?   uint32
+          |  +-- received
+          |     +-- opens?             uint32
+          |     +-- updates?           uint32
+          |     +-- notifications?     uint32
+          |     +-- keepalives?        uint32
+          |     +-- route-refreshes?   uint32
+          +-- queue
+          |  +-- inq-depth?    uint32
+          |  +-- outq-depth?   uint32
+          +-- connection
+          |  +-- state?               tcp-fsm-state
+          |  +-- mode?                enumeration
+          |  +-- total_established?   uint32
+          |  +-- total_dropped?       uint32
+          |  +-- last-reset?          string
+          |  +-- reset-reason?        string
+          +-- transport
+          |  +-- path-mtu-discovery?   boolean
+          |  +-- local-port?           uint32
+          |  +-- local-host?           inet:ip-address
+          |  +-- foreign-port?         uint32
+          |  +-- foreign-host?         inet:ip-address
+          |  +-- mss?                  uint32
+          +-- prefix-activity
+             +-- sent
+             |  +-- current-prefixes?    uint64
+             |  +-- total-prefixes?      uint64
+             |  +-- implicit-withdraw?   uint64
+             |  +-- explicit-withdraw?   uint64
+             |  +-- bestpaths?           uint64
+             |  +-- multipaths?          uint64
+             +-- received
+                +-- current-prefixes?    uint64
+                +-- total-prefixes?      uint64
+                +-- implicit-withdraw?   uint64
+                +-- explicit-withdraw?   uint64
+                +-- bestpaths?           uint64
+                +-- multipaths?          uint64

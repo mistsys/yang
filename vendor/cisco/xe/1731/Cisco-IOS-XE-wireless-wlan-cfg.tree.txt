@@ -1,0 +1,787 @@
+module: Cisco-IOS-XE-wireless-wlan-cfg
+  +--rw wlan-cfg-data
+     +--rw calendar-profile-configs
+     |  +--rw calendar-profile-config* [profile-name]
+     |     +--rw profile-name                string
+     |     +--rw start-time                  string
+     |     +--rw end-time?                   string
+     |     +--rw recurrence                  wireless-enum-types:calendar-recurrence
+     |     +--rw calendar-weekly-configs
+     |     |  +--rw calendar-weekly-config* [day]
+     |     |     +--rw day    wireless-enum-types:work-day
+     |     +--rw calendar-monthly-configs
+     |        +--rw calendar-monthly-config* [date]
+     |           +--rw date    uint8
+     +--rw wlan-cfg-entries
+     |  +--rw wlan-cfg-entry* [profile-name]
+     |     +--rw wlan-id                            uint32
+     |     +--rw profile-name                       string
+     |     +--rw description?                       string
+     |     +--rw security-wpa?                      boolean
+     |     +--rw wep-enabled?                       boolean
+     |     +--rw webauth-enabled?                   boolean
+     |     o--rw cond-web-redirect?                 boolean
+     |     +--rw splash-web-redirect?               boolean
+     |     +--rw dot11-auth-type?                   wireless-enum-types:apf-vap-80211-authentication
+     |     +--rw wep-key-index?                     uint8
+     |     +--rw wep-key-size?                      wireless-enum-types:apf-vap-80211-encryption
+     |     +--rw wep-key?                           string
+     |     +--rw wep-key-type?                      wireless-enum-types:crypt-type
+     |     +--rw wep-key-format?                    wireless-enum-types:apf-vap-key-type
+     |     +--rw wpa1-enabled?                      boolean
+     |     +--rw wpa1-tkip?                         boolean
+     |     +--rw wpa1-aes?                          boolean
+     |     +--rw auth-key-mgmt-psk?                 boolean
+     |     +--rw psk-key-type?                      wireless-enum-types:apf-vap-key-type
+     |     +--rw wpa2-enabled?                      boolean
+     |     +--rw wpa2-aes?                          boolean
+     |     +--rw rsn-cipher-suite-gcmp128?          boolean
+     |     +--rw rsn-cipher-suite-gcmp256?          boolean
+     |     +--rw rsn-cipher-suite-ccmp256?          boolean
+     |     +--rw auth-key-mgmt-dot1x?               boolean
+     |     +--rw auth-key-mgmt-cckm?                boolean
+     |     +--rw auth-key-mgmt-ft-dot1x?            boolean
+     |     +--rw auth-key-mgmt-ft-psk?              boolean
+     |     +--rw auth-key-mgmt-dot1x-sha256?        boolean
+     |     +--rw auth-key-mgmt-psk-sha256?          boolean
+     |     +--rw psk?                               string
+     |     +--rw psk-type?                          wireless-enum-types:crypt-type
+     |     +--rw mac-filtering-list?                string
+     |     +--rw mac-override-authorization-list?   string
+     |     +--rw webauth-ipv4-preauth-acl?          string
+     |     +--rw webauth-ipv6-preauth-acl?          string
+     |     +--rw radio-policy?                      wireless-enum-types:apf-vap-radio-policies
+     |     +--rw qos-wmm-status?                    wireless-enum-types:apf-vap-wme-policies
+     |     +--rw wifi-direct-client?                wireless-enum-types:apf-vap-wifi-direct-policies
+     |     +--rw ft-over-ds?                        boolean
+     |     +--rw ft-reassoc-timeout?                uint32
+     |     +--rw ft-mode?                           wireless-enum-types:ft-dot11r-mode
+     |     +--rw pmf-options?                       wireless-enum-types:apf-vap-pmf-policies
+     |     +--rw pmf-assoc-comeback-timeout?        uint32
+     |     +--rw pmf-sa-query-retry-timeout?        uint32
+     |     +--rw local-eap-profile-name?            string
+     |     +--rw local-eap-enable?                  boolean
+     |     +--rw band-steering-allowed?             boolean
+     |     +--rw load-balance?                      boolean
+     |     +--rw universal-ap-admin?                boolean
+     |     +--rw mu-mimo?                           boolean
+     |     +--rw multicast-mc-direct?               boolean
+     |     +--rw defer-time?                        uint16
+     |     +--rw defer-priority0?                   boolean
+     |     +--rw defer-priority1?                   boolean
+     |     +--rw defer-priority2?                   boolean
+     |     +--rw defer-priority3?                   boolean
+     |     +--rw defer-priority4?                   boolean
+     |     +--rw defer-priority5?                   boolean
+     |     +--rw defer-priority6?                   boolean
+     |     +--rw defer-priority7?                   boolean
+     |     +--rw authentication-list?               string
+     |     +--rw authorization-list?                string
+     |     +--rw max-clients-allowed?               uint32
+     |     +--rw max-clients-per-ap-per-wlan?       uint32
+     |     +--rw max-clients-per-radio-per-wlan?    uint32
+     |     +--rw static-ip-tunneling?               boolean
+     |     +--rw webauth-on-mac-auth-failure?       boolean
+     |     +--rw web-authc-list?                    string
+     |     +--rw web-authz-list?                    string
+     |     +--rw web-auth-parameter-map?            string
+     |     +--rw ip-source-guard-enabled?           boolean
+     |     +--rw uapsd-compliant?                   boolean
+     |     +--rw re-anchor-roam-clients?            boolean
+     |     +--rw wlan-11k-assisted-roaming?         boolean
+     |     +--rw wlan-11k-dual-band-neigh-list?     boolean
+     |     +--rw wlan-11k-neigh-list?               boolean
+     |     +--rw multicast-buffer-value?            uint8
+     |     +--rw multicast-buffer-enable?           boolean
+     |     +--rw apf-vap-id-data
+     |     |  +--rw broadcast-ssid?     boolean
+     |     |  +--rw ccx-aironet-ie?     boolean
+     |     |  +--rw p2p-block-action?   wireless-enum-types:apf-vap-p2p-blocking-action
+     |     |  +--rw ssid?               string
+     |     |  +--rw dot11a-dtim?        uint8
+     |     |  +--rw dot11b-dtim?        uint8
+     |     |  +--rw chd?                boolean
+     |     |  +--rw wlan-status?        boolean
+     |     +--rw cckm-tsf-tolerance?                uint16
+     |     +--rw apf-vap-802-11v-data
+     |     |  +--rw dot11v-dms?                       boolean
+     |     |  +--rw dot11v-bss-max-idle?              boolean
+     |     |  +--rw dot11v-bss-max-idle-protected?    boolean
+     |     |  +--rw dot11v-tfs?                       boolean
+     |     |  +--rw dot11v-bss-transition?            boolean
+     |     |  +--rw dot11v-wnm-sleep-mode?            boolean
+     |     |  +--rw dot11v-disassoc-imminent?         boolean
+     |     |  +--rw dot11v-disassoc-timer?            uint16
+     |     |  +--rw dot11v-disassoc-timer-opt-roam?   uint16
+     |     |  +--rw dot11v-dual-list?                 boolean
+     |     +--rw vap-dot11ax-cfg
+     |     |  +--rw he-ofdma-downlink?             boolean
+     |     |  +--rw he-ofdma-uplink?               boolean
+     |     |  +--rw he-mumimo-downlink?            boolean
+     |     |  +--rw he-mumimo-uplink?              boolean
+     |     |  +--rw he-bss-color-enable?           boolean
+     |     |  +--rw he-bss-partial-color-enable?   boolean
+     |     |  +--rw he-bss-color?                  uint8
+     |     |  +--rw he-twt-enable?                 boolean
+     |     |  +--rw he-twt-broadcast-support?      boolean
+     |     +--rw mpsk-enable?                       boolean
+     |     +--rw mpsk-keys
+     |     |  +--rw mpsk-key* [priority]
+     |     |     +--rw priority           uint8
+     |     |     +--rw mpsk-key?          string
+     |     |     +--rw mpsk-key-type?     wireless-enum-types:crypt-type
+     |     |     +--rw mpsk-key-format?   wireless-enum-types:apf-vap-key-type
+     |     +--rw mdns-sd-mode?                      wireless-enum-types:enm-wlan-mdns-sd-cfg
+     |     +--rw mbo?                               boolean
+     |     +--rw gtk-randomize?                     boolean
+     |     +--rw osen?                              boolean
+     |     +--rw wpa3-enabled?                      boolean
+     |     +--rw auth-key-mgmt-sae?                 boolean
+     |     +--rw sae-anti-clog-threshold?           uint16
+     |     +--rw sae-retx-timeout-msec?             uint16
+     |     +--rw sae-max-retries?                   uint8
+     |     +--rw akm-owe?                           boolean
+     |     +--rw transition-mode-wlan-id?           uint16
+     |     +--rw device-analytics
+     |     |  +--rw da-export?    boolean
+     |     |  +--rw da-support?   boolean
+     |     +--rw okc?                               boolean
+     |     +--rw dot11k-rm-beacon-meas-req
+     |     |  +--rw on-assoc?   boolean
+     |     |  +--rw on-roam?    boolean
+     |     +--rw wifi-to-cellular?                  boolean
+     |     +--rw ignore-rsn-ie-len?                 boolean
+     +--rw wlan-policies
+     |  +--rw wlan-policy* [policy-profile-name]
+     |     +--rw policy-profile-name                string
+     |     +--rw description?                       string
+     |     +--rw status?                            boolean
+     |     +--rw passive-client?                    boolean
+     |     +--rw interface-name?                    string
+     |     +--rw mcast-vlan-id?                     uint32
+     |     +--rw wlan-switching-policy
+     |     |  +--rw central-switching?        boolean
+     |     |  +--rw central-authentication?   boolean
+     |     |  +--rw central-dhcp?             boolean
+     |     |  +--rw override-nat-pat?         boolean
+     |     |  +--rw central-assoc-enable?     boolean
+     |     +--rw wlan-flex-policy
+     |     |  +--rw split-mac-acl?            string
+     |     |  +--rw vlan-central-switching?   boolean
+     |     +--rw static-ip-mobility
+     |     |  +--rw is-static-ip-mobility?   boolean
+     |     +--rw wlan-acl
+     |     |  +--rw ipv4-acl?                   string
+     |     |  +--rw ipv6-acl?                   string
+     |     |  +--rw layer2-acl?                 string
+     |     |  +--rw pre-auth-urlfilter-list?    string
+     |     |  +--rw post-auth-urlfilter-list?   string
+     |     +--rw wlan-timeout
+     |     |  +--rw session-timeout?   uint32
+     |     |  +--rw idle-timeout?      uint32
+     |     |  +--rw idle-threshold?    uint32
+     |     +--rw wlan-local-profiling
+     |     |  +--rw device-classification?    boolean
+     |     |  +--rw subscriber-policy-name?   string
+     |     |  +--rw radius-profiling?         boolean
+     |     |  +--rw http-tlv-caching?         boolean
+     |     |  +--rw dhcp-tlv-caching?         boolean
+     |     +--rw wlan-mobility
+     |     |  +--rw anchor?   boolean
+     |     +--rw nbar-protocol-discovery?           boolean
+     |     +--rw reanchor-classmap-name?            string
+     |     +--rw per-ssid-qos
+     |     |  +--rw ingress-service-name?   string
+     |     |  +--rw egress-service-name?    string
+     |     +--rw per-client-qos
+     |     |  +--rw ingress-service-name?   string
+     |     |  +--rw egress-service-name?    string
+     |     +--rw autoqos-mode
+     |     |  +--rw mode?   wireless-enum-types:autoqos-profile
+     |     +--rw dhcp-params
+     |     |  +--rw is-dhcp-enabled?       boolean
+     |     |  +--rw dhcp-server-address?   inet:ipv4-address
+     |     |  +--rw dhcp-opt82-enable?     boolean
+     |     |  +--rw dhcp-opt82-ascii?      boolean
+     |     |  +--rw dhcp-opt82-rid?        boolean
+     |     |  +--rw apmac?                 boolean
+     |     |  +--rw ssid?                  boolean
+     |     |  +--rw ap-ethmac?             boolean
+     |     |  +--rw apname?                boolean
+     |     |  +--rw policy-tag?            boolean
+     |     |  +--rw ap-location?           boolean
+     |     |  +--rw vlan-id?               boolean
+     |     |  +--rw dhcp-option-none?      boolean
+     |     +--rw mdns-service-policy
+     |     |  +--rw policy-name?   string
+     |     +--rw cts-policy
+     |     |  +--rw sgacl-enforcement?   boolean
+     |     +--rw inline-tagging?                    boolean
+     |     +--rw sgt?                               uint16
+     |     +--rw umbrella-params
+     |     |  +--rw param-map-name?   string
+     |     +--rw blacklist-params
+     |     |  +--rw is-blacklist-enabled?   boolean
+     |     |  +--rw blacklist-timeout?      uint32
+     |     +--rw aaa-policy-params
+     |     |  +--rw aaa-override?      boolean
+     |     |  +--rw nac?               boolean
+     |     |  +--rw aaa-policy-name?   string
+     |     |  +--rw nac-type?          wireless-enum-types:nac-type
+     |     +--rw et-analytics-params
+     |     |  +--rw is-tvi-enabled?   boolean
+     |     +--rw wgb-policy-params
+     |     |  +--rw broadcast-tagging?   boolean
+     |     |  +--rw wgb-vlan?            boolean
+     |     +--rw fabric-profile-name?               string
+     |     +--rw accounting-list?                   string
+     |     +--rw client-count?                      uint32
+     |     +--rw atf-policy-map-entries
+     |     |  +--rw atf-policy-map-entry* [band-id]
+     |     |     +--rw band-id            uint8
+     |     |     +--rw atf-policy-name?   string
+     |     +--rw guest-mm-db-export-entries
+     |     |  +--rw guest-mm-db-export-entry* [ip]
+     |     |     +--rw ip                 inet:ip-address
+     |     |     +--rw anchor-priority?   wireless-enum-types:enm-export-anchor-priority-type
+     |     +--rw call-snoop?                        boolean
+     |     +--rw sip-cac-send-dis-assoc?            boolean
+     |     +--rw sip-cac-send-486-busy?             boolean
+     |     +--rw tunnel-profile-name?               string
+     |     +--rw avc-ipv4-fm-ingress-entries
+     |     |  +--rw avc-ipv4-fm-ingress-entry* [name]
+     |     |     +--rw name    string
+     |     +--rw avc-ipv4-fm-egress-entries
+     |     |  +--rw avc-ipv4-fm-egress-entry* [name]
+     |     |     +--rw name    string
+     |     +--rw avc-ipv6-fm-ingress-entries
+     |     |  +--rw avc-ipv6-fm-ingress-entry* [name]
+     |     |     +--rw name    string
+     |     +--rw avc-ipv6-fm-egress-entries
+     |     |  +--rw avc-ipv6-fm-egress-entry* [name]
+     |     |     +--rw name    string
+     |     +--rw hotspot-anqp-server?               string
+     |     +--rw guest-lan
+     |     |  +--rw enable-session-timeout?   boolean
+     |     +--rw policy-profile-calendar-configs
+     |     |  +--rw policy-profile-calendar-config* [calendar-profile-name]
+     |     |     +--rw calendar-profile-name     string
+     |     |     +--rw wlan-enable?              wireless-enum-types:timer-profile-action
+     |     |     +--rw client-session-disable?   wireless-enum-types:timer-profile-action
+     |     +--rw upn
+     |     |  +--rw is-upn-restrict-enable?   boolean
+     |     |  +--rw upn-unicast-disable?      boolean
+     |     +--rw proxy
+     |     |  +--rw ipv6-proxy?   wireless-enum-types:ipv6-proxy
+     |     |  +--rw arp-proxy?    boolean
+     |     +--rw umbrella-flex-params
+     |     |  +--rw dhcp-dns-option-enable?   boolean
+     |     |  +--rw mode-force?               boolean
+     |     +--rw multicast-filter?                  boolean
+     |     +--rw qbss-load?                         boolean
+     |     +--rw encryption-vlan-osen?              string
+     +--rw policy-list-entries
+     |  +--rw policy-list-entry* [tag-name]
+     |     +--rw tag-name                         string
+     |     +--rw description?                     string
+     |     +--rw wlan-policies
+     |     |  +--rw wlan-policy* [wlan-profile-name]
+     |     |     +--rw wlan-profile-name      string
+     |     |     +--rw policy-profile-name    string
+     |     +--rw tag-child-rlan-policy-configs
+     |        +--rw tag-child-rlan-policy-config* [port-id]
+     |           +--rw port-id                     uint16
+     |           +--rw rlan-profile-name?          string
+     |           +--rw rlan-policy-profile-name?   string
+     +--rw wireless-aaa-policy-configs
+     |  +--rw wireless-aaa-policy-config* [policy-name]
+     |     +--rw policy-name    string
+     |     +--rw nas-id
+     |     |  +--rw option1?   wireless-types:enm-nas-id-options
+     |     |  +--rw option2?   wireless-types:enm-nas-id-options
+     |     |  +--rw option3?   wireless-types:enm-nas-id-options
+     |     +--rw aaa-realm?     boolean
+     +--rw guest-lan-configs
+     |  +--rw guest-lan-config* [profile-name]
+     |     +--rw guest-lan-id              uint32
+     |     +--rw profile-name              string
+     |     +--rw has-wired-vlan            wireless-enum-types:ewlc-guest-lan-has-wired-vlan
+     |     +--rw wired-vlan?               uint32
+     |     +--rw security-web-auth?        boolean
+     |     +--rw auth-list?                string
+     |     +--rw authz-list?               string
+     |     +--rw web-auth-parameter-map?   string
+     |     +--rw max-associated-clients?   uint32
+     |     +--rw status?                   boolean
+     |     +--rw mdns-sd-mode?             wireless-enum-types:enm-wlan-mdns-sd-cfg
+     +--rw guest-lan-maps
+        +--rw guest-lan-map* [map-name]
+           +--rw map-name                 string
+           +--rw guest-lan-policy-maps
+              +--rw guest-lan-policy-map* [guest-lan-profile-name]
+                 +--rw guest-lan-profile-name    string
+                 +--rw policy-profile-name       string
+
+  grouping wlan-data-config-file
+    +-- broadcast-ssid?     boolean
+    +-- ccx-aironet-ie?     boolean
+    +-- p2p-block-action?   wireless-enum-types:apf-vap-p2p-blocking-action
+    +-- ssid?               string
+    +-- dot11a-dtim?        uint8
+    +-- dot11b-dtim?        uint8
+    +-- chd?                boolean
+    +-- wlan-status?        boolean
+  grouping st-apf-vap-802-11ax
+    +-- he-ofdma-downlink?             boolean
+    +-- he-ofdma-uplink?               boolean
+    +-- he-mumimo-downlink?            boolean
+    +-- he-mumimo-uplink?              boolean
+    +-- he-bss-color-enable?           boolean
+    +-- he-bss-partial-color-enable?   boolean
+    +-- he-bss-color?                  uint8
+    +-- he-twt-enable?                 boolean
+    +-- he-twt-broadcast-support?      boolean
+  grouping st-mpsk-keys
+    +-- priority?          uint8
+    +-- mpsk-key?          string
+    +-- mpsk-key-type?     wireless-enum-types:crypt-type
+    +-- mpsk-key-format?   wireless-enum-types:apf-vap-key-type
+  grouping bss-802-11v
+    +-- dot11v-dms?                       boolean
+    +-- dot11v-bss-max-idle?              boolean
+    +-- dot11v-bss-max-idle-protected?    boolean
+    +-- dot11v-tfs?                       boolean
+    +-- dot11v-bss-transition?            boolean
+    +-- dot11v-wnm-sleep-mode?            boolean
+    +-- dot11v-disassoc-imminent?         boolean
+    +-- dot11v-disassoc-timer?            uint16
+    +-- dot11v-disassoc-timer-opt-roam?   uint16
+    +-- dot11v-dual-list?                 boolean
+  grouping st-et-analytics
+    +-- is-tvi-enabled?   boolean
+  grouping st-apf-vap-device-analytics
+    +-- da-export?    boolean
+    +-- da-support?   boolean
+  grouping st-apf-vap-dot11k-rm-beacon-meas-req
+    +-- on-assoc?   boolean
+    +-- on-roam?    boolean
+  grouping wlan-profile
+    +-- wlan-id?                           uint32
+    +-- profile-name?                      string
+    +-- description?                       string
+    +-- security-wpa?                      boolean
+    +-- wep-enabled?                       boolean
+    +-- webauth-enabled?                   boolean
+    o-- cond-web-redirect?                 boolean
+    +-- splash-web-redirect?               boolean
+    +-- dot11-auth-type?                   wireless-enum-types:apf-vap-80211-authentication
+    +-- wep-key-index?                     uint8
+    +-- wep-key-size?                      wireless-enum-types:apf-vap-80211-encryption
+    +-- wep-key?                           string
+    +-- wep-key-type?                      wireless-enum-types:crypt-type
+    +-- wep-key-format?                    wireless-enum-types:apf-vap-key-type
+    +-- wpa1-enabled?                      boolean
+    +-- wpa1-tkip?                         boolean
+    +-- wpa1-aes?                          boolean
+    +-- auth-key-mgmt-psk?                 boolean
+    +-- psk-key-type?                      wireless-enum-types:apf-vap-key-type
+    +-- wpa2-enabled?                      boolean
+    +-- wpa2-aes?                          boolean
+    +-- rsn-cipher-suite-gcmp128?          boolean
+    +-- rsn-cipher-suite-gcmp256?          boolean
+    +-- rsn-cipher-suite-ccmp256?          boolean
+    +-- auth-key-mgmt-dot1x?               boolean
+    +-- auth-key-mgmt-cckm?                boolean
+    +-- auth-key-mgmt-ft-dot1x?            boolean
+    +-- auth-key-mgmt-ft-psk?              boolean
+    +-- auth-key-mgmt-dot1x-sha256?        boolean
+    +-- auth-key-mgmt-psk-sha256?          boolean
+    +-- psk?                               string
+    +-- psk-type?                          wireless-enum-types:crypt-type
+    +-- mac-filtering-list?                string
+    +-- mac-override-authorization-list?   string
+    +-- webauth-ipv4-preauth-acl?          string
+    +-- webauth-ipv6-preauth-acl?          string
+    +-- radio-policy?                      wireless-enum-types:apf-vap-radio-policies
+    +-- qos-wmm-status?                    wireless-enum-types:apf-vap-wme-policies
+    +-- wifi-direct-client?                wireless-enum-types:apf-vap-wifi-direct-policies
+    +-- ft-over-ds?                        boolean
+    +-- ft-reassoc-timeout?                uint32
+    +-- ft-mode?                           wireless-enum-types:ft-dot11r-mode
+    +-- pmf-options?                       wireless-enum-types:apf-vap-pmf-policies
+    +-- pmf-assoc-comeback-timeout?        uint32
+    +-- pmf-sa-query-retry-timeout?        uint32
+    +-- local-eap-profile-name?            string
+    +-- local-eap-enable?                  boolean
+    +-- band-steering-allowed?             boolean
+    +-- load-balance?                      boolean
+    +-- universal-ap-admin?                boolean
+    +-- mu-mimo?                           boolean
+    +-- multicast-mc-direct?               boolean
+    +-- defer-time?                        uint16
+    +-- defer-priority0?                   boolean
+    +-- defer-priority1?                   boolean
+    +-- defer-priority2?                   boolean
+    +-- defer-priority3?                   boolean
+    +-- defer-priority4?                   boolean
+    +-- defer-priority5?                   boolean
+    +-- defer-priority6?                   boolean
+    +-- defer-priority7?                   boolean
+    +-- authentication-list?               string
+    +-- authorization-list?                string
+    +-- max-clients-allowed?               uint32
+    +-- max-clients-per-ap-per-wlan?       uint32
+    +-- max-clients-per-radio-per-wlan?    uint32
+    +-- static-ip-tunneling?               boolean
+    +-- webauth-on-mac-auth-failure?       boolean
+    +-- web-authc-list?                    string
+    +-- web-authz-list?                    string
+    +-- web-auth-parameter-map?            string
+    +-- ip-source-guard-enabled?           boolean
+    +-- uapsd-compliant?                   boolean
+    +-- re-anchor-roam-clients?            boolean
+    +-- wlan-11k-assisted-roaming?         boolean
+    +-- wlan-11k-dual-band-neigh-list?     boolean
+    +-- wlan-11k-neigh-list?               boolean
+    +-- multicast-buffer-value?            uint8
+    +-- multicast-buffer-enable?           boolean
+    +-- apf-vap-id-data
+    |  +-- broadcast-ssid?     boolean
+    |  +-- ccx-aironet-ie?     boolean
+    |  +-- p2p-block-action?   wireless-enum-types:apf-vap-p2p-blocking-action
+    |  +-- ssid?               string
+    |  +-- dot11a-dtim?        uint8
+    |  +-- dot11b-dtim?        uint8
+    |  +-- chd?                boolean
+    |  +-- wlan-status?        boolean
+    +-- cckm-tsf-tolerance?                uint16
+    +-- apf-vap-802-11v-data
+    |  +-- dot11v-dms?                       boolean
+    |  +-- dot11v-bss-max-idle?              boolean
+    |  +-- dot11v-bss-max-idle-protected?    boolean
+    |  +-- dot11v-tfs?                       boolean
+    |  +-- dot11v-bss-transition?            boolean
+    |  +-- dot11v-wnm-sleep-mode?            boolean
+    |  +-- dot11v-disassoc-imminent?         boolean
+    |  +-- dot11v-disassoc-timer?            uint16
+    |  +-- dot11v-disassoc-timer-opt-roam?   uint16
+    |  +-- dot11v-dual-list?                 boolean
+    +-- vap-dot11ax-cfg
+    |  +-- he-ofdma-downlink?             boolean
+    |  +-- he-ofdma-uplink?               boolean
+    |  +-- he-mumimo-downlink?            boolean
+    |  +-- he-mumimo-uplink?              boolean
+    |  +-- he-bss-color-enable?           boolean
+    |  +-- he-bss-partial-color-enable?   boolean
+    |  +-- he-bss-color?                  uint8
+    |  +-- he-twt-enable?                 boolean
+    |  +-- he-twt-broadcast-support?      boolean
+    +-- mpsk-enable?                       boolean
+    +-- mpsk-keys
+    |  +-- mpsk-key* [priority]
+    |     +-- priority?          uint8
+    |     +-- mpsk-key?          string
+    |     +-- mpsk-key-type?     wireless-enum-types:crypt-type
+    |     +-- mpsk-key-format?   wireless-enum-types:apf-vap-key-type
+    +-- mdns-sd-mode?                      wireless-enum-types:enm-wlan-mdns-sd-cfg
+    +-- mbo?                               boolean
+    +-- gtk-randomize?                     boolean
+    +-- osen?                              boolean
+    +-- wpa3-enabled?                      boolean
+    +-- auth-key-mgmt-sae?                 boolean
+    +-- sae-anti-clog-threshold?           uint16
+    +-- sae-retx-timeout-msec?             uint16
+    +-- sae-max-retries?                   uint8
+    +-- akm-owe?                           boolean
+    +-- transition-mode-wlan-id?           uint16
+    +-- device-analytics
+    |  +-- da-export?    boolean
+    |  +-- da-support?   boolean
+    +-- okc?                               boolean
+    +-- dot11k-rm-beacon-meas-req
+    |  +-- on-assoc?   boolean
+    |  +-- on-roam?    boolean
+    +-- wifi-to-cellular?                  boolean
+    +-- ignore-rsn-ie-len?                 boolean
+  grouping st-guest-lan-config
+    +-- guest-lan-id?             uint32
+    +-- profile-name?             string
+    +-- has-wired-vlan            wireless-enum-types:ewlc-guest-lan-has-wired-vlan
+    +-- wired-vlan?               uint32
+    +-- security-web-auth?        boolean
+    +-- auth-list?                string
+    +-- authz-list?               string
+    +-- web-auth-parameter-map?   string
+    +-- max-associated-clients?   uint32
+    +-- status?                   boolean
+    +-- mdns-sd-mode?             wireless-enum-types:enm-wlan-mdns-sd-cfg
+  grouping st-guest-lan-policy-map
+    +-- guest-lan-profile-name?   string
+    +-- policy-profile-name       string
+  grouping st-guest-lan-map
+    +-- map-name?                string
+    +-- guest-lan-policy-maps
+       +-- guest-lan-policy-map* [guest-lan-profile-name]
+          +-- guest-lan-profile-name?   string
+          +-- policy-profile-name       string
+  grouping policy-tag
+    +-- tag-name?                        string
+    +-- description?                     string
+    +-- wlan-policies
+    |  +-- wlan-policy* [wlan-profile-name]
+    |     +-- wlan-profile-name?     string
+    |     +-- policy-profile-name    string
+    +-- tag-child-rlan-policy-configs
+       +-- tag-child-rlan-policy-config* [port-id]
+          +-- port-id?                    uint16
+          +-- rlan-profile-name?          string
+          +-- rlan-policy-profile-name?   string
+  grouping policy-profile
+    +-- wlan-profile-name?     string
+    +-- policy-profile-name    string
+  grouping st-user-qos-service-policy
+    +-- ingress-service-name?   string
+    +-- egress-service-name?    string
+  grouping st-user-autoqos-mode
+    +-- mode?   wireless-enum-types:autoqos-profile
+  grouping st-wlan-mobility-settings-policy
+    +-- anchor?   boolean
+  grouping st-wlan-local-profiling-policy
+    +-- device-classification?    boolean
+    +-- subscriber-policy-name?   string
+    +-- radius-profiling?         boolean
+    +-- http-tlv-caching?         boolean
+    +-- dhcp-tlv-caching?         boolean
+  grouping wlan-timeout-settings-policy
+    +-- session-timeout?   uint32
+    +-- idle-timeout?      uint32
+    +-- idle-threshold?    uint32
+  grouping st-wlan-guest-lan-policy
+    +-- enable-session-timeout?   boolean
+  grouping wlan-data-acl-policy
+    +-- ipv4-acl?                   string
+    +-- ipv6-acl?                   string
+    +-- layer2-acl?                 string
+    +-- pre-auth-urlfilter-list?    string
+    +-- post-auth-urlfilter-list?   string
+  grouping cts-policy
+    +-- sgacl-enforcement?   boolean
+  grouping st-wlan-aaa-policy
+    +-- aaa-override?      boolean
+    +-- nac?               boolean
+    +-- aaa-policy-name?   string
+    +-- nac-type?          wireless-enum-types:nac-type
+  grouping st-wlan-wgb-policy
+    +-- broadcast-tagging?   boolean
+    +-- wgb-vlan?            boolean
+  grouping wlan-flex-policy
+    +-- split-mac-acl?            string
+    +-- vlan-central-switching?   boolean
+  grouping st-wlan-static-ip-mobility
+    +-- is-static-ip-mobility?   boolean
+  grouping wlan-switching-policy
+    +-- central-switching?        boolean
+    +-- central-authentication?   boolean
+    +-- central-dhcp?             boolean
+    +-- override-nat-pat?         boolean
+    +-- central-assoc-enable?     boolean
+  grouping st-umbrella-params
+    +-- param-map-name?   string
+  grouping st-umbrella-flex-params
+    +-- dhcp-dns-option-enable?   boolean
+    +-- mode-force?               boolean
+  grouping st-mdns-sd-service-policy
+    +-- policy-name?   string
+  grouping dhcp-params
+    +-- is-dhcp-enabled?       boolean
+    +-- dhcp-server-address?   inet:ipv4-address
+    +-- dhcp-opt82-enable?     boolean
+    +-- dhcp-opt82-ascii?      boolean
+    +-- dhcp-opt82-rid?        boolean
+    +-- apmac?                 boolean
+    +-- ssid?                  boolean
+    +-- ap-ethmac?             boolean
+    +-- apname?                boolean
+    +-- policy-tag?            boolean
+    +-- ap-location?           boolean
+    +-- vlan-id?               boolean
+    +-- dhcp-option-none?      boolean
+  grouping blacklist-params
+    +-- is-blacklist-enabled?   boolean
+    +-- blacklist-timeout?      uint32
+  grouping st-atf-policy-map
+    +-- band-id?           uint8
+    +-- atf-policy-name?   string
+  grouping upn-config
+    +-- is-upn-restrict-enable?   boolean
+    +-- upn-unicast-disable?      boolean
+  grouping proxy-cfg
+    +-- ipv6-proxy?   wireless-enum-types:ipv6-proxy
+    +-- arp-proxy?    boolean
+  grouping st-policy-profile-calendar-config
+    +-- calendar-profile-name?    string
+    +-- wlan-enable?              wireless-enum-types:timer-profile-action
+    +-- client-session-disable?   wireless-enum-types:timer-profile-action
+  grouping st-wlan-policies
+    +-- policy-profile-name?               string
+    +-- description?                       string
+    +-- status?                            boolean
+    +-- passive-client?                    boolean
+    +-- interface-name?                    string
+    +-- mcast-vlan-id?                     uint32
+    +-- wlan-switching-policy
+    |  +-- central-switching?        boolean
+    |  +-- central-authentication?   boolean
+    |  +-- central-dhcp?             boolean
+    |  +-- override-nat-pat?         boolean
+    |  +-- central-assoc-enable?     boolean
+    +-- wlan-flex-policy
+    |  +-- split-mac-acl?            string
+    |  +-- vlan-central-switching?   boolean
+    +-- static-ip-mobility
+    |  +-- is-static-ip-mobility?   boolean
+    +-- wlan-acl
+    |  +-- ipv4-acl?                   string
+    |  +-- ipv6-acl?                   string
+    |  +-- layer2-acl?                 string
+    |  +-- pre-auth-urlfilter-list?    string
+    |  +-- post-auth-urlfilter-list?   string
+    +-- wlan-timeout
+    |  +-- session-timeout?   uint32
+    |  +-- idle-timeout?      uint32
+    |  +-- idle-threshold?    uint32
+    +-- wlan-local-profiling
+    |  +-- device-classification?    boolean
+    |  +-- subscriber-policy-name?   string
+    |  +-- radius-profiling?         boolean
+    |  +-- http-tlv-caching?         boolean
+    |  +-- dhcp-tlv-caching?         boolean
+    +-- wlan-mobility
+    |  +-- anchor?   boolean
+    +-- nbar-protocol-discovery?           boolean
+    +-- reanchor-classmap-name?            string
+    +-- per-ssid-qos
+    |  +-- ingress-service-name?   string
+    |  +-- egress-service-name?    string
+    +-- per-client-qos
+    |  +-- ingress-service-name?   string
+    |  +-- egress-service-name?    string
+    +-- autoqos-mode
+    |  +-- mode?   wireless-enum-types:autoqos-profile
+    +-- dhcp-params
+    |  +-- is-dhcp-enabled?       boolean
+    |  +-- dhcp-server-address?   inet:ipv4-address
+    |  +-- dhcp-opt82-enable?     boolean
+    |  +-- dhcp-opt82-ascii?      boolean
+    |  +-- dhcp-opt82-rid?        boolean
+    |  +-- apmac?                 boolean
+    |  +-- ssid?                  boolean
+    |  +-- ap-ethmac?             boolean
+    |  +-- apname?                boolean
+    |  +-- policy-tag?            boolean
+    |  +-- ap-location?           boolean
+    |  +-- vlan-id?               boolean
+    |  +-- dhcp-option-none?      boolean
+    +-- mdns-service-policy
+    |  +-- policy-name?   string
+    +-- cts-policy
+    |  +-- sgacl-enforcement?   boolean
+    +-- inline-tagging?                    boolean
+    +-- sgt?                               uint16
+    +-- umbrella-params
+    |  +-- param-map-name?   string
+    +-- blacklist-params
+    |  +-- is-blacklist-enabled?   boolean
+    |  +-- blacklist-timeout?      uint32
+    +-- aaa-policy-params
+    |  +-- aaa-override?      boolean
+    |  +-- nac?               boolean
+    |  +-- aaa-policy-name?   string
+    |  +-- nac-type?          wireless-enum-types:nac-type
+    +-- et-analytics-params
+    |  +-- is-tvi-enabled?   boolean
+    +-- wgb-policy-params
+    |  +-- broadcast-tagging?   boolean
+    |  +-- wgb-vlan?            boolean
+    +-- fabric-profile-name?               string
+    +-- accounting-list?                   string
+    +-- client-count?                      uint32
+    +-- atf-policy-map-entries
+    |  +-- atf-policy-map-entry* [band-id]
+    |     +-- band-id?           uint8
+    |     +-- atf-policy-name?   string
+    +-- guest-mm-db-export-entries
+    |  +-- guest-mm-db-export-entry* [ip]
+    |     +-- ip?                inet:ip-address
+    |     +-- anchor-priority?   wireless-enum-types:enm-export-anchor-priority-type
+    +-- call-snoop?                        boolean
+    +-- sip-cac-send-dis-assoc?            boolean
+    +-- sip-cac-send-486-busy?             boolean
+    +-- tunnel-profile-name?               string
+    +-- avc-ipv4-fm-ingress-entries
+    |  +-- avc-ipv4-fm-ingress-entry* [name]
+    |     +-- name?   string
+    +-- avc-ipv4-fm-egress-entries
+    |  +-- avc-ipv4-fm-egress-entry* [name]
+    |     +-- name?   string
+    +-- avc-ipv6-fm-ingress-entries
+    |  +-- avc-ipv6-fm-ingress-entry* [name]
+    |     +-- name?   string
+    +-- avc-ipv6-fm-egress-entries
+    |  +-- avc-ipv6-fm-egress-entry* [name]
+    |     +-- name?   string
+    +-- hotspot-anqp-server?               string
+    +-- guest-lan
+    |  +-- enable-session-timeout?   boolean
+    +-- policy-profile-calendar-configs
+    |  +-- policy-profile-calendar-config* [calendar-profile-name]
+    |     +-- calendar-profile-name?    string
+    |     +-- wlan-enable?              wireless-enum-types:timer-profile-action
+    |     +-- client-session-disable?   wireless-enum-types:timer-profile-action
+    +-- upn
+    |  +-- is-upn-restrict-enable?   boolean
+    |  +-- upn-unicast-disable?      boolean
+    +-- proxy
+    |  +-- ipv6-proxy?   wireless-enum-types:ipv6-proxy
+    |  +-- arp-proxy?    boolean
+    +-- umbrella-flex-params
+    |  +-- dhcp-dns-option-enable?   boolean
+    |  +-- mode-force?               boolean
+    +-- multicast-filter?                  boolean
+    +-- qbss-load?                         boolean
+    +-- encryption-vlan-osen?              string
+  grouping st-guest-mm-db-export
+    +-- ip?                inet:ip-address
+    +-- anchor-priority?   wireless-enum-types:enm-export-anchor-priority-type
+  grouping st-avc-flow-monitor
+    +-- name?   string
+  grouping st-nas-id-aaa-config
+    +-- option1?   wireless-types:enm-nas-id-options
+    +-- option2?   wireless-types:enm-nas-id-options
+    +-- option3?   wireless-types:enm-nas-id-options
+  grouping st-wireless-aaa-policy-config
+    +-- policy-name?   string
+    +-- nas-id
+    |  +-- option1?   wireless-types:enm-nas-id-options
+    |  +-- option2?   wireless-types:enm-nas-id-options
+    |  +-- option3?   wireless-types:enm-nas-id-options
+    +-- aaa-realm?     boolean
+  grouping st-tag-child-rlan-policy-config
+    +-- port-id?                    uint16
+    +-- rlan-profile-name?          string
+    +-- rlan-policy-profile-name?   string
+  grouping st-calendar-weekly-config
+    +-- day    wireless-enum-types:work-day
+  grouping st-calendar-monthly-config
+    +-- date    uint8
+  grouping st-calendar-profile-config
+    +-- profile-name                string
+    +-- start-time                  string
+    +-- end-time?                   string
+    +-- recurrence                  wireless-enum-types:calendar-recurrence
+    +-- calendar-weekly-configs
+    |  +-- calendar-weekly-config* [day]
+    |     +-- day    wireless-enum-types:work-day
+    +-- calendar-monthly-configs
+       +-- calendar-monthly-config* [date]
+          +-- date    uint8

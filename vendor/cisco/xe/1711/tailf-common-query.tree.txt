@@ -1,0 +1,28 @@
+module: tailf-common-query
+
+  grouping start-query-parameters
+    +-- foreach    yang:xpath1.0
+    +-- select* []
+    |  +-- label?         string
+    |  +-- expression     yang:xpath1.0
+    |  +-- result-type*   enumeration
+    +-- sort-by*   yang:xpath1.0
+    +-- limit?     uint32
+    +-- offset?    uint32
+    +-- timeout?   uint32
+  grouping query-handle
+    +-- query-handle?   uint32
+  grouping query-result
+    +-- result* []
+       +-- select* []
+          +-- label?         string
+          +-- (select-result)?
+             +--:(path-value)
+             |  +-- path?    instance-identifier
+             |  +-- value?   string
+             +--:(inline)
+                +-- data?    <anyxml>
+  grouping reset-query-parameters
+    +-- query-handle?   uint32
+    +-- offset?         uint32
+    +-- timeout?        uint32

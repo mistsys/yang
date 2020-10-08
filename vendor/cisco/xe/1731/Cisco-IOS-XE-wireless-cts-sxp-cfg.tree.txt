@@ -1,0 +1,36 @@
+module: Cisco-IOS-XE-wireless-cts-sxp-cfg
+  +--rw cts-sxp-cfg-data
+     +--rw cts-sxp-configuration
+        +--rw cts-sxp-config* [sxp-profile-name]
+           +--rw sxp-profile-name             string
+           +--rw enable?                      boolean
+           +--rw default-password?            string
+           +--rw listener-minimum-holdtime?   uint32
+           +--rw listener-maximum-holdtime?   uint32
+           +--rw speaker-holdtime?            uint32
+           +--rw reconcile-period?            uint32
+           +--rw retry-period?                uint32
+           +--rw sxp-connections
+              +--rw sxp-connection-config* [peer-ip-address]
+                 +--rw peer-ip-address    inet:ip-address
+                 +--rw connection-mode?   wireless-types:enm-cts-sxp-conn-mode
+                 +--rw password-type?     wireless-types:enm-cts-sxp-password-type
+
+  grouping cts-sxp-profile-conn
+    +-- peer-ip-address?   inet:ip-address
+    +-- connection-mode?   wireless-types:enm-cts-sxp-conn-mode
+    +-- password-type?     wireless-types:enm-cts-sxp-password-type
+  grouping cts-sxp-config-profile
+    +-- sxp-profile-name?            string
+    +-- enable?                      boolean
+    +-- default-password?            string
+    +-- listener-minimum-holdtime?   uint32
+    +-- listener-maximum-holdtime?   uint32
+    +-- speaker-holdtime?            uint32
+    +-- reconcile-period?            uint32
+    +-- retry-period?                uint32
+    +-- sxp-connections
+       +-- sxp-connection-config* [peer-ip-address]
+          +-- peer-ip-address?   inet:ip-address
+          +-- connection-mode?   wireless-types:enm-cts-sxp-conn-mode
+          +-- password-type?     wireless-types:enm-cts-sxp-password-type

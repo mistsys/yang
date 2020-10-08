@@ -1,0 +1,415 @@
+module: openconfig-aaa
+
+  grouping aaa-servergroup-common-config
+    +-- name?   string
+    +-- type?   identityref
+  grouping aaa-servergroup-common-state
+  grouping aaa-servergroup-common-top
+    +-- server-groups
+       +-- server-group* [name]
+          +-- name?      -> ../config/name
+          +-- config
+          |  +-- name?   string
+          |  +-- type?   identityref
+          +--ro state
+          |  +--ro name?   string
+          |  +--ro type?   identityref
+          +-- servers
+             +-- server* [address]
+                +-- address?   -> ../config/address
+                +-- config
+                |  +-- name?      string
+                |  +-- address?   oc-inet:ip-address
+                |  +-- timeout?   uint16
+                +--ro state
+                |  +--ro name?                  string
+                |  +--ro address?               oc-inet:ip-address
+                |  +--ro timeout?               uint16
+                |  +--ro connection-opens?      oc-yang:counter64
+                |  +--ro connection-closes?     oc-yang:counter64
+                |  +--ro connection-aborts?     oc-yang:counter64
+                |  +--ro connection-failures?   oc-yang:counter64
+                |  +--ro connection-timeouts?   oc-yang:counter64
+                |  +--ro messages-sent?         oc-yang:counter64
+                |  +--ro messages-received?     oc-yang:counter64
+                |  +--ro errors-received?       oc-yang:counter64
+                +-- tacacs
+                |  +-- config
+                |  |  +-- port?             oc-inet:port-number
+                |  |  +-- secret-key?       oc-types:routing-password
+                |  |  +-- source-address?   oc-inet:ip-address
+                |  +--ro state
+                |     +--ro port?             oc-inet:port-number
+                |     +--ro secret-key?       oc-types:routing-password
+                |     +--ro source-address?   oc-inet:ip-address
+                +-- radius
+                   +-- config
+                   |  +-- auth-port?             oc-inet:port-number
+                   |  +-- acct-port?             oc-inet:port-number
+                   |  +-- secret-key?            oc-types:routing-password
+                   |  +-- source-address?        oc-inet:ip-address
+                   |  +-- retransmit-attempts?   uint8
+                   +--ro state
+                      +--ro auth-port?             oc-inet:port-number
+                      +--ro acct-port?             oc-inet:port-number
+                      +--ro secret-key?            oc-types:routing-password
+                      +--ro source-address?        oc-inet:ip-address
+                      +--ro retransmit-attempts?   uint8
+                      +--ro counters
+                         +--ro retried-access-requests?   oc-yang:counter64
+                         +--ro access-accepts?            oc-yang:counter64
+                         +--ro access-rejects?            oc-yang:counter64
+                         +--ro timeout-access-requests?   oc-yang:counter64
+  grouping aaa-server-config
+    +-- name?      string
+    +-- address?   oc-inet:ip-address
+    +-- timeout?   uint16
+  grouping aaa-server-state
+    +-- connection-opens?      oc-yang:counter64
+    +-- connection-closes?     oc-yang:counter64
+    +-- connection-aborts?     oc-yang:counter64
+    +-- connection-failures?   oc-yang:counter64
+    +-- connection-timeouts?   oc-yang:counter64
+    +-- messages-sent?         oc-yang:counter64
+    +-- messages-received?     oc-yang:counter64
+    +-- errors-received?       oc-yang:counter64
+  grouping aaa-server-top
+    +-- servers
+       +-- server* [address]
+          +-- address?   -> ../config/address
+          +-- config
+          |  +-- name?      string
+          |  +-- address?   oc-inet:ip-address
+          |  +-- timeout?   uint16
+          +--ro state
+          |  +--ro name?                  string
+          |  +--ro address?               oc-inet:ip-address
+          |  +--ro timeout?               uint16
+          |  +--ro connection-opens?      oc-yang:counter64
+          |  +--ro connection-closes?     oc-yang:counter64
+          |  +--ro connection-aborts?     oc-yang:counter64
+          |  +--ro connection-failures?   oc-yang:counter64
+          |  +--ro connection-timeouts?   oc-yang:counter64
+          |  +--ro messages-sent?         oc-yang:counter64
+          |  +--ro messages-received?     oc-yang:counter64
+          |  +--ro errors-received?       oc-yang:counter64
+          +-- tacacs
+          |  +-- config
+          |  |  +-- port?             oc-inet:port-number
+          |  |  +-- secret-key?       oc-types:routing-password
+          |  |  +-- source-address?   oc-inet:ip-address
+          |  +--ro state
+          |     +--ro port?             oc-inet:port-number
+          |     +--ro secret-key?       oc-types:routing-password
+          |     +--ro source-address?   oc-inet:ip-address
+          +-- radius
+             +-- config
+             |  +-- auth-port?             oc-inet:port-number
+             |  +-- acct-port?             oc-inet:port-number
+             |  +-- secret-key?            oc-types:routing-password
+             |  +-- source-address?        oc-inet:ip-address
+             |  +-- retransmit-attempts?   uint8
+             +--ro state
+                +--ro auth-port?             oc-inet:port-number
+                +--ro acct-port?             oc-inet:port-number
+                +--ro secret-key?            oc-types:routing-password
+                +--ro source-address?        oc-inet:ip-address
+                +--ro retransmit-attempts?   uint8
+                +--ro counters
+                   +--ro retried-access-requests?   oc-yang:counter64
+                   +--ro access-accepts?            oc-yang:counter64
+                   +--ro access-rejects?            oc-yang:counter64
+                   +--ro timeout-access-requests?   oc-yang:counter64
+  grouping aaa-admin-config
+    +-- admin-password?          string
+    +-- admin-password-hashed?   oc-aaa-types:crypt-password-type
+  grouping aaa-admin-state
+    +-- admin-username?   string
+  grouping aaa-authentication-admin-top
+    +-- admin-user
+       +-- config
+       |  +-- admin-password?          string
+       |  +-- admin-password-hashed?   oc-aaa-types:crypt-password-type
+       +--ro state
+          +--ro admin-password?          string
+          +--ro admin-password-hashed?   oc-aaa-types:crypt-password-type
+          +--ro admin-username?          string
+  grouping aaa-authentication-user-config
+    +-- username?          string
+    +-- password?          string
+    +-- password-hashed?   oc-aaa-types:crypt-password-type
+    +-- ssh-key?           string
+    +-- role?              union
+  grouping aaa-authentication-user-state
+  grouping aaa-authentication-user-top
+    +-- users
+       +-- user* [username]
+          +-- username?   -> ../config/username
+          +-- config
+          |  +-- username?          string
+          |  +-- password?          string
+          |  +-- password-hashed?   oc-aaa-types:crypt-password-type
+          |  +-- ssh-key?           string
+          |  +-- role?              union
+          +--ro state
+             +--ro username?          string
+             +--ro password?          string
+             +--ro password-hashed?   oc-aaa-types:crypt-password-type
+             +--ro ssh-key?           string
+             +--ro role?              union
+  grouping aaa-accounting-methods-common
+    +-- accounting-method*   union
+  grouping aaa-accounting-events-config
+    +-- event-type?   identityref
+    +-- record?       enumeration
+  grouping aaa-accounting-events-state
+  grouping aaa-accounting-events-top
+    +-- events
+       +-- event* [event-type]
+          +-- event-type?   -> ../config/event-type
+          +-- config
+          |  +-- event-type?   identityref
+          |  +-- record?       enumeration
+          +--ro state
+             +--ro event-type?   identityref
+             +--ro record?       enumeration
+  grouping aaa-accounting-config
+    +-- accounting-method*   union
+  grouping aaa-accounting-state
+  grouping aaa-accounting-top
+    +-- accounting
+       +-- config
+       |  +-- accounting-method*   union
+       +--ro state
+       |  +--ro accounting-method*   union
+       +-- events
+          +-- event* [event-type]
+             +-- event-type?   -> ../config/event-type
+             +-- config
+             |  +-- event-type?   identityref
+             |  +-- record?       enumeration
+             +--ro state
+                +--ro event-type?   identityref
+                +--ro record?       enumeration
+  grouping aaa-authorization-methods-config
+    +-- authorization-method*   union
+  grouping aaa-authorization-events-config
+    +-- event-type?   identityref
+  grouping aaa-authorization-events-state
+  grouping aaa-authorization-events-top
+    +-- events
+       +-- event* [event-type]
+          +-- event-type?   -> ../config/event-type
+          +-- config
+          |  +-- event-type?   identityref
+          +--ro state
+             +--ro event-type?   identityref
+  grouping aaa-authorization-config
+    +-- authorization-method*   union
+  grouping aaa-authorization-state
+  grouping aaa-authorization-top
+    +-- authorization
+       +-- config
+       |  +-- authorization-method*   union
+       +--ro state
+       |  +--ro authorization-method*   union
+       +-- events
+          +-- event* [event-type]
+             +-- event-type?   -> ../config/event-type
+             +-- config
+             |  +-- event-type?   identityref
+             +--ro state
+                +--ro event-type?   identityref
+  grouping aaa-authentication-config
+    +-- authentication-method*   union
+  grouping aaa-authentication-state
+  grouping aaa-authentication-top
+    +-- authentication
+       +-- config
+       |  +-- authentication-method*   union
+       +--ro state
+       |  +--ro authentication-method*   union
+       +-- admin-user
+       |  +-- config
+       |  |  +-- admin-password?          string
+       |  |  +-- admin-password-hashed?   oc-aaa-types:crypt-password-type
+       |  +--ro state
+       |     +--ro admin-password?          string
+       |     +--ro admin-password-hashed?   oc-aaa-types:crypt-password-type
+       |     +--ro admin-username?          string
+       +-- users
+          +-- user* [username]
+             +-- username?   -> ../config/username
+             +-- config
+             |  +-- username?          string
+             |  +-- password?          string
+             |  +-- password-hashed?   oc-aaa-types:crypt-password-type
+             |  +-- ssh-key?           string
+             |  +-- role?              union
+             +--ro state
+                +--ro username?          string
+                +--ro password?          string
+                +--ro password-hashed?   oc-aaa-types:crypt-password-type
+                +--ro ssh-key?           string
+                +--ro role?              union
+  grouping aaa-config
+  grouping aaa-state
+  grouping aaa-top
+    +-- aaa
+       +-- config
+       +--ro state
+       +-- authentication
+       |  +-- config
+       |  |  +-- authentication-method*   union
+       |  +--ro state
+       |  |  +--ro authentication-method*   union
+       |  +-- admin-user
+       |  |  +-- config
+       |  |  |  +-- admin-password?          string
+       |  |  |  +-- admin-password-hashed?   oc-aaa-types:crypt-password-type
+       |  |  +--ro state
+       |  |     +--ro admin-password?          string
+       |  |     +--ro admin-password-hashed?   oc-aaa-types:crypt-password-type
+       |  |     +--ro admin-username?          string
+       |  +-- users
+       |     +-- user* [username]
+       |        +-- username?   -> ../config/username
+       |        +-- config
+       |        |  +-- username?          string
+       |        |  +-- password?          string
+       |        |  +-- password-hashed?   oc-aaa-types:crypt-password-type
+       |        |  +-- ssh-key?           string
+       |        |  +-- role?              union
+       |        +--ro state
+       |           +--ro username?          string
+       |           +--ro password?          string
+       |           +--ro password-hashed?   oc-aaa-types:crypt-password-type
+       |           +--ro ssh-key?           string
+       |           +--ro role?              union
+       +-- authorization
+       |  +-- config
+       |  |  +-- authorization-method*   union
+       |  +--ro state
+       |  |  +--ro authorization-method*   union
+       |  +-- events
+       |     +-- event* [event-type]
+       |        +-- event-type?   -> ../config/event-type
+       |        +-- config
+       |        |  +-- event-type?   identityref
+       |        +--ro state
+       |           +--ro event-type?   identityref
+       +-- accounting
+       |  +-- config
+       |  |  +-- accounting-method*   union
+       |  +--ro state
+       |  |  +--ro accounting-method*   union
+       |  +-- events
+       |     +-- event* [event-type]
+       |        +-- event-type?   -> ../config/event-type
+       |        +-- config
+       |        |  +-- event-type?   identityref
+       |        |  +-- record?       enumeration
+       |        +--ro state
+       |           +--ro event-type?   identityref
+       |           +--ro record?       enumeration
+       +-- server-groups
+          +-- server-group* [name]
+             +-- name?      -> ../config/name
+             +-- config
+             |  +-- name?   string
+             |  +-- type?   identityref
+             +--ro state
+             |  +--ro name?   string
+             |  +--ro type?   identityref
+             +-- servers
+                +-- server* [address]
+                   +-- address?   -> ../config/address
+                   +-- config
+                   |  +-- name?      string
+                   |  +-- address?   oc-inet:ip-address
+                   |  +-- timeout?   uint16
+                   +--ro state
+                   |  +--ro name?                  string
+                   |  +--ro address?               oc-inet:ip-address
+                   |  +--ro timeout?               uint16
+                   |  +--ro connection-opens?      oc-yang:counter64
+                   |  +--ro connection-closes?     oc-yang:counter64
+                   |  +--ro connection-aborts?     oc-yang:counter64
+                   |  +--ro connection-failures?   oc-yang:counter64
+                   |  +--ro connection-timeouts?   oc-yang:counter64
+                   |  +--ro messages-sent?         oc-yang:counter64
+                   |  +--ro messages-received?     oc-yang:counter64
+                   |  +--ro errors-received?       oc-yang:counter64
+                   +-- tacacs
+                   |  +-- config
+                   |  |  +-- port?             oc-inet:port-number
+                   |  |  +-- secret-key?       oc-types:routing-password
+                   |  |  +-- source-address?   oc-inet:ip-address
+                   |  +--ro state
+                   |     +--ro port?             oc-inet:port-number
+                   |     +--ro secret-key?       oc-types:routing-password
+                   |     +--ro source-address?   oc-inet:ip-address
+                   +-- radius
+                      +-- config
+                      |  +-- auth-port?             oc-inet:port-number
+                      |  +-- acct-port?             oc-inet:port-number
+                      |  +-- secret-key?            oc-types:routing-password
+                      |  +-- source-address?        oc-inet:ip-address
+                      |  +-- retransmit-attempts?   uint8
+                      +--ro state
+                         +--ro auth-port?             oc-inet:port-number
+                         +--ro acct-port?             oc-inet:port-number
+                         +--ro secret-key?            oc-types:routing-password
+                         +--ro source-address?        oc-inet:ip-address
+                         +--ro retransmit-attempts?   uint8
+                         +--ro counters
+                            +--ro retried-access-requests?   oc-yang:counter64
+                            +--ro access-accepts?            oc-yang:counter64
+                            +--ro access-rejects?            oc-yang:counter64
+                            +--ro timeout-access-requests?   oc-yang:counter64
+  grouping aaa-tacacs-server-config
+    +-- port?             oc-inet:port-number
+    +-- secret-key?       oc-types:routing-password
+    +-- source-address?   oc-inet:ip-address
+  grouping aaa-tacacs-server-state
+  grouping aaa-tacacs-server-top
+    +-- tacacs
+       +-- config
+       |  +-- port?             oc-inet:port-number
+       |  +-- secret-key?       oc-types:routing-password
+       |  +-- source-address?   oc-inet:ip-address
+       +--ro state
+          +--ro port?             oc-inet:port-number
+          +--ro secret-key?       oc-types:routing-password
+          +--ro source-address?   oc-inet:ip-address
+  grouping aaa-radius-server-config
+    +-- auth-port?             oc-inet:port-number
+    +-- acct-port?             oc-inet:port-number
+    +-- secret-key?            oc-types:routing-password
+    +-- source-address?        oc-inet:ip-address
+    +-- retransmit-attempts?   uint8
+  grouping aaa-radius-server-state
+    +-- counters
+       +-- retried-access-requests?   oc-yang:counter64
+       +-- access-accepts?            oc-yang:counter64
+       +-- access-rejects?            oc-yang:counter64
+       +-- timeout-access-requests?   oc-yang:counter64
+  grouping aaa-radius-server-top
+    +-- radius
+       +-- config
+       |  +-- auth-port?             oc-inet:port-number
+       |  +-- acct-port?             oc-inet:port-number
+       |  +-- secret-key?            oc-types:routing-password
+       |  +-- source-address?        oc-inet:ip-address
+       |  +-- retransmit-attempts?   uint8
+       +--ro state
+          +--ro auth-port?             oc-inet:port-number
+          +--ro acct-port?             oc-inet:port-number
+          +--ro secret-key?            oc-types:routing-password
+          +--ro source-address?        oc-inet:ip-address
+          +--ro retransmit-attempts?   uint8
+          +--ro counters
+             +--ro retried-access-requests?   oc-yang:counter64
+             +--ro access-accepts?            oc-yang:counter64
+             +--ro access-rejects?            oc-yang:counter64
+             +--ro timeout-access-requests?   oc-yang:counter64

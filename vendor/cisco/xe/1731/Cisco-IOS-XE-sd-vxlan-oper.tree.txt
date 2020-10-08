@@ -1,0 +1,197 @@
+module: Cisco-IOS-XE-sd-vxlan-oper
+  +--ro sd-vxlan-oper-data
+  |  +--ro per-vni-vrf-stats* [vrf-name vni]
+  |  |  +--ro vrf-name           string
+  |  |  +--ro vni                uint32
+  |  |  +--ro egress-packets?    uint64
+  |  |  +--ro egress-bytes?      uint64
+  |  |  +--ro ingress-packets?   uint64
+  |  |  +--ro ingress-bytes?     uint64
+  |  +--ro per-vni-vrf-policer* [vrf-name vni]
+  |  |  +--ro vrf-name             string
+  |  |  +--ro vni                  uint32
+  |  |  +--ro cir?                 uint64
+  |  |  +--ro bc?                  uint64
+  |  |  +--ro confirmed-packets?   uint64
+  |  |  +--ro confirmed-bytes?     uint64
+  |  |  +--ro exceeded-packets?    uint64
+  |  |  +--ro exceeded-bytes?      uint64
+  |  +--ro per-vni-stats* [vni]
+  |  |  +--ro vni            uint32
+  |  |  +--ro vni-packets?   uint64
+  |  |  +--ro vni-bytes?     uint64
+  |  +--ro per-vrf-pfx-stats* [vrf-name]
+  |  |  +--ro vrf-name              string
+  |  |  +--ro ipv4-total-packets?   uint64
+  |  |  +--ro ipv4-total-bytes?     uint64
+  |  |  +--ro ipv6-total-packets?   uint64
+  |  |  +--ro ipv6-total-bytes?     uint64
+  |  |  +--ro per-vrf-pfx-v4* [prefix]
+  |  |  |  +--ro prefix     inet:ip-prefix
+  |  |  |  +--ro packets?   uint64
+  |  |  |  +--ro bytes?     uint64
+  |  |  +--ro per-vrf-pfx-v6* [prefix]
+  |  |     +--ro prefix     inet:ip-prefix
+  |  |     +--ro packets?   uint64
+  |  |     +--ro bytes?     uint64
+  |  +--ro static-route* [vrf-name prefix]
+  |  |  +--ro vrf-name         string
+  |  |  +--ro prefix           inet:ip-prefix
+  |  |  +--ro nexthop-entry* [conn-id]
+  |  |     +--ro link-type?     ios-common-ios-xe-oper:ios-linktype
+  |  |     +--ro vni?           uint32
+  |  |     +--ro nh-addr?       inet:ip-address
+  |  |     +--ro bind-label?    uint32
+  |  |     +--ro conn-id        uint32
+  |  |     +--ro tunnel-name?   string
+  |  +--ro route-profile* [name]
+  |  |  +--ro name                  string
+  |  |  +--ro reserve-word-1?       uint16
+  |  |  +--ro reserve-word-2?       uint8
+  |  |  +--ro dscp?                 uint8
+  |  |  +--ro src-mac?              yang:mac-address
+  |  |  +--ro src-port-start?       uint16
+  |  |  +--ro src-port-end?         uint16
+  |  |  +--ro src-port-hash-mode?   sd-vxlan-ios-xe-oper:vxlan-rp-hash-mode-enum
+  |  |  +--ro mode?                 sd-vxlan-ios-xe-oper:vxlan-rp-mode-enum
+  |  |  +--ro src-interface?        string
+  |  |  +--ro dst-port?             uint16
+  |  |  +--ro mtu?                  uint16
+  |  |  +--ro persistent?           boolean
+  |  +--ro rp-auto-tunnel* [name]
+  |  |  +--ro name              string
+  |  |  +--ro v4-auto-tunnel?   string
+  |  |  +--ro v6-auto-tunnel?   string
+  |  +--ro rp-tunnel-symmetric* [name vrf-name]
+  |  |  +--ro name              string
+  |  |  +--ro vrf-name          string
+  |  |  +--ro v4-auto-tunnel?   string
+  |  |  +--ro v6-auto-tunnel?   string
+  |  +--ro bind-label-data* [bind-label]
+  |  |  +--ro link-type?     ios-common-ios-xe-oper:ios-linktype
+  |  |  +--ro vni?           uint32
+  |  |  +--ro nh-addr?       inet:ip-address
+  |  |  +--ro bind-label     uint32
+  |  |  +--ro conn-id?       uint32
+  |  |  +--ro tunnel-name?   string
+  |  +--ro conn-id-data* [conn-id]
+  |  |  +--ro link-type?     ios-common-ios-xe-oper:ios-linktype
+  |  |  +--ro vni?           uint32
+  |  |  +--ro nh-addr?       inet:ip-address
+  |  |  +--ro bind-label?    uint32
+  |  |  +--ro conn-id        uint32
+  |  |  +--ro tunnel-name?   string
+  |  +--ro sr-summary-data* [entry-key]
+  |     +--ro entry-key                  sd-vxlan-ios-xe-oper:vxlan-sr-summary-key-enum
+  |     +--ro prefix-cnt?                uint32
+  |     +--ro persist-prefix-cnt?        uint32
+  |     +--ro route-profile-cnt?         uint32
+  |     +--ro vni-node-cnt?              uint32
+  |     +--ro next-hop-cnt?              uint32
+  |     +--ro auto-tunnel-cnt?           uint32
+  |     +--ro vni-vrf-node-cnt?          uint32
+  |     +--ro default-dst-mac?           yang:mac-address
+  |     +--ro auto-tunnel-start?         uint32
+  |     +--ro auto-tunnel-end?           uint32
+  |     +--ro p2p-accounting-policing?   boolean
+  +--rw schema-metadata-Cisco-IOS-XE-sd-vxlan-oper
+  |  +--rw json-metadata-leaf?             empty
+  |  +--rw Cisco-IOS-XE-ios-common-oper
+  +--rw gnmi-model-data
+
+  grouping per-vni-vrf-key
+    +-- vrf-name?   string
+    +-- vni?        uint32
+  grouping per-vni-vrf-stats
+    +-- egress-packets?    uint64
+    +-- egress-bytes?      uint64
+    +-- ingress-packets?   uint64
+    +-- ingress-bytes?     uint64
+  grouping per-vni-vrf-policer
+    +-- cir?                 uint64
+    +-- bc?                  uint64
+    +-- confirmed-packets?   uint64
+    +-- confirmed-bytes?     uint64
+    +-- exceeded-packets?    uint64
+    +-- exceeded-bytes?      uint64
+  grouping per-vni-stats
+    +-- vni?           uint32
+    +-- vni-packets?   uint64
+    +-- vni-bytes?     uint64
+  grouping per-vrf-pfx-stats
+    +-- prefix?    inet:ip-prefix
+    +-- packets?   uint64
+    +-- bytes?     uint64
+  grouping per-vrf-pfx-entries
+    +-- vrf-name?             string
+    +-- ipv4-total-packets?   uint64
+    +-- ipv4-total-bytes?     uint64
+    +-- ipv6-total-packets?   uint64
+    +-- ipv6-total-bytes?     uint64
+    +-- per-vrf-pfx-v4* [prefix]
+    |  +-- prefix?    inet:ip-prefix
+    |  +-- packets?   uint64
+    |  +-- bytes?     uint64
+    +-- per-vrf-pfx-v6* [prefix]
+       +-- prefix?    inet:ip-prefix
+       +-- packets?   uint64
+       +-- bytes?     uint64
+  grouping vxlan-sr-entry-key
+    +-- vrf-name?   string
+    +-- prefix?     inet:ip-prefix
+  grouping vxlan-sr-nh-data
+    +-- link-type?     ios-common-ios-xe-oper:ios-linktype
+    +-- vni?           uint32
+    +-- nh-addr?       inet:ip-address
+    +-- bind-label?    uint32
+    +-- conn-id?       uint32
+    +-- tunnel-name?   string
+  grouping vxlan-sr-entry
+    +-- nexthop-entry* [conn-id]
+       +-- link-type?     ios-common-ios-xe-oper:ios-linktype
+       +-- vni?           uint32
+       +-- nh-addr?       inet:ip-address
+       +-- bind-label?    uint32
+       +-- conn-id?       uint32
+       +-- tunnel-name?   string
+  grouping vxlan-rp-entry
+    +-- name?                 string
+    +-- reserve-word-1?       uint16
+    +-- reserve-word-2?       uint8
+    +-- dscp?                 uint8
+    +-- src-mac?              yang:mac-address
+    +-- src-port-start?       uint16
+    +-- src-port-end?         uint16
+    +-- src-port-hash-mode?   sd-vxlan-ios-xe-oper:vxlan-rp-hash-mode-enum
+    +-- mode?                 sd-vxlan-ios-xe-oper:vxlan-rp-mode-enum
+    +-- src-interface?        string
+    +-- dst-port?             uint16
+    +-- mtu?                  uint16
+    +-- persistent?           boolean
+  grouping vxlan-rp-auto-tunnel-entry
+    +-- name?             string
+    +-- v4-auto-tunnel?   string
+    +-- v6-auto-tunnel?   string
+  grouping vxlan-rp-auto-tunnel-symmetric-entry-key
+    +-- name?       string
+    +-- vrf-name?   string
+  grouping vxlan-rp-auto-tunnel-symmetric-entry
+    +-- v4-auto-tunnel?   string
+    +-- v6-auto-tunnel?   string
+  grouping vxlan-sr-summary-entry-key
+    +-- entry-key?   sd-vxlan-ios-xe-oper:vxlan-sr-summary-key-enum
+  grouping vxlan-sr-summary-entry
+    +-- prefix-cnt?                uint32
+    +-- persist-prefix-cnt?        uint32
+    +-- route-profile-cnt?         uint32
+    +-- vni-node-cnt?              uint32
+    +-- next-hop-cnt?              uint32
+    +-- auto-tunnel-cnt?           uint32
+    +-- vni-vrf-node-cnt?          uint32
+    +-- default-dst-mac?           yang:mac-address
+    +-- auto-tunnel-start?         uint32
+    +-- auto-tunnel-end?           uint32
+    +-- p2p-accounting-policing?   boolean
+  grouping __yangpp_metadata
+    +-- json-metadata-leaf?             empty
+    +-- Cisco-IOS-XE-ios-common-oper

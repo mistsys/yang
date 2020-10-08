@@ -1,0 +1,503 @@
+
+module: Cisco-IOS-XE-controller
+  augment /ios:native/ios:controller:
+    +--rw controller-tx-ex-list* [name number]
+    |  +--rw name             enumeration
+    |  +--rw number           string
+    |  +--rw atm?             empty
+    |  +--rw framing?         string
+    |  +--rw clock
+    |  |  +--rw source
+    |  |     +--rw (source-choice)?
+    |  |        +--:(line)
+    |  |        |  +--rw line!
+    |  |        |     +--rw line-mode?   enumeration
+    |  |        +--:(internal)
+    |  |        |  +--rw internal?     empty
+    |  |        +--:(loop-timed)
+    |  |           +--rw loop-timed?   empty
+    |  +--rw description?     string
+    |  +--rw linecode?        enumeration
+    |  +--rw cablelength
+    |  |  +--rw (cablelength-choice)?
+    |  |     +--:(long)
+    |  |     |  +--rw long?    string
+    |  |     +--:(short)
+    |  |        +--rw short?   string
+    |  +--rw channel-group* [number]
+    |     +--rw number       uint8
+    |     +--rw timeslots*   union
+    +--rw Cellular* [id]
+    |  +--rw id     string
+    |  +--rw lte
+    |     +--rw sim
+    |     |  +--rw authenticate
+    |     |  |  +--rw pin-type?   enumeration
+    |     |  |  +--rw pin?        string
+    |     |  |  +--rw slot?       uint8
+    |     |  +--rw data-profile-list* [slot]
+    |     |  |  +--rw slot              uint8
+    |     |  |  +--rw data-profile?     uint8
+    |     |  |  +--rw attach-profile?   uint8
+    |     |  +--rw max-retry?           uint16
+    |     |  +--rw primary
+    |     |     +--rw slot?   uint8
+    |     +--rw gps
+    |     |  +--rw nmea-conf
+    |     |  |  +--rw nmea?   empty
+    |     |  +--rw nmea
+    |     |  |  +--rw ip
+    |     |  |     +--rw udp
+    |     |  |        +--rw source-address?        inet:ipv4-address
+    |     |  |        +--rw destination-address?   inet:ipv4-address
+    |     |  |        +--rw destination-port?      uint16
+    |     |  +--rw enable?      empty
+    |     |  +--rw mode?        enumeration
+    |     +--rw failovertimer?   uint8
+    |     +--rw firmware!
+    |     |  +--rw auto-sim?   empty
+    |     +--rw radio
+    |     |  +--rw off?   empty
+    |     +--rw modem
+    |        +--rw link-recovery
+    |           +--rw rssi
+    |           |  +--rw onset-threshold?   int32
+    |           +--rw monitor-timer?    uint32
+    |           +--rw wait-timer?       uint32
+    |           +--rw debounce-count?   uint32
+    |           +--rw disable?          empty
+    +--rw SONET* [name]
+    |  +--rw name        string
+    |  +--rw framing?    enumeration
+    |  +--rw shutdown?   empty
+    |  +--rw clock
+    |  |  +--rw source?   enumeration
+    |  +--rw aug
+    |  |  +--rw mapping?   enumeration
+    |  +--rw au-3* [number]
+    |  |  +--rw number      int8
+    |  |  +--rw overhead
+    |  |  |  +--rw byte?     enumeration
+    |  |  |  +--rw length?   uint8
+    |  |  +--rw mode
+    |  |     +--rw mapping?   enumeration
+    |  +--rw au-4-atm
+    |  |  +--rw au-4
+    |  |     +--rw number?   int8
+    |  |     +--rw atm?      empty
+    |  +--rw au-4* [number tug-3]
+    |  |  +--rw number                     int8
+    |  |  +--rw tug-3                      int8
+    |  |  +--rw mode?                      enumeration
+    |  |  +--rw cem-group?                 int32
+    |  |  +--rw (framing-choice)?
+    |  |  |  +--:(unframed-case)
+    |  |  |  |  +--rw unframed?            empty
+    |  |  |  +--:(framing-case)
+    |  |  |     +--rw framing?             enumeration
+    |  |  +--rw cem-group-timeslots
+    |  |  |  +--rw tug-2* [number e1 cem-group]
+    |  |  |     +--rw number       int8
+    |  |  |     +--rw e1           int8
+    |  |  |     +--rw cem-group    int32
+    |  |  |     +--rw timeslots?   string
+    |  |  +--rw channel-group-timeslots
+    |  |  |  +--rw tug-2* [number e1 channel-group]
+    |  |  |     +--rw number           int8
+    |  |  |     +--rw e1               int8
+    |  |  |     +--rw channel-group    int32
+    |  |  |     +--rw timeslots?       string
+    |  |  +--rw cem-group-unframed
+    |  |  |  +--rw tug-2* [number e1 cem-group]
+    |  |  |     +--rw number       int8
+    |  |  |     +--rw e1           int8
+    |  |  |     +--rw cem-group    int32
+    |  |  |     +--rw unframed?    empty
+    |  |  +--rw framing-unframed
+    |  |  |  +--rw tug-2* [number e1]
+    |  |  |     +--rw number     int8
+    |  |  |     +--rw e1         int8
+    |  |  |     +--rw framing?   enumeration
+    |  |  +--rw cem-group-atm
+    |  |  |  +--rw tug-2* [number e1]
+    |  |  |     +--rw number    int8
+    |  |  |     +--rw e1        int8
+    |  |  |     +--rw atm?      empty
+    |  |  +--rw ima-group
+    |  |     +--rw tug-2* [number e1 ima-group]
+    |  |        +--rw number       int8
+    |  |        +--rw e1           int8
+    |  |        +--rw ima-group    int32
+    |  +--rw aps
+    |     +--rw group
+    |     |  +--rw group-number?   uint8
+    |     |  +--rw acr?            int8
+    |     +--rw working?         int8
+    |     +--rw protect
+    |     |  +--rw number?    int8
+    |     |  +--rw ip-addr?   inet:ipv4-address
+    |     +--rw hspw-icrm-grp?   uint8
+    |     +--rw interchassis
+    |        +--rw group?   uint8
+    +--rw SONET-ACR* [name]
+    |  +--rw name        string
+    |  +--rw framing?    enumeration
+    |  +--rw shutdown?   empty
+    |  +--rw clock
+    |  |  +--rw source?   enumeration
+    |  +--rw aug
+    |  |  +--rw mapping?   enumeration
+    |  +--rw au-3* [number]
+    |  |  +--rw number      int8
+    |  |  +--rw overhead
+    |  |  |  +--rw byte?     enumeration
+    |  |  |  +--rw length?   uint8
+    |  |  +--rw mode
+    |  |     +--rw mapping?   enumeration
+    |  +--rw au-4-atm
+    |  |  +--rw au-4
+    |  |     +--rw number?   int8
+    |  |     +--rw atm?      empty
+    |  +--rw au-4* [number tug-3]
+    |  |  +--rw number                     int8
+    |  |  +--rw tug-3                      int8
+    |  |  +--rw mode?                      enumeration
+    |  |  +--rw cem-group?                 int32
+    |  |  +--rw (framing-choice)?
+    |  |  |  +--:(unframed-case)
+    |  |  |  |  +--rw unframed?            empty
+    |  |  |  +--:(framing-case)
+    |  |  |     +--rw framing?             enumeration
+    |  |  +--rw cem-group-timeslots
+    |  |  |  +--rw tug-2* [number e1 cem-group]
+    |  |  |     +--rw number       int8
+    |  |  |     +--rw e1           int8
+    |  |  |     +--rw cem-group    int32
+    |  |  |     +--rw timeslots?   string
+    |  |  +--rw channel-group-timeslots
+    |  |  |  +--rw tug-2* [number e1 channel-group]
+    |  |  |     +--rw number           int8
+    |  |  |     +--rw e1               int8
+    |  |  |     +--rw channel-group    int32
+    |  |  |     +--rw timeslots?       string
+    |  |  +--rw cem-group-unframed
+    |  |  |  +--rw tug-2* [number e1 cem-group]
+    |  |  |     +--rw number       int8
+    |  |  |     +--rw e1           int8
+    |  |  |     +--rw cem-group    int32
+    |  |  |     +--rw unframed?    empty
+    |  |  +--rw framing-unframed
+    |  |  |  +--rw tug-2* [number e1]
+    |  |  |     +--rw number     int8
+    |  |  |     +--rw e1         int8
+    |  |  |     +--rw framing?   enumeration
+    |  |  +--rw cem-group-atm
+    |  |  |  +--rw tug-2* [number e1]
+    |  |  |     +--rw number    int8
+    |  |  |     +--rw e1        int8
+    |  |  |     +--rw atm?      empty
+    |  |  +--rw ima-group
+    |  |     +--rw tug-2* [number e1 ima-group]
+    |  |        +--rw number       int8
+    |  |        +--rw e1           int8
+    |  |        +--rw ima-group    int32
+    |  +--rw aps
+    |     +--rw group
+    |     |  +--rw group-number?   uint8
+    |     |  +--rw acr?            int8
+    |     +--rw working?         int8
+    |     +--rw protect
+    |     |  +--rw number?    int8
+    |     |  +--rw ip-addr?   inet:ipv4-address
+    |     +--rw hspw-icrm-grp?   uint8
+    |     +--rw interchassis
+    |        +--rw group?   uint8
+    +--rw wanphy* [name]
+       +--rw name    string
+
+  grouping sonet-grouping
+    +-- framing?    enumeration
+    +-- shutdown?   empty
+    +-- clock
+    |  +-- source?   enumeration
+    +-- aug
+    |  +-- mapping?   enumeration
+    +-- au-3* [number]
+    |  +-- number?     int8
+    |  +-- overhead
+    |  |  +-- byte?     enumeration
+    |  |  +-- length?   uint8
+    |  +-- mode
+    |     +-- mapping?   enumeration
+    +-- au-4-atm
+    |  +-- au-4
+    |     +-- number?   int8
+    |     +-- atm?      empty
+    +-- au-4* [number tug-3]
+    |  +-- number?                    int8
+    |  +-- tug-3?                     int8
+    |  +-- mode?                      enumeration
+    |  +-- cem-group?                 int32
+    |  +-- (framing-choice)?
+    |  |  +--:(unframed-case)
+    |  |  |  +-- unframed?            empty
+    |  |  +--:(framing-case)
+    |  |     +-- framing?             enumeration
+    |  +-- cem-group-timeslots
+    |  |  +-- tug-2* [number e1 cem-group]
+    |  |     +-- number?      int8
+    |  |     +-- e1?          int8
+    |  |     +-- cem-group?   int32
+    |  |     +-- timeslots?   string
+    |  +-- channel-group-timeslots
+    |  |  +-- tug-2* [number e1 channel-group]
+    |  |     +-- number?          int8
+    |  |     +-- e1?              int8
+    |  |     +-- channel-group?   int32
+    |  |     +-- timeslots?       string
+    |  +-- cem-group-unframed
+    |  |  +-- tug-2* [number e1 cem-group]
+    |  |     +-- number?      int8
+    |  |     +-- e1?          int8
+    |  |     +-- cem-group?   int32
+    |  |     +-- unframed?    empty
+    |  +-- framing-unframed
+    |  |  +-- tug-2* [number e1]
+    |  |     +-- number?    int8
+    |  |     +-- e1?        int8
+    |  |     +-- framing?   enumeration
+    |  +-- cem-group-atm
+    |  |  +-- tug-2* [number e1]
+    |  |     +-- number?   int8
+    |  |     +-- e1?       int8
+    |  |     +-- atm?      empty
+    |  +-- ima-group
+    |     +-- tug-2* [number e1 ima-group]
+    |        +-- number?      int8
+    |        +-- e1?          int8
+    |        +-- ima-group?   int32
+    +-- aps
+       +-- group
+       |  +-- group-number?   uint8
+       |  +-- acr?            int8
+       +-- working?         int8
+       +-- protect
+       |  +-- number?    int8
+       |  +-- ip-addr?   inet:ipv4-address
+       +-- hspw-icrm-grp?   uint8
+       +-- interchassis
+          +-- group?   uint8
+  grouping config-controller-grouping
+    +-- controller-tx-ex-list* [name number]
+    |  +-- name?            enumeration
+    |  +-- number?          string
+    |  +-- atm?             empty
+    |  +-- framing?         string
+    |  +-- clock
+    |  |  +-- source
+    |  |     +-- (source-choice)?
+    |  |        +--:(line)
+    |  |        |  +-- line!
+    |  |        |     +-- line-mode?   enumeration
+    |  |        +--:(internal)
+    |  |        |  +-- internal?     empty
+    |  |        +--:(loop-timed)
+    |  |           +-- loop-timed?   empty
+    |  +-- description?     string
+    |  +-- linecode?        enumeration
+    |  +-- cablelength
+    |  |  +-- (cablelength-choice)?
+    |  |     +--:(long)
+    |  |     |  +-- long?    string
+    |  |     +--:(short)
+    |  |        +-- short?   string
+    |  +-- channel-group* [number]
+    |     +-- number?      uint8
+    |     +-- timeslots*   union
+    +-- Cellular* [id]
+    |  +-- id?    string
+    |  +-- lte
+    |     +-- sim
+    |     |  +-- authenticate
+    |     |  |  +-- pin-type?   enumeration
+    |     |  |  +-- pin?        string
+    |     |  |  +-- slot?       uint8
+    |     |  +-- data-profile-list* [slot]
+    |     |  |  +-- slot?             uint8
+    |     |  |  +-- data-profile?     uint8
+    |     |  |  +-- attach-profile?   uint8
+    |     |  +-- max-retry?           uint16
+    |     |  +-- primary
+    |     |     +-- slot?   uint8
+    |     +-- gps
+    |     |  +-- nmea-conf
+    |     |  |  +-- nmea?   empty
+    |     |  +-- nmea
+    |     |  |  +-- ip
+    |     |  |     +-- udp
+    |     |  |        +-- source-address?        inet:ipv4-address
+    |     |  |        +-- destination-address?   inet:ipv4-address
+    |     |  |        +-- destination-port?      uint16
+    |     |  +-- enable?      empty
+    |     |  +-- mode?        enumeration
+    |     +-- failovertimer?   uint8
+    |     +-- firmware!
+    |     |  +-- auto-sim?   empty
+    |     +-- radio
+    |     |  +-- off?   empty
+    |     +-- modem
+    |        +-- link-recovery
+    |           +-- rssi
+    |           |  +-- onset-threshold?   int32
+    |           +-- monitor-timer?    uint32
+    |           +-- wait-timer?       uint32
+    |           +-- debounce-count?   uint32
+    |           +-- disable?          empty
+    +-- SONET* [name]
+    |  +-- name?       string
+    |  +-- framing?    enumeration
+    |  +-- shutdown?   empty
+    |  +-- clock
+    |  |  +-- source?   enumeration
+    |  +-- aug
+    |  |  +-- mapping?   enumeration
+    |  +-- au-3* [number]
+    |  |  +-- number?     int8
+    |  |  +-- overhead
+    |  |  |  +-- byte?     enumeration
+    |  |  |  +-- length?   uint8
+    |  |  +-- mode
+    |  |     +-- mapping?   enumeration
+    |  +-- au-4-atm
+    |  |  +-- au-4
+    |  |     +-- number?   int8
+    |  |     +-- atm?      empty
+    |  +-- au-4* [number tug-3]
+    |  |  +-- number?                    int8
+    |  |  +-- tug-3?                     int8
+    |  |  +-- mode?                      enumeration
+    |  |  +-- cem-group?                 int32
+    |  |  +-- (framing-choice)?
+    |  |  |  +--:(unframed-case)
+    |  |  |  |  +-- unframed?            empty
+    |  |  |  +--:(framing-case)
+    |  |  |     +-- framing?             enumeration
+    |  |  +-- cem-group-timeslots
+    |  |  |  +-- tug-2* [number e1 cem-group]
+    |  |  |     +-- number?      int8
+    |  |  |     +-- e1?          int8
+    |  |  |     +-- cem-group?   int32
+    |  |  |     +-- timeslots?   string
+    |  |  +-- channel-group-timeslots
+    |  |  |  +-- tug-2* [number e1 channel-group]
+    |  |  |     +-- number?          int8
+    |  |  |     +-- e1?              int8
+    |  |  |     +-- channel-group?   int32
+    |  |  |     +-- timeslots?       string
+    |  |  +-- cem-group-unframed
+    |  |  |  +-- tug-2* [number e1 cem-group]
+    |  |  |     +-- number?      int8
+    |  |  |     +-- e1?          int8
+    |  |  |     +-- cem-group?   int32
+    |  |  |     +-- unframed?    empty
+    |  |  +-- framing-unframed
+    |  |  |  +-- tug-2* [number e1]
+    |  |  |     +-- number?    int8
+    |  |  |     +-- e1?        int8
+    |  |  |     +-- framing?   enumeration
+    |  |  +-- cem-group-atm
+    |  |  |  +-- tug-2* [number e1]
+    |  |  |     +-- number?   int8
+    |  |  |     +-- e1?       int8
+    |  |  |     +-- atm?      empty
+    |  |  +-- ima-group
+    |  |     +-- tug-2* [number e1 ima-group]
+    |  |        +-- number?      int8
+    |  |        +-- e1?          int8
+    |  |        +-- ima-group?   int32
+    |  +-- aps
+    |     +-- group
+    |     |  +-- group-number?   uint8
+    |     |  +-- acr?            int8
+    |     +-- working?         int8
+    |     +-- protect
+    |     |  +-- number?    int8
+    |     |  +-- ip-addr?   inet:ipv4-address
+    |     +-- hspw-icrm-grp?   uint8
+    |     +-- interchassis
+    |        +-- group?   uint8
+    +-- SONET-ACR* [name]
+    |  +-- name?       string
+    |  +-- framing?    enumeration
+    |  +-- shutdown?   empty
+    |  +-- clock
+    |  |  +-- source?   enumeration
+    |  +-- aug
+    |  |  +-- mapping?   enumeration
+    |  +-- au-3* [number]
+    |  |  +-- number?     int8
+    |  |  +-- overhead
+    |  |  |  +-- byte?     enumeration
+    |  |  |  +-- length?   uint8
+    |  |  +-- mode
+    |  |     +-- mapping?   enumeration
+    |  +-- au-4-atm
+    |  |  +-- au-4
+    |  |     +-- number?   int8
+    |  |     +-- atm?      empty
+    |  +-- au-4* [number tug-3]
+    |  |  +-- number?                    int8
+    |  |  +-- tug-3?                     int8
+    |  |  +-- mode?                      enumeration
+    |  |  +-- cem-group?                 int32
+    |  |  +-- (framing-choice)?
+    |  |  |  +--:(unframed-case)
+    |  |  |  |  +-- unframed?            empty
+    |  |  |  +--:(framing-case)
+    |  |  |     +-- framing?             enumeration
+    |  |  +-- cem-group-timeslots
+    |  |  |  +-- tug-2* [number e1 cem-group]
+    |  |  |     +-- number?      int8
+    |  |  |     +-- e1?          int8
+    |  |  |     +-- cem-group?   int32
+    |  |  |     +-- timeslots?   string
+    |  |  +-- channel-group-timeslots
+    |  |  |  +-- tug-2* [number e1 channel-group]
+    |  |  |     +-- number?          int8
+    |  |  |     +-- e1?              int8
+    |  |  |     +-- channel-group?   int32
+    |  |  |     +-- timeslots?       string
+    |  |  +-- cem-group-unframed
+    |  |  |  +-- tug-2* [number e1 cem-group]
+    |  |  |     +-- number?      int8
+    |  |  |     +-- e1?          int8
+    |  |  |     +-- cem-group?   int32
+    |  |  |     +-- unframed?    empty
+    |  |  +-- framing-unframed
+    |  |  |  +-- tug-2* [number e1]
+    |  |  |     +-- number?    int8
+    |  |  |     +-- e1?        int8
+    |  |  |     +-- framing?   enumeration
+    |  |  +-- cem-group-atm
+    |  |  |  +-- tug-2* [number e1]
+    |  |  |     +-- number?   int8
+    |  |  |     +-- e1?       int8
+    |  |  |     +-- atm?      empty
+    |  |  +-- ima-group
+    |  |     +-- tug-2* [number e1 ima-group]
+    |  |        +-- number?      int8
+    |  |        +-- e1?          int8
+    |  |        +-- ima-group?   int32
+    |  +-- aps
+    |     +-- group
+    |     |  +-- group-number?   uint8
+    |     |  +-- acr?            int8
+    |     +-- working?         int8
+    |     +-- protect
+    |     |  +-- number?    int8
+    |     |  +-- ip-addr?   inet:ipv4-address
+    |     +-- hspw-icrm-grp?   uint8
+    |     +-- interchassis
+    |        +-- group?   uint8
+    +-- wanphy* [name]
+       +-- name?   string

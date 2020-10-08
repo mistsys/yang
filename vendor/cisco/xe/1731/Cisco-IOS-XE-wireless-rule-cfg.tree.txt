@@ -1,0 +1,40 @@
+module: Cisco-IOS-XE-wireless-rule-cfg
+  +--rw rule-cfg-data
+     +--rw app-rules
+        +--rw app-rule* [app]
+           +--rw app           wireless-enum-types:app-type
+           +--rw rule-defns
+              +--rw rule-defn* [rule-name]
+                 +--rw rule-priority?           uint32
+                 +--rw rule-name                string
+                 +--rw rule-regex?              string
+                 +--rw (rule-action-choice)?
+                    +--:(rule-action-unconfigured)
+                    |  +--rw rule-action-set?   empty
+                    +--:(rule-action-mdns-grouping)
+                       +--rw id?                uint32
+                       +--rw group-name?        string
+
+  grouping rule-defn
+    +-- rule-priority?           uint32
+    +-- rule-name?               string
+    +-- rule-regex?              string
+    +-- (rule-action-choice)?
+       +--:(rule-action-unconfigured)
+       |  +-- rule-action-set?   empty
+       +--:(rule-action-mdns-grouping)
+          +-- id?                uint32
+          +-- group-name?        string
+  grouping app-rule
+    +-- app?          wireless-enum-types:app-type
+    +-- rule-defns
+       +-- rule-defn* [rule-name]
+          +-- rule-priority?           uint32
+          +-- rule-name?               string
+          +-- rule-regex?              string
+          +-- (rule-action-choice)?
+             +--:(rule-action-unconfigured)
+             |  +-- rule-action-set?   empty
+             +--:(rule-action-mdns-grouping)
+                +-- id?                uint32
+                +-- group-name?        string

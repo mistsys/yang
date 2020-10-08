@@ -1,0 +1,3374 @@
+
+module: Cisco-IOS-XE-rip
+  augment /ios:native/ios:router:
+    +--rw rip!
+       +--rw auto-summary?             empty
+       +--rw maximum-paths?            uint8
+       +--rw neighbor* [ip]
+       |  +--rw ip    inet:ipv4-address
+       +--rw network* [ip]
+       |  +--rw ip    inet:ipv4-address
+       +--rw validate-update-source?   boolean
+       +--rw default-information
+       |  +--rw originate!
+       |     +--rw route-map?   string
+       +--rw default-metric?           uint32
+       +--rw distance
+       |  +--rw distance-leaf?   uint8
+       |  +--rw distance-list* [number ip mask]
+       |     +--rw number         uint8
+       |     +--rw ip             inet:ipv4-address
+       |     +--rw mask           inet:ipv4-address
+       |     +--rw access-list?   ios-types:access-list-standard-id-type
+       +--rw distribute-list
+       |  +--rw accesslist* [in-out]
+       |  |  +--rw in-out    ios-types:access-list-in-out-type
+       |  |  +--rw id        access-list-id-type
+       |  +--rw accesslist-ifname* [in-out interface]
+       |  |  +--rw in-out                  ios-types:access-list-in-out-type
+       |  |  +--rw interface               string
+       |  |  +--rw interface-routing-id?   uint8
+       |  |  +--rw isis-tag?               string
+       |  |  +--rw vrf?                    string
+       |  |  +--rw id                      access-list-id-type
+       |  +--rw accesslist-prefix-gateway* [in-out]
+       |  |  +--rw in-out            ios-types:access-list-in-out-type
+       |  |  +--rw prefix-gateway    enumeration
+       |  |  +--rw name              string
+       |  +--rw accesslist-prefix-gateway-ifname* [in-out interface]
+       |     +--rw in-out                  ios-types:access-list-in-out-type
+       |     +--rw interface               string
+       |     +--rw prefix-gateway          enumeration
+       |     +--rw name                    string
+       |     +--rw interface-routing-id?   uint8
+       |     +--rw isis-tag?               string
+       |     +--rw vrf?                    string
+       +--rw offset-list* [in-out]
+       |  +--rw in-out    offset-list-in-out-type
+       |  +--rw offset    uint8
+       |  +--rw id        offset-list-id-type
+       +--rw redistribute
+       |  +--rw rip-metric-route-map
+       |  |  +--rw metric
+       |  |  |  +--rw (metric-transparent-choice)?
+       |  |  |     +--:(metric-value)
+       |  |  |     |  +--rw metric-value?   uint32
+       |  |  |     +--:(transparent)
+       |  |  |        +--rw transparent?    empty
+       |  |  +--rw route-map?   string
+       |  +--rw connected!
+       |  |  +--rw rip-metric-route-map
+       |  |     +--rw metric
+       |  |     |  +--rw (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +--rw metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +--rw transparent?    empty
+       |  |     +--rw route-map?   string
+       |  +--rw bgp* [as-number]
+       |  |  +--rw as-number               ios-types:bgp-as-number-type
+       |  |  +--rw rip-metric-route-map
+       |  |     +--rw metric
+       |  |     |  +--rw (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +--rw metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +--rw transparent?    empty
+       |  |     +--rw route-map?   string
+       |  +--rw eigrp* [as-number]
+       |  |  +--rw as-number               uint16
+       |  |  +--rw rip-metric-route-map
+       |  |     +--rw metric
+       |  |     |  +--rw (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +--rw metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +--rw transparent?    empty
+       |  |     +--rw route-map?   string
+       |  +--rw isis!
+       |  |  +--rw isis-area* [name]
+       |  |  |  +--rw name               string
+       |  |  |  +--rw rip-isis-redist
+       |  |  |     +--rw isis-level-routes?      enumeration
+       |  |  |     +--rw rip-metric-route-map
+       |  |  |        +--rw metric
+       |  |  |        |  +--rw (metric-transparent-choice)?
+       |  |  |        |     +--:(metric-value)
+       |  |  |        |     |  +--rw metric-value?   uint32
+       |  |  |        |     +--:(transparent)
+       |  |  |        |        +--rw transparent?    empty
+       |  |  |        +--rw route-map?   string
+       |  |  +--rw rip-isis-redist
+       |  |     +--rw isis-level-routes?      enumeration
+       |  |     +--rw rip-metric-route-map
+       |  |        +--rw metric
+       |  |        |  +--rw (metric-transparent-choice)?
+       |  |        |     +--:(metric-value)
+       |  |        |     |  +--rw metric-value?   uint32
+       |  |        |     +--:(transparent)
+       |  |        |        +--rw transparent?    empty
+       |  |        +--rw route-map?   string
+       |  +--rw iso-igrp!
+       |  |  +--rw isoigrp-list* [iso-area-tag]
+       |  |  |  +--rw iso-area-tag            string
+       |  |  |  +--rw rip-metric-route-map
+       |  |  |     +--rw route-map?   string
+       |  |  |     +--rw metric
+       |  |  |        +--rw (metric-transparent-choice)?
+       |  |  |           +--:(metric-value)
+       |  |  |           |  +--rw metric-value?   uint32
+       |  |  |           +--:(transparent)
+       |  |  |              +--rw transparent?    empty
+       |  |  +--rw rip-metric-route-map
+       |  |     +--rw route-map?   string
+       |  |     +--rw metric
+       |  |        +--rw (metric-transparent-choice)?
+       |  |           +--:(metric-value)
+       |  |           |  +--rw metric-value?   uint32
+       |  |           +--:(transparent)
+       |  |              +--rw transparent?    empty
+       |  +--rw mobile!
+       |  |  +--rw rip-metric-route-map
+       |  |     +--rw metric
+       |  |     |  +--rw (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +--rw metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +--rw transparent?    empty
+       |  |     +--rw route-map?   string
+       |  +--rw odr!
+       |  |  +--rw rip-metric-route-map
+       |  |     +--rw metric
+       |  |     |  +--rw (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +--rw metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +--rw transparent?    empty
+       |  |     +--rw route-map?   string
+       |  +--rw ospf* [process-id]
+       |  |  +--rw process-id              uint16
+       |  |  +--rw vrf* [name]
+       |  |  |  +--rw name    string
+       |  |  +--rw match
+       |  |  |  +--rw internal!
+       |  |  |  |  +--rw rip-metric-route-map
+       |  |  |  |     +--rw metric
+       |  |  |  |     |  +--rw (metric-transparent-choice)?
+       |  |  |  |     |     +--:(metric-value)
+       |  |  |  |     |     |  +--rw metric-value?   uint32
+       |  |  |  |     |     +--:(transparent)
+       |  |  |  |     |        +--rw transparent?    empty
+       |  |  |  |     +--rw route-map?   string
+       |  |  |  +--rw external!
+       |  |  |  |  +--rw external-routes?        ios-types:redist-ospf-external-type
+       |  |  |  |  +--rw rip-metric-route-map
+       |  |  |  |     +--rw metric
+       |  |  |  |     |  +--rw (metric-transparent-choice)?
+       |  |  |  |     |     +--:(metric-value)
+       |  |  |  |     |     |  +--rw metric-value?   uint32
+       |  |  |  |     |     +--:(transparent)
+       |  |  |  |     |        +--rw transparent?    empty
+       |  |  |  |     +--rw route-map?   string
+       |  |  |  +--rw nssa-external!
+       |  |  |     +--rw nssa-external-routes?   ios-types:redist-ospf-external-type
+       |  |  |     +--rw rip-metric-route-map
+       |  |  |        +--rw metric
+       |  |  |        |  +--rw (metric-transparent-choice)?
+       |  |  |        |     +--:(metric-value)
+       |  |  |        |     |  +--rw metric-value?   uint32
+       |  |  |        |     +--:(transparent)
+       |  |  |        |        +--rw transparent?    empty
+       |  |  |        +--rw route-map?   string
+       |  |  +--rw rip-metric-route-map
+       |  |     +--rw metric
+       |  |     |  +--rw (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +--rw metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +--rw transparent?    empty
+       |  |     +--rw route-map?   string
+       |  +--rw static!
+       |  |  +--rw rip-metric-route-map
+       |  |     +--rw metric
+       |  |     |  +--rw (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +--rw metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +--rw transparent?    empty
+       |  |     +--rw route-map?   string
+       |  +--rw rip!
+       |     +--rw rip-metric-route-map
+       |        +--rw metric
+       |        |  +--rw (metric-transparent-choice)?
+       |        |     +--:(metric-value)
+       |        |     |  +--rw metric-value?   uint32
+       |        |     +--:(transparent)
+       |        |        +--rw transparent?    empty
+       |        +--rw route-map?   string
+       +--rw timers
+       |  +--rw basic
+       |     +--rw updates?    uint32
+       |     +--rw invalid?    uint32
+       |     +--rw holddown?   uint32
+       |     +--rw flush?      uint32
+       |     +--rw sleep?      uint32
+       +--rw version?                  uint8
+       +--rw flash-update-threshold?   uint8
+       +--rw input-queue?              uint16
+       +--rw output-delay?             uint8
+       +--rw passive-interface
+       |  +--rw (passive-interface-choice)?
+       |     +--:(default)
+       |     |  +--rw default?     empty
+       |     +--:(interface)
+       |        +--rw interface?   string
+       +--rw disable
+       |  +--rw passive-interface* [interface]
+       |     +--rw interface    string
+       +--rw traffic-share
+       |  +--rw min
+       |     +--rw across-interfaces?   empty
+       +--rw address-family
+       |  +--rw ipv4
+       |     +--rw unicast
+       |     |  +--rw auto-summary?             empty
+       |     |  +--rw maximum-paths?            uint8
+       |     |  +--rw neighbor* [ip]
+       |     |  |  +--rw ip    inet:ipv4-address
+       |     |  +--rw network* [ip]
+       |     |  |  +--rw ip    inet:ipv4-address
+       |     |  +--rw validate-update-source?   boolean
+       |     |  +--rw default-information
+       |     |  |  +--rw originate!
+       |     |  |     +--rw route-map?   string
+       |     |  +--rw default-metric?           uint32
+       |     |  +--rw distance
+       |     |  |  +--rw distance-leaf?   uint8
+       |     |  |  +--rw distance-list* [number ip mask]
+       |     |  |     +--rw number    uint8
+       |     |  |     +--rw ip        inet:ipv4-address
+       |     |  |     +--rw mask      inet:ipv4-address
+       |     |  +--rw distribute-list
+       |     |  |  +--rw accesslist* [in-out]
+       |     |  |  |  +--rw in-out    ios-types:access-list-in-out-type
+       |     |  |  +--rw accesslist-ifname* [in-out interface]
+       |     |  |  |  +--rw in-out                  ios-types:access-list-in-out-type
+       |     |  |  |  +--rw interface               string
+       |     |  |  |  +--rw interface-routing-id?   uint8
+       |     |  |  |  +--rw isis-tag?               string
+       |     |  |  |  +--rw vrf?                    string
+       |     |  |  +--rw accesslist-prefix-gateway* [in-out]
+       |     |  |  |  +--rw in-out            ios-types:access-list-in-out-type
+       |     |  |  |  +--rw prefix-gateway    enumeration
+       |     |  |  |  +--rw name              string
+       |     |  |  +--rw accesslist-prefix-gateway-ifname* [in-out interface]
+       |     |  |     +--rw in-out                  ios-types:access-list-in-out-type
+       |     |  |     +--rw interface               string
+       |     |  |     +--rw prefix-gateway          enumeration
+       |     |  |     +--rw name                    string
+       |     |  |     +--rw interface-routing-id?   uint8
+       |     |  |     +--rw isis-tag?               string
+       |     |  |     +--rw vrf?                    string
+       |     |  +--rw offset-list* [in-out]
+       |     |  |  +--rw in-out    offset-list-in-out-type
+       |     |  |  +--rw offset    uint8
+       |     |  +--rw redistribute
+       |     |  |  +--rw rip-metric-route-map
+       |     |  |  |  +--rw metric
+       |     |  |  |  |  +--rw (metric-transparent-choice)?
+       |     |  |  |  |     +--:(metric-value)
+       |     |  |  |  |     |  +--rw metric-value?   uint32
+       |     |  |  |  |     +--:(transparent)
+       |     |  |  |  |        +--rw transparent?    empty
+       |     |  |  |  +--rw route-map?   string
+       |     |  |  +--rw connected!
+       |     |  |  |  +--rw rip-metric-route-map
+       |     |  |  |     +--rw metric
+       |     |  |  |     |  +--rw (metric-transparent-choice)?
+       |     |  |  |     |     +--:(metric-value)
+       |     |  |  |     |     |  +--rw metric-value?   uint32
+       |     |  |  |     |     +--:(transparent)
+       |     |  |  |     |        +--rw transparent?    empty
+       |     |  |  |     +--rw route-map?   string
+       |     |  |  +--rw bgp* [as-number]
+       |     |  |  |  +--rw as-number               ios-types:bgp-as-number-type
+       |     |  |  |  +--rw rip-metric-route-map
+       |     |  |  |     +--rw metric
+       |     |  |  |     |  +--rw (metric-transparent-choice)?
+       |     |  |  |     |     +--:(metric-value)
+       |     |  |  |     |     |  +--rw metric-value?   uint32
+       |     |  |  |     |     +--:(transparent)
+       |     |  |  |     |        +--rw transparent?    empty
+       |     |  |  |     +--rw route-map?   string
+       |     |  |  +--rw eigrp* [as-number]
+       |     |  |  |  +--rw as-number               uint16
+       |     |  |  |  +--rw rip-metric-route-map
+       |     |  |  |     +--rw metric
+       |     |  |  |     |  +--rw (metric-transparent-choice)?
+       |     |  |  |     |     +--:(metric-value)
+       |     |  |  |     |     |  +--rw metric-value?   uint32
+       |     |  |  |     |     +--:(transparent)
+       |     |  |  |     |        +--rw transparent?    empty
+       |     |  |  |     +--rw route-map?   string
+       |     |  |  +--rw isis!
+       |     |  |  |  +--rw isis-area* [name]
+       |     |  |  |  |  +--rw name               string
+       |     |  |  |  |  +--rw rip-isis-redist
+       |     |  |  |  |     +--rw isis-level-routes?      enumeration
+       |     |  |  |  |     +--rw rip-metric-route-map
+       |     |  |  |  |        +--rw metric
+       |     |  |  |  |        |  +--rw (metric-transparent-choice)?
+       |     |  |  |  |        |     +--:(metric-value)
+       |     |  |  |  |        |     |  +--rw metric-value?   uint32
+       |     |  |  |  |        |     +--:(transparent)
+       |     |  |  |  |        |        +--rw transparent?    empty
+       |     |  |  |  |        +--rw route-map?   string
+       |     |  |  |  +--rw rip-isis-redist
+       |     |  |  |     +--rw isis-level-routes?      enumeration
+       |     |  |  |     +--rw rip-metric-route-map
+       |     |  |  |        +--rw metric
+       |     |  |  |        |  +--rw (metric-transparent-choice)?
+       |     |  |  |        |     +--:(metric-value)
+       |     |  |  |        |     |  +--rw metric-value?   uint32
+       |     |  |  |        |     +--:(transparent)
+       |     |  |  |        |        +--rw transparent?    empty
+       |     |  |  |        +--rw route-map?   string
+       |     |  |  +--rw iso-igrp!
+       |     |  |  |  +--rw isoigrp-list* [iso-area-tag]
+       |     |  |  |  |  +--rw iso-area-tag            string
+       |     |  |  |  |  +--rw rip-metric-route-map
+       |     |  |  |  |     +--rw route-map?   string
+       |     |  |  |  |     +--rw metric
+       |     |  |  |  |        +--rw (metric-transparent-choice)?
+       |     |  |  |  |           +--:(metric-value)
+       |     |  |  |  |           |  +--rw metric-value?   uint32
+       |     |  |  |  |           +--:(transparent)
+       |     |  |  |  |              +--rw transparent?    empty
+       |     |  |  |  +--rw rip-metric-route-map
+       |     |  |  |     +--rw route-map?   string
+       |     |  |  |     +--rw metric
+       |     |  |  |        +--rw (metric-transparent-choice)?
+       |     |  |  |           +--:(metric-value)
+       |     |  |  |           |  +--rw metric-value?   uint32
+       |     |  |  |           +--:(transparent)
+       |     |  |  |              +--rw transparent?    empty
+       |     |  |  +--rw mobile!
+       |     |  |  |  +--rw rip-metric-route-map
+       |     |  |  |     +--rw metric
+       |     |  |  |     |  +--rw (metric-transparent-choice)?
+       |     |  |  |     |     +--:(metric-value)
+       |     |  |  |     |     |  +--rw metric-value?   uint32
+       |     |  |  |     |     +--:(transparent)
+       |     |  |  |     |        +--rw transparent?    empty
+       |     |  |  |     +--rw route-map?   string
+       |     |  |  +--rw odr!
+       |     |  |  |  +--rw rip-metric-route-map
+       |     |  |  |     +--rw metric
+       |     |  |  |     |  +--rw (metric-transparent-choice)?
+       |     |  |  |     |     +--:(metric-value)
+       |     |  |  |     |     |  +--rw metric-value?   uint32
+       |     |  |  |     |     +--:(transparent)
+       |     |  |  |     |        +--rw transparent?    empty
+       |     |  |  |     +--rw route-map?   string
+       |     |  |  +--rw ospf* [process-id]
+       |     |  |  |  +--rw process-id              uint16
+       |     |  |  |  +--rw vrf* [name]
+       |     |  |  |  |  +--rw name    string
+       |     |  |  |  +--rw match
+       |     |  |  |  |  +--rw internal!
+       |     |  |  |  |  |  +--rw rip-metric-route-map
+       |     |  |  |  |  |     +--rw metric
+       |     |  |  |  |  |     |  +--rw (metric-transparent-choice)?
+       |     |  |  |  |  |     |     +--:(metric-value)
+       |     |  |  |  |  |     |     |  +--rw metric-value?   uint32
+       |     |  |  |  |  |     |     +--:(transparent)
+       |     |  |  |  |  |     |        +--rw transparent?    empty
+       |     |  |  |  |  |     +--rw route-map?   string
+       |     |  |  |  |  +--rw external!
+       |     |  |  |  |  |  +--rw external-routes?        ios-types:redist-ospf-external-type
+       |     |  |  |  |  |  +--rw rip-metric-route-map
+       |     |  |  |  |  |     +--rw metric
+       |     |  |  |  |  |     |  +--rw (metric-transparent-choice)?
+       |     |  |  |  |  |     |     +--:(metric-value)
+       |     |  |  |  |  |     |     |  +--rw metric-value?   uint32
+       |     |  |  |  |  |     |     +--:(transparent)
+       |     |  |  |  |  |     |        +--rw transparent?    empty
+       |     |  |  |  |  |     +--rw route-map?   string
+       |     |  |  |  |  +--rw nssa-external!
+       |     |  |  |  |     +--rw nssa-external-routes?   ios-types:redist-ospf-external-type
+       |     |  |  |  |     +--rw rip-metric-route-map
+       |     |  |  |  |        +--rw metric
+       |     |  |  |  |        |  +--rw (metric-transparent-choice)?
+       |     |  |  |  |        |     +--:(metric-value)
+       |     |  |  |  |        |     |  +--rw metric-value?   uint32
+       |     |  |  |  |        |     +--:(transparent)
+       |     |  |  |  |        |        +--rw transparent?    empty
+       |     |  |  |  |        +--rw route-map?   string
+       |     |  |  |  +--rw rip-metric-route-map
+       |     |  |  |     +--rw metric
+       |     |  |  |     |  +--rw (metric-transparent-choice)?
+       |     |  |  |     |     +--:(metric-value)
+       |     |  |  |     |     |  +--rw metric-value?   uint32
+       |     |  |  |     |     +--:(transparent)
+       |     |  |  |     |        +--rw transparent?    empty
+       |     |  |  |     +--rw route-map?   string
+       |     |  |  +--rw static!
+       |     |  |  |  +--rw rip-metric-route-map
+       |     |  |  |     +--rw metric
+       |     |  |  |     |  +--rw (metric-transparent-choice)?
+       |     |  |  |     |     +--:(metric-value)
+       |     |  |  |     |     |  +--rw metric-value?   uint32
+       |     |  |  |     |     +--:(transparent)
+       |     |  |  |     |        +--rw transparent?    empty
+       |     |  |  |     +--rw route-map?   string
+       |     |  |  +--rw rip!
+       |     |  |     +--rw rip-metric-route-map
+       |     |  |        +--rw metric
+       |     |  |        |  +--rw (metric-transparent-choice)?
+       |     |  |        |     +--:(metric-value)
+       |     |  |        |     |  +--rw metric-value?   uint32
+       |     |  |        |     +--:(transparent)
+       |     |  |        |        +--rw transparent?    empty
+       |     |  |        +--rw route-map?   string
+       |     |  +--rw timers
+       |     |  |  +--rw basic
+       |     |  |     +--rw updates?    uint32
+       |     |  |     +--rw invalid?    uint32
+       |     |  |     +--rw holddown?   uint32
+       |     |  |     +--rw flush?      uint32
+       |     |  |     +--rw sleep?      uint32
+       |     |  +--rw version?                  uint8
+       |     |  +--rw flash-update-threshold?   uint8
+       |     |  +--rw input-queue?              uint16
+       |     |  +--rw output-delay?             uint8
+       |     |  +--rw passive-interface
+       |     |  |  +--rw (passive-interface-choice)?
+       |     |  |     +--:(default)
+       |     |  |     |  +--rw default?     empty
+       |     |  |     +--:(interface)
+       |     |  |        +--rw interface?   string
+       |     |  +--rw disable
+       |     |  |  +--rw passive-interface* [interface]
+       |     |  |     +--rw interface    string
+       |     |  +--rw traffic-share
+       |     |     +--rw min
+       |     |        +--rw across-interfaces?   empty
+       |     +--rw vrf* [name]
+       |        +--rw name                      string
+       |        +--rw auto-summary?             empty
+       |        +--rw maximum-paths?            uint8
+       |        +--rw neighbor* [ip]
+       |        |  +--rw ip    inet:ipv4-address
+       |        +--rw network* [ip]
+       |        |  +--rw ip    inet:ipv4-address
+       |        +--rw validate-update-source?   boolean
+       |        +--rw default-information
+       |        |  +--rw originate!
+       |        |     +--rw route-map?   string
+       |        +--rw default-metric?           uint32
+       |        +--rw distance
+       |        |  +--rw distance-leaf?   uint8
+       |        |  +--rw distance-list* [number ip mask]
+       |        |     +--rw number    uint8
+       |        |     +--rw ip        inet:ipv4-address
+       |        |     +--rw mask      inet:ipv4-address
+       |        +--rw distribute-list
+       |        |  +--rw accesslist* [in-out]
+       |        |  |  +--rw in-out    ios-types:access-list-in-out-type
+       |        |  +--rw accesslist-ifname* [in-out interface]
+       |        |  |  +--rw in-out                  ios-types:access-list-in-out-type
+       |        |  |  +--rw interface               string
+       |        |  |  +--rw interface-routing-id?   uint8
+       |        |  |  +--rw isis-tag?               string
+       |        |  |  +--rw vrf?                    string
+       |        |  +--rw accesslist-prefix-gateway* [in-out]
+       |        |  |  +--rw in-out            ios-types:access-list-in-out-type
+       |        |  |  +--rw prefix-gateway    enumeration
+       |        |  |  +--rw name              string
+       |        |  +--rw accesslist-prefix-gateway-ifname* [in-out interface]
+       |        |     +--rw in-out                  ios-types:access-list-in-out-type
+       |        |     +--rw interface               string
+       |        |     +--rw prefix-gateway          enumeration
+       |        |     +--rw name                    string
+       |        |     +--rw interface-routing-id?   uint8
+       |        |     +--rw isis-tag?               string
+       |        |     +--rw vrf?                    string
+       |        +--rw offset-list* [in-out]
+       |        |  +--rw in-out    offset-list-in-out-type
+       |        |  +--rw offset    uint8
+       |        +--rw redistribute
+       |        |  +--rw rip-metric-route-map
+       |        |  |  +--rw metric
+       |        |  |  |  +--rw (metric-transparent-choice)?
+       |        |  |  |     +--:(metric-value)
+       |        |  |  |     |  +--rw metric-value?   uint32
+       |        |  |  |     +--:(transparent)
+       |        |  |  |        +--rw transparent?    empty
+       |        |  |  +--rw route-map?   string
+       |        |  +--rw connected!
+       |        |  |  +--rw rip-metric-route-map
+       |        |  |     +--rw metric
+       |        |  |     |  +--rw (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +--rw metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +--rw transparent?    empty
+       |        |  |     +--rw route-map?   string
+       |        |  +--rw bgp* [as-number]
+       |        |  |  +--rw as-number               ios-types:bgp-as-number-type
+       |        |  |  +--rw rip-metric-route-map
+       |        |  |     +--rw metric
+       |        |  |     |  +--rw (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +--rw metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +--rw transparent?    empty
+       |        |  |     +--rw route-map?   string
+       |        |  +--rw eigrp* [as-number]
+       |        |  |  +--rw as-number               uint16
+       |        |  |  +--rw rip-metric-route-map
+       |        |  |     +--rw metric
+       |        |  |     |  +--rw (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +--rw metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +--rw transparent?    empty
+       |        |  |     +--rw route-map?   string
+       |        |  +--rw isis!
+       |        |  |  +--rw isis-area* [name]
+       |        |  |  |  +--rw name               string
+       |        |  |  |  +--rw rip-isis-redist
+       |        |  |  |     +--rw isis-level-routes?      enumeration
+       |        |  |  |     +--rw rip-metric-route-map
+       |        |  |  |        +--rw metric
+       |        |  |  |        |  +--rw (metric-transparent-choice)?
+       |        |  |  |        |     +--:(metric-value)
+       |        |  |  |        |     |  +--rw metric-value?   uint32
+       |        |  |  |        |     +--:(transparent)
+       |        |  |  |        |        +--rw transparent?    empty
+       |        |  |  |        +--rw route-map?   string
+       |        |  |  +--rw rip-isis-redist
+       |        |  |     +--rw isis-level-routes?      enumeration
+       |        |  |     +--rw rip-metric-route-map
+       |        |  |        +--rw metric
+       |        |  |        |  +--rw (metric-transparent-choice)?
+       |        |  |        |     +--:(metric-value)
+       |        |  |        |     |  +--rw metric-value?   uint32
+       |        |  |        |     +--:(transparent)
+       |        |  |        |        +--rw transparent?    empty
+       |        |  |        +--rw route-map?   string
+       |        |  +--rw iso-igrp!
+       |        |  |  +--rw isoigrp-list* [iso-area-tag]
+       |        |  |  |  +--rw iso-area-tag            string
+       |        |  |  |  +--rw rip-metric-route-map
+       |        |  |  |     +--rw route-map?   string
+       |        |  |  |     +--rw metric
+       |        |  |  |        +--rw (metric-transparent-choice)?
+       |        |  |  |           +--:(metric-value)
+       |        |  |  |           |  +--rw metric-value?   uint32
+       |        |  |  |           +--:(transparent)
+       |        |  |  |              +--rw transparent?    empty
+       |        |  |  +--rw rip-metric-route-map
+       |        |  |     +--rw route-map?   string
+       |        |  |     +--rw metric
+       |        |  |        +--rw (metric-transparent-choice)?
+       |        |  |           +--:(metric-value)
+       |        |  |           |  +--rw metric-value?   uint32
+       |        |  |           +--:(transparent)
+       |        |  |              +--rw transparent?    empty
+       |        |  +--rw mobile!
+       |        |  |  +--rw rip-metric-route-map
+       |        |  |     +--rw metric
+       |        |  |     |  +--rw (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +--rw metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +--rw transparent?    empty
+       |        |  |     +--rw route-map?   string
+       |        |  +--rw odr!
+       |        |  |  +--rw rip-metric-route-map
+       |        |  |     +--rw metric
+       |        |  |     |  +--rw (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +--rw metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +--rw transparent?    empty
+       |        |  |     +--rw route-map?   string
+       |        |  +--rw ospf* [process-id]
+       |        |  |  +--rw process-id              uint16
+       |        |  |  +--rw vrf* [name]
+       |        |  |  |  +--rw name    string
+       |        |  |  +--rw match
+       |        |  |  |  +--rw internal!
+       |        |  |  |  |  +--rw rip-metric-route-map
+       |        |  |  |  |     +--rw metric
+       |        |  |  |  |     |  +--rw (metric-transparent-choice)?
+       |        |  |  |  |     |     +--:(metric-value)
+       |        |  |  |  |     |     |  +--rw metric-value?   uint32
+       |        |  |  |  |     |     +--:(transparent)
+       |        |  |  |  |     |        +--rw transparent?    empty
+       |        |  |  |  |     +--rw route-map?   string
+       |        |  |  |  +--rw external!
+       |        |  |  |  |  +--rw external-routes?        ios-types:redist-ospf-external-type
+       |        |  |  |  |  +--rw rip-metric-route-map
+       |        |  |  |  |     +--rw metric
+       |        |  |  |  |     |  +--rw (metric-transparent-choice)?
+       |        |  |  |  |     |     +--:(metric-value)
+       |        |  |  |  |     |     |  +--rw metric-value?   uint32
+       |        |  |  |  |     |     +--:(transparent)
+       |        |  |  |  |     |        +--rw transparent?    empty
+       |        |  |  |  |     +--rw route-map?   string
+       |        |  |  |  +--rw nssa-external!
+       |        |  |  |     +--rw nssa-external-routes?   ios-types:redist-ospf-external-type
+       |        |  |  |     +--rw rip-metric-route-map
+       |        |  |  |        +--rw metric
+       |        |  |  |        |  +--rw (metric-transparent-choice)?
+       |        |  |  |        |     +--:(metric-value)
+       |        |  |  |        |     |  +--rw metric-value?   uint32
+       |        |  |  |        |     +--:(transparent)
+       |        |  |  |        |        +--rw transparent?    empty
+       |        |  |  |        +--rw route-map?   string
+       |        |  |  +--rw rip-metric-route-map
+       |        |  |     +--rw metric
+       |        |  |     |  +--rw (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +--rw metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +--rw transparent?    empty
+       |        |  |     +--rw route-map?   string
+       |        |  +--rw static!
+       |        |  |  +--rw rip-metric-route-map
+       |        |  |     +--rw metric
+       |        |  |     |  +--rw (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +--rw metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +--rw transparent?    empty
+       |        |  |     +--rw route-map?   string
+       |        |  +--rw rip!
+       |        |     +--rw rip-metric-route-map
+       |        |        +--rw metric
+       |        |        |  +--rw (metric-transparent-choice)?
+       |        |        |     +--:(metric-value)
+       |        |        |     |  +--rw metric-value?   uint32
+       |        |        |     +--:(transparent)
+       |        |        |        +--rw transparent?    empty
+       |        |        +--rw route-map?   string
+       |        +--rw timers
+       |        |  +--rw basic
+       |        |     +--rw updates?    uint32
+       |        |     +--rw invalid?    uint32
+       |        |     +--rw holddown?   uint32
+       |        |     +--rw flush?      uint32
+       |        |     +--rw sleep?      uint32
+       |        +--rw version?                  uint8
+       +--rw default
+          +--rw address-family
+          |  +--rw ipv4!
+          |     +--rw unicast?   empty
+          |     +--rw vrf* [name]
+          |        +--rw name    string
+          +--rw auto-summary?             empty
+          +--rw maximum-paths?            uint8
+          +--rw neighbor* [ip]
+          |  +--rw ip    inet:ipv4-address
+          +--rw network* [ip]
+          |  +--rw ip    inet:ipv4-address
+          +--rw validate-update-source?   boolean
+          +--rw default-information
+          |  +--rw originate?   empty
+          +--rw default-metric?           empty
+          +--rw distance
+          |  +--rw distance-leaf?   uint8
+          |  +--rw distance-list* [number ip mask]
+          |     +--rw number         uint8
+          |     +--rw ip             inet:ipv4-address
+          |     +--rw mask           inet:ipv4-address
+          |     +--rw access-list?   ios-types:default-access-list-standard-id-type
+          +--rw distribute-list
+          |  +--rw accesslist* [in-out]
+          |  |  +--rw in-out    ios-types:access-list-in-out-type
+          |  |  +--rw id        default-access-list-id-type
+          |  +--rw accesslist-ifname* [in-out interface]
+          |  |  +--rw in-out                  ios-types:access-list-in-out-type
+          |  |  +--rw interface               string
+          |  |  +--rw interface-routing-id?   uint8
+          |  |  +--rw isis-tag?               string
+          |  |  +--rw vrf?                    string
+          |  |  +--rw id                      default-access-list-id-type
+          |  +--rw accesslist-prefix-gateway* [in-out]
+          |  |  +--rw in-out            ios-types:access-list-in-out-type
+          |  |  +--rw prefix-gateway    enumeration
+          |  |  +--rw name              string
+          |  +--rw accesslist-prefix-gateway-ifname* [in-out interface]
+          |     +--rw in-out                  ios-types:access-list-in-out-type
+          |     +--rw interface               string
+          |     +--rw prefix-gateway          enumeration
+          |     +--rw name                    string
+          |     +--rw interface-routing-id?   uint8
+          |     +--rw isis-tag?               string
+          |     +--rw vrf?                    string
+          +--rw flash-update-threshold?   empty
+          +--rw input-queue?              empty
+          +--rw offset-list* [in-out]
+          |  +--rw in-out    offset-list-in-out-type
+          |  +--rw offset    uint8
+          |  +--rw id        default-offset-list-id-type
+          +--rw output-delay?             empty
+          +--rw passive-interface
+          |  +--rw (passive-interface-choice)?
+          |     +--:(default)
+          |     |  +--rw default?     empty
+          |     +--:(interface)
+          |        +--rw interface?   string
+          +--rw disable
+          |  +--rw passive-interface* [interface]
+          |     +--rw interface    string
+          +--rw redistribute
+          |  +--rw connected!
+          |  |  +--rw rip-metric-route-map
+          |  |     +--rw metric
+          |  |     |  +--rw (metric-transparent-choice)?
+          |  |     |     +--:(metric-value)
+          |  |     |     |  +--rw metric-value?   uint32
+          |  |     |     +--:(transparent)
+          |  |     |        +--rw transparent?    empty
+          |  |     +--rw route-map?   string
+          |  +--rw bgp* [as-number]
+          |  |  +--rw as-number               ios-types:bgp-as-number-type
+          |  |  +--rw rip-metric-route-map
+          |  |     +--rw metric
+          |  |     |  +--rw (metric-transparent-choice)?
+          |  |     |     +--:(metric-value)
+          |  |     |     |  +--rw metric-value?   uint32
+          |  |     |     +--:(transparent)
+          |  |     |        +--rw transparent?    empty
+          |  |     +--rw route-map?   string
+          |  +--rw eigrp* [as-number]
+          |  |  +--rw as-number               uint16
+          |  |  +--rw rip-metric-route-map
+          |  |     +--rw metric
+          |  |     |  +--rw (metric-transparent-choice)?
+          |  |     |     +--:(metric-value)
+          |  |     |     |  +--rw metric-value?   uint32
+          |  |     |     +--:(transparent)
+          |  |     |        +--rw transparent?    empty
+          |  |     +--rw route-map?   string
+          |  +--rw isis!
+          |  |  +--rw isis-area* [name]
+          |  |  |  +--rw name               string
+          |  |  |  +--rw rip-isis-redist
+          |  |  |     +--rw isis-level-routes?      enumeration
+          |  |  |     +--rw rip-metric-route-map
+          |  |  |        +--rw metric
+          |  |  |        |  +--rw (metric-transparent-choice)?
+          |  |  |        |     +--:(metric-value)
+          |  |  |        |     |  +--rw metric-value?   uint32
+          |  |  |        |     +--:(transparent)
+          |  |  |        |        +--rw transparent?    empty
+          |  |  |        +--rw route-map?   string
+          |  |  +--rw rip-isis-redist
+          |  |     +--rw isis-level-routes?      enumeration
+          |  |     +--rw rip-metric-route-map
+          |  |        +--rw metric
+          |  |        |  +--rw (metric-transparent-choice)?
+          |  |        |     +--:(metric-value)
+          |  |        |     |  +--rw metric-value?   uint32
+          |  |        |     +--:(transparent)
+          |  |        |        +--rw transparent?    empty
+          |  |        +--rw route-map?   string
+          |  +--rw iso-igrp!
+          |  |  +--rw isoigrp-list* [iso-area-tag]
+          |  |  |  +--rw iso-area-tag            string
+          |  |  |  +--rw rip-metric-route-map
+          |  |  |     +--rw route-map?   string
+          |  |  |     +--rw metric
+          |  |  |        +--rw (metric-transparent-choice)?
+          |  |  |           +--:(metric-value)
+          |  |  |           |  +--rw metric-value?   uint32
+          |  |  |           +--:(transparent)
+          |  |  |              +--rw transparent?    empty
+          |  |  +--rw rip-metric-route-map
+          |  |     +--rw route-map?   string
+          |  |     +--rw metric
+          |  |        +--rw (metric-transparent-choice)?
+          |  |           +--:(metric-value)
+          |  |           |  +--rw metric-value?   uint32
+          |  |           +--:(transparent)
+          |  |              +--rw transparent?    empty
+          |  +--rw mobile!
+          |  |  +--rw rip-metric-route-map
+          |  |     +--rw metric
+          |  |     |  +--rw (metric-transparent-choice)?
+          |  |     |     +--:(metric-value)
+          |  |     |     |  +--rw metric-value?   uint32
+          |  |     |     +--:(transparent)
+          |  |     |        +--rw transparent?    empty
+          |  |     +--rw route-map?   string
+          |  +--rw odr!
+          |  |  +--rw rip-metric-route-map
+          |  |     +--rw metric
+          |  |     |  +--rw (metric-transparent-choice)?
+          |  |     |     +--:(metric-value)
+          |  |     |     |  +--rw metric-value?   uint32
+          |  |     |     +--:(transparent)
+          |  |     |        +--rw transparent?    empty
+          |  |     +--rw route-map?   string
+          |  +--rw ospf* [process-id]
+          |  |  +--rw process-id              uint16
+          |  |  +--rw vrf* [name]
+          |  |  |  +--rw name    string
+          |  |  +--rw match
+          |  |  |  +--rw internal!
+          |  |  |  |  +--rw rip-metric-route-map
+          |  |  |  |     +--rw metric
+          |  |  |  |     |  +--rw (metric-transparent-choice)?
+          |  |  |  |     |     +--:(metric-value)
+          |  |  |  |     |     |  +--rw metric-value?   uint32
+          |  |  |  |     |     +--:(transparent)
+          |  |  |  |     |        +--rw transparent?    empty
+          |  |  |  |     +--rw route-map?   string
+          |  |  |  +--rw external!
+          |  |  |  |  +--rw external-routes?        ios-types:redist-ospf-external-type
+          |  |  |  |  +--rw rip-metric-route-map
+          |  |  |  |     +--rw metric
+          |  |  |  |     |  +--rw (metric-transparent-choice)?
+          |  |  |  |     |     +--:(metric-value)
+          |  |  |  |     |     |  +--rw metric-value?   uint32
+          |  |  |  |     |     +--:(transparent)
+          |  |  |  |     |        +--rw transparent?    empty
+          |  |  |  |     +--rw route-map?   string
+          |  |  |  +--rw nssa-external!
+          |  |  |     +--rw nssa-external-routes?   ios-types:redist-ospf-external-type
+          |  |  |     +--rw rip-metric-route-map
+          |  |  |        +--rw metric
+          |  |  |        |  +--rw (metric-transparent-choice)?
+          |  |  |        |     +--:(metric-value)
+          |  |  |        |     |  +--rw metric-value?   uint32
+          |  |  |        |     +--:(transparent)
+          |  |  |        |        +--rw transparent?    empty
+          |  |  |        +--rw route-map?   string
+          |  |  +--rw rip-metric-route-map
+          |  |     +--rw metric
+          |  |     |  +--rw (metric-transparent-choice)?
+          |  |     |     +--:(metric-value)
+          |  |     |     |  +--rw metric-value?   uint32
+          |  |     |     +--:(transparent)
+          |  |     |        +--rw transparent?    empty
+          |  |     +--rw route-map?   string
+          |  +--rw static!
+          |  |  +--rw rip-metric-route-map
+          |  |     +--rw metric
+          |  |     |  +--rw (metric-transparent-choice)?
+          |  |     |     +--:(metric-value)
+          |  |     |     |  +--rw metric-value?   uint32
+          |  |     |     +--:(transparent)
+          |  |     |        +--rw transparent?    empty
+          |  |     +--rw route-map?   string
+          |  +--rw rip!
+          |     +--rw rip-metric-route-map
+          |        +--rw metric
+          |        |  +--rw (metric-transparent-choice)?
+          |        |     +--:(metric-value)
+          |        |     |  +--rw metric-value?   uint32
+          |        |     +--:(transparent)
+          |        |        +--rw transparent?    empty
+          |        +--rw route-map?   string
+          +--rw timers
+          |  +--rw basic?   empty
+          +--rw traffic-share
+          |  +--rw min
+          |     +--rw across-interfaces?   empty
+          +--rw version?                  empty
+  augment /ios:native/ios:ipv6:
+    +--rw rip
+       +--rw vrf-mode?   enumeration
+  augment /ios:native/ios:ipv6/ios:router:
+    +--rw rip* [id]
+       +--rw id                 string
+       +--rw address-family
+       |  +--rw ipv6
+       |     +--rw vrf* [name]
+       |        +--rw name               string
+       |        +--rw distance?          uint8
+       |        +--rw distribute-list
+       |        |  +--rw prefix-list* [name]
+       |        |     +--rw name    string
+       |        |     +--rw in?     empty
+       |        |     +--rw out?    empty
+       |        +--rw maximum-paths?     uint32
+       |        +--rw poison-reverse?    empty
+       |        +--rw redistribute
+       |        |  +--rw application
+       |        |  |  +--rw include-connected?   empty
+       |        |  |  +--rw metric?              uint32
+       |        |  |  +--rw route-map?           string
+       |        |  +--rw lisp
+       |        |  |  +--rw include-connected?   empty
+       |        |  |  +--rw metric?              uint32
+       |        |  |  +--rw route-map?           string
+       |        |  +--rw nd
+       |        |  |  +--rw include-connected?   empty
+       |        |  |  +--rw metric?              uint32
+       |        |  |  +--rw route-map?           string
+       |        |  +--rw connected!
+       |        |  |  +--rw rip-metric-route-map
+       |        |  |     +--rw metric
+       |        |  |     |  +--rw (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +--rw metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +--rw transparent?    empty
+       |        |  |     +--rw route-map?   string
+       |        |  +--rw bgp* [as-number]
+       |        |  |  +--rw as-number               ios-types:bgp-as-number-type
+       |        |  |  +--rw rip-metric-route-map
+       |        |  |     +--rw metric
+       |        |  |     |  +--rw (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +--rw metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +--rw transparent?    empty
+       |        |  |     +--rw route-map?   string
+       |        |  +--rw eigrp* [as-number]
+       |        |  |  +--rw as-number               uint16
+       |        |  |  +--rw rip-metric-route-map
+       |        |  |     +--rw metric
+       |        |  |     |  +--rw (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +--rw metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +--rw transparent?    empty
+       |        |  |     +--rw route-map?   string
+       |        |  +--rw isis!
+       |        |  |  +--rw isis-area* [name]
+       |        |  |  |  +--rw name               string
+       |        |  |  |  +--rw rip-isis-redist
+       |        |  |  |     +--rw isis-level-routes?      enumeration
+       |        |  |  |     +--rw rip-metric-route-map
+       |        |  |  |        +--rw metric
+       |        |  |  |        |  +--rw (metric-transparent-choice)?
+       |        |  |  |        |     +--:(metric-value)
+       |        |  |  |        |     |  +--rw metric-value?   uint32
+       |        |  |  |        |     +--:(transparent)
+       |        |  |  |        |        +--rw transparent?    empty
+       |        |  |  |        +--rw route-map?   string
+       |        |  |  +--rw rip-isis-redist
+       |        |  |     +--rw isis-level-routes?      enumeration
+       |        |  |     +--rw rip-metric-route-map
+       |        |  |        +--rw metric
+       |        |  |        |  +--rw (metric-transparent-choice)?
+       |        |  |        |     +--:(metric-value)
+       |        |  |        |     |  +--rw metric-value?   uint32
+       |        |  |        |     +--:(transparent)
+       |        |  |        |        +--rw transparent?    empty
+       |        |  |        +--rw route-map?   string
+       |        |  +--rw iso-igrp!
+       |        |  |  +--rw isoigrp-list* [iso-area-tag]
+       |        |  |  |  +--rw iso-area-tag            string
+       |        |  |  |  +--rw rip-metric-route-map
+       |        |  |  |     +--rw route-map?   string
+       |        |  |  |     +--rw metric
+       |        |  |  |        +--rw (metric-transparent-choice)?
+       |        |  |  |           +--:(metric-value)
+       |        |  |  |           |  +--rw metric-value?   uint32
+       |        |  |  |           +--:(transparent)
+       |        |  |  |              +--rw transparent?    empty
+       |        |  |  +--rw rip-metric-route-map
+       |        |  |     +--rw route-map?   string
+       |        |  |     +--rw metric
+       |        |  |        +--rw (metric-transparent-choice)?
+       |        |  |           +--:(metric-value)
+       |        |  |           |  +--rw metric-value?   uint32
+       |        |  |           +--:(transparent)
+       |        |  |              +--rw transparent?    empty
+       |        |  +--rw mobile!
+       |        |  |  +--rw rip-metric-route-map
+       |        |  |     +--rw metric
+       |        |  |     |  +--rw (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +--rw metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +--rw transparent?    empty
+       |        |  |     +--rw route-map?   string
+       |        |  +--rw odr!
+       |        |  |  +--rw rip-metric-route-map
+       |        |  |     +--rw metric
+       |        |  |     |  +--rw (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +--rw metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +--rw transparent?    empty
+       |        |  |     +--rw route-map?   string
+       |        |  +--rw ospf* [process-id]
+       |        |  |  +--rw process-id              uint16
+       |        |  |  +--rw vrf* [name]
+       |        |  |  |  +--rw name    string
+       |        |  |  +--rw match
+       |        |  |  |  +--rw internal!
+       |        |  |  |  |  +--rw rip-metric-route-map
+       |        |  |  |  |     +--rw metric
+       |        |  |  |  |     |  +--rw (metric-transparent-choice)?
+       |        |  |  |  |     |     +--:(metric-value)
+       |        |  |  |  |     |     |  +--rw metric-value?   uint32
+       |        |  |  |  |     |     +--:(transparent)
+       |        |  |  |  |     |        +--rw transparent?    empty
+       |        |  |  |  |     +--rw route-map?   string
+       |        |  |  |  +--rw external!
+       |        |  |  |  |  +--rw external-routes?        ios-types:redist-ospf-external-type
+       |        |  |  |  |  +--rw rip-metric-route-map
+       |        |  |  |  |     +--rw metric
+       |        |  |  |  |     |  +--rw (metric-transparent-choice)?
+       |        |  |  |  |     |     +--:(metric-value)
+       |        |  |  |  |     |     |  +--rw metric-value?   uint32
+       |        |  |  |  |     |     +--:(transparent)
+       |        |  |  |  |     |        +--rw transparent?    empty
+       |        |  |  |  |     +--rw route-map?   string
+       |        |  |  |  +--rw nssa-external!
+       |        |  |  |     +--rw nssa-external-routes?   ios-types:redist-ospf-external-type
+       |        |  |  |     +--rw rip-metric-route-map
+       |        |  |  |        +--rw metric
+       |        |  |  |        |  +--rw (metric-transparent-choice)?
+       |        |  |  |        |     +--:(metric-value)
+       |        |  |  |        |     |  +--rw metric-value?   uint32
+       |        |  |  |        |     +--:(transparent)
+       |        |  |  |        |        +--rw transparent?    empty
+       |        |  |  |        +--rw route-map?   string
+       |        |  |  +--rw rip-metric-route-map
+       |        |  |     +--rw metric
+       |        |  |     |  +--rw (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +--rw metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +--rw transparent?    empty
+       |        |  |     +--rw route-map?   string
+       |        |  +--rw static!
+       |        |  |  +--rw rip-metric-route-map
+       |        |  |     +--rw metric
+       |        |  |     |  +--rw (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +--rw metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +--rw transparent?    empty
+       |        |  |     +--rw route-map?   string
+       |        |  +--rw rip!
+       |        |     +--rw rip-metric-route-map
+       |        |        +--rw metric
+       |        |        |  +--rw (metric-transparent-choice)?
+       |        |        |     +--:(metric-value)
+       |        |        |     |  +--rw metric-value?   uint32
+       |        |        |     +--:(transparent)
+       |        |        |        +--rw transparent?    empty
+       |        |        +--rw route-map?   string
+       |        +--rw split-horizon?     empty
+       |        +--rw timers
+       |           +--rw update?               uint16
+       |           +--rw timeout?              uint16
+       |           +--rw holddown?             uint16
+       |           +--rw garbage-collection?   uint16
+       +--rw distance?          uint8
+       +--rw distribute-list
+       |  +--rw prefix-list* [name]
+       |     +--rw name    string
+       |     +--rw in?     empty
+       |     +--rw out?    empty
+       +--rw maximum-paths?     uint32
+       +--rw poison-reverse?    empty
+       +--rw redistribute
+       |  +--rw application
+       |  |  +--rw include-connected?   empty
+       |  |  +--rw metric?              uint32
+       |  |  +--rw route-map?           string
+       |  +--rw lisp
+       |  |  +--rw include-connected?   empty
+       |  |  +--rw metric?              uint32
+       |  |  +--rw route-map?           string
+       |  +--rw nd
+       |  |  +--rw include-connected?   empty
+       |  |  +--rw metric?              uint32
+       |  |  +--rw route-map?           string
+       |  +--rw connected!
+       |  |  +--rw rip-metric-route-map
+       |  |     +--rw metric
+       |  |     |  +--rw (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +--rw metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +--rw transparent?    empty
+       |  |     +--rw route-map?   string
+       |  +--rw bgp* [as-number]
+       |  |  +--rw as-number               ios-types:bgp-as-number-type
+       |  |  +--rw rip-metric-route-map
+       |  |     +--rw metric
+       |  |     |  +--rw (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +--rw metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +--rw transparent?    empty
+       |  |     +--rw route-map?   string
+       |  +--rw eigrp* [as-number]
+       |  |  +--rw as-number               uint16
+       |  |  +--rw rip-metric-route-map
+       |  |     +--rw metric
+       |  |     |  +--rw (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +--rw metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +--rw transparent?    empty
+       |  |     +--rw route-map?   string
+       |  +--rw isis!
+       |  |  +--rw isis-area* [name]
+       |  |  |  +--rw name               string
+       |  |  |  +--rw rip-isis-redist
+       |  |  |     +--rw isis-level-routes?      enumeration
+       |  |  |     +--rw rip-metric-route-map
+       |  |  |        +--rw metric
+       |  |  |        |  +--rw (metric-transparent-choice)?
+       |  |  |        |     +--:(metric-value)
+       |  |  |        |     |  +--rw metric-value?   uint32
+       |  |  |        |     +--:(transparent)
+       |  |  |        |        +--rw transparent?    empty
+       |  |  |        +--rw route-map?   string
+       |  |  +--rw rip-isis-redist
+       |  |     +--rw isis-level-routes?      enumeration
+       |  |     +--rw rip-metric-route-map
+       |  |        +--rw metric
+       |  |        |  +--rw (metric-transparent-choice)?
+       |  |        |     +--:(metric-value)
+       |  |        |     |  +--rw metric-value?   uint32
+       |  |        |     +--:(transparent)
+       |  |        |        +--rw transparent?    empty
+       |  |        +--rw route-map?   string
+       |  +--rw iso-igrp!
+       |  |  +--rw isoigrp-list* [iso-area-tag]
+       |  |  |  +--rw iso-area-tag            string
+       |  |  |  +--rw rip-metric-route-map
+       |  |  |     +--rw route-map?   string
+       |  |  |     +--rw metric
+       |  |  |        +--rw (metric-transparent-choice)?
+       |  |  |           +--:(metric-value)
+       |  |  |           |  +--rw metric-value?   uint32
+       |  |  |           +--:(transparent)
+       |  |  |              +--rw transparent?    empty
+       |  |  +--rw rip-metric-route-map
+       |  |     +--rw route-map?   string
+       |  |     +--rw metric
+       |  |        +--rw (metric-transparent-choice)?
+       |  |           +--:(metric-value)
+       |  |           |  +--rw metric-value?   uint32
+       |  |           +--:(transparent)
+       |  |              +--rw transparent?    empty
+       |  +--rw mobile!
+       |  |  +--rw rip-metric-route-map
+       |  |     +--rw metric
+       |  |     |  +--rw (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +--rw metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +--rw transparent?    empty
+       |  |     +--rw route-map?   string
+       |  +--rw odr!
+       |  |  +--rw rip-metric-route-map
+       |  |     +--rw metric
+       |  |     |  +--rw (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +--rw metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +--rw transparent?    empty
+       |  |     +--rw route-map?   string
+       |  +--rw ospf* [process-id]
+       |  |  +--rw process-id              uint16
+       |  |  +--rw vrf* [name]
+       |  |  |  +--rw name    string
+       |  |  +--rw match
+       |  |  |  +--rw internal!
+       |  |  |  |  +--rw rip-metric-route-map
+       |  |  |  |     +--rw metric
+       |  |  |  |     |  +--rw (metric-transparent-choice)?
+       |  |  |  |     |     +--:(metric-value)
+       |  |  |  |     |     |  +--rw metric-value?   uint32
+       |  |  |  |     |     +--:(transparent)
+       |  |  |  |     |        +--rw transparent?    empty
+       |  |  |  |     +--rw route-map?   string
+       |  |  |  +--rw external!
+       |  |  |  |  +--rw external-routes?        ios-types:redist-ospf-external-type
+       |  |  |  |  +--rw rip-metric-route-map
+       |  |  |  |     +--rw metric
+       |  |  |  |     |  +--rw (metric-transparent-choice)?
+       |  |  |  |     |     +--:(metric-value)
+       |  |  |  |     |     |  +--rw metric-value?   uint32
+       |  |  |  |     |     +--:(transparent)
+       |  |  |  |     |        +--rw transparent?    empty
+       |  |  |  |     +--rw route-map?   string
+       |  |  |  +--rw nssa-external!
+       |  |  |     +--rw nssa-external-routes?   ios-types:redist-ospf-external-type
+       |  |  |     +--rw rip-metric-route-map
+       |  |  |        +--rw metric
+       |  |  |        |  +--rw (metric-transparent-choice)?
+       |  |  |        |     +--:(metric-value)
+       |  |  |        |     |  +--rw metric-value?   uint32
+       |  |  |        |     +--:(transparent)
+       |  |  |        |        +--rw transparent?    empty
+       |  |  |        +--rw route-map?   string
+       |  |  +--rw rip-metric-route-map
+       |  |     +--rw metric
+       |  |     |  +--rw (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +--rw metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +--rw transparent?    empty
+       |  |     +--rw route-map?   string
+       |  +--rw static!
+       |  |  +--rw rip-metric-route-map
+       |  |     +--rw metric
+       |  |     |  +--rw (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +--rw metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +--rw transparent?    empty
+       |  |     +--rw route-map?   string
+       |  +--rw rip!
+       |     +--rw rip-metric-route-map
+       |        +--rw metric
+       |        |  +--rw (metric-transparent-choice)?
+       |        |     +--:(metric-value)
+       |        |     |  +--rw metric-value?   uint32
+       |        |     +--:(transparent)
+       |        |        +--rw transparent?    empty
+       |        +--rw route-map?   string
+       +--rw split-horizon?     empty
+       +--rw timers
+          +--rw update?               uint16
+          +--rw timeout?              uint16
+          +--rw holddown?             uint16
+          +--rw garbage-collection?   uint16
+  augment /ios:native/ios:interface/ios:FastEthernet/ios:ipv6:
+    +--rw rip* [id]
+       +--rw id                     string
+       +--rw enable?                empty
+       +--rw default-information
+          +--rw route?    enumeration
+          +--rw metric?   uint8
+  augment /ios:native/ios:interface/ios:GigabitEthernet/ios:ipv6:
+    +--rw rip* [id]
+       +--rw id                     string
+       +--rw enable?                empty
+       +--rw default-information
+          +--rw route?    enumeration
+          +--rw metric?   uint8
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet/ios:ipv6:
+    +--rw rip* [id]
+       +--rw id                     string
+       +--rw enable?                empty
+       +--rw default-information
+          +--rw route?    enumeration
+          +--rw metric?   uint8
+  augment /ios:native/ios:interface/ios:FiveGigabitEthernet/ios:ipv6:
+    +--rw rip* [id]
+       +--rw id                     string
+       +--rw enable?                empty
+       +--rw default-information
+          +--rw route?    enumeration
+          +--rw metric?   uint8
+  augment /ios:native/ios:interface/ios:TwentyFiveGigabitEthernet/ios:ipv6:
+    +--rw rip* [id]
+       +--rw id                     string
+       +--rw enable?                empty
+       +--rw default-information
+          +--rw route?    enumeration
+          +--rw metric?   uint8
+  augment /ios:native/ios:interface/ios:Port-channel/ios:ipv6:
+    +--rw rip* [id]
+       +--rw id                     string
+       +--rw enable?                empty
+       +--rw default-information
+          +--rw route?    enumeration
+          +--rw metric?   uint8
+  augment /ios:native/ios:interface/ios:Loopback/ios:ipv6:
+    +--rw rip* [id]
+       +--rw id                     string
+       +--rw enable?                empty
+       +--rw default-information
+          +--rw route?    enumeration
+          +--rw metric?   uint8
+  augment /ios:native/ios:interface/ios:Tunnel/ios:ipv6:
+    +--rw rip* [id]
+       +--rw id                     string
+       +--rw enable?                empty
+       +--rw default-information
+          +--rw route?    enumeration
+          +--rw metric?   uint8
+
+  grouping distribute-list-grouping
+    +-- distribute-list
+       +-- accesslist* [in-out]
+       |  +-- in-out?   ios-types:access-list-in-out-type
+       +-- accesslist-ifname* [in-out interface]
+       |  +-- in-out?                 ios-types:access-list-in-out-type
+       |  +-- interface?              string
+       |  +-- interface-routing-id?   uint8
+       |  +-- isis-tag?               string
+       |  +-- vrf?                    string
+       +-- accesslist-prefix-gateway* [in-out]
+       |  +-- in-out?           ios-types:access-list-in-out-type
+       |  +-- prefix-gateway    enumeration
+       |  +-- name              string
+       +-- accesslist-prefix-gateway-ifname* [in-out interface]
+          +-- in-out?                 ios-types:access-list-in-out-type
+          +-- interface?              string
+          +-- prefix-gateway          enumeration
+          +-- name                    string
+          +-- interface-routing-id?   uint8
+          +-- isis-tag?               string
+          +-- vrf?                    string
+  grouping router-rip-grouping
+    +-- auto-summary?             empty
+    +-- maximum-paths?            uint8
+    +-- neighbor* [ip]
+    |  +-- ip?   inet:ipv4-address
+    +-- network* [ip]
+    |  +-- ip?   inet:ipv4-address
+    +-- validate-update-source?   boolean
+    +-- default-information
+    |  +-- originate!
+    |     +-- route-map?   string
+    +-- default-metric?           uint32
+    +-- distance
+    |  +-- distance-leaf?   uint8
+    |  +-- distance-list* [number ip mask]
+    |     +-- number?   uint8
+    |     +-- ip?       inet:ipv4-address
+    |     +-- mask?     inet:ipv4-address
+    +-- distribute-list
+    |  +-- accesslist* [in-out]
+    |  |  +-- in-out?   ios-types:access-list-in-out-type
+    |  +-- accesslist-ifname* [in-out interface]
+    |  |  +-- in-out?                 ios-types:access-list-in-out-type
+    |  |  +-- interface?              string
+    |  |  +-- interface-routing-id?   uint8
+    |  |  +-- isis-tag?               string
+    |  |  +-- vrf?                    string
+    |  +-- accesslist-prefix-gateway* [in-out]
+    |  |  +-- in-out?           ios-types:access-list-in-out-type
+    |  |  +-- prefix-gateway    enumeration
+    |  |  +-- name              string
+    |  +-- accesslist-prefix-gateway-ifname* [in-out interface]
+    |     +-- in-out?                 ios-types:access-list-in-out-type
+    |     +-- interface?              string
+    |     +-- prefix-gateway          enumeration
+    |     +-- name                    string
+    |     +-- interface-routing-id?   uint8
+    |     +-- isis-tag?               string
+    |     +-- vrf?                    string
+    +-- offset-list* [in-out]
+    |  +-- in-out?   offset-list-in-out-type
+    |  +-- offset    uint8
+    +-- redistribute
+    |  +-- rip-metric-route-map
+    |  |  +-- metric
+    |  |  |  +-- (metric-transparent-choice)?
+    |  |  |     +--:(metric-value)
+    |  |  |     |  +-- metric-value?   uint32
+    |  |  |     +--:(transparent)
+    |  |  |        +-- transparent?    empty
+    |  |  +-- route-map?   string
+    |  +-- connected!
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- bgp* [as-number]
+    |  |  +-- as-number?              ios-types:bgp-as-number-type
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- eigrp* [as-number]
+    |  |  +-- as-number?              uint16
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- isis!
+    |  |  +-- isis-area* [name]
+    |  |  |  +-- name?              string
+    |  |  |  +-- rip-isis-redist
+    |  |  |     +-- isis-level-routes?      enumeration
+    |  |  |     +-- rip-metric-route-map
+    |  |  |        +-- metric
+    |  |  |        |  +-- (metric-transparent-choice)?
+    |  |  |        |     +--:(metric-value)
+    |  |  |        |     |  +-- metric-value?   uint32
+    |  |  |        |     +--:(transparent)
+    |  |  |        |        +-- transparent?    empty
+    |  |  |        +-- route-map?   string
+    |  |  +-- rip-isis-redist
+    |  |     +-- isis-level-routes?      enumeration
+    |  |     +-- rip-metric-route-map
+    |  |        +-- metric
+    |  |        |  +-- (metric-transparent-choice)?
+    |  |        |     +--:(metric-value)
+    |  |        |     |  +-- metric-value?   uint32
+    |  |        |     +--:(transparent)
+    |  |        |        +-- transparent?    empty
+    |  |        +-- route-map?   string
+    |  +-- iso-igrp!
+    |  |  +-- isoigrp-list* [iso-area-tag]
+    |  |  |  +-- iso-area-tag?           string
+    |  |  |  +-- rip-metric-route-map
+    |  |  |     +-- route-map?   string
+    |  |  |     +-- metric
+    |  |  |        +-- (metric-transparent-choice)?
+    |  |  |           +--:(metric-value)
+    |  |  |           |  +-- metric-value?   uint32
+    |  |  |           +--:(transparent)
+    |  |  |              +-- transparent?    empty
+    |  |  +-- rip-metric-route-map
+    |  |     +-- route-map?   string
+    |  |     +-- metric
+    |  |        +-- (metric-transparent-choice)?
+    |  |           +--:(metric-value)
+    |  |           |  +-- metric-value?   uint32
+    |  |           +--:(transparent)
+    |  |              +-- transparent?    empty
+    |  +-- mobile!
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- odr!
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- ospf* [process-id]
+    |  |  +-- process-id?             uint16
+    |  |  +-- vrf* [name]
+    |  |  |  +-- name?   string
+    |  |  +-- match
+    |  |  |  +-- internal!
+    |  |  |  |  +-- rip-metric-route-map
+    |  |  |  |     +-- metric
+    |  |  |  |     |  +-- (metric-transparent-choice)?
+    |  |  |  |     |     +--:(metric-value)
+    |  |  |  |     |     |  +-- metric-value?   uint32
+    |  |  |  |     |     +--:(transparent)
+    |  |  |  |     |        +-- transparent?    empty
+    |  |  |  |     +-- route-map?   string
+    |  |  |  +-- external!
+    |  |  |  |  +-- external-routes?        ios-types:redist-ospf-external-type
+    |  |  |  |  +-- rip-metric-route-map
+    |  |  |  |     +-- metric
+    |  |  |  |     |  +-- (metric-transparent-choice)?
+    |  |  |  |     |     +--:(metric-value)
+    |  |  |  |     |     |  +-- metric-value?   uint32
+    |  |  |  |     |     +--:(transparent)
+    |  |  |  |     |        +-- transparent?    empty
+    |  |  |  |     +-- route-map?   string
+    |  |  |  +-- nssa-external!
+    |  |  |     +-- nssa-external-routes?   ios-types:redist-ospf-external-type
+    |  |  |     +-- rip-metric-route-map
+    |  |  |        +-- metric
+    |  |  |        |  +-- (metric-transparent-choice)?
+    |  |  |        |     +--:(metric-value)
+    |  |  |        |     |  +-- metric-value?   uint32
+    |  |  |        |     +--:(transparent)
+    |  |  |        |        +-- transparent?    empty
+    |  |  |        +-- route-map?   string
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- static!
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- rip!
+    |     +-- rip-metric-route-map
+    |        +-- metric
+    |        |  +-- (metric-transparent-choice)?
+    |        |     +--:(metric-value)
+    |        |     |  +-- metric-value?   uint32
+    |        |     +--:(transparent)
+    |        |        +-- transparent?    empty
+    |        +-- route-map?   string
+    +-- timers
+    |  +-- basic
+    |     +-- updates?    uint32
+    |     +-- invalid?    uint32
+    |     +-- holddown?   uint32
+    |     +-- flush?      uint32
+    |     +-- sleep?      uint32
+    +-- version?                  uint8
+    +-- flash-update-threshold?   uint8
+    +-- input-queue?              uint16
+    +-- output-delay?             uint8
+    +-- passive-interface
+    |  +-- (passive-interface-choice)?
+    |     +--:(default)
+    |     |  +-- default?     empty
+    |     +--:(interface)
+    |        +-- interface?   string
+    +-- disable
+    |  +-- passive-interface* [interface]
+    |     +-- interface?   string
+    +-- traffic-share
+       +-- min
+          +-- across-interfaces?   empty
+  grouping default-redistribute-grouping
+    +-- connected!
+    |  +-- rip-metric-route-map
+    |     +-- metric
+    |     |  +-- (metric-transparent-choice)?
+    |     |     +--:(metric-value)
+    |     |     |  +-- metric-value?   uint32
+    |     |     +--:(transparent)
+    |     |        +-- transparent?    empty
+    |     +-- route-map?   string
+    +-- bgp* [as-number]
+    |  +-- as-number?              ios-types:bgp-as-number-type
+    |  +-- rip-metric-route-map
+    |     +-- metric
+    |     |  +-- (metric-transparent-choice)?
+    |     |     +--:(metric-value)
+    |     |     |  +-- metric-value?   uint32
+    |     |     +--:(transparent)
+    |     |        +-- transparent?    empty
+    |     +-- route-map?   string
+    +-- eigrp* [as-number]
+    |  +-- as-number?              uint16
+    |  +-- rip-metric-route-map
+    |     +-- metric
+    |     |  +-- (metric-transparent-choice)?
+    |     |     +--:(metric-value)
+    |     |     |  +-- metric-value?   uint32
+    |     |     +--:(transparent)
+    |     |        +-- transparent?    empty
+    |     +-- route-map?   string
+    +-- isis!
+    |  +-- isis-area* [name]
+    |  |  +-- name?              string
+    |  |  +-- rip-isis-redist
+    |  |     +-- isis-level-routes?      enumeration
+    |  |     +-- rip-metric-route-map
+    |  |        +-- metric
+    |  |        |  +-- (metric-transparent-choice)?
+    |  |        |     +--:(metric-value)
+    |  |        |     |  +-- metric-value?   uint32
+    |  |        |     +--:(transparent)
+    |  |        |        +-- transparent?    empty
+    |  |        +-- route-map?   string
+    |  +-- rip-isis-redist
+    |     +-- isis-level-routes?      enumeration
+    |     +-- rip-metric-route-map
+    |        +-- metric
+    |        |  +-- (metric-transparent-choice)?
+    |        |     +--:(metric-value)
+    |        |     |  +-- metric-value?   uint32
+    |        |     +--:(transparent)
+    |        |        +-- transparent?    empty
+    |        +-- route-map?   string
+    +-- iso-igrp!
+    |  +-- isoigrp-list* [iso-area-tag]
+    |  |  +-- iso-area-tag?           string
+    |  |  +-- rip-metric-route-map
+    |  |     +-- route-map?   string
+    |  |     +-- metric
+    |  |        +-- (metric-transparent-choice)?
+    |  |           +--:(metric-value)
+    |  |           |  +-- metric-value?   uint32
+    |  |           +--:(transparent)
+    |  |              +-- transparent?    empty
+    |  +-- rip-metric-route-map
+    |     +-- route-map?   string
+    |     +-- metric
+    |        +-- (metric-transparent-choice)?
+    |           +--:(metric-value)
+    |           |  +-- metric-value?   uint32
+    |           +--:(transparent)
+    |              +-- transparent?    empty
+    +-- mobile!
+    |  +-- rip-metric-route-map
+    |     +-- metric
+    |     |  +-- (metric-transparent-choice)?
+    |     |     +--:(metric-value)
+    |     |     |  +-- metric-value?   uint32
+    |     |     +--:(transparent)
+    |     |        +-- transparent?    empty
+    |     +-- route-map?   string
+    +-- odr!
+    |  +-- rip-metric-route-map
+    |     +-- metric
+    |     |  +-- (metric-transparent-choice)?
+    |     |     +--:(metric-value)
+    |     |     |  +-- metric-value?   uint32
+    |     |     +--:(transparent)
+    |     |        +-- transparent?    empty
+    |     +-- route-map?   string
+    +-- ospf* [process-id]
+    |  +-- process-id?             uint16
+    |  +-- vrf* [name]
+    |  |  +-- name?   string
+    |  +-- match
+    |  |  +-- internal!
+    |  |  |  +-- rip-metric-route-map
+    |  |  |     +-- metric
+    |  |  |     |  +-- (metric-transparent-choice)?
+    |  |  |     |     +--:(metric-value)
+    |  |  |     |     |  +-- metric-value?   uint32
+    |  |  |     |     +--:(transparent)
+    |  |  |     |        +-- transparent?    empty
+    |  |  |     +-- route-map?   string
+    |  |  +-- external!
+    |  |  |  +-- external-routes?        ios-types:redist-ospf-external-type
+    |  |  |  +-- rip-metric-route-map
+    |  |  |     +-- metric
+    |  |  |     |  +-- (metric-transparent-choice)?
+    |  |  |     |     +--:(metric-value)
+    |  |  |     |     |  +-- metric-value?   uint32
+    |  |  |     |     +--:(transparent)
+    |  |  |     |        +-- transparent?    empty
+    |  |  |     +-- route-map?   string
+    |  |  +-- nssa-external!
+    |  |     +-- nssa-external-routes?   ios-types:redist-ospf-external-type
+    |  |     +-- rip-metric-route-map
+    |  |        +-- metric
+    |  |        |  +-- (metric-transparent-choice)?
+    |  |        |     +--:(metric-value)
+    |  |        |     |  +-- metric-value?   uint32
+    |  |        |     +--:(transparent)
+    |  |        |        +-- transparent?    empty
+    |  |        +-- route-map?   string
+    |  +-- rip-metric-route-map
+    |     +-- metric
+    |     |  +-- (metric-transparent-choice)?
+    |     |     +--:(metric-value)
+    |     |     |  +-- metric-value?   uint32
+    |     |     +--:(transparent)
+    |     |        +-- transparent?    empty
+    |     +-- route-map?   string
+    +-- static!
+    |  +-- rip-metric-route-map
+    |     +-- metric
+    |     |  +-- (metric-transparent-choice)?
+    |     |     +--:(metric-value)
+    |     |     |  +-- metric-value?   uint32
+    |     |     +--:(transparent)
+    |     |        +-- transparent?    empty
+    |     +-- route-map?   string
+    +-- rip!
+       +-- rip-metric-route-map
+          +-- metric
+          |  +-- (metric-transparent-choice)?
+          |     +--:(metric-value)
+          |     |  +-- metric-value?   uint32
+          |     +--:(transparent)
+          |        +-- transparent?    empty
+          +-- route-map?   string
+  grouping ipv6-router-rip-redistribute-grouping
+    +-- include-connected?   empty
+    +-- metric?              uint32
+    +-- route-map?           string
+  grouping distance-grouping
+    +-- distance
+       +-- distance-leaf?   uint8
+       +-- distance-list* [number ip mask]
+          +-- number?   uint8
+          +-- ip?       inet:ipv4-address
+          +-- mask?     inet:ipv4-address
+  grouping offset-list-grouping
+    +-- offset-list* [in-out]
+       +-- in-out?   offset-list-in-out-type
+       +-- offset    uint8
+  grouping default-router-rip-grouping
+    +-- auto-summary?             empty
+    +-- maximum-paths?            uint8
+    +-- neighbor* [ip]
+    |  +-- ip?   inet:ipv4-address
+    +-- network* [ip]
+    |  +-- ip?   inet:ipv4-address
+    +-- validate-update-source?   boolean
+  grouping address-family-vrf-grouping
+    +-- auto-summary?             empty
+    +-- maximum-paths?            uint8
+    +-- neighbor* [ip]
+    |  +-- ip?   inet:ipv4-address
+    +-- network* [ip]
+    |  +-- ip?   inet:ipv4-address
+    +-- validate-update-source?   boolean
+    +-- default-information
+    |  +-- originate!
+    |     +-- route-map?   string
+    +-- default-metric?           uint32
+    +-- distance
+    |  +-- distance-leaf?   uint8
+    |  +-- distance-list* [number ip mask]
+    |     +-- number?   uint8
+    |     +-- ip?       inet:ipv4-address
+    |     +-- mask?     inet:ipv4-address
+    +-- distribute-list
+    |  +-- accesslist* [in-out]
+    |  |  +-- in-out?   ios-types:access-list-in-out-type
+    |  +-- accesslist-ifname* [in-out interface]
+    |  |  +-- in-out?                 ios-types:access-list-in-out-type
+    |  |  +-- interface?              string
+    |  |  +-- interface-routing-id?   uint8
+    |  |  +-- isis-tag?               string
+    |  |  +-- vrf?                    string
+    |  +-- accesslist-prefix-gateway* [in-out]
+    |  |  +-- in-out?           ios-types:access-list-in-out-type
+    |  |  +-- prefix-gateway    enumeration
+    |  |  +-- name              string
+    |  +-- accesslist-prefix-gateway-ifname* [in-out interface]
+    |     +-- in-out?                 ios-types:access-list-in-out-type
+    |     +-- interface?              string
+    |     +-- prefix-gateway          enumeration
+    |     +-- name                    string
+    |     +-- interface-routing-id?   uint8
+    |     +-- isis-tag?               string
+    |     +-- vrf?                    string
+    +-- offset-list* [in-out]
+    |  +-- in-out?   offset-list-in-out-type
+    |  +-- offset    uint8
+    +-- redistribute
+    |  +-- rip-metric-route-map
+    |  |  +-- metric
+    |  |  |  +-- (metric-transparent-choice)?
+    |  |  |     +--:(metric-value)
+    |  |  |     |  +-- metric-value?   uint32
+    |  |  |     +--:(transparent)
+    |  |  |        +-- transparent?    empty
+    |  |  +-- route-map?   string
+    |  +-- connected!
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- bgp* [as-number]
+    |  |  +-- as-number?              ios-types:bgp-as-number-type
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- eigrp* [as-number]
+    |  |  +-- as-number?              uint16
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- isis!
+    |  |  +-- isis-area* [name]
+    |  |  |  +-- name?              string
+    |  |  |  +-- rip-isis-redist
+    |  |  |     +-- isis-level-routes?      enumeration
+    |  |  |     +-- rip-metric-route-map
+    |  |  |        +-- metric
+    |  |  |        |  +-- (metric-transparent-choice)?
+    |  |  |        |     +--:(metric-value)
+    |  |  |        |     |  +-- metric-value?   uint32
+    |  |  |        |     +--:(transparent)
+    |  |  |        |        +-- transparent?    empty
+    |  |  |        +-- route-map?   string
+    |  |  +-- rip-isis-redist
+    |  |     +-- isis-level-routes?      enumeration
+    |  |     +-- rip-metric-route-map
+    |  |        +-- metric
+    |  |        |  +-- (metric-transparent-choice)?
+    |  |        |     +--:(metric-value)
+    |  |        |     |  +-- metric-value?   uint32
+    |  |        |     +--:(transparent)
+    |  |        |        +-- transparent?    empty
+    |  |        +-- route-map?   string
+    |  +-- iso-igrp!
+    |  |  +-- isoigrp-list* [iso-area-tag]
+    |  |  |  +-- iso-area-tag?           string
+    |  |  |  +-- rip-metric-route-map
+    |  |  |     +-- route-map?   string
+    |  |  |     +-- metric
+    |  |  |        +-- (metric-transparent-choice)?
+    |  |  |           +--:(metric-value)
+    |  |  |           |  +-- metric-value?   uint32
+    |  |  |           +--:(transparent)
+    |  |  |              +-- transparent?    empty
+    |  |  +-- rip-metric-route-map
+    |  |     +-- route-map?   string
+    |  |     +-- metric
+    |  |        +-- (metric-transparent-choice)?
+    |  |           +--:(metric-value)
+    |  |           |  +-- metric-value?   uint32
+    |  |           +--:(transparent)
+    |  |              +-- transparent?    empty
+    |  +-- mobile!
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- odr!
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- ospf* [process-id]
+    |  |  +-- process-id?             uint16
+    |  |  +-- vrf* [name]
+    |  |  |  +-- name?   string
+    |  |  +-- match
+    |  |  |  +-- internal!
+    |  |  |  |  +-- rip-metric-route-map
+    |  |  |  |     +-- metric
+    |  |  |  |     |  +-- (metric-transparent-choice)?
+    |  |  |  |     |     +--:(metric-value)
+    |  |  |  |     |     |  +-- metric-value?   uint32
+    |  |  |  |     |     +--:(transparent)
+    |  |  |  |     |        +-- transparent?    empty
+    |  |  |  |     +-- route-map?   string
+    |  |  |  +-- external!
+    |  |  |  |  +-- external-routes?        ios-types:redist-ospf-external-type
+    |  |  |  |  +-- rip-metric-route-map
+    |  |  |  |     +-- metric
+    |  |  |  |     |  +-- (metric-transparent-choice)?
+    |  |  |  |     |     +--:(metric-value)
+    |  |  |  |     |     |  +-- metric-value?   uint32
+    |  |  |  |     |     +--:(transparent)
+    |  |  |  |     |        +-- transparent?    empty
+    |  |  |  |     +-- route-map?   string
+    |  |  |  +-- nssa-external!
+    |  |  |     +-- nssa-external-routes?   ios-types:redist-ospf-external-type
+    |  |  |     +-- rip-metric-route-map
+    |  |  |        +-- metric
+    |  |  |        |  +-- (metric-transparent-choice)?
+    |  |  |        |     +--:(metric-value)
+    |  |  |        |     |  +-- metric-value?   uint32
+    |  |  |        |     +--:(transparent)
+    |  |  |        |        +-- transparent?    empty
+    |  |  |        +-- route-map?   string
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- static!
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- rip!
+    |     +-- rip-metric-route-map
+    |        +-- metric
+    |        |  +-- (metric-transparent-choice)?
+    |        |     +--:(metric-value)
+    |        |     |  +-- metric-value?   uint32
+    |        |     +--:(transparent)
+    |        |        +-- transparent?    empty
+    |        +-- route-map?   string
+    +-- timers
+    |  +-- basic
+    |     +-- updates?    uint32
+    |     +-- invalid?    uint32
+    |     +-- holddown?   uint32
+    |     +-- flush?      uint32
+    |     +-- sleep?      uint32
+    +-- version?                  uint8
+  grouping redist-isis-grouping
+    +-- rip-isis-redist
+       +-- isis-level-routes?      enumeration
+       +-- rip-metric-route-map
+          +-- metric
+          |  +-- (metric-transparent-choice)?
+          |     +--:(metric-value)
+          |     |  +-- metric-value?   uint32
+          |     +--:(transparent)
+          |        +-- transparent?    empty
+          +-- route-map?   string
+  grouping rip-metric-route-map-grouping
+    +-- rip-metric-route-map
+       +-- metric
+       |  +-- (metric-transparent-choice)?
+       |     +--:(metric-value)
+       |     |  +-- metric-value?   uint32
+       |     +--:(transparent)
+       |        +-- transparent?    empty
+       +-- route-map?   string
+  grouping rip-iso-igrp-metric-route-map-grouping
+    +-- rip-metric-route-map
+       +-- route-map?   string
+       +-- metric
+          +-- (metric-transparent-choice)?
+             +--:(metric-value)
+             |  +-- metric-value?   uint32
+             +--:(transparent)
+                +-- transparent?    empty
+  grouping ipv6-router-rip-grouping
+    +-- distance?          uint8
+    +-- distribute-list
+    |  +-- prefix-list* [name]
+    |     +-- name?   string
+    |     +-- in?     empty
+    |     +-- out?    empty
+    +-- maximum-paths?     uint32
+    +-- poison-reverse?    empty
+    +-- redistribute
+    |  +-- application
+    |  |  +-- include-connected?   empty
+    |  |  +-- metric?              uint32
+    |  |  +-- route-map?           string
+    |  +-- lisp
+    |  |  +-- include-connected?   empty
+    |  |  +-- metric?              uint32
+    |  |  +-- route-map?           string
+    |  +-- nd
+    |  |  +-- include-connected?   empty
+    |  |  +-- metric?              uint32
+    |  |  +-- route-map?           string
+    |  +-- connected!
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- bgp* [as-number]
+    |  |  +-- as-number?              ios-types:bgp-as-number-type
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- eigrp* [as-number]
+    |  |  +-- as-number?              uint16
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- isis!
+    |  |  +-- isis-area* [name]
+    |  |  |  +-- name?              string
+    |  |  |  +-- rip-isis-redist
+    |  |  |     +-- isis-level-routes?      enumeration
+    |  |  |     +-- rip-metric-route-map
+    |  |  |        +-- metric
+    |  |  |        |  +-- (metric-transparent-choice)?
+    |  |  |        |     +--:(metric-value)
+    |  |  |        |     |  +-- metric-value?   uint32
+    |  |  |        |     +--:(transparent)
+    |  |  |        |        +-- transparent?    empty
+    |  |  |        +-- route-map?   string
+    |  |  +-- rip-isis-redist
+    |  |     +-- isis-level-routes?      enumeration
+    |  |     +-- rip-metric-route-map
+    |  |        +-- metric
+    |  |        |  +-- (metric-transparent-choice)?
+    |  |        |     +--:(metric-value)
+    |  |        |     |  +-- metric-value?   uint32
+    |  |        |     +--:(transparent)
+    |  |        |        +-- transparent?    empty
+    |  |        +-- route-map?   string
+    |  +-- iso-igrp!
+    |  |  +-- isoigrp-list* [iso-area-tag]
+    |  |  |  +-- iso-area-tag?           string
+    |  |  |  +-- rip-metric-route-map
+    |  |  |     +-- route-map?   string
+    |  |  |     +-- metric
+    |  |  |        +-- (metric-transparent-choice)?
+    |  |  |           +--:(metric-value)
+    |  |  |           |  +-- metric-value?   uint32
+    |  |  |           +--:(transparent)
+    |  |  |              +-- transparent?    empty
+    |  |  +-- rip-metric-route-map
+    |  |     +-- route-map?   string
+    |  |     +-- metric
+    |  |        +-- (metric-transparent-choice)?
+    |  |           +--:(metric-value)
+    |  |           |  +-- metric-value?   uint32
+    |  |           +--:(transparent)
+    |  |              +-- transparent?    empty
+    |  +-- mobile!
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- odr!
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- ospf* [process-id]
+    |  |  +-- process-id?             uint16
+    |  |  +-- vrf* [name]
+    |  |  |  +-- name?   string
+    |  |  +-- match
+    |  |  |  +-- internal!
+    |  |  |  |  +-- rip-metric-route-map
+    |  |  |  |     +-- metric
+    |  |  |  |     |  +-- (metric-transparent-choice)?
+    |  |  |  |     |     +--:(metric-value)
+    |  |  |  |     |     |  +-- metric-value?   uint32
+    |  |  |  |     |     +--:(transparent)
+    |  |  |  |     |        +-- transparent?    empty
+    |  |  |  |     +-- route-map?   string
+    |  |  |  +-- external!
+    |  |  |  |  +-- external-routes?        ios-types:redist-ospf-external-type
+    |  |  |  |  +-- rip-metric-route-map
+    |  |  |  |     +-- metric
+    |  |  |  |     |  +-- (metric-transparent-choice)?
+    |  |  |  |     |     +--:(metric-value)
+    |  |  |  |     |     |  +-- metric-value?   uint32
+    |  |  |  |     |     +--:(transparent)
+    |  |  |  |     |        +-- transparent?    empty
+    |  |  |  |     +-- route-map?   string
+    |  |  |  +-- nssa-external!
+    |  |  |     +-- nssa-external-routes?   ios-types:redist-ospf-external-type
+    |  |  |     +-- rip-metric-route-map
+    |  |  |        +-- metric
+    |  |  |        |  +-- (metric-transparent-choice)?
+    |  |  |        |     +--:(metric-value)
+    |  |  |        |     |  +-- metric-value?   uint32
+    |  |  |        |     +--:(transparent)
+    |  |  |        |        +-- transparent?    empty
+    |  |  |        +-- route-map?   string
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- static!
+    |  |  +-- rip-metric-route-map
+    |  |     +-- metric
+    |  |     |  +-- (metric-transparent-choice)?
+    |  |     |     +--:(metric-value)
+    |  |     |     |  +-- metric-value?   uint32
+    |  |     |     +--:(transparent)
+    |  |     |        +-- transparent?    empty
+    |  |     +-- route-map?   string
+    |  +-- rip!
+    |     +-- rip-metric-route-map
+    |        +-- metric
+    |        |  +-- (metric-transparent-choice)?
+    |        |     +--:(metric-value)
+    |        |     |  +-- metric-value?   uint32
+    |        |     +--:(transparent)
+    |        |        +-- transparent?    empty
+    |        +-- route-map?   string
+    +-- split-horizon?     empty
+    +-- timers
+       +-- update?               uint16
+       +-- timeout?              uint16
+       +-- holddown?             uint16
+       +-- garbage-collection?   uint16
+  grouping config-ipv6-router-rip-grouping
+    +-- rip* [id]
+       +-- id?                string
+       +-- address-family
+       |  +-- ipv6
+       |     +-- vrf* [name]
+       |        +-- name?              string
+       |        +-- distance?          uint8
+       |        +-- distribute-list
+       |        |  +-- prefix-list* [name]
+       |        |     +-- name?   string
+       |        |     +-- in?     empty
+       |        |     +-- out?    empty
+       |        +-- maximum-paths?     uint32
+       |        +-- poison-reverse?    empty
+       |        +-- redistribute
+       |        |  +-- application
+       |        |  |  +-- include-connected?   empty
+       |        |  |  +-- metric?              uint32
+       |        |  |  +-- route-map?           string
+       |        |  +-- lisp
+       |        |  |  +-- include-connected?   empty
+       |        |  |  +-- metric?              uint32
+       |        |  |  +-- route-map?           string
+       |        |  +-- nd
+       |        |  |  +-- include-connected?   empty
+       |        |  |  +-- metric?              uint32
+       |        |  |  +-- route-map?           string
+       |        |  +-- connected!
+       |        |  |  +-- rip-metric-route-map
+       |        |  |     +-- metric
+       |        |  |     |  +-- (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +-- metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +-- transparent?    empty
+       |        |  |     +-- route-map?   string
+       |        |  +-- bgp* [as-number]
+       |        |  |  +-- as-number?              ios-types:bgp-as-number-type
+       |        |  |  +-- rip-metric-route-map
+       |        |  |     +-- metric
+       |        |  |     |  +-- (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +-- metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +-- transparent?    empty
+       |        |  |     +-- route-map?   string
+       |        |  +-- eigrp* [as-number]
+       |        |  |  +-- as-number?              uint16
+       |        |  |  +-- rip-metric-route-map
+       |        |  |     +-- metric
+       |        |  |     |  +-- (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +-- metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +-- transparent?    empty
+       |        |  |     +-- route-map?   string
+       |        |  +-- isis!
+       |        |  |  +-- isis-area* [name]
+       |        |  |  |  +-- name?              string
+       |        |  |  |  +-- rip-isis-redist
+       |        |  |  |     +-- isis-level-routes?      enumeration
+       |        |  |  |     +-- rip-metric-route-map
+       |        |  |  |        +-- metric
+       |        |  |  |        |  +-- (metric-transparent-choice)?
+       |        |  |  |        |     +--:(metric-value)
+       |        |  |  |        |     |  +-- metric-value?   uint32
+       |        |  |  |        |     +--:(transparent)
+       |        |  |  |        |        +-- transparent?    empty
+       |        |  |  |        +-- route-map?   string
+       |        |  |  +-- rip-isis-redist
+       |        |  |     +-- isis-level-routes?      enumeration
+       |        |  |     +-- rip-metric-route-map
+       |        |  |        +-- metric
+       |        |  |        |  +-- (metric-transparent-choice)?
+       |        |  |        |     +--:(metric-value)
+       |        |  |        |     |  +-- metric-value?   uint32
+       |        |  |        |     +--:(transparent)
+       |        |  |        |        +-- transparent?    empty
+       |        |  |        +-- route-map?   string
+       |        |  +-- iso-igrp!
+       |        |  |  +-- isoigrp-list* [iso-area-tag]
+       |        |  |  |  +-- iso-area-tag?           string
+       |        |  |  |  +-- rip-metric-route-map
+       |        |  |  |     +-- route-map?   string
+       |        |  |  |     +-- metric
+       |        |  |  |        +-- (metric-transparent-choice)?
+       |        |  |  |           +--:(metric-value)
+       |        |  |  |           |  +-- metric-value?   uint32
+       |        |  |  |           +--:(transparent)
+       |        |  |  |              +-- transparent?    empty
+       |        |  |  +-- rip-metric-route-map
+       |        |  |     +-- route-map?   string
+       |        |  |     +-- metric
+       |        |  |        +-- (metric-transparent-choice)?
+       |        |  |           +--:(metric-value)
+       |        |  |           |  +-- metric-value?   uint32
+       |        |  |           +--:(transparent)
+       |        |  |              +-- transparent?    empty
+       |        |  +-- mobile!
+       |        |  |  +-- rip-metric-route-map
+       |        |  |     +-- metric
+       |        |  |     |  +-- (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +-- metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +-- transparent?    empty
+       |        |  |     +-- route-map?   string
+       |        |  +-- odr!
+       |        |  |  +-- rip-metric-route-map
+       |        |  |     +-- metric
+       |        |  |     |  +-- (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +-- metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +-- transparent?    empty
+       |        |  |     +-- route-map?   string
+       |        |  +-- ospf* [process-id]
+       |        |  |  +-- process-id?             uint16
+       |        |  |  +-- vrf* [name]
+       |        |  |  |  +-- name?   string
+       |        |  |  +-- match
+       |        |  |  |  +-- internal!
+       |        |  |  |  |  +-- rip-metric-route-map
+       |        |  |  |  |     +-- metric
+       |        |  |  |  |     |  +-- (metric-transparent-choice)?
+       |        |  |  |  |     |     +--:(metric-value)
+       |        |  |  |  |     |     |  +-- metric-value?   uint32
+       |        |  |  |  |     |     +--:(transparent)
+       |        |  |  |  |     |        +-- transparent?    empty
+       |        |  |  |  |     +-- route-map?   string
+       |        |  |  |  +-- external!
+       |        |  |  |  |  +-- external-routes?        ios-types:redist-ospf-external-type
+       |        |  |  |  |  +-- rip-metric-route-map
+       |        |  |  |  |     +-- metric
+       |        |  |  |  |     |  +-- (metric-transparent-choice)?
+       |        |  |  |  |     |     +--:(metric-value)
+       |        |  |  |  |     |     |  +-- metric-value?   uint32
+       |        |  |  |  |     |     +--:(transparent)
+       |        |  |  |  |     |        +-- transparent?    empty
+       |        |  |  |  |     +-- route-map?   string
+       |        |  |  |  +-- nssa-external!
+       |        |  |  |     +-- nssa-external-routes?   ios-types:redist-ospf-external-type
+       |        |  |  |     +-- rip-metric-route-map
+       |        |  |  |        +-- metric
+       |        |  |  |        |  +-- (metric-transparent-choice)?
+       |        |  |  |        |     +--:(metric-value)
+       |        |  |  |        |     |  +-- metric-value?   uint32
+       |        |  |  |        |     +--:(transparent)
+       |        |  |  |        |        +-- transparent?    empty
+       |        |  |  |        +-- route-map?   string
+       |        |  |  +-- rip-metric-route-map
+       |        |  |     +-- metric
+       |        |  |     |  +-- (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +-- metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +-- transparent?    empty
+       |        |  |     +-- route-map?   string
+       |        |  +-- static!
+       |        |  |  +-- rip-metric-route-map
+       |        |  |     +-- metric
+       |        |  |     |  +-- (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +-- metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +-- transparent?    empty
+       |        |  |     +-- route-map?   string
+       |        |  +-- rip!
+       |        |     +-- rip-metric-route-map
+       |        |        +-- metric
+       |        |        |  +-- (metric-transparent-choice)?
+       |        |        |     +--:(metric-value)
+       |        |        |     |  +-- metric-value?   uint32
+       |        |        |     +--:(transparent)
+       |        |        |        +-- transparent?    empty
+       |        |        +-- route-map?   string
+       |        +-- split-horizon?     empty
+       |        +-- timers
+       |           +-- update?               uint16
+       |           +-- timeout?              uint16
+       |           +-- holddown?             uint16
+       |           +-- garbage-collection?   uint16
+       +-- distance?          uint8
+       +-- distribute-list
+       |  +-- prefix-list* [name]
+       |     +-- name?   string
+       |     +-- in?     empty
+       |     +-- out?    empty
+       +-- maximum-paths?     uint32
+       +-- poison-reverse?    empty
+       +-- redistribute
+       |  +-- application
+       |  |  +-- include-connected?   empty
+       |  |  +-- metric?              uint32
+       |  |  +-- route-map?           string
+       |  +-- lisp
+       |  |  +-- include-connected?   empty
+       |  |  +-- metric?              uint32
+       |  |  +-- route-map?           string
+       |  +-- nd
+       |  |  +-- include-connected?   empty
+       |  |  +-- metric?              uint32
+       |  |  +-- route-map?           string
+       |  +-- connected!
+       |  |  +-- rip-metric-route-map
+       |  |     +-- metric
+       |  |     |  +-- (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +-- metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +-- transparent?    empty
+       |  |     +-- route-map?   string
+       |  +-- bgp* [as-number]
+       |  |  +-- as-number?              ios-types:bgp-as-number-type
+       |  |  +-- rip-metric-route-map
+       |  |     +-- metric
+       |  |     |  +-- (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +-- metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +-- transparent?    empty
+       |  |     +-- route-map?   string
+       |  +-- eigrp* [as-number]
+       |  |  +-- as-number?              uint16
+       |  |  +-- rip-metric-route-map
+       |  |     +-- metric
+       |  |     |  +-- (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +-- metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +-- transparent?    empty
+       |  |     +-- route-map?   string
+       |  +-- isis!
+       |  |  +-- isis-area* [name]
+       |  |  |  +-- name?              string
+       |  |  |  +-- rip-isis-redist
+       |  |  |     +-- isis-level-routes?      enumeration
+       |  |  |     +-- rip-metric-route-map
+       |  |  |        +-- metric
+       |  |  |        |  +-- (metric-transparent-choice)?
+       |  |  |        |     +--:(metric-value)
+       |  |  |        |     |  +-- metric-value?   uint32
+       |  |  |        |     +--:(transparent)
+       |  |  |        |        +-- transparent?    empty
+       |  |  |        +-- route-map?   string
+       |  |  +-- rip-isis-redist
+       |  |     +-- isis-level-routes?      enumeration
+       |  |     +-- rip-metric-route-map
+       |  |        +-- metric
+       |  |        |  +-- (metric-transparent-choice)?
+       |  |        |     +--:(metric-value)
+       |  |        |     |  +-- metric-value?   uint32
+       |  |        |     +--:(transparent)
+       |  |        |        +-- transparent?    empty
+       |  |        +-- route-map?   string
+       |  +-- iso-igrp!
+       |  |  +-- isoigrp-list* [iso-area-tag]
+       |  |  |  +-- iso-area-tag?           string
+       |  |  |  +-- rip-metric-route-map
+       |  |  |     +-- route-map?   string
+       |  |  |     +-- metric
+       |  |  |        +-- (metric-transparent-choice)?
+       |  |  |           +--:(metric-value)
+       |  |  |           |  +-- metric-value?   uint32
+       |  |  |           +--:(transparent)
+       |  |  |              +-- transparent?    empty
+       |  |  +-- rip-metric-route-map
+       |  |     +-- route-map?   string
+       |  |     +-- metric
+       |  |        +-- (metric-transparent-choice)?
+       |  |           +--:(metric-value)
+       |  |           |  +-- metric-value?   uint32
+       |  |           +--:(transparent)
+       |  |              +-- transparent?    empty
+       |  +-- mobile!
+       |  |  +-- rip-metric-route-map
+       |  |     +-- metric
+       |  |     |  +-- (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +-- metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +-- transparent?    empty
+       |  |     +-- route-map?   string
+       |  +-- odr!
+       |  |  +-- rip-metric-route-map
+       |  |     +-- metric
+       |  |     |  +-- (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +-- metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +-- transparent?    empty
+       |  |     +-- route-map?   string
+       |  +-- ospf* [process-id]
+       |  |  +-- process-id?             uint16
+       |  |  +-- vrf* [name]
+       |  |  |  +-- name?   string
+       |  |  +-- match
+       |  |  |  +-- internal!
+       |  |  |  |  +-- rip-metric-route-map
+       |  |  |  |     +-- metric
+       |  |  |  |     |  +-- (metric-transparent-choice)?
+       |  |  |  |     |     +--:(metric-value)
+       |  |  |  |     |     |  +-- metric-value?   uint32
+       |  |  |  |     |     +--:(transparent)
+       |  |  |  |     |        +-- transparent?    empty
+       |  |  |  |     +-- route-map?   string
+       |  |  |  +-- external!
+       |  |  |  |  +-- external-routes?        ios-types:redist-ospf-external-type
+       |  |  |  |  +-- rip-metric-route-map
+       |  |  |  |     +-- metric
+       |  |  |  |     |  +-- (metric-transparent-choice)?
+       |  |  |  |     |     +--:(metric-value)
+       |  |  |  |     |     |  +-- metric-value?   uint32
+       |  |  |  |     |     +--:(transparent)
+       |  |  |  |     |        +-- transparent?    empty
+       |  |  |  |     +-- route-map?   string
+       |  |  |  +-- nssa-external!
+       |  |  |     +-- nssa-external-routes?   ios-types:redist-ospf-external-type
+       |  |  |     +-- rip-metric-route-map
+       |  |  |        +-- metric
+       |  |  |        |  +-- (metric-transparent-choice)?
+       |  |  |        |     +--:(metric-value)
+       |  |  |        |     |  +-- metric-value?   uint32
+       |  |  |        |     +--:(transparent)
+       |  |  |        |        +-- transparent?    empty
+       |  |  |        +-- route-map?   string
+       |  |  +-- rip-metric-route-map
+       |  |     +-- metric
+       |  |     |  +-- (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +-- metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +-- transparent?    empty
+       |  |     +-- route-map?   string
+       |  +-- static!
+       |  |  +-- rip-metric-route-map
+       |  |     +-- metric
+       |  |     |  +-- (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +-- metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +-- transparent?    empty
+       |  |     +-- route-map?   string
+       |  +-- rip!
+       |     +-- rip-metric-route-map
+       |        +-- metric
+       |        |  +-- (metric-transparent-choice)?
+       |        |     +--:(metric-value)
+       |        |     |  +-- metric-value?   uint32
+       |        |     +--:(transparent)
+       |        |        +-- transparent?    empty
+       |        +-- route-map?   string
+       +-- split-horizon?     empty
+       +-- timers
+          +-- update?               uint16
+          +-- timeout?              uint16
+          +-- holddown?             uint16
+          +-- garbage-collection?   uint16
+  grouping config-router-rip-grouping
+    +-- rip!
+       +-- auto-summary?             empty
+       +-- maximum-paths?            uint8
+       +-- neighbor* [ip]
+       |  +-- ip?   inet:ipv4-address
+       +-- network* [ip]
+       |  +-- ip?   inet:ipv4-address
+       +-- validate-update-source?   boolean
+       +-- default-information
+       |  +-- originate!
+       |     +-- route-map?   string
+       +-- default-metric?           uint32
+       +-- distance
+       |  +-- distance-leaf?   uint8
+       |  +-- distance-list* [number ip mask]
+       |     +-- number?   uint8
+       |     +-- ip?       inet:ipv4-address
+       |     +-- mask?     inet:ipv4-address
+       +-- distribute-list
+       |  +-- accesslist* [in-out]
+       |  |  +-- in-out?   ios-types:access-list-in-out-type
+       |  +-- accesslist-ifname* [in-out interface]
+       |  |  +-- in-out?                 ios-types:access-list-in-out-type
+       |  |  +-- interface?              string
+       |  |  +-- interface-routing-id?   uint8
+       |  |  +-- isis-tag?               string
+       |  |  +-- vrf?                    string
+       |  +-- accesslist-prefix-gateway* [in-out]
+       |  |  +-- in-out?           ios-types:access-list-in-out-type
+       |  |  +-- prefix-gateway    enumeration
+       |  |  +-- name              string
+       |  +-- accesslist-prefix-gateway-ifname* [in-out interface]
+       |     +-- in-out?                 ios-types:access-list-in-out-type
+       |     +-- interface?              string
+       |     +-- prefix-gateway          enumeration
+       |     +-- name                    string
+       |     +-- interface-routing-id?   uint8
+       |     +-- isis-tag?               string
+       |     +-- vrf?                    string
+       +-- offset-list* [in-out]
+       |  +-- in-out?   offset-list-in-out-type
+       |  +-- offset    uint8
+       +-- redistribute
+       |  +-- rip-metric-route-map
+       |  |  +-- metric
+       |  |  |  +-- (metric-transparent-choice)?
+       |  |  |     +--:(metric-value)
+       |  |  |     |  +-- metric-value?   uint32
+       |  |  |     +--:(transparent)
+       |  |  |        +-- transparent?    empty
+       |  |  +-- route-map?   string
+       |  +-- connected!
+       |  |  +-- rip-metric-route-map
+       |  |     +-- metric
+       |  |     |  +-- (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +-- metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +-- transparent?    empty
+       |  |     +-- route-map?   string
+       |  +-- bgp* [as-number]
+       |  |  +-- as-number?              ios-types:bgp-as-number-type
+       |  |  +-- rip-metric-route-map
+       |  |     +-- metric
+       |  |     |  +-- (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +-- metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +-- transparent?    empty
+       |  |     +-- route-map?   string
+       |  +-- eigrp* [as-number]
+       |  |  +-- as-number?              uint16
+       |  |  +-- rip-metric-route-map
+       |  |     +-- metric
+       |  |     |  +-- (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +-- metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +-- transparent?    empty
+       |  |     +-- route-map?   string
+       |  +-- isis!
+       |  |  +-- isis-area* [name]
+       |  |  |  +-- name?              string
+       |  |  |  +-- rip-isis-redist
+       |  |  |     +-- isis-level-routes?      enumeration
+       |  |  |     +-- rip-metric-route-map
+       |  |  |        +-- metric
+       |  |  |        |  +-- (metric-transparent-choice)?
+       |  |  |        |     +--:(metric-value)
+       |  |  |        |     |  +-- metric-value?   uint32
+       |  |  |        |     +--:(transparent)
+       |  |  |        |        +-- transparent?    empty
+       |  |  |        +-- route-map?   string
+       |  |  +-- rip-isis-redist
+       |  |     +-- isis-level-routes?      enumeration
+       |  |     +-- rip-metric-route-map
+       |  |        +-- metric
+       |  |        |  +-- (metric-transparent-choice)?
+       |  |        |     +--:(metric-value)
+       |  |        |     |  +-- metric-value?   uint32
+       |  |        |     +--:(transparent)
+       |  |        |        +-- transparent?    empty
+       |  |        +-- route-map?   string
+       |  +-- iso-igrp!
+       |  |  +-- isoigrp-list* [iso-area-tag]
+       |  |  |  +-- iso-area-tag?           string
+       |  |  |  +-- rip-metric-route-map
+       |  |  |     +-- route-map?   string
+       |  |  |     +-- metric
+       |  |  |        +-- (metric-transparent-choice)?
+       |  |  |           +--:(metric-value)
+       |  |  |           |  +-- metric-value?   uint32
+       |  |  |           +--:(transparent)
+       |  |  |              +-- transparent?    empty
+       |  |  +-- rip-metric-route-map
+       |  |     +-- route-map?   string
+       |  |     +-- metric
+       |  |        +-- (metric-transparent-choice)?
+       |  |           +--:(metric-value)
+       |  |           |  +-- metric-value?   uint32
+       |  |           +--:(transparent)
+       |  |              +-- transparent?    empty
+       |  +-- mobile!
+       |  |  +-- rip-metric-route-map
+       |  |     +-- metric
+       |  |     |  +-- (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +-- metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +-- transparent?    empty
+       |  |     +-- route-map?   string
+       |  +-- odr!
+       |  |  +-- rip-metric-route-map
+       |  |     +-- metric
+       |  |     |  +-- (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +-- metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +-- transparent?    empty
+       |  |     +-- route-map?   string
+       |  +-- ospf* [process-id]
+       |  |  +-- process-id?             uint16
+       |  |  +-- vrf* [name]
+       |  |  |  +-- name?   string
+       |  |  +-- match
+       |  |  |  +-- internal!
+       |  |  |  |  +-- rip-metric-route-map
+       |  |  |  |     +-- metric
+       |  |  |  |     |  +-- (metric-transparent-choice)?
+       |  |  |  |     |     +--:(metric-value)
+       |  |  |  |     |     |  +-- metric-value?   uint32
+       |  |  |  |     |     +--:(transparent)
+       |  |  |  |     |        +-- transparent?    empty
+       |  |  |  |     +-- route-map?   string
+       |  |  |  +-- external!
+       |  |  |  |  +-- external-routes?        ios-types:redist-ospf-external-type
+       |  |  |  |  +-- rip-metric-route-map
+       |  |  |  |     +-- metric
+       |  |  |  |     |  +-- (metric-transparent-choice)?
+       |  |  |  |     |     +--:(metric-value)
+       |  |  |  |     |     |  +-- metric-value?   uint32
+       |  |  |  |     |     +--:(transparent)
+       |  |  |  |     |        +-- transparent?    empty
+       |  |  |  |     +-- route-map?   string
+       |  |  |  +-- nssa-external!
+       |  |  |     +-- nssa-external-routes?   ios-types:redist-ospf-external-type
+       |  |  |     +-- rip-metric-route-map
+       |  |  |        +-- metric
+       |  |  |        |  +-- (metric-transparent-choice)?
+       |  |  |        |     +--:(metric-value)
+       |  |  |        |     |  +-- metric-value?   uint32
+       |  |  |        |     +--:(transparent)
+       |  |  |        |        +-- transparent?    empty
+       |  |  |        +-- route-map?   string
+       |  |  +-- rip-metric-route-map
+       |  |     +-- metric
+       |  |     |  +-- (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +-- metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +-- transparent?    empty
+       |  |     +-- route-map?   string
+       |  +-- static!
+       |  |  +-- rip-metric-route-map
+       |  |     +-- metric
+       |  |     |  +-- (metric-transparent-choice)?
+       |  |     |     +--:(metric-value)
+       |  |     |     |  +-- metric-value?   uint32
+       |  |     |     +--:(transparent)
+       |  |     |        +-- transparent?    empty
+       |  |     +-- route-map?   string
+       |  +-- rip!
+       |     +-- rip-metric-route-map
+       |        +-- metric
+       |        |  +-- (metric-transparent-choice)?
+       |        |     +--:(metric-value)
+       |        |     |  +-- metric-value?   uint32
+       |        |     +--:(transparent)
+       |        |        +-- transparent?    empty
+       |        +-- route-map?   string
+       +-- timers
+       |  +-- basic
+       |     +-- updates?    uint32
+       |     +-- invalid?    uint32
+       |     +-- holddown?   uint32
+       |     +-- flush?      uint32
+       |     +-- sleep?      uint32
+       +-- version?                  uint8
+       +-- flash-update-threshold?   uint8
+       +-- input-queue?              uint16
+       +-- output-delay?             uint8
+       +-- passive-interface
+       |  +-- (passive-interface-choice)?
+       |     +--:(default)
+       |     |  +-- default?     empty
+       |     +--:(interface)
+       |        +-- interface?   string
+       +-- disable
+       |  +-- passive-interface* [interface]
+       |     +-- interface?   string
+       +-- traffic-share
+       |  +-- min
+       |     +-- across-interfaces?   empty
+       +-- address-family
+       |  +-- ipv4
+       |     +-- unicast
+       |     |  +-- auto-summary?             empty
+       |     |  +-- maximum-paths?            uint8
+       |     |  +-- neighbor* [ip]
+       |     |  |  +-- ip?   inet:ipv4-address
+       |     |  +-- network* [ip]
+       |     |  |  +-- ip?   inet:ipv4-address
+       |     |  +-- validate-update-source?   boolean
+       |     |  +-- default-information
+       |     |  |  +-- originate!
+       |     |  |     +-- route-map?   string
+       |     |  +-- default-metric?           uint32
+       |     |  +-- distance
+       |     |  |  +-- distance-leaf?   uint8
+       |     |  |  +-- distance-list* [number ip mask]
+       |     |  |     +-- number?   uint8
+       |     |  |     +-- ip?       inet:ipv4-address
+       |     |  |     +-- mask?     inet:ipv4-address
+       |     |  +-- distribute-list
+       |     |  |  +-- accesslist* [in-out]
+       |     |  |  |  +-- in-out?   ios-types:access-list-in-out-type
+       |     |  |  +-- accesslist-ifname* [in-out interface]
+       |     |  |  |  +-- in-out?                 ios-types:access-list-in-out-type
+       |     |  |  |  +-- interface?              string
+       |     |  |  |  +-- interface-routing-id?   uint8
+       |     |  |  |  +-- isis-tag?               string
+       |     |  |  |  +-- vrf?                    string
+       |     |  |  +-- accesslist-prefix-gateway* [in-out]
+       |     |  |  |  +-- in-out?           ios-types:access-list-in-out-type
+       |     |  |  |  +-- prefix-gateway    enumeration
+       |     |  |  |  +-- name              string
+       |     |  |  +-- accesslist-prefix-gateway-ifname* [in-out interface]
+       |     |  |     +-- in-out?                 ios-types:access-list-in-out-type
+       |     |  |     +-- interface?              string
+       |     |  |     +-- prefix-gateway          enumeration
+       |     |  |     +-- name                    string
+       |     |  |     +-- interface-routing-id?   uint8
+       |     |  |     +-- isis-tag?               string
+       |     |  |     +-- vrf?                    string
+       |     |  +-- offset-list* [in-out]
+       |     |  |  +-- in-out?   offset-list-in-out-type
+       |     |  |  +-- offset    uint8
+       |     |  +-- redistribute
+       |     |  |  +-- rip-metric-route-map
+       |     |  |  |  +-- metric
+       |     |  |  |  |  +-- (metric-transparent-choice)?
+       |     |  |  |  |     +--:(metric-value)
+       |     |  |  |  |     |  +-- metric-value?   uint32
+       |     |  |  |  |     +--:(transparent)
+       |     |  |  |  |        +-- transparent?    empty
+       |     |  |  |  +-- route-map?   string
+       |     |  |  +-- connected!
+       |     |  |  |  +-- rip-metric-route-map
+       |     |  |  |     +-- metric
+       |     |  |  |     |  +-- (metric-transparent-choice)?
+       |     |  |  |     |     +--:(metric-value)
+       |     |  |  |     |     |  +-- metric-value?   uint32
+       |     |  |  |     |     +--:(transparent)
+       |     |  |  |     |        +-- transparent?    empty
+       |     |  |  |     +-- route-map?   string
+       |     |  |  +-- bgp* [as-number]
+       |     |  |  |  +-- as-number?              ios-types:bgp-as-number-type
+       |     |  |  |  +-- rip-metric-route-map
+       |     |  |  |     +-- metric
+       |     |  |  |     |  +-- (metric-transparent-choice)?
+       |     |  |  |     |     +--:(metric-value)
+       |     |  |  |     |     |  +-- metric-value?   uint32
+       |     |  |  |     |     +--:(transparent)
+       |     |  |  |     |        +-- transparent?    empty
+       |     |  |  |     +-- route-map?   string
+       |     |  |  +-- eigrp* [as-number]
+       |     |  |  |  +-- as-number?              uint16
+       |     |  |  |  +-- rip-metric-route-map
+       |     |  |  |     +-- metric
+       |     |  |  |     |  +-- (metric-transparent-choice)?
+       |     |  |  |     |     +--:(metric-value)
+       |     |  |  |     |     |  +-- metric-value?   uint32
+       |     |  |  |     |     +--:(transparent)
+       |     |  |  |     |        +-- transparent?    empty
+       |     |  |  |     +-- route-map?   string
+       |     |  |  +-- isis!
+       |     |  |  |  +-- isis-area* [name]
+       |     |  |  |  |  +-- name?              string
+       |     |  |  |  |  +-- rip-isis-redist
+       |     |  |  |  |     +-- isis-level-routes?      enumeration
+       |     |  |  |  |     +-- rip-metric-route-map
+       |     |  |  |  |        +-- metric
+       |     |  |  |  |        |  +-- (metric-transparent-choice)?
+       |     |  |  |  |        |     +--:(metric-value)
+       |     |  |  |  |        |     |  +-- metric-value?   uint32
+       |     |  |  |  |        |     +--:(transparent)
+       |     |  |  |  |        |        +-- transparent?    empty
+       |     |  |  |  |        +-- route-map?   string
+       |     |  |  |  +-- rip-isis-redist
+       |     |  |  |     +-- isis-level-routes?      enumeration
+       |     |  |  |     +-- rip-metric-route-map
+       |     |  |  |        +-- metric
+       |     |  |  |        |  +-- (metric-transparent-choice)?
+       |     |  |  |        |     +--:(metric-value)
+       |     |  |  |        |     |  +-- metric-value?   uint32
+       |     |  |  |        |     +--:(transparent)
+       |     |  |  |        |        +-- transparent?    empty
+       |     |  |  |        +-- route-map?   string
+       |     |  |  +-- iso-igrp!
+       |     |  |  |  +-- isoigrp-list* [iso-area-tag]
+       |     |  |  |  |  +-- iso-area-tag?           string
+       |     |  |  |  |  +-- rip-metric-route-map
+       |     |  |  |  |     +-- route-map?   string
+       |     |  |  |  |     +-- metric
+       |     |  |  |  |        +-- (metric-transparent-choice)?
+       |     |  |  |  |           +--:(metric-value)
+       |     |  |  |  |           |  +-- metric-value?   uint32
+       |     |  |  |  |           +--:(transparent)
+       |     |  |  |  |              +-- transparent?    empty
+       |     |  |  |  +-- rip-metric-route-map
+       |     |  |  |     +-- route-map?   string
+       |     |  |  |     +-- metric
+       |     |  |  |        +-- (metric-transparent-choice)?
+       |     |  |  |           +--:(metric-value)
+       |     |  |  |           |  +-- metric-value?   uint32
+       |     |  |  |           +--:(transparent)
+       |     |  |  |              +-- transparent?    empty
+       |     |  |  +-- mobile!
+       |     |  |  |  +-- rip-metric-route-map
+       |     |  |  |     +-- metric
+       |     |  |  |     |  +-- (metric-transparent-choice)?
+       |     |  |  |     |     +--:(metric-value)
+       |     |  |  |     |     |  +-- metric-value?   uint32
+       |     |  |  |     |     +--:(transparent)
+       |     |  |  |     |        +-- transparent?    empty
+       |     |  |  |     +-- route-map?   string
+       |     |  |  +-- odr!
+       |     |  |  |  +-- rip-metric-route-map
+       |     |  |  |     +-- metric
+       |     |  |  |     |  +-- (metric-transparent-choice)?
+       |     |  |  |     |     +--:(metric-value)
+       |     |  |  |     |     |  +-- metric-value?   uint32
+       |     |  |  |     |     +--:(transparent)
+       |     |  |  |     |        +-- transparent?    empty
+       |     |  |  |     +-- route-map?   string
+       |     |  |  +-- ospf* [process-id]
+       |     |  |  |  +-- process-id?             uint16
+       |     |  |  |  +-- vrf* [name]
+       |     |  |  |  |  +-- name?   string
+       |     |  |  |  +-- match
+       |     |  |  |  |  +-- internal!
+       |     |  |  |  |  |  +-- rip-metric-route-map
+       |     |  |  |  |  |     +-- metric
+       |     |  |  |  |  |     |  +-- (metric-transparent-choice)?
+       |     |  |  |  |  |     |     +--:(metric-value)
+       |     |  |  |  |  |     |     |  +-- metric-value?   uint32
+       |     |  |  |  |  |     |     +--:(transparent)
+       |     |  |  |  |  |     |        +-- transparent?    empty
+       |     |  |  |  |  |     +-- route-map?   string
+       |     |  |  |  |  +-- external!
+       |     |  |  |  |  |  +-- external-routes?        ios-types:redist-ospf-external-type
+       |     |  |  |  |  |  +-- rip-metric-route-map
+       |     |  |  |  |  |     +-- metric
+       |     |  |  |  |  |     |  +-- (metric-transparent-choice)?
+       |     |  |  |  |  |     |     +--:(metric-value)
+       |     |  |  |  |  |     |     |  +-- metric-value?   uint32
+       |     |  |  |  |  |     |     +--:(transparent)
+       |     |  |  |  |  |     |        +-- transparent?    empty
+       |     |  |  |  |  |     +-- route-map?   string
+       |     |  |  |  |  +-- nssa-external!
+       |     |  |  |  |     +-- nssa-external-routes?   ios-types:redist-ospf-external-type
+       |     |  |  |  |     +-- rip-metric-route-map
+       |     |  |  |  |        +-- metric
+       |     |  |  |  |        |  +-- (metric-transparent-choice)?
+       |     |  |  |  |        |     +--:(metric-value)
+       |     |  |  |  |        |     |  +-- metric-value?   uint32
+       |     |  |  |  |        |     +--:(transparent)
+       |     |  |  |  |        |        +-- transparent?    empty
+       |     |  |  |  |        +-- route-map?   string
+       |     |  |  |  +-- rip-metric-route-map
+       |     |  |  |     +-- metric
+       |     |  |  |     |  +-- (metric-transparent-choice)?
+       |     |  |  |     |     +--:(metric-value)
+       |     |  |  |     |     |  +-- metric-value?   uint32
+       |     |  |  |     |     +--:(transparent)
+       |     |  |  |     |        +-- transparent?    empty
+       |     |  |  |     +-- route-map?   string
+       |     |  |  +-- static!
+       |     |  |  |  +-- rip-metric-route-map
+       |     |  |  |     +-- metric
+       |     |  |  |     |  +-- (metric-transparent-choice)?
+       |     |  |  |     |     +--:(metric-value)
+       |     |  |  |     |     |  +-- metric-value?   uint32
+       |     |  |  |     |     +--:(transparent)
+       |     |  |  |     |        +-- transparent?    empty
+       |     |  |  |     +-- route-map?   string
+       |     |  |  +-- rip!
+       |     |  |     +-- rip-metric-route-map
+       |     |  |        +-- metric
+       |     |  |        |  +-- (metric-transparent-choice)?
+       |     |  |        |     +--:(metric-value)
+       |     |  |        |     |  +-- metric-value?   uint32
+       |     |  |        |     +--:(transparent)
+       |     |  |        |        +-- transparent?    empty
+       |     |  |        +-- route-map?   string
+       |     |  +-- timers
+       |     |  |  +-- basic
+       |     |  |     +-- updates?    uint32
+       |     |  |     +-- invalid?    uint32
+       |     |  |     +-- holddown?   uint32
+       |     |  |     +-- flush?      uint32
+       |     |  |     +-- sleep?      uint32
+       |     |  +-- version?                  uint8
+       |     |  +-- flash-update-threshold?   uint8
+       |     |  +-- input-queue?              uint16
+       |     |  +-- output-delay?             uint8
+       |     |  +-- passive-interface
+       |     |  |  +-- (passive-interface-choice)?
+       |     |  |     +--:(default)
+       |     |  |     |  +-- default?     empty
+       |     |  |     +--:(interface)
+       |     |  |        +-- interface?   string
+       |     |  +-- disable
+       |     |  |  +-- passive-interface* [interface]
+       |     |  |     +-- interface?   string
+       |     |  +-- traffic-share
+       |     |     +-- min
+       |     |        +-- across-interfaces?   empty
+       |     +-- vrf* [name]
+       |        +-- name?                     string
+       |        +-- auto-summary?             empty
+       |        +-- maximum-paths?            uint8
+       |        +-- neighbor* [ip]
+       |        |  +-- ip?   inet:ipv4-address
+       |        +-- network* [ip]
+       |        |  +-- ip?   inet:ipv4-address
+       |        +-- validate-update-source?   boolean
+       |        +-- default-information
+       |        |  +-- originate!
+       |        |     +-- route-map?   string
+       |        +-- default-metric?           uint32
+       |        +-- distance
+       |        |  +-- distance-leaf?   uint8
+       |        |  +-- distance-list* [number ip mask]
+       |        |     +-- number?   uint8
+       |        |     +-- ip?       inet:ipv4-address
+       |        |     +-- mask?     inet:ipv4-address
+       |        +-- distribute-list
+       |        |  +-- accesslist* [in-out]
+       |        |  |  +-- in-out?   ios-types:access-list-in-out-type
+       |        |  +-- accesslist-ifname* [in-out interface]
+       |        |  |  +-- in-out?                 ios-types:access-list-in-out-type
+       |        |  |  +-- interface?              string
+       |        |  |  +-- interface-routing-id?   uint8
+       |        |  |  +-- isis-tag?               string
+       |        |  |  +-- vrf?                    string
+       |        |  +-- accesslist-prefix-gateway* [in-out]
+       |        |  |  +-- in-out?           ios-types:access-list-in-out-type
+       |        |  |  +-- prefix-gateway    enumeration
+       |        |  |  +-- name              string
+       |        |  +-- accesslist-prefix-gateway-ifname* [in-out interface]
+       |        |     +-- in-out?                 ios-types:access-list-in-out-type
+       |        |     +-- interface?              string
+       |        |     +-- prefix-gateway          enumeration
+       |        |     +-- name                    string
+       |        |     +-- interface-routing-id?   uint8
+       |        |     +-- isis-tag?               string
+       |        |     +-- vrf?                    string
+       |        +-- offset-list* [in-out]
+       |        |  +-- in-out?   offset-list-in-out-type
+       |        |  +-- offset    uint8
+       |        +-- redistribute
+       |        |  +-- rip-metric-route-map
+       |        |  |  +-- metric
+       |        |  |  |  +-- (metric-transparent-choice)?
+       |        |  |  |     +--:(metric-value)
+       |        |  |  |     |  +-- metric-value?   uint32
+       |        |  |  |     +--:(transparent)
+       |        |  |  |        +-- transparent?    empty
+       |        |  |  +-- route-map?   string
+       |        |  +-- connected!
+       |        |  |  +-- rip-metric-route-map
+       |        |  |     +-- metric
+       |        |  |     |  +-- (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +-- metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +-- transparent?    empty
+       |        |  |     +-- route-map?   string
+       |        |  +-- bgp* [as-number]
+       |        |  |  +-- as-number?              ios-types:bgp-as-number-type
+       |        |  |  +-- rip-metric-route-map
+       |        |  |     +-- metric
+       |        |  |     |  +-- (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +-- metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +-- transparent?    empty
+       |        |  |     +-- route-map?   string
+       |        |  +-- eigrp* [as-number]
+       |        |  |  +-- as-number?              uint16
+       |        |  |  +-- rip-metric-route-map
+       |        |  |     +-- metric
+       |        |  |     |  +-- (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +-- metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +-- transparent?    empty
+       |        |  |     +-- route-map?   string
+       |        |  +-- isis!
+       |        |  |  +-- isis-area* [name]
+       |        |  |  |  +-- name?              string
+       |        |  |  |  +-- rip-isis-redist
+       |        |  |  |     +-- isis-level-routes?      enumeration
+       |        |  |  |     +-- rip-metric-route-map
+       |        |  |  |        +-- metric
+       |        |  |  |        |  +-- (metric-transparent-choice)?
+       |        |  |  |        |     +--:(metric-value)
+       |        |  |  |        |     |  +-- metric-value?   uint32
+       |        |  |  |        |     +--:(transparent)
+       |        |  |  |        |        +-- transparent?    empty
+       |        |  |  |        +-- route-map?   string
+       |        |  |  +-- rip-isis-redist
+       |        |  |     +-- isis-level-routes?      enumeration
+       |        |  |     +-- rip-metric-route-map
+       |        |  |        +-- metric
+       |        |  |        |  +-- (metric-transparent-choice)?
+       |        |  |        |     +--:(metric-value)
+       |        |  |        |     |  +-- metric-value?   uint32
+       |        |  |        |     +--:(transparent)
+       |        |  |        |        +-- transparent?    empty
+       |        |  |        +-- route-map?   string
+       |        |  +-- iso-igrp!
+       |        |  |  +-- isoigrp-list* [iso-area-tag]
+       |        |  |  |  +-- iso-area-tag?           string
+       |        |  |  |  +-- rip-metric-route-map
+       |        |  |  |     +-- route-map?   string
+       |        |  |  |     +-- metric
+       |        |  |  |        +-- (metric-transparent-choice)?
+       |        |  |  |           +--:(metric-value)
+       |        |  |  |           |  +-- metric-value?   uint32
+       |        |  |  |           +--:(transparent)
+       |        |  |  |              +-- transparent?    empty
+       |        |  |  +-- rip-metric-route-map
+       |        |  |     +-- route-map?   string
+       |        |  |     +-- metric
+       |        |  |        +-- (metric-transparent-choice)?
+       |        |  |           +--:(metric-value)
+       |        |  |           |  +-- metric-value?   uint32
+       |        |  |           +--:(transparent)
+       |        |  |              +-- transparent?    empty
+       |        |  +-- mobile!
+       |        |  |  +-- rip-metric-route-map
+       |        |  |     +-- metric
+       |        |  |     |  +-- (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +-- metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +-- transparent?    empty
+       |        |  |     +-- route-map?   string
+       |        |  +-- odr!
+       |        |  |  +-- rip-metric-route-map
+       |        |  |     +-- metric
+       |        |  |     |  +-- (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +-- metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +-- transparent?    empty
+       |        |  |     +-- route-map?   string
+       |        |  +-- ospf* [process-id]
+       |        |  |  +-- process-id?             uint16
+       |        |  |  +-- vrf* [name]
+       |        |  |  |  +-- name?   string
+       |        |  |  +-- match
+       |        |  |  |  +-- internal!
+       |        |  |  |  |  +-- rip-metric-route-map
+       |        |  |  |  |     +-- metric
+       |        |  |  |  |     |  +-- (metric-transparent-choice)?
+       |        |  |  |  |     |     +--:(metric-value)
+       |        |  |  |  |     |     |  +-- metric-value?   uint32
+       |        |  |  |  |     |     +--:(transparent)
+       |        |  |  |  |     |        +-- transparent?    empty
+       |        |  |  |  |     +-- route-map?   string
+       |        |  |  |  +-- external!
+       |        |  |  |  |  +-- external-routes?        ios-types:redist-ospf-external-type
+       |        |  |  |  |  +-- rip-metric-route-map
+       |        |  |  |  |     +-- metric
+       |        |  |  |  |     |  +-- (metric-transparent-choice)?
+       |        |  |  |  |     |     +--:(metric-value)
+       |        |  |  |  |     |     |  +-- metric-value?   uint32
+       |        |  |  |  |     |     +--:(transparent)
+       |        |  |  |  |     |        +-- transparent?    empty
+       |        |  |  |  |     +-- route-map?   string
+       |        |  |  |  +-- nssa-external!
+       |        |  |  |     +-- nssa-external-routes?   ios-types:redist-ospf-external-type
+       |        |  |  |     +-- rip-metric-route-map
+       |        |  |  |        +-- metric
+       |        |  |  |        |  +-- (metric-transparent-choice)?
+       |        |  |  |        |     +--:(metric-value)
+       |        |  |  |        |     |  +-- metric-value?   uint32
+       |        |  |  |        |     +--:(transparent)
+       |        |  |  |        |        +-- transparent?    empty
+       |        |  |  |        +-- route-map?   string
+       |        |  |  +-- rip-metric-route-map
+       |        |  |     +-- metric
+       |        |  |     |  +-- (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +-- metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +-- transparent?    empty
+       |        |  |     +-- route-map?   string
+       |        |  +-- static!
+       |        |  |  +-- rip-metric-route-map
+       |        |  |     +-- metric
+       |        |  |     |  +-- (metric-transparent-choice)?
+       |        |  |     |     +--:(metric-value)
+       |        |  |     |     |  +-- metric-value?   uint32
+       |        |  |     |     +--:(transparent)
+       |        |  |     |        +-- transparent?    empty
+       |        |  |     +-- route-map?   string
+       |        |  +-- rip!
+       |        |     +-- rip-metric-route-map
+       |        |        +-- metric
+       |        |        |  +-- (metric-transparent-choice)?
+       |        |        |     +--:(metric-value)
+       |        |        |     |  +-- metric-value?   uint32
+       |        |        |     +--:(transparent)
+       |        |        |        +-- transparent?    empty
+       |        |        +-- route-map?   string
+       |        +-- timers
+       |        |  +-- basic
+       |        |     +-- updates?    uint32
+       |        |     +-- invalid?    uint32
+       |        |     +-- holddown?   uint32
+       |        |     +-- flush?      uint32
+       |        |     +-- sleep?      uint32
+       |        +-- version?                  uint8
+       +-- default
+          +-- address-family
+          |  +-- ipv4!
+          |     +-- unicast?   empty
+          |     +-- vrf* [name]
+          |        +-- name?   string
+          +-- auto-summary?             empty
+          +-- maximum-paths?            uint8
+          +-- neighbor* [ip]
+          |  +-- ip?   inet:ipv4-address
+          +-- network* [ip]
+          |  +-- ip?   inet:ipv4-address
+          +-- validate-update-source?   boolean
+          +-- default-information
+          |  +-- originate?   empty
+          +-- default-metric?           empty
+          +-- distance
+          |  +-- distance-leaf?   uint8
+          |  +-- distance-list* [number ip mask]
+          |     +-- number?   uint8
+          |     +-- ip?       inet:ipv4-address
+          |     +-- mask?     inet:ipv4-address
+          +-- distribute-list
+          |  +-- accesslist* [in-out]
+          |  |  +-- in-out?   ios-types:access-list-in-out-type
+          |  +-- accesslist-ifname* [in-out interface]
+          |  |  +-- in-out?                 ios-types:access-list-in-out-type
+          |  |  +-- interface?              string
+          |  |  +-- interface-routing-id?   uint8
+          |  |  +-- isis-tag?               string
+          |  |  +-- vrf?                    string
+          |  +-- accesslist-prefix-gateway* [in-out]
+          |  |  +-- in-out?           ios-types:access-list-in-out-type
+          |  |  +-- prefix-gateway    enumeration
+          |  |  +-- name              string
+          |  +-- accesslist-prefix-gateway-ifname* [in-out interface]
+          |     +-- in-out?                 ios-types:access-list-in-out-type
+          |     +-- interface?              string
+          |     +-- prefix-gateway          enumeration
+          |     +-- name                    string
+          |     +-- interface-routing-id?   uint8
+          |     +-- isis-tag?               string
+          |     +-- vrf?                    string
+          +-- flash-update-threshold?   empty
+          +-- input-queue?              empty
+          +-- offset-list* [in-out]
+          |  +-- in-out?   offset-list-in-out-type
+          |  +-- offset    uint8
+          +-- output-delay?             empty
+          +-- passive-interface
+          |  +-- (passive-interface-choice)?
+          |     +--:(default)
+          |     |  +-- default?     empty
+          |     +--:(interface)
+          |        +-- interface?   string
+          +-- disable
+          |  +-- passive-interface* [interface]
+          |     +-- interface?   string
+          +-- redistribute
+          |  +-- connected!
+          |  |  +-- rip-metric-route-map
+          |  |     +-- metric
+          |  |     |  +-- (metric-transparent-choice)?
+          |  |     |     +--:(metric-value)
+          |  |     |     |  +-- metric-value?   uint32
+          |  |     |     +--:(transparent)
+          |  |     |        +-- transparent?    empty
+          |  |     +-- route-map?   string
+          |  +-- bgp* [as-number]
+          |  |  +-- as-number?              ios-types:bgp-as-number-type
+          |  |  +-- rip-metric-route-map
+          |  |     +-- metric
+          |  |     |  +-- (metric-transparent-choice)?
+          |  |     |     +--:(metric-value)
+          |  |     |     |  +-- metric-value?   uint32
+          |  |     |     +--:(transparent)
+          |  |     |        +-- transparent?    empty
+          |  |     +-- route-map?   string
+          |  +-- eigrp* [as-number]
+          |  |  +-- as-number?              uint16
+          |  |  +-- rip-metric-route-map
+          |  |     +-- metric
+          |  |     |  +-- (metric-transparent-choice)?
+          |  |     |     +--:(metric-value)
+          |  |     |     |  +-- metric-value?   uint32
+          |  |     |     +--:(transparent)
+          |  |     |        +-- transparent?    empty
+          |  |     +-- route-map?   string
+          |  +-- isis!
+          |  |  +-- isis-area* [name]
+          |  |  |  +-- name?              string
+          |  |  |  +-- rip-isis-redist
+          |  |  |     +-- isis-level-routes?      enumeration
+          |  |  |     +-- rip-metric-route-map
+          |  |  |        +-- metric
+          |  |  |        |  +-- (metric-transparent-choice)?
+          |  |  |        |     +--:(metric-value)
+          |  |  |        |     |  +-- metric-value?   uint32
+          |  |  |        |     +--:(transparent)
+          |  |  |        |        +-- transparent?    empty
+          |  |  |        +-- route-map?   string
+          |  |  +-- rip-isis-redist
+          |  |     +-- isis-level-routes?      enumeration
+          |  |     +-- rip-metric-route-map
+          |  |        +-- metric
+          |  |        |  +-- (metric-transparent-choice)?
+          |  |        |     +--:(metric-value)
+          |  |        |     |  +-- metric-value?   uint32
+          |  |        |     +--:(transparent)
+          |  |        |        +-- transparent?    empty
+          |  |        +-- route-map?   string
+          |  +-- iso-igrp!
+          |  |  +-- isoigrp-list* [iso-area-tag]
+          |  |  |  +-- iso-area-tag?           string
+          |  |  |  +-- rip-metric-route-map
+          |  |  |     +-- route-map?   string
+          |  |  |     +-- metric
+          |  |  |        +-- (metric-transparent-choice)?
+          |  |  |           +--:(metric-value)
+          |  |  |           |  +-- metric-value?   uint32
+          |  |  |           +--:(transparent)
+          |  |  |              +-- transparent?    empty
+          |  |  +-- rip-metric-route-map
+          |  |     +-- route-map?   string
+          |  |     +-- metric
+          |  |        +-- (metric-transparent-choice)?
+          |  |           +--:(metric-value)
+          |  |           |  +-- metric-value?   uint32
+          |  |           +--:(transparent)
+          |  |              +-- transparent?    empty
+          |  +-- mobile!
+          |  |  +-- rip-metric-route-map
+          |  |     +-- metric
+          |  |     |  +-- (metric-transparent-choice)?
+          |  |     |     +--:(metric-value)
+          |  |     |     |  +-- metric-value?   uint32
+          |  |     |     +--:(transparent)
+          |  |     |        +-- transparent?    empty
+          |  |     +-- route-map?   string
+          |  +-- odr!
+          |  |  +-- rip-metric-route-map
+          |  |     +-- metric
+          |  |     |  +-- (metric-transparent-choice)?
+          |  |     |     +--:(metric-value)
+          |  |     |     |  +-- metric-value?   uint32
+          |  |     |     +--:(transparent)
+          |  |     |        +-- transparent?    empty
+          |  |     +-- route-map?   string
+          |  +-- ospf* [process-id]
+          |  |  +-- process-id?             uint16
+          |  |  +-- vrf* [name]
+          |  |  |  +-- name?   string
+          |  |  +-- match
+          |  |  |  +-- internal!
+          |  |  |  |  +-- rip-metric-route-map
+          |  |  |  |     +-- metric
+          |  |  |  |     |  +-- (metric-transparent-choice)?
+          |  |  |  |     |     +--:(metric-value)
+          |  |  |  |     |     |  +-- metric-value?   uint32
+          |  |  |  |     |     +--:(transparent)
+          |  |  |  |     |        +-- transparent?    empty
+          |  |  |  |     +-- route-map?   string
+          |  |  |  +-- external!
+          |  |  |  |  +-- external-routes?        ios-types:redist-ospf-external-type
+          |  |  |  |  +-- rip-metric-route-map
+          |  |  |  |     +-- metric
+          |  |  |  |     |  +-- (metric-transparent-choice)?
+          |  |  |  |     |     +--:(metric-value)
+          |  |  |  |     |     |  +-- metric-value?   uint32
+          |  |  |  |     |     +--:(transparent)
+          |  |  |  |     |        +-- transparent?    empty
+          |  |  |  |     +-- route-map?   string
+          |  |  |  +-- nssa-external!
+          |  |  |     +-- nssa-external-routes?   ios-types:redist-ospf-external-type
+          |  |  |     +-- rip-metric-route-map
+          |  |  |        +-- metric
+          |  |  |        |  +-- (metric-transparent-choice)?
+          |  |  |        |     +--:(metric-value)
+          |  |  |        |     |  +-- metric-value?   uint32
+          |  |  |        |     +--:(transparent)
+          |  |  |        |        +-- transparent?    empty
+          |  |  |        +-- route-map?   string
+          |  |  +-- rip-metric-route-map
+          |  |     +-- metric
+          |  |     |  +-- (metric-transparent-choice)?
+          |  |     |     +--:(metric-value)
+          |  |     |     |  +-- metric-value?   uint32
+          |  |     |     +--:(transparent)
+          |  |     |        +-- transparent?    empty
+          |  |     +-- route-map?   string
+          |  +-- static!
+          |  |  +-- rip-metric-route-map
+          |  |     +-- metric
+          |  |     |  +-- (metric-transparent-choice)?
+          |  |     |     +--:(metric-value)
+          |  |     |     |  +-- metric-value?   uint32
+          |  |     |     +--:(transparent)
+          |  |     |        +-- transparent?    empty
+          |  |     +-- route-map?   string
+          |  +-- rip!
+          |     +-- rip-metric-route-map
+          |        +-- metric
+          |        |  +-- (metric-transparent-choice)?
+          |        |     +--:(metric-value)
+          |        |     |  +-- metric-value?   uint32
+          |        |     +--:(transparent)
+          |        |        +-- transparent?    empty
+          |        +-- route-map?   string
+          +-- timers
+          |  +-- basic?   empty
+          +-- traffic-share
+          |  +-- min
+          |     +-- across-interfaces?   empty
+          +-- version?                  empty
+  grouping config-interface-ip-rip-grouping
+    +-- rip* [id]
+       +-- id?                    string
+       +-- enable?                empty
+       +-- default-information
+          +-- route?    enumeration
+          +-- metric?   uint8
+  grouping config-ipv6-rip-grouping
+    +-- rip
+       +-- vrf-mode?   enumeration

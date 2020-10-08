@@ -1,0 +1,210 @@
+submodule: Cisco-IOS-XE-ipv6 (belongs-to Cisco-IOS-XE-native)
+
+  grouping ipv6-route-options-grouping
+    +-- distance?          uint8
+    +-- (type-choice)?
+    |  +--:(multicast)
+    |  |  +-- multicast?   empty
+    |  +--:(unicast)
+    |     +-- unicast?     empty
+    +-- tag?               uint32
+    +-- track?             uint32
+    +-- name?              string
+  grouping ipv6-route-grouping
+    +-- ipv6-route-list* [prefix]
+       +-- prefix?          ios-types:ipv6-prefix
+       +-- ipv6-fwd-list* [fwd]
+          +-- fwd?                  union
+          +-- interface-next-hop* [ipv6-address]
+          |  +-- ipv6-address?      inet:ipv6-address
+          |  +-- distance?          uint8
+          |  +-- (type-choice)?
+          |  |  +--:(multicast)
+          |  |  |  +-- multicast?   empty
+          |  |  +--:(unicast)
+          |  |     +-- unicast?     empty
+          |  +-- tag?               uint32
+          |  +-- track?             uint32
+          |  +-- name?              string
+          +-- distance?             uint8
+          +-- (type-choice)?
+          |  +--:(multicast)
+          |  |  +-- multicast?      empty
+          |  +--:(unicast)
+          |     +-- unicast?        empty
+          +-- tag?                  uint32
+          +-- track?                uint32
+          +-- name?                 string
+  grouping ipv6-route-grouping-min-elements
+    +-- ipv6-route-list* [prefix]
+       +-- prefix?          ios-types:ipv6-prefix
+       +-- ipv6-fwd-list* [fwd]
+          +-- fwd?                  union
+          +-- interface-next-hop* [ipv6-address]
+          |  +-- ipv6-address?      inet:ipv6-address
+          |  +-- distance?          uint8
+          |  +-- (type-choice)?
+          |  |  +--:(multicast)
+          |  |  |  +-- multicast?   empty
+          |  |  +--:(unicast)
+          |  |     +-- unicast?     empty
+          |  +-- tag?               uint32
+          |  +-- track?             uint32
+          |  +-- name?              string
+          +-- distance?             uint8
+          +-- (type-choice)?
+          |  +--:(multicast)
+          |  |  +-- multicast?      empty
+          |  +--:(unicast)
+          |     +-- unicast?        empty
+          +-- tag?                  uint32
+          +-- track?                uint32
+          +-- name?                 string
+  grouping ipv6-bfd-unassociate-grouping
+    +-- interface?     union
+    +-- ipv6?          inet:ipv6-address
+    +-- unassociate?   empty
+  grouping config-ipv6-grouping
+    +-- ipv6
+       +-- source-guard
+       |  +-- policy* [source-guard-policy-name]
+       |     +-- source-guard-policy-name?   string
+       |     +-- validate
+       |     |  +-- address?   empty
+       |     |  +-- prefix?    empty
+       |     +-- deny
+       |     |  +-- global-autoconf?   empty
+       |     +-- permit
+       |        +-- link-local?   empty
+       +-- destination-guard
+       |  +-- policy* [destination-guard-policy-name]
+       |     +-- destination-guard-policy-name?   string
+       |     +-- enforcement
+       |        +-- always?     empty
+       |        +-- stressed?   empty
+       +-- dhcp
+       +-- dhcp-relay
+       +-- access-list
+       +-- flowset?             empty
+       +-- unicast-routing?     empty
+       +-- address-validate?    boolean
+       +-- multicast
+       +-- cef!
+       +-- nd
+       +-- ospf
+       |  +-- name-lookup?   empty
+       +-- pim
+       +-- route
+       |  +-- ipv6-route-list* [prefix]
+       |  |  +-- prefix?          ios-types:ipv6-prefix
+       |  |  +-- ipv6-fwd-list* [fwd]
+       |  |     +-- fwd?                  union
+       |  |     +-- interface-next-hop* [ipv6-address]
+       |  |     |  +-- ipv6-address?      inet:ipv6-address
+       |  |     |  +-- distance?          uint8
+       |  |     |  +-- (type-choice)?
+       |  |     |  |  +--:(multicast)
+       |  |     |  |  |  +-- multicast?   empty
+       |  |     |  |  +--:(unicast)
+       |  |     |  |     +-- unicast?     empty
+       |  |     |  +-- tag?               uint32
+       |  |     |  +-- track?             uint32
+       |  |     |  +-- name?              string
+       |  |     +-- distance?             uint8
+       |  |     +-- (type-choice)?
+       |  |     |  +--:(multicast)
+       |  |     |  |  +-- multicast?      empty
+       |  |     |  +--:(unicast)
+       |  |     |     +-- unicast?        empty
+       |  |     +-- tag?                  uint32
+       |  |     +-- track?                uint32
+       |  |     +-- name?                 string
+       |  +-- vrf* [name]
+       |  |  +-- name?              string
+       |  |  +-- ipv6-route-list* [prefix]
+       |  |     +-- prefix?          ios-types:ipv6-prefix
+       |  |     +-- ipv6-fwd-list* [fwd]
+       |  |        +-- fwd?                  union
+       |  |        +-- interface-next-hop* [ipv6-address]
+       |  |        |  +-- ipv6-address?      inet:ipv6-address
+       |  |        |  +-- distance?          uint8
+       |  |        |  +-- (type-choice)?
+       |  |        |  |  +--:(multicast)
+       |  |        |  |  |  +-- multicast?   empty
+       |  |        |  |  +--:(unicast)
+       |  |        |  |     +-- unicast?     empty
+       |  |        |  +-- tag?               uint32
+       |  |        |  +-- track?             uint32
+       |  |        |  +-- name?              string
+       |  |        +-- distance?             uint8
+       |  |        +-- (type-choice)?
+       |  |        |  +--:(multicast)
+       |  |        |  |  +-- multicast?      empty
+       |  |        |  +--:(unicast)
+       |  |        |     +-- unicast?        empty
+       |  |        +-- tag?                  uint32
+       |  |        +-- track?                uint32
+       |  |        +-- name?                 string
+       |  +-- static
+       |     +-- bfd
+       |     |  +-- iface_name* [interface ipv6]
+       |     |  |  +-- interface?     union
+       |     |  |  +-- ipv6?          inet:ipv6-address
+       |     |  |  +-- unassociate?   empty
+       |     |  +-- vrf* [name interface ipv6]
+       |     |     +-- name?          string
+       |     |     +-- interface?     union
+       |     |     +-- ipv6?          inet:ipv6-address
+       |     |     +-- unassociate?   empty
+       |     +-- resolve
+       |        +-- default?   empty
+       +-- router
+       |  o-- eigrp* [id]
+       |  |  o-- id?   uint16
+       |  +-- ospf* [id]
+       |     +-- id?   uint16
+       +-- source-route?        boolean
+       +-- spd
+       |  +-- mode?    enumeration
+       |  +-- queue
+       |     +-- max-threshold?   uint16
+       |     +-- min-threshold?   uint16
+       +-- prefix-lists
+       |  +-- prefixes* [name no]
+       |  |  +-- name?     string
+       |  |  +-- no?       uint32
+       |  |  +-- action?   enumeration
+       |  |  +-- ip?       inet:ipv6-prefix
+       |  |  +-- ge?       uint8
+       |  |  +-- le?       uint8
+       |  +-- prefix-list-description* [name]
+       |  |  +-- name?          string
+       |  |  +-- description?   string
+       |  +-- sequence-number?           empty
+       x-- prefix-list
+       |  x-- prefixes* [name]
+       |  |  x-- name?          string
+       |  |  x-- description?   string
+       |  |  o-- permit
+       |  |  |  o-- address?   ios-types:ipv6-prefix
+       |  |  |  o-- ge?        uint8
+       |  |  |  o-- le?        uint8
+       |  |  o-- deny
+       |  |  |  o-- address?   ios-types:ipv6-prefix
+       |  |  |  o-- ge?        uint8
+       |  |  |  o-- le?        uint8
+       |  |  x-- seq* [no]
+       |  |     x-- no?       uint32
+       |  |     x-- deny
+       |  |     |  x-- ip?   ios-types:ipv6-prefix
+       |  |     |  x-- ge?   uint16
+       |  |     |  x-- le?   uint16
+       |  |     x-- permit
+       |  |        x-- ip?   ios-types:ipv6-prefix
+       |  |        x-- ge?   uint16
+       |  |        x-- le?   uint16
+       |  x-- sequence-number?   empty
+       +-- neighbor* [address interface]
+          +-- address?            inet:ipv6-address
+          +-- interface?          string
+          +-- hardware-address?   string

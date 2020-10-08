@@ -1,0 +1,380 @@
+module: common-mpls-static
+  +--rw mpls-static
+     +--rw mpls-static-cfg
+     |  +--rw interfaces
+     |  |  +--rw interface* [name]
+     |  |     +--rw name       if:interface-ref
+     |  |     +--rw enabled    uint32
+     |  +--rw ipv4-ingress-lsps
+     |  |  +--rw ipv4-ingress-lsp* [vrf-name prefix]
+     |  |     +--rw vrf-name    string
+     |  |     +--rw prefix      inet:ipv4-prefix
+     |  |     +--rw name?       string
+     |  |     +--rw in-label?   mpls:ietf-mpls-label
+     |  |     +--rw path
+     |  |        +--rw (resolution)?
+     |  |           +--:(auto-next-hops)
+     |  |           |  +--rw operations
+     |  |           |  |  +--rw (operation)?
+     |  |           |  |     +--:(preserve-stack)
+     |  |           |  |     |  +--rw preserve           empty
+     |  |           |  |     +--:(swap-with-label-stack)
+     |  |           |  |     |  +--rw swap
+     |  |           |  |     |     +--rw stack
+     |  |           |  |     |        +--rw label-stack*   ietf-mpls-label
+     |  |           |  |     +--:(push-label-stack)
+     |  |           |  |     |  +--rw push
+     |  |           |  |     |     +--rw stack
+     |  |           |  |     |        +--rw label-stack*   ietf-mpls-label
+     |  |           |  |     +--:(pop-and-forward)
+     |  |           |  |        +--rw pop-and-forward    empty
+     |  |           |  +--rw auto-protect?   boolean
+     |  |           +--:(explicit-next-hops)
+     |  |              +--rw next-hop* [index]
+     |  |                 +--rw index            uint32
+     |  |                 +--rw type             hoptype
+     |  |                 +--rw protected-by?    uint32
+     |  |                 +--rw next-hop-type
+     |  |                 |  +--rw (address-type)?
+     |  |                 |  |  +--:(unnumberd)
+     |  |                 |  |  |  +--rw if-index        uint32
+     |  |                 |  |  +--:(layer3-ipv4)
+     |  |                 |  |  |  +--rw ipv4-address    inet:ipv4-address-no-zone
+     |  |                 |  |  +--:(layer3-ipv6)
+     |  |                 |  |  |  +--rw ipv6-address    inet:ipv6-address-no-zone
+     |  |                 |  |  +--:(layer2)
+     |  |                 |  |     +--rw mac-address     yang:mac-address
+     |  |                 |  +--rw out-interface-name?   if:interface-ref
+     |  |                 +--rw operations
+     |  |                    +--rw (operation)?
+     |  |                       +--:(preserve-stack)
+     |  |                       |  +--rw preserve           empty
+     |  |                       +--:(swap-with-label-stack)
+     |  |                       |  +--rw swap
+     |  |                       |     +--rw stack
+     |  |                       |        +--rw label-stack*   ietf-mpls-label
+     |  |                       +--:(push-label-stack)
+     |  |                       |  +--rw push
+     |  |                       |     +--rw stack
+     |  |                       |        +--rw label-stack*   ietf-mpls-label
+     |  |                       +--:(pop-and-forward)
+     |  |                          +--rw pop-and-forward    empty
+     |  +--rw ipv6-ingress-lsps
+     |  |  +--rw ipv6-ingress-lsp* [vrf-name prefix]
+     |  |     +--rw prefix      inet:ipv6-prefix
+     |  |     +--rw name?       string
+     |  |     +--rw in-label?   mpls:ietf-mpls-label
+     |  |     +--rw vrf-name    string
+     |  |     +--rw path
+     |  |        +--rw (resolution)?
+     |  |           +--:(auto-next-hops)
+     |  |           |  +--rw operations
+     |  |           |  |  +--rw (operation)?
+     |  |           |  |     +--:(preserve-stack)
+     |  |           |  |     |  +--rw preserve           empty
+     |  |           |  |     +--:(swap-with-label-stack)
+     |  |           |  |     |  +--rw swap
+     |  |           |  |     |     +--rw stack
+     |  |           |  |     |        +--rw label-stack*   ietf-mpls-label
+     |  |           |  |     +--:(push-label-stack)
+     |  |           |  |     |  +--rw push
+     |  |           |  |     |     +--rw stack
+     |  |           |  |     |        +--rw label-stack*   ietf-mpls-label
+     |  |           |  |     +--:(pop-and-forward)
+     |  |           |  |        +--rw pop-and-forward    empty
+     |  |           |  +--rw auto-protect?   boolean
+     |  |           +--:(explicit-next-hops)
+     |  |              +--rw next-hop* [index]
+     |  |                 +--rw index            uint32
+     |  |                 +--rw type             hoptype
+     |  |                 +--rw protected-by?    uint32
+     |  |                 +--rw next-hop-type
+     |  |                 |  +--rw (address-type)?
+     |  |                 |  |  +--:(unnumberd)
+     |  |                 |  |  |  +--rw if-index        uint32
+     |  |                 |  |  +--:(layer3-ipv4)
+     |  |                 |  |  |  +--rw ipv4-address    inet:ipv4-address-no-zone
+     |  |                 |  |  +--:(layer3-ipv6)
+     |  |                 |  |  |  +--rw ipv6-address    inet:ipv6-address-no-zone
+     |  |                 |  |  +--:(layer2)
+     |  |                 |  |     +--rw mac-address     yang:mac-address
+     |  |                 |  +--rw out-interface-name?   if:interface-ref
+     |  |                 +--rw operations
+     |  |                    +--rw (operation)?
+     |  |                       +--:(preserve-stack)
+     |  |                       |  +--rw preserve           empty
+     |  |                       +--:(swap-with-label-stack)
+     |  |                       |  +--rw swap
+     |  |                       |     +--rw stack
+     |  |                       |        +--rw label-stack*   ietf-mpls-label
+     |  |                       +--:(push-label-stack)
+     |  |                       |  +--rw push
+     |  |                       |     +--rw stack
+     |  |                       |        +--rw label-stack*   ietf-mpls-label
+     |  |                       +--:(pop-and-forward)
+     |  |                          +--rw pop-and-forward    empty
+     |  +--rw in-label-lsps
+     |  |  +--rw in-label-lsp* [vrf-name in-label]
+     |  |     +--rw in-label    mpls:ietf-mpls-label
+     |  |     +--rw vrf-name    string
+     |  |     +--rw path
+     |  |        +--rw (resolution)?
+     |  |           +--:(auto-next-hops)
+     |  |           |  +--rw operations
+     |  |           |  |  +--rw (operation)?
+     |  |           |  |     +--:(preserve-stack)
+     |  |           |  |     |  +--rw preserve           empty
+     |  |           |  |     +--:(swap-with-label-stack)
+     |  |           |  |     |  +--rw swap
+     |  |           |  |     |     +--rw stack
+     |  |           |  |     |        +--rw label-stack*   ietf-mpls-label
+     |  |           |  |     +--:(push-label-stack)
+     |  |           |  |     |  +--rw push
+     |  |           |  |     |     +--rw stack
+     |  |           |  |     |        +--rw label-stack*   ietf-mpls-label
+     |  |           |  |     +--:(pop-and-forward)
+     |  |           |  |        +--rw pop-and-forward    empty
+     |  |           |  +--rw auto-protect?   boolean
+     |  |           +--:(explicit-next-hops)
+     |  |              +--rw next-hop* [index]
+     |  |                 +--rw index            uint32
+     |  |                 +--rw type             hoptype
+     |  |                 +--rw protected-by?    uint32
+     |  |                 +--rw next-hop-type
+     |  |                 |  +--rw (address-type)?
+     |  |                 |  |  +--:(unnumberd)
+     |  |                 |  |  |  +--rw if-index        uint32
+     |  |                 |  |  +--:(layer3-ipv4)
+     |  |                 |  |  |  +--rw ipv4-address    inet:ipv4-address-no-zone
+     |  |                 |  |  +--:(layer3-ipv6)
+     |  |                 |  |  |  +--rw ipv6-address    inet:ipv6-address-no-zone
+     |  |                 |  |  +--:(layer2)
+     |  |                 |  |     +--rw mac-address     yang:mac-address
+     |  |                 |  +--rw out-interface-name?   if:interface-ref
+     |  |                 +--rw operations
+     |  |                    +--rw (operation)?
+     |  |                       +--:(preserve-stack)
+     |  |                       |  +--rw preserve           empty
+     |  |                       +--:(swap-with-label-stack)
+     |  |                       |  +--rw swap
+     |  |                       |     +--rw stack
+     |  |                       |        +--rw label-stack*   ietf-mpls-label
+     |  |                       +--:(push-label-stack)
+     |  |                       |  +--rw push
+     |  |                       |     +--rw stack
+     |  |                       |        +--rw label-stack*   ietf-mpls-label
+     |  |                       +--:(pop-and-forward)
+     |  |                          +--rw pop-and-forward    empty
+     |  +--rw named-lsps
+     |     +--rw named-lsp* [vrf-name name]
+     |        +--rw name           string
+     |        +--rw lsp-type       identityref
+     |        +--rw vrf-name       string
+     |        +--rw in-label?      mpls:ietf-mpls-label
+     |        +--rw ipv4-prefix?   inet:ipv4-prefix
+     |        +--rw ipv6-prefix?   inet:ipv6-prefix
+     |        +--rw path
+     |           +--rw (resolution)?
+     |              +--:(auto-next-hops)
+     |              |  +--rw operations
+     |              |  |  +--rw (operation)?
+     |              |  |     +--:(preserve-stack)
+     |              |  |     |  +--rw preserve           empty
+     |              |  |     +--:(swap-with-label-stack)
+     |              |  |     |  +--rw swap
+     |              |  |     |     +--rw stack
+     |              |  |     |        +--rw label-stack*   ietf-mpls-label
+     |              |  |     +--:(push-label-stack)
+     |              |  |     |  +--rw push
+     |              |  |     |     +--rw stack
+     |              |  |     |        +--rw label-stack*   ietf-mpls-label
+     |              |  |     +--:(pop-and-forward)
+     |              |  |        +--rw pop-and-forward    empty
+     |              |  +--rw auto-protect?   boolean
+     |              +--:(explicit-next-hops)
+     |                 +--rw next-hop* [index]
+     |                    +--rw index            uint32
+     |                    +--rw type             hoptype
+     |                    +--rw protected-by?    uint32
+     |                    +--rw next-hop-type
+     |                    |  +--rw (address-type)?
+     |                    |  |  +--:(unnumberd)
+     |                    |  |  |  +--rw if-index        uint32
+     |                    |  |  +--:(layer3-ipv4)
+     |                    |  |  |  +--rw ipv4-address    inet:ipv4-address-no-zone
+     |                    |  |  +--:(layer3-ipv6)
+     |                    |  |  |  +--rw ipv6-address    inet:ipv6-address-no-zone
+     |                    |  |  +--:(layer2)
+     |                    |  |     +--rw mac-address     yang:mac-address
+     |                    |  +--rw out-interface-name?   if:interface-ref
+     |                    +--rw operations
+     |                       +--rw (operation)?
+     |                          +--:(preserve-stack)
+     |                          |  +--rw preserve           empty
+     |                          +--:(swap-with-label-stack)
+     |                          |  +--rw swap
+     |                          |     +--rw stack
+     |                          |        +--rw label-stack*   ietf-mpls-label
+     |                          +--:(push-label-stack)
+     |                          |  +--rw push
+     |                          |     +--rw stack
+     |                          |        +--rw label-stack*   ietf-mpls-label
+     |                          +--:(pop-and-forward)
+     |                             +--rw pop-and-forward    empty
+     +--ro mpls-static-state
+        +--ro label-switched-paths
+           +--ro label-switched-path* [vrf-name prefix]
+              +--ro name?             string
+              +--ro vrf-name          string
+              +--ro in-label-value?   mpls:ietf-mpls-label
+              +--ro prefix            inet:ip-prefix
+              +--ro ingress-stats
+              |  +--ro stats
+              |     +--ro packets?           uint64
+              |     +--ro bytes?             uint64
+              |     +--ro dropped-packets?   uint64
+              |     +--ro dropped-bytes?     uint64
+              +--ro egress-stats
+              |  +--ro stats
+              |     +--ro packets?           uint64
+              |     +--ro bytes?             uint64
+              |     +--ro dropped-packets?   uint64
+              |     +--ro dropped-bytes?     uint64
+              +--ro path
+                 +--ro (resolution)?
+                    +--:(auto-next-hops)
+                    |  +--ro operations
+                    |  |  +--ro (operation)?
+                    |  |     +--:(preserve-stack)
+                    |  |     |  +--ro preserve           empty
+                    |  |     +--:(swap-with-label-stack)
+                    |  |     |  +--ro swap
+                    |  |     |     +--ro stack
+                    |  |     |        +--ro label-stack*   ietf-mpls-label
+                    |  |     +--:(push-label-stack)
+                    |  |     |  +--ro push
+                    |  |     |     +--ro stack
+                    |  |     |        +--ro label-stack*   ietf-mpls-label
+                    |  |     +--:(pop-and-forward)
+                    |  |        +--ro pop-and-forward    empty
+                    |  +--ro auto-protect?   boolean
+                    +--:(explicit-next-hops)
+                       +--ro next-hop* [index]
+                          +--ro index            uint32
+                          +--ro type             hoptype
+                          +--ro protected-by?    uint32
+                          +--ro next-hop-type
+                          |  +--ro (address-type)?
+                          |  |  +--:(unnumberd)
+                          |  |  |  +--ro if-index        uint32
+                          |  |  +--:(layer3-ipv4)
+                          |  |  |  +--ro ipv4-address    inet:ipv4-address-no-zone
+                          |  |  +--:(layer3-ipv6)
+                          |  |  |  +--ro ipv6-address    inet:ipv6-address-no-zone
+                          |  |  +--:(layer2)
+                          |  |     +--ro mac-address     yang:mac-address
+                          |  +--ro out-interface-name?   if:interface-ref
+                          +--ro operations
+                          |  +--ro (operation)?
+                          |     +--:(preserve-stack)
+                          |     |  +--ro preserve           empty
+                          |     +--:(swap-with-label-stack)
+                          |     |  +--ro swap
+                          |     |     +--ro stack
+                          |     |        +--ro label-stack*   ietf-mpls-label
+                          |     +--:(push-label-stack)
+                          |     |  +--ro push
+                          |     |     +--ro stack
+                          |     |        +--ro label-stack*   ietf-mpls-label
+                          |     +--:(pop-and-forward)
+                          |        +--ro pop-and-forward    empty
+                          +--ro origin?          identityref
+                          +--ro nexthop-stats
+                             +--ro stats
+                                +--ro packets?           uint64
+                                +--ro bytes?             uint64
+                                +--ro dropped-packets?   uint64
+                                +--ro dropped-bytes?     uint64
+
+  grouping lsp-stats
+    +-- stats
+       +-- packets?           uint64
+       +-- bytes?             uint64
+       +-- dropped-packets?   uint64
+       +-- dropped-bytes?     uint64
+  grouping label-processing
+    +-- operations
+       +-- (operation)?
+          +--:(preserve-stack)
+          |  +-- preserve           empty
+          +--:(swap-with-label-stack)
+          |  +-- swap
+          |     +-- stack
+          |        +-- label-stack*   ietf-mpls-label
+          +--:(push-label-stack)
+          |  +-- push
+          |     +-- stack
+          |        +-- label-stack*   ietf-mpls-label
+          +--:(pop-and-forward)
+             +-- pop-and-forward    empty
+  grouping next-hop
+    +-- next-hop-type
+       +-- (address-type)?
+       |  +--:(unnumberd)
+       |  |  +-- if-index        uint32
+       |  +--:(layer3-ipv4)
+       |  |  +-- ipv4-address    inet:ipv4-address-no-zone
+       |  +--:(layer3-ipv6)
+       |  |  +-- ipv6-address    inet:ipv6-address-no-zone
+       |  +--:(layer2)
+       |     +-- mac-address     yang:mac-address
+       +-- out-interface-name?   if:interface-ref
+  grouping forwarding-path
+    +-- path
+       +-- (resolution)?
+          +--:(auto-next-hops)
+          |  +-- operations
+          |  |  +-- (operation)?
+          |  |     +--:(preserve-stack)
+          |  |     |  +-- preserve           empty
+          |  |     +--:(swap-with-label-stack)
+          |  |     |  +-- swap
+          |  |     |     +-- stack
+          |  |     |        +-- label-stack*   ietf-mpls-label
+          |  |     +--:(push-label-stack)
+          |  |     |  +-- push
+          |  |     |     +-- stack
+          |  |     |        +-- label-stack*   ietf-mpls-label
+          |  |     +--:(pop-and-forward)
+          |  |        +-- pop-and-forward    empty
+          |  +-- auto-protect?   boolean
+          +--:(explicit-next-hops)
+             +-- next-hop* [index]
+                +-- index            uint32
+                +-- type             hoptype
+                +-- protected-by?    uint32
+                +-- next-hop-type
+                |  +-- (address-type)?
+                |  |  +--:(unnumberd)
+                |  |  |  +-- if-index        uint32
+                |  |  +--:(layer3-ipv4)
+                |  |  |  +-- ipv4-address    inet:ipv4-address-no-zone
+                |  |  +--:(layer3-ipv6)
+                |  |  |  +-- ipv6-address    inet:ipv6-address-no-zone
+                |  |  +--:(layer2)
+                |  |     +-- mac-address     yang:mac-address
+                |  +-- out-interface-name?   if:interface-ref
+                +-- operations
+                   +-- (operation)?
+                      +--:(preserve-stack)
+                      |  +-- preserve           empty
+                      +--:(swap-with-label-stack)
+                      |  +-- swap
+                      |     +-- stack
+                      |        +-- label-stack*   ietf-mpls-label
+                      +--:(push-label-stack)
+                      |  +-- push
+                      |     +-- stack
+                      |        +-- label-stack*   ietf-mpls-label
+                      +--:(pop-and-forward)
+                         +-- pop-and-forward    empty

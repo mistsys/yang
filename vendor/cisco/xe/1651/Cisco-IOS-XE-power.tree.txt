@@ -1,0 +1,95 @@
+
+module: Cisco-IOS-XE-power
+  augment /ios:native:
+    +--rw power
+       +--rw inline!
+       |  +--rw consumption
+       |  |  +--rw default?   uint16
+       |  +--rw logging
+       |     +--rw global?   empty
+       +--rw redundancy-mode?   enumeration
+       +--rw max-min?           enumeration
+       +--rw inputs?            uint8
+  augment /ios:native/ios:interface/ios:FastEthernet:
+    +--rw power
+       +--rw inline
+          +--rw consumption?   uint16
+          +--rw never?         empty
+          +--rw auto!
+          |  +--rw max?   int16
+          +--rw four-pair
+          |  +--rw forced?   empty
+          +--rw police!
+          |  +--rw action
+          |     +--rw errdisable?   empty
+          |     +--rw log?          empty
+          +--rw port
+          |  +--rw poe-ha?      empty
+          |  +--rw two-event?   empty
+          +--rw static!
+             +--rw max?   int16
+  augment /ios:native/ios:interface/ios:GigabitEthernet:
+    +--rw power
+       +--rw inline
+          +--rw consumption?   uint16
+          +--rw never?         empty
+          +--rw auto!
+          |  +--rw max?   int16
+          +--rw four-pair
+          |  +--rw forced?   empty
+          +--rw police!
+          |  +--rw action
+          |     +--rw errdisable?   empty
+          |     +--rw log?          empty
+          +--rw port
+          |  +--rw poe-ha?      empty
+          |  +--rw two-event?   empty
+          +--rw static!
+             +--rw max?   int16
+  augment /ios:native/ios:interface/ios:TenGigabitEthernet:
+    +--rw power
+       +--rw inline
+          +--rw consumption?   uint16
+          +--rw never?         empty
+          +--rw auto!
+          |  +--rw max?   int16
+          +--rw four-pair
+          |  +--rw forced?   empty
+          +--rw police!
+          |  +--rw action
+          |     +--rw errdisable?   empty
+          |     +--rw log?          empty
+          +--rw port
+          |  +--rw poe-ha?      empty
+          |  +--rw two-event?   empty
+          +--rw static!
+             +--rw max?   int16
+
+  grouping config-power-grouping
+    +-- power
+       +-- inline!
+       |  +-- consumption
+       |  |  +-- default?   uint16
+       |  +-- logging
+       |     +-- global?   empty
+       +-- redundancy-mode?   enumeration
+       +-- max-min?           enumeration
+       +-- inputs?            uint8
+  grouping config-interface-power-grouping
+    +-- power
+       +-- inline
+          +-- consumption?   uint16
+          +-- never?         empty
+          +-- auto!
+          |  +-- max?   int16
+          +-- four-pair
+          |  +-- forced?   empty
+          +-- police!
+          |  +-- action
+          |     +-- errdisable?   empty
+          |     +-- log?          empty
+          +-- port
+          |  +-- poe-ha?      empty
+          |  +-- two-event?   empty
+          +-- static!
+             +-- max?   int16

@@ -1,0 +1,229 @@
+submodule: Cisco-IOS-XE-crypto-rpc (belongs-to Cisco-IOS-XE-rpc)
+
+  grouping debug-level-grouping
+    +-- level
+       +-- (level-choice)?
+          +--:(error-case)
+          |  +-- error?     empty
+          +--:(info-case)
+          |  +-- info?      empty
+          +--:(verbose-case)
+          |  +-- verbose?   empty
+          +--:(warning-case)
+             +-- warning?   empty
+  grouping crypto-input-grouping
+    +-- pki
+    |  +-- (subcommand)?
+    |     +--:(benchmark)
+    |     |  +-- benchmark
+    |     |     +-- start?   uint16
+    |     |     +-- wrap?    empty
+    |     |     +-- stop?    empty
+    |     +--:(crl)
+    |     |  +-- crl
+    |     |     +-- refresh-cache?   empty
+    |     |     +-- request?         string
+    |     +--:(authenticate)
+    |     |  +-- authenticate
+    |     |     +-- name-drop-node-name?   string
+    |     +--:(enroll)
+    |     |  +-- enroll
+    |     |     +-- name-drop-node-name?   string
+    |     +--:(export)
+    |     |  +-- export
+    |     |     +-- name-drop-node-name?   string
+    |     |     +-- pkcs12?                string
+    |     |     +-- password?              string
+    |     +--:(import)
+    |     |  +-- import
+    |     |     +-- name-drop-node-name?   string
+    |     |     +-- certificate?           empty
+    |     |     +-- pkcs12?                string
+    |     |     +-- password?              string
+    |     +--:(certificate)
+    |     |  +-- certificate
+    |     |     +-- validate?   string
+    |     +--:(server)
+    |        +-- server
+    |           +-- name-drop-node-name?   string
+    |           +-- grant
+    |           |  +-- id-drop-node-name?   uint16
+    |           |  +-- all?                 empty
+    |           +-- password
+    |           |  +-- generate!
+    |           |     +-- minutes-drop-node-name?   uint16
+    |           +-- reject
+    |           |  +-- id-drop-node-name?   uint16
+    |           |  +-- all?                 empty
+    |           +-- remove
+    |           |  +-- id-drop-node-name?   uint16
+    |           |  +-- all?                 empty
+    |           +-- request
+    |           |  +-- pkcs10
+    |           |     +-- location-drop-node-name?   enumeration
+    |           |     +-- (format)?
+    |           |        +--:(base64)
+    |           |        |  +-- base64?              empty
+    |           |        +--:(pem)
+    |           |        |  +-- pem?                 empty
+    |           |        +--:(hex)
+    |           |           +-- hex!
+    |           |              +-- tid-drop-node-name?     string
+    |           |              +-- nonce-drop-node-name?   string
+    |           |              +-- rid-drop-node-name?     uint16
+    |           +-- revoke?                string
+    |           +-- unrevoke?              string
+    |           +-- start?                 empty
+    |           +-- stop?                  empty
+    |           +-- trim
+    |              +-- url?       enumeration
+    |              +-- verbose?   empty
+    +-- key
+    |  +-- zeroize
+    |     +-- rsa?   string
+    +-- generate
+    |  +-- ec
+    |  |  +-- keysize?      enumeration
+    |  |  +-- exportable?   empty
+    |  |  +-- label?        string
+    |  +-- rsa!
+    |     +-- encryption?     empty
+    |     +-- exportable?     empty
+    |     +-- general-keys?   empty
+    |     +-- label?          string
+    |     +-- modulus?        uint16
+    |     +-- on?             string
+    |     +-- redundancy?     empty
+    |     +-- signature?      empty
+    |     +-- storage?        string
+    |     +-- usage-keys?     empty
+    +-- export
+    |  +-- ec* [label]
+    |  |  +-- label?   string
+    |  |  +-- pem
+    |  |     +-- (terminal-url)?
+    |  |        +--:(terminal-case)
+    |  |        |  +-- terminal
+    |  |        |     +-- (des-3des)?
+    |  |        |        +--:(pk-3des-case)
+    |  |        |        |  +-- pk-3des?   string
+    |  |        |        +--:(des-case)
+    |  |        |           +-- des?       string
+    |  |        +--:(url-case)
+    |  |           +-- url
+    |  |              +-- file?             string
+    |  |              +-- (des-3des)?
+    |  |                 +--:(url-3des-case)
+    |  |                 |  +-- url-3des?   string
+    |  |                 +--:(des-case)
+    |  |                    +-- des?        string
+    |  +-- rsa* [label]
+    |     +-- label?   string
+    |     +-- pem
+    |        +-- (terminal-url)?
+    |           +--:(terminal-case)
+    |           |  +-- terminal
+    |           |     +-- (des-3des)?
+    |           |        +--:(pk-3des-case)
+    |           |        |  +-- pk-3des?   string
+    |           |        +--:(des-case)
+    |           |           +-- des?       string
+    |           +--:(url-case)
+    |              +-- url
+    |                 +-- file?             string
+    |                 +-- (des-3des)?
+    |                    +--:(url-3des-case)
+    |                    |  +-- url-3des?   string
+    |                    +--:(des-case)
+    |                       +-- des?        string
+    +-- import
+       +-- ec* [name]
+       |  +-- name?             string
+       |  +-- exportable?       empty
+       |  +-- (terminal-url)?
+       |     +--:(terminal-case)
+       |     |  +-- terminal?   string
+       |     +--:(url-case)
+       |        +-- url
+       |           +-- file?   string
+       |           +-- key?    string
+       +-- rsa* [label]
+          +-- label?             string
+          +-- encryption?        empty
+          +-- exportable?        empty
+          +-- general-purpose?   empty
+          +-- on?                string
+          +-- pem?               empty
+          +-- redundancy?        empty
+          +-- signature?         empty
+          +-- storage?           string
+          +-- usage-keys?        empty
+          +-- (terminal-url)?
+             +--:(terminal-case)
+             |  +-- terminal?    string
+             +--:(url-case)
+                +-- url
+                   +-- file?   string
+                   +-- key?    string
+  grouping debug-input-crypto-grouping
+    +-- crypto
+       +-- pki
+       |  +-- API?            empty
+       |  +-- callbacks?      empty
+       |  +-- messages?       empty
+       |  +-- scep?           empty
+       |  +-- server!
+       |  |  +-- performance?   empty
+       |  +-- transactions!
+       |  |  +-- performance?   empty
+       |  +-- validation?     empty
+       +-- est-client?   empty
+       +-- ha?           empty
+  grouping debug-platform-condition-feature-ipsec-grouping
+    +-- ipsec
+       +-- dataplane
+          +-- (dataplane-debug-choice)?
+          |  +--:(submode-case)
+          |  |  +-- submode
+          |  |     +-- (submode-choice)?
+          |  |        +--:(all-case)
+          |  |        |  +-- all
+          |  |        |     +-- level
+          |  |        |        +-- (level-choice)?
+          |  |        |           +--:(error-case)
+          |  |        |           |  +-- error?     empty
+          |  |        |           +--:(info-case)
+          |  |        |           |  +-- info?      empty
+          |  |        |           +--:(verbose-case)
+          |  |        |           |  +-- verbose?   empty
+          |  |        |           +--:(warning-case)
+          |  |        |              +-- warning?   empty
+          |  |        +--:(cce-case)
+          |  |        |  +-- cce
+          |  |        |     +-- level
+          |  |        |        +-- (level-choice)?
+          |  |        |           +--:(error-case)
+          |  |        |           |  +-- error?     empty
+          |  |        |           +--:(info-case)
+          |  |        |           |  +-- info?      empty
+          |  |        |           +--:(verbose-case)
+          |  |        |           |  +-- verbose?   empty
+          |  |        |           +--:(warning-case)
+          |  |        |              +-- warning?   empty
+          |  |        +--:(pkt-dump)
+          |  |           +-- pkt-dump
+          |  |              +-- level
+          |  |                 +-- (level-choice)?
+          |  |                    +--:(error-case)
+          |  |                    |  +-- error?     empty
+          |  |                    +--:(info-case)
+          |  |                    |  +-- info?      empty
+          |  |                    +--:(verbose-case)
+          |  |                    |  +-- verbose?   empty
+          |  |                    +--:(warning-case)
+          |  |                       +-- warning?   empty
+          |  +--:(droptype-case)
+          |  |  +-- droptype?     union
+          |  +--:(pktcorrupt-case)
+          |     +-- pktcorrupt?   uint8
+          +-- no?                 empty
